@@ -155,6 +155,12 @@ input[type=text]:disabled{opacity:1}
   font-size:24px;font-weight:700;color:var(--ink);cursor:pointer;text-transform:lowercase}
 .tile.used{opacity:.22;border-style:dashed}
 .cta:disabled{opacity:.4;cursor:default}
+.bigchoice{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);
+  border-left:6px solid var(--a1);border-radius:var(--r);padding:16px;margin-bottom:12px;cursor:pointer}
+.bigchoice .t{display:block;font-family:Fraunces,Georgia,serif;font-size:24px;font-weight:700;line-height:1.1}
+.bigchoice .b{display:block;font-size:14.5px;color:var(--ink-soft);margin-top:5px}
+.c-study{border-left-color:var(--a1)} .c-study .t{color:var(--a1)}
+.c-drill{border-left-color:var(--a2)} .c-drill .t{color:var(--a2)}
 .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-size:14px;margin-bottom:14px}
 .switch{display:flex;align-items:center;gap:8px;cursor:pointer}
 .switch input{width:20px;height:20px;accent-color:var(--a1)}
@@ -307,6 +313,7 @@ let view="home", pack=null, groupIdx=0, sess=null;
 function goHome(){ view="home"; pack=null; sess=null; render(); }
 function openPack(i){ pack=PACKS[i]; groupIdx=0; view="pack"; sess=null; render(); }
 function backToPack(){ view="pack"; sess=null; render(); }
+function openStudy(){ view="study"; render(); }
 
 /* ═══════════ SCHEDE ═══════════ */
 function cardEntries(){
@@ -487,6 +494,42 @@ async function shareReport(){
   }catch(e){ alert(text); }
 }
 
+/* ═══════════ MEMORIA PER VERBO (fra una sessione e l'altra) ═══════════ */
+function statsKey(){ return "stats:"+pack.id; }
+function getStats(){ return load(statsKey(),{}) || {}; }
+function bumpStat(key,errs,cleared){
+  const st=getStats(), r=st[key]||{errs:0,ok:0};
+  r.errs += errs;
+  if(cleared){ r.ok++; if(errs===0) r.errs=0; }
+  st[key]=r; store(statsKey(),st);
+}
+function writableAll(){
+  const F=pack.cards.fields;
+  return allEntries(pack).filter(e=>F.every(f=>/^[A-Za-z]+$/.test(String(e[f.key]||""))));
+}
+/* Pesca casuale su tutti i gruppi, ma non del tutto piatta:
+   i verbi mai fatti e quelli gia sbagliati escono piu spesso. */
+function weightFor(e,st){
+  const r=st[e[pack.cards.fields[0].key]];
+  if(!r) return 3;                            /* mai incontrato */
+  if(r.errs>0) return Math.min(8, 3+r.errs);  /* ha sbagliato: torna piu spesso */
+  if(!r.ok) return 3;                         /* visto ma non ancora archiviato */
+  return 1;                                   /* lo sa */
+}
+function pickWeighted(pool,n){
+  const st=getStats();
+  const bag=pool.map(e=>({e:e,w:weightFor(e,st)}));
+  const out=[];
+  while(out.length<n && bag.length){
+    let tot=0; bag.forEach(x=>{tot+=x.w;});
+    let r=Math.random()*tot, k=0;
+    for(;k<bag.length;k++){ r-=bag[k].w; if(r<=0) break; }
+    if(k>=bag.length) k=bag.length-1;
+    out.push(bag[k].e); bag.splice(k,1);
+  }
+  return out;
+}
+
 /* ═══════════ MODALITÀ SCRIVI ═══════════ */
 const NEED = 2;   /* quante volte giusto per archiviare una voce */
 const MAXQ = 8;   /* voci per sessione: carico ridotto, non infinito */
@@ -533,8 +576,8 @@ function pickNext(){
 }
 
 function startWrite(){
-  const ent=shuffle(writableEntries()).slice(0,MAXQ);
-  if(!ent.length){ alert("In questo gruppo non ci sono voci adatte alla scrittura."); return; }
+  const ent=pickWeighted(writableAll(),MAXQ);
+  if(!ent.length){ alert("Non ci sono voci adatte alla scrittura."); return; }
   saved=false;
   sess={ mode:"write", queue:ent.map(e=>({e:e,hits:0,tries:0,errs:0,due:0})),
          total:ent.length, cleared:[], stopped:false, cur:null, last:null, ci:0 };
@@ -587,6 +630,7 @@ function nextForm(){
   if(cleared){
     sess.queue.splice(sess.ci,1);
     sess.cleared.push(it);
+    bumpStat(it.e[F[0].key], it.errs, true);
   }else{
     /* torna fra 3-4 voci se l'ha presa, fra 2-3 se ha sbagliato */
     it.due = (allOk?3:2) + ((Math.random()*2)|0);
@@ -607,6 +651,7 @@ function vWrite(){
 
   /* ── riepilogo ── */
   if(sess.stopped || (!sess.cur && !sess.last)){
+    if(!saved) sess.queue.forEach(x=>{ if(x.errs>0) bumpStat(x.e[F[0].key], x.errs, false); });
     saveResult();
     const tough=sess.cleared.concat(sess.queue).filter(x=>x.errs>0).sort((a,b)=>b.errs-a.errs);
     let h='<div class="q center"><p class="score">'+done+'<span style="font-size:22px;color:var(--ink-soft)"> / '+n+'</span></p>'
@@ -625,7 +670,7 @@ function vWrite(){
     h+='<button class="cta" onclick="shareReport()">Manda il riepilogo a papà</button>'
       +'<div class="row" style="margin-top:8px">'
       +'<button class="cta ghost" onclick="startWrite()">Un altro giro</button>'
-      +'<button class="cta ghost" onclick="backToPack()">Torna a Studia</button></div>';
+      +'<button class="cta ghost" onclick="backToPack()">Torna all&#39;inizio</button></div>';
     return h;
   }
 
@@ -729,40 +774,42 @@ function vPack(){
   const hasCards=!!pack.cards;
   const hasItems=(pack.items||[]).some(x=>x.type!=="info");
   let h="";
-  if(hasCards && pack.cards.groups){
+
+  if(hasCards){
+    const F=pack.cards.fields, st=getStats(), pool=writableAll();
+    const sa=pool.filter(e=>{ const r=st[e[F[0].key]]; return r&&r.ok>0&&r.errs===0; }).length;
+    h+='<div class="wbar"><i style="width:'+(pool.length?Math.round(sa/pool.length*100):0)+'%"></i></div>'
+      +'<p class="wcount">'+sa+' verbi su '+pool.length+' li sa scrivere</p>';
+    h+='<button class="bigchoice c-study" onclick="openStudy()"><span class="t">Studia</span>'
+      +'<span class="b">Le schede dei dieci gruppi, con la pronuncia. Qui nessuno ti interroga.</span></button>';
+    h+='<button class="bigchoice c-drill" onclick="startWrite()"><span class="t">Esercitati</span>'
+      +'<span class="b">Otto verbi pescati da tutti i gruppi: scrivi le tre forme una lettera alla volta.</span></button>';
+  }
+
+  (pack.items||[]).filter(x=>x.type==="info").forEach(it=>{
+    h+='<div class="card">'
+      +(it.title?'<div class="meaning"><b>'+esc(it.title)+'</b></div>':"")
+      +'<div style="margin-top:6px">'+(it.html||fx(it.text))+'</div>'
+      +(it.speak?'<button class="linkish" onclick="saySlot('+regText(it.speak)+')">&#9654; Ascolta</button>':"")
+      +'</div>';
+  });
+  if(hasItems) h+='<button class="cta" onclick="startSession(&#39;items&#39;)">Esercitati</button>';
+  return h;
+}
+
+function vStudy(){
+  const c=pack.cards;
+  let h="";
+  if(c.groups){
     h+='<div class="groups">';
-    pack.cards.groups.forEach((g,i)=>{
+    c.groups.forEach((g,i)=>{
       h+='<button class="chip" aria-pressed="'+(i===groupIdx)+'" onclick="groupIdx='+i+';render()">'+(i+1)+'. '+esc(g.name)+'</button>';
     });
     h+='</div>';
-    const g=pack.cards.groups[groupIdx];
-    if(g.hint) h+='<div class="note">'+g.hint+'</div>';
-  }else if(pack.blurb){
-    h+='<div class="note">'+esc(pack.blurb)+'</div>';
+    if(c.groups[groupIdx].hint) h+='<div class="note">'+c.groups[groupIdx].hint+'</div>';
   }
-
-  if(hasCards){
-    h+='<div class="row">'
-      +'<button class="cta ghost" onclick="startSession(\'cards\')">Riconosci</button>'
-      +'<button class="cta" onclick="startWrite()">Scrivi</button></div>';
-    if(pack.cards.speak)
-      h+='<button class="cta ghost small" style="margin-top:8px" onclick="startSession(\'listen\')">🔊 Ascolta e riconosci</button>';
-  }
-  if(hasItems) h+='<div class="row"><button class="cta" onclick="startSession(\'items\')">Esercitati</button></div>';
-
-  (pack.items||[]).filter(x=>x.type==="info").forEach(it=>{
-    h+='<div class="card" style="margin-top:12px">'
-      +(it.title?'<div class="meaning"><b>'+esc(it.title)+'</b></div>':"")
-      +'<div style="margin-top:6px">'+(it.html||fx(it.text))+'</div>'
-      +(it.speak?'<button class="linkish" onclick="saySlot('+regText(it.speak)+')">▶ Ascolta</button>':"")
-      +'</div>';
-  });
-
-  if(hasCards){
-    h+='<div class="grouphead" style="margin-top:22px"><h2>Studia</h2>'
-      +'<span class="count">tocca una forma per sentirla</span></div>';
-    cardEntries().forEach(e=>{ h+=entryCardHTML(e); });
-  }
+  h+='<p class="wcount" style="margin-bottom:10px">Tocca una forma per sentire come si pronuncia.</p>';
+  cardEntries().forEach(e=>{ h+=entryCardHTML(e); });
   return h;
 }
 
@@ -864,15 +911,17 @@ function render(){
   }else{
     b.hidden=false;
     t.textContent = pack ? pack.title : "Palestra";
-    st.textContent = pack ? pack.subject : "";
+    st.textContent = view==="study" ? "Studia" : view==="session" ? "Esercitati" : (pack?pack.subject:"");
   }
-  $("#app").innerHTML = view==="home" ? vHome() : view==="pack" ? vPack() : vSession();
+  $("#app").innerHTML = view==="home" ? vHome()
+    : view==="pack" ? vPack()
+    : view==="study" ? vStudy() : vSession();
   $("#foot").textContent = (view==="home" && PACKS.length) ? PACKS.length+" argomenti disponibili" : "";
   window.scrollTo(0,0);
   const ni=$("#numin");
   if(ni && sess && !sess.answered){ try{ ni.focus({preventScroll:true}); }catch(e){} }
 }
-function goBack(){ if(view==='session'){ backToPack(); } else { goHome(); } }
+function goBack(){ if(view==='session'||view==='study'){ backToPack(); } else { goHome(); } }
 
 /* avvio */
 fetchPacks(false);
