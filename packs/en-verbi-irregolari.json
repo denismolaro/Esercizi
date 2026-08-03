@@ -2,9 +2,9 @@
  "id": "en-verbi-irregolari",
  "subject": "Inglese",
  "title": "Verbi irregolari — le tre forme",
- "blurb": "68 verbi raggruppati per schema, con pronuncia.",
+ "blurb": "74 verbi raggruppati per schema, con pronuncia.",
  "lang": "en-GB",
- "updated": "2026-08-02",
+ "updated": "2026-08-03",
  "cards": {
   "fields": [
    {
@@ -127,12 +127,12 @@
        "red",
        "red"
       ],
+      "trap": "Si scrive sempre <b>read</b>, ma al passato si legge <b>red</b>, come il colore.",
       "sp": [
        null,
        "red",
        "red"
-      ],
-      "trap": "Si scrive sempre <b>read</b>, ma al passato si legge <b>red</b>, come il colore."
+      ]
      }
     ]
    },
@@ -257,6 +257,17 @@
       ]
      },
      {
+      "v": "lend",
+      "p": "lent",
+      "pp": "lent",
+      "it": "prestare",
+      "ph": [
+       "lend",
+       "lent",
+       "lent"
+      ]
+     },
+     {
       "v": "mean",
       "p": "meant",
       "pp": "meant",
@@ -328,12 +339,12 @@
        "sed",
        "sed"
       ],
+      "trap": "<b>said</b> si legge <b>sed</b>, corto. Non «seid».",
       "sp": [
        null,
        "sed",
        "sed"
-      ],
-      "trap": "<b>said</b> si legge <b>sed</b>, corto. Non «seid»."
+      ]
      },
      {
       "v": "pay",
@@ -411,12 +422,12 @@
        "hérd",
        "hérd"
       ],
+      "trap": "<b>heard</b> si legge <b>hérd</b>, come il nome «bird».",
       "sp": [
        null,
        "herd",
        "herd"
-      ],
-      "trap": "<b>heard</b> si legge <b>hérd</b>, come il nome «bird»."
+      ]
      },
      {
       "v": "find",
@@ -438,7 +449,8 @@
        "ghet",
        "gòt",
        "gòt"
-      ]
+      ],
+      "trap": "In inglese americano il participio è <b>gotten</b>. Qui usiamo la forma britannica <b>got</b>."
      },
      {
       "v": "sit",
@@ -494,12 +506,12 @@
        "uan",
        "uan"
       ],
+      "trap": "<b>won</b> si legge <b>uan</b>, esattamente come il numero <b>one</b>.",
       "sp": [
        null,
        "wun",
        "wun"
-      ],
-      "trap": "<b>won</b> si legge <b>uan</b>, esattamente come il numero <b>one</b>."
+      ]
      }
     ]
    },
@@ -633,12 +645,24 @@
        "fròuz",
        "fròuzen"
       ]
+     },
+     {
+      "v": "wear",
+      "p": "wore",
+      "pp": "worn",
+      "it": "indossare",
+      "ph": [
+       "uèe",
+       "uòo",
+       "uòon"
+      ],
+      "trap": "<b>wear</b> si legge <b>uèe</b>: non confonderlo con <b>hear</b>, che fa «hìe»."
      }
     ]
    },
    {
     "name": "i → o → i + -en",
-    "hint": "La terza forma <b>torna alla vocale della prima</b> e aggiunge -en. Attenzione: la doppia consonante compare solo alla terza.",
+    "hint": "La terza forma <b>torna alla vocale della prima</b> e aggiunge -en. Attenzione: la doppia consonante compare solo alla terza. <b>hide</b> segue la stessa terza forma, ma al passato fa <b>hid</b>.",
     "entries": [
      {
       "v": "drive",
@@ -661,18 +685,30 @@
        "ròut",
        "riten"
       ],
-      "trap": "La <b>w</b> di write e wrote non si sente."
+      "trap": "La <b>w</b> di write e wrote non si sente. E <b>written</b> ha due t."
      },
      {
       "v": "ride",
       "p": "rode",
       "pp": "ridden",
-      "it": "andare a cavallo, in bici",
+      "it": "cavalcare, andare in bici",
       "ph": [
        "ràid",
        "ròud",
        "riden"
       ]
+     },
+     {
+      "v": "hide",
+      "p": "hid",
+      "pp": "hidden",
+      "it": "nascondere",
+      "ph": [
+       "hàid",
+       "hid",
+       "hiden"
+      ],
+      "trap": "<b>hidden</b> ha due d."
      }
     ]
    },
@@ -712,6 +748,17 @@
        "thròu",
        "thruu",
        "thròun"
+      ]
+     },
+     {
+      "v": "blow",
+      "p": "blew",
+      "pp": "blown",
+      "it": "soffiare",
+      "ph": [
+       "blòu",
+       "bluu",
+       "blòun"
       ]
      },
      {
@@ -779,7 +826,7 @@
    },
    {
     "name": "I grandi irregolari",
-    "hint": "Non seguono nessuno schema, ma sono i più usati in assoluto: vanno imparati uno per uno. Sono solo sette.",
+    "hint": "Non seguono nessuno schema, ma sono i più usati in assoluto: vanno imparati uno per uno. Sono nove. In cinque di questi la terza forma si costruisce sulla <b>prima</b>, non sulla seconda: eat → eat<b>en</b>, give → giv<b>en</b>, fall → fall<b>en</b>.",
     "entries": [
      {
       "v": "be",
@@ -791,6 +838,7 @@
        "uòz / uér",
        "biin"
       ],
+      "trap": "Unico verbo con due forme al passato: <b>was</b> per I/he/she/it, <b>were</b> per you/we/they.",
       "sp": [
        null,
        "was, were",
@@ -806,7 +854,8 @@
        "gòu",
        "uent",
        "gòn"
-      ]
+      ],
+      "trap": "Con il present perfect si usa anche <b>been</b>: <i>I have been to London</i>, ci sono stato e sono tornato."
      },
      {
       "v": "do",
@@ -818,12 +867,12 @@
        "did",
        "dan"
       ],
+      "trap": "<b>done</b> si legge <b>dan</b>, non «doun».",
       "sp": [
        null,
        null,
        "dun"
-      ],
-      "trap": "<b>done</b> si legge <b>dan</b>, non «doun»."
+      ]
      },
      {
       "v": "see",
@@ -868,6 +917,30 @@
        "tuk",
        "tèiken"
       ]
+     },
+     {
+      "v": "fall",
+      "p": "fell",
+      "pp": "fallen",
+      "it": "cadere",
+      "ph": [
+       "fòol",
+       "fel",
+       "fòolen"
+      ],
+      "trap": "Attenzione: <b>fell</b> è il passato di <b>fall</b> (cadere), non di <b>feel</b> (sentire), che fa <b>felt</b>."
+     },
+     {
+      "v": "forget",
+      "p": "forgot",
+      "pp": "forgotten",
+      "it": "dimenticare",
+      "ph": [
+       "foghèt",
+       "fogòt",
+       "fogòten"
+      ],
+      "trap": "<b>forgotten</b> ha due t."
      }
     ]
    }
