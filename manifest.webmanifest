@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Palestra</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Palestra">
+<meta name="theme-color" content="#14202E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14202E; --ink-soft:#41556B; --paper:#EEF2F5; --card:#fff; --line:#D7DFE6;
+  --a1:#0E7C86; --a1b:#E2F2F3;
+  --a2:#B06A08; --a2b:#FBEEDA;
+  --a3:#6244C0; --a3b:#EBE7FA;
+  --ok:#12703F; --okb:#E3F3E9;
+  --wait:#8A5A12; --waitb:#FBF0DC;
+  --r:14px;
+  --safe-t:env(safe-area-inset-top,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;overscroll-behavior-y:contain}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.5;
+  padding-bottom:calc(46px + var(--safe-b));
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px}
+header{
+  background:var(--ink); color:#fff;
+  padding:calc(16px + var(--safe-t)) 0 15px; margin-bottom:16px;
+  border-bottom:5px solid var(--a2);
+}
+.hrow{display:flex;align-items:center;gap:12px}
+h1{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:23px;margin:0;letter-spacing:-.01em;flex:1}
+.back{background:none;border:none;color:#AFC0D0;font-family:inherit;font-size:15px;cursor:pointer;padding:6px 2px}
+.sub{margin:5px 0 0;font-size:14px;color:#AFC0D0}
+.spine{display:flex;gap:5px;margin-top:12px}
+.spine span{height:5px;border-radius:3px;flex:1}
+.sa{background:var(--a1)}.sb{background:var(--a2)}.sc{background:var(--a3)}
+
+button{font-family:inherit}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.note{background:#fff;border:1px dashed var(--line);border-radius:var(--r);padding:12px 14px;font-size:14.5px;color:var(--ink-soft);margin-bottom:14px}
+.note b{color:var(--ink)}
+.cta{width:100%;padding:15px;border:none;border-radius:12px;background:var(--ink);color:#fff;font-size:17px;font-weight:700;cursor:pointer;margin-top:6px}
+.cta.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.cta.small{padding:11px;font-size:15px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.center{text-align:center}
+.muted{color:var(--ink-soft);font-size:14px}
+.linkish{background:none;border:none;font-size:13.5px;color:var(--a1);text-decoration:underline;cursor:pointer;padding:4px 0}
+
+/* elenco pacchetti */
+.packbtn{
+  display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);
+  border-left:6px solid var(--a1); border-radius:var(--r);padding:14px;margin-bottom:10px;cursor:pointer;
+}
+.packbtn .k{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--a1);margin-bottom:3px}
+.packbtn .t{font-size:18px;font-weight:700;line-height:1.25;display:block}
+.packbtn .b{font-size:14px;color:var(--ink-soft);margin-top:3px;display:block}
+.bar{height:5px;background:var(--line);border-radius:3px;margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:3px}
+.subj-0{border-left-color:var(--a1)} .subj-0 .k{color:var(--a1)}
+.subj-1{border-left-color:var(--a2)} .subj-1 .k{color:var(--a2)}
+.subj-2{border-left-color:var(--a3)} .subj-2 .k{color:var(--a3)}
+
+/* schede a tre forme */
+.trio{display:grid;gap:7px}
+.form{border:none;border-radius:11px;padding:9px 5px 10px;text-align:center;cursor:pointer;display:block;width:100%}
+.form .lab{display:block;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.85;margin-bottom:3px}
+.form .word{display:block;font-size:18px;font-weight:700;line-height:1.15;word-break:break-word}
+.form .ph{display:block;font-size:12px;opacity:.8;margin-top:3px;font-style:italic}
+.form .spk{display:block;font-size:11px;margin-top:5px;opacity:.75}
+.f0{background:var(--a1b);color:var(--a1)} .f1{background:var(--a2b);color:var(--a2)} .f2{background:var(--a3b);color:var(--a3)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:11px}
+.meaning{font-size:15px;color:var(--ink-soft)} .meaning b{color:var(--ink);font-size:16.5px}
+.trap{margin-top:10px;background:var(--waitb);color:var(--wait);border-radius:9px;padding:8px 10px;font-size:13.5px}
+
+/* chip gruppi */
+.groups{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.chip{padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:13.5px;color:var(--ink-soft);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700}
+
+/* sessione */
+.dots{display:flex;gap:4px;margin-bottom:14px}
+.dots i{height:6px;flex:1;border-radius:4px;background:var(--line)}
+.dots i.done{background:var(--a1)} .dots i.miss{background:var(--wait)} .dots i.now{background:var(--ink)}
+.q{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.qlab{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+.qbig{font-family:Fraunces,Georgia,serif;font-size:27px;font-weight:700;line-height:1.2;margin:0 0 5px;word-break:break-word}
+.qsub{font-size:14.5px;color:var(--ink-soft);margin:0}
+.opts{display:grid;gap:8px}
+.opt{width:100%;text-align:left;padding:14px;border-radius:11px;border:1.5px solid var(--line);background:#fff;font-size:18px;font-weight:700;color:var(--ink);cursor:pointer}
+.opt.right{background:var(--okb);border-color:var(--ok);color:var(--ok)}
+.opt.wrongpick{background:var(--waitb);border-color:var(--wait);color:var(--wait)}
+.opt.dim{opacity:.45}
+.opt .n{display:inline-block;min-width:22px;color:var(--ink-soft);font-weight:400;font-size:15px}
+.verdict{border-radius:var(--r);padding:13px 15px;margin-bottom:12px;font-size:16px;font-weight:700}
+.verdict.ok{background:var(--okb);color:var(--ok)}
+.verdict.no{background:var(--waitb);color:var(--wait)}
+.verdict span{display:block;font-weight:400;font-size:14.5px;margin-top:5px}
+.score{font-family:Fraunces,serif;font-size:46px;font-weight:700;margin:0;line-height:1}
+input[type=text]{
+  width:100%;padding:14px;border-radius:11px;border:1.5px solid var(--line);
+  font-family:inherit;font-size:20px;font-weight:700;background:#fff;color:var(--ink);
+}
+input[type=text]:disabled{opacity:1}
+.unit{font-size:15px;color:var(--ink-soft);margin-left:8px}
+.big-audio{width:100%;padding:24px 16px;border-radius:var(--r);border:2px solid var(--ink);background:#fff;font-size:19px;font-weight:700;cursor:pointer;margin-bottom:12px}
+.big-audio small{display:block;font-weight:400;font-size:13.5px;color:var(--ink-soft);margin-top:5px}
+.step{width:100%;text-align:left;padding:13px;border-radius:11px;border:1.5px solid var(--line);background:#fff;font-size:16px;cursor:pointer;margin-bottom:7px;display:flex;gap:10px;align-items:flex-start}
+.step .num{font-weight:700;color:var(--a1);min-width:20px}
+.step.picked{background:var(--a1b);border-color:var(--a1)}
+.step.ko{background:var(--waitb);border-color:var(--wait)}
+
+/* formule */
+.fx{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:1.05em}
+.fx sup,.fx sub{font-size:.68em;line-height:0}
+.frac{display:inline-flex;flex-direction:column;vertical-align:-.5em;text-align:center;margin:0 .18em}
+.frac .nu{border-bottom:1.5px solid currentColor;padding:0 .28em}
+.frac .de{padding:0 .28em}
+
+.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-size:14px;margin-bottom:14px}
+.switch{display:flex;align-items:center;gap:8px;cursor:pointer}
+.switch input{width:20px;height:20px;accent-color:var(--a1)}
+footer{margin-top:26px;font-size:12.5px;color:var(--ink-soft);text-align:center;padding-bottom:10px}
+.err{background:var(--waitb);color:var(--wait);border-radius:var(--r);padding:13px 15px;font-size:14.5px;margin-bottom:12px}
+@media (prefers-reduced-motion:no-preference){
+  .q,.card,.packbtn{animation:rise .2s ease-out}
+  @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+}
+:focus-visible{outline:3px solid var(--a3);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hrow">
+      <button class="back" id="back" hidden onclick="goBack()">‹ Indietro</button>
+      <h1 id="title">Palestra</h1>
+    </div>
+    <p class="sub" id="subtitle">Esercizi di inglese, matematica e fisica</p>
+    <div class="spine"><span class="sa"></span><span class="sb"></span><span class="sc"></span></div>
+  </div>
+</header>
+
+<div class="wrap"><div id="app"></div>
+<footer id="foot"></footer></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   CONFIGURAZIONE — cambia solo queste tre righe
+   ═══════════════════════════════════════════════════════════ */
+const GH = {
+  user:   "denismolaro",
+  repo:   "Esercizi",
+  branch: "main"
+};
+/* ═════════════════════════════════════════════════════════ */
+
+const SUBJECTS = ["Inglese","Matematica","Fisica"];
+const $  = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle = a => {a=a.slice();for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
+const pick = a => a[(Math.random()*a.length)|0];
+
+/* registro per gli onclick: niente stringhe incollate negli attributi */
+const REG = {entries:[], texts:[]};
+function regEntry(e){ REG.entries.push(e); return REG.entries.length-1; }
+function regText(t){ REG.texts.push(t); return REG.texts.length-1; }
+
+/* ---------- memoria locale, tollerante ---------- */
+const mem = {};
+function store(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} mem[k]=v; }
+function load(k,d){
+  try{ const s=localStorage.getItem(k); if(s!=null) return JSON.parse(s); }catch(e){}
+  return (k in mem)?mem[k]:d;
+}
+
+/* ---------- formule: mini-notazione → HTML ---------- */
+const GREEK={alpha:"α",beta:"β",gamma:"γ",delta:"δ",Delta:"Δ",epsilon:"ε",theta:"θ",lambda:"λ",mu:"μ",pi:"π",rho:"ρ",sigma:"σ",tau:"τ",phi:"φ",omega:"ω",Omega:"Ω"};
+function fx(s){
+  if(s==null) return "";
+  let t = esc(s);
+  t = t.replace(/\\(alpha|beta|gamma|delta|Delta|epsilon|theta|lambda|mu|pi|rho|sigma|tau|phi|omega|Omega)/g,(_,g)=>GREEK[g]);
+  t = t.replace(/&lt;=/g,"≤").replace(/&gt;=/g,"≥").replace(/!=/g,"≠")
+       .replace(/-&gt;/g,"→").replace(/=&gt;/g,"⇒").replace(/\+-/g,"±")
+       .replace(/\bdeg\b/g,"°").replace(/\binf\b/g,"∞").replace(/\*/g,"·");
+  t = t.replace(/sqrt\(([^()]*)\)/g,"√<span style='border-top:1.4px solid currentColor'>$1</span>");
+  t = t.replace(/\(([^()]+)\)\/\(([^()]+)\)/g,"<span class='frac'><span class='nu'>$1</span><span class='de'>$2</span></span>");
+  t = t.replace(/\^\{([^}]*)\}/g,"<sup>$1</sup>").replace(/\^(-?[A-Za-z0-9]+)/g,"<sup>$1</sup>");
+  t = t.replace(/_\{([^}]*)\}/g,"<sub>$1</sub>").replace(/_(-?[A-Za-z0-9]+)/g,"<sub>$1</sub>");
+  return "<span class='fx'>"+t+"</span>";
+}
+
+/* ---------- voce ---------- */
+let voice=null, warmed=false;
+function initVoices(){
+  if(!("speechSynthesis" in window)) return;
+  const vs=speechSynthesis.getVoices()||[];
+  voice = vs.find(v=>v.lang==="en-GB") || vs.find(v=>v.lang&&v.lang.indexOf("en-GB")===0)
+       || vs.find(v=>v.lang&&v.lang.indexOf("en")===0) || null;
+}
+if("speechSynthesis" in window){ initVoices(); speechSynthesis.onvoiceschanged=initVoices; }
+function warmUp(){                        /* iOS: la primissima voce a volte resta muta */
+  if(warmed||!("speechSynthesis" in window)) return;
+  warmed=true;
+  const u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u);
+}
+document.addEventListener("touchstart",warmUp,{once:true});
+document.addEventListener("click",warmUp,{once:true});
+
+const slow = () => load("slow",false);
+function say(text,lang){
+  if(!("speechSynthesis" in window)||!text) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(String(text));
+  u.lang = lang || "en-GB";
+  u.rate = slow()?0.55:0.82;
+  if(voice && u.lang.indexOf("en")===0) u.voice=voice;
+  speechSynthesis.speak(u);
+}
+function sayList(arr,lang){
+  if(!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  arr.filter(Boolean).forEach(t=>{
+    const u=new SpeechSynthesisUtterance(String(t));
+    u.lang=lang||"en-GB"; u.rate=slow()?0.55:0.78;
+    if(voice&&u.lang.indexOf("en")===0) u.voice=voice;
+    speechSynthesis.speak(u);
+  });
+}
+function saySlot(i){ say(REG.texts[i], pack&&pack.lang); }
+
+/* ═══════════ CARICAMENTO PACCHETTI ═══════════ */
+let PACKS=[], loadError="", loading=true;
+
+async function fetchPacks(force){
+  const cached = load("packs",null);
+  if(cached && cached.length){ PACKS=cached; loading=false; render(); }
+  try{
+    const api="https://api.github.com/repos/"+GH.user+"/"+GH.repo+"/contents/packs?ref="+GH.branch;
+    const r=await fetch(api,{cache:force?"reload":"default"});
+    if(!r.ok) throw new Error("elenco non raggiungibile ("+r.status+")");
+    const files=(await r.json()).filter(f=>f.name.slice(-5)===".json");
+    const out=[];
+    for(const f of files){
+      try{
+        const pr=await fetch(f.download_url,{cache:force?"reload":"default"});
+        if(!pr.ok) continue;
+        const data=await pr.json();
+        data._file=f.name;
+        out.push(data);
+      }catch(e){}
+    }
+    if(out.length){
+      out.sort((a,b)=>(SUBJECTS.indexOf(a.subject)-SUBJECTS.indexOf(b.subject))||String(a.title).localeCompare(b.title));
+      PACKS=out; loadError=""; store("packs",out);
+    }else if(!PACKS.length){
+      loadError="la cartella packs è vuota";
+    }
+  }catch(e){
+    if(!PACKS.length) loadError=e.message;
+  }
+  loading=false;
+  render();
+}
+
+/* ═══════════ STATO ═══════════ */
+let view="home", pack=null, groupIdx=0, sess=null;
+function goHome(){ view="home"; pack=null; sess=null; render(); }
+function openPack(i){ pack=PACKS[i]; groupIdx=0; view="pack"; sess=null; render(); }
+function backToPack(){ view="pack"; sess=null; render(); }
+
+/* ═══════════ SCHEDE ═══════════ */
+function cardEntries(){
+  const c=pack.cards; if(!c) return [];
+  return c.groups ? c.groups[groupIdx].entries : (c.entries||[]);
+}
+function allEntries(p){
+  const c=p.cards; if(!c) return [];
+  return c.groups ? c.groups.reduce((a,g)=>a.concat(g.entries),[]) : (c.entries||[]);
+}
+function entryCardHTML(e){
+  const c=pack.cards, F=c.fields, ei=regEntry(e);
+  const sub = c.subField ? e[c.subField] : "";
+  let h='<div class="card"><div class="top"><div class="meaning"><b>'+esc(e[F[0].key])+'</b>'+(sub?" — "+esc(sub):"")+'</div>';
+  if(c.speak) h+='<button class="linkish" onclick="speakAll('+ei+')">▶ Ascolta tutte</button>';
+  h+='</div><div class="trio" style="grid-template-columns:repeat('+F.length+',1fr)">';
+  F.forEach((f,i)=>{
+    const ph = c.phField && e[c.phField] ? e[c.phField][i] : "";
+    h+='<button class="form f'+(i%3)+'" onclick="speakField('+ei+','+i+')">'
+      +'<span class="lab">'+esc(f.label)+'</span>'
+      +'<span class="word">'+esc(e[f.key])+'</span>'
+      +(ph?'<span class="ph">'+esc(ph)+'</span>':"")
+      +(c.speak?'<span class="spk">🔊</span>':"")+'</button>';
+  });
+  h+='</div>';
+  if(e.trap) h+='<div class="trap">⚠️ '+e.trap+'</div>';
+  return h+'</div>';
+}
+function fieldSound(e,i){
+  const c=pack.cards;
+  const alt = c.altField && e[c.altField] ? e[c.altField][i] : null;
+  return alt || e[c.fields[i].key];
+}
+function speakField(ei,i){ say(fieldSound(REG.entries[ei],i), pack.lang); }
+function speakAll(ei){
+  const e=REG.entries[ei];
+  sayList(pack.cards.fields.map((f,i)=>fieldSound(e,i)), pack.lang);
+}
+
+/* ═══════════ DOMANDE ═══════════ */
+function qFromCards(p, entries){
+  const c=p.cards, F=c.fields, all=allEntries(p);
+  const e=pick(entries);
+  const i = F.length>1 ? 1+((Math.random()*(F.length-1))|0) : 0;
+  const reverse = F.length>1 && Math.random()<0.35;
+
+  if(reverse){
+    const correct=e[F[0].key], distr=[];
+    for(const x of shuffle(all)){
+      const v=x[F[0].key];
+      if(v!==correct && distr.indexOf(v)<0) distr.push(v);
+      if(distr.length===3) break;
+    }
+    return {type:"mc", lab:"Di quale verbo è questa forma?", prompt:e[F[i].key],
+            sub:F[i].label, color:i%3, options:shuffle([correct].concat(distr)),
+            answer:correct, entry:e};
+  }
+  const correct=e[F[i].key], distr=[];
+  for(const x of shuffle(all)){
+    const v=x[F[i].key];
+    if(v!==correct && distr.indexOf(v)<0) distr.push(v);
+    if(distr.length===3) break;
+  }
+  return {type:"mc", lab:"Qual è "+F[i].label.toLowerCase()+"?", prompt:e[F[0].key],
+          sub:(c.subField?e[c.subField]:""), color:i%3,
+          options:shuffle([correct].concat(distr)), answer:correct, entry:e};
+}
+
+const LEN=8;
+function startSession(mode){
+  const items=[];
+  if(mode==="cards"){
+    const ent=cardEntries();
+    for(let k=0;k<LEN;k++) items.push(qFromCards(pack,ent));
+  }else if(mode==="listen"){
+    const ent=cardEntries(), c=pack.cards;
+    for(let k=0;k<LEN;k++){
+      items.push({type:"listen", entry:pick(ent), fi:(Math.random()*c.fields.length)|0, color:0});
+    }
+  }else{
+    const src=(pack.items||[]).filter(x=>x.type!=="info");
+    shuffle(src).slice(0,LEN).forEach(it=>{
+      const q=Object.assign({},it);
+      if(q.type==="mc") q.options=shuffle(q.options);
+      if(q.type==="order"){ q.shuffled=shuffle(q.steps.map((s,i)=>({s:s,i:i}))); q.picked=[]; }
+      items.push(q);
+    });
+  }
+  saved=false;
+  sess={items:items,i:0,right:0,wrong:[],answered:false,picked:null,mode:mode,lastOk:false};
+  view="session"; render();
+}
+
+let saved=false;
+
+/* ═══════════ RISPOSTE ═══════════ */
+const PRAISE=["Esatto.","Perfetto.","Sì, proprio quella.","Bravo.","Giusto.","Ottimo."];
+function judge(ok,detail){
+  sess.lastOk=ok; sess.answered=true;
+  if(ok) sess.right++; else sess.wrong.push(detail);
+  render();
+}
+function answerMC(oi){
+  if(sess.answered) return;
+  const q=sess.items[sess.i], opt=q.options[oi];
+  sess.picked=opt;
+  judge(opt===q.answer,{q:String(q.prompt||q.q),given:opt,want:q.answer});
+}
+function answerListen(i){
+  if(sess.answered) return;
+  const q=sess.items[sess.i], F=pack.cards.fields;
+  sess.picked=i;
+  judge(i===q.fi,{q:q.entry[F[q.fi].key],given:F[i].label,want:F[q.fi].label});
+}
+function normNum(v){
+  if(v==null) return NaN;
+  const t=String(v).replace(/\s|·/g,"").replace(",",".").replace(/[^0-9.eE+-]/g,"");
+  return parseFloat(t);
+}
+function answerNum(){
+  if(sess.answered) return;
+  const q=sess.items[sess.i], el=$("#numin");
+  const raw=el?el.value:"";
+  const got=normNum(raw), want=normNum(q.answer);
+  sess.picked=raw;
+  const tol = q.tol!=null ? q.tol
+            : q.tolPct!=null ? Math.abs(want)*q.tolPct/100
+            : Math.abs(want)*0.01;
+  const ok = isFinite(got) && Math.abs(got-want)<=tol+1e-12;
+  judge(ok,{q:String(q.q),given:(raw||"(vuoto)"),want:q.answer+(q.unit?" "+q.unit:"")});
+}
+function tapStep(k){
+  if(sess.answered) return;
+  const q=sess.items[sess.i];
+  const at=q.picked.indexOf(k);
+  if(at>=0) q.picked.splice(at,1); else q.picked.push(k);
+  if(q.picked.length===q.shuffled.length){
+    const ok=q.picked.every((p,idx)=>q.shuffled[p].i===idx);
+    judge(ok,{q:String(q.q),given:"ordine sbagliato",want:"vedi la soluzione"});
+  }else render();
+}
+function nextQ(){ sess.i++; sess.answered=false; sess.picked=null; render(); }
+
+/* ═══════════ PROGRESSI E RIEPILOGO ═══════════ */
+function saveResult(){
+  if(saved) return; saved=true;
+  const key="prog:"+pack.id, prev=load(key,{best:0,runs:0});
+  const pct=Math.round(sess.right/sess.items.length*100);
+  store(key,{best:Math.max(prev.best||0,pct),runs:(prev.runs||0)+1,last:pct,when:Date.now()});
+}
+function reportText(){
+  const d=new Date().toLocaleDateString("it-IT");
+  let t=pack.title+" — "+sess.right+"/"+sess.items.length+" ("+d+")";
+  if(sess.wrong.length){
+    t+="\nDa rivedere:";
+    sess.wrong.slice(0,12).forEach(w=>{ t+="\n• "+w.q+" → ha messo «"+w.given+"», giusto «"+w.want+"»"; });
+  }else t+="\nTutte giuste.";
+  return t;
+}
+async function shareReport(){
+  const text=reportText();
+  try{
+    if(navigator.share){ await navigator.share({text:text}); return; }
+    await navigator.clipboard.writeText(text);
+    alert("Riepilogo copiato. Incollalo nel messaggio a papà.");
+  }catch(e){ alert(text); }
+}
+
+/* ═══════════ VISTE ═══════════ */
+function vHome(){
+  let h="";
+  if(GH.user.indexOf("TUO-")===0){
+    h+='<div class="err"><b>Manca la configurazione.</b> Apri <code>index.html</code> su GitHub e scrivi il tuo nome utente e il nome del repository nelle prime righe dello script.</div>';
+  }
+  if(loadError) h+='<div class="err">Non riesco a scaricare gli esercizi: '+esc(loadError)+'.<br>Controlla la connessione, poi tocca «Cerca nuovi esercizi».</div>';
+  if(loading && !PACKS.length) h+='<div class="note">Sto cercando gli esercizi…</div>';
+
+  PACKS.forEach((p,i)=>{
+    const si=Math.max(0,SUBJECTS.indexOf(p.subject));
+    const pr=load("prog:"+p.id,null);
+    h+='<button class="packbtn subj-'+si+'" onclick="openPack('+i+')">'
+      +'<span class="k">'+esc(p.subject||"")+'</span>'
+      +'<span class="t">'+esc(p.title)+'</span>'
+      +(p.blurb?'<span class="b">'+esc(p.blurb)+'</span>':"")
+      +(pr?'<span class="bar"><i style="width:'+pr.last+'%"></i></span><span class="b">ultimo giro '+pr.last+'% · record '+pr.best+'%</span>':"")
+      +'</button>';
+  });
+  h+='<button class="cta ghost small" onclick="fetchPacks(true)">↻ Cerca nuovi esercizi</button>';
+  h+='<div class="toolbar" style="margin-top:14px"><label class="switch">'
+    +'<input type="checkbox" '+(slow()?"checked":"")+' onchange="store(\'slow\',this.checked)"> Voce inglese lenta</label></div>';
+  return h;
+}
+
+function vPack(){
+  const hasCards=!!pack.cards;
+  const hasItems=(pack.items||[]).some(x=>x.type!=="info");
+  let h="";
+  if(hasCards && pack.cards.groups){
+    h+='<div class="groups">';
+    pack.cards.groups.forEach((g,i)=>{
+      h+='<button class="chip" aria-pressed="'+(i===groupIdx)+'" onclick="groupIdx='+i+';render()">'+(i+1)+'. '+esc(g.name)+'</button>';
+    });
+    h+='</div>';
+    const g=pack.cards.groups[groupIdx];
+    if(g.hint) h+='<div class="note">'+g.hint+'</div>';
+  }else if(pack.blurb){
+    h+='<div class="note">'+esc(pack.blurb)+'</div>';
+  }
+
+  h+='<div class="row">';
+  if(hasCards){
+    h+='<button class="cta" onclick="startSession(\'cards\')">'+(hasItems?"Ripassa":"Esercitati")+'</button>';
+    if(pack.cards.speak) h+='<button class="cta ghost" onclick="startSession(\'listen\')">Ascolta</button>';
+  }
+  if(hasItems) h+='<button class="cta" onclick="startSession(\'items\')">Esercitati</button>';
+  h+='</div>';
+
+  (pack.items||[]).filter(x=>x.type==="info").forEach(it=>{
+    h+='<div class="card" style="margin-top:12px">'
+      +(it.title?'<div class="meaning"><b>'+esc(it.title)+'</b></div>':"")
+      +'<div style="margin-top:6px">'+(it.html||fx(it.text))+'</div>'
+      +(it.speak?'<button class="linkish" onclick="saySlot('+regText(it.speak)+')">▶ Ascolta</button>':"")
+      +'</div>';
+  });
+
+  if(hasCards){
+    h+='<div style="margin-top:16px">';
+    cardEntries().forEach(e=>{ h+=entryCardHTML(e); });
+    h+='</div>';
+  }
+  return h;
+}
+
+function vSession(){
+  const s=sess;
+  if(s.i>=s.items.length){
+    saveResult();
+    const n=s.items.length, r=s.right;
+    const msg = r===n ? "Tutte giuste. Questo pezzo lo sai."
+      : r>=n*0.75 ? "Molto bene. Mancano un paio di dettagli."
+      : r>=n*0.5  ? "Metà è a posto. Rifai il giro."
+      : "Questo è ancora nuovo. Guardalo con calma e riprova.";
+    let h='<div class="q center"><p class="score">'+r+'<span style="font-size:22px;color:var(--ink-soft)"> / '+n+'</span></p>'
+        +'<p class="qsub" style="margin-top:8px">'+msg+'</p></div>';
+    if(s.wrong.length){
+      h+='<div class="card"><div class="meaning"><b>Da rivedere</b></div><ul style="margin:8px 0 0;padding-left:20px;font-size:15px">';
+      s.wrong.forEach(w=>{ h+='<li style="margin-bottom:4px">'+esc(w.q)+' → giusto: <b>'+esc(w.want)+'</b></li>'; });
+      h+='</ul></div>';
+    }
+    h+='<button class="cta" onclick="shareReport()">Manda il riepilogo a papà</button>'
+     + '<div class="row" style="margin-top:8px">'
+     + '<button class="cta ghost" onclick="startSession(\''+s.mode+'\')">Un altro giro</button>'
+     + '<button class="cta ghost" onclick="backToPack()">Torna al ripasso</button></div>';
+    return h;
+  }
+
+  const q=s.items[s.i];
+  const accent=["--a1","--a2","--a3"][q.color!=null?q.color:0];
+  let h='<div class="dots">'+s.items.map((_,i)=>'<i class="'+(i<s.i?"done":i===s.i?"now":"")+'"></i>').join("")+'</div>';
+
+  if(q.type==="listen"){
+    const c=pack.cards, e=q.entry;
+    h+='<button class="big-audio" onclick="saySlot('+regText(fieldSound(e,q.fi))+')">🔊 Ascolta'
+      +'<small>'+esc(e[c.fields[0].key])+(c.subField?" — "+esc(e[c.subField]):"")+'</small></button>';
+    h+='<div class="trio" style="grid-template-columns:repeat('+c.fields.length+',1fr)">';
+    c.fields.forEach((f,i)=>{
+      const mark = s.answered && i===q.fi ? ' style="outline:3px solid var(--ok)"' : "";
+      h+='<button class="form f'+(i%3)+'"'+mark+' onclick="answerListen('+i+')">'
+        +'<span class="lab">'+esc(f.label)+'</span><span class="word">'+esc(e[f.key])+'</span></button>';
+    });
+    h+='</div>';
+  }
+  else if(q.type==="mc"){
+    h+='<div class="q"><div class="qlab" style="color:var('+accent+')">'+esc(q.lab||q.q||"")+'</div>'
+      +'<p class="qbig">'+(q.fxPrompt?fx(q.prompt||q.q):esc(q.prompt||q.q))+'</p>'
+      +(q.sub?'<p class="qsub">'+esc(q.sub)+'</p>':"")
+      +(q.speak?'<button class="linkish" onclick="saySlot('+regText(q.speak)+')">▶ Ascolta</button>':"")
+      +'</div><div class="opts">';
+    q.options.forEach((o,oi)=>{
+      let cls="opt";
+      if(s.answered){ cls += (o===q.answer) ? " right" : (o===s.picked ? " wrongpick" : " dim"); }
+      h+='<button class="'+cls+'"'+(s.answered?" disabled":"")+' onclick="answerMC('+oi+')">'
+        +(q.fxOptions?fx(o):esc(o))+'</button>';
+    });
+    h+='</div>';
+  }
+  else if(q.type==="num"){
+    h+='<div class="q"><div class="qlab" style="color:var('+accent+')">Risposta numerica</div>'
+      +'<p class="qbig">'+fx(q.q)+'</p>'+(q.sub?'<p class="qsub">'+fx(q.sub)+'</p>':"")+'</div>'
+      +'<div class="card"><div style="display:flex;align-items:center">'
+      +'<input type="text" id="numin" inputmode="decimal" autocomplete="off" placeholder="…" value="'
+      +(s.answered?esc(s.picked||""):"")+'"'+(s.answered?" disabled":"")+'>'
+      +(q.unit?'<span class="unit">'+fx(q.unit)+'</span>':"")+'</div></div>';
+    if(!s.answered) h+='<button class="cta" onclick="answerNum()">Controlla</button>';
+  }
+  else if(q.type==="order"){
+    h+='<div class="q"><div class="qlab" style="color:var('+accent+')">Metti in ordine</div>'
+      +'<p class="qbig" style="font-size:22px">'+fx(q.q)+'</p></div>';
+    q.shuffled.forEach((st,k)=>{
+      const pos=q.picked.indexOf(k);
+      h+='<button class="step'+(pos>=0?" picked":"")+'"'+(s.answered?" disabled":"")+' onclick="tapStep('+k+')">'
+        +'<span class="num">'+(pos>=0?pos+1:"·")+'</span><span>'+fx(st.s)+'</span></button>';
+    });
+    if(s.answered){
+      h+='<div class="card"><div class="meaning"><b>Ordine giusto</b></div><ol style="margin:8px 0 0;padding-left:22px">';
+      q.steps.forEach(st=>{ h+='<li style="margin-bottom:4px">'+fx(st)+'</li>'; });
+      h+='</ol></div>';
+    }
+  }
+
+  if(s.answered){
+    h+='<div class="verdict '+(s.lastOk?"ok":"no")+'" style="margin-top:12px">'
+      +(s.lastOk?pick(PRAISE):"Non ancora.")
+      +(q.why?'<span>'+fx(q.why)+'</span>':"")+'</div>';
+    if(q.entry) h+=entryCardHTML(q.entry);
+    h+='<button class="cta" onclick="nextQ()">'+(s.i===s.items.length-1?"Vedi il risultato":"Avanti")+'</button>';
+  }
+  return h;
+}
+
+/* ═══════════ RENDER ═══════════ */
+function render(){
+  REG.entries=[]; REG.texts=[];
+  const b=$("#back"), t=$("#title"), st=$("#subtitle");
+  if(view==="home"){
+    b.hidden=true; t.textContent="Palestra";
+    st.textContent="Esercizi di inglese, matematica e fisica";
+  }else{
+    b.hidden=false;
+    t.textContent = pack ? pack.title : "Palestra";
+    st.textContent = pack ? pack.subject : "";
+  }
+  $("#app").innerHTML = view==="home" ? vHome() : view==="pack" ? vPack() : vSession();
+  $("#foot").textContent = (view==="home" && PACKS.length) ? PACKS.length+" argomenti disponibili" : "";
+  window.scrollTo(0,0);
+  const ni=$("#numin");
+  if(ni && sess && !sess.answered){ try{ ni.focus({preventScroll:true}); }catch(e){} }
+}
+function goBack(){ if(view==='session'){ backToPack(); } else { goHome(); } }
+
+/* avvio */
+fetchPacks(false);
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); });
+}
+</script>
+</body>
+</html>
