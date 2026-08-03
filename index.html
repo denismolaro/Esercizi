@@ -132,6 +132,29 @@ input[type=text]:disabled{opacity:1}
 .frac .nu{border-bottom:1.5px solid currentColor;padding:0 .28em}
 .frac .de{padding:0 .28em}
 
+/* modalità Scrivi */
+.wbar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.wbar i{display:block;height:100%;background:var(--ok);border-radius:4px;transition:width .25s}
+.wcount{margin:0 0 14px;font-size:13px;color:var(--ink-soft)}
+.slots{display:grid;gap:8px;margin-bottom:14px}
+.slot{border-radius:11px;padding:10px 12px;display:flex;align-items:baseline;gap:12px;border:2px solid transparent}
+.slot .lab{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.85;min-width:96px}
+.slot .word{font-size:23px;font-weight:700;letter-spacing:.06em;line-height:1.2;word-break:break-all}
+.slot.f0{background:var(--a1b);color:var(--a1)}
+.slot.f1{background:var(--a2b);color:var(--a2)}
+.slot.f2{background:var(--a3b);color:var(--a3)}
+.slot.waiting{opacity:.5}
+.slot.active{border-color:currentColor}
+.slot.solved{background:var(--okb);color:var(--ok)}
+.slot.failed{background:var(--waitb);color:var(--wait)}
+.slot .ghosts{opacity:.35;letter-spacing:.18em}
+.slot .lok{color:var(--ok)}
+.slot .lno{color:var(--wait);text-decoration:underline wavy}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:12px}
+.tile{width:52px;height:52px;border-radius:11px;border:1.5px solid var(--line);background:#fff;
+  font-size:24px;font-weight:700;color:var(--ink);cursor:pointer;text-transform:lowercase}
+.tile.used{opacity:.22;border-style:dashed}
+.cta:disabled{opacity:.4;cursor:default}
 .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-size:14px;margin-bottom:14px}
 .switch{display:flex;align-items:center;gap:8px;cursor:pointer}
 .switch input{width:20px;height:20px;accent-color:var(--a1)}
@@ -431,11 +454,23 @@ function nextQ(){ sess.i++; sess.answered=false; sess.picked=null; render(); }
 function saveResult(){
   if(saved) return; saved=true;
   const key="prog:"+pack.id, prev=load(key,{best:0,runs:0});
-  const pct=Math.round(sess.right/sess.items.length*100);
+  const pct = sess.mode==="write"
+    ? Math.round(sess.cleared.length/sess.total*100)
+    : Math.round(sess.right/sess.items.length*100);
   store(key,{best:Math.max(prev.best||0,pct),runs:(prev.runs||0)+1,last:pct,when:Date.now()});
 }
 function reportText(){
   const d=new Date().toLocaleDateString("it-IT");
+  if(sess.mode==="write"){
+    const F=targetFields();
+    let t=pack.title+" — scrittura: "+sess.cleared.length+"/"+sess.total+" archiviati ("+d+")";
+    const tough=sess.cleared.concat(sess.queue).filter(x=>x.errs>0).sort((a,b)=>b.errs-a.errs);
+    if(tough.length){
+      t+="\nGli sono costati:";
+      tough.slice(0,10).forEach(x=>{ t+="\n• "+x.e[F[0].key]+" — "+x.errs+(x.errs===1?" errore":" errori"); });
+    }else t+="\nNessun errore.";
+    return t;
+  }
   let t=pack.title+" — "+sess.right+"/"+sess.items.length+" ("+d+")";
   if(sess.wrong.length){
     t+="\nDa rivedere:";
@@ -450,6 +485,219 @@ async function shareReport(){
     await navigator.clipboard.writeText(text);
     alert("Riepilogo copiato. Incollalo nel messaggio a papà.");
   }catch(e){ alert(text); }
+}
+
+/* ═══════════ MODALITÀ SCRIVI ═══════════ */
+const NEED = 2;   /* quante volte giusto per archiviare una voce */
+const MAXQ = 8;   /* voci per sessione: carico ridotto, non infinito */
+
+function writableEntries(){
+  const F=pack.cards.fields;
+  return cardEntries().filter(e=>F.every(f=>/^[A-Za-z]+$/.test(String(e[f.key]||""))));
+}
+function promptFor(e){
+  const c=pack.cards;
+  return c.subField ? e[c.subField] : e[c.fields[c.fields.length-1].key];
+}
+function targetFields(){
+  const c=pack.cards;
+  return c.subField ? c.fields : c.fields.slice(0,-1);
+}
+function makeTiles(word){
+  const letters=String(word).toLowerCase().split("");
+  const extra = letters.length<=4 ? 2 : 3;
+  const alpha="abcdefghiklmnoprstuvwy".split("");
+  const decoys=[]; let guard=0;
+  while(decoys.length<extra && guard++<200){
+    const ch=pick(alpha);
+    if(letters.indexOf(ch)<0 && decoys.indexOf(ch)<0) decoys.push(ch);
+  }
+  return shuffle(letters.concat(decoys)).map((ch,i)=>({ch:ch,id:i,used:false}));
+}
+
+/* Scheduler a scadenze: ogni voce ha un "due", cioè quante altre voci
+   devono passare prima che torni. Scende di 1 a ogni voce completata,
+   quindi nessuna può restare indietro per sempre. */
+function pickNext(){
+  const q=sess.queue;
+  if(!q.length) return -1;
+  let i=-1;
+  for(let k=0;k<q.length;k++){ if(q[k].due<=0){ i=k; break; } }
+  if(i<0){
+    let m=q[0].due;
+    for(const x of q) if(x.due<m) m=x.due;
+    for(const x of q) x.due-=m;
+    for(let k=0;k<q.length;k++){ if(q[k].due<=0){ i=k; break; } }
+  }
+  return i;
+}
+
+function startWrite(){
+  const ent=shuffle(writableEntries()).slice(0,MAXQ);
+  if(!ent.length){ alert("In questo gruppo non ci sono voci adatte alla scrittura."); return; }
+  saved=false;
+  sess={ mode:"write", queue:ent.map(e=>({e:e,hits:0,tries:0,errs:0,due:0})),
+         total:ent.length, cleared:[], stopped:false, cur:null, last:null, ci:0 };
+  loadCur(); view="session"; render();
+}
+function loadCur(){
+  sess.ci=pickNext();
+  const it=sess.queue[sess.ci];
+  if(!it){ sess.cur=null; return; }
+  const F=targetFields();
+  sess.cur={ fi:0, built:[], tiles:makeTiles(it.e[F[0].key]), result:null, done:[] };
+}
+function curItem(){ return sess.queue[sess.ci]; }
+
+function tapTile(id){
+  const cur=sess.cur; if(!cur||cur.result!==null) return;
+  const t=cur.tiles.filter(x=>x.id===id)[0];
+  if(!t||t.used) return;
+  t.used=true; cur.built.push(t); render();
+}
+function undoTile(){
+  const cur=sess.cur; if(!cur||cur.result!==null) return;
+  const t=cur.built.pop(); if(t) t.used=false; render();
+}
+function checkForm(){
+  const cur=sess.cur, it=curItem(), F=targetFields();
+  if(!cur||!it||cur.result!==null) return;
+  const target=String(it.e[F[cur.fi].key]).toLowerCase();
+  if(cur.built.length!==target.length) return;
+  cur.result = (cur.built.map(t=>t.ch).join("")===target);
+  if(!cur.result) it.errs++;
+  render();
+}
+function nextForm(){
+  const cur=sess.cur, it=curItem(), F=targetFields();
+  cur.done.push(cur.result);
+  if(cur.fi+1 < F.length){
+    cur.fi++; cur.built=[]; cur.result=null;
+    cur.tiles=makeTiles(it.e[F[cur.fi].key]);
+    render(); return;
+  }
+  it.tries++;
+  const allOk = cur.done.every(Boolean);
+  if(allOk) it.hits++; else it.hits=0;
+  const cleared = allOk && it.hits>=NEED;
+
+  /* il tempo scorre per tutti gli altri */
+  sess.queue.forEach(x=>{ if(x!==it) x.due=Math.max(0,x.due-1); });
+
+  if(cleared){
+    sess.queue.splice(sess.ci,1);
+    sess.cleared.push(it);
+  }else{
+    /* torna fra 3-4 voci se l'ha presa, fra 2-3 se ha sbagliato */
+    it.due = (allOk?3:2) + ((Math.random()*2)|0);
+  }
+  sess.last={ e:it.e, allOk:allOk, cleared:cleared, done:cur.done.slice(), hits:it.hits };
+  sess.cur=null; render();
+}
+function continueWrite(){
+  sess.last=null;
+  if(sess.queue.length) loadCur();
+  render();
+}
+function stopWrite(){ sess.stopped=true; sess.cur=null; sess.last=null; render(); }
+
+function vWrite(){
+  const F=targetFields(), c=pack.cards;
+  const done=sess.cleared.length, n=sess.total;
+
+  /* ── riepilogo ── */
+  if(sess.stopped || (!sess.cur && !sess.last)){
+    saveResult();
+    const tough=sess.cleared.concat(sess.queue).filter(x=>x.errs>0).sort((a,b)=>b.errs-a.errs);
+    let h='<div class="q center"><p class="score">'+done+'<span style="font-size:22px;color:var(--ink-soft)"> / '+n+'</span></p>'
+      +'<p class="qsub" style="margin-top:8px">'
+      +(done===n ? "Tutti archiviati. Li sai scrivere."
+         : done===0 ? "Nessuno archiviato per ora. Passa da Studia e riprova."
+         : "Archiviati "+done+" su "+n+". I mancanti restano per la prossima volta.")
+      +'</p></div>';
+    if(tough.length){
+      h+='<div class="card"><div class="meaning"><b>Quelli che gli sono costati</b></div><ul style="margin:8px 0 0;padding-left:20px;font-size:15px">';
+      tough.slice(0,8).forEach(x=>{
+        h+='<li style="margin-bottom:4px">'+esc(x.e[F[0].key])+' — '+x.errs+(x.errs===1?" errore":" errori")+'</li>';
+      });
+      h+='</ul></div>';
+    }
+    h+='<button class="cta" onclick="shareReport()">Manda il riepilogo a papà</button>'
+      +'<div class="row" style="margin-top:8px">'
+      +'<button class="cta ghost" onclick="startWrite()">Un altro giro</button>'
+      +'<button class="cta ghost" onclick="backToPack()">Torna a Studia</button></div>';
+    return h;
+  }
+
+  let h='<div class="wbar"><i style="width:'+Math.round(done/n*100)+'%"></i></div>'
+       +'<p class="wcount">'+done+' di '+n+' archiviati · '+sess.queue.length+' ancora nel mazzo</p>';
+
+  /* ── verdetto sul verbo intero ── */
+  if(sess.last){
+    const L=sess.last;
+    h+='<div class="verdict '+(L.allOk?"ok":"no")+'">'
+      +(L.cleared ? "Archiviato. Non torna più."
+        : L.allOk ? "Tutte e tre giuste. Ancora una volta e lo archivio."
+        : "Qualcosa non torna. Questo verbo ritorna fra poco.")
+      +'</div>';
+    h+=entryCardHTML(L.e);
+    h+='<button class="cta" onclick="continueWrite()">'+(sess.queue.length?"Avanti":"Vedi il risultato")+'</button>';
+    return h;
+  }
+
+  /* ── domanda ── */
+  const it=curItem(), cur=sess.cur;
+  const target=String(it.e[F[cur.fi].key]);
+
+  h+='<div class="q"><div class="qlab" style="color:var(--ink-soft)">Scrivi le tre forme di</div>'
+    +'<p class="qbig">'+esc(promptFor(it.e))+'</p></div>';
+
+  h+='<div class="slots">';
+  F.forEach((f,i)=>{
+    let content, cls="slot f"+(i%3);
+    if(i<cur.fi){
+      content=esc(it.e[f.key]); cls+=cur.done[i]?" solved":" failed";
+    }else if(i===cur.fi){
+      cls+=" active";
+      if(cur.result===null){
+        content = cur.built.map(t=>'<b>'+esc(t.ch)+'</b>').join("")
+                + '<span class="ghosts">'+"·".repeat(Math.max(0,target.length-cur.built.length))+'</span>';
+      }else if(cur.result){
+        content = esc(it.e[f.key]); cls+=" solved";
+      }else{
+        const tl=target.toLowerCase();
+        content = cur.built.map((t,k)=>'<b class="'+(t.ch===tl[k]?"lok":"lno")+'">'+esc(t.ch)+'</b>').join("");
+        cls+=" failed";
+      }
+    }else{
+      content='<span class="ghosts">'+"·".repeat(String(it.e[f.key]).length)+'</span>';
+      cls+=" waiting";
+    }
+    h+='<div class="'+cls+'"><span class="lab">'+esc(f.label)+'</span><span class="word">'+content+'</span></div>';
+  });
+  h+='</div>';
+
+  if(cur.result!==null){
+    if(cur.result){
+      h+='<div class="verdict ok">'+pick(PRAISE)+'</div>';
+    }else{
+      h+='<div class="verdict no">Si scrive <b>'+esc(it.e[F[cur.fi].key])+'</b>'
+        +(c.phField&&it.e[c.phField]?'<span>Si legge: '+esc(it.e[c.phField][cur.fi])+'</span>':"")+'</div>';
+    }
+    if(c.speak) h+='<button class="cta ghost small" onclick="saySlot('+regText(fieldSound(it.e,cur.fi))+')">🔊 Ascolta '+esc(it.e[F[cur.fi].key])+'</button>';
+    h+='<button class="cta" onclick="nextForm()">'+(cur.fi+1<F.length?"Forma successiva":"Fine verbo")+'</button>';
+    return h;
+  }
+
+  h+='<div class="tiles">';
+  cur.tiles.forEach(t=>{
+    h+='<button class="tile'+(t.used?" used":"")+'"'+(t.used?" disabled":"")+' onclick="tapTile('+t.id+')">'+esc(t.ch)+'</button>';
+  });
+  h+='</div>';
+  h+='<div class="row"><button class="cta ghost" onclick="undoTile()"'+(cur.built.length?"":" disabled")+'>⌫ Cancella</button>'
+    +'<button class="cta" onclick="checkForm()"'+(cur.built.length===target.length?"":" disabled")+'>Controlla</button></div>';
+  h+='<button class="linkish" style="display:block;margin:14px auto 0" onclick="stopWrite()">Basta per oggi</button>';
+  return h;
 }
 
 /* ═══════════ VISTE ═══════════ */
@@ -493,13 +741,14 @@ function vPack(){
     h+='<div class="note">'+esc(pack.blurb)+'</div>';
   }
 
-  h+='<div class="row">';
   if(hasCards){
-    h+='<button class="cta" onclick="startSession(\'cards\')">'+(hasItems?"Ripassa":"Esercitati")+'</button>';
-    if(pack.cards.speak) h+='<button class="cta ghost" onclick="startSession(\'listen\')">Ascolta</button>';
+    h+='<div class="row">'
+      +'<button class="cta ghost" onclick="startSession(\'cards\')">Riconosci</button>'
+      +'<button class="cta" onclick="startWrite()">Scrivi</button></div>';
+    if(pack.cards.speak)
+      h+='<button class="cta ghost small" style="margin-top:8px" onclick="startSession(\'listen\')">🔊 Ascolta e riconosci</button>';
   }
-  if(hasItems) h+='<button class="cta" onclick="startSession(\'items\')">Esercitati</button>';
-  h+='</div>';
+  if(hasItems) h+='<div class="row"><button class="cta" onclick="startSession(\'items\')">Esercitati</button></div>';
 
   (pack.items||[]).filter(x=>x.type==="info").forEach(it=>{
     h+='<div class="card" style="margin-top:12px">'
@@ -510,14 +759,15 @@ function vPack(){
   });
 
   if(hasCards){
-    h+='<div style="margin-top:16px">';
+    h+='<div class="grouphead" style="margin-top:22px"><h2>Studia</h2>'
+      +'<span class="count">tocca una forma per sentirla</span></div>';
     cardEntries().forEach(e=>{ h+=entryCardHTML(e); });
-    h+='</div>';
   }
   return h;
 }
 
 function vSession(){
+  if(sess.mode==="write") return vWrite();
   const s=sess;
   if(s.i>=s.items.length){
     saveResult();
