@@ -1,0 +1,876 @@
+{
+ "id": "en-verbi-irregolari",
+ "subject": "Inglese",
+ "title": "Verbi irregolari — le tre forme",
+ "blurb": "68 verbi raggruppati per schema, con pronuncia.",
+ "lang": "en-GB",
+ "updated": "2026-08-02",
+ "cards": {
+  "fields": [
+   {
+    "key": "v",
+    "label": "Base"
+   },
+   {
+    "key": "p",
+    "label": "Past simple"
+   },
+   {
+    "key": "pp",
+    "label": "Past participle"
+   }
+  ],
+  "subField": "it",
+  "phField": "ph",
+  "altField": "sp",
+  "speak": true,
+  "groups": [
+   {
+    "name": "Tutte e tre uguali",
+    "hint": "Il modo più facile: la parola non cambia mai. L'unico da guardare bene è <b>read</b>: si scrive uguale ma cambia il suono.",
+    "entries": [
+     {
+      "v": "cut",
+      "p": "cut",
+      "pp": "cut",
+      "it": "tagliare",
+      "ph": [
+       "kat",
+       "kat",
+       "kat"
+      ]
+     },
+     {
+      "v": "put",
+      "p": "put",
+      "pp": "put",
+      "it": "mettere",
+      "ph": [
+       "put",
+       "put",
+       "put"
+      ]
+     },
+     {
+      "v": "let",
+      "p": "let",
+      "pp": "let",
+      "it": "permettere",
+      "ph": [
+       "let",
+       "let",
+       "let"
+      ]
+     },
+     {
+      "v": "hit",
+      "p": "hit",
+      "pp": "hit",
+      "it": "colpire",
+      "ph": [
+       "hit",
+       "hit",
+       "hit"
+      ]
+     },
+     {
+      "v": "cost",
+      "p": "cost",
+      "pp": "cost",
+      "it": "costare",
+      "ph": [
+       "kòst",
+       "kòst",
+       "kòst"
+      ]
+     },
+     {
+      "v": "hurt",
+      "p": "hurt",
+      "pp": "hurt",
+      "it": "far male",
+      "ph": [
+       "hért",
+       "hért",
+       "hért"
+      ]
+     },
+     {
+      "v": "shut",
+      "p": "shut",
+      "pp": "shut",
+      "it": "chiudere",
+      "ph": [
+       "shat",
+       "shat",
+       "shat"
+      ]
+     },
+     {
+      "v": "set",
+      "p": "set",
+      "pp": "set",
+      "it": "impostare",
+      "ph": [
+       "set",
+       "set",
+       "set"
+      ]
+     },
+     {
+      "v": "read",
+      "p": "read",
+      "pp": "read",
+      "it": "leggere",
+      "ph": [
+       "riid",
+       "red",
+       "red"
+      ],
+      "sp": [
+       null,
+       "red",
+       "red"
+      ],
+      "trap": "Si scrive sempre <b>read</b>, ma al passato si legge <b>red</b>, come il colore."
+     }
+    ]
+   },
+   {
+    "name": "La famiglia -ought / -aught",
+    "hint": "Sei verbi diversissimi che al passato finiscono tutti allo stesso modo e <b>suonano tutti uguali</b>: -òt. Se ne ricordi uno, ricordi il suono di tutti.",
+    "entries": [
+     {
+      "v": "buy",
+      "p": "bought",
+      "pp": "bought",
+      "it": "comprare",
+      "ph": [
+       "bài",
+       "bòt",
+       "bòt"
+      ]
+     },
+     {
+      "v": "bring",
+      "p": "brought",
+      "pp": "brought",
+      "it": "portare",
+      "ph": [
+       "bring",
+       "bròt",
+       "bròt"
+      ]
+     },
+     {
+      "v": "think",
+      "p": "thought",
+      "pp": "thought",
+      "it": "pensare",
+      "ph": [
+       "think",
+       "thòt",
+       "thòt"
+      ]
+     },
+     {
+      "v": "teach",
+      "p": "taught",
+      "pp": "taught",
+      "it": "insegnare",
+      "ph": [
+       "tiich",
+       "tòt",
+       "tòt"
+      ]
+     },
+     {
+      "v": "catch",
+      "p": "caught",
+      "pp": "caught",
+      "it": "prendere, afferrare",
+      "ph": [
+       "kech",
+       "kòt",
+       "kòt"
+      ]
+     },
+     {
+      "v": "fight",
+      "p": "fought",
+      "pp": "fought",
+      "it": "combattere",
+      "ph": [
+       "fàit",
+       "fòt",
+       "fòt"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Finiscono in -t",
+    "hint": "Seconda e terza forma sono <b>identiche</b> e finiscono in -t. Basta impararne una.",
+    "entries": [
+     {
+      "v": "sleep",
+      "p": "slept",
+      "pp": "slept",
+      "it": "dormire",
+      "ph": [
+       "sliip",
+       "slept",
+       "slept"
+      ]
+     },
+     {
+      "v": "keep",
+      "p": "kept",
+      "pp": "kept",
+      "it": "tenere",
+      "ph": [
+       "kiip",
+       "kept",
+       "kept"
+      ]
+     },
+     {
+      "v": "feel",
+      "p": "felt",
+      "pp": "felt",
+      "it": "sentire, provare",
+      "ph": [
+       "fiil",
+       "felt",
+       "felt"
+      ]
+     },
+     {
+      "v": "leave",
+      "p": "left",
+      "pp": "left",
+      "it": "partire, lasciare",
+      "ph": [
+       "liiv",
+       "left",
+       "left"
+      ]
+     },
+     {
+      "v": "mean",
+      "p": "meant",
+      "pp": "meant",
+      "it": "significare",
+      "ph": [
+       "miin",
+       "ment",
+       "ment"
+      ],
+      "trap": "<b>meant</b> si legge <b>ment</b>, non «miint»."
+     },
+     {
+      "v": "build",
+      "p": "built",
+      "pp": "built",
+      "it": "costruire",
+      "ph": [
+       "bild",
+       "bilt",
+       "bilt"
+      ]
+     },
+     {
+      "v": "send",
+      "p": "sent",
+      "pp": "sent",
+      "it": "mandare",
+      "ph": [
+       "send",
+       "sent",
+       "sent"
+      ]
+     },
+     {
+      "v": "spend",
+      "p": "spent",
+      "pp": "spent",
+      "it": "spendere, passare (tempo)",
+      "ph": [
+       "spend",
+       "spent",
+       "spent"
+      ]
+     },
+     {
+      "v": "lose",
+      "p": "lost",
+      "pp": "lost",
+      "it": "perdere",
+      "ph": [
+       "luuz",
+       "lòst",
+       "lòst"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Seconda = terza",
+    "hint": "Cambia la vocale una volta sola: la seconda e la terza forma restano <b>uguali fra loro</b>.",
+    "entries": [
+     {
+      "v": "say",
+      "p": "said",
+      "pp": "said",
+      "it": "dire",
+      "ph": [
+       "sèi",
+       "sed",
+       "sed"
+      ],
+      "sp": [
+       null,
+       "sed",
+       "sed"
+      ],
+      "trap": "<b>said</b> si legge <b>sed</b>, corto. Non «seid»."
+     },
+     {
+      "v": "pay",
+      "p": "paid",
+      "pp": "paid",
+      "it": "pagare",
+      "ph": [
+       "pèi",
+       "pèid",
+       "pèid"
+      ]
+     },
+     {
+      "v": "tell",
+      "p": "told",
+      "pp": "told",
+      "it": "dire, raccontare",
+      "ph": [
+       "tel",
+       "tòuld",
+       "tòuld"
+      ]
+     },
+     {
+      "v": "sell",
+      "p": "sold",
+      "pp": "sold",
+      "it": "vendere",
+      "ph": [
+       "sel",
+       "sòuld",
+       "sòuld"
+      ]
+     },
+     {
+      "v": "hold",
+      "p": "held",
+      "pp": "held",
+      "it": "tenere in mano",
+      "ph": [
+       "hòuld",
+       "held",
+       "held"
+      ]
+     },
+     {
+      "v": "make",
+      "p": "made",
+      "pp": "made",
+      "it": "fare, fabbricare",
+      "ph": [
+       "mèik",
+       "mèid",
+       "mèid"
+      ]
+     },
+     {
+      "v": "have",
+      "p": "had",
+      "pp": "had",
+      "it": "avere",
+      "ph": [
+       "hev",
+       "hed",
+       "hed"
+      ]
+     },
+     {
+      "v": "hear",
+      "p": "heard",
+      "pp": "heard",
+      "it": "sentire (con le orecchie)",
+      "ph": [
+       "hìe",
+       "hérd",
+       "hérd"
+      ],
+      "sp": [
+       null,
+       "herd",
+       "herd"
+      ],
+      "trap": "<b>heard</b> si legge <b>hérd</b>, come il nome «bird»."
+     },
+     {
+      "v": "find",
+      "p": "found",
+      "pp": "found",
+      "it": "trovare",
+      "ph": [
+       "fàind",
+       "fàund",
+       "fàund"
+      ]
+     },
+     {
+      "v": "get",
+      "p": "got",
+      "pp": "got",
+      "it": "ottenere, ricevere",
+      "ph": [
+       "ghet",
+       "gòt",
+       "gòt"
+      ]
+     },
+     {
+      "v": "sit",
+      "p": "sat",
+      "pp": "sat",
+      "it": "sedersi",
+      "ph": [
+       "sit",
+       "sèt",
+       "sèt"
+      ]
+     },
+     {
+      "v": "stand",
+      "p": "stood",
+      "pp": "stood",
+      "it": "stare in piedi",
+      "ph": [
+       "stend",
+       "stud",
+       "stud"
+      ]
+     },
+     {
+      "v": "understand",
+      "p": "understood",
+      "pp": "understood",
+      "it": "capire",
+      "ph": [
+       "anderstènd",
+       "anderstud",
+       "anderstud"
+      ]
+     },
+     {
+      "v": "meet",
+      "p": "met",
+      "pp": "met",
+      "it": "incontrare",
+      "ph": [
+       "miit",
+       "met",
+       "met"
+      ]
+     },
+     {
+      "v": "win",
+      "p": "won",
+      "pp": "won",
+      "it": "vincere",
+      "ph": [
+       "uin",
+       "uan",
+       "uan"
+      ],
+      "sp": [
+       null,
+       "wun",
+       "wun"
+      ],
+      "trap": "<b>won</b> si legge <b>uan</b>, esattamente come il numero <b>one</b>."
+     }
+    ]
+   },
+   {
+    "name": "La scala i → a → u",
+    "hint": "Cinque verbi che cambiano vocale seguendo sempre la stessa scala: <b>i</b>, poi <b>a</b>, poi <b>u</b>. Guarda la vocale, non tutta la parola.",
+    "entries": [
+     {
+      "v": "begin",
+      "p": "began",
+      "pp": "begun",
+      "it": "cominciare",
+      "ph": [
+       "bighìn",
+       "bighèn",
+       "bigàn"
+      ]
+     },
+     {
+      "v": "drink",
+      "p": "drank",
+      "pp": "drunk",
+      "it": "bere",
+      "ph": [
+       "drink",
+       "drenk",
+       "drank"
+      ]
+     },
+     {
+      "v": "sing",
+      "p": "sang",
+      "pp": "sung",
+      "it": "cantare",
+      "ph": [
+       "sing",
+       "seng",
+       "sang"
+      ]
+     },
+     {
+      "v": "swim",
+      "p": "swam",
+      "pp": "swum",
+      "it": "nuotare",
+      "ph": [
+       "suim",
+       "suem",
+       "suam"
+      ]
+     },
+     {
+      "v": "ring",
+      "p": "rang",
+      "pp": "rung",
+      "it": "suonare",
+      "ph": [
+       "ring",
+       "reng",
+       "rang"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Terza forma in -en (o → o → ...en)",
+    "hint": "La terza forma aggiunge <b>-en</b> alla seconda. Se sai la seconda, la terza viene da sola.",
+    "entries": [
+     {
+      "v": "break",
+      "p": "broke",
+      "pp": "broken",
+      "it": "rompere",
+      "ph": [
+       "brèik",
+       "bròuk",
+       "bròuken"
+      ]
+     },
+     {
+      "v": "speak",
+      "p": "spoke",
+      "pp": "spoken",
+      "it": "parlare",
+      "ph": [
+       "spiik",
+       "spòuk",
+       "spòuken"
+      ]
+     },
+     {
+      "v": "choose",
+      "p": "chose",
+      "pp": "chosen",
+      "it": "scegliere",
+      "ph": [
+       "chuuz",
+       "chòuz",
+       "chòuzen"
+      ]
+     },
+     {
+      "v": "wake",
+      "p": "woke",
+      "pp": "woken",
+      "it": "svegliarsi",
+      "ph": [
+       "uèik",
+       "uòuk",
+       "uòuken"
+      ]
+     },
+     {
+      "v": "steal",
+      "p": "stole",
+      "pp": "stolen",
+      "it": "rubare",
+      "ph": [
+       "stiil",
+       "stòul",
+       "stòulen"
+      ]
+     },
+     {
+      "v": "freeze",
+      "p": "froze",
+      "pp": "frozen",
+      "it": "congelare",
+      "ph": [
+       "friiz",
+       "fròuz",
+       "fròuzen"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "i → o → i + -en",
+    "hint": "La terza forma <b>torna alla vocale della prima</b> e aggiunge -en. Attenzione: la doppia consonante compare solo alla terza.",
+    "entries": [
+     {
+      "v": "drive",
+      "p": "drove",
+      "pp": "driven",
+      "it": "guidare",
+      "ph": [
+       "dràiv",
+       "dròuv",
+       "driven"
+      ]
+     },
+     {
+      "v": "write",
+      "p": "wrote",
+      "pp": "written",
+      "it": "scrivere",
+      "ph": [
+       "ràit",
+       "ròut",
+       "riten"
+      ],
+      "trap": "La <b>w</b> di write e wrote non si sente."
+     },
+     {
+      "v": "ride",
+      "p": "rode",
+      "pp": "ridden",
+      "it": "andare a cavallo, in bici",
+      "ph": [
+       "ràid",
+       "ròud",
+       "riden"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "-ew → -own / -awn",
+    "hint": "Seconda forma con <b>-ew</b> (suono «uu»), terza con <b>-n</b> finale.",
+    "entries": [
+     {
+      "v": "know",
+      "p": "knew",
+      "pp": "known",
+      "it": "sapere, conoscere",
+      "ph": [
+       "nòu",
+       "niuu",
+       "nòun"
+      ],
+      "trap": "La <b>k</b> di know non si pronuncia mai."
+     },
+     {
+      "v": "grow",
+      "p": "grew",
+      "pp": "grown",
+      "it": "crescere",
+      "ph": [
+       "gròu",
+       "gruu",
+       "gròun"
+      ]
+     },
+     {
+      "v": "throw",
+      "p": "threw",
+      "pp": "thrown",
+      "it": "lanciare",
+      "ph": [
+       "thròu",
+       "thruu",
+       "thròun"
+      ]
+     },
+     {
+      "v": "fly",
+      "p": "flew",
+      "pp": "flown",
+      "it": "volare",
+      "ph": [
+       "flài",
+       "fluu",
+       "flòun"
+      ]
+     },
+     {
+      "v": "draw",
+      "p": "drew",
+      "pp": "drawn",
+      "it": "disegnare",
+      "ph": [
+       "dròo",
+       "druu",
+       "dròon"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "Prima = terza",
+    "hint": "La terza forma <b>ritorna uguale alla prima</b>. Solo quella di mezzo è diversa.",
+    "entries": [
+     {
+      "v": "come",
+      "p": "came",
+      "pp": "come",
+      "it": "venire",
+      "ph": [
+       "kam",
+       "kèim",
+       "kam"
+      ]
+     },
+     {
+      "v": "become",
+      "p": "became",
+      "pp": "become",
+      "it": "diventare",
+      "ph": [
+       "bikàm",
+       "bikèim",
+       "bikàm"
+      ]
+     },
+     {
+      "v": "run",
+      "p": "ran",
+      "pp": "run",
+      "it": "correre",
+      "ph": [
+       "ran",
+       "ren",
+       "ran"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "I grandi irregolari",
+    "hint": "Non seguono nessuno schema, ma sono i più usati in assoluto: vanno imparati uno per uno. Sono solo sette.",
+    "entries": [
+     {
+      "v": "be",
+      "p": "was / were",
+      "pp": "been",
+      "it": "essere",
+      "ph": [
+       "bii",
+       "uòz / uér",
+       "biin"
+      ],
+      "sp": [
+       null,
+       "was, were",
+       null
+      ]
+     },
+     {
+      "v": "go",
+      "p": "went",
+      "pp": "gone",
+      "it": "andare",
+      "ph": [
+       "gòu",
+       "uent",
+       "gòn"
+      ]
+     },
+     {
+      "v": "do",
+      "p": "did",
+      "pp": "done",
+      "it": "fare",
+      "ph": [
+       "duu",
+       "did",
+       "dan"
+      ],
+      "sp": [
+       null,
+       null,
+       "dun"
+      ],
+      "trap": "<b>done</b> si legge <b>dan</b>, non «doun»."
+     },
+     {
+      "v": "see",
+      "p": "saw",
+      "pp": "seen",
+      "it": "vedere",
+      "ph": [
+       "sii",
+       "sòo",
+       "siin"
+      ]
+     },
+     {
+      "v": "eat",
+      "p": "ate",
+      "pp": "eaten",
+      "it": "mangiare",
+      "ph": [
+       "iit",
+       "et",
+       "iiten"
+      ]
+     },
+     {
+      "v": "give",
+      "p": "gave",
+      "pp": "given",
+      "it": "dare",
+      "ph": [
+       "ghiv",
+       "ghèiv",
+       "ghiven"
+      ]
+     },
+     {
+      "v": "take",
+      "p": "took",
+      "pp": "taken",
+      "it": "prendere",
+      "ph": [
+       "tèik",
+       "tuk",
+       "tèiken"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}
