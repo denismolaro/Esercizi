@@ -165,6 +165,7 @@ input[type=text]:disabled{opacity:1}
 .pips i{height:10px;flex:1;border-radius:5px;background:var(--line);position:relative;overflow:hidden}
 .pips i.half::after{content:"";position:absolute;left:0;top:0;bottom:0;width:50%;background:var(--a2)}
 .pips i.full{background:var(--ok)}
+.pips i.ko{background:var(--wait)}
 .sbar{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:14px}
 .sbar .nm{min-width:108px;font-weight:700;font-size:13px}
 .sbar .tr{flex:1;height:11px;background:var(--line);border-radius:6px;overflow:hidden}
@@ -212,7 +213,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "4";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "5";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -475,21 +476,29 @@ function nextQ(){ sess.i++; sess.answered=false; sess.picked=null; render(); }
 function saveResult(){
   if(saved) return; saved=true;
   const key="prog:"+pack.id, prev=load(key,{best:0,runs:0});
-  const pct = sess.mode==="write"
-    ? Math.round(sess.cleared.length/sess.total*100)
-    : Math.round(sess.right/sess.items.length*100);
+  let pct;
+  if(sess.mode==="write"){
+    const a=sess.list.filter(x=>x.allOk!==null);
+    pct = a.length ? Math.round(a.filter(x=>x.allOk).length/a.length*100) : 0;
+  }else pct = Math.round(sess.right/sess.items.length*100);
   store(key,{best:Math.max(prev.best||0,pct),runs:(prev.runs||0)+1,last:pct,when:Date.now()});
 }
 function reportText(){
   const d=new Date().toLocaleDateString("it-IT");
   if(sess.mode==="write"){
     const F=targetFields();
-    let t=pack.title+" — scrittura: "+sess.cleared.length+"/"+sess.total+" archiviati ("+d+")";
-    const tough=sess.cleared.concat(sess.queue).filter(x=>x.errs>0).sort((a,b)=>b.errs-a.errs);
-    if(tough.length){
-      t+="\nGli sono costati:";
-      tough.slice(0,10).forEach(x=>{ t+="\n• "+x.e[F[0].key]+" — "+x.errs+(x.errs===1?" errore":" errori"); });
+    const a=sess.list.filter(x=>x.allOk!==null);
+    const r=a.filter(x=>x.allOk).length;
+    let t=pack.title+" — serie del "+d+": "+r+"/"+a.length+" verbi giusti";
+    const miss=a.filter(x=>!x.allOk);
+    if(miss.length){
+      t+="\nSbagliati:";
+      miss.forEach(x=>{
+        t+="\n• "+F.map(f=>x.e[f.key]).join(" / ")+"  ("+x.e[pack.cards.subField]+")";
+      });
     }else t+="\nNessun errore.";
+    const o=overall();
+    t+="\nComplessivo: "+seenList().length+"/"+writableAll().length+" verbi visti, "+o.pct+"% indovinati.";
     return t;
   }
   let t=pack.title+" — "+sess.right+"/"+sess.items.length+" ("+d+")";
@@ -508,67 +517,95 @@ async function shareReport(){
   }catch(e){ alert(text); }
 }
 
-/* ═══════════ MEMORIA PER VERBO (fra una sessione e l'altra) ═══════════ */
-function statsKey(){ return "stats:"+pack.id; }
-function getStats(){ return load(statsKey(),{}) || {}; }
-function bumpStat(key,errs,cleared){
-  const st=getStats(), r=st[key]||{errs:0,ok:0};
-  r.errs += errs;
-  if(cleared){ r.ok++; if(errs===0) r.errs=0; }
+/* ═══════════ MEMORIA (localStorage, non cookie) ═══════════
+   stats2 → { "buy": {att, ok, err} }
+     att = quante volte il verbo è stato proposto
+     ok  = quante volte tutte e tre le forme erano giuste
+     err = quante forme sbagliate in totale
+   last  → i verbi dell'ultima serie, per non riproporli
+   forms → errori divisi fra base / past simple / past participle
+   hist  → una riga per ogni serie completata                        */
+const GOAL  = 80;   /* obiettivo: percentuale di verbi indovinati */
+const SLEN  = 8;    /* verbi per serie, tutti diversi */
+
+function statsKey(){ return "stats2:"+pack.id; }
+function formsKey(){ return "forms:"+pack.id; }
+function histKey(){  return "hist:"+pack.id; }
+function lastKey(){  return "last:"+pack.id; }
+
+function getStats(){ return load(statsKey(),null) || {}; }
+function recordVerb(key,wrongForms){
+  const st=getStats(), r=st[key]||{att:0,ok:0,err:0};
+  r.att++;
+  if(!wrongForms) r.ok++;
+  r.err += wrongForms;
   st[key]=r; store(statsKey(),st);
 }
-function formsKey(){ return "forms:"+pack.id; }
-function histKey(){ return "hist:"+pack.id; }
 function addForms(arr){
   const cur=load(formsKey(),null)||[0,0,0];
-  for(let i=0;i<arr.length;i++) cur[i]=(cur[i]||0)+arr[i];
+  for(let i=0;i<arr.length;i++) cur[i]=(cur[i]||0)+(arr[i]||0);
   store(formsKey(),cur);
 }
 function pushHist(rec){
   const h=load(histKey(),null)||[];
-  h.unshift(rec); store(histKey(), h.slice(0,30));
+  h.unshift(rec); store(histKey(),h.slice(0,40));
 }
 function resetProgress(){
   if(!confirm("Azzero tutti i progressi di questo argomento. Sicuro?")) return;
-  store(statsKey(),{}); store(formsKey(),[0,0,0]); store(histKey(),[]);
+  store(statsKey(),{}); store(formsKey(),[0,0,0]); store(histKey(),[]); store(lastKey(),[]);
   store("prog:"+pack.id,{best:0,runs:0,last:0});
   view="pack"; render();
 }
+
 function writableAll(){
   const F=pack.cards.fields;
   return allEntries(pack).filter(e=>F.every(f=>/^[A-Za-z]+$/.test(String(e[f.key]||""))));
 }
-/* Pesca casuale su tutti i gruppi, ma non del tutto piatta:
-   i verbi mai fatti e quelli gia sbagliati escono piu spesso. */
-function weightFor(e,st){
-  const r=st[e[pack.cards.fields[0].key]];
-  if(!r) return 3;                            /* mai incontrato */
-  if(r.errs>0) return Math.min(8, 3+r.errs);  /* ha sbagliato: torna piu spesso */
-  if(!r.ok) return 3;                         /* visto ma non ancora archiviato */
-  return 1;                                   /* lo sa */
+function vkey(e){ return e[pack.cards.fields[0].key]; }
+function rate(r){ return (r&&r.att) ? r.ok/r.att : 0; }
+function overall(){
+  const st=getStats(); let a=0,o=0;
+  for(const k in st){ a+=st[k].att||0; o+=st[k].ok||0; }
+  return { att:a, ok:o, pct: a?Math.round(o/a*100):0 };
 }
-function pickWeighted(pool,n){
+function seenList(){
   const st=getStats();
-  const bag=pool.map(e=>({e:e,w:weightFor(e,st)}));
-  const out=[];
-  while(out.length<n && bag.length){
-    let tot=0; bag.forEach(x=>{tot+=x.w;});
-    let r=Math.random()*tot, k=0;
-    for(;k<bag.length;k++){ r-=bag[k].w; if(r<=0) break; }
-    if(k>=bag.length) k=bag.length-1;
-    out.push(bag[k].e); bag.splice(k,1);
+  return writableAll().filter(e=>st[vkey(e)]);
+}
+function goalDone(){
+  const o=overall();
+  return o.att>0 && o.pct>=GOAL && seenList().length===writableAll().length;
+}
+
+/* Gli 8 verbi della prossima serie:
+   1 già sbagliato in passato (il più incerto) + 7 mai visti.
+   Quando i nuovi finiscono, subentrano i verbi con la percentuale più bassa.
+   In ogni caso: 8 verbi diversi, e si evita la serie appena fatta. */
+function pickSession(n){
+  const st=getStats(), pool=writableAll();
+  const prev=load(lastKey(),null)||[];
+  const picks=[], used={};
+  const take=e=>{ if(!used[vkey(e)]){ used[vkey(e)]=1; picks.push(e); } };
+
+  const wrong=pool.filter(e=>{ const r=st[vkey(e)]; return r && r.att>0 && r.ok<r.att; })
+                  .sort((a,b)=>rate(st[vkey(a)])-rate(st[vkey(b)]));
+  if(wrong.length) take(wrong[0]);
+
+  for(const e of shuffle(pool.filter(e=>!st[vkey(e)]))){
+    if(picks.length>=n) break; take(e);
   }
-  return out;
+  if(picks.length<n){
+    const rest=pool.filter(e=>!used[vkey(e)] && prev.indexOf(vkey(e))<0)
+                   .sort((a,b)=>rate(st[vkey(a)])-rate(st[vkey(b)]));
+    for(const e of rest){ if(picks.length>=n) break; take(e); }
+  }
+  if(picks.length<n){
+    for(const e of shuffle(pool)){ if(picks.length>=n) break; take(e); }
+  }
+  return shuffle(picks).slice(0,n);
 }
 
-/* ═══════════ MODALITÀ SCRIVI ═══════════ */
-const NEED = 2;   /* quante volte giusto per archiviare una voce */
-const MAXQ = 8;   /* voci per sessione: carico ridotto, non infinito */
-
-function writableEntries(){
-  const F=pack.cards.fields;
-  return cardEntries().filter(e=>F.every(f=>/^[A-Za-z]+$/.test(String(e[f.key]||""))));
-}
+/* ═══════════ MODALITÀ ESERCITATI ═══════════ */
 function promptFor(e){
   const c=pack.cards;
   return c.subField ? e[c.subField] : e[c.fields[c.fields.length-1].key];
@@ -589,42 +626,22 @@ function makeTiles(word){
   return shuffle(letters.concat(decoys)).map((ch,i)=>({ch:ch,id:i,used:false}));
 }
 
-/* Scheduler a scadenze: ogni voce ha un "due", cioè quante altre voci
-   devono passare prima che torni. Scende di 1 a ogni voce completata,
-   quindi nessuna può restare indietro per sempre. */
-function pickNext(){
-  const q=sess.queue;
-  if(!q.length) return -1;
-  let i=-1;
-  for(let k=0;k<q.length;k++){ if(q[k].due<=0){ i=k; break; } }
-  if(i<0){
-    let m=q[0].due;
-    for(const x of q) if(x.due<m) m=x.due;
-    for(const x of q) x.due-=m;
-    for(let k=0;k<q.length;k++){ if(q[k].due<=0){ i=k; break; } }
-  }
-  return i;
-}
-
 function startWrite(){
-  const ent=pickWeighted(writableAll(),MAXQ);
+  const ent=pickSession(SLEN);
   if(!ent.length){ alert("Non ci sono voci adatte alla scrittura."); return; }
   saved=false;
-  const items=ent.map(e=>({e:e,hits:0,tries:0,errs:0,due:0,done:false}));
-  sess={ mode:"write", queue:items.slice(), roster:items,
-         total:items.length, cleared:[], stopped:false, cur:null, last:null, ci:0,
-         errByForm:[0,0,0] };
+  sess={ mode:"write",
+         list:ent.map(e=>({e:e, wrong:0, allOk:null})),
+         i:0, cur:null, last:null, errByForm:[0,0,0], stopped:false };
   loadCur(); view="session"; render();
 }
+function curItem(){ return sess.list[sess.i]; }
 function loadCur(){
-  sess.ci=pickNext();
-  const it=sess.queue[sess.ci];
+  const it=curItem();
   if(!it){ sess.cur=null; return; }
   const F=targetFields();
   sess.cur={ fi:0, built:[], tiles:makeTiles(it.e[F[0].key]), result:null, done:[] };
 }
-function curItem(){ return sess.queue[sess.ci]; }
-
 function tapTile(id){
   const cur=sess.cur; if(!cur||cur.result!==null) return;
   const t=cur.tiles.filter(x=>x.id===id)[0];
@@ -641,7 +658,7 @@ function checkForm(){
   const target=String(it.e[F[cur.fi].key]).toLowerCase();
   if(cur.built.length!==target.length) return;
   cur.result = (cur.built.map(t=>t.ch).join("")===target);
-  if(!cur.result){ it.errs++; sess.errByForm[cur.fi]=(sess.errByForm[cur.fi]||0)+1; }
+  if(!cur.result){ it.wrong++; sess.errByForm[cur.fi]=(sess.errByForm[cur.fi]||0)+1; }
   render();
 }
 function nextForm(){
@@ -652,102 +669,102 @@ function nextForm(){
     cur.tiles=makeTiles(it.e[F[cur.fi].key]);
     render(); return;
   }
-  it.tries++;
-  const allOk = cur.done.every(Boolean);
-  if(allOk) it.hits++; else it.hits=Math.max(0,it.hits-1);
-  const cleared = allOk && it.hits>=NEED;
-
-  /* il tempo scorre per tutti gli altri */
-  sess.queue.forEach(x=>{ if(x!==it) x.due=Math.max(0,x.due-1); });
-
-  if(cleared){
-    sess.queue.splice(sess.ci,1);
-    sess.cleared.push(it);
-    it.done=true;
-    bumpStat(it.e[F[0].key], it.errs, true);
-  }else{
-    /* torna fra 3-4 voci se l'ha presa, fra 2-3 se ha sbagliato */
-    it.due = (allOk?3:2) + ((Math.random()*2)|0);
-  }
-  sess.last={ e:it.e, allOk:allOk, cleared:cleared, done:cur.done.slice(), hits:it.hits };
+  it.allOk = cur.done.every(Boolean);
+  recordVerb(vkey(it.e), it.wrong);
+  sess.last={ e:it.e, allOk:it.allOk };
   sess.cur=null; render();
 }
 function continueWrite(){
-  sess.last=null;
-  if(sess.queue.length) loadCur();
+  sess.last=null; sess.i++;
+  if(sess.i<sess.list.length) loadCur(); else sess.cur=null;
   render();
 }
 function stopWrite(){ sess.stopped=true; sess.cur=null; sess.last=null; render(); }
 
+function goalBars(){
+  const pool=writableAll(), seen=seenList().length, o=overall();
+  let h='<div class="sbar"><span class="nm">Verbi visti</span>'
+    +'<span class="tr"><i style="width:'+Math.round(seen/pool.length*100)+'%;background:var(--a1)"></i></span>'
+    +'<span class="vl">'+seen+'/'+pool.length+'</span></div>';
+  h+='<div class="sbar"><span class="nm">Risposte giuste</span>'
+    +'<span class="tr"><i style="width:'+Math.min(100,o.pct)+'%;background:var(--'
+    +(o.pct>=GOAL?"ok":"a2")+')"></i></span>'
+    +'<span class="vl">'+o.pct+'%</span></div>';
+  h+='<p class="wcount">Obiettivo: '+GOAL+'% di verbi indovinati e tutti i verbi visti almeno una volta.</p>';
+  return h;
+}
+
 function vWrite(){
   const F=targetFields(), c=pack.cards;
-  const done=sess.cleared.length, n=sess.total;
+  const answered=sess.list.filter(x=>x.allOk!==null);
+  const right=answered.filter(x=>x.allOk).length;
 
-  /* ── riepilogo ── */
+  /* ── risultato finale ── */
   if(sess.stopped || (!sess.cur && !sess.last)){
     if(!saved){
-      sess.queue.forEach(x=>{ if(x.errs>0) bumpStat(x.e[F[0].key], x.errs, false); });
       addForms(sess.errByForm);
-      const tr=sess.roster.reduce((a,x)=>a+x.tries,0);
-      pushHist({d:Date.now(), cl:sess.cleared.length, tot:sess.total,
-                err:sess.errByForm.reduce((a,b)=>a+b,0), tr:tr, bf:sess.errByForm.slice()});
+      if(answered.length){
+        store(lastKey(), answered.map(x=>vkey(x.e)));
+        pushHist({ d:Date.now(), r:right, n:answered.length,
+                   err:sess.errByForm.reduce((a,b)=>a+b,0), bf:sess.errByForm.slice() });
+      }
     }
     saveResult();
-    const tough=sess.cleared.concat(sess.queue).filter(x=>x.errs>0).sort((a,b)=>b.errs-a.errs);
-    let h='<div class="q center"><p class="score">'+done+'<span style="font-size:22px;color:var(--ink-soft)"> / '+n+'</span></p>'
+    const att=answered.length*F.length, er=sess.errByForm.reduce((a,b)=>a+b,0);
+    let h='<div class="q center"><p class="score">'+right
+      +'<span style="font-size:22px;color:var(--ink-soft)"> / '+answered.length+'</span></p>'
       +'<p class="qsub" style="margin-top:8px">'
-      +(done===n ? "Tutti archiviati. Li sai scrivere."
-         : done===0 ? "Nessuno archiviato per ora. Passa da Studia e riprova."
-         : "Archiviati "+done+" su "+n+". I mancanti restano per la prossima volta.")
+      +(right===answered.length && answered.length ? "Serie perfetta. Tutti e "+right+" i verbi giusti."
+        : right===0 ? "Nessuno completo, ma le forme giuste ci sono. Passa da Studia e riprova."
+        : right+" verbi su "+answered.length+" con tutte e tre le forme giuste.")
       +'</p></div>';
-    if(tough.length){
-      h+='<div class="card"><div class="meaning"><b>Quelli che gli sono costati</b></div><ul style="margin:8px 0 0;padding-left:20px;font-size:15px">';
-      tough.slice(0,8).forEach(x=>{
-        h+='<li style="margin-bottom:4px">'+esc(x.e[F[0].key])+' — '+x.errs+(x.errs===1?" errore":" errori")+'</li>';
-      });
-      h+='</ul></div>';
-    }
-    const tr=sess.roster.reduce((a,x)=>a+x.tries,0);
-    const att=tr*F.length, er=sess.errByForm.reduce((a,b)=>a+b,0);
+
     if(att){
-      h+='<div class="card"><div class="meaning"><b>Come è andata</b></div>';
-      h+='<p class="wcount" style="margin:8px 0 2px">'+(att-er)+' forme giuste su '+att
-        +' · '+Math.round((att-er)/att*100)+'% di precisione</p>';
+      h+='<div class="card"><div class="meaning"><b>Come è andata</b></div>'
+        +'<p class="wcount" style="margin:8px 0 2px">'+(att-er)+' forme giuste su '+att
+        +' · '+Math.round((att-er)/att*100)+'% di precisione sulle singole forme</p>';
       const mx=Math.max.apply(null,sess.errByForm.concat([1]));
       F.forEach((f,i)=>{
         const v=sess.errByForm[i]||0;
         h+='<div class="sbar"><span class="nm" style="color:var(--a'+((i%3)+1)+')">'+esc(f.label)+'</span>'
           +'<span class="tr"><i style="width:'+Math.round(v/mx*100)+'%;background:var(--a'+((i%3)+1)+')"></i></span>'
-          +'<span class="vl">'+v+(v===1?" err.":" err.")+'</span></div>';
+          +'<span class="vl">'+v+' err.</span></div>';
       });
       h+='</div>';
     }
+
+    const missed=answered.filter(x=>!x.allOk);
+    if(missed.length){
+      h+='<div class="grouphead"><h2>Da rivedere</h2><span class="count">'+missed.length+'</span></div>';
+      missed.forEach(x=>{ h+=entryCardHTML(x.e); });
+    }
+
+    h+='<div class="card">'+goalBars()+'</div>';
+    if(goalDone()) h+='<div class="verdict ok">Obiettivo raggiunto: tutti i verbi visti e oltre il '+GOAL+'%.</div>';
+
     h+='<button class="cta" onclick="shareReport()">Manda il riepilogo a papà</button>'
       +'<div class="row" style="margin-top:8px">'
-      +'<button class="cta ghost" onclick="startWrite()">Un altro giro</button>'
-      +'<button class="cta ghost" onclick="openStats()">Vedi i progressi</button></div>'
+      +'<button class="cta ghost" onclick="startWrite()">Nuova serie</button>'
+      +'<button class="cta ghost" onclick="openStats()">Statistiche</button></div>'
       +'<button class="cta ghost small" style="margin-top:8px" onclick="backToPack()">Torna all&#39;inizio</button>';
     return h;
   }
 
-  let half=0;
-  h='<div class="pips">'+sess.roster.map(x=>{
-      if(x.done) return '<i class="full"></i>';
-      if(x.hits>0){ half++; return '<i class="half"></i>'; }
-      return '<i></i>';
-    }).join("")+'</div>';
-  h+='<p class="wcount">'+done+' archiviati · '+half+' a metà · '+(n-done-half)+' da fare</p>';
+  /* ── pallini: uno per verbo, otto verbi diversi ── */
+  let h='<div class="pips">'+sess.list.map(x=>
+      x.allOk===null ? '<i></i>' : (x.allOk?'<i class="full"></i>':'<i class="ko"></i>')
+    ).join("")+'</div>';
+  h+='<p class="wcount">Verbo '+Math.min(sess.i+1,sess.list.length)+' di '+sess.list.length
+    +' · '+right+' giusti finora</p>';
 
-  /* ── verdetto sul verbo intero ── */
+  /* ── verdetto sul verbo ── */
   if(sess.last){
     const L=sess.last;
     h+='<div class="verdict '+(L.allOk?"ok":"no")+'">'
-      +(L.cleared ? "Archiviato. Non torna più."
-        : L.allOk ? "Tutte e tre giuste. Ancora una volta e lo archivio."
-        : "Qualcosa non torna. Questo verbo ritorna fra poco.")
-      +'</div>';
+      +(L.allOk?"Tutte e tre giuste.":"Questo verbo va rivisto.")+'</div>';
     h+=entryCardHTML(L.e);
-    h+='<button class="cta" onclick="continueWrite()">'+(sess.queue.length?"Avanti":"Vedi il risultato")+'</button>';
+    h+='<button class="cta" onclick="continueWrite()">'
+      +(sess.i+1<sess.list.length?"Verbo successivo":"Vedi il risultato")+'</button>';
     return h;
   }
 
@@ -784,12 +801,9 @@ function vWrite(){
   h+='</div>';
 
   if(cur.result!==null){
-    if(cur.result){
-      h+='<div class="verdict ok">'+pick(PRAISE)+'</div>';
-    }else{
-      h+='<div class="verdict no">Si scrive <b>'+esc(it.e[F[cur.fi].key])+'</b>'
+    if(cur.result) h+='<div class="verdict ok">'+pick(PRAISE)+'</div>';
+    else h+='<div class="verdict no">Si scrive <b>'+esc(it.e[F[cur.fi].key])+'</b>'
         +(c.phField&&it.e[c.phField]?'<span>Si legge: '+esc(it.e[c.phField][cur.fi])+'</span>':"")+'</div>';
-    }
     if(c.speak) h+='<button class="cta ghost small" onclick="saySlot('+regText(fieldSound(it.e,cur.fi))+')">🔊 Ascolta '+esc(it.e[F[cur.fi].key])+'</button>';
     h+='<button class="cta" onclick="nextForm()">'+(cur.fi+1<F.length?"Forma successiva":"Fine verbo")+'</button>';
     return h;
@@ -837,15 +851,13 @@ function vPack(){
   let h="";
 
   if(hasCards){
-    const F=pack.cards.fields, st=getStats(), pool=writableAll();
-    const sa=pool.filter(e=>{ const r=st[e[F[0].key]]; return r&&r.ok>0&&r.errs===0; }).length;
-    h+='<div class="wbar"><i style="width:'+(pool.length?Math.round(sa/pool.length*100):0)+'%"></i></div>'
-      +'<p class="wcount">'+sa+' verbi su '+pool.length+' li sa scrivere</p>';
+    h+='<div class="card">'+goalBars()+'</div>';
+    if(goalDone()) h+='<div class="verdict ok">Obiettivo raggiunto.</div>';
     h+='<button class="bigchoice c-study" onclick="openStudy()"><span class="t">Studia</span>'
       +'<span class="b">Le schede dei dieci gruppi, con la pronuncia. Qui nessuno ti interroga.</span></button>';
     h+='<button class="bigchoice c-drill" onclick="startWrite()"><span class="t">Esercitati</span>'
-      +'<span class="b">Otto verbi pescati da tutti i gruppi: scrivi le tre forme una lettera alla volta.</span></button>';
-    h+='<button class="cta ghost small" onclick="openStats()">Vedi i progressi</button>';
+      +'<span class="b">Una serie di otto verbi diversi, presi da tutti i gruppi: scrivi le tre forme.</span></button>';
+    h+='<button class="cta ghost small" onclick="openStats()">Statistiche</button>';
   }
 
   (pack.items||[]).filter(x=>x.type==="info").forEach(it=>{
@@ -879,14 +891,11 @@ function vStats(){
   const F=pack.cards.fields, st=getStats(), pool=writableAll();
   const forms=load(formsKey(),null)||[0,0,0];
   const hist=load(histKey(),null)||[];
-  const mastered=pool.filter(e=>{ const r=st[e[F[0].key]]; return r&&r.ok>0&&r.errs===0; });
-  const started=pool.filter(e=>st[e[F[0].key]]).length;
+  const o=overall();
 
-  let h='<div class="card"><div class="meaning"><b>Quanti verbi sa scrivere</b></div>'
-    +'<p class="score" style="font-size:38px;margin:6px 0 0">'+mastered.length
-    +'<span style="font-size:20px;color:var(--ink-soft)"> / '+pool.length+'</span></p>'
-    +'<div class="wbar" style="margin-top:10px"><i style="width:'+Math.round(mastered.length/pool.length*100)+'%"></i></div>'
-    +'<p class="wcount">'+started+' incontrati almeno una volta · '+(pool.length-started)+' mai visti</p></div>';
+  let h='<div class="card">';
+  if(goalDone()) h+='<div class="verdict ok" style="margin-bottom:12px">Obiettivo raggiunto.</div>';
+  h+='<div class="meaning"><b>L&#39;obiettivo</b></div><div style="margin-top:8px">'+goalBars()+'</div></div>';
 
   const tot=forms.reduce((a,b)=>a+b,0);
   h+='<div class="card"><div class="meaning"><b>Dove si perde di più</b></div>';
@@ -898,61 +907,76 @@ function vStats(){
         +'<span class="tr"><i style="width:'+Math.round(v/mx*100)+'%;background:var(--a'+((i%3)+1)+')"></i></span>'
         +'<span class="vl">'+Math.round(v/tot*100)+'%</span></div>';
     });
-    h+='<p class="wcount" style="margin-top:8px">'+tot+' errori in tutto, divisi fra le tre forme.</p>';
+    h+='<p class="wcount" style="margin-top:8px">'+tot+' forme sbagliate in tutto, divise fra le tre colonne.</p>';
   }else h+='<p class="wcount" style="margin-top:6px">Ancora nessun errore registrato.</p>';
   h+='</div>';
 
-  const tough=pool.map(e=>({e:e,r:st[e[F[0].key]]})).filter(x=>x.r&&x.r.errs>0)
-                  .sort((a,b)=>b.r.errs-a.r.errs).slice(0,10);
-  if(tough.length){
-    h+='<div class="card"><div class="meaning"><b>I verbi che gli costano</b></div>'
-      +'<table class="hist"><tbody>';
-    tough.forEach(x=>{
-      h+='<tr><td><b>'+esc(x.e[F[0].key])+'</b> — '+esc(x.e[pack.cards.subField]||"")+'</td>'
-        +'<td>'+x.r.errs+(x.r.errs===1?" errore":" errori")+'</td></tr>';
+  const done=pool.filter(e=>st[vkey(e)])
+                 .sort((a,b)=>rate(st[vkey(a)])-rate(st[vkey(b)]) || vkey(a).localeCompare(vkey(b)));
+  h+='<div class="card"><div class="meaning"><b>Verbo per verbo</b></div>'
+    +'<p class="wcount" style="margin:4px 0 8px">'+done.length+' esercitati, dal più incerto al più sicuro.</p>';
+  if(done.length){
+    h+='<table class="hist"><tbody>';
+    done.forEach(e=>{
+      const r=st[vkey(e)], p=Math.round(rate(r)*100);
+      const col = p>=GOAL ? "var(--ok)" : p>=50 ? "var(--a2)" : "var(--wait)";
+      h+='<tr><td><b>'+esc(vkey(e))+'</b> <span style="color:var(--ink-soft)">— '
+        +esc(e[pack.cards.subField]||"")+'</span></td>'
+        +'<td style="white-space:nowrap"><b style="color:'+col+'">'+p+'%</b> '
+        +'<span style="color:var(--ink-soft);font-size:12.5px">('+r.ok+'/'+r.att+')</span></td></tr>';
     });
-    h+='</tbody></table></div>';
+    h+='</tbody></table>';
   }
+  const never=pool.length-done.length;
+  if(never) h+='<p class="wcount" style="margin-top:10px">Mancano ancora '+never+' verbi mai visti.</p>';
+  h+='</div>';
 
   if(hist.length){
-    h+='<div class="card"><div class="meaning"><b>Le ultime sessioni</b></div>'
-      +'<table class="hist"><tbody>';
-    hist.slice(0,10).forEach(r=>{
+    h+='<div class="card"><div class="meaning"><b>Le serie fatte</b></div><table class="hist"><tbody>';
+    hist.slice(0,15).forEach(r=>{
       const d=new Date(r.d);
-      const att=(r.tr||0)*F.length;
-      h+='<tr><td>'+d.toLocaleDateString("it-IT")+' '+String(d.getHours()).padStart(2,"0")+':'+String(d.getMinutes()).padStart(2,"0")+'</td>'
-        +'<td>'+r.cl+'/'+r.tot+' archiviati'+(att?' · '+Math.round((att-r.err)/att*100)+'%':"")+'</td></tr>';
+      h+='<tr><td>'+d.toLocaleDateString("it-IT")+' '
+        +String(d.getHours()).padStart(2,"0")+':'+String(d.getMinutes()).padStart(2,"0")+'</td>'
+        +'<td>'+r.r+'/'+r.n+' verbi'+(r.err?' · '+r.err+' forme sbagliate':' · nessun errore')+'</td></tr>';
     });
     h+='</tbody></table></div>';
   }
 
-  h+='<button class="cta" onclick="shareStats()">Manda i progressi a papà</button>'
+  h+='<button class="cta" onclick="shareStats()">Manda le statistiche a papà</button>'
     +'<button class="cta ghost small" style="margin-top:8px" onclick="resetProgress()">Azzera i progressi</button>';
   return h;
 }
+
 async function shareStats(){
   const F=pack.cards.fields, st=getStats(), pool=writableAll();
   const forms=load(formsKey(),null)||[0,0,0];
   const hist=load(histKey(),null)||[];
-  const mastered=pool.filter(e=>{ const r=st[e[F[0].key]]; return r&&r.ok>0&&r.errs===0; }).length;
+  const o=overall(), seen=seenList().length;
   const tot=forms.reduce((a,b)=>a+b,0);
-  let t=pack.title+" — progressi al "+new Date().toLocaleDateString("it-IT")
-    +"\n"+mastered+" verbi su "+pool.length+" li sa scrivere"
-    +"\nSessioni fatte: "+hist.length;
+
+  let t=pack.title+" — statistiche al "+new Date().toLocaleDateString("it-IT")
+    +"\nVerbi visti: "+seen+" su "+pool.length
+    +"\nVerbi indovinati: "+o.pct+"% (obiettivo "+GOAL+"%)"
+    +"\nSerie fatte: "+hist.length;
+  if(goalDone()) t+="\nObiettivo raggiunto.";
   if(tot){
-    t+="\nErrori per forma:";
+    t+="\nForme sbagliate:";
     F.forEach((f,i)=>{ t+="\n  "+f.label+": "+(forms[i]||0)+" ("+Math.round((forms[i]||0)/tot*100)+"%)"; });
   }
-  const tough=pool.map(e=>({v:e[F[0].key],r:st[e[F[0].key]]})).filter(x=>x.r&&x.r.errs>0)
-                  .sort((a,b)=>b.r.errs-a.r.errs).slice(0,10);
-  if(tough.length){
-    t+="\nVerbi più difficili:";
-    tough.forEach(x=>{ t+="\n  "+x.v+" ("+x.r.errs+")"; });
+  const weak=pool.filter(e=>st[vkey(e)] && rate(st[vkey(e)])<GOAL/100)
+                 .sort((a,b)=>rate(st[vkey(a)])-rate(st[vkey(b)]));
+  if(weak.length){
+    t+="\nSotto il "+GOAL+"%:";
+    weak.slice(0,15).forEach(e=>{
+      const r=st[vkey(e)];
+      t+="\n  "+vkey(e)+" "+Math.round(rate(r)*100)+"% ("+r.ok+"/"+r.att+")";
+    });
+    if(weak.length>15) t+="\n  ...e altri "+(weak.length-15);
   }
   try{
     if(navigator.share){ await navigator.share({text:t}); return; }
     await navigator.clipboard.writeText(t);
-    alert("Progressi copiati. Incollali nel messaggio a papà.");
+    alert("Statistiche copiate. Incollale nel messaggio a papà.");
   }catch(e){ alert(t); }
 }
 
@@ -1054,7 +1078,7 @@ function render(){
   }else{
     b.hidden=false;
     t.textContent = pack ? pack.title : "Palestra";
-    st.textContent = view==="study" ? "Studia" : view==="session" ? "Esercitati" : view==="stats" ? "I progressi" : (pack?pack.subject:"");
+    st.textContent = view==="study" ? "Studia" : view==="session" ? "Esercitati" : view==="stats" ? "Statistiche" : (pack?pack.subject:"");
   }
   $("#app").innerHTML = view==="home" ? vHome()
     : view==="pack" ? vPack()
