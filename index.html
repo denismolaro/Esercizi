@@ -161,6 +161,18 @@ input[type=text]:disabled{opacity:1}
 .bigchoice .b{display:block;font-size:14.5px;color:var(--ink-soft);margin-top:5px}
 .c-study{border-left-color:var(--a1)} .c-study .t{color:var(--a1)}
 .c-drill{border-left-color:var(--a2)} .c-drill .t{color:var(--a2)}
+.pips{display:flex;gap:5px;margin-bottom:7px}
+.pips i{height:10px;flex:1;border-radius:5px;background:var(--line);position:relative;overflow:hidden}
+.pips i.half::after{content:"";position:absolute;left:0;top:0;bottom:0;width:50%;background:var(--a2)}
+.pips i.full{background:var(--ok)}
+.sbar{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:14px}
+.sbar .nm{min-width:108px;font-weight:700;font-size:13px}
+.sbar .tr{flex:1;height:11px;background:var(--line);border-radius:6px;overflow:hidden}
+.sbar .tr i{display:block;height:100%;border-radius:6px}
+.sbar .vl{min-width:46px;text-align:right;color:var(--ink-soft);font-size:13px}
+.hist{width:100%;font-size:14px;border-collapse:collapse}
+.hist td{padding:6px 0;border-bottom:1px solid var(--line)}
+.hist td:last-child{text-align:right;color:var(--ink-soft)}
 .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-size:14px;margin-bottom:14px}
 .switch{display:flex;align-items:center;gap:8px;cursor:pointer}
 .switch input{width:20px;height:20px;accent-color:var(--a1)}
@@ -200,7 +212,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "3";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "4";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -315,6 +327,7 @@ function goHome(){ view="home"; pack=null; sess=null; render(); }
 function openPack(i){ pack=PACKS[i]; groupIdx=0; view="pack"; sess=null; render(); }
 function backToPack(){ view="pack"; sess=null; render(); }
 function openStudy(){ view="study"; render(); }
+function openStats(){ view="stats"; sess=null; render(); }
 
 /* ═══════════ SCHEDE ═══════════ */
 function cardEntries(){
@@ -504,6 +517,23 @@ function bumpStat(key,errs,cleared){
   if(cleared){ r.ok++; if(errs===0) r.errs=0; }
   st[key]=r; store(statsKey(),st);
 }
+function formsKey(){ return "forms:"+pack.id; }
+function histKey(){ return "hist:"+pack.id; }
+function addForms(arr){
+  const cur=load(formsKey(),null)||[0,0,0];
+  for(let i=0;i<arr.length;i++) cur[i]=(cur[i]||0)+arr[i];
+  store(formsKey(),cur);
+}
+function pushHist(rec){
+  const h=load(histKey(),null)||[];
+  h.unshift(rec); store(histKey(), h.slice(0,30));
+}
+function resetProgress(){
+  if(!confirm("Azzero tutti i progressi di questo argomento. Sicuro?")) return;
+  store(statsKey(),{}); store(formsKey(),[0,0,0]); store(histKey(),[]);
+  store("prog:"+pack.id,{best:0,runs:0,last:0});
+  view="pack"; render();
+}
 function writableAll(){
   const F=pack.cards.fields;
   return allEntries(pack).filter(e=>F.every(f=>/^[A-Za-z]+$/.test(String(e[f.key]||""))));
@@ -580,8 +610,10 @@ function startWrite(){
   const ent=pickWeighted(writableAll(),MAXQ);
   if(!ent.length){ alert("Non ci sono voci adatte alla scrittura."); return; }
   saved=false;
-  sess={ mode:"write", queue:ent.map(e=>({e:e,hits:0,tries:0,errs:0,due:0})),
-         total:ent.length, cleared:[], stopped:false, cur:null, last:null, ci:0 };
+  const items=ent.map(e=>({e:e,hits:0,tries:0,errs:0,due:0,done:false}));
+  sess={ mode:"write", queue:items.slice(), roster:items,
+         total:items.length, cleared:[], stopped:false, cur:null, last:null, ci:0,
+         errByForm:[0,0,0] };
   loadCur(); view="session"; render();
 }
 function loadCur(){
@@ -609,7 +641,7 @@ function checkForm(){
   const target=String(it.e[F[cur.fi].key]).toLowerCase();
   if(cur.built.length!==target.length) return;
   cur.result = (cur.built.map(t=>t.ch).join("")===target);
-  if(!cur.result) it.errs++;
+  if(!cur.result){ it.errs++; sess.errByForm[cur.fi]=(sess.errByForm[cur.fi]||0)+1; }
   render();
 }
 function nextForm(){
@@ -622,7 +654,7 @@ function nextForm(){
   }
   it.tries++;
   const allOk = cur.done.every(Boolean);
-  if(allOk) it.hits++; else it.hits=0;
+  if(allOk) it.hits++; else it.hits=Math.max(0,it.hits-1);
   const cleared = allOk && it.hits>=NEED;
 
   /* il tempo scorre per tutti gli altri */
@@ -631,6 +663,7 @@ function nextForm(){
   if(cleared){
     sess.queue.splice(sess.ci,1);
     sess.cleared.push(it);
+    it.done=true;
     bumpStat(it.e[F[0].key], it.errs, true);
   }else{
     /* torna fra 3-4 voci se l'ha presa, fra 2-3 se ha sbagliato */
@@ -652,7 +685,13 @@ function vWrite(){
 
   /* ── riepilogo ── */
   if(sess.stopped || (!sess.cur && !sess.last)){
-    if(!saved) sess.queue.forEach(x=>{ if(x.errs>0) bumpStat(x.e[F[0].key], x.errs, false); });
+    if(!saved){
+      sess.queue.forEach(x=>{ if(x.errs>0) bumpStat(x.e[F[0].key], x.errs, false); });
+      addForms(sess.errByForm);
+      const tr=sess.roster.reduce((a,x)=>a+x.tries,0);
+      pushHist({d:Date.now(), cl:sess.cleared.length, tot:sess.total,
+                err:sess.errByForm.reduce((a,b)=>a+b,0), tr:tr, bf:sess.errByForm.slice()});
+    }
     saveResult();
     const tough=sess.cleared.concat(sess.queue).filter(x=>x.errs>0).sort((a,b)=>b.errs-a.errs);
     let h='<div class="q center"><p class="score">'+done+'<span style="font-size:22px;color:var(--ink-soft)"> / '+n+'</span></p>'
@@ -668,15 +707,36 @@ function vWrite(){
       });
       h+='</ul></div>';
     }
+    const tr=sess.roster.reduce((a,x)=>a+x.tries,0);
+    const att=tr*F.length, er=sess.errByForm.reduce((a,b)=>a+b,0);
+    if(att){
+      h+='<div class="card"><div class="meaning"><b>Come è andata</b></div>';
+      h+='<p class="wcount" style="margin:8px 0 2px">'+(att-er)+' forme giuste su '+att
+        +' · '+Math.round((att-er)/att*100)+'% di precisione</p>';
+      const mx=Math.max.apply(null,sess.errByForm.concat([1]));
+      F.forEach((f,i)=>{
+        const v=sess.errByForm[i]||0;
+        h+='<div class="sbar"><span class="nm" style="color:var(--a'+((i%3)+1)+')">'+esc(f.label)+'</span>'
+          +'<span class="tr"><i style="width:'+Math.round(v/mx*100)+'%;background:var(--a'+((i%3)+1)+')"></i></span>'
+          +'<span class="vl">'+v+(v===1?" err.":" err.")+'</span></div>';
+      });
+      h+='</div>';
+    }
     h+='<button class="cta" onclick="shareReport()">Manda il riepilogo a papà</button>'
       +'<div class="row" style="margin-top:8px">'
       +'<button class="cta ghost" onclick="startWrite()">Un altro giro</button>'
-      +'<button class="cta ghost" onclick="backToPack()">Torna all&#39;inizio</button></div>';
+      +'<button class="cta ghost" onclick="openStats()">Vedi i progressi</button></div>'
+      +'<button class="cta ghost small" style="margin-top:8px" onclick="backToPack()">Torna all&#39;inizio</button>';
     return h;
   }
 
-  let h='<div class="wbar"><i style="width:'+Math.round(done/n*100)+'%"></i></div>'
-       +'<p class="wcount">'+done+' di '+n+' archiviati · '+sess.queue.length+' ancora nel mazzo</p>';
+  let half=0;
+  h='<div class="pips">'+sess.roster.map(x=>{
+      if(x.done) return '<i class="full"></i>';
+      if(x.hits>0){ half++; return '<i class="half"></i>'; }
+      return '<i></i>';
+    }).join("")+'</div>';
+  h+='<p class="wcount">'+done+' archiviati · '+half+' a metà · '+(n-done-half)+' da fare</p>';
 
   /* ── verdetto sul verbo intero ── */
   if(sess.last){
@@ -785,6 +845,7 @@ function vPack(){
       +'<span class="b">Le schede dei dieci gruppi, con la pronuncia. Qui nessuno ti interroga.</span></button>';
     h+='<button class="bigchoice c-drill" onclick="startWrite()"><span class="t">Esercitati</span>'
       +'<span class="b">Otto verbi pescati da tutti i gruppi: scrivi le tre forme una lettera alla volta.</span></button>';
+    h+='<button class="cta ghost small" onclick="openStats()">Vedi i progressi</button>';
   }
 
   (pack.items||[]).filter(x=>x.type==="info").forEach(it=>{
@@ -812,6 +873,87 @@ function vStudy(){
   h+='<p class="wcount" style="margin-bottom:10px">Tocca una forma per sentire come si pronuncia.</p>';
   cardEntries().forEach(e=>{ h+=entryCardHTML(e); });
   return h;
+}
+
+function vStats(){
+  const F=pack.cards.fields, st=getStats(), pool=writableAll();
+  const forms=load(formsKey(),null)||[0,0,0];
+  const hist=load(histKey(),null)||[];
+  const mastered=pool.filter(e=>{ const r=st[e[F[0].key]]; return r&&r.ok>0&&r.errs===0; });
+  const started=pool.filter(e=>st[e[F[0].key]]).length;
+
+  let h='<div class="card"><div class="meaning"><b>Quanti verbi sa scrivere</b></div>'
+    +'<p class="score" style="font-size:38px;margin:6px 0 0">'+mastered.length
+    +'<span style="font-size:20px;color:var(--ink-soft)"> / '+pool.length+'</span></p>'
+    +'<div class="wbar" style="margin-top:10px"><i style="width:'+Math.round(mastered.length/pool.length*100)+'%"></i></div>'
+    +'<p class="wcount">'+started+' incontrati almeno una volta · '+(pool.length-started)+' mai visti</p></div>';
+
+  const tot=forms.reduce((a,b)=>a+b,0);
+  h+='<div class="card"><div class="meaning"><b>Dove si perde di più</b></div>';
+  if(tot){
+    const mx=Math.max.apply(null,forms.concat([1]));
+    F.forEach((f,i)=>{
+      const v=forms[i]||0;
+      h+='<div class="sbar"><span class="nm" style="color:var(--a'+((i%3)+1)+')">'+esc(f.label)+'</span>'
+        +'<span class="tr"><i style="width:'+Math.round(v/mx*100)+'%;background:var(--a'+((i%3)+1)+')"></i></span>'
+        +'<span class="vl">'+Math.round(v/tot*100)+'%</span></div>';
+    });
+    h+='<p class="wcount" style="margin-top:8px">'+tot+' errori in tutto, divisi fra le tre forme.</p>';
+  }else h+='<p class="wcount" style="margin-top:6px">Ancora nessun errore registrato.</p>';
+  h+='</div>';
+
+  const tough=pool.map(e=>({e:e,r:st[e[F[0].key]]})).filter(x=>x.r&&x.r.errs>0)
+                  .sort((a,b)=>b.r.errs-a.r.errs).slice(0,10);
+  if(tough.length){
+    h+='<div class="card"><div class="meaning"><b>I verbi che gli costano</b></div>'
+      +'<table class="hist"><tbody>';
+    tough.forEach(x=>{
+      h+='<tr><td><b>'+esc(x.e[F[0].key])+'</b> — '+esc(x.e[pack.cards.subField]||"")+'</td>'
+        +'<td>'+x.r.errs+(x.r.errs===1?" errore":" errori")+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  if(hist.length){
+    h+='<div class="card"><div class="meaning"><b>Le ultime sessioni</b></div>'
+      +'<table class="hist"><tbody>';
+    hist.slice(0,10).forEach(r=>{
+      const d=new Date(r.d);
+      const att=(r.tr||0)*F.length;
+      h+='<tr><td>'+d.toLocaleDateString("it-IT")+' '+String(d.getHours()).padStart(2,"0")+':'+String(d.getMinutes()).padStart(2,"0")+'</td>'
+        +'<td>'+r.cl+'/'+r.tot+' archiviati'+(att?' · '+Math.round((att-r.err)/att*100)+'%':"")+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  h+='<button class="cta" onclick="shareStats()">Manda i progressi a papà</button>'
+    +'<button class="cta ghost small" style="margin-top:8px" onclick="resetProgress()">Azzera i progressi</button>';
+  return h;
+}
+async function shareStats(){
+  const F=pack.cards.fields, st=getStats(), pool=writableAll();
+  const forms=load(formsKey(),null)||[0,0,0];
+  const hist=load(histKey(),null)||[];
+  const mastered=pool.filter(e=>{ const r=st[e[F[0].key]]; return r&&r.ok>0&&r.errs===0; }).length;
+  const tot=forms.reduce((a,b)=>a+b,0);
+  let t=pack.title+" — progressi al "+new Date().toLocaleDateString("it-IT")
+    +"\n"+mastered+" verbi su "+pool.length+" li sa scrivere"
+    +"\nSessioni fatte: "+hist.length;
+  if(tot){
+    t+="\nErrori per forma:";
+    F.forEach((f,i)=>{ t+="\n  "+f.label+": "+(forms[i]||0)+" ("+Math.round((forms[i]||0)/tot*100)+"%)"; });
+  }
+  const tough=pool.map(e=>({v:e[F[0].key],r:st[e[F[0].key]]})).filter(x=>x.r&&x.r.errs>0)
+                  .sort((a,b)=>b.r.errs-a.r.errs).slice(0,10);
+  if(tough.length){
+    t+="\nVerbi più difficili:";
+    tough.forEach(x=>{ t+="\n  "+x.v+" ("+x.r.errs+")"; });
+  }
+  try{
+    if(navigator.share){ await navigator.share({text:t}); return; }
+    await navigator.clipboard.writeText(t);
+    alert("Progressi copiati. Incollali nel messaggio a papà.");
+  }catch(e){ alert(t); }
 }
 
 function vSession(){
@@ -912,17 +1054,18 @@ function render(){
   }else{
     b.hidden=false;
     t.textContent = pack ? pack.title : "Palestra";
-    st.textContent = view==="study" ? "Studia" : view==="session" ? "Esercitati" : (pack?pack.subject:"");
+    st.textContent = view==="study" ? "Studia" : view==="session" ? "Esercitati" : view==="stats" ? "I progressi" : (pack?pack.subject:"");
   }
   $("#app").innerHTML = view==="home" ? vHome()
     : view==="pack" ? vPack()
-    : view==="study" ? vStudy() : vSession();
+    : view==="study" ? vStudy()
+    : view==="stats" ? vStats() : vSession();
   $("#foot").textContent = ((view==="home" && PACKS.length) ? PACKS.length+" argomenti · " : "") + "versione "+APPVER;
   window.scrollTo(0,0);
   const ni=$("#numin");
   if(ni && sess && !sess.answered){ try{ ni.focus({preventScroll:true}); }catch(e){} }
 }
-function goBack(){ if(view==='session'||view==='study'){ backToPack(); } else { goHome(); } }
+function goBack(){ if(view==='session'||view==='study'||view==='stats'){ backToPack(); } else { goHome(); } }
 
 /* avvio */
 fetchPacks(false);
