@@ -200,6 +200,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
+const APPVER = "3";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -916,7 +917,7 @@ function render(){
   $("#app").innerHTML = view==="home" ? vHome()
     : view==="pack" ? vPack()
     : view==="study" ? vStudy() : vSession();
-  $("#foot").textContent = (view==="home" && PACKS.length) ? PACKS.length+" argomenti disponibili" : "";
+  $("#foot").textContent = ((view==="home" && PACKS.length) ? PACKS.length+" argomenti · " : "") + "versione "+APPVER;
   window.scrollTo(0,0);
   const ni=$("#numin");
   if(ni && sess && !sess.answered){ try{ ni.focus({preventScroll:true}); }catch(e){} }
