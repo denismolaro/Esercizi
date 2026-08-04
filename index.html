@@ -166,6 +166,8 @@ input[type=text]:disabled{opacity:1}
 .pips i.half::after{content:"";position:absolute;left:0;top:0;bottom:0;width:50%;background:var(--a2)}
 .pips i.full{background:var(--ok)}
 .pips i.ko{background:var(--wait)}
+.tapskip{cursor:pointer}
+.tapskip .verdict{animation:none}
 .sbar{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:14px}
 .sbar .nm{min-width:108px;font-weight:700;font-size:13px}
 .sbar .tr{flex:1;height:11px;background:var(--line);border-radius:6px;overflow:hidden}
@@ -213,7 +215,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "5";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "7";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -324,11 +326,11 @@ async function fetchPacks(force){
 
 /* ═══════════ STATO ═══════════ */
 let view="home", pack=null, groupIdx=0, sess=null;
-function goHome(){ view="home"; pack=null; sess=null; render(); }
+function goHome(){ clearTimer(); view="home"; pack=null; sess=null; render(); }
 function openPack(i){ pack=PACKS[i]; groupIdx=0; view="pack"; sess=null; render(); }
-function backToPack(){ view="pack"; sess=null; render(); }
+function backToPack(){ clearTimer(); view="pack"; sess=null; render(); }
 function openStudy(){ view="study"; render(); }
-function openStats(){ view="stats"; sess=null; render(); }
+function openStats(){ clearTimer(); view="stats"; sess=null; render(); }
 
 /* ═══════════ SCHEDE ═══════════ */
 function cardEntries(){
@@ -339,19 +341,19 @@ function allEntries(p){
   const c=p.cards; if(!c) return [];
   return c.groups ? c.groups.reduce((a,g)=>a.concat(g.entries),[]) : (c.entries||[]);
 }
-function entryCardHTML(e){
+function entryCardHTML(e,muta){
   const c=pack.cards, F=c.fields, ei=regEntry(e);
   const sub = c.subField ? e[c.subField] : "";
   let h='<div class="card"><div class="top"><div class="meaning"><b>'+esc(e[F[0].key])+'</b>'+(sub?" — "+esc(sub):"")+'</div>';
-  if(c.speak) h+='<button class="linkish" onclick="speakAll('+ei+')">▶ Ascolta tutte</button>';
+  if(c.speak && !muta) h+='<button class="linkish" onclick="speakAll('+ei+')">▶ Ascolta tutte</button>';
   h+='</div><div class="trio" style="grid-template-columns:repeat('+F.length+',1fr)">';
   F.forEach((f,i)=>{
     const ph = c.phField && e[c.phField] ? e[c.phField][i] : "";
-    h+='<button class="form f'+(i%3)+'" onclick="speakField('+ei+','+i+')">'
+    h+='<'+(muta?'div':'button')+' class="form f'+(i%3)+'"'+(muta?'':' onclick="speakField('+ei+','+i+')"')+'>'
       +'<span class="lab">'+esc(f.label)+'</span>'
       +'<span class="word">'+esc(e[f.key])+'</span>'
       +(ph?'<span class="ph">'+esc(ph)+'</span>':"")
-      +(c.speak?'<span class="spk">🔊</span>':"")+'</button>';
+      +(c.speak&&!muta?'<span class="spk">🔊</span>':"")+'</'+(muta?'div':'button')+'>';
   });
   h+='</div>';
   if(e.trap) h+='<div class="trap">⚠️ '+e.trap+'</div>';
@@ -525,6 +527,32 @@ async function shareReport(){
    last  → i verbi dell'ultima serie, per non riproporli
    forms → errori divisi fra base / past simple / past participle
    hist  → una riga per ogni serie completata                        */
+/* Pause automatiche, in millisecondi. Toccando lo schermo si salta l'attesa. */
+let PAUSE_OK      = 700;    /* forma giusta: basta un lampo di conferma */
+let PAUSE_KO      = 2200;   /* forma sbagliata: c'e da leggere la grafia giusta */
+let PAUSE_VERB_OK = 1000;   /* verbo giusto */
+let PAUSE_VERB_KO = 2500;   /* verbo sbagliato: la scheda con le tre forme */
+let   timer = null, voiceTimer = null;
+function clearTimer(){
+  if(timer){ clearTimeout(timer); timer=null; }
+  if(voiceTimer){ clearTimeout(voiceTimer); voiceTimer=null; }
+}
+/* breve suono discendente per l'errore, generato al volo: nessun file da scaricare */
+function beep(){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
+    const ctx=new AC(), o=ctx.createOscillator(), gn=ctx.createGain();
+    o.type="square";
+    o.frequency.setValueAtTime(233,ctx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(117,ctx.currentTime+0.16);
+    gn.gain.setValueAtTime(0.16,ctx.currentTime);
+    gn.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.2);
+    o.connect(gn); gn.connect(ctx.destination);
+    o.start(); o.stop(ctx.currentTime+0.22);
+    setTimeout(()=>{ try{ ctx.close(); }catch(e){} },700);
+  }catch(e){}
+}
+
 const GOAL  = 80;   /* obiettivo: percentuale di verbi indovinati */
 const SLEN  = 8;    /* verbi per serie, tutti diversi */
 
@@ -627,6 +655,7 @@ function makeTiles(word){
 }
 
 function startWrite(){
+  clearTimer();
   const ent=pickSession(SLEN);
   if(!ent.length){ alert("Non ci sono voci adatte alla scrittura."); return; }
   saved=false;
@@ -660,8 +689,22 @@ function checkForm(){
   cur.result = (cur.built.map(t=>t.ch).join("")===target);
   if(!cur.result){ it.wrong++; sess.errByForm[cur.fi]=(sess.errByForm[cur.fi]||0)+1; }
   render();
+  clearTimer();
+  const suono = pack.cards.speak ? fieldSound(it.e,cur.fi) : null;
+  if(cur.result){
+    /* la voce parte dentro il gesto dell'utente: su iPad una pronuncia
+       avviata da un timer verrebbe zittita dal sistema */
+    if(suono) say(suono, pack.lang);
+    timer=setTimeout(nextForm, PAUSE_OK);
+  }else{
+    beep();
+    if(suono) voiceTimer=setTimeout(()=>say(suono, pack.lang), 380);
+    /* nessun avanzamento automatico: si aspetta il tocco */
+  }
 }
 function nextForm(){
+  clearTimer();
+  if(!sess || sess.mode!=="write" || !sess.cur) return;
   const cur=sess.cur, it=curItem(), F=targetFields();
   cur.done.push(cur.result);
   if(cur.fi+1 < F.length){
@@ -673,13 +716,16 @@ function nextForm(){
   recordVerb(vkey(it.e), it.wrong);
   sess.last={ e:it.e, allOk:it.allOk };
   sess.cur=null; render();
+  timer=setTimeout(continueWrite, it.allOk ? PAUSE_VERB_OK : PAUSE_VERB_KO);
 }
 function continueWrite(){
+  clearTimer();
+  if(!sess || sess.mode!=="write" || !sess.last) return;
   sess.last=null; sess.i++;
   if(sess.i<sess.list.length) loadCur(); else sess.cur=null;
   render();
 }
-function stopWrite(){ sess.stopped=true; sess.cur=null; sess.last=null; render(); }
+function stopWrite(){ clearTimer(); sess.stopped=true; sess.cur=null; sess.last=null; render(); }
 
 function goalBars(){
   const pool=writableAll(), seen=seenList().length, o=overall();
@@ -760,11 +806,11 @@ function vWrite(){
   /* ── verdetto sul verbo ── */
   if(sess.last){
     const L=sess.last;
-    h+='<div class="verdict '+(L.allOk?"ok":"no")+'">'
+    h+='<div class="tapskip" onclick="continueWrite()">'
+      +'<div class="verdict '+(L.allOk?"ok":"no")+'">'
       +(L.allOk?"Tutte e tre giuste.":"Questo verbo va rivisto.")+'</div>';
-    h+=entryCardHTML(L.e);
-    h+='<button class="cta" onclick="continueWrite()">'
-      +(sess.i+1<sess.list.length?"Verbo successivo":"Vedi il risultato")+'</button>';
+    h+=entryCardHTML(L.e,true);
+    h+='</div>';
     return h;
   }
 
@@ -801,11 +847,14 @@ function vWrite(){
   h+='</div>';
 
   if(cur.result!==null){
-    if(cur.result) h+='<div class="verdict ok">'+pick(PRAISE)+'</div>';
-    else h+='<div class="verdict no">Si scrive <b>'+esc(it.e[F[cur.fi].key])+'</b>'
+    if(cur.result){
+      h+='<div class="tapskip" onclick="nextForm()"><div class="verdict ok">'+pick(PRAISE)+'</div></div>';
+    }else{
+      h+='<div class="verdict no">Si scrive <b>'+esc(it.e[F[cur.fi].key])+'</b>'
         +(c.phField&&it.e[c.phField]?'<span>Si legge: '+esc(it.e[c.phField][cur.fi])+'</span>':"")+'</div>';
-    if(c.speak) h+='<button class="cta ghost small" onclick="saySlot('+regText(fieldSound(it.e,cur.fi))+')">🔊 Ascolta '+esc(it.e[F[cur.fi].key])+'</button>';
-    h+='<button class="cta" onclick="nextForm()">'+(cur.fi+1<F.length?"Forma successiva":"Fine verbo")+'</button>';
+      h+='<button class="cta" onclick="nextForm()">'
+        +(cur.fi+1<F.length?"Forma successiva":"Fine verbo")+'</button>';
+    }
     return h;
   }
 
