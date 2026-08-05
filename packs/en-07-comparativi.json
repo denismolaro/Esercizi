@@ -1,0 +1,211 @@
+{
+ "id": "en-07-comparativi",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "7. Comparativi e superlativi",
+ "items": [
+  {
+   "type": "info",
+   "title": "La regola dipende dalla lunghezza",
+   "html": "<b>Aggettivi corti</b> (una sillaba):<br>comparativo <b>-er + than</b> → <i>tall→taller than</i><br>superlativo <b>the -est</b> → <i>the tallest</i><br><br><b>Aggettivi lunghi</b> (due sillabe o più):<br>comparativo <b>more … than</b> → <i>more expensive than</i><br>superlativo <b>the most …</b> → <i>the most expensive</i><br><br><b>Irregolari:</b> good → better → the best &nbsp;·&nbsp; bad → worse → the worst &nbsp;·&nbsp; far → further → the furthest<br><br>Uguali: <b>as … as</b> → <i>as tall as</i>"
+  },
+  {
+   "type": "info",
+   "title": "Due trappole",
+   "html": "• Non si mettono insieme: <i>more taller</i> è sbagliato. O -er, o more.<br>• Nel comparativo ci vuole <b>than</b>, non that."
+  },
+  {
+   "type": "mc",
+   "lab": "Comparativo corto",
+   "prompt": "My brother is ___ me.",
+   "options": [
+    "taller than",
+    "more tall than",
+    "tallest than",
+    "taller that"
+   ],
+   "answer": "taller than",
+   "why": "Aggettivo corto: -er + than."
+  },
+  {
+   "type": "mc",
+   "lab": "Comparativo lungo",
+   "prompt": "This book is ___ the other one.",
+   "options": [
+    "more interesting than",
+    "interestinger than",
+    "most interesting than",
+    "more interesting that"
+   ],
+   "answer": "more interesting than",
+   "why": "Aggettivo lungo: more + aggettivo + than."
+  },
+  {
+   "type": "mc",
+   "lab": "Superlativo corto",
+   "prompt": "Everest is ___ mountain in the world.",
+   "options": [
+    "the highest",
+    "the most high",
+    "higher",
+    "highest than"
+   ],
+   "answer": "the highest",
+   "why": "Superlativo di aggettivo corto: the + -est."
+  },
+  {
+   "type": "mc",
+   "lab": "Superlativo lungo",
+   "prompt": "It's ___ film I've ever seen.",
+   "options": [
+    "the most beautiful",
+    "the beautifullest",
+    "more beautiful",
+    "the beautiful most"
+   ],
+   "answer": "the most beautiful",
+   "why": "Aggettivo lungo: the most + aggettivo."
+  },
+  {
+   "type": "mc",
+   "lab": "Irregolare",
+   "prompt": "This exercise is ___ the last one.",
+   "options": [
+    "better than",
+    "gooder than",
+    "more good than",
+    "the best than"
+   ],
+   "answer": "better than",
+   "why": "good fa better, mai gooder."
+  },
+  {
+   "type": "mc",
+   "lab": "Irregolare",
+   "prompt": "That was ___ day of my life.",
+   "options": [
+    "the worst",
+    "the baddest",
+    "worse",
+    "the more bad"
+   ],
+   "answer": "the worst",
+   "why": "bad fa worse e the worst."
+  },
+  {
+   "type": "mc",
+   "lab": "Raddoppio",
+   "prompt": "big → comparativo",
+   "options": [
+    "bigger",
+    "biger",
+    "more big",
+    "biggest"
+   ],
+   "answer": "bigger",
+   "why": "Aggettivi corti che finiscono con vocale + consonante raddoppiano la consonante: bigger."
+  },
+  {
+   "type": "mc",
+   "lab": "Con la y",
+   "prompt": "happy → comparativo",
+   "options": [
+    "happier",
+    "happyer",
+    "more happy",
+    "happiest"
+   ],
+   "answer": "happier",
+   "why": "La y finale diventa i: happier."
+  },
+  {
+   "type": "mc",
+   "lab": "Uguaglianza",
+   "prompt": "Anna is ___ her brother.",
+   "options": [
+    "as tall as",
+    "so tall as",
+    "as tall than",
+    "tall as"
+   ],
+   "answer": "as tall as",
+   "why": "Per dire che sono uguali: as + aggettivo + as."
+  },
+  {
+   "type": "mc",
+   "lab": "Trova l'errore",
+   "prompt": "Quale frase è giusta?",
+   "options": [
+    "My bike is faster than yours.",
+    "My bike is more faster than yours.",
+    "My bike is more fast than yours.",
+    "My bike is fastest than yours."
+   ],
+   "answer": "My bike is faster than yours.",
+   "why": "Un solo comparativo per volta: faster, non more faster."
+  },
+  {
+   "type": "mc",
+   "lab": "Trova l'errore",
+   "prompt": "Quale frase è giusta?",
+   "options": [
+    "She is the most intelligent student in the class.",
+    "She is the intelligentest student in the class.",
+    "She is most intelligent student in the class.",
+    "She is the more intelligent student in the class."
+   ],
+   "answer": "She is the most intelligent student in the class.",
+   "why": "Aggettivo lungo: the most + aggettivo. Il the non si può togliere."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci",
+   "prompt": "Il treno è più veloce dell'autobus.",
+   "options": [
+    "The train is faster than the bus.",
+    "The train is more fast than the bus.",
+    "The train is the fastest than the bus.",
+    "The train is faster that the bus."
+   ],
+   "answer": "The train is faster than the bus.",
+   "why": "fast è corto: faster + than."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci",
+   "prompt": "È il ristorante più caro della città.",
+   "options": [
+    "It's the most expensive restaurant in the city.",
+    "It's the more expensive restaurant in the city.",
+    "It's the expensivest restaurant in the city.",
+    "It's most expensive restaurant of the city."
+   ],
+   "answer": "It's the most expensive restaurant in the city.",
+   "why": "Aggettivo lungo, superlativo: the most expensive. Dopo il superlativo si usa in, non of."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine",
+   "steps": [
+    "My sister",
+    "is",
+    "younger",
+    "than",
+    "me."
+   ],
+   "why": "Aggettivo corto: -er + than."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine",
+   "steps": [
+    "This",
+    "is",
+    "the most",
+    "difficult",
+    "exercise."
+   ],
+   "why": "Aggettivo lungo: the most + aggettivo."
+  }
+ ]
+}

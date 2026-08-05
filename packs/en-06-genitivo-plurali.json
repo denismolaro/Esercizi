@@ -1,0 +1,192 @@
+{
+ "id": "en-06-genitivo-plurali",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "6. Genitivo sassone e plurali",
+ "items": [
+  {
+   "type": "info",
+   "title": "Genitivo sassone",
+   "html": "Serve a dire <b>di chi è</b> una cosa. Si gira la frase: prima il proprietario, poi la cosa.<br><br>il libro di Anna → <i>Anna<b>'s</b> book</i><br>la casa dei miei genitori → <i>my parents<b>'</b> house</i> (plurale: l'apostrofo va dopo la s)<br><br><b>Doppio genitivo:</b> quando dici \"a casa di\", \"dal dentista\", la cosa si può sottintendere.<br><i>I'm at my grandmother<b>'s</b>.</i> = Sono da mia nonna."
+  },
+  {
+   "type": "info",
+   "title": "Plurali",
+   "html": "Regola: si aggiunge <b>-s</b>.<br>• -s, -sh, -ch, -x → <b>-es</b>: bus → buses, watch → watches<br>• consonante + y → <b>-ies</b>: city → cities<br>• Irregolari da sapere: man → men, woman → women, child → children, foot → feet, tooth → teeth, person → people, fish → fish"
+  },
+  {
+   "type": "mc",
+   "lab": "Genitivo",
+   "prompt": "La bicicletta di Mark",
+   "options": [
+    "Mark's bicycle",
+    "the bicycle of Mark",
+    "Marks' bicycle",
+    "Mark bicycle's"
+   ],
+   "answer": "Mark's bicycle",
+   "why": "Prima il proprietario con 's, poi la cosa."
+  },
+  {
+   "type": "mc",
+   "lab": "Genitivo",
+   "prompt": "La camera delle mie sorelle",
+   "options": [
+    "my sisters' room",
+    "my sister's room",
+    "my sisters room's",
+    "the room of my sisters"
+   ],
+   "answer": "my sisters' room",
+   "why": "Più sorelle: la s c'è già, quindi solo l'apostrofo dopo."
+  },
+  {
+   "type": "mc",
+   "lab": "Genitivo",
+   "prompt": "I giocattoli dei bambini",
+   "options": [
+    "the children's toys",
+    "the childrens' toys",
+    "the child's toys",
+    "the toys of children"
+   ],
+   "answer": "the children's toys",
+   "why": "children è già plurale ma non finisce in s, quindi prende 's."
+  },
+  {
+   "type": "mc",
+   "lab": "Genitivo",
+   "prompt": "Il compleanno di mio fratello",
+   "options": [
+    "my brother's birthday",
+    "my brothers' birthday",
+    "my brother birthday",
+    "the birthday of my brother's"
+   ],
+   "answer": "my brother's birthday",
+   "why": "Un solo fratello: 's."
+  },
+  {
+   "type": "mc",
+   "lab": "Doppio genitivo",
+   "prompt": "Sono dal dentista.",
+   "options": [
+    "I'm at the dentist's.",
+    "I'm at the dentist.",
+    "I'm at dentist's.",
+    "I'm the dentist's at."
+   ],
+   "answer": "I'm at the dentist's.",
+   "why": "Nel doppio genitivo il locale si sottintende: at the dentist's."
+  },
+  {
+   "type": "mc",
+   "lab": "Plurale",
+   "prompt": "one box, two ___",
+   "options": [
+    "boxes",
+    "boxs",
+    "boxies",
+    "box"
+   ],
+   "answer": "boxes",
+   "why": "Le parole in -x prendono -es: boxes."
+  },
+  {
+   "type": "mc",
+   "lab": "Plurale",
+   "prompt": "one city, two ___",
+   "options": [
+    "cities",
+    "citys",
+    "cityes",
+    "citie"
+   ],
+   "answer": "cities",
+   "why": "Consonante + y: la y diventa i e si aggiunge -es."
+  },
+  {
+   "type": "mc",
+   "lab": "Plurale",
+   "prompt": "one man, two ___",
+   "options": [
+    "men",
+    "mans",
+    "mens",
+    "manes"
+   ],
+   "answer": "men",
+   "why": "Plurale irregolare: man → men."
+  },
+  {
+   "type": "mc",
+   "lab": "Plurale",
+   "prompt": "one child, two ___",
+   "options": [
+    "children",
+    "childs",
+    "childrens",
+    "childes"
+   ],
+   "answer": "children",
+   "why": "Plurale irregolare: child → children."
+  },
+  {
+   "type": "mc",
+   "lab": "Plurale",
+   "prompt": "one foot, two ___",
+   "options": [
+    "feet",
+    "foots",
+    "feets",
+    "footes"
+   ],
+   "answer": "feet",
+   "why": "Plurale irregolare: foot → feet."
+  },
+  {
+   "type": "mc",
+   "lab": "Plurale",
+   "prompt": "one watch, two ___",
+   "options": [
+    "watches",
+    "watchs",
+    "watchies",
+    "watch"
+   ],
+   "answer": "watches",
+   "why": "Le parole in -ch prendono -es."
+  },
+  {
+   "type": "mc",
+   "lab": "Plurale",
+   "prompt": "There are three ___ in the room.",
+   "options": [
+    "people",
+    "persons",
+    "peoples",
+    "person"
+   ],
+   "answer": "people",
+   "why": "Il plurale di person è people, e vuole il verbo al plurale: there are."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine: la macchina di mio padre",
+   "steps": [
+    "my father's",
+    "car"
+   ],
+   "why": "Prima il proprietario con 's, poi la cosa."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine: gli amici di mia sorella",
+   "steps": [
+    "my sister's",
+    "friends"
+   ],
+   "why": "Il genitivo si attacca al proprietario, non alla cosa posseduta."
+  }
+ ]
+}

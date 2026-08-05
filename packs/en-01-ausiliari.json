@@ -1,0 +1,239 @@
+{
+ "id": "en-01-ausiliari",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "1. Do, does, did oppure to be?",
+ "items": [
+  {
+   "type": "info",
+   "title": "La domanda da farsi sempre",
+   "html": "Prima di scegliere, guarda se nella frase c'è <b>un altro verbo</b> che dice cosa si fa (go, play, eat, see…).<br><br>• C'è un altro verbo → l'ausiliare è <b>do / does / did</b>.<br>• Non c'è nessun altro verbo → il verbo è <b>to be</b>: am / is / are / was / were.<br><br><b>did</b> e <b>was</b> non vanno mai insieme. <i>Did you were</i> non esiste."
+  },
+  {
+   "type": "info",
+   "title": "Presente o passato",
+   "html": "<b>Presente:</b> do / does &nbsp;—&nbsp; am / is / are<br><b>Passato:</b> did (per tutti) &nbsp;—&nbsp; was / were"
+  },
+  {
+   "type": "mc",
+   "lab": "C'è un altro verbo? No → to be",
+   "prompt": "Where ___ you yesterday?",
+   "options": [
+    "were",
+    "did",
+    "do",
+    "are"
+   ],
+   "answer": "were",
+   "why": "Nella frase non c'è nessun altro verbo, quindi il verbo è to be al passato: Where were you yesterday?"
+  },
+  {
+   "type": "mc",
+   "lab": "C'è un altro verbo? Sì → did",
+   "prompt": "Where ___ you go yesterday?",
+   "options": [
+    "did",
+    "were",
+    "was",
+    "are"
+   ],
+   "answer": "did",
+   "why": "Qui c'è il verbo go, quindi serve l'ausiliare: Where did you go yesterday?"
+  },
+  {
+   "type": "mc",
+   "lab": "Scegli l'ausiliare",
+   "prompt": "___ she happy?",
+   "options": [
+    "Was",
+    "Did",
+    "Does",
+    "Do"
+   ],
+   "answer": "Was",
+   "why": "Non c'è altro verbo: happy è un aggettivo. Was she happy?"
+  },
+  {
+   "type": "mc",
+   "lab": "Scegli l'ausiliare",
+   "prompt": "___ she work here last year?",
+   "options": [
+    "Did",
+    "Was",
+    "Were",
+    "Does"
+   ],
+   "answer": "Did",
+   "why": "C'è il verbo work e siamo al passato: Did she work here last year?"
+  },
+  {
+   "type": "mc",
+   "lab": "Frase negativa",
+   "prompt": "He ___ at school yesterday.",
+   "options": [
+    "was not",
+    "did not",
+    "does not",
+    "is not"
+   ],
+   "answer": "was not",
+   "why": "Nessun altro verbo → to be: He was not at school yesterday."
+  },
+  {
+   "type": "mc",
+   "lab": "Frase negativa",
+   "prompt": "He ___ go to school yesterday.",
+   "options": [
+    "did not",
+    "was not",
+    "were not",
+    "does not"
+   ],
+   "answer": "did not",
+   "why": "C'è il verbo go → did not: He did not go to school yesterday."
+  },
+  {
+   "type": "mc",
+   "lab": "Presente",
+   "prompt": "___ they live in Udine?",
+   "options": [
+    "Do",
+    "Are",
+    "Did",
+    "Does"
+   ],
+   "answer": "Do",
+   "why": "C'è il verbo live, presente, soggetto they: Do they live in Udine?"
+  },
+  {
+   "type": "mc",
+   "lab": "Presente, terza persona",
+   "prompt": "___ your sister play tennis?",
+   "options": [
+    "Does",
+    "Do",
+    "Is",
+    "Did"
+   ],
+   "answer": "Does",
+   "why": "He, she, it al presente vogliono does: Does your sister play tennis?"
+  },
+  {
+   "type": "mc",
+   "lab": "Attenzione al soggetto",
+   "prompt": "___ your parents at home?",
+   "options": [
+    "Are",
+    "Do",
+    "Is",
+    "Does"
+   ],
+   "answer": "Are",
+   "why": "Non c'è altro verbo e parents è plurale: Are your parents at home?"
+  },
+  {
+   "type": "mc",
+   "lab": "Passato di to be",
+   "prompt": "We ___ very tired after the match.",
+   "options": [
+    "were",
+    "did",
+    "was",
+    "are"
+   ],
+   "answer": "were",
+   "why": "We vuole were. Was si usa con I, he, she, it."
+  },
+  {
+   "type": "mc",
+   "lab": "Passato di to be",
+   "prompt": "I ___ at the stadium on Sunday.",
+   "options": [
+    "was",
+    "were",
+    "did",
+    "am"
+   ],
+   "answer": "was",
+   "why": "Con I al passato si usa was: I was at the stadium on Sunday."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale ausiliare",
+   "prompt": "What ___ you eat for lunch yesterday?",
+   "options": [
+    "did",
+    "were",
+    "was",
+    "are"
+   ],
+   "answer": "did",
+   "why": "C'è il verbo eat: What did you eat for lunch yesterday?"
+  },
+  {
+   "type": "mc",
+   "lab": "Quale ausiliare",
+   "prompt": "What ___ your favourite colour?",
+   "options": [
+    "is",
+    "does",
+    "did",
+    "do"
+   ],
+   "answer": "is",
+   "why": "Nessun altro verbo → to be: What is your favourite colour?"
+  },
+  {
+   "type": "mc",
+   "lab": "Trova l'errore",
+   "prompt": "Quale frase è giusta?",
+   "options": [
+    "Did you go to the party?",
+    "Did you went to the party?",
+    "Were you go to the party?",
+    "Do you went to the party?"
+   ],
+   "answer": "Did you go to the party?",
+   "why": "Dopo did il verbo torna alla forma base: did + go, mai did + went."
+  },
+  {
+   "type": "mc",
+   "lab": "Trova l'errore",
+   "prompt": "Quale frase è giusta?",
+   "options": [
+    "She was at home.",
+    "She was at home yesterday did.",
+    "She did at home.",
+    "She were at home."
+   ],
+   "answer": "She was at home.",
+   "why": "Con she si usa was, e non serve nessun altro ausiliare."
+  },
+  {
+   "type": "mc",
+   "lab": "Risposta breve",
+   "prompt": "Did you see the film? — Yes, I ___.",
+   "options": [
+    "did",
+    "was",
+    "saw",
+    "were"
+   ],
+   "answer": "did",
+   "why": "Nelle risposte brevi si ripete l'ausiliare della domanda: Yes, I did."
+  },
+  {
+   "type": "mc",
+   "lab": "Risposta breve",
+   "prompt": "Were you at the party? — Yes, I ___.",
+   "options": [
+    "was",
+    "did",
+    "were",
+    "am"
+   ],
+   "answer": "was",
+   "why": "La domanda usa to be, quindi si risponde con was: Yes, I was."
+  }
+ ]
+}

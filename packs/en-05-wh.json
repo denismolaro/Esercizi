@@ -1,0 +1,190 @@
+{
+ "id": "en-05-wh",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "5. Who soggetto o who oggetto?",
+ "items": [
+  {
+   "type": "info",
+   "title": "La differenza in una riga",
+   "html": "Chiediti: <b>chi fa l'azione?</b><br><br>• Se non lo sai, who è il <b>soggetto</b> → <b>niente ausiliare</b>, il verbo va subito dopo.<br><i>Who <b>saw</b> Mark?</i> = Chi ha visto Mark?<br><br>• Se sai chi fa l'azione e ti manca su chi la fa, who è <b>oggetto</b> → <b>serve l'ausiliare</b>.<br><i>Who <b>did</b> Mark <b>see</b>?</i> = Chi ha visto Mark? (cioè: Mark ha visto chi?)<br><br>Trucco: se subito dopo il who c'è già un altro soggetto, serve did / do / does."
+  },
+  {
+   "type": "mc",
+   "lab": "Chi fa l'azione?",
+   "prompt": "Chi ha rotto la finestra? — Non lo sappiamo.",
+   "options": [
+    "Who broke the window?",
+    "Who did break the window?",
+    "Who did the window break?",
+    "Who was break the window?"
+   ],
+   "answer": "Who broke the window?",
+   "why": "Who è il soggetto: nessun ausiliare, verbo subito dopo."
+  },
+  {
+   "type": "mc",
+   "lab": "Chi fa l'azione?",
+   "prompt": "Anna ha invitato qualcuno: chi?",
+   "options": [
+    "Who did Anna invite?",
+    "Who invited Anna?",
+    "Who Anna invited?",
+    "Who did invite Anna?"
+   ],
+   "answer": "Who did Anna invite?",
+   "why": "Sappiamo che l'azione la fa Anna, quindi who è oggetto: serve did."
+  },
+  {
+   "type": "mc",
+   "lab": "Soggetto o oggetto?",
+   "prompt": "Who ___ this cake?",
+   "options": [
+    "made",
+    "did make",
+    "did made",
+    "was make"
+   ],
+   "answer": "made",
+   "why": "Non c'è nessun altro soggetto dopo who → who è soggetto: Who made this cake?"
+  },
+  {
+   "type": "mc",
+   "lab": "Soggetto o oggetto?",
+   "prompt": "Who ___ you ___ at the party?",
+   "options": [
+    "did / meet",
+    "did / met",
+    "meet / did",
+    "was / meeting"
+   ],
+   "answer": "did / meet",
+   "why": "Dopo who c'è you, quindi who è oggetto: Who did you meet at the party?"
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci",
+   "prompt": "Chi ti ha telefonato?",
+   "options": [
+    "Who phoned you?",
+    "Who did you phone?",
+    "Who you phoned?",
+    "Who did phone you?"
+   ],
+   "answer": "Who phoned you?",
+   "why": "Chi fa l'azione è sconosciuto → who soggetto, senza did."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci",
+   "prompt": "Chi hai telefonato?",
+   "options": [
+    "Who did you phone?",
+    "Who phoned you?",
+    "Who you did phone?",
+    "Who was phoning you?"
+   ],
+   "answer": "Who did you phone?",
+   "why": "Sei tu che telefoni → who è oggetto → serve did."
+  },
+  {
+   "type": "mc",
+   "lab": "Con what",
+   "prompt": "What ___ on the table?",
+   "options": [
+    "is",
+    "does",
+    "did it",
+    "is it"
+   ],
+   "answer": "is",
+   "why": "What è soggetto: What is on the table?"
+  },
+  {
+   "type": "mc",
+   "lab": "Con what",
+   "prompt": "What ___ you ___ yesterday?",
+   "options": [
+    "did / buy",
+    "did / bought",
+    "do / bought",
+    "were / buy"
+   ],
+   "answer": "did / buy",
+   "why": "What è oggetto e c'è già il soggetto you → did + forma base."
+  },
+  {
+   "type": "mc",
+   "lab": "Con which",
+   "prompt": "Which team ___ the match?",
+   "options": [
+    "won",
+    "did won",
+    "did win the",
+    "was win"
+   ],
+   "answer": "won",
+   "why": "Which team è il soggetto → verbo diretto, senza ausiliare."
+  },
+  {
+   "type": "mc",
+   "lab": "Con which",
+   "prompt": "Which film ___ you ___ last night?",
+   "options": [
+    "did / watch",
+    "did / watched",
+    "do / watched",
+    "were / watch"
+   ],
+   "answer": "did / watch",
+   "why": "Il soggetto è you, quindi which film è oggetto → did + watch."
+  },
+  {
+   "type": "mc",
+   "lab": "Trova l'errore",
+   "prompt": "Quale frase è giusta?",
+   "options": [
+    "Who lives in that house?",
+    "Who does live in that house?",
+    "Who do lives in that house?",
+    "Who is live in that house?"
+   ],
+   "answer": "Who lives in that house?",
+   "why": "Who soggetto, terza persona singolare: lives."
+  },
+  {
+   "type": "mc",
+   "lab": "Trova l'errore",
+   "prompt": "Quale frase è giusta?",
+   "options": [
+    "Who did she call?",
+    "Who she called?",
+    "Who did she called?",
+    "Who called did she?"
+   ],
+   "answer": "Who did she call?",
+   "why": "Who oggetto: did + forma base call."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine: chi ha vinto?",
+   "steps": [
+    "Who",
+    "won",
+    "the race?"
+   ],
+   "why": "Who soggetto: nessun ausiliare."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine: chi hai visto?",
+   "steps": [
+    "Who",
+    "did",
+    "you",
+    "see?"
+   ],
+   "why": "Who oggetto: did + soggetto + verbo base."
+  }
+ ]
+}

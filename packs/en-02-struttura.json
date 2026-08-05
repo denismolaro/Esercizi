@@ -1,0 +1,201 @@
+{
+ "id": "en-02-struttura",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "2. Come si costruisce la frase",
+ "items": [
+  {
+   "type": "info",
+   "title": "Lo schema, sempre lo stesso",
+   "html": "<b>Affermativa:</b> soggetto + verbo<br><b>Negativa:</b> soggetto + ausiliare + not + verbo base<br><b>Interrogativa:</b> (parola wh-) + ausiliare + soggetto + verbo base<br><br>Quando c'è l'ausiliare, il verbo principale resta alla <b>forma base</b>: <i>did not <b>play</b></i>, non <i>did not played</i>."
+  },
+  {
+   "type": "order",
+   "q": "Rendi negativa: She played tennis.",
+   "steps": [
+    "She",
+    "did not",
+    "play",
+    "tennis."
+   ],
+   "why": "Dopo did not il verbo torna base: play, non played."
+  },
+  {
+   "type": "order",
+   "q": "Fai la domanda: They live in Udine.",
+   "steps": [
+    "Do",
+    "they",
+    "live",
+    "in Udine?"
+   ],
+   "why": "L'ausiliare va prima del soggetto: Do they live in Udine?"
+  },
+  {
+   "type": "order",
+   "q": "Fai la domanda: He saw the film.",
+   "steps": [
+    "Did",
+    "he",
+    "see",
+    "the film?"
+   ],
+   "why": "Did porta il verbo alla forma base: Did he see the film?"
+  },
+  {
+   "type": "order",
+   "q": "Rendi negativa: My brother works in Milan.",
+   "steps": [
+    "My brother",
+    "does not",
+    "work",
+    "in Milan."
+   ],
+   "why": "Con he/she/it si usa does not, e la s del verbo sparisce: does not work."
+  },
+  {
+   "type": "order",
+   "q": "Fai la domanda: You were at home.",
+   "steps": [
+    "Were",
+    "you",
+    "at home?"
+   ],
+   "why": "Con to be non serve altro ausiliare: basta spostare were davanti al soggetto."
+  },
+  {
+   "type": "order",
+   "q": "Rendi negativa: We were late.",
+   "steps": [
+    "We",
+    "were not",
+    "late."
+   ],
+   "why": "Con to be il not si attacca al verbo stesso: were not."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine",
+   "steps": [
+    "What",
+    "did",
+    "you",
+    "do",
+    "last weekend?"
+   ],
+   "why": "Schema: wh- + ausiliare + soggetto + verbo base."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine",
+   "steps": [
+    "Where",
+    "does",
+    "your friend",
+    "live?"
+   ],
+   "why": "Wh- + does + soggetto + verbo base."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine",
+   "steps": [
+    "I",
+    "was",
+    "reading",
+    "a book",
+    "when he arrived."
+   ],
+   "why": "Past continuous: was + verbo in -ing."
+  },
+  {
+   "type": "order",
+   "q": "Rendi negativa: She is watching TV.",
+   "steps": [
+    "She",
+    "is not",
+    "watching",
+    "TV."
+   ],
+   "why": "Nelle forme continue il not va dopo to be: is not watching."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo l'ausiliare",
+   "prompt": "Did she ___ her homework?",
+   "options": [
+    "do",
+    "did",
+    "does",
+    "done"
+   ],
+   "answer": "do",
+   "why": "Dopo did serve la forma base: Did she do her homework?"
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo l'ausiliare",
+   "prompt": "They didn't ___ the bus.",
+   "options": [
+    "take",
+    "took",
+    "takes",
+    "taken"
+   ],
+   "answer": "take",
+   "why": "Dopo didn't il verbo è base: didn't take."
+  },
+  {
+   "type": "mc",
+   "lab": "Terza persona",
+   "prompt": "She ___ football every Saturday.",
+   "options": [
+    "plays",
+    "play",
+    "is play",
+    "does play"
+   ],
+   "answer": "plays",
+   "why": "Nell'affermativa al presente he/she/it aggiungono la s: she plays."
+  },
+  {
+   "type": "mc",
+   "lab": "Terza persona",
+   "prompt": "She doesn't ___ football.",
+   "options": [
+    "play",
+    "plays",
+    "played",
+    "playing"
+   ],
+   "answer": "play",
+   "why": "La s se la prende l'ausiliare does, quindi il verbo resta play."
+  },
+  {
+   "type": "mc",
+   "lab": "Trova la frase giusta",
+   "prompt": "Quale frase è corretta?",
+   "options": [
+    "Where did you buy that?",
+    "Where you did buy that?",
+    "Where did you bought that?",
+    "Where you bought that did?"
+   ],
+   "answer": "Where did you buy that?",
+   "why": "Wh- + ausiliare + soggetto + verbo base."
+  },
+  {
+   "type": "mc",
+   "lab": "Trova la frase giusta",
+   "prompt": "Quale frase è corretta?",
+   "options": [
+    "He doesn't like fish.",
+    "He don't likes fish.",
+    "He doesn't likes fish.",
+    "He not like fish."
+   ],
+   "answer": "He doesn't like fish.",
+   "why": "does + not + verbo base."
+  }
+ ]
+}

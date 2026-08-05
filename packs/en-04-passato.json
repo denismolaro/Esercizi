@@ -1,0 +1,230 @@
+{
+ "id": "en-04-passato",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "4. Past simple o past continuous?",
+ "items": [
+  {
+   "type": "info",
+   "title": "Come si distinguono",
+   "html": "<b>Past simple</b> — un'azione finita, conclusa.<br>Spie: yesterday, last week, in 2019, two days ago, on Sunday.<br>Forma: <i>played</i> (regolari) oppure la seconda colonna dei verbi irregolari (<i>went, saw, took</i>).<br><br><b>Past continuous</b> — un'azione in corso in quel momento.<br>Spie: while, at five o'clock, all day.<br>Forma: <i>was / were + verbo-ing</i><br><br>Insieme: l'azione lunga va al continuous, quella che la interrompe al simple.<br><i>I <b>was reading</b> when he <b>arrived</b>.</i>"
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "I ___ to the stadium on Sunday.",
+   "options": [
+    "went",
+    "go",
+    "was going",
+    "goed"
+   ],
+   "answer": "went",
+   "why": "on Sunday, azione conclusa → past simple. Il passato di go è went."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "While I ___ TV, the phone rang.",
+   "options": [
+    "was watching",
+    "watched",
+    "watch",
+    "am watching"
+   ],
+   "answer": "was watching",
+   "why": "while introduce l'azione lunga → past continuous: was watching."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "She ___ her keys yesterday.",
+   "options": [
+    "lost",
+    "was losing",
+    "loses",
+    "lose"
+   ],
+   "answer": "lost",
+   "why": "Azione conclusa, yesterday → past simple: lost."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "At six o'clock we ___ dinner.",
+   "options": [
+    "were having",
+    "had",
+    "have",
+    "has"
+   ],
+   "answer": "were having",
+   "why": "In quel momento erano a metà cena → past continuous."
+  },
+  {
+   "type": "mc",
+   "lab": "Le due insieme",
+   "prompt": "They ___ football when it started to rain.",
+   "options": [
+    "were playing",
+    "played",
+    "play",
+    "are playing"
+   ],
+   "answer": "were playing",
+   "why": "L'azione lunga interrotta va al continuous: were playing."
+  },
+  {
+   "type": "mc",
+   "lab": "Le due insieme",
+   "prompt": "I was walking home when I ___ my teacher.",
+   "options": [
+    "met",
+    "was meeting",
+    "meet",
+    "meeting"
+   ],
+   "answer": "met",
+   "why": "L'azione breve che interrompe va al past simple: met."
+  },
+  {
+   "type": "mc",
+   "lab": "Verbo irregolare",
+   "prompt": "What did you ___ yesterday?",
+   "options": [
+    "do",
+    "did",
+    "done",
+    "does"
+   ],
+   "answer": "do",
+   "why": "Dopo did il verbo è base: What did you do yesterday?"
+  },
+  {
+   "type": "mc",
+   "lab": "Verbo irregolare",
+   "prompt": "He ___ me a message last night.",
+   "options": [
+    "sent",
+    "send",
+    "was sending",
+    "sended"
+   ],
+   "answer": "sent",
+   "why": "Il passato di send è sent. Attenzione: sent non ha niente a che fare con see."
+  },
+  {
+   "type": "mc",
+   "lab": "Verbo irregolare",
+   "prompt": "I ___ that film last week.",
+   "options": [
+    "saw",
+    "seen",
+    "see",
+    "sawed"
+   ],
+   "answer": "saw",
+   "why": "Il passato di see è saw. La terza forma, seen, non si usa da sola."
+  },
+  {
+   "type": "mc",
+   "lab": "Negativa",
+   "prompt": "We ___ to the party.",
+   "options": [
+    "didn't go",
+    "didn't went",
+    "weren't go",
+    "not went"
+   ],
+   "answer": "didn't go",
+   "why": "didn't + forma base: didn't go."
+  },
+  {
+   "type": "mc",
+   "lab": "Negativa",
+   "prompt": "She ___ at home when I called.",
+   "options": [
+    "wasn't",
+    "didn't",
+    "weren't",
+    "isn't"
+   ],
+   "answer": "wasn't",
+   "why": "Non c'è altro verbo → to be al passato: she wasn't at home."
+  },
+  {
+   "type": "mc",
+   "lab": "Domanda",
+   "prompt": "___ you at the cinema yesterday?",
+   "options": [
+    "Were",
+    "Did",
+    "Was",
+    "Do"
+   ],
+   "answer": "Were",
+   "why": "Nessun altro verbo → to be: Were you at the cinema?"
+  },
+  {
+   "type": "mc",
+   "lab": "Domanda",
+   "prompt": "___ you watch the match yesterday?",
+   "options": [
+    "Did",
+    "Were",
+    "Was",
+    "Do"
+   ],
+   "answer": "Did",
+   "why": "C'è il verbo watch → Did you watch the match?"
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci",
+   "prompt": "Sono andato allo stadio domenica.",
+   "options": [
+    "I went to the stadium on Sunday.",
+    "I studied with Mark on Sunday.",
+    "I was going to the stadium on Sunday.",
+    "I go to the stadium on Sunday."
+   ],
+   "answer": "I went to the stadium on Sunday.",
+   "why": "went è il passato di go, cioè andare. Non confonderlo con altri verbi."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci",
+   "prompt": "Stavo mangiando quando sei arrivato.",
+   "options": [
+    "I was eating when you arrived.",
+    "I ate when you arrived.",
+    "I eat when you arrived.",
+    "I was eat when you arrived."
+   ],
+   "answer": "I was eating when you arrived.",
+   "why": "\"Stavo mangiando\" → past continuous; \"sei arrivato\" → past simple."
+  },
+  {
+   "type": "order",
+   "q": "Metti in ordine",
+   "steps": [
+    "Did",
+    "they",
+    "win",
+    "the match?"
+   ],
+   "why": "Did + soggetto + verbo base."
+  },
+  {
+   "type": "order",
+   "q": "Rendi negativa: He took the train.",
+   "steps": [
+    "He",
+    "did not",
+    "take",
+    "the train."
+   ],
+   "why": "didn't + forma base: take, non took."
+  }
+ ]
+}

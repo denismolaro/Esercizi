@@ -1,0 +1,208 @@
+{
+ "id": "en-03-presente",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "3. Present simple o present continuous?",
+ "items": [
+  {
+   "type": "info",
+   "title": "Come si distinguono",
+   "html": "<b>Present simple</b> — abitudini, cose sempre vere.<br>Spie: every day, usually, always, never, on Mondays, sometimes.<br>Forma: <i>I work / he works</i><br><br><b>Present continuous</b> — quello che sta succedendo adesso.<br>Spie: now, at the moment, today, Look!, Listen!<br>Forma: <i>am / is / are + verbo-ing</i>"
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "She ___ to school every morning.",
+   "options": [
+    "walks",
+    "is walking",
+    "walk",
+    "walking"
+   ],
+   "answer": "walks",
+   "why": "every morning è un'abitudine → present simple: she walks."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "Look! It ___ .",
+   "options": [
+    "is raining",
+    "rains",
+    "rain",
+    "raining"
+   ],
+   "answer": "is raining",
+   "why": "Look! indica adesso → present continuous: it is raining."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "I usually ___ dinner at eight.",
+   "options": [
+    "have",
+    "am having",
+    "having",
+    "has"
+   ],
+   "answer": "have",
+   "why": "usually → abitudine → present simple."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "Be quiet, the baby ___ .",
+   "options": [
+    "is sleeping",
+    "sleeps",
+    "sleep",
+    "slept"
+   ],
+   "answer": "is sleeping",
+   "why": "Sta dormendo in questo momento → present continuous."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "My father ___ in a factory.",
+   "options": [
+    "works",
+    "is working",
+    "work",
+    "working"
+   ],
+   "answer": "works",
+   "why": "È il suo lavoro, una cosa sempre vera → present simple."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "What ___ you ___ at the moment?",
+   "options": [
+    "are / doing",
+    "do / do",
+    "did / do",
+    "are / do"
+   ],
+   "answer": "are / doing",
+   "why": "at the moment → present continuous: What are you doing at the moment?"
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "They never ___ television during the week.",
+   "options": [
+    "watch",
+    "are watching",
+    "watches",
+    "watching"
+   ],
+   "answer": "watch",
+   "why": "never → abitudine → present simple, e con they non si aggiunge la s."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale forma",
+   "prompt": "I ___ my homework right now.",
+   "options": [
+    "am doing",
+    "do",
+    "does",
+    "did"
+   ],
+   "answer": "am doing",
+   "why": "right now → present continuous: I am doing my homework."
+  },
+  {
+   "type": "mc",
+   "lab": "Terza persona",
+   "prompt": "He ___ pizza every Friday.",
+   "options": [
+    "eats",
+    "eat",
+    "is eating",
+    "eating"
+   ],
+   "answer": "eats",
+   "why": "Present simple, terza persona singolare: he eats."
+  },
+  {
+   "type": "mc",
+   "lab": "Negativa",
+   "prompt": "She ___ tennis on Sundays.",
+   "options": [
+    "doesn't play",
+    "isn't play",
+    "don't play",
+    "not plays"
+   ],
+   "answer": "doesn't play",
+   "why": "Present simple negativo con she: doesn't + verbo base."
+  },
+  {
+   "type": "mc",
+   "lab": "Negativa",
+   "prompt": "We ___ now, we're at home.",
+   "options": [
+    "aren't working",
+    "don't work",
+    "isn't working",
+    "not working"
+   ],
+   "answer": "aren't working",
+   "why": "now → continuous, negativo: aren't working."
+  },
+  {
+   "type": "mc",
+   "lab": "Domanda",
+   "prompt": "___ your sister speak English?",
+   "options": [
+    "Does",
+    "Is",
+    "Do",
+    "Are"
+   ],
+   "answer": "Does",
+   "why": "Present simple, terza persona: Does your sister speak English?"
+  },
+  {
+   "type": "mc",
+   "lab": "Domanda",
+   "prompt": "___ your sister speaking on the phone?",
+   "options": [
+    "Is",
+    "Does",
+    "Do",
+    "Was"
+   ],
+   "answer": "Is",
+   "why": "Forma continua: Is she speaking? Serve to be, non does."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci",
+   "prompt": "Sto guardando un film.",
+   "options": [
+    "I am watching a film.",
+    "I watch a film.",
+    "I watching a film.",
+    "I do watch a film."
+   ],
+   "answer": "I am watching a film.",
+   "why": "In italiano \"sto guardando\" → forma continua: am + watching."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci",
+   "prompt": "Guardo la TV ogni sera.",
+   "options": [
+    "I watch TV every evening.",
+    "I am watching TV every evening.",
+    "I watching TV every evening.",
+    "I do watching TV every evening."
+   ],
+   "answer": "I watch TV every evening.",
+   "why": "every evening → abitudine → present simple."
+  }
+ ]
+}
