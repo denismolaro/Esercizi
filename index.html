@@ -62,6 +62,11 @@ button{font-family:inherit}
 .muted{color:var(--ink-soft);font-size:14px}
 .linkish{background:none;border:none;font-size:13.5px;color:var(--a1);text-decoration:underline;cursor:pointer;padding:4px 0}
 
+.sechead{display:flex;align-items:baseline;gap:8px;margin:20px 2px 8px}
+.sechead:first-child{margin-top:2px}
+.sechead .nm{font-size:12.5px;font-weight:800;letter-spacing:.10em;text-transform:uppercase}
+.sechead .ln{flex:1;height:2px;border-radius:2px;opacity:.35}
+.sechead .ct{font-size:12.5px;color:var(--ink-soft)}
 /* elenco pacchetti */
 .packbtn{
   display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);
@@ -215,7 +220,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "7";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "8";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -412,7 +417,7 @@ function startSession(mode){
     }
   }else{
     const src=(pack.items||[]).filter(x=>x.type!=="info");
-    shuffle(src).slice(0,LEN).forEach(it=>{
+    pickItems(src,LEN).forEach(it=>{
       const q=Object.assign({},it);
       if(q.type==="mc") q.options=shuffle(q.options);
       if(q.type==="order"){ q.shuffled=shuffle(q.steps.map((s,i)=>({s:s,i:i}))); q.picked=[]; }
@@ -430,6 +435,7 @@ let saved=false;
 const PRAISE=["Esatto.","Perfetto.","Sì, proprio quella.","Bravo.","Giusto.","Ottimo."];
 function judge(ok,detail){
   sess.lastOk=ok; sess.answered=true;
+  if(sess.mode==="items" && sess.items && sess.items[sess.i]) recordItem(sess.items[sess.i],ok);
   if(ok) sess.right++; else sess.wrong.push(detail);
   render();
 }
@@ -482,7 +488,14 @@ function saveResult(){
   if(sess.mode==="write"){
     const a=sess.list.filter(x=>x.allOk!==null);
     pct = a.length ? Math.round(a.filter(x=>x.allOk).length/a.length*100) : 0;
-  }else pct = Math.round(sess.right/sess.items.length*100);
+  }else{
+    pct = Math.round(sess.right/sess.items.length*100);
+    if(sess.mode==="items"){
+      const hh=load(iHistKey(),null)||[];
+      hh.unshift({d:Date.now(), r:sess.right, n:sess.items.length});
+      store(iHistKey(),hh.slice(0,40));
+    }
+  }
   store(key,{best:Math.max(prev.best||0,pct),runs:(prev.runs||0)+1,last:pct,when:Date.now()});
 }
 function reportText(){
@@ -557,6 +570,44 @@ const GOAL  = 80;   /* obiettivo: percentuale di verbi indovinati */
 const SLEN  = 8;    /* verbi per serie, tutti diversi */
 
 function statsKey(){ return "stats2:"+pack.id; }
+function iStatsKey(){ return "istats:"+pack.id; }
+function iHistKey(){  return "ihist:"+pack.id; }
+
+/* chiave stabile per una domanda: l'id se c'e, altrimenti un'impronta del testo */
+function hkey(t){ let x=0; for(let i=0;i<t.length;i++) x=(x*31+t.charCodeAt(i))|0; return "q"+(x>>>0).toString(36); }
+function itemKey(q){ return q.id ? "id:"+q.id : hkey(String(q.type||"")+"|"+String(q.prompt||"")+"|"+String(q.q||"")); }
+function getIStats(){ return load(iStatsKey(),null) || {}; }
+function recordItem(q,ok){
+  const st=getIStats(), k=itemKey(q), r=st[k]||{att:0,ok:0,lab:"",txt:"",type:q.type};
+  r.att++; if(ok) r.ok++;
+  r.lab=q.lab||""; r.txt=String(q.prompt||q.q||""); r.type=q.type;
+  st[k]=r; store(iStatsKey(),st);
+}
+function iOverall(){
+  const st=getIStats(); let a=0,o=0,keys=0;
+  for(const k in st){ a+=st[k].att||0; o+=st[k].ok||0; keys++; }
+  return {att:a, ok:o, seen:keys, pct: a?Math.round(o/a*100):0};
+}
+function iTotal(){ return (pack.items||[]).filter(x=>x.type!=="info").length; }
+
+/* Le 8 domande del giro: prima quelle sbagliate in passato, poi quelle mai viste. */
+function pickItems(src,k){
+  const st=getIStats(), unseen=[], wrong=[], done=[];
+  src.forEach(it=>{
+    const r=st[itemKey(it)];
+    if(!r||!r.att) unseen.push(it);
+    else if(r.ok<r.att) wrong.push(it);
+    else done.push(it);
+  });
+  wrong.sort((a,b)=>{const x=st[itemKey(a)],y=st[itemKey(b)];return (x.ok/x.att)-(y.ok/y.att);});
+  const out=[];
+  const add=arr=>{ for(const it of arr){ if(out.length>=k) break; if(out.indexOf(it)<0) out.push(it); } };
+  add(wrong.slice(0,3));
+  add(shuffle(unseen));
+  add(shuffle(wrong));
+  add(shuffle(done));
+  return shuffle(out.slice(0,k));
+}
 function formsKey(){ return "forms:"+pack.id; }
 function histKey(){  return "hist:"+pack.id; }
 function lastKey(){  return "last:"+pack.id; }
@@ -581,6 +632,7 @@ function pushHist(rec){
 function resetProgress(){
   if(!confirm("Azzero tutti i progressi di questo argomento. Sicuro?")) return;
   store(statsKey(),{}); store(formsKey(),[0,0,0]); store(histKey(),[]); store(lastKey(),[]);
+  store(iStatsKey(),{}); store(iHistKey(),[]);
   store("prog:"+pack.id,{best:0,runs:0,last:0});
   view="pack"; render();
 }
@@ -878,15 +930,28 @@ function vHome(){
   if(loadError) h+='<div class="err">Non riesco a scaricare gli esercizi: '+esc(loadError)+'.<br>Controlla la connessione, poi tocca «Cerca nuovi esercizi».</div>';
   if(loading && !PACKS.length) h+='<div class="note">Sto cercando gli esercizi…</div>';
 
+  /* raggruppati per materia, nell'ordine di SUBJECTS; alla fine quelli senza materia nota */
+  const groups=[];
+  SUBJECTS.forEach(sb=>groups.push({name:sb,idx:SUBJECTS.indexOf(sb),list:[]}));
+  const other={name:"Altro",idx:0,list:[]};
   PACKS.forEach((p,i)=>{
-    const si=Math.max(0,SUBJECTS.indexOf(p.subject));
-    const pr=load("prog:"+p.id,null);
-    h+='<button class="packbtn subj-'+si+'" onclick="openPack('+i+')">'
-      +'<span class="k">'+esc(p.subject||"")+'</span>'
-      +'<span class="t">'+esc(p.title)+'</span>'
-      +(p.blurb?'<span class="b">'+esc(p.blurb)+'</span>':"")
-      +(pr?'<span class="bar"><i style="width:'+pr.last+'%"></i></span><span class="b">ultimo giro '+pr.last+'% · record '+pr.best+'%</span>':"")
-      +'</button>';
+    const gi=SUBJECTS.indexOf(p.subject);
+    (gi>=0?groups[gi]:other).list.push(i);
+  });
+  if(other.list.length) groups.push(other);
+  groups.filter(g=>g.list.length).forEach(g=>{
+    const col='var(--a'+((g.idx%3)+1)+')';
+    h+='<div class="sechead"><span class="nm" style="color:'+col+'">'+esc(g.name)+'</span>'
+      +'<span class="ln" style="background:'+col+'"></span>'
+      +'<span class="ct">'+g.list.length+(g.list.length===1?' argomento':' argomenti')+'</span></div>';
+    g.list.forEach(i=>{
+      const p=PACKS[i], pr=load("prog:"+p.id,null);
+      h+='<button class="packbtn subj-'+g.idx+'" onclick="openPack('+i+')">'
+        +'<span class="t">'+esc(p.title)+'</span>'
+        +(p.blurb?'<span class="b">'+esc(p.blurb)+'</span>':"")
+        +(pr?'<span class="bar"><i style="width:'+pr.last+'%"></i></span><span class="b">ultimo giro '+pr.last+'% · record '+pr.best+'%</span>':"")
+        +'</button>';
+    });
   });
   h+='<button class="cta ghost small" onclick="fetchPacks(true)">↻ Cerca nuovi esercizi</button>';
   h+='<div class="toolbar" style="margin-top:14px"><label class="switch">'
@@ -916,7 +981,14 @@ function vPack(){
       +(it.speak?'<button class="linkish" onclick="saySlot('+regText(it.speak)+')">&#9654; Ascolta</button>':"")
       +'</div>';
   });
-  if(hasItems) h+='<button class="cta" onclick="startSession(&#39;items&#39;)">Esercitati</button>';
+  if(hasItems){
+    h+='<button class="cta" onclick="startSession(&#39;items&#39;)">Esercitati</button>';
+    if(!hasCards){
+      const io=iOverall();
+      h+='<button class="cta ghost small" onclick="openStats()">Statistiche'
+        +(io.att?' — '+io.pct+'% giuste':'')+'</button>';
+    }
+  }
   return h;
 }
 
@@ -937,6 +1009,7 @@ function vStudy(){
 }
 
 function vStats(){
+  if(!pack.cards) return vStatsItems();
   const F=pack.cards.fields, st=getStats(), pool=writableAll();
   const forms=load(formsKey(),null)||[0,0,0];
   const hist=load(histKey(),null)||[];
@@ -996,7 +1069,99 @@ function vStats(){
   return h;
 }
 
+function vStatsItems(){
+  const st=getIStats(), o=iOverall(), tot=iTotal();
+  const hist=load(iHistKey(),null)||[];
+  const rows=[]; for(const k in st) rows.push(st[k]);
+
+  let h='<div class="card"><div class="meaning"><b>Come va</b></div><div style="margin-top:8px">';
+  h+='<div class="sbar"><span class="nm">Domande viste</span>'
+    +'<span class="tr"><i style="width:'+(tot?Math.round(o.seen/tot*100):0)+'%;background:var(--a1)"></i></span>'
+    +'<span class="vl">'+o.seen+'/'+tot+'</span></div>';
+  h+='<div class="sbar"><span class="nm">Risposte giuste</span>'
+    +'<span class="tr"><i style="width:'+Math.min(100,o.pct)+'%;background:var(--'+(o.pct>=GOAL?"ok":"a2")+')"></i></span>'
+    +'<span class="vl">'+o.pct+'%</span></div>';
+  h+='<p class="wcount">Obiettivo: '+GOAL+'% di risposte giuste e tutte le domande viste almeno una volta.</p>';
+  h+='</div></div>';
+
+  if(!rows.length){
+    h+='<div class="card"><p class="wcount">Ancora nessun giro fatto in questo argomento.</p></div>';
+    h+='<button class="cta ghost small" onclick="backToPack()">Torna indietro</button>';
+    return h;
+  }
+
+  /* dove si perde: per tipo di esercizio */
+  const kinds={mc:{n:"Scelta multipla",att:0,ok:0},order:{n:"Metti in ordine",att:0,ok:0},num:{n:"Risposta numerica",att:0,ok:0}};
+  rows.forEach(r=>{ const g=kinds[r.type]; if(g){ g.att+=r.att; g.ok+=r.ok; } });
+  const kl=Object.keys(kinds).filter(k=>kinds[k].att);
+  if(kl.length>1){
+    h+='<div class="card"><div class="meaning"><b>Dove si perde di più</b></div>';
+    kl.forEach((k,i)=>{
+      const g=kinds[k], p=Math.round(g.ok/g.att*100);
+      h+='<div class="sbar"><span class="nm" style="color:var(--a'+((i%3)+1)+')">'+esc(g.n)+'</span>'
+        +'<span class="tr"><i style="width:'+p+'%;background:var(--a'+((i%3)+1)+')"></i></span>'
+        +'<span class="vl">'+p+'%</span></div>';
+    });
+    h+='</div>';
+  }
+
+  /* domanda per domanda, dalla più incerta */
+  rows.sort((a,b)=>(a.ok/a.att)-(b.ok/b.att) || b.att-a.att);
+  h+='<div class="card"><div class="meaning"><b>Domanda per domanda</b></div>'
+    +'<p class="wcount" style="margin:4px 0 8px">'+rows.length+' viste, dalla più incerta alla più sicura.</p>'
+    +'<table class="hist"><tbody>';
+  rows.forEach(r=>{
+    const p=Math.round(r.ok/r.att*100);
+    const col = p>=GOAL ? "var(--ok)" : p>=50 ? "var(--a2)" : "var(--wait)";
+    const txt = r.txt.length>58 ? r.txt.slice(0,58)+"…" : r.txt;
+    h+='<tr><td>'+(r.lab?'<span style="color:var(--ink-soft);font-size:12.5px">'+esc(r.lab)+'</span><br>':"")
+      +esc(txt)+'</td>'
+      +'<td style="white-space:nowrap;vertical-align:top"><b style="color:'+col+'">'+p+'%</b> '
+      +'<span style="color:var(--ink-soft);font-size:12.5px">('+r.ok+'/'+r.att+')</span></td></tr>';
+  });
+  h+='</tbody></table>';
+  const never=tot-o.seen;
+  if(never>0) h+='<p class="wcount" style="margin-top:10px">Mancano ancora '+never+' domande mai viste.</p>';
+  h+='</div>';
+
+  if(hist.length){
+    h+='<div class="card"><div class="meaning"><b>Le serie fatte</b></div><table class="hist"><tbody>';
+    hist.slice(0,15).forEach(r=>{
+      const d=new Date(r.d);
+      h+='<tr><td>'+d.toLocaleDateString("it-IT")+' '
+        +String(d.getHours()).padStart(2,"0")+':'+String(d.getMinutes()).padStart(2,"0")+'</td>'
+        +'<td>'+r.r+'/'+r.n+' giuste</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  h+='<button class="cta" onclick="shareStats()">Manda le statistiche a papà</button>'
+    +'<button class="cta ghost small" style="margin-top:8px" onclick="resetProgress()">Azzera i progressi</button>';
+  return h;
+}
+
+async function shareItemStats(){
+  const st=getIStats(), o=iOverall(), tot=iTotal();
+  const hist=load(iHistKey(),null)||[];
+  const rows=[]; for(const k in st) rows.push(st[k]);
+  rows.sort((a,b)=>(a.ok/a.att)-(b.ok/b.att));
+  let t=pack.title+" — statistiche al "+new Date().toLocaleDateString("it-IT")
+    +"\nDomande viste: "+o.seen+" su "+tot
+    +"\nRisposte giuste: "+o.pct+"% (obiettivo "+GOAL+"%)"
+    +"\nSerie fatte: "+hist.length;
+  const bad=rows.filter(r=>r.ok<r.att).slice(0,8);
+  if(bad.length){
+    t+="\n\nDa rivedere:";
+    bad.forEach(r=>{ t+="\n· "+(r.lab?r.lab+": ":"")+r.txt+" ("+r.ok+"/"+r.att+")"; });
+  }
+  try{
+    if(navigator.share) await navigator.share({title:pack.title,text:t});
+    else { await navigator.clipboard.writeText(t); alert("Statistiche copiate."); }
+  }catch(e){}
+}
+
 async function shareStats(){
+  if(!pack.cards) return shareItemStats();
   const F=pack.cards.fields, st=getStats(), pool=writableAll();
   const forms=load(formsKey(),null)||[0,0,0];
   const hist=load(histKey(),null)||[];
