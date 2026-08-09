@@ -1,0 +1,440 @@
+{
+ "id": "en-05b-wh-logica",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "5b. Who: capire la logica",
+ "items": [
+  {
+   "type": "info",
+   "title": "Le due frasi da imparare a memoria",
+   "html": "Sono uguali in italiano ma vogliono dire cose diverse. Imparale così come sono: tutte le altre si costruiscono per somiglianza.<br><br><b>Who saw Mark?</b><br>Qualcuno ha visto Mark. Chi è stato?<br><span style='color:#888'>Dopo who non c'è nessun altro soggetto → il verbo viene subito dopo.</span><br><br><b>Who did Mark see?</b><br>Mark ha visto qualcuno. Chi ha visto?<br><span style='color:#888'>Dopo who c'è già Mark, che fa l'azione → serve did.</span>"
+  },
+  {
+   "type": "info",
+   "title": "La prova, in tre secondi",
+   "html": "1. Guarda cosa c'è <b>subito dopo il who</b>.<br>2. È un'altra persona o cosa che fa l'azione (Mark, you, Anna, your sister)? → <b>serve did / do / does</b>, e il verbo resta base.<br>3. Non c'è nessuno? → il who <b>è lui</b> che fa l'azione: verbo subito dopo, senza ausiliare.<br><br>Vale identico per <b>what</b> e <b>which</b>."
+  },
+  {
+   "type": "info",
+   "title": "Come si usa questo esercizio",
+   "html": "Prima di toccare, dillo a voce: <b>chi fa l'azione?</b><br>Se indovini senza saperlo, l'esercizio non ti è servito a niente: alla verifica non ci sono le quattro opzioni. Vai piano, la velocità qui non conta."
+  },
+  {
+   "type": "mc",
+   "id": "cl1",
+   "lab": "Primo passo: chi fa l'azione?",
+   "prompt": "Qualcuno ha rotto la finestra. Chi è stato?",
+   "options": [
+    "who è soggetto → niente did",
+    "who è oggetto → serve did",
+    "who è soggetto → serve did"
+   ],
+   "answer": "who è soggetto → niente did",
+   "why": "Non sappiamo chi fa l'azione: è proprio il who a farla. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cl2",
+   "lab": "Primo passo: chi fa l'azione?",
+   "prompt": "Anna ha invitato qualcuno. Chi ha invitato?",
+   "options": [
+    "who è oggetto → serve did",
+    "who è soggetto → niente did",
+    "who è soggetto → serve did"
+   ],
+   "answer": "who è oggetto → serve did",
+   "why": "L'azione la fa Anna, il who la subisce. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cl3",
+   "lab": "Primo passo: chi fa l'azione?",
+   "prompt": "Qualcuno ti ha telefonato. Chi è stato?",
+   "options": [
+    "who è soggetto → niente did",
+    "who è oggetto → serve did",
+    "who è soggetto → serve did"
+   ],
+   "answer": "who è soggetto → niente did",
+   "why": "Chi telefona non lo sappiamo: lo fa il who. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cl4",
+   "lab": "Primo passo: chi fa l'azione?",
+   "prompt": "Tu hai telefonato a qualcuno. A chi?",
+   "options": [
+    "who è oggetto → serve did",
+    "who è soggetto → niente did",
+    "who è soggetto → serve did"
+   ],
+   "answer": "who è oggetto → serve did",
+   "why": "Sei tu a telefonare, quindi il soggetto c'è già. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cl5",
+   "lab": "Guarda solo la struttura",
+   "prompt": "Who ___ Anna? (dopo il who non c'è nessun altro)",
+   "options": [
+    "helped",
+    "did help",
+    "did helped",
+    "does helped"
+   ],
+   "answer": "helped",
+   "why": "Non c'è nessun soggetto dopo who, quindi il verbo va diretto: Who helped Anna? — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cl6",
+   "lab": "Guarda solo la struttura",
+   "prompt": "Who did Anna ___ ? (dopo il who c'è già Anna)",
+   "options": [
+    "help",
+    "helped",
+    "helps",
+    "helping"
+   ],
+   "answer": "help",
+   "why": "C'è did, quindi il verbo torna alla forma base: Who did Anna help? — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "sig1",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who called Tom?",
+   "options": [
+    "Qualcuno ha telefonato a Tom: chi è stato?",
+    "Tom ha telefonato a qualcuno: a chi?",
+    "Non si può capire: l'inglese è ambiguo come l'italiano."
+   ],
+   "answer": "Qualcuno ha telefonato a Tom: chi è stato?",
+   "why": "Niente soggetto dopo who: è il who a telefonare. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "sig2",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who did Tom call?",
+   "options": [
+    "Tom ha telefonato a qualcuno: a chi?",
+    "Qualcuno ha telefonato a Tom: chi è stato?",
+    "Non si può capire: l'inglese è ambiguo come l'italiano."
+   ],
+   "answer": "Tom ha telefonato a qualcuno: a chi?",
+   "why": "Dopo who c'è Tom, che fa l'azione: il who la subisce. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "sig3",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who does your sister help?",
+   "options": [
+    "Tua sorella aiuta qualcuno: chi?",
+    "Qualcuno aiuta tua sorella: chi?",
+    "Non si può capire: l'inglese è ambiguo come l'italiano."
+   ],
+   "answer": "Tua sorella aiuta qualcuno: chi?",
+   "why": "Dopo who c'è your sister: è lei che aiuta. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "sig4",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who helps your sister?",
+   "options": [
+    "Qualcuno aiuta tua sorella: chi?",
+    "Tua sorella aiuta qualcuno: chi?",
+    "Non si può capire: l'inglese è ambiguo come l'italiano."
+   ],
+   "answer": "Qualcuno aiuta tua sorella: chi?",
+   "why": "Nessun soggetto dopo who, e il verbo ha la s della terza persona: helps. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "sig5",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "What broke the window?",
+   "options": [
+    "Qualcosa ha rotto la finestra: che cosa?",
+    "Qualcuno ha rotto qualcosa: che cosa ha rotto?",
+    "Non si può capire: l'inglese è ambiguo come l'italiano."
+   ],
+   "answer": "Qualcosa ha rotto la finestra: che cosa?",
+   "why": "What è soggetto: è la cosa che ha rotto la finestra. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "sig6",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "What did he break?",
+   "options": [
+    "Lui ha rotto qualcosa: che cosa?",
+    "Qualcosa lo ha rotto: che cosa?",
+    "Non si può capire: l'inglese è ambiguo come l'italiano."
+   ],
+   "answer": "Lui ha rotto qualcosa: che cosa?",
+   "why": "Dopo what c'è he, che fa l'azione. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cp1",
+   "lab": "Traduci",
+   "prompt": "Chi ha visto Mark? (qualcuno ha visto lui)",
+   "options": [
+    "Who saw Mark?",
+    "Who did Mark see?",
+    "Who did see Mark?",
+    "Who Mark saw?"
+   ],
+   "answer": "Who saw Mark?",
+   "why": "È il who a vedere: verbo diretto, come nella frase modello. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cp2",
+   "lab": "Traduci",
+   "prompt": "Chi ha visto Mark? (nel senso: Mark ha visto chi?)",
+   "options": [
+    "Who did Mark see?",
+    "Who saw Mark?",
+    "Who did Mark saw?",
+    "Who Mark did see?"
+   ],
+   "answer": "Who did Mark see?",
+   "why": "È Mark a vedere, quindi il who è oggetto: did + forma base. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cp3",
+   "lab": "Traduci",
+   "prompt": "Chi ha aiutato Anna? (qualcuno ha aiutato lei)",
+   "options": [
+    "Who helped Anna?",
+    "Who did Anna help?",
+    "Who did helped Anna?",
+    "Who Anna helped?"
+   ],
+   "answer": "Who helped Anna?",
+   "why": "Il who fa l'azione: nessun ausiliare. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "cp4",
+   "lab": "Traduci",
+   "prompt": "Chi ha aiutato Anna? (nel senso: Anna ha aiutato chi?)",
+   "options": [
+    "Who did Anna help?",
+    "Who helped Anna?",
+    "Who Anna did help?",
+    "Who did Anna helped?"
+   ],
+   "answer": "Who did Anna help?",
+   "why": "Anna fa l'azione, quindi serve did e help resta base. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dr1",
+   "lab": "Fai la domanda",
+   "prompt": "Tom broke the window. — Vuoi sapere CHI ha rotto la finestra.",
+   "options": [
+    "Who broke the window?",
+    "Who did break the window?",
+    "What did Tom break?",
+    "Who did Tom break?"
+   ],
+   "answer": "Who broke the window?",
+   "why": "Ti manca chi fa l'azione, quindi il who prende il posto di Tom. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dr2",
+   "lab": "Fai la domanda",
+   "prompt": "Tom broke the window. — Vuoi sapere CHE COSA ha rotto.",
+   "options": [
+    "What did Tom break?",
+    "What broke Tom?",
+    "What broke the window?",
+    "What did break Tom?"
+   ],
+   "answer": "What did Tom break?",
+   "why": "Il soggetto Tom resta al suo posto, quindi serve did. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dr3",
+   "lab": "Fai la domanda",
+   "prompt": "Anna met Paul at the station. — Vuoi sapere CHI ha incontrato Paul.",
+   "options": [
+    "Who met Paul?",
+    "Who did Anna meet?",
+    "Who did meet Paul?",
+    "Who did Paul meet?"
+   ],
+   "answer": "Who met Paul?",
+   "why": "Sostituisci Anna con who e lascia il verbo dov'è. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dr4",
+   "lab": "Fai la domanda",
+   "prompt": "Anna met Paul at the station. — Vuoi sapere CHI ha incontrato Anna.",
+   "options": [
+    "Who did Anna meet?",
+    "Who met Anna?",
+    "Who did meet Anna?",
+    "Who Anna met?"
+   ],
+   "answer": "Who did Anna meet?",
+   "why": "Anna resta il soggetto, quindi il who è oggetto: serve did. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dg1",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who did broke the window?",
+   "options": [
+    "Sbagliata: con did il verbo va base, break",
+    "Giusta",
+    "Sbagliata: il did non ci vuole per niente",
+    "Sbagliata: ci vuole does"
+   ],
+   "answer": "Sbagliata: con did il verbo va base, break",
+   "why": "Due passati insieme non si possono avere: o did break, o broke da solo. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dg2",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who lives in that house?",
+   "options": [
+    "Giusta",
+    "Sbagliata: ci vuole does",
+    "Sbagliata: ci vuole did",
+    "Sbagliata: live senza s"
+   ],
+   "answer": "Giusta",
+   "why": "Who è soggetto e conta come terza persona singolare: lives. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dg3",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who you saw yesterday?",
+   "options": [
+    "Sbagliata: manca did, Who did you see?",
+    "Giusta",
+    "Sbagliata: ci vuole does",
+    "Sbagliata: saw va dopo you"
+   ],
+   "answer": "Sbagliata: manca did, Who did you see?",
+   "why": "Dopo who c'è you, quindi il did serve per forza. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dg4",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who did win the race?",
+   "options": [
+    "Sbagliata: basta Who won the race?",
+    "Giusta",
+    "Sbagliata: ci vuole does",
+    "Sbagliata: win va prima di did"
+   ],
+   "answer": "Sbagliata: basta Who won the race?",
+   "why": "Non c'è nessun altro soggetto, quindi il did è di troppo. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "order",
+   "id": "or1",
+   "q": "Chi ha vinto la gara?",
+   "steps": [
+    "Who",
+    "won",
+    "the race?"
+   ],
+   "why": "Nessun soggetto dopo who: verbo diretto al passato. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "order",
+   "id": "or2",
+   "q": "Chi hai incontrato ieri?",
+   "steps": [
+    "Who",
+    "did",
+    "you",
+    "meet",
+    "yesterday?"
+   ],
+   "why": "C'è you dopo il who: did + forma base. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "order",
+   "id": "or3",
+   "q": "Chi ha scritto questa lettera?",
+   "steps": [
+    "Who",
+    "wrote",
+    "this letter?"
+   ],
+   "why": "È il who a scrivere. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "order",
+   "id": "or4",
+   "q": "Chi ha chiamato tua sorella? (nel senso: tua sorella ha chiamato chi?)",
+   "steps": [
+    "Who",
+    "did",
+    "your sister",
+    "call?"
+   ],
+   "why": "Il soggetto è your sister, quindi il who è oggetto. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "order",
+   "id": "or5",
+   "q": "Che cosa è successo?",
+   "steps": [
+    "What",
+    "happened?"
+   ],
+   "why": "What è soggetto: verbo subito dopo, senza did. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "order",
+   "id": "or6",
+   "q": "Che cosa hai comprato?",
+   "steps": [
+    "What",
+    "did",
+    "you",
+    "buy?"
+   ],
+   "why": "Dopo what c'è you: serve did e buy resta base. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "order",
+   "id": "or7",
+   "q": "Quale squadra ha vinto?",
+   "steps": [
+    "Which team",
+    "won?"
+   ],
+   "why": "Which team è il soggetto: nessun ausiliare. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "order",
+   "id": "or8",
+   "q": "Quale film hai guardato?",
+   "steps": [
+    "Which film",
+    "did",
+    "you",
+    "watch?"
+   ],
+   "why": "Il soggetto è you, quindi which film è oggetto. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  }
+ ]
+}
