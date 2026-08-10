@@ -15,7 +15,7 @@
    "prompt": "Chi ha rotto la finestra? — Non lo sappiamo.",
    "options": [
     "Who broke the window?",
-    "Who did break the window?",
+    "Who did broke the window?",
     "Who did the window break?",
     "Who was break the window?"
    ],
@@ -41,7 +41,7 @@
    "prompt": "Who ___ this cake?",
    "options": [
     "made",
-    "did make",
+    "did making",
     "did made",
     "was make"
    ],
@@ -69,7 +69,7 @@
     "Who phoned you?",
     "Who did you phone?",
     "Who you phoned?",
-    "Who did phone you?"
+    "Who did phoned you?"
    ],
    "answer": "Who phoned you?",
    "why": "Chi fa l'azione è sconosciuto → who soggetto, senza did."
@@ -145,7 +145,7 @@
    "prompt": "Quale frase è giusta?",
    "options": [
     "Who lives in that house?",
-    "Who does live in that house?",
+    "Who live in that house?",
     "Who do lives in that house?",
     "Who is live in that house?"
    ],

@@ -1,0 +1,475 @@
+{
+ "id": "en-05c-wh-tempi",
+ "subject": "Inglese",
+ "lang": "en-GB",
+ "title": "5c. Who con tutti i tempi",
+ "items": [
+  {
+   "type": "info",
+   "title": "La regola non cambia mai",
+   "html": "Quello che cambia è solo <b>quale</b> ausiliare usi. La logica è identica in tutti i tempi.<br><br><b>who soggetto</b> (fa lui l'azione): niente si sposta, il verbo va subito dopo.<br>Who <b>plays</b> tennis? · Who <b>played</b> tennis? · Who <b>is playing</b>? · Who <b>was playing</b>? · Who <b>can play</b>?<br><br><b>who oggetto</b> (l'azione la fa un altro): l'ausiliare passa davanti a quell'altro.<br>Who <b>does</b> Anna help? · Who <b>did</b> Anna help? · Who <b>is</b> Anna helping? · Who <b>was</b> Anna helping? · Who <b>can</b> Anna help?"
+  },
+  {
+   "type": "info",
+   "title": "Quale ausiliare, tempo per tempo",
+   "html": "presente semplice → <b>do / does</b><br>passato semplice → <b>did</b><br>presente continuo → <b>am / is / are</b> + verbo-ing<br>passato continuo → <b>was / were</b> + verbo-ing<br>modali → <b>can, must, will</b> + verbo base<br><br>Con le forme continue e con i modali l'ausiliare c'è già: non aggiungere mai did o does sopra. <i>Who did is playing?</i> non esiste."
+  },
+  {
+   "type": "info",
+   "title": "Quando to be è il verbo, non l'ausiliare",
+   "html": "Se non c'è nessun altro verbo, to be sta da solo e non serve nessun ausiliare:<br><b>Who is</b> your teacher? · <b>Who are</b> those boys? · <b>Who was</b> at the party?<br><br>Qui il who è sempre soggetto: non esiste una versione con did."
+  },
+  {
+   "type": "mc",
+   "id": "ps1",
+   "lab": "Presente semplice",
+   "prompt": "Qualcuno gioca a tennis: chi?",
+   "options": [
+    "Who plays tennis?",
+    "Who does play tennis?",
+    "Who do plays tennis?",
+    "Who is play tennis?"
+   ],
+   "answer": "Who plays tennis?",
+   "why": "Who soggetto: verbo diretto, con la s della terza persona. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "ps2",
+   "lab": "Presente semplice",
+   "prompt": "Anna aiuta qualcuno: chi aiuta?",
+   "options": [
+    "Who does Anna help?",
+    "Who helps Anna?",
+    "Who does Anna helps?",
+    "Who Anna helps?"
+   ],
+   "answer": "Who does Anna help?",
+   "why": "Dopo il who c'è Anna, quindi does passa davanti a lei e help resta base. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "ps3",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who likes pizza?",
+   "options": [
+    "A qualcuno piace la pizza: a chi?",
+    "A chi piace qualcuno?",
+    "Non si può capire."
+   ],
+   "answer": "A qualcuno piace la pizza: a chi?",
+   "why": "Nessun soggetto dopo il who. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "ps4",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who does Anna like?",
+   "options": [
+    "Ad Anna piace qualcuno: chi?",
+    "A qualcuno piace Anna: chi?",
+    "Non si può capire."
+   ],
+   "answer": "Ad Anna piace qualcuno: chi?",
+   "why": "Dopo il who c'è Anna: è lei il soggetto. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "pc1",
+   "lab": "Presente continuo",
+   "prompt": "Qualcuno sta aiutando Mark: chi?",
+   "options": [
+    "Who is helping Mark?",
+    "Who is Mark helping?",
+    "Who does helping Mark?",
+    "Who did is helping Mark?"
+   ],
+   "answer": "Who is helping Mark?",
+   "why": "Who soggetto: is helping va subito dopo, senza spostare niente. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "pc2",
+   "lab": "Presente continuo",
+   "prompt": "Mark sta aiutando qualcuno: chi?",
+   "options": [
+    "Who is Mark helping?",
+    "Who is helping Mark?",
+    "Who does Mark helping?",
+    "Who did Mark helping?"
+   ],
+   "answer": "Who is Mark helping?",
+   "why": "Who oggetto: l'ausiliare is passa davanti a Mark. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "pc3",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who are you calling?",
+   "options": [
+    "Tu stai telefonando a qualcuno: a chi?",
+    "Qualcuno ti sta telefonando: chi?",
+    "Non si può capire."
+   ],
+   "answer": "Tu stai telefonando a qualcuno: a chi?",
+   "why": "Dopo il who c'è you: sei tu a telefonare. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "pc4",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who is calling you?",
+   "options": [
+    "Qualcuno ti sta telefonando: chi?",
+    "Tu stai telefonando a qualcuno: a chi?",
+    "Non si può capire."
+   ],
+   "answer": "Qualcuno ti sta telefonando: chi?",
+   "why": "Niente soggetto dopo il who: è il who a telefonare. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "pc5",
+   "lab": "Non raddoppiare l'ausiliare",
+   "prompt": "Quale frase esiste?",
+   "options": [
+    "Who is Anna watching?",
+    "Who does Anna is watching?",
+    "Who did Anna is watching?",
+    "Who is does Anna watch?"
+   ],
+   "answer": "Who is Anna watching?",
+   "why": "L'ausiliare is c'è già: non ci si aggiunge sopra né does né did. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "pk1",
+   "lab": "Passato continuo",
+   "prompt": "Qualcuno stava guardando la TV: chi?",
+   "options": [
+    "Who was watching TV?",
+    "Who was TV watching?",
+    "Who did watching TV?",
+    "Who were watching TV?"
+   ],
+   "answer": "Who was watching TV?",
+   "why": "Who soggetto e vale come singolare: was watching. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "pk2",
+   "lab": "Passato continuo",
+   "prompt": "Anna stava aspettando qualcuno: chi?",
+   "options": [
+    "Who was Anna waiting for?",
+    "Who was waiting for Anna?",
+    "Who did Anna waiting for?",
+    "Who Anna was waiting for?"
+   ],
+   "answer": "Who was Anna waiting for?",
+   "why": "Who oggetto: was passa davanti ad Anna. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "pk3",
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Who were you talking to?",
+   "options": [
+    "Tu stavi parlando con qualcuno: con chi?",
+    "Qualcuno stava parlando di te: chi?",
+    "Non si può capire."
+   ],
+   "answer": "Tu stavi parlando con qualcuno: con chi?",
+   "why": "Dopo il who c'è you. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "md1",
+   "lab": "Modali",
+   "prompt": "Qualcuno può aiutarci: chi?",
+   "options": [
+    "Who can help us?",
+    "Who can we help?",
+    "Who does can help us?",
+    "Who did can help us?"
+   ],
+   "answer": "Who can help us?",
+   "why": "Who soggetto: can help va subito dopo. I modali non prendono mai did. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "md2",
+   "lab": "Modali",
+   "prompt": "Noi possiamo aiutare qualcuno: chi?",
+   "options": [
+    "Who can we help?",
+    "Who can help us?",
+    "Who do we can help?",
+    "Who can we helping?"
+   ],
+   "answer": "Who can we help?",
+   "why": "Who oggetto: can passa davanti a we. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "md3",
+   "lab": "Modali",
+   "prompt": "Che cosa vuol dire? — Who will you invite?",
+   "options": [
+    "Tu inviterai qualcuno: chi?",
+    "Qualcuno ti inviterà: chi?",
+    "Non si può capire."
+   ],
+   "answer": "Tu inviterai qualcuno: chi?",
+   "why": "Dopo il who c'è you: sei tu a invitare. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "tb1",
+   "lab": "To be da solo",
+   "prompt": "Chi è il tuo insegnante?",
+   "options": [
+    "Who is your teacher?",
+    "Who does your teacher?",
+    "Who is your teacher is?",
+    "Who did your teacher?"
+   ],
+   "answer": "Who is your teacher?",
+   "why": "Non c'è nessun altro verbo: to be sta da solo, niente ausiliare. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "tb2",
+   "lab": "To be da solo",
+   "prompt": "Chi c'era alla festa?",
+   "options": [
+    "Who was at the party?",
+    "Who did at the party?",
+    "Who was at the party did?",
+    "Who did be at the party?"
+   ],
+   "answer": "Who was at the party?",
+   "why": "Nessun altro verbo: was da solo. Il did qui non entra mai. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "tb3",
+   "lab": "Trova la frase giusta",
+   "prompt": "Quale frase esiste?",
+   "options": [
+    "Who are those boys?",
+    "Who do those boys?",
+    "Who did those boys are?",
+    "Who does those boys?"
+   ],
+   "answer": "Who are those boys?",
+   "why": "to be come verbo principale: nessun ausiliare in più. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "wh1",
+   "lab": "What",
+   "prompt": "Che cosa è successo ieri?",
+   "options": [
+    "What happened yesterday?",
+    "What did happened yesterday?",
+    "What did happen yesterday it?",
+    "What was happen yesterday?"
+   ],
+   "answer": "What happened yesterday?",
+   "why": "What è soggetto: verbo diretto al passato. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "wh2",
+   "lab": "What",
+   "prompt": "Che cosa vuole lui?",
+   "options": [
+    "What does he want?",
+    "What wants he?",
+    "What does he wants?",
+    "What he wants?"
+   ],
+   "answer": "What does he want?",
+   "why": "Dopo what c'è he: does davanti a lui, want base. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "wh3",
+   "lab": "Which",
+   "prompt": "Quale autobus va alla stazione?",
+   "options": [
+    "Which bus goes to the station?",
+    "Which bus does goes to the station?",
+    "Which bus do goes to the station?",
+    "Which bus is go to the station?"
+   ],
+   "answer": "Which bus goes to the station?",
+   "why": "Which bus è il soggetto: verbo diretto. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "wh4",
+   "lab": "Which",
+   "prompt": "Quale autobus prendi?",
+   "options": [
+    "Which bus do you take?",
+    "Which bus takes you?",
+    "Which bus you take?",
+    "Which bus does you take?"
+   ],
+   "answer": "Which bus do you take?",
+   "why": "Dopo which bus c'è you: do davanti a lui. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "dx1",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who did is helping Mark?",
+   "options": [
+    "Sbagliata: l'ausiliare is c'è già, Who is helping Mark?",
+    "Giusta",
+    "Sbagliata: ci vuole does al posto di did",
+    "Sbagliata: helping va prima di is"
+   ],
+   "answer": "Sbagliata: l'ausiliare is c'è già, Who is helping Mark?",
+   "why": "Con le forme continue l'ausiliare c'è già: did non si somma. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "dx2",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who does can help us?",
+   "options": [
+    "Sbagliata: i modali non prendono ausiliari, Who can help us?",
+    "Giusta",
+    "Sbagliata: ci vuole did",
+    "Sbagliata: can va alla fine"
+   ],
+   "answer": "Sbagliata: i modali non prendono ausiliari, Who can help us?",
+   "why": "can è già lui l'ausiliare. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "dx3",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who did was at the party?",
+   "options": [
+    "Sbagliata: to be sta da solo, Who was at the party?",
+    "Giusta",
+    "Sbagliata: ci vuole does",
+    "Sbagliata: was va dopo party"
+   ],
+   "answer": "Sbagliata: to be sta da solo, Who was at the party?",
+   "why": "È lo stesso errore di sempre: did e was non stanno mai insieme. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "mc",
+   "id": "dx4",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who is Anna helping?",
+   "options": [
+    "Giusta",
+    "Sbagliata: ci vuole does",
+    "Sbagliata: ci vuole did",
+    "Sbagliata: helping va base"
+   ],
+   "answer": "Giusta",
+   "why": "Who oggetto con il presente continuo: is davanti ad Anna, helping resta così. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "order",
+   "id": "oc1",
+   "q": "Chi sta cucinando?",
+   "steps": [
+    "Who",
+    "is",
+    "cooking?"
+   ],
+   "why": "Who soggetto: is cooking subito dopo. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "order",
+   "id": "oc2",
+   "q": "Chi stai aspettando?",
+   "steps": [
+    "Who",
+    "are",
+    "you",
+    "waiting for?"
+   ],
+   "why": "Who oggetto: are davanti a you. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "order",
+   "id": "oc3",
+   "q": "Chi stava dormendo?",
+   "steps": [
+    "Who",
+    "was",
+    "sleeping?"
+   ],
+   "why": "Who soggetto: was sleeping subito dopo. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "order",
+   "id": "oc4",
+   "q": "Chi può rispondere a questa domanda?",
+   "steps": [
+    "Who",
+    "can",
+    "answer",
+    "this question?"
+   ],
+   "why": "Who soggetto: can answer subito dopo. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "order",
+   "id": "oc5",
+   "q": "Chi hai invitato alla festa?",
+   "steps": [
+    "Who",
+    "did",
+    "you",
+    "invite",
+    "to the party?"
+   ],
+   "why": "Who oggetto: did davanti a you, invite base. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "order",
+   "id": "oc6",
+   "q": "Chi ti sta chiamando?",
+   "steps": [
+    "Who",
+    "is",
+    "calling",
+    "you?"
+   ],
+   "why": "Who soggetto: is calling, poi you come oggetto. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "order",
+   "id": "oc7",
+   "q": "Chi è quella ragazza?",
+   "steps": [
+    "Who",
+    "is",
+    "that girl?"
+   ],
+   "why": "to be come verbo principale: nessun ausiliare. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  },
+  {
+   "type": "order",
+   "id": "oc8",
+   "q": "Quale film guarderai?",
+   "steps": [
+    "Which film",
+    "will",
+    "you",
+    "watch?"
+   ],
+   "why": "Which film oggetto: will davanti a you. — Regola: dopo il who c'è già un altro soggetto? Sì → l'ausiliare va prima di lui. No → il verbo va subito dopo il who."
+  }
+ ]
+}
