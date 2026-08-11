@@ -78,7 +78,7 @@
    "prompt": "Who ___ Anna? (dopo il who non c'è nessun altro)",
    "options": [
     "helped",
-    "did help",
+    "helping",
     "did helped",
     "does helped"
    ],
@@ -185,7 +185,7 @@
    "options": [
     "Who saw Mark?",
     "Who did Mark see?",
-    "Who did see Mark?",
+    "Who did saw Mark?",
     "Who Mark saw?"
    ],
    "answer": "Who saw Mark?",
@@ -240,7 +240,7 @@
    "prompt": "Tom broke the window. — Vuoi sapere CHI ha rotto la finestra.",
    "options": [
     "Who broke the window?",
-    "Who did break the window?",
+    "Who did broke the window?",
     "What did Tom break?",
     "Who did Tom break?"
    ],
@@ -256,7 +256,7 @@
     "What did Tom break?",
     "What broke Tom?",
     "What broke the window?",
-    "What did break Tom?"
+    "What did Tom broke?"
    ],
    "answer": "What did Tom break?",
    "why": "Il soggetto Tom resta al suo posto, quindi serve did. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
@@ -269,7 +269,7 @@
    "options": [
     "Who met Paul?",
     "Who did Anna meet?",
-    "Who did meet Paul?",
+    "Who did met Paul?",
     "Who did Paul meet?"
    ],
    "answer": "Who met Paul?",
@@ -279,29 +279,15 @@
    "type": "mc",
    "id": "dr4",
    "lab": "Fai la domanda",
-   "prompt": "Anna met Paul at the station. — Vuoi sapere CHI ha incontrato Anna.",
+   "prompt": "Anna met Paul at the station. — Vuoi sapere CHI Anna ha incontrato.",
    "options": [
     "Who did Anna meet?",
     "Who met Anna?",
-    "Who did meet Anna?",
+    "Who did Anna met?",
     "Who Anna met?"
    ],
    "answer": "Who did Anna meet?",
    "why": "Anna resta il soggetto, quindi il who è oggetto: serve did. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
-  },
-  {
-   "type": "mc",
-   "id": "dg1",
-   "lab": "È giusta o sbagliata?",
-   "prompt": "Who did broke the window?",
-   "options": [
-    "Sbagliata: con did il verbo va base, break",
-    "Giusta",
-    "Sbagliata: il did non ci vuole per niente",
-    "Sbagliata: ci vuole does"
-   ],
-   "answer": "Sbagliata: con did il verbo va base, break",
-   "why": "Due passati insieme non si possono avere: o did break, o broke da solo. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
   },
   {
    "type": "mc",
@@ -333,17 +319,31 @@
   },
   {
    "type": "mc",
-   "id": "dg4",
+   "id": "dg1b",
    "lab": "È giusta o sbagliata?",
-   "prompt": "Who did win the race?",
+   "prompt": "Who did Mark saw?",
    "options": [
-    "Sbagliata: basta Who won the race?",
+    "Sbagliata: con did il verbo va base, Who did Mark see?",
+    "Giusta",
+    "Sbagliata: il did non ci vuole, Who saw Mark?",
+    "Sbagliata: ci vuole does"
+   ],
+   "answer": "Sbagliata: con did il verbo va base, Who did Mark see?",
+   "why": "Qui dopo il who c'è Mark, quindi il did ci vuole: è saw a essere sbagliato, perché dopo did il verbo torna base. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+  },
+  {
+   "type": "mc",
+   "id": "dg4b",
+   "lab": "È giusta o sbagliata?",
+   "prompt": "Who did won the race?",
+   "options": [
+    "Sbagliata: qui il did non ci vuole, Who won the race?",
     "Giusta",
     "Sbagliata: ci vuole does",
-    "Sbagliata: win va prima di did"
+    "Sbagliata: won va prima di did"
    ],
-   "answer": "Sbagliata: basta Who won the race?",
-   "why": "Non c'è nessun altro soggetto, quindi il did è di troppo. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
+   "answer": "Sbagliata: qui il did non ci vuole, Who won the race?",
+   "why": "Dopo il who non c'è nessun altro soggetto: è il who a vincere, quindi il verbo va da solo al passato. — Regola: dopo il who c'è già un altro soggetto? Sì → serve did. No → il verbo va subito dopo."
   },
   {
    "type": "order",
