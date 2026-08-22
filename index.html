@@ -173,6 +173,8 @@ input[type=text]:disabled{opacity:1}
 #typein::placeholder{color:var(--line);font-weight:400;letter-spacing:0;font-size:15px}
 .caret{opacity:.55;animation:blink 1.1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
+.focus{background:var(--a2b);color:var(--a2);padding:1px 5px;border-radius:5px;font-weight:700}
+.stage{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
 .tapskip{cursor:pointer}
 .tapskip .verdict{animation:none}
 .sbar{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:14px}
@@ -225,7 +227,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "8";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "10";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -425,6 +427,15 @@ function startSession(mode){
     shuffle(src).slice(0,LEN).forEach(it=>{
       const q=Object.assign({},it);
       if(q.type==="mc") q.options=shuffle(q.options);
+      if(q.type==="wh"){
+        q.options=shuffle(q.options);
+        if(q.s1options){                       /* mescolo anche il primo stadio */
+          const giusta=q.s1options[whS1ans(q)];
+          q.s1options=shuffle(q.s1options);
+          q.s1answer=q.s1options.indexOf(giusta);
+        }
+        q.stage=1; q.s1picked=null;
+      }
       if(q.type==="order"){ q.shuffled=shuffle(q.steps.map((s,i)=>({s:s,i:i}))); q.picked=[]; }
       items.push(q);
     });
@@ -482,6 +493,30 @@ function tapStep(k){
     judge(ok,{q:String(q.q),given:"ordine sbagliato",want:"vedi la soluzione"});
   }else render();
 }
+function whS1q(q){ return q.s1q || "La parte evidenziata è il soggetto o l'oggetto?"; }
+function whS1opts(q){ return q.s1options || ["Il soggetto — chi compie l'azione","L'oggetto — chi o cosa la subisce"]; }
+function whS1ans(q){ return (q.s1answer!=null) ? q.s1answer : (q.kind==="subject"?0:1); }
+
+function answerWh(stage,oi){
+  const q=sess.items[sess.i];
+  if(stage===1){
+    if(q.s1picked!=null) return;
+    q.s1picked=oi;
+    q.s1ok = (oi === whS1ans(q));
+    if(!q.s1ok) sess.whErr1=(sess.whErr1||0)+1;
+    render();
+  }else{
+    if(sess.answered) return;
+    const opt=q.options[oi];
+    sess.picked=opt;
+    q.s2ok = (opt===q.answer);
+    if(!q.s2ok) sess.whErr2=(sess.whErr2||0)+1;
+    judge(q.s1ok && q.s2ok,
+      {q:q.sentence, given:(q.s1ok?"":"tipo sbagliato, poi ")+opt, want:q.answer});
+  }
+}
+function whNext(){ sess.items[sess.i].stage=2; render(); }
+
 function nextQ(){ sess.i++; sess.answered=false; sess.picked=null; render(); }
 
 /* ═══════════ PROGRESSI E RIEPILOGO ═══════════ */
@@ -1048,6 +1083,12 @@ function vSession(){
       : "Questo è ancora nuovo. Guardalo con calma e riprova.";
     let h='<div class="q center"><p class="score">'+r+'<span style="font-size:22px;color:var(--ink-soft)"> / '+n+'</span></p>'
         +'<p class="qsub" style="margin-top:8px">'+msg+'</p></div>';
+    if(s.whErr1!=null || s.whErr2!=null){
+      const e1=s.whErr1||0, e2=s.whErr2||0;
+      h+='<div class="card"><div class="meaning"><b>Dove si è perso</b></div>'
+        +'<p class="wcount" style="margin-top:8px">Primo passo (capire la frase): '+e1+(e1===1?' errore':' errori')
+        +'<br>Secondo passo (scegliere la forma): '+e2+(e2===1?' errore':' errori')+'</p></div>';
+    }
     if(s.wrong.length){
       h+='<div class="card"><div class="meaning"><b>Da rivedere</b></div><ul style="margin:8px 0 0;padding-left:20px;font-size:15px">';
       s.wrong.forEach(w=>{ h+='<li style="margin-bottom:4px">'+esc(w.q)+' → giusto: <b>'+esc(w.want)+'</b></li>'; });
@@ -1073,6 +1114,40 @@ function vSession(){
       const mark = s.answered && i===q.fi ? ' style="outline:3px solid var(--ok)"' : "";
       h+='<button class="form f'+(i%3)+'"'+mark+' onclick="answerListen('+i+')">'
         +'<span class="lab">'+esc(f.label)+'</span><span class="word">'+esc(e[f.key])+'</span></button>';
+    });
+    h+='</div>';
+  }
+  else if(q.type==="wh"){
+    const ev = q.focus ? esc(q.sentence).replace(esc(q.focus),'<span class="focus">'+esc(q.focus)+'</span>')
+                       : esc(q.sentence);
+    h+='<div class="q"><div class="stage">La frase di partenza</div>'
+      +'<p class="qbig" style="font-size:21px;line-height:1.35">'+ev+'</p>'
+      +(q.hint?'<p class="qsub">'+esc(q.hint)+'</p>':(q.focus?'<p class="qsub">La domanda deve chiedere della parte evidenziata.</p>':""))+'</div>';
+    if(q.stage===1){
+      h+='<div class="q"><div class="stage" style="color:var(--a1)">Primo passo</div>'
+        +'<p class="qsub" style="font-size:16px;color:var(--ink)">'+esc(whS1q(q))+'</p></div>';
+      h+='<div class="opts">';
+      whS1opts(q).forEach((t,i)=>{
+        let cls="opt";
+        if(q.s1picked!=null) cls += (i===whS1ans(q)) ? " right" : (i===q.s1picked ? " wrongpick" : " dim");
+        h+='<button class="'+cls+'" style="font-size:16px"'+(q.s1picked!=null?" disabled":"")
+          +' onclick="answerWh(1,'+i+')">'+esc(t)+'</button>';
+      });
+      h+='</div>';
+      if(q.s1picked!=null){
+        h+='<div class="verdict '+(q.s1ok?"ok":"no")+'" style="margin-top:12px">'
+          +(q.s1ok?"Esatto.":"Non ci siamo.")+'<span>'+esc(q.whyKind)+'</span></div>'
+          +'<button class="cta" onclick="whNext()">Ora completa la domanda</button>';
+      }
+      return h;
+    }
+    h+='<div class="q"><div class="stage" style="color:var(--a3)">Secondo passo'
+      +(q.kind?" — "+(q.kind==="subject"?"domanda sul soggetto":"domanda sull&#39;oggetto"):"")+'</div>'
+      +'<p class="qbig" style="font-size:23px">'+esc(q.q)+'</p></div><div class="opts">';
+    q.options.forEach((o,oi)=>{
+      let cls="opt";
+      if(s.answered){ cls += (o===q.answer) ? " right" : (o===s.picked ? " wrongpick" : " dim"); }
+      h+='<button class="'+cls+'"'+(s.answered?" disabled":"")+' onclick="answerWh(2,'+oi+')">'+esc(o)+'</button>';
     });
     h+='</div>';
   }
