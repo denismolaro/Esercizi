@@ -1,0 +1,335 @@
+{
+ "id": "en-wh-questions",
+ "subject": "Inglese",
+ "title": "Wh-questions: soggetto o oggetto",
+ "blurb": "Prima riconosci di cosa parla la domanda, poi la completi. Venti frasi.",
+ "lang": "en-GB",
+ "updated": "2026-08-19",
+ "items": [
+  {
+   "type": "info",
+   "title": "La regola in due mosse",
+   "text": "1. Guarda la parte evidenziata: compie l'azione o la subisce?\n\n2. Se COMPIE l'azione è il soggetto: la domanda non vuole nessun ausiliare e il verbo resta com'era.\n   Sarah called → Who called?\n\n3. Se la SUBISCE è l'oggetto: serve l'ausiliare (do / does / did / am-is-are) e il verbo torna alla forma base.\n   She bought a phone → What did she buy?\n\nAttenzione: dopo who il verbo va alla terza persona singolare, anche se la risposta è plurale."
+  },
+  {
+   "type": "wh",
+   "sentence": "Sarah called the police.",
+   "focus": "Sarah",
+   "kind": "subject",
+   "q": "Who _____ the police?",
+   "answer": "called",
+   "options": [
+    "called",
+    "did called",
+    "calls",
+    "call"
+   ],
+   "whyKind": "Sarah è chi telefona: compie l'azione.",
+   "why": "Who called the police? Il soggetto non vuole ausiliari: il verbo resta al passato."
+  },
+  {
+   "type": "wh",
+   "sentence": "This bus goes to the airport.",
+   "focus": "This bus",
+   "kind": "subject",
+   "q": "Which bus _____ to the airport?",
+   "answer": "goes",
+   "options": [
+    "goes",
+    "go",
+    "did goes",
+    "went"
+   ],
+   "whyKind": "È l'autobus che va: compie l'azione.",
+   "why": "Which bus goes to the airport? Presente, terza persona singolare."
+  },
+  {
+   "type": "wh",
+   "sentence": "An explosion woke up the neighbours.",
+   "focus": "An explosion",
+   "kind": "subject",
+   "q": "What _____ the neighbours?",
+   "answer": "woke up",
+   "options": [
+    "woke up",
+    "did woke up",
+    "wakes up",
+    "wake up"
+   ],
+   "whyKind": "È l'esplosione a svegliare: compie l'azione.",
+   "why": "What woke up the neighbours? Nessun did: il verbo resta al passato."
+  },
+  {
+   "type": "wh",
+   "sentence": "My brother won the marathon.",
+   "focus": "My brother",
+   "kind": "subject",
+   "q": "Who _____ the marathon?",
+   "answer": "won",
+   "options": [
+    "won",
+    "did won",
+    "wins",
+    "win"
+   ],
+   "whyKind": "È tuo fratello a vincere: compie l'azione.",
+   "why": "Who won the marathon? Passato senza ausiliare."
+  },
+  {
+   "type": "wh",
+   "sentence": "The red car belongs to Marco.",
+   "focus": "The red car",
+   "kind": "subject",
+   "q": "Which car _____ to Marco?",
+   "answer": "belongs",
+   "options": [
+    "belongs",
+    "belong",
+    "did belongs",
+    "belonged"
+   ],
+   "whyKind": "È l'auto che appartiene: compie l'azione.",
+   "why": "Which car belongs to Marco? Presente, terza persona singolare."
+  },
+  {
+   "type": "wh",
+   "sentence": "Something happened last night.",
+   "focus": "Something",
+   "kind": "subject",
+   "q": "What _____ last night?",
+   "answer": "happened",
+   "options": [
+    "happened",
+    "did happened",
+    "happens",
+    "was happened"
+   ],
+   "whyKind": "È qualcosa che è successo: compie l'azione.",
+   "why": "What happened last night? Uno dei casi più frequenti: mai «what did happen»."
+  },
+  {
+   "type": "wh",
+   "sentence": "Three students passed the exam.",
+   "focus": "Three students",
+   "kind": "subject",
+   "q": "Which students _____ the exam?",
+   "answer": "passed",
+   "options": [
+    "passed",
+    "did passed",
+    "passes",
+    "pass"
+   ],
+   "whyKind": "Sono gli studenti a passare: compiono l'azione.",
+   "why": "Which students passed the exam? Qui il soggetto è plurale, ma al passato il verbo non cambia."
+  },
+  {
+   "type": "wh",
+   "sentence": "Paul plays the guitar in the band.",
+   "focus": "Paul",
+   "kind": "subject",
+   "q": "Who _____ the guitar in the band?",
+   "answer": "plays",
+   "options": [
+    "plays",
+    "play",
+    "did plays",
+    "played"
+   ],
+   "whyKind": "È Paul a suonare: compie l'azione.",
+   "why": "Who plays the guitar in the band? Presente, terza persona singolare."
+  },
+  {
+   "type": "wh",
+   "sentence": "A strange noise scared the cat.",
+   "focus": "A strange noise",
+   "kind": "subject",
+   "q": "What _____ the cat?",
+   "answer": "scared",
+   "options": [
+    "scared",
+    "did scared",
+    "scares",
+    "scare"
+   ],
+   "whyKind": "È il rumore a spaventare: compie l'azione.",
+   "why": "What scared the cat? Passato senza ausiliare."
+  },
+  {
+   "type": "wh",
+   "sentence": "Emma and Tom live in London.",
+   "focus": "Emma and Tom",
+   "kind": "subject",
+   "q": "Who _____ in London?",
+   "answer": "lives",
+   "options": [
+    "lives",
+    "live",
+    "did lives",
+    "lived"
+   ],
+   "whyKind": "Sono Emma e Tom ad abitare: compiono l'azione.",
+   "why": "Who lives in London? Dopo who il verbo va sempre alla terza persona singolare, anche se la risposta è due persone. Diverso da «which students passed», dove il plurale è imposto dal nome."
+  },
+  {
+   "type": "wh",
+   "sentence": "Anna saw David at the party.",
+   "focus": "David",
+   "kind": "object",
+   "q": "Who _____ at the party?",
+   "answer": "did Anna see",
+   "options": [
+    "did Anna see",
+    "did Anna saw",
+    "Anna saw",
+    "does Anna see"
+   ],
+   "whyKind": "David non fa niente: è visto. Subisce l'azione.",
+   "why": "Who did Anna see at the party? Con did il verbo torna alla forma base: see, non saw."
+  },
+  {
+   "type": "wh",
+   "sentence": "She bought a new phone yesterday.",
+   "focus": "a new phone",
+   "kind": "object",
+   "q": "What _____ yesterday?",
+   "answer": "did she buy",
+   "options": [
+    "did she buy",
+    "did she bought",
+    "she bought",
+    "does she buy"
+   ],
+   "whyKind": "Il telefono è comprato: subisce l'azione.",
+   "why": "What did she buy yesterday? Did porta il verbo alla forma base: buy."
+  },
+  {
+   "type": "wh",
+   "sentence": "He prefers the blue shirt.",
+   "focus": "the blue shirt",
+   "kind": "object",
+   "q": "Which shirt _____?",
+   "answer": "does he prefer",
+   "options": [
+    "does he prefer",
+    "does he prefers",
+    "he prefers",
+    "did he prefer"
+   ],
+   "whyKind": "La camicia è preferita: subisce l'azione.",
+   "why": "Which shirt does he prefer? Presente: l'ausiliare è does, e la -s sparisce dal verbo."
+  },
+  {
+   "type": "wh",
+   "sentence": "They are listening to pop music.",
+   "focus": "pop music",
+   "kind": "object",
+   "q": "What _____ to?",
+   "answer": "are they listening",
+   "options": [
+    "are they listening",
+    "do they listen",
+    "they are listening",
+    "are they listen"
+   ],
+   "whyKind": "La musica è ascoltata: subisce l'azione.",
+   "why": "What are they listening to? Con il present continuous non serve do: si sposta are."
+  },
+  {
+   "type": "wh",
+   "sentence": "Lucy met her old friend in town.",
+   "focus": "her old friend",
+   "kind": "object",
+   "q": "Who _____ in town?",
+   "answer": "did Lucy meet",
+   "options": [
+    "did Lucy meet",
+    "did Lucy met",
+    "Lucy met",
+    "does Lucy meet"
+   ],
+   "whyKind": "L'amica è incontrata: subisce l'azione.",
+   "why": "Who did Lucy meet in town? Did più forma base: meet."
+  },
+  {
+   "type": "wh",
+   "sentence": "She wants the chocolate cake.",
+   "focus": "the chocolate cake",
+   "kind": "object",
+   "q": "Which cake _____?",
+   "answer": "does she want",
+   "options": [
+    "does she want",
+    "does she wants",
+    "she wants",
+    "did she want"
+   ],
+   "whyKind": "La torta è voluta: subisce l'azione.",
+   "why": "Which cake does she want? Presente: does più forma base."
+  },
+  {
+   "type": "wh",
+   "sentence": "They study history for the test.",
+   "focus": "history",
+   "kind": "object",
+   "q": "What _____ for the test?",
+   "answer": "do they study",
+   "options": [
+    "do they study",
+    "does they study",
+    "they study",
+    "did they study"
+   ],
+   "whyKind": "La storia è studiata: subisce l'azione.",
+   "why": "What do they study for the test? Soggetto plurale al presente: do, non does."
+  },
+  {
+   "type": "wh",
+   "sentence": "You talked to the teacher after class.",
+   "focus": "the teacher",
+   "kind": "object",
+   "q": "Who _____ to after class?",
+   "answer": "did you talk",
+   "options": [
+    "did you talk",
+    "did you talked",
+    "you talked",
+    "do you talk"
+   ],
+   "whyKind": "L'insegnante non parla: si parla a lui. Subisce l'azione.",
+   "why": "Who did you talk to after class? La preposizione to resta in fondo."
+  },
+  {
+   "type": "wh",
+   "sentence": "He is looking for his keys in the park.",
+   "focus": "his keys",
+   "kind": "object",
+   "q": "What _____ for in the park?",
+   "answer": "is he looking",
+   "options": [
+    "is he looking",
+    "does he look",
+    "he is looking",
+    "is he look"
+   ],
+   "whyKind": "Le chiavi sono cercate: subiscono l'azione.",
+   "why": "What is he looking for in the park? Present continuous: si sposta is, niente does."
+  },
+  {
+   "type": "wh",
+   "sentence": "They visited Rome last summer.",
+   "focus": "Rome",
+   "kind": "object",
+   "q": "Which city _____ last summer?",
+   "answer": "did they visit",
+   "options": [
+    "did they visit",
+    "did they visited",
+    "they visited",
+    "do they visit"
+   ],
+   "whyKind": "Roma è visitata: subisce l'azione.",
+   "why": "Which city did they visit last summer? Did più forma base: visit."
+  }
+ ]
+}

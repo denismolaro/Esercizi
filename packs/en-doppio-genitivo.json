@@ -1,0 +1,417 @@
+{
+ "id": "en-doppio-genitivo",
+ "subject": "Inglese",
+ "title": "Doppio genitivo: a friend of mine",
+ "blurb": "Quattordici scelte e dieci riscritture a due passi.",
+ "lang": "en-GB",
+ "updated": "2026-08-19",
+ "items": [
+  {
+   "type": "info",
+   "title": "Il doppio genitivo: a friend of mine",
+   "text": "Dopo a / an / two / some / that + nome + of serve la forma possessiva:\n   a friend of MINE (non of me)\n   a friend of SARAH'S (non of Sarah)\n\nLe forme che vanno dopo of:\n   I → mine · you → yours · he → his · she → hers\n   we → ours · they → theirs · un nome → nome + 's\n\nAttenzione: my, your, his, her, our, their vanno PRIMA di un nome (my book).\nMine, yours, hers, ours, theirs stanno DA SOLI (a book of mine).\n\nUn caso a parte: con photo, picture, book le due forme cambiano senso.\n   a photo of my parents = la foto che li ritrae\n   a photo of my parents' = la foto che appartiene a loro\n\nNota: nell'inglese di tutti i giorni si sente anche «a friend of Sarah» senza apostrofo. A scuola però la forma richiesta è quella con 's."
+  },
+  {
+   "type": "mc",
+   "q": "Is Mark a friend of _____?",
+   "prompt": "",
+   "options": [
+    "yours",
+    "you",
+    "your",
+    "yours'"
+   ],
+   "answer": "yours",
+   "why": "Dopo of serve la forma che sta da sola: yours. «Your» va solo prima di un nome."
+  },
+  {
+   "type": "mc",
+   "q": "We met a neighbour of _____ yesterday.",
+   "prompt": "",
+   "options": [
+    "Sarah's",
+    "Sarah",
+    "Sarahs",
+    "Sarah of"
+   ],
+   "answer": "Sarah's",
+   "why": "Con un nome proprio serve l'apostrofo + s: of Sarah's."
+  },
+  {
+   "type": "mc",
+   "q": "Paul is going on holiday with two colleagues of _____.",
+   "prompt": "",
+   "options": [
+    "his",
+    "him",
+    "he",
+    "his'"
+   ],
+   "answer": "his",
+   "why": "Per he la forma che sta da sola è his, uguale all'aggettivo. Non «of him»."
+  },
+  {
+   "type": "mc",
+   "q": "I met an old friend of _____ at the station.",
+   "prompt": "",
+   "options": [
+    "my parents'",
+    "my parent's",
+    "my parents's",
+    "mine parents"
+   ],
+   "answer": "my parents'",
+   "why": "Plurale che finisce già in -s: solo l'apostrofo, parents'. (Nel parlato si sente anche «of my parents» senza apostrofo, ma a scuola si chiede questa forma.)"
+  },
+  {
+   "type": "mc",
+   "q": "Are those boys cousins of _____?",
+   "prompt": "",
+   "options": [
+    "theirs",
+    "them",
+    "their",
+    "theirs'"
+   ],
+   "answer": "theirs",
+   "why": "Per they la forma da sola è theirs. «Their» vuole un nome dopo."
+  },
+  {
+   "type": "mc",
+   "q": "That was a great idea of _____!",
+   "prompt": "",
+   "options": [
+    "yours",
+    "your",
+    "you",
+    "your's"
+   ],
+   "answer": "yours",
+   "why": "Of + yours. La forma «your's» non esiste in inglese."
+  },
+  {
+   "type": "mc",
+   "q": "We stayed with a friend of _____.",
+   "prompt": "",
+   "options": [
+    "David's",
+    "David",
+    "Davids",
+    "David is"
+   ],
+   "answer": "David's",
+   "why": "Nome proprio + 's: of David's."
+  },
+  {
+   "type": "mc",
+   "q": "She is an old classmate of _____.",
+   "prompt": "",
+   "options": [
+    "mine",
+    "me",
+    "my",
+    "mine's"
+   ],
+   "answer": "mine",
+   "why": "Per I la forma da sola è mine, mai «of me» in questa costruzione."
+  },
+  {
+   "type": "mc",
+   "q": "They are taking care of a dog of _____.",
+   "prompt": "",
+   "options": [
+    "theirs",
+    "their",
+    "them",
+    "theirs's"
+   ],
+   "answer": "theirs",
+   "why": "Of + theirs."
+  },
+  {
+   "type": "mc",
+   "q": "I saw a relative of _____ at the supermarket.",
+   "prompt": "",
+   "options": [
+    "Lisa's",
+    "Lisa",
+    "Lisas",
+    "Lisa's'"
+   ],
+   "answer": "Lisa's",
+   "why": "Nome proprio + 's: of Lisa's."
+  },
+  {
+   "type": "mc",
+   "q": "That is _____ book, not mine.",
+   "prompt": "",
+   "options": [
+    "your",
+    "yours",
+    "yours'",
+    "you"
+   ],
+   "answer": "your",
+   "why": "Qui dopo c'è un nome (book), quindi serve l'aggettivo your, non yours."
+  },
+  {
+   "type": "mc",
+   "q": "_____ car is parked outside.",
+   "prompt": "",
+   "options": [
+    "Their",
+    "Theirs",
+    "Them",
+    "Their's"
+   ],
+   "answer": "Their",
+   "why": "Prima di un nome (car) va their. Theirs sta da solo."
+  },
+  {
+   "type": "mc",
+   "q": "This bag is _____, not hers.",
+   "prompt": "",
+   "options": [
+    "mine",
+    "my",
+    "me",
+    "mine's"
+   ],
+   "answer": "mine",
+   "why": "Qui non segue nessun nome, quindi mine. «This is my bag» sarebbe l'altra forma."
+  },
+  {
+   "type": "mc",
+   "q": "I lost _____ keys yesterday.",
+   "prompt": "",
+   "options": [
+    "my",
+    "mine",
+    "me",
+    "my's"
+   ],
+   "answer": "my",
+   "why": "Prima del nome keys va my."
+  },
+  {
+   "type": "wh",
+   "sentence": "I have many friends. Tom is one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi è amico Tom?",
+   "s1options": [
+    "mio (I)",
+    "suo (he)",
+    "loro (they)"
+   ],
+   "s1answer": 0,
+   "q": "Tom is a friend of _____.",
+   "answer": "mine",
+   "options": [
+    "mine",
+    "me",
+    "my",
+    "mine's"
+   ],
+   "whyKind": "Chi parla dice «I have many friends»: gli amici sono suoi.",
+   "why": "Tom is a friend of mine."
+  },
+  {
+   "type": "wh",
+   "sentence": "Emma has some relatives. This girl is one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi è parente?",
+   "s1options": [
+    "di Emma",
+    "di sua sorella",
+    "mia"
+   ],
+   "s1answer": 0,
+   "q": "She is a relative of _____.",
+   "answer": "Emma's",
+   "options": [
+    "Emma's",
+    "Emma",
+    "Emmas",
+    "Emma's'"
+   ],
+   "whyKind": "I parenti sono di Emma.",
+   "why": "She is a relative of Emma's. Andrebbe bene anche «of hers»."
+  },
+  {
+   "type": "wh",
+   "sentence": "You have great ideas. That was one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi era l'idea?",
+   "s1options": [
+    "tua (you)",
+    "mia (I)",
+    "sua (she)"
+   ],
+   "s1answer": 0,
+   "q": "That was a great idea of _____.",
+   "answer": "yours",
+   "options": [
+    "yours",
+    "your",
+    "you",
+    "your's"
+   ],
+   "whyKind": "«You have great ideas»: le idee sono di chi ascolta.",
+   "why": "That was a great idea of yours."
+  },
+  {
+   "type": "wh",
+   "sentence": "We have some colleagues. They are two of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi sono colleghi?",
+   "s1options": [
+    "nostri (we)",
+    "loro (they)",
+    "vostri (you)"
+   ],
+   "s1answer": 0,
+   "q": "They are two colleagues of _____.",
+   "answer": "ours",
+   "options": [
+    "ours",
+    "our",
+    "us",
+    "ours'"
+   ],
+   "whyKind": "«We have some colleagues»: sono colleghi di chi parla.",
+   "why": "They are two colleagues of ours."
+  },
+  {
+   "type": "wh",
+   "sentence": "My father has some old cars. This is one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi è l'auto?",
+   "s1options": [
+    "di mio padre",
+    "mia",
+    "di mia madre"
+   ],
+   "s1answer": 0,
+   "q": "This is an old car of _____.",
+   "answer": "my father's",
+   "options": [
+    "my father's",
+    "my father",
+    "my fathers",
+    "my father's'"
+   ],
+   "whyKind": "Le auto sono di suo padre.",
+   "why": "This is an old car of my father's. Andrebbe bene anche «of his»."
+  },
+  {
+   "type": "wh",
+   "sentence": "Jack has some students. Alex is one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi è studente Alex?",
+   "s1options": [
+    "di Jack",
+    "suo (he)",
+    "mio"
+   ],
+   "s1answer": 0,
+   "q": "Alex is a student of _____.",
+   "answer": "Jack's",
+   "options": [
+    "Jack's",
+    "Jack",
+    "Jacks",
+    "Jack of"
+   ],
+   "whyKind": "Gli studenti sono di Jack.",
+   "why": "Alex is a student of Jack's."
+  },
+  {
+   "type": "wh",
+   "sentence": "They have some neighbours. Mr Smith is one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi è vicino Mr Smith?",
+   "s1options": [
+    "loro (they)",
+    "nostro (we)",
+    "suo (he)"
+   ],
+   "s1answer": 0,
+   "q": "Mr Smith is a neighbour of _____.",
+   "answer": "theirs",
+   "options": [
+    "theirs",
+    "their",
+    "them",
+    "theirs'"
+   ],
+   "whyKind": "«They have some neighbours»: i vicini sono loro.",
+   "why": "Mr Smith is a neighbour of theirs."
+  },
+  {
+   "type": "wh",
+   "sentence": "She has a lot of dresses. This is one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi è il vestito?",
+   "s1options": [
+    "suo, di lei (she)",
+    "suo, di lui (he)",
+    "mio"
+   ],
+   "s1answer": 0,
+   "q": "This is a dress of _____.",
+   "answer": "hers",
+   "options": [
+    "hers",
+    "her",
+    "she",
+    "her's"
+   ],
+   "whyKind": "«She has a lot of dresses»: i vestiti sono suoi.",
+   "why": "This is a dress of hers."
+  },
+  {
+   "type": "wh",
+   "sentence": "Maria has some cousins. Marco is one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi è cugino Marco?",
+   "s1options": [
+    "di Maria",
+    "mio",
+    "di Marco"
+   ],
+   "s1answer": 0,
+   "q": "Marco is a cousin of _____.",
+   "answer": "Maria's",
+   "options": [
+    "Maria's",
+    "Maria",
+    "Marias",
+    "Maria of"
+   ],
+   "whyKind": "I cugini sono di Maria.",
+   "why": "Marco is a cousin of Maria's. Andrebbe bene anche «of hers»."
+  },
+  {
+   "type": "wh",
+   "sentence": "I have some classmates. Sarah is one of them.",
+   "hint": "Riscrivi usando il doppio genitivo.",
+   "s1q": "Di chi è compagna Sarah?",
+   "s1options": [
+    "mia (I)",
+    "tua (you)",
+    "sua (she)"
+   ],
+   "s1answer": 0,
+   "q": "Sarah is a classmate of _____.",
+   "answer": "mine",
+   "options": [
+    "mine",
+    "me",
+    "my",
+    "mine's"
+   ],
+   "whyKind": "«I have some classmates»: sono compagni di chi parla.",
+   "why": "Sarah is a classmate of mine."
+  }
+ ]
+}
