@@ -1,0 +1,596 @@
+{
+ "id": "en-comparativi",
+ "subject": "Inglese",
+ "title": "Comparativi e superlativi",
+ "blurb": "Dal libro, unità 7. Otto esercizi a due passi e trenta a scelta multipla.",
+ "lang": "en-GB",
+ "updated": "2026-08-22",
+ "items": [
+  {
+   "type": "info",
+   "title": "Comparativi di maggioranza — la tabella del libro",
+   "text": "1 sillaba → + -er:  young → younger, fast → faster\n1 sillaba, 1 vocale + 1 consonante → raddoppia + -er:  hot → hotter\n1 o 2 sillabe che finiscono in -e → + -r:  close → closer\n2 sillabe in -y (e l'avverbio early) → -y diventa -i + -er:  easy → easier\n2 sillabe in -er, -le, -ow (e common, friendly, lively) → tutte e due le forme:  clever → cleverer / more clever\n2 sillabe o più, avverbi in -ly, eager e tender → more:  talkative → more talkative, quickly → more quickly\n\nNomi: more prima del nome (He ate more eggs than me.)\nVerbi: more dopo il verbo (She talked more than Ian.)\n\nNota: forme come «more easy» o «the most angry» si sentono ogni tanto, ma il libro e la prof chiedono easier e the angriest. Negli esercizi vale la regola del libro."
+  },
+  {
+   "type": "info",
+   "title": "Superlativi — la tabella del libro",
+   "text": "1 sillaba → the + -est:  young → the youngest\n1 vocale + 1 consonante → raddoppia + -est:  sad → the saddest\n1 o 2 sillabe in -e → + -st:  nice → the nicest\n2 sillabe in -y → -i + -est:  angry → the angriest\n2 sillabe in -er, -le, -ow → tutte e due:  clever → the cleverest / the most clever\n2 sillabe o più, avverbi in -ly → the most:  difficult → the most difficult\n\nDopo il superlativo:\n  in + luogo o gruppo al singolare:  the tallest boy in the class\n  of / among + plurale:  the cleverest of the three sisters\n  that nelle relative:  the nicest person that I know"
+  },
+  {
+   "type": "info",
+   "title": "Minoranza e uguaglianza",
+   "text": "Minoranza:  less + aggettivo / avverbio / nome non numerabile + than\n            fewer + nome plurale numerabile + than\n            the least / the fewest per i superlativi\n\nUguaglianza:  as + aggettivo o avverbio + as\n              as much + non numerabile + as\n              as many + plurale numerabile + as\n              verbo + as much as\nDisuguaglianza: not as... as oppure not so... as"
+  },
+  {
+   "type": "info",
+   "title": "Gli irregolari di pagina 229",
+   "text": "bad / badly → worse → the worst\ngood / well → better → the best\nfar → farther / further → the farthest / the furthest (distanze)\nfar → further → the furthest (in più, ulteriore)\nlate → later / the latter → the latest / the last\n   the latter = il secondo tra due · the latest = il più recente · the last = l'ultimo di una serie finita\nnear → nearer → the nearest / the next\n   the nearest = di luogo · the next = di ordine, il prossimo\nlittle → less → the least\nmany / much → more → the most\nold → older → the oldest (quando c'è than)\nold → elder → the eldest (dentro la famiglia, come aggettivo)"
+  },
+  {
+   "type": "wh",
+   "sentence": "Aggettivo: easy",
+   "hint": "Prima riconosci il tipo, poi scegli la forma.",
+   "s1q": "Che tipo di aggettivo è easy?",
+   "s1options": [
+    "Due sillabe, finisce in -y",
+    "Una sillaba",
+    "Tre sillabe o più"
+   ],
+   "s1answer": 0,
+   "q": "This exercise is _____ than the other one.",
+   "answer": "easier",
+   "options": [
+    "easier",
+    "easyer",
+    "more easy",
+    "easiest"
+   ],
+   "whyKind": "Ea-sy: due sillabe, finisce in -y.",
+   "why": "-y diventa -i e si aggiunge -er: easier."
+  },
+  {
+   "type": "wh",
+   "sentence": "Aggettivo: hot",
+   "hint": "Prima riconosci il tipo, poi scegli la forma.",
+   "s1q": "Che tipo di aggettivo è hot?",
+   "s1options": [
+    "Una sillaba con una vocale e una consonante finale",
+    "Due sillabe in -y",
+    "Finisce in -e"
+   ],
+   "s1answer": 0,
+   "q": "Today is _____ than yesterday.",
+   "answer": "hotter",
+   "options": [
+    "hotter",
+    "hoter",
+    "more hot",
+    "hottest"
+   ],
+   "whyKind": "Una sillaba, vocale singola seguita da una sola consonante.",
+   "why": "Si raddoppia la consonante finale: hotter."
+  },
+  {
+   "type": "wh",
+   "sentence": "Aggettivo: talkative",
+   "hint": "Prima riconosci il tipo, poi scegli la forma.",
+   "s1q": "Che tipo di aggettivo è talkative?",
+   "s1options": [
+    "Tre sillabe",
+    "Una sillaba",
+    "Due sillabe in -y"
+   ],
+   "s1answer": 0,
+   "q": "My sister is _____ than me.",
+   "answer": "more talkative",
+   "options": [
+    "more talkative",
+    "talkativer",
+    "most talkative",
+    "more talkativer"
+   ],
+   "whyKind": "Tal-ka-tive: tre sillabe.",
+   "why": "Da due sillabe in su si usa more: more talkative."
+  },
+  {
+   "type": "wh",
+   "sentence": "Aggettivo: nice",
+   "hint": "Prima riconosci il tipo, poi scegli la forma.",
+   "s1q": "Che tipo di aggettivo è nice?",
+   "s1options": [
+    "Finisce in -e",
+    "Ha la consonante da raddoppiare",
+    "Tre sillabe o più"
+   ],
+   "s1answer": 0,
+   "q": "She is the _____ person in the class.",
+   "answer": "nicest",
+   "options": [
+    "nicest",
+    "niciest",
+    "most nice",
+    "more nice"
+   ],
+   "whyKind": "Finisce già in -e.",
+   "why": "Al superlativo basta -st: the nicest."
+  },
+  {
+   "type": "wh",
+   "sentence": "Avverbio: quickly",
+   "hint": "Prima riconosci il tipo, poi scegli la forma.",
+   "s1q": "Che tipo di parola è quickly?",
+   "s1options": [
+    "Un avverbio che finisce in -ly",
+    "Un aggettivo di una sillaba",
+    "Un aggettivo in -y"
+   ],
+   "s1answer": 0,
+   "q": "Jordan drives _____ than Thomas.",
+   "answer": "more quickly",
+   "options": [
+    "more quickly",
+    "quicklier",
+    "quickier",
+    "most quickly"
+   ],
+   "whyKind": "È un avverbio in -ly.",
+   "why": "Gli avverbi in -ly vogliono more: more quickly."
+  },
+  {
+   "type": "wh",
+   "sentence": "Aggettivo: sad",
+   "hint": "Prima riconosci il tipo, poi scegli la forma.",
+   "s1q": "Che tipo di aggettivo è sad?",
+   "s1options": [
+    "Una sillaba con una vocale e una consonante finale",
+    "Due sillabe in -y",
+    "Finisce in -e"
+   ],
+   "s1answer": 0,
+   "q": "It was the _____ day of my life.",
+   "answer": "saddest",
+   "options": [
+    "saddest",
+    "sadest",
+    "most sad",
+    "sadder"
+   ],
+   "whyKind": "Una sillaba: s-a-d, vocale singola e una consonante.",
+   "why": "Si raddoppia e si aggiunge -est: the saddest."
+  },
+  {
+   "type": "wh",
+   "sentence": "Aggettivo: good",
+   "hint": "Prima riconosci il tipo, poi scegli la forma.",
+   "s1q": "Che tipo di aggettivo è good?",
+   "s1options": [
+    "È irregolare",
+    "Una sillaba normale",
+    "Due sillabe in -y"
+   ],
+   "s1answer": 0,
+   "q": "Today the weather is _____ than yesterday.",
+   "answer": "better",
+   "options": [
+    "better",
+    "gooder",
+    "more good",
+    "best"
+   ],
+   "whyKind": "Good è nella lista degli irregolari di pagina 229.",
+   "why": "good → better → the best."
+  },
+  {
+   "type": "wh",
+   "sentence": "Aggettivo: clever",
+   "hint": "Prima riconosci il tipo, poi scegli la forma.",
+   "s1q": "Il libro mette clever fra i due sillabe in -er. Cosa vuol dire?",
+   "s1options": [
+    "Ammette due forme, tutte e due corrette",
+    "Ammette solo more",
+    "Ammette solo -er"
+   ],
+   "s1answer": 0,
+   "q": "Quali sono le due forme corrette del comparativo di clever?",
+   "answer": "cleverer e more clever",
+   "options": [
+    "cleverer e more clever",
+    "cleverer e most clever",
+    "more clever e cleverest",
+    "cleverest e more cleverer"
+   ],
+   "whyKind": "I due sillabe in -er, -le, -ow accettano tutte e due le costruzioni.",
+   "why": "cleverer oppure more clever: nessuna delle due è un errore. Lo stesso vale per simple, narrow, lively."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Yesterday there were _____ spectators than last Sunday.",
+   "options": [
+    "fewer",
+    "less",
+    "fewest",
+    "more few"
+   ],
+   "answer": "fewer",
+   "why": "Spectators è plurale numerabile: si conta, quindi fewer."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "There is _____ traffic in Manchester than in London.",
+   "options": [
+    "less",
+    "fewer",
+    "little",
+    "lesser"
+   ],
+   "answer": "less",
+   "why": "Traffic non si conta: less."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Jill is as _____ as Janet.",
+   "options": [
+    "reliable",
+    "more reliable",
+    "reliabler",
+    "the most reliable"
+   ],
+   "answer": "reliable",
+   "why": "Fra as e as l'aggettivo resta alla forma base."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "She had as _____ work as her husband.",
+   "options": [
+    "much",
+    "many",
+    "more",
+    "most"
+   ],
+   "answer": "much",
+   "why": "Work non si conta: as much as."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "There are as _____ students in this class as in mine.",
+   "options": [
+    "many",
+    "much",
+    "more",
+    "most"
+   ],
+   "answer": "many",
+   "why": "Students si conta: as many as."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Bobby runs as _____ as Craig.",
+   "options": [
+    "fast",
+    "faster",
+    "fastest",
+    "more fast"
+   ],
+   "answer": "fast",
+   "why": "Anche con gli avverbi, fra as e as si usa la forma base."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Jordan drives _____ quickly than Thomas.",
+   "options": [
+    "less",
+    "fewer",
+    "little",
+    "least"
+   ],
+   "answer": "less",
+   "why": "Comparativo di minoranza: less + avverbio + than."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "She is _____ than her sister.",
+   "options": [
+    "taller",
+    "more tall",
+    "more taller",
+    "tallest"
+   ],
+   "answer": "taller",
+   "why": "Tall è di una sillaba: taller. Mai more insieme a -er."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "This is _____ difficult exercise in the book.",
+   "options": [
+    "the most",
+    "the more",
+    "most",
+    "more"
+   ],
+   "answer": "the most",
+   "why": "Superlativo di un aggettivo lungo: the most difficult."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Mark is the tallest boy _____ the class.",
+   "options": [
+    "in",
+    "of",
+    "at",
+    "from"
+   ],
+   "answer": "in",
+   "why": "Dopo il superlativo si usa in con un luogo o un gruppo al singolare."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "She is the cleverest _____ the three sisters.",
+   "options": [
+    "of",
+    "in",
+    "at",
+    "on"
+   ],
+   "answer": "of",
+   "why": "Davanti a un plurale si usa of (oppure among)."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Mel is the nicest person _____ I know.",
+   "options": [
+    "that",
+    "what",
+    "which",
+    "whose"
+   ],
+   "answer": "that",
+   "why": "Nelle relative dopo il superlativo il libro indica that."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "He earned _____ money in my family.",
+   "options": [
+    "the most",
+    "the more",
+    "more the",
+    "most the"
+   ],
+   "answer": "the most",
+   "why": "Con un nome, il superlativo è the most prima del nome."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "All the babies cried, but he cried _____.",
+   "options": [
+    "the most",
+    "the more",
+    "more the",
+    "the mostly"
+   ],
+   "answer": "the most",
+   "why": "Con un verbo, the most va dopo il verbo."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "He ate _____ eggs than me.",
+   "options": [
+    "more",
+    "the most",
+    "much",
+    "most"
+   ],
+   "answer": "more",
+   "why": "Con un nome, il comparativo è more prima del nome."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "She talked _____ than Ian.",
+   "options": [
+    "more",
+    "the most",
+    "many",
+    "most"
+   ],
+   "answer": "more",
+   "why": "Con un verbo, more va dopo il verbo."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "This exercise is _____ than the last one.",
+   "options": [
+    "worse",
+    "badder",
+    "more bad",
+    "worst"
+   ],
+   "answer": "worse",
+   "why": "bad → worse → the worst."
+  },
+  {
+   "type": "mc",
+   "q": "Quale coppia usa il libro per i confronti dentro la famiglia?",
+   "prompt": "My _____ brother lives in Rome.",
+   "options": [
+    "elder",
+    "elderly",
+    "most old",
+    "more old"
+   ],
+   "answer": "elder",
+   "why": "elder – the eldest per la famiglia e come aggettivo. Fuori dalla famiglia, older – the oldest."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "He is _____ than I am.",
+   "options": [
+    "older",
+    "elder",
+    "more old",
+    "the oldest"
+   ],
+   "answer": "older",
+   "why": "Quando c'è than si usa older, non elder."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "The library is the _____ building to the school.",
+   "options": [
+    "nearest",
+    "next",
+    "nearer",
+    "most near"
+   ],
+   "answer": "nearest",
+   "why": "Per il luogo si usa the nearest. The next indica l'ordine."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Get off at the _____ stop, the one after this one.",
+   "options": [
+    "next",
+    "nearest",
+    "nearer",
+    "most next"
+   ],
+   "answer": "next",
+   "why": "Qui conta l'ordine: the next. The nearest sarebbe la fermata più vicina, un'altra cosa."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Have you heard her _____ song? It came out yesterday.",
+   "options": [
+    "latest",
+    "last",
+    "later",
+    "latter"
+   ],
+   "answer": "latest",
+   "why": "The latest è il più recente. The last è l'ultimo di una serie finita."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Of the two options, I prefer the _____.",
+   "options": [
+    "latter",
+    "last",
+    "latest",
+    "later"
+   ],
+   "answer": "latter",
+   "why": "The latter è il secondo tra due."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "I need _____ information about the trip.",
+   "options": [
+    "further",
+    "farther",
+    "far",
+    "the furthest"
+   ],
+   "answer": "further",
+   "why": "Further nel senso di ulteriore, in più. Farther vale per le distanze."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Their team scored the _____ goals in the championship.",
+   "options": [
+    "fewest",
+    "least",
+    "less",
+    "fewer"
+   ],
+   "answer": "fewest",
+   "why": "Goals è plurale numerabile: the fewest."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "It was the _____ funny video of my account.",
+   "options": [
+    "least",
+    "fewest",
+    "less",
+    "little"
+   ],
+   "answer": "least",
+   "why": "Superlativo di minoranza con un aggettivo: the least."
+  },
+  {
+   "type": "mc",
+   "q": "Quale forma si usa nell'inglese informale?",
+   "prompt": "She is older than _____.",
+   "options": [
+    "me",
+    "mine",
+    "my",
+    "myself"
+   ],
+   "answer": "me",
+   "why": "Nell'inglese informale si usa il pronome oggetto: than me. Nello stile formale si dice than I oppure than I am: nessuna delle due è un errore."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "My shoes aren't _____ cool as yours.",
+   "options": [
+    "as",
+    "more",
+    "than",
+    "the"
+   ],
+   "answer": "as",
+   "why": "Per la disuguaglianza: not as... as (oppure not so... as)."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "Anna is the _____ girl in her class.",
+   "options": [
+    "angriest",
+    "angryest",
+    "most angry",
+    "angrier"
+   ],
+   "answer": "angriest",
+   "why": "Due sillabe in -y: -y diventa -i e si aggiunge -est."
+  },
+  {
+   "type": "mc",
+   "q": "Completa la frase",
+   "prompt": "This box is _____ than that one.",
+   "options": [
+    "heavier",
+    "heavyer",
+    "more heavy",
+    "heaviest"
+   ],
+   "answer": "heavier",
+   "why": "Heavy: due sillabe in -y, quindi heavier."
+  }
+ ]
+}
