@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prove d'esame — Inglese</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1F5C4B; --accent-soft:#E8F0EC; --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --pick:#243B53; --pick-soft:#E7EDF4;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:640px; margin:0 auto; padding:0 20px 40px}
+/* barra di avanzamento: un margine di pagina che si riempie */
+.rail{position:fixed; top:0; left:0; right:0; height:5px; background:var(--rule); z-index:20}
+.rail i{display:block; height:100%; width:0; background:var(--accent); transition:width .25s ease}
+header{display:flex; align-items:baseline; justify-content:space-between; padding:22px 0 6px; gap:12px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.clock{font-size:13px; color:var(--soft); font-variant-numeric:tabular-nums}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+h2{font-size:19px; margin:26px 0 8px; letter-spacing:-.01em}
+p.lead{color:var(--soft); margin:6px 0 22px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px 18px 20px; margin:14px 0}
+.sect{font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:10px}
+.qnum{font-size:13px; color:var(--soft); font-weight:700; margin-bottom:6px}
+.qtext{font-size:20px; line-height:1.55; margin:0 0 16px}
+.qtext b{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.hint{font-size:15px; color:var(--soft); margin:-8px 0 14px}
+button{font:inherit; cursor:pointer}
+.opt{display:block; width:100%; text-align:left; background:#fff; border:2px solid var(--rule);
+  border-radius:12px; padding:14px 16px; margin:0 0 10px; font-size:19px; color:var(--ink)}
+.opt:active{transform:scale(.995)}
+.opt.on{border-color:var(--pick); background:var(--pick-soft); font-weight:600}
+input[type=text]{width:100%; font:inherit; font-size:19px; padding:14px 16px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink)}
+input[type=text]:focus{outline:none; border-color:var(--pick)}
+.nav{display:flex; gap:10px; margin:22px 0 0}
+.btn{flex:1; border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px;
+  padding:15px 14px; font-size:18px; font-weight:600}
+.btn.ghost{background:#fff; color:var(--ink)}
+.btn.go{background:var(--accent); border-color:var(--accent)}
+.btn:disabled{opacity:.35}
+.btn.wide{width:100%; flex:none}
+:focus-visible{outline:3px solid var(--pick); outline-offset:2px}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(56px,1fr)); gap:8px; margin:12px 0 4px}
+.chip{border:2px solid var(--rule); background:#fff; border-radius:10px; padding:10px 0; text-align:center;
+  font-size:16px; font-weight:600; color:var(--soft)}
+.chip.done{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.chip.miss{border-color:var(--warn); background:var(--warn-soft); color:var(--warn)}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:14px 16px; font-size:16px; margin:14px 0}
+.done-row{border-bottom:1px solid var(--rule); padding:12px 0}
+.done-row:last-child{border-bottom:none}
+.done-q{font-size:15px; color:var(--soft)}
+.done-a{font-size:17px; margin-top:3px}
+.ok{color:var(--accent); font-weight:700}
+.no{color:#9B2C2C; font-weight:700}
+.rev{color:var(--warn); font-weight:700}
+.score{font-size:44px; font-weight:700; letter-spacing:-.03em; line-height:1}
+.score small{display:block; font-size:15px; font-weight:400; color:var(--soft); letter-spacing:0; margin-top:6px}
+.pick{display:block; width:100%; text-align:left; border:2px solid var(--rule); background:#fff;
+  border-radius:14px; padding:18px; margin-bottom:12px}
+.pick b{display:block; font-size:20px; margin-bottom:3px}
+.pick span{color:var(--soft); font-size:16px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="rail"><i id="rail"></i></div>
+<div class="wrap" id="app"></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   CONFIGURAZIONE — cambia solo questa riga con la tua email
+   ══════════════════════════════════════════════════════════ */
+const EMAIL_GENITORE = "denis.molaro@gmail.com"
+const NOME_STUDENTE  = "Liam";
+
+/* ══════════════ LE PROVE ══════════════ */
+const EXAMS = [
+{
+ id:"A", title:"Prova d'esame A", note:"26 domande · nessun limite di tempo",
+ items:[
+  {s:"Ausiliari e tempi verbali", t:"mc", q:"______ you at home yesterday?", o:["Were","Did","Was"], a:0},
+  {t:"mc", q:"She ______ not go to school.", o:["did","was","were"], a:0},
+  {t:"mc", q:"He didn't ______ to the party.", o:["came","come","comes"], a:1},
+  {t:"mc", q:"______ broke the window?", h:"= chi l'ha rotta", o:["Who","Who did","What did"], a:0},
+  {t:"mc", q:"They ______ playing football when I arrived.", o:["was","did","were"], a:2},
+  {t:"mc", q:"What ______ you doing at six?", o:["did","were","was"], a:1},
+  {t:"mc", q:"______ your sister got a dog?", o:["Has","Does","Is"], a:0},
+  {t:"mc", q:"Look! It ______ .", o:["rains","rained","is raining"], a:2},
+
+  {s:"Doppio genitivo", t:"mc", q:"He is a friend of ______ .", o:["me","my","mine"], a:2},
+  {t:"mc", q:"Sue and Nina are ______ .", o:["two her friends","two friends of hers","two Sue's friends"], a:1},
+  {t:"mc", q:"That idea ______ is not very good.", o:["of your","of you","of yours"], a:2},
+  {t:"mc", q:"'Who's that?' 'Just ______ .'", o:["a Meg's friend","a friend of Meg","a friend of Meg's"], a:2},
+  {t:"open", q:"Traduci: un mio cugino", ac:["a cousin of mine"]},
+  {t:"open", q:"Traduci: la macchina di mio padre", ac:["my father's car","my fathers car","my father s car"]},
+  {t:"open", q:"Traduci: un amico di Sara", ac:["a friend of sara's","a friend of saras","a friend of sara s"]},
+
+  {s:"Wh-questions", t:"open", q:"Scrivi la domanda: <b>My sister</b> broke the window.", ac:["who broke the window"]},
+  {t:"open", q:"Scrivi la domanda: Tom met <b>Lucy</b> at the station.", ac:["who did tom meet at the station","who did tom meet"]},
+  {t:"open", q:"Scrivi la domanda: They went to Ireland <b>last summer</b>.", ac:["when did they go to ireland"]},
+  {t:"open", q:"Scrivi la domanda: <b>The soundtrack</b> won an Oscar.", ac:["what won an oscar"]},
+  {t:"open", q:"Scrivi la domanda: He bought <b>a new bike</b>.", ac:["what did he buy"]},
+
+  {s:"Verbi", t:"mc", q:"La forma <i>sent</i> viene dal verbo…", o:["see","send","sit"], a:1},
+  {t:"open", q:"Yesterday I ______ (go) to the cinema.", ac:["went","i went","yesterday i went to the cinema"]},
+  {t:"open", q:"She ______ (not come) to the party.", ac:["didn't come","did not come","she didn't come","she did not come"]},
+  {t:"open", q:"At 8 o'clock I ______ (have) dinner.", ac:["was having","i was having"]},
+
+  {s:"Traduzione", t:"open", q:"Non sono andati a scuola ieri.", ac:["they didn't go to school yesterday","they did not go to school yesterday"]},
+  {t:"open", q:"Che cosa stavi facendo alle otto?", ac:["what were you doing at eight","what were you doing at eight o'clock","what were you doing at 8"]}
+ ]
+},
+{
+ id:"B", title:"Prova d'esame B", note:"26 domande · nessun limite di tempo",
+ items:[
+  {s:"Ausiliari e tempi verbali", t:"mc", q:"______ they win the match?", o:["Did","Were","Was"], a:0},
+  {t:"mc", q:"I ______ not hungry.", o:["was","did","were"], a:0},
+  {t:"mc", q:"Did you ______ the film?", o:["liked","like","likes"], a:1},
+  {t:"mc", q:"______ happened yesterday?", o:["What did","Who did","What"], a:2},
+  {t:"mc", q:"She ______ reading a book at ten.", o:["were","did","was"], a:2},
+  {t:"mc", q:"Where ______ they go last night?", o:["were","was","did"], a:2},
+  {t:"mc", q:"They ______ not got a car.", o:["do","have","are"], a:1},
+  {t:"mc", q:"My sister ______ to school by bike every day.", o:["goes","go","is going"], a:0},
+
+  {s:"Doppio genitivo", t:"mc", q:"She is a cousin of ______ .", o:["we","ours","our"], a:1},
+  {t:"mc", q:"This cousin ______ came to dinner.", o:["of Stuart","Stuart's","of Stuart's"], a:2},
+  {t:"mc", q:"Some classmates ______ went to London.", o:["of ours","of we","of our"], a:0},
+  {t:"mc", q:"A neighbour ______ called this morning.", o:["of my parents","of my parent","of my parents'"], a:2},
+  {t:"open", q:"Traduci: alcuni miei compagni di classe", ac:["some classmates of mine"]},
+  {t:"open", q:"Traduci: la camera dei bambini", ac:["the children's room","the childrens room","the children s room"]},
+  {t:"open", q:"Traduci: un'idea di mia sorella", ac:["an idea of my sister's","an idea of my sisters","an idea of my sister s"]},
+
+  {s:"Wh-questions", t:"open", q:"Scrivi la domanda: <b>Two friends of mine</b> came to the party.", ac:["who came to the party"]},
+  {t:"open", q:"Scrivi la domanda: She was reading <b>a magazine</b>.", ac:["what was she reading"]},
+  {t:"open", q:"Scrivi la domanda: We stayed <b>in a small hotel</b>.", ac:["where did you stay","where did we stay"]},
+  {t:"open", q:"Scrivi la domanda: I didn't go out <b>because it was raining</b>.", ac:["why didn't you go out","why did not you go out","why didn't i go out"]},
+  {t:"open", q:"Scrivi la domanda: <b>Luca</b> was waiting outside.", ac:["who was waiting outside"]},
+
+  {s:"Verbi", t:"mc", q:"La forma <i>wore</i> viene dal verbo…", o:["win","wear","write"], a:1},
+  {t:"open", q:"______ you ______ (see) Mark last week?", ac:["did you see","did you see mark last week"]},
+  {t:"open", q:"We ______ (not be) at school yesterday.", ac:["weren't","were not","we weren't","we were not"]},
+  {t:"open", q:"While I ______ (walk) home, I met Anna.", ac:["was walking","i was walking"]},
+
+  {s:"Traduzione", t:"open", q:"Chi ha rotto la finestra?", ac:["who broke the window"]},
+  {t:"open", q:"Un mio amico gioca a basket.", ac:["a friend of mine plays basketball","a friend of mine plays basket"]}
+ ]
+}];
+
+/* ══════════════ STATO ══════════════ */
+let view="home", exam=null, idx=0, ans=[], t0=0, tick=null, elapsed=0;
+const app=document.getElementById("app"), rail=document.getElementById("rail");
+
+const norm = s => String(s||"").toLowerCase()
+  .replace(/[’`´]/g,"'").replace(/[.,;!?]+$/,"").replace(/\s+/g," ").trim();
+
+function graded(it,v){
+  if(it.t==="mc") return v==null ? "vuota" : (v===it.a ? "giusta" : "sbagliata");
+  const n=norm(v);
+  if(!n) return "vuota";
+  return it.ac.some(x=>norm(x)===n) ? "giusta" : "rivedere";
+}
+function fmt(s){const m=Math.floor(s/60),x=s%60;return m+":"+String(x).padStart(2,"0")}
+function startClock(){t0=Date.now()-elapsed*1000; clearInterval(tick);
+  tick=setInterval(()=>{elapsed=Math.round((Date.now()-t0)/1000);
+    const c=document.getElementById("clk"); if(c) c.textContent=fmt(elapsed);},1000);}
+function stopClock(){clearInterval(tick); tick=null;}
+function esc(s){return String(s).replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))}
+
+/* ══════════════ SCHERMATE ══════════════ */
+function render(){
+  rail.style.width = (view==="quiz" ? Math.round((idx)/exam.items.length*100) : (view==="done"?100:0))+"%";
+  if(view==="home") return home();
+  if(view==="quiz") return quiz();
+  if(view==="check") return check();
+  if(view==="done") return done();
+}
+
+function home(){
+  stopClock();
+  app.innerHTML=`
+  <header><span class="tag">Inglese · recupero</span></header>
+  <h1>Prove d'esame</h1>
+  <p class="lead">Rispondi con calma. Non c'è un tempo massimo: il cronometro serve solo a sapere quanto ci hai messo. Alla fine puoi rivedere tutto prima di consegnare.</p>
+  ${EXAMS.map((e,i)=>`<button class="pick" onclick="begin(${i})"><b>${e.title}</b><span>${e.note}</span></button>`).join("")}
+  <div class="note">Quando consegni, il riepilogo delle risposte viene preparato per essere inviato a papà.</div>`;
+}
+
+window.begin=function(i){
+  exam=EXAMS[i]; idx=0; elapsed=0;
+  ans=exam.items.map(()=>null);
+  view="quiz"; startClock(); render();
+};
+
+function quiz(){
+  const it=exam.items[idx], n=exam.items.length;
+  let body="";
+  if(it.t==="mc"){
+    body=it.o.map((o,i)=>`<button class="opt ${ans[idx]===i?"on":""}" onclick="pick(${i})">${esc(o)}</button>`).join("");
+  }else{
+    body=`<input type="text" id="fld" autocomplete="off" autocapitalize="off" spellcheck="false"
+      value="${ans[idx]?esc(ans[idx]).replace(/"/g,"&quot;"):""}" placeholder="scrivi qui">`;
+  }
+  app.innerHTML=`
+  <header><span class="tag">${esc(exam.title)}</span><span class="clock" id="clk">${fmt(elapsed)}</span></header>
+  <div class="card">
+    ${it.s?`<div class="sect">${esc(it.s)}</div>`:""}
+    <div class="qnum">Domanda ${idx+1} di ${n}</div>
+    <p class="qtext">${it.q}</p>
+    ${it.h?`<p class="hint">${esc(it.h)}</p>`:""}
+    ${body}
+  </div>
+  <div class="nav">
+    <button class="btn ghost" onclick="move(-1)" ${idx===0?"disabled":""}>Indietro</button>
+    <button class="btn" onclick="move(1)">${idx===n-1?"Rivedi tutto":"Avanti"}</button>
+  </div>`;
+  const f=document.getElementById("fld");
+  if(f) f.addEventListener("input",e=>{ans[idx]=e.target.value});
+}
+window.pick=function(i){ans[idx]=i; render();};
+window.move=function(d){
+  const f=document.getElementById("fld"); if(f) ans[idx]=f.value;
+  if(d>0 && idx===exam.items.length-1){ view="check"; return render(); }
+  idx=Math.max(0,Math.min(exam.items.length-1,idx+d)); render();
+};
+
+function check(){
+  const miss=ans.map((v,i)=>({v,i})).filter(x=>x.v===null||x.v==="").map(x=>x.i);
+  app.innerHTML=`
+  <header><span class="tag">${esc(exam.title)}</span><span class="clock" id="clk">${fmt(elapsed)}</span></header>
+  <h1>Prima di consegnare</h1>
+  <p class="lead">Tocca un numero per tornare a quella domanda.</p>
+  <div class="grid">${ans.map((v,i)=>`<button class="chip ${(v===null||v==="")?"miss":"done"}" onclick="jump(${i})">${i+1}</button>`).join("")}</div>
+  ${miss.length?`<div class="note">Ci sono ${miss.length} domande ancora senza risposta. Puoi consegnare lo stesso, ma prova a rispondere: anche un tentativo sbagliato è più utile di una casella vuota.</div>`:""}
+  <div class="nav"><button class="btn ghost" onclick="jump(${exam.items.length-1})">Torna alle domande</button>
+  <button class="btn go" onclick="finish()">Consegna</button></div>`;
+}
+window.jump=function(i){idx=i; view="quiz"; render();};
+
+window.finish=function(){ stopClock(); view="done"; render(); };
+
+function report(){
+  const L=[];
+  L.push(NOME_STUDENTE+" — "+exam.title);
+  L.push(new Date().toLocaleString("it-IT"));
+  L.push("Tempo impiegato: "+fmt(elapsed));
+  let ok=0, no=0, rv=0, vu=0;
+  exam.items.forEach((it,i)=>{const g=graded(it,ans[i]);
+    if(g==="giusta")ok++; else if(g==="sbagliata")no++; else if(g==="rivedere")rv++; else vu++;});
+  L.push("Corrette: "+ok+"/"+exam.items.length+"  ·  Sbagliate: "+no+"  ·  Da rivedere: "+rv+"  ·  Vuote: "+vu);
+  L.push("");
+  exam.items.forEach((it,i)=>{
+    const g=graded(it,ans[i]);
+    const mark = g==="giusta"?"OK ":(g==="sbagliata"?"NO ":(g==="rivedere"?"?  ":"-- "));
+    const dom = it.q.replace(/<[^>]+>/g,"");
+    let mia = it.t==="mc" ? (ans[i]==null?"(vuota)":it.o[ans[i]]) : (ans[i]?ans[i]:"(vuota)");
+    let att = it.t==="mc" ? it.o[it.a] : it.ac[0];
+    L.push(mark+(i+1)+". "+dom);
+    L.push("     risposta: "+mia);
+    if(g!=="giusta") L.push("     attesa:    "+att);
+  });
+  L.push("");
+  L.push("Le voci con ? sono risposte aperte che non coincidono alla lettera con quella attesa: possono essere comunque corrette, vanno lette.");
+  return L.join("\n");
+}
+
+function done(){
+  const txt=report();
+  let ok=0, rv=0;
+  exam.items.forEach((it,i)=>{const g=graded(it,ans[i]); if(g==="giusta")ok++; if(g==="rivedere")rv++;});
+  try{ localStorage.setItem("esame_"+exam.id+"_"+Date.now(), txt); }catch(e){}
+  app.innerHTML=`
+  <header><span class="tag">${esc(exam.title)}</span><span class="clock">${fmt(elapsed)}</span></header>
+  <h1>Consegnata</h1>
+  <div class="card">
+    <div class="score">${ok}<small>risposte corrette su ${exam.items.length}${rv?` · ${rv} da leggere insieme`:""}</small></div>
+  </div>
+  <button class="btn go wide" onclick="sendIt()">Invia a papà</button>
+  <div class="nav">
+    <button class="btn ghost" onclick="copyIt()">Copia il testo</button>
+    <button class="btn ghost" onclick="location.reload()">Torna all'inizio</button>
+  </div>
+  <h2>Riepilogo</h2>
+  ${exam.items.map((it,i)=>{
+    const g=graded(it,ans[i]);
+    const cls = g==="giusta"?"ok":(g==="rivedere"?"rev":"no");
+    const lab = g==="giusta"?"corretta":(g==="rivedere"?"da leggere":(g==="vuota"?"vuota":"errata"));
+    const mia = it.t==="mc" ? (ans[i]==null?"—":esc(it.o[ans[i]])) : (ans[i]?esc(ans[i]):"—");
+    const att = it.t==="mc" ? esc(it.o[it.a]) : esc(it.ac[0]);
+    return `<div class="done-row"><div class="done-q">${i+1}. ${it.q.replace(/<[^>]+>/g,"")}</div>
+      <div class="done-a"><span class="${cls}">${lab}</span> — ${mia}${g==="giusta"?"":` <span style="color:var(--soft)">· attesa: ${att}</span>`}</div></div>`;
+  }).join("")}`;
+}
+
+window.sendIt=async function(){
+  const txt=report(), sub=NOME_STUDENTE+" — "+exam.title+" — "+new Date().toLocaleDateString("it-IT");
+  if(navigator.share){
+    try{ await navigator.share({title:sub, text:txt}); return; }catch(e){ if(e && e.name==="AbortError") return; }
+  }
+  const url="mailto:"+encodeURIComponent(EMAIL_GENITORE)+"?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(txt);
+  if(url.length>1900){ copyIt(); alert("Il riepilogo è troppo lungo per la mail automatica: l'ho copiato, incollalo in un messaggio."); return; }
+  location.href=url;
+};
+window.copyIt=async function(){
+  const txt=report();
+  try{ await navigator.clipboard.writeText(txt); alert("Riepilogo copiato."); }
+  catch(e){
+    const a=document.createElement("textarea"); a.value=txt; document.body.appendChild(a);
+    a.select(); document.execCommand("copy"); a.remove(); alert("Riepilogo copiato.");
+  }
+};
+
+render();
+</script>
+</body>
+</html>
