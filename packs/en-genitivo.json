@@ -1,0 +1,423 @@
+{
+ "id": "en-genitivo",
+ "subject": "Inglese",
+ "title": "Genitivo e doppio genitivo",
+ "blurb": "L'articolo italiano decide la costruzione: 's oppure of + possessivo.",
+ "lang": "en",
+ "updated": "2026-08-25",
+ "items": [
+  {
+   "type": "info",
+   "title": "Genitivo o doppio genitivo?",
+   "text": "Guarda l'articolo italiano davanti alla cosa posseduta.\n\nil, la, i, le  →  GENITIVO SASSONE: possessore + 's + cosa\n   la macchina di mio padre = my father's car\n\nun, una, alcuni, due, questo  →  DOPPIO GENITIVO: cosa + of + possessore\n   una macchina di mio padre = a car of my father's\n\nDopo of:\n   pronome (mine, yours, his, hers, ours, theirs) → MAI l'apostrofo\n   nome di persona (Mark's, Sara's) → SEMPRE l'apostrofo"
+  },
+  {
+   "type": "mc",
+   "lab": "Guarda l'articolo",
+   "q": "la macchina di mio padre",
+   "options": [
+    "genitivo sassone",
+    "doppio genitivo"
+   ],
+   "answer": "genitivo sassone",
+   "why": "C'è l'articolo determinativo → possessore davanti con 's."
+  },
+  {
+   "type": "mc",
+   "lab": "Guarda l'articolo",
+   "q": "una macchina di mio padre",
+   "options": [
+    "genitivo sassone",
+    "doppio genitivo"
+   ],
+   "answer": "doppio genitivo",
+   "why": "C'è un articolo indeterminativo o un quantificatore → cosa + of + possessore."
+  },
+  {
+   "type": "mc",
+   "lab": "Guarda l'articolo",
+   "q": "gli amici di Sara",
+   "options": [
+    "genitivo sassone",
+    "doppio genitivo"
+   ],
+   "answer": "genitivo sassone",
+   "why": "C'è l'articolo determinativo → possessore davanti con 's."
+  },
+  {
+   "type": "mc",
+   "lab": "Guarda l'articolo",
+   "q": "alcuni amici di Sara",
+   "options": [
+    "genitivo sassone",
+    "doppio genitivo"
+   ],
+   "answer": "doppio genitivo",
+   "why": "C'è un articolo indeterminativo o un quantificatore → cosa + of + possessore."
+  },
+  {
+   "type": "mc",
+   "lab": "Guarda l'articolo",
+   "q": "l'idea di Tom",
+   "options": [
+    "genitivo sassone",
+    "doppio genitivo"
+   ],
+   "answer": "genitivo sassone",
+   "why": "C'è l'articolo determinativo → possessore davanti con 's."
+  },
+  {
+   "type": "mc",
+   "lab": "Guarda l'articolo",
+   "q": "questa idea di Tom",
+   "options": [
+    "genitivo sassone",
+    "doppio genitivo"
+   ],
+   "answer": "doppio genitivo",
+   "why": "C'è un articolo indeterminativo o un quantificatore → cosa + of + possessore."
+  },
+  {
+   "type": "mc",
+   "lab": "Guarda l'articolo",
+   "q": "la camera dei bambini",
+   "options": [
+    "genitivo sassone",
+    "doppio genitivo"
+   ],
+   "answer": "genitivo sassone",
+   "why": "C'è l'articolo determinativo → possessore davanti con 's."
+  },
+  {
+   "type": "mc",
+   "lab": "Guarda l'articolo",
+   "q": "un amico di mia sorella",
+   "options": [
+    "genitivo sassone",
+    "doppio genitivo"
+   ],
+   "answer": "doppio genitivo",
+   "why": "C'è un articolo indeterminativo o un quantificatore → cosa + of + possessore."
+  },
+  {
+   "type": "mc",
+   "lab": "L'apostrofo giusto",
+   "q": "the room of the children  →  ______ room",
+   "options": [
+    "the children's",
+    "the childrens'",
+    "the childrens"
+   ],
+   "answer": "the children's",
+   "why": "children è un plurale irregolare: non finisce in -s, quindi prende 's."
+  },
+  {
+   "type": "mc",
+   "lab": "L'apostrofo giusto",
+   "q": "the car of my parents  →  ______ car",
+   "options": [
+    "my parents'",
+    "my parent's",
+    "my parents's"
+   ],
+   "answer": "my parents'",
+   "why": "parents finisce in -s: solo l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "L'apostrofo giusto",
+   "q": "the tail of the cat  →  ______ tail",
+   "options": [
+    "the cat's",
+    "the cats'",
+    "the cats"
+   ],
+   "answer": "the cat's",
+   "why": "Singolare: 's."
+  },
+  {
+   "type": "mc",
+   "lab": "L'apostrofo giusto",
+   "q": "the toys of the girls  →  ______ toys",
+   "options": [
+    "the girls'",
+    "the girl's",
+    "the girls's"
+   ],
+   "answer": "the girls'",
+   "why": "girls finisce in -s: solo l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "L'apostrofo giusto",
+   "q": "the feet of the women  →  ______ feet",
+   "options": [
+    "the women's",
+    "the womens'",
+    "the womens"
+   ],
+   "answer": "the women's",
+   "why": "women è plurale irregolare: prende 's."
+  },
+  {
+   "type": "mc",
+   "lab": "L'apostrofo giusto",
+   "q": "the office of the teachers  →  ______ office",
+   "options": [
+    "the teachers'",
+    "the teacher's",
+    "the teachers's"
+   ],
+   "answer": "the teachers'",
+   "why": "teachers finisce in -s: solo l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Il pronome dopo of",
+   "q": "He is a friend of ______ .  (io)",
+   "options": [
+    "mine",
+    "me",
+    "my",
+    "mine's"
+   ],
+   "answer": "mine",
+   "why": "Dopo of ci va il pronome possessivo, e i pronomi non prendono mai l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Il pronome dopo of",
+   "q": "Some cousins of ______ live in Rome.  (noi)",
+   "options": [
+    "ours",
+    "our",
+    "us",
+    "ours'"
+   ],
+   "answer": "ours",
+   "why": "Dopo of ci va il pronome possessivo, e i pronomi non prendono mai l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Il pronome dopo of",
+   "q": "It was an idea of ______ .  (lei)",
+   "options": [
+    "hers",
+    "her",
+    "she",
+    "hers'"
+   ],
+   "answer": "hers",
+   "why": "Dopo of ci va il pronome possessivo, e i pronomi non prendono mai l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Il pronome dopo of",
+   "q": "Two neighbours of ______ moved away.  (loro)",
+   "options": [
+    "theirs",
+    "their",
+    "them",
+    "their's"
+   ],
+   "answer": "theirs",
+   "why": "Dopo of ci va il pronome possessivo, e i pronomi non prendono mai l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Il pronome dopo of",
+   "q": "That car of ______ is very old.  (tu)",
+   "options": [
+    "yours",
+    "your",
+    "you",
+    "your's"
+   ],
+   "answer": "yours",
+   "why": "Dopo of ci va il pronome possessivo, e i pronomi non prendono mai l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Il pronome dopo of",
+   "q": "A colleague of ______ called yesterday.  (lui)",
+   "options": [
+    "his",
+    "him",
+    "he",
+    "his'"
+   ],
+   "answer": "his",
+   "why": "Dopo of ci va il pronome possessivo, e i pronomi non prendono mai l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo of: pronome o nome?",
+   "q": "un amico di Mark  →  a friend of ______",
+   "options": [
+    "Mark's",
+    "Mark",
+    "Marks",
+    "of Mark"
+   ],
+   "answer": "Mark's",
+   "why": "Dopo of c'è un nome di persona: vuole l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo of: pronome o nome?",
+   "q": "un mio amico  →  a friend of ______",
+   "options": [
+    "mine",
+    "my",
+    "me",
+    "mine's"
+   ],
+   "answer": "mine",
+   "why": "Dopo of c'è un pronome: mine, senza apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo of: pronome o nome?",
+   "q": "un'idea di mia sorella  →  an idea of ______",
+   "options": [
+    "my sister's",
+    "my sister",
+    "my sisters",
+    "my sisters'"
+   ],
+   "answer": "my sister's",
+   "why": "sister è un nome singolare: 's."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo of: pronome o nome?",
+   "q": "alcuni loro libri  →  some books of ______",
+   "options": [
+    "theirs",
+    "their",
+    "them",
+    "their's"
+   ],
+   "answer": "theirs",
+   "why": "Pronome: theirs, mai their's."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo of: pronome o nome?",
+   "q": "un cugino di Sara  →  a cousin of ______",
+   "options": [
+    "Sara's",
+    "Sara",
+    "Saras",
+    "Sara of"
+   ],
+   "answer": "Sara's",
+   "why": "Nome di persona: vuole l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo of: pronome o nome?",
+   "q": "un vicino dei miei genitori  →  a neighbour of ______",
+   "options": [
+    "my parents'",
+    "my parent's",
+    "my parents",
+    "my parents's"
+   ],
+   "answer": "my parents'",
+   "why": "parents finisce in -s: solo l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo of: pronome o nome?",
+   "q": "alcuni nostri compagni  →  some classmates of ______",
+   "options": [
+    "ours",
+    "our",
+    "us",
+    "ours'"
+   ],
+   "answer": "ours",
+   "why": "Pronome: ours."
+  },
+  {
+   "type": "mc",
+   "lab": "Dopo of: pronome o nome?",
+   "q": "una foto di lei  →  a photo of ______",
+   "options": [
+    "hers",
+    "her",
+    "she",
+    "her's"
+   ],
+   "answer": "hers",
+   "why": "Pronome: hers, mai her's."
+  },
+  {
+   "type": "mc",
+   "lab": "Cambia solo l'articolo",
+   "q": "la bici di Tom",
+   "options": [
+    "Tom's bike",
+    "a bike of Tom's"
+   ],
+   "answer": "Tom's bike",
+   "why": "Articolo determinativo → genitivo sassone."
+  },
+  {
+   "type": "mc",
+   "lab": "Cambia solo l'articolo",
+   "q": "una bici di Tom",
+   "options": [
+    "Tom's bike",
+    "a bike of Tom's"
+   ],
+   "answer": "a bike of Tom's",
+   "why": "Articolo indeterminativo o quantificatore → doppio genitivo."
+  },
+  {
+   "type": "mc",
+   "lab": "Cambia solo l'articolo",
+   "q": "le idee di Tom",
+   "options": [
+    "Tom's ideas",
+    "some ideas of Tom's"
+   ],
+   "answer": "Tom's ideas",
+   "why": "Articolo determinativo → genitivo sassone."
+  },
+  {
+   "type": "mc",
+   "lab": "Cambia solo l'articolo",
+   "q": "alcune idee di Tom",
+   "options": [
+    "Tom's ideas",
+    "some ideas of Tom's"
+   ],
+   "answer": "some ideas of Tom's",
+   "why": "Articolo indeterminativo o quantificatore → doppio genitivo."
+  },
+  {
+   "type": "mc",
+   "lab": "Cambia solo l'articolo",
+   "q": "la macchina dei miei genitori",
+   "options": [
+    "my parents' car",
+    "a car of my parents'"
+   ],
+   "answer": "my parents' car",
+   "why": "Articolo determinativo → genitivo sassone."
+  },
+  {
+   "type": "mc",
+   "lab": "Cambia solo l'articolo",
+   "q": "una macchina dei miei genitori",
+   "options": [
+    "my parents' car",
+    "a car of my parents'"
+   ],
+   "answer": "a car of my parents'",
+   "why": "Articolo indeterminativo o quantificatore → doppio genitivo."
+  }
+ ]
+}
