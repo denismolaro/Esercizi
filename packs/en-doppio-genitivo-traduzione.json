@@ -1,0 +1,411 @@
+{
+ "id": "en-doppio-genitivo-traduzione",
+ "subject": "Inglese",
+ "title": "Doppio genitivo: traduzione",
+ "blurb": "Dall'italiano all'inglese: articolo, apostrofo, pronome.",
+ "lang": "en",
+ "updated": "2026-08-25",
+ "items": [
+  {
+   "type": "info",
+   "title": "Doppio genitivo: dall'italiano",
+   "text": "my→mine · your→yours · his→his · her→hers · our→ours · their→theirs\n\nSe davanti al nome c'è UN, UNA, ALCUNI, DUE, QUESTO, QUEL:\n   nome + of + possessore\n   un mio amico = a friend of mine\n   un amico di Mark = a friend of Mark's\n\nDopo of:\n   pronome (mine, yours, hers...) → MAI l'apostrofo\n   nome di persona (Mark's, my sister's) → SEMPRE l'apostrofo\n\nMai: a friend of me · a friend of my · two his friends · a Mark's friend"
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "un mio amico",
+   "options": [
+    "a friend of mine",
+    "a friend of me",
+    "a friend of my",
+    "a mine friend"
+   ],
+   "answer": "a friend of mine",
+   "why": "Dopo of ci vuole il pronome possessivo: mine."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "un amico di Mark",
+   "options": [
+    "a friend of Mark's",
+    "a friend of Mark",
+    "a Mark's friend",
+    "a friend of Marks"
+   ],
+   "answer": "a friend of Mark's",
+   "why": "Dopo of un nome di persona vuole l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "alcuni loro libri",
+   "options": [
+    "some books of theirs",
+    "some books of their",
+    "some their books",
+    "some books of their's"
+   ],
+   "answer": "some books of theirs",
+   "why": "theirs non prende mai l'apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "una tua idea",
+   "options": [
+    "an idea of yours",
+    "an idea of your",
+    "an idea of you",
+    "a your idea"
+   ],
+   "answer": "an idea of yours",
+   "why": "Dopo of: yours, non your."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "due suoi fratelli (di lui)",
+   "options": [
+    "two brothers of his",
+    "two his brothers",
+    "two brothers of him",
+    "two brothers of his'"
+   ],
+   "answer": "two brothers of his",
+   "why": "Con due davanti serve il doppio genitivo: nome + of + his."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "un cugino di Sara",
+   "options": [
+    "a cousin of Sara's",
+    "a cousin of Sara",
+    "a Sara's cousin",
+    "a cousin of Saras"
+   ],
+   "answer": "a cousin of Sara's",
+   "why": "Nome di persona dopo of: Sara's."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "alcuni nostri vicini",
+   "options": [
+    "some neighbours of ours",
+    "some neighbours of our",
+    "some our neighbours",
+    "some neighbours of us"
+   ],
+   "answer": "some neighbours of ours",
+   "why": "Dopo of: ours, non our né us."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "una sua foto (di lei)",
+   "options": [
+    "a photo of hers",
+    "a photo of her",
+    "a photo of her's",
+    "a hers photo"
+   ],
+   "answer": "a photo of hers",
+   "why": "hers senza apostrofo."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "un amico di mia sorella",
+   "options": [
+    "a friend of my sister's",
+    "a friend of my sister",
+    "a my sister's friend",
+    "a friend of my sisters"
+   ],
+   "answer": "a friend of my sister's",
+   "why": "sister è un nome: vuole 's."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "un vicino dei miei genitori",
+   "options": [
+    "a neighbour of my parents'",
+    "a neighbour of my parents",
+    "a neighbour of my parent's",
+    "a my parents' neighbour"
+   ],
+   "answer": "a neighbour of my parents'",
+   "why": "parents finisce già in -s: l'apostrofo va dopo la s."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "un mio compagno di classe",
+   "options": [
+    "a classmate of mine",
+    "a classmate of me",
+    "a my classmate",
+    "a classmate of my"
+   ],
+   "answer": "a classmate of mine",
+   "why": "Dopo of: mine."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "quella sua macchina (di lui)",
+   "options": [
+    "that car of his",
+    "that his car",
+    "that car of him",
+    "that car of his's"
+   ],
+   "answer": "that car of his",
+   "why": "Con that davanti serve il doppio genitivo."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "due tue foto",
+   "options": [
+    "two photos of yours",
+    "two your photos",
+    "two photos of your",
+    "two photos of you"
+   ],
+   "answer": "two photos of yours",
+   "why": "Con due davanti: nome + of + yours."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci l'espressione",
+   "q": "alcuni loro parenti",
+   "options": [
+    "some relatives of theirs",
+    "some their relatives",
+    "some relatives of them",
+    "some relatives of their"
+   ],
+   "answer": "some relatives of theirs",
+   "why": "Dopo of: theirs."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci la frase",
+   "q": "Un mio amico vive a Londra.",
+   "options": [
+    "A friend of mine lives in London.",
+    "A friend of mine live in London.",
+    "A my friend lives in London.",
+    "A friend of me lives in London."
+   ],
+   "answer": "A friend of mine lives in London.",
+   "why": "Il soggetto è a friend, singolare: il verbo vuole la -s."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci la frase",
+   "q": "Ieri ho incontrato un amico di Mark.",
+   "options": [
+    "Yesterday I met a friend of Mark's.",
+    "Yesterday I met a Mark's friend.",
+    "Yesterday I met a friend of Mark.",
+    "Yesterday I meet a friend of Mark's."
+   ],
+   "answer": "Yesterday I met a friend of Mark's.",
+   "why": "Doppio genitivo con nome, e il verbo al passato: met."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci la frase",
+   "q": "Questa tua idea non ha funzionato.",
+   "options": [
+    "This idea of yours didn't work.",
+    "This your idea didn't work.",
+    "This idea of your didn't work.",
+    "This idea of yours didn't worked."
+   ],
+   "answer": "This idea of yours didn't work.",
+   "why": "Dopo didn't il verbo torna alla forma base."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci la frase",
+   "q": "Un cugino di Sara è venuto a cena.",
+   "options": [
+    "A cousin of Sara's came to dinner.",
+    "A Sara's cousin came to dinner.",
+    "A cousin of Sara came to dinner.",
+    "A cousin of Sara's come to dinner."
+   ],
+   "answer": "A cousin of Sara's came to dinner.",
+   "why": "Doppio genitivo con Sara's, verbo al passato: came."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci la frase",
+   "q": "Alcuni nostri compagni non sono venuti.",
+   "options": [
+    "Some classmates of ours didn't come.",
+    "Some our classmates didn't come.",
+    "Some classmates of our didn't come.",
+    "Some classmates of ours didn't came."
+   ],
+   "answer": "Some classmates of ours didn't come.",
+   "why": "of ours, e dopo didn't il verbo è base: come."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci la frase",
+   "q": "Ho visto alcune sue foto. (di lei)",
+   "options": [
+    "I saw some photos of hers.",
+    "I saw some photos of her.",
+    "I saw some her photos.",
+    "I saw some photos of her's."
+   ],
+   "answer": "I saw some photos of hers.",
+   "why": "hers, mai her's."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci la frase",
+   "q": "Un vicino dei miei genitori ha telefonato.",
+   "options": [
+    "A neighbour of my parents' called.",
+    "A neighbour of my parents called.",
+    "A my parents' neighbour called.",
+    "A neighbour of my parent's called."
+   ],
+   "answer": "A neighbour of my parents' called.",
+   "why": "parents' con l'apostrofo dopo la s."
+  },
+  {
+   "type": "mc",
+   "lab": "Traduci la frase",
+   "q": "Due miei compagni sono andati a Londra.",
+   "options": [
+    "Two classmates of mine went to London.",
+    "Two my classmates went to London.",
+    "Two classmates of me went to London.",
+    "Two classmates of mine goed to London."
+   ],
+   "answer": "Two classmates of mine went to London.",
+   "why": "of mine, e il passato di go è went."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "la macchina di mio padre",
+   "options": [
+    "my father's car",
+    "a car of my father's"
+   ],
+   "answer": "my father's car",
+   "why": "Articolo determinativo → genitivo sassone."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "una macchina di mio padre",
+   "options": [
+    "my father's car",
+    "a car of my father's"
+   ],
+   "answer": "a car of my father's",
+   "why": "C'è un, una, alcuni, questo → doppio genitivo."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "i libri di Sara",
+   "options": [
+    "Sara's books",
+    "some books of Sara's"
+   ],
+   "answer": "Sara's books",
+   "why": "Articolo determinativo → genitivo sassone."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "alcuni libri di Sara",
+   "options": [
+    "Sara's books",
+    "some books of Sara's"
+   ],
+   "answer": "some books of Sara's",
+   "why": "C'è un, una, alcuni, questo → doppio genitivo."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "la camera dei bambini",
+   "options": [
+    "the children's room",
+    "a room of the children's"
+   ],
+   "answer": "the children's room",
+   "why": "Articolo determinativo → genitivo sassone."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "il telefono di Marco",
+   "options": [
+    "Marco's phone",
+    "this phone of Marco's"
+   ],
+   "answer": "Marco's phone",
+   "why": "Articolo determinativo → genitivo sassone."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "questo telefono di Marco",
+   "options": [
+    "Marco's phone",
+    "this phone of Marco's"
+   ],
+   "answer": "this phone of Marco's",
+   "why": "C'è un, una, alcuni, questo → doppio genitivo."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "la casa dei miei nonni",
+   "options": [
+    "my grandparents' house",
+    "a house of my grandparents'"
+   ],
+   "answer": "my grandparents' house",
+   "why": "Articolo determinativo → genitivo sassone."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "un mio libro",
+   "options": [
+    "my book",
+    "a book of mine"
+   ],
+   "answer": "a book of mine",
+   "why": "C'è un, una, alcuni, questo → doppio genitivo."
+  },
+  {
+   "type": "mc",
+   "lab": "Sassone o doppio?",
+   "q": "il mio libro",
+   "options": [
+    "my book",
+    "a book of mine"
+   ],
+   "answer": "my book",
+   "why": "Articolo determinativo → genitivo sassone."
+  }
+ ]
+}
