@@ -75,6 +75,12 @@ button{font-family:inherit}
 .subj-0{border-left-color:var(--a1)} .subj-0 .k{color:var(--a1)}
 .subj-1{border-left-color:var(--a2)} .subj-1 .k{color:var(--a2)}
 .subj-2{border-left-color:var(--a3)} .subj-2 .k{color:var(--a3)}
+/* titoli di sezione nella pagina iniziale */
+.sect{display:flex;align-items:center;gap:10px;margin:22px 0 10px;
+  font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--a1)}
+.sect i{flex:1;height:1px;background:var(--line);display:block}
+.sect.first{margin-top:4px}
+.sect.s-0{color:var(--a1)} .sect.s-1{color:var(--a2)} .sect.s-2{color:var(--a3)}
 
 /* schede a tre forme */
 .trio{display:grid;gap:7px}
@@ -227,7 +233,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "10";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "11";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -920,15 +926,33 @@ function vHome(){
   if(loadError) h+='<div class="err">Non riesco a scaricare gli esercizi: '+esc(loadError)+'.<br>Controlla la connessione, poi tocca «Cerca nuovi esercizi».</div>';
   if(loading && !PACKS.length) h+='<div class="note">Sto cercando gli esercizi…</div>';
 
+  /* i pacchetti vanno raggruppati per materia: un titolo per sezione */
+  const gruppi={}, ordine=[];
   PACKS.forEach((p,i)=>{
-    const si=Math.max(0,SUBJECTS.indexOf(p.subject));
-    const pr=load("prog:"+p.id,null);
-    h+='<button class="packbtn subj-'+si+'" onclick="openPack('+i+')">'
-      +'<span class="k">'+esc(p.subject||"")+'</span>'
-      +'<span class="t">'+esc(p.title)+'</span>'
-      +(p.blurb?'<span class="b">'+esc(p.blurb)+'</span>':"")
-      +(pr?'<span class="bar"><i style="width:'+pr.last+'%"></i></span><span class="b">ultimo giro '+pr.last+'% · record '+pr.best+'%</span>':"")
-      +'</button>';
+    const nome=p.subject||"Altro";
+    if(!gruppi[nome]){ gruppi[nome]=[]; ordine.push(nome); }
+    gruppi[nome].push({p:p,i:i});
+  });
+  /* prima le materie previste, nell ordine di SUBJECTS; eventuali altre in fondo */
+  ordine.sort((a,b)=>{
+    const ia=SUBJECTS.indexOf(a), ib=SUBJECTS.indexOf(b);
+    return (ia<0?99:ia)-(ib<0?99:ib);
+  });
+  let primaSezione=true;
+  ordine.forEach(nome=>{
+    const si=Math.max(0,SUBJECTS.indexOf(nome));
+    const g=gruppi[nome];
+    if(!g||!g.length) return;
+    h+='<div class="sect s-'+si+(primaSezione?" first":"")+'">'+esc(nome)+'<i></i></div>';
+    primaSezione=false;
+    g.forEach(o=>{
+      const p=o.p, pr=load("prog:"+p.id,null);
+      h+='<button class="packbtn subj-'+si+'" onclick="openPack('+o.i+')">'
+        +'<span class="t">'+esc(p.title)+'</span>'
+        +(p.blurb?'<span class="b">'+esc(p.blurb)+'</span>':"")
+        +(pr?'<span class="bar"><i style="width:'+pr.last+'%"></i></span><span class="b">ultimo giro '+pr.last+'% · record '+pr.best+'%</span>':"")
+        +'</button>';
+    });
   });
   h+='<button class="cta ghost small" onclick="fetchPacks(true)">↻ Cerca nuovi esercizi</button>';
   h+='<div class="toolbar" style="margin-top:14px"><label class="switch">'
