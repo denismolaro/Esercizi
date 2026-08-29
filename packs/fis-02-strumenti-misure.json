@@ -1,0 +1,129 @@
+{
+ "id": "fis-02-strumenti-misure",
+ "subject": "Fisica",
+ "title": "Strumenti di misura, portata e sensibilità",
+ "blurb": "Portata e sensibilità, il calibro ventesimale, il valore e l'incertezza di una misura.",
+ "updated": "2026-08-29",
+ "items": [
+  {
+   "type": "info",
+   "title": "Due parole da non confondere",
+   "html": "<div style='background:#FBEEDA;border-radius:10px;padding:10px 12px;margin-bottom:8px'><b style='color:#B06A08'>PORTATA</b><br>Il valore <b>più grande</b> che lo strumento riesce a misurare.<br><span style='color:#41556B'>Righello da 30 cm → portata 30 cm</span></div><div style='background:#E2F2F3;border-radius:10px;padding:10px 12px'><b style='color:#0E7C86'>SENSIBILITÀ</b><br>La <b>più piccola</b> variazione che lo strumento riesce ad apprezzare: il valore di una divisione.<br><span style='color:#41556B'>Righello con tacche ogni mm → sensibilità 1 mm</span></div><p style='margin:10px 0 0;color:#41556B'>Portata = quanto in alto arriva. Sensibilità = quanto in piccolo distingue.</p>"
+  },
+  {
+   "type": "info",
+   "title": "Come si scrive una misura",
+   "html": "<p style='margin:0;font-size:17px;text-align:center'><b>l = (12,4 &#177; 0,1) cm</b></p><table style='width:100%;border-collapse:collapse;font-size:15px;margin-top:10px'><tr><td style='padding:3px 0'><b>12,4</b></td><td>il valore (la lettura, oppure la <b>media</b> se ho ripetuto la misura)</td></tr><tr><td style='padding:3px 0'><b>0,1</b></td><td>l'incertezza assoluta: la sensibilità se misuro una volta sola, la <b>semidispersione</b> se ripeto</td></tr><tr><td style='padding:3px 0'><b>cm</b></td><td>l'unità di misura, mai da dimenticare</td></tr></table><p style='margin:10px 0 0;color:#41556B'>Con più misure ripetute: valore = <b>media</b>; incertezza = <b>(massimo &minus; minimo) : 2</b>.</p>"
+  },
+
+  { "type":"mc", "color":0,
+    "q":"Che cos'è la portata di uno strumento?",
+    "prompt":"Un cilindro graduato arriva a 250 mL, con tacche ogni 5 mL.",
+    "options":["250 mL, il valore massimo misurabile","5 mL, il valore di una tacca","255 mL","La metà di 250 mL"],
+    "answer":"250 mL, il valore massimo misurabile",
+    "why":"La portata è il valore più grande che lo strumento può misurare: 250 mL. I 5 mL sono invece la sensibilità." },
+
+  { "type":"mc", "color":0,
+    "q":"Qual è la sensibilità di questo strumento?",
+    "prompt":"Un termometro va da -10 °C a 110 °C, con tacche ogni 0,5 °C.",
+    "options":["0,5 °C","110 °C","120 °C","10 °C"],
+    "answer":"0,5 °C",
+    "why":"La sensibilità è il valore di una divisione: 0,5 °C. La portata invece è 110 °C." },
+
+  { "type":"num", "color":0,
+    "q":"Un orologio a lancette segna fino a 12 ore e ha una tacca ogni 5 minuti. Qual è la sensibilità?",
+    "unit":"min", "answer":5, "tol":0,
+    "why":"La sensibilità è quanto vale una tacca: 5 minuti. Le 12 ore sono la portata." },
+
+  { "type":"num", "color":0,
+    "q":"Un righello lungo 30 cm ha tacche ogni millimetro. Qual è la sua portata, in centimetri?",
+    "unit":"cm", "answer":30, "tol":0,
+    "why":"Portata 30 cm (il massimo che può misurare), sensibilità 1 mm (una tacca)." },
+
+  { "type":"mc", "color":0,
+    "q":"Quale strumento è più sensibile?",
+    "prompt":"A: bilancia con divisioni da 1 g. B: bilancia con divisioni da 0,1 g.",
+    "options":["B, perché apprezza variazioni più piccole","A, perché il numero è più grande","Sono uguali","Dipende dalla portata"],
+    "answer":"B, perché apprezza variazioni più piccole",
+    "why":"Più è sensibile lo strumento, più piccola è la divisione. 0,1 g è meglio di 1 g." },
+
+  { "type":"num", "color":1,
+    "q":"Qual è la sensibilità di un calibro ventesimale, in millimetri?",
+    "unit":"mm", "answer":0.05, "tol":0,
+    "why":"Il nonio divide il millimetro in 20 parti: 1 mm : 20 = 0,05 mm. Da qui il nome «ventesimale»." },
+
+  { "type":"mc", "color":1,
+    "q":"Come si legge un calibro ventesimale?",
+    "prompt":"Che cosa bisogna guardare sul nonio?",
+    "options":["La tacca del nonio che coincide con una tacca della scala fissa","La prima tacca del nonio","L'ultima tacca del nonio","La tacca più vicina allo zero"],
+    "answer":"La tacca del nonio che coincide con una tacca della scala fissa",
+    "why":"Si legge la parte intera in millimetri sulla scala fissa, poi si cerca l'unica tacca del nonio allineata a una tacca della scala fissa e la si moltiplica per 0,05 mm." },
+
+  { "type":"num", "color":1,
+    "q":"Calibro: sulla scala fissa lo zero del nonio ha superato 24 mm e la 7ª tacca del nonio coincide. Quanto misura?",
+    "unit":"mm", "answer":24.35, "tol":0,
+    "why":"24 mm + 7 * 0,05 mm = 24 + 0,35 = 24,35 mm." },
+
+  { "type":"num", "color":1,
+    "q":"Calibro: parte intera 8 mm, coincide la 13ª tacca del nonio. Quanto misura?",
+    "unit":"mm", "answer":8.65, "tol":0,
+    "why":"8 mm + 13 * 0,05 mm = 8 + 0,65 = 8,65 mm." },
+
+  { "type":"mc", "color":1,
+    "q":"Quale misura è scritta in modo corretto?",
+    "prompt":"Guarda l'unità di misura e l'incertezza.",
+    "options":["l = (12,4 ± 0,1) cm","l = 12,4 ± 0,1","l = 12,4 cm ± 0,1 s","l = 12,4"],
+    "answer":"l = (12,4 ± 0,1) cm",
+    "why":"Servono tre cose: valore, incertezza e unità di misura. E l'incertezza ha la stessa unità del valore." },
+
+  { "type":"mc", "color":2,
+    "q":"Misuro una volta sola con un righello da 1 mm di sensibilità. Qual è l'incertezza?",
+    "prompt":"l = 15,3 cm",
+    "options":["1 mm, cioè la sensibilità dello strumento","Zero, perché ho letto bene","0,5 cm","Non si può sapere"],
+    "answer":"1 mm, cioè la sensibilità dello strumento",
+    "why":"Con una misura sola l'incertezza assoluta è la sensibilità dello strumento: l = (15,3 ± 0,1) cm." },
+
+  { "type":"mc", "color":2,
+    "q":"Ho ripetuto la misura cinque volte. Che valore scrivo?",
+    "prompt":"Quale numero rappresenta la misura?",
+    "options":["La media dei cinque valori","Il valore più grande","Il primo valore trovato","Il valore che si ripete di più"],
+    "answer":"La media dei cinque valori",
+    "why":"Con misure ripetute il valore è la media; l'incertezza è la semidispersione, cioè (massimo − minimo) : 2." },
+
+  { "type":"num", "color":2,
+    "q":"Tempi misurati: 4,2 s · 4,5 s · 4,3 s · 4,6 s · 4,4 s. Quanto vale la media?",
+    "unit":"s", "answer":4.4, "tol":0,
+    "why":"La somma è 22,0 s; diviso 5 misure fa 4,4 s." },
+
+  { "type":"num", "color":2,
+    "q":"Stessi tempi: 4,2 · 4,5 · 4,3 · 4,6 · 4,4 s. Quanto vale la semidispersione?",
+    "unit":"s", "answer":0.2, "tol":0,
+    "why":"(4,6 − 4,2) : 2 = 0,4 : 2 = 0,2 s. Si usano solo il massimo e il minimo, non tutti i valori." },
+
+  { "type":"num", "color":2,
+    "q":"Misure: 12,1 cm · 12,5 cm · 12,3 cm. Quanto vale la media?",
+    "unit":"cm", "answer":12.3, "tol":0,
+    "why":"36,9 : 3 = 12,3 cm." },
+
+  { "type":"num", "color":2,
+    "q":"Misure: 12,1 cm · 12,5 cm · 12,3 cm. Quanto vale l'incertezza assoluta?",
+    "unit":"cm", "answer":0.2, "tol":0,
+    "why":"Semidispersione: (12,5 − 12,1) : 2 = 0,2 cm. La misura si scrive (12,3 ± 0,2) cm." },
+
+  { "type":"order", "color":2,
+    "q":"Misure ripetute: in che ordine si procede?",
+    "steps":[
+      "Sommo tutti i valori e divido per quante misure ho fatto: ottengo la media",
+      "Faccio (valore massimo - valore minimo) : 2: ottengo l'incertezza",
+      "Scrivo il risultato come (media +- incertezza) unità di misura"
+    ],
+    "why":"Prima la media, poi la semidispersione, e solo alla fine si mette insieme il risultato con l'unità di misura." },
+
+  { "type":"mc", "color":2,
+    "q":"Dov'è l'errore?",
+    "prompt":"Misure: 5,0 · 5,4 · 5,2 s -> risultato: (5,2 ± 0,4) s", "fxPrompt":true,
+    "options":["L'incertezza è 0,2 s: bisognava dividere per 2","La media è sbagliata","Manca l'unità di misura","Non c'è errore"],
+    "answer":"L'incertezza è 0,2 s: bisognava dividere per 2",
+    "why":"La media 5,2 s è giusta, ma 5,4 − 5,0 = 0,4 va ancora diviso per 2: semidispersione 0,2 s." }
+ ]
+}

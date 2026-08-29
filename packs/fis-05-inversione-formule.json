@@ -1,0 +1,101 @@
+{
+ "id": "fis-05-inversione-formule",
+ "subject": "Fisica",
+ "title": "Inversione di formule",
+ "blurb": "Isolare la lettera che serve, con l'operazione contraria.",
+ "updated": "2026-08-29",
+ "items": [
+  {
+   "type": "info",
+   "title": "La regola è una sola",
+   "html": "<p style='margin:0 0 10px'>Si fa la <b>operazione contraria</b> ai due lati dell'uguale, finché la lettera che cerco resta da sola.</p><table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='padding:4px 0'>moltiplica</td><td>→ <b>dividi</b></td></tr><tr><td style='padding:4px 0'>divide</td><td>→ <b>moltiplica</b></td></tr><tr><td style='padding:4px 0'>somma</td><td>→ <b>sottrai</b></td></tr><tr><td style='padding:4px 0'>sottrae</td><td>→ <b>somma</b></td></tr></table><div style='background:#E2F2F3;border-radius:10px;padding:10px 12px;margin-top:10px'>v = s : t &nbsp;→&nbsp; la t <b>divide</b>, quindi moltiplico: v &middot; t = s<br>poi la v moltiplica, quindi divido: <b>t = s : v</b></div>"
+  },
+
+  { "type":"mc", "color":0,
+    "q":"Ricava t",
+    "prompt":"v = (s)/(t)", "fxPrompt":true,
+    "options":["t = (s)/(v)","t = (v)/(s)","t = s*v","t = s - v"],
+    "answer":"t = (s)/(v)", "fxOptions":true,
+    "why":"Prima moltiplico per t: v · t = s. Poi divido per v: t = s : v. Lo spazio resta sopra, perché era già sopra." },
+
+  { "type":"mc", "color":0,
+    "q":"Ricava V",
+    "prompt":"d = (m)/(V)", "fxPrompt":true,
+    "options":["V = (m)/(d)","V = (d)/(m)","V = m*d","V = m - d"],
+    "answer":"V = (m)/(d)", "fxOptions":true,
+    "why":"La massa era sopra e resta sopra; la densità e il volume si scambiano di posto." },
+
+  { "type":"mc", "color":0,
+    "q":"Ricava a",
+    "prompt":"F = m*a", "fxPrompt":true,
+    "options":["a = (F)/(m)","a = F*m","a = (m)/(F)","a = F - m"],
+    "answer":"a = (F)/(m)", "fxOptions":true,
+    "why":"La m moltiplica, quindi per liberare la a divido entrambi i lati per m." },
+
+  { "type":"mc", "color":0,
+    "q":"Ricava F",
+    "prompt":"p = (F)/(A)", "fxPrompt":true,
+    "options":["F = p*A","F = (p)/(A)","F = (A)/(p)","F = p + A"],
+    "answer":"F = p*A", "fxOptions":true,
+    "why":"La A divide, quindi moltiplico entrambi i lati per A: F = p · A." },
+
+  { "type":"mc", "color":0,
+    "q":"Ricava x",
+    "prompt":"y = k*x + q", "fxPrompt":true,
+    "options":["x = (y - q)/(k)","x = (y)/(k) - q","x = y - q - k","x = (y + q)/(k)"],
+    "answer":"x = (y - q)/(k)", "fxOptions":true,
+    "why":"Prima tolgo q da entrambi i lati (y − q = k·x), poi divido tutto per k. La q va tolta PRIMA di dividere." },
+
+  { "type":"mc", "color":0,
+    "q":"Dov'è l'errore?",
+    "prompt":"v = (s)/(t)  ->  t = (v)/(s)", "fxPrompt":true,
+    "options":["s e t sono state scambiate: t = s : v","Non c'è errore","Bisognava sottrarre","La formula di partenza è sbagliata"],
+    "answer":"s e t sono state scambiate: t = s : v",
+    "why":"Solo la lettera che divide e quella che cerco si scambiano di posto. Lo spazio, che era sopra, deve restare sopra." },
+
+  { "type":"order", "color":1,
+    "q":"Ricava t dalla formula s = v * t",
+    "steps":[
+      "La t è moltiplicata per v",
+      "Divido entrambi i lati per v",
+      "Ottengo t = s : v"
+    ],
+    "why":"Si guarda che cosa fa la lettera accanto a quella cercata, poi si fa l'operazione contraria da entrambe le parti." },
+
+  { "type":"order", "color":1,
+    "q":"Ricava h dalla formula A = (b * h) : 2",
+    "steps":[
+      "Moltiplico entrambi i lati per 2: 2 * A = b * h",
+      "Divido entrambi i lati per b",
+      "Ottengo h = (2 * A) : b"
+    ],
+    "why":"Si toglie prima il denominatore, poi il fattore che moltiplica la lettera cercata." },
+
+  { "type":"num", "color":2, "q":"v = s : t, con s = 120 m e t = 8 s. Quanto vale v?", "unit":"m/s", "answer":15, "tol":0,
+    "why":"120 : 8 = 15 m/s." },
+
+  { "type":"num", "color":2, "q":"v = s : t, con v = 20 m/s e t = 6 s. Quanto vale s?", "unit":"m", "answer":120, "tol":0,
+    "why":"Invertendo: s = v * t = 20 * 6 = 120 m." },
+
+  { "type":"num", "color":2, "q":"v = s : t, con s = 150 m e v = 10 m/s. Quanto vale t?", "unit":"s", "answer":15, "tol":0,
+    "why":"Invertendo: t = s : v = 150 : 10 = 15 s." },
+
+  { "type":"num", "color":2, "q":"d = m : V, con m = 240 g e d = 8 g/cm^3. Quanto vale V?", "unit":"cm^3", "answer":30, "tol":0,
+    "why":"Invertendo: V = m : d = 240 : 8 = 30 cm^3." },
+
+  { "type":"num", "color":2, "q":"d = m : V, con V = 25 cm^3 e d = 2,7 g/cm^3. Quanto vale m?", "unit":"g", "answer":67.5, "tol":0,
+    "why":"Invertendo: m = d * V = 2,7 * 25 = 67,5 g." },
+
+  { "type":"num", "color":2, "q":"Area del rettangolo A = b * h, con A = 48 cm^2 e h = 6 cm. Quanto vale b?", "unit":"cm", "answer":8, "tol":0,
+    "why":"b = A : h = 48 : 6 = 8 cm." },
+
+  { "type":"num", "color":2, "q":"Volume del parallelepipedo V = a * b * c, con V = 90 cm^3, a = 5 cm e b = 3 cm. Quanto vale c?", "unit":"cm", "answer":6, "tol":0,
+    "why":"c = V : (a * b) = 90 : 15 = 6 cm." },
+
+  { "type":"num", "color":2, "q":"Circonferenza C = 2 * \\pi * r, con C = 31,4 cm. Quanto vale r? (usa \\pi = 3,14)", "unit":"cm", "answer":5, "tol":0.05,
+    "why":"r = C : (2 * 3,14) = 31,4 : 6,28 = 5 cm." },
+
+  { "type":"num", "color":2, "q":"V = A * h, con V = 60 cm^3 e A = 12 cm^2. Quanto vale h?", "unit":"cm", "answer":5, "tol":0,
+    "why":"h = V : A = 60 : 12 = 5 cm." }
+ ]
+}

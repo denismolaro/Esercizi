@@ -1,0 +1,121 @@
+{
+ "id": "fis-08-ripasso-misto",
+ "subject": "Fisica",
+ "title": "Ripasso misto di tutto l'anno",
+ "blurb": "Domande da tutti gli argomenti, in ordine sparso: qui bisogna prima capire che cosa viene chiesto.",
+ "updated": "2026-08-29",
+ "items": [
+  {
+   "type": "info",
+   "title": "Come usare questo ripasso",
+   "html": "<p style='margin:0 0 8px'>Qui gli argomenti sono mescolati apposta: equivalenze, incertezze, cifre significative, formule, grafici, radianti.</p><p style='margin:0;color:#41556B'>Prima di rispondere, fermati un attimo e chiediti: <b>di che cosa mi sta parlando questa domanda?</b> Metà degli errori nasce dal rispondere con la regola sbagliata, non dal non sapere la regola.</p>"
+  },
+
+  { "type":"mc", "color":0,
+    "q":"Di che cosa parla questa domanda?",
+    "prompt":"(12,0 ± 0,2) cm + (8,0 ± 0,3) cm",
+    "options":["Propagazione: le incertezze assolute si sommano","Cifre significative","Equivalenze","Notazione scientifica"],
+    "answer":"Propagazione: le incertezze assolute si sommano",
+    "why":"Riconoscere il tipo di problema è il primo passo. Qui è una somma di misure: le incertezze assolute si sommano, 0,2 + 0,3 = 0,5 cm." },
+
+  { "type":"mc", "color":0,
+    "q":"Di che cosa parla questa domanda?",
+    "prompt":"Il numero 0,00450",
+    "options":["Cifre significative, oppure notazione scientifica","Portata e sensibilità","Propagazione delle incertezze","Angoli in radianti"],
+    "answer":"Cifre significative, oppure notazione scientifica",
+    "why":"Un numero da solo, con zeri iniziali: si parla di come si scrive, cioè cifre significative (3) e notazione scientifica (4,50 · 10^-3)." },
+
+  { "type":"num", "color":1, "q":"1,2 km quanti metri sono?", "unit":"m", "answer":1200, "tol":0,
+    "why":"1,2 * 1000 = 1200 m." },
+
+  { "type":"num", "color":1, "q":"250 cm^2 quanti dm^2 sono?", "unit":"dm^2", "answer":2.5, "tol":0,
+    "why":"1 dm^2 = 100 cm^2, quindi 250 : 100 = 2,5 dm^2." },
+
+  { "type":"num", "color":1, "q":"Un calibro ventesimale: parte intera 15 mm, coincide la 4ª tacca. Quanto misura?", "unit":"mm", "answer":15.2, "tol":0,
+    "why":"15 + 4 * 0,05 = 15 + 0,20 = 15,20 mm." },
+
+  { "type":"num", "color":1, "q":"Misure: 8,0 s · 8,4 s · 8,2 s. Quanto vale l'incertezza assoluta?", "unit":"s", "answer":0.2, "tol":0,
+    "why":"Semidispersione: (8,4 - 8,0) : 2 = 0,2 s. La misura è (8,2 ± 0,2) s." },
+
+  { "type":"num", "color":1, "q":"l = (50 +- 2) cm. Quanto vale l'incertezza percentuale?", "unit":"%", "answer":4, "tol":0,
+    "why":"2 : 50 = 0,04, cioè 4%." },
+
+  { "type":"mc", "color":1,
+    "q":"Quale misura è più precisa?",
+    "prompt":"A: (5,0 ± 0,5) cm     B: (200 ± 4) cm",
+    "options":["B, perché è al 2% mentre A è al 10%","A, perché 0,5 è più piccolo di 4","Sono uguali","A, perché il valore è più piccolo"],
+    "answer":"B, perché è al 2% mentre A è al 10%",
+    "why":"A: 0,5 : 5 = 10%. B: 4 : 200 = 2%. Conta sempre la percentuale, non l'incertezza assoluta." },
+
+  { "type":"num", "color":2, "q":"Quante cifre significative ha 40,50?", "answer":4, "tol":0,
+    "why":"Lo zero in mezzo e quello finale dopo la virgola contano entrambi: 4, 0, 5, 0." },
+
+  { "type":"mc", "color":2,
+    "q":"Scrivi in notazione scientifica",
+    "prompt":"0,000091",
+    "options":["9,1 · 10^-5","9,1 · 10^-4","91 · 10^-6","9,1 · 10^5"],
+    "answer":"9,1 · 10^-5", "fxOptions":true,
+    "why":"La virgola si sposta di 5 posti verso destra: 9,1 · 10^-5." },
+
+  { "type":"mc", "color":2,
+    "q":"Qual è l'ordine di grandezza?",
+    "prompt":"8,6 · 10^7", "fxPrompt":true,
+    "options":["10^8","10^7","10^6","9 · 10^7"],
+    "answer":"10^8", "fxOptions":true,
+    "why":"8,6 è maggiore di 5, quindi si sale di un gradino: 10^8." },
+
+  { "type":"mc", "color":2,
+    "q":"Ricava r",
+    "prompt":"V = (m)/(d)", "fxPrompt":true,
+    "options":["Non si può: nella formula non c'è nessuna r","r = V*d","r = (V)/(d)","r = m*d"],
+    "answer":"Non si può: nella formula non c'è nessuna r",
+    "why":"Prima di invertire bisogna guardare quali lettere ci sono davvero. Se la lettera cercata non compare, la formula non serve." },
+
+  { "type":"num", "color":2, "q":"d = m : V, con m = 135 g e V = 50 cm^3. Quanto vale d?", "unit":"g/cm^3", "answer":2.7, "tol":0,
+    "why":"135 : 50 = 2,7 g/cm^3." },
+
+  { "type":"num", "color":2, "q":"A = b * h, con A = 72 cm^2 e b = 9 cm. Quanto vale h?", "unit":"cm", "answer":8, "tol":0,
+    "why":"h = A : b = 72 : 9 = 8 cm." },
+
+  { "type":"mc", "color":0,
+    "q":"Che relazione è?",
+    "prompt":"x: 1 2 3 4     y: 12 6 4 3",
+    "options":["inversa","diretta","lineare","quadratica"],
+    "answer":"inversa",
+    "why":"Il prodotto x · y vale sempre 12: proporzionalità inversa, grafico a iperbole." },
+
+  { "type":"mc", "color":0,
+    "q":"Che relazione è?",
+    "prompt":"x: 1 2 3 4     y: 2 8 18 32",
+    "options":["quadratica","diretta","lineare","inversa"],
+    "answer":"quadratica",
+    "why":"y : x^2 vale sempre 2 (2:1, 8:4, 18:9, 32:16): è y = 2·x^2." },
+
+  { "type":"num", "color":0, "q":"Una retta passa per (0; 4) e (3; 10). Quanto vale la pendenza?", "answer":2, "tol":0,
+    "why":"(10 - 4) : (3 - 0) = 6 : 3 = 2. La retta è y = 2x + 4." },
+
+  { "type":"num", "color":0, "q":"Quanti radianti sono 180 deg? (usa \\pi = 3,14)", "unit":"rad", "answer":3.14, "tol":0.02,
+    "why":"L'angolo piatto vale π rad, cioè circa 3,14." },
+
+  { "type":"num", "color":0, "q":"Arco 6 cm, raggio 3 cm. Quanto vale l'angolo in radianti?", "unit":"rad", "answer":2, "tol":0,
+    "why":"angolo = arco : raggio = 6 : 3 = 2 rad." },
+
+  { "type":"order", "color":1,
+    "q":"Una relazione di laboratorio: in che ordine si scrive?",
+    "steps":[
+      "Titolo, scopo e materiali usati",
+      "Descrizione di come si è svolta l'esperienza",
+      "Tabella dei dati raccolti, con le incertezze",
+      "Elaborazione: calcoli, grafico e risultato",
+      "Conclusioni: che cosa dicono i dati"
+    ],
+    "why":"Prima si dice che cosa si voleva fare e con che cosa, poi come lo si è fatto, poi i dati, e solo alla fine si commenta il risultato." },
+
+  { "type":"mc", "color":1,
+    "q":"Dov'è l'errore?",
+    "prompt":"Il risultato di una misura: 15,3",
+    "options":["Manca l'unità di misura (e anche l'incertezza)","Ci sono troppe cifre","Il numero andava arrotondato","Non c'è errore"],
+    "answer":"Manca l'unità di misura (e anche l'incertezza)",
+    "why":"In fisica un numero da solo non è una misura. Servono valore, incertezza e unità: (15,3 ± 0,1) cm." }
+ ]
+}

@@ -1,0 +1,103 @@
+{
+ "id": "fis-07-radianti",
+ "subject": "Fisica",
+ "title": "La misura di un angolo in radianti",
+ "blurb": "Il radiante come rapporto arco-raggio, e le equivalenze con i gradi.",
+ "updated": "2026-08-29",
+ "items": [
+  {
+   "type": "info",
+   "title": "Che cos'è un radiante",
+   "html": "<p style='margin:0 0 10px;text-align:center;font-size:17px'><b>angolo (rad) = arco : raggio</b></p><p style='margin:0 0 10px;color:#41556B'>È il rapporto fra due lunghezze, quindi è un <b>numero puro</b>: non ha unità di misura vera e propria.</p><table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='padding:4px 0'>angolo giro</td><td>360°</td><td><b>2&pi;</b> &asymp; 6,28</td></tr><tr><td style='padding:4px 0'>angolo piatto</td><td>180°</td><td><b>&pi;</b> &asymp; 3,14</td></tr><tr><td style='padding:4px 0'>angolo retto</td><td>90°</td><td><b>&pi;/2</b> &asymp; 1,57</td></tr><tr><td style='padding:4px 0'>&nbsp;</td><td>1 rad</td><td>&asymp; 57,3°</td></tr></table>"
+  },
+  {
+   "type": "info",
+   "title": "Le due conversioni",
+   "html": "<div style='background:#E2F2F3;border-radius:10px;padding:10px 12px;margin-bottom:8px'><b style='color:#0E7C86'>da GRADI a RADIANTI</b><br>moltiplico per &pi; e divido per 180<br><span style='color:#41556B'>60° &rarr; 60 &times; 3,14 : 180 = 1,05 rad</span></div><div style='background:#FBEEDA;border-radius:10px;padding:10px 12px'><b style='color:#B06A08'>da RADIANTI a GRADI</b><br>moltiplico per 180 e divido per &pi;<br><span style='color:#41556B'>2 rad &rarr; 2 &times; 180 : 3,14 = 114,6°</span></div>"
+  },
+
+  { "type":"mc", "color":0,
+    "q":"Quanto vale l'angolo giro in radianti?",
+    "prompt":"360 deg", "fxPrompt":true,
+    "options":["2\\pi","\\pi","(\\pi)/(2)","360\\pi"],
+    "answer":"2\\pi", "fxOptions":true,
+    "why":"L'arco è tutta la circonferenza, cioè 2πr; diviso il raggio r resta 2π ≈ 6,28." },
+
+  { "type":"mc", "color":0,
+    "q":"Quanto vale l'angolo piatto in radianti?",
+    "prompt":"180 deg", "fxPrompt":true,
+    "options":["\\pi","2\\pi","(\\pi)/(2)","(\\pi)/(4)"],
+    "answer":"\\pi", "fxOptions":true,
+    "why":"È metà dell'angolo giro: 2π : 2 = π ≈ 3,14." },
+
+  { "type":"mc", "color":0,
+    "q":"Quanto vale l'angolo retto in radianti?",
+    "prompt":"90 deg", "fxPrompt":true,
+    "options":["(\\pi)/(2)","\\pi","2\\pi","(\\pi)/(4)"],
+    "answer":"(\\pi)/(2)", "fxOptions":true,
+    "why":"È un quarto dell'angolo giro: 2π : 4 = π/2 ≈ 1,57." },
+
+  { "type":"mc", "color":0,
+    "q":"Perché il radiante non ha una vera unità di misura?",
+    "prompt":"angolo = arco : raggio",
+    "options":["Perché è il rapporto fra due lunghezze, che si semplificano","Perché è sempre minore di 1","Perché si usa solo in matematica","Perché dipende dal raggio scelto"],
+    "answer":"Perché è il rapporto fra due lunghezze, che si semplificano",
+    "why":"Metri diviso metri dà un numero puro. Per questo lo stesso angolo dà lo stesso valore in radianti, con qualsiasi raggio." },
+
+  { "type":"num", "color":1, "q":"Quanti radianti sono 90 deg? (usa \\pi = 3,14)", "unit":"rad", "answer":1.57, "tol":0.02,
+    "why":"90 * 3,14 : 180 = 1,57 rad." },
+
+  { "type":"num", "color":1, "q":"Quanti radianti sono 60 deg? (usa \\pi = 3,14)", "unit":"rad", "answer":1.05, "tol":0.02,
+    "why":"60 * 3,14 : 180 = 1,047, cioè circa 1,05 rad." },
+
+  { "type":"num", "color":1, "q":"Quanti radianti sono 45 deg? (usa \\pi = 3,14)", "unit":"rad", "answer":0.785, "tol":0.02,
+    "why":"45 * 3,14 : 180 = 0,785 rad, cioè π/4." },
+
+  { "type":"num", "color":1, "q":"Quanti radianti sono 30 deg? (usa \\pi = 3,14)", "unit":"rad", "answer":0.52, "tol":0.02,
+    "why":"30 * 3,14 : 180 = 0,523, cioè circa 0,52 rad (π/6)." },
+
+  { "type":"num", "color":1, "q":"Quanti radianti sono 270 deg? (usa \\pi = 3,14)", "unit":"rad", "answer":4.71, "tol":0.03,
+    "why":"270 * 3,14 : 180 = 4,71 rad, cioè tre quarti dell'angolo giro." },
+
+  { "type":"num", "color":2, "q":"Quanti gradi è 1 rad? (usa \\pi = 3,14)", "unit":"deg", "answer":57.3, "tol":0.5,
+    "why":"1 * 180 : 3,14 = 57,3°. È il valore da ricordare a memoria." },
+
+  { "type":"num", "color":2, "q":"Quanti gradi sono 2 rad? (usa \\pi = 3,14)", "unit":"deg", "answer":114.6, "tol":1,
+    "why":"2 * 180 : 3,14 = 114,6°. Oppure: 2 * 57,3°." },
+
+  { "type":"num", "color":2, "q":"Quanti gradi sono 0,5 rad? (usa \\pi = 3,14)", "unit":"deg", "answer":28.7, "tol":0.5,
+    "why":"0,5 * 180 : 3,14 = 28,7°, cioè metà di 57,3°." },
+
+  { "type":"num", "color":2, "q":"Un arco lungo 10 cm su una circonferenza di raggio 5 cm. Quanto vale l'angolo in radianti?", "unit":"rad", "answer":2, "tol":0,
+    "why":"angolo = arco : raggio = 10 : 5 = 2 rad." },
+
+  { "type":"num", "color":2, "q":"Raggio 4 cm, angolo 3 rad. Quanto è lungo l'arco?", "unit":"cm", "answer":12, "tol":0,
+    "why":"Invertendo la formula: arco = angolo * raggio = 3 * 4 = 12 cm." },
+
+  { "type":"num", "color":2, "q":"Arco 9 cm, angolo 1,5 rad. Quanto vale il raggio?", "unit":"cm", "answer":6, "tol":0,
+    "why":"raggio = arco : angolo = 9 : 1,5 = 6 cm." },
+
+  { "type":"mc", "color":2,
+    "q":"Come si passa da gradi a radianti?",
+    "prompt":"Quale operazione si fa?",
+    "options":["si moltiplica per \\pi e si divide per 180","si moltiplica per 180 e si divide per \\pi","si divide per 360","si moltiplica per 57,3"],
+    "answer":"si moltiplica per \\pi e si divide per 180", "fxOptions":true,
+    "why":"Da gradi a radianti: × π : 180. Nell'altro verso si fa l'inverso: × 180 : π." },
+
+  { "type":"order", "color":2,
+    "q":"Trasformare 120 deg in radianti",
+    "steps":[
+      "Scrivo la proporzione: 120 sta a 180 come l'angolo cercato sta a \\pi",
+      "Calcolo 120 * 3,14 : 180",
+      "Ottengo 2,09 rad, cioè circa (2\\pi)/(3)"
+    ],
+    "why":"Il rapporto fra l'angolo e l'angolo piatto è lo stesso in gradi e in radianti: da qui la formula × π : 180." },
+
+  { "type":"mc", "color":2,
+    "q":"Dov'è l'errore?",
+    "prompt":"90 deg = 90 * 180 : \\pi = 5159 rad", "fxPrompt":true,
+    "options":["Le operazioni sono invertite: da gradi a radianti si fa * \\pi : 180","Il risultato numerico è sbagliato","Non c'è errore","\\pi vale 3,14 e non 3"],
+    "answer":"Le operazioni sono invertite: da gradi a radianti si fa * \\pi : 180", "fxOptions":true,
+    "why":"Il risultato enorme è il campanello d'allarme: un angolo retto vale 1,57 rad, perché l'angolo giro intero è solo 6,28 rad." }
+ ]
+}

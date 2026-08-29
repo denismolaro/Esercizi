@@ -1,0 +1,128 @@
+{
+ "id": "fis-04-cifre-notazione",
+ "subject": "Fisica",
+ "title": "Cifre significative, notazione scientifica, ordine di grandezza",
+ "blurb": "Quante cifre contano davvero, come si scrive un numero in potenze di dieci.",
+ "updated": "2026-08-29",
+ "items": [
+  {
+   "type": "info",
+   "title": "Cifre significative",
+   "html": "<p style='margin:0 0 8px'>Si contano <b>da sinistra, a partire dalla prima cifra diversa da zero</b>.</p><table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='padding:3px 0'><b>0,00450</b></td><td>3 cifre &nbsp;<span style='color:#41556B'>gli zeri davanti non contano, quello finale sì</span></td></tr><tr><td style='padding:3px 0'><b>305,0</b></td><td>4 cifre &nbsp;<span style='color:#41556B'>lo zero in mezzo conta sempre</span></td></tr><tr><td style='padding:3px 0'><b>7,2</b></td><td>2 cifre</td></tr></table>"
+  },
+  {
+   "type": "info",
+   "title": "Notazione scientifica e ordine di grandezza",
+   "html": "<div style='background:#E2F2F3;border-radius:10px;padding:10px 12px;margin-bottom:8px'><b style='color:#0E7C86'>NOTAZIONE SCIENTIFICA</b><br>un numero fra 1 e 10, moltiplicato per una potenza di 10<br>45 000 = <b>4,5 &times; 10<sup>4</sup></b> &nbsp;&nbsp; 0,0032 = <b>3,2 &times; 10<sup>-3</sup></b></div><div style='background:#EBE7FA;border-radius:10px;padding:10px 12px'><b style='color:#6244C0'>ORDINE DI GRANDEZZA</b><br>la potenza di 10 più vicina al numero<br>se la prima parte è <b>minore di 5</b> → resta 10<sup>n</sup><br>se è <b>5 o più</b> → si sale a 10<sup>n+1</sup></div>"
+  },
+
+  { "type":"mc", "color":0,
+    "q":"Quante cifre significative?",
+    "prompt":"0,00450",
+    "options":["3","2","5","6"],
+    "answer":"3",
+    "why":"Gli zeri iniziali servono solo a mettere la virgola: non contano. Contano 4, 5 e lo zero finale → 3 cifre." },
+
+  { "type":"mc", "color":0,
+    "q":"Quante cifre significative?",
+    "prompt":"305,0",
+    "options":["4","3","2","5"],
+    "answer":"4",
+    "why":"Lo zero in mezzo conta sempre e lo zero finale dopo la virgola pure: 3, 0, 5, 0 → 4 cifre." },
+
+  { "type":"num", "color":0,
+    "q":"Quante cifre significative ha il numero 0,0208?",
+    "answer":3, "tol":0,
+    "why":"Gli zeri davanti non contano; 2, 0 e 8 sì → 3 cifre significative." },
+
+  { "type":"num", "color":0,
+    "q":"Arrotonda 12,346 a due cifre dopo la virgola.",
+    "answer":12.35, "tol":0,
+    "why":"La terza cifra decimale è 6, cioè 5 o più: si arrotonda per eccesso → 12,35." },
+
+  { "type":"num", "color":0,
+    "q":"Arrotonda 0,0847 a due cifre significative.",
+    "answer":0.085, "tol":0,
+    "why":"Le prime due cifre significative sono 8 e 4; la successiva è 7, quindi si sale: 0,085." },
+
+  { "type":"mc", "color":1,
+    "q":"Scrivi in notazione scientifica",
+    "prompt":"45 000",
+    "options":["4,5 · 10^4","45 · 10^3","4,5 · 10^3","0,45 · 10^5"],
+    "answer":"4,5 · 10^4", "fxOptions":true,
+    "why":"Davanti alla potenza ci deve essere un numero fra 1 e 10: 4,5. La virgola si è spostata di 4 posti verso sinistra → 10^4." },
+
+  { "type":"mc", "color":1,
+    "q":"Scrivi in notazione scientifica",
+    "prompt":"0,0032",
+    "options":["3,2 · 10^-3","3,2 · 10^-2","32 · 10^-4","3,2 · 10^3"],
+    "answer":"3,2 · 10^-3", "fxOptions":true,
+    "why":"La virgola si sposta di 3 posti verso destra, quindi l'esponente è negativo: 3,2 · 10^-3." },
+
+  { "type":"num", "color":1,
+    "q":"Scrivo 0,00072 come a * 10^n. Quanto vale l'esponente n?",
+    "answer":-4, "tol":0,
+    "why":"0,00072 = 7,2 * 10^-4. La virgola va spostata di 4 posti verso destra, quindi n = -4." },
+
+  { "type":"num", "color":1,
+    "q":"Scrivo 6 300 000 come a * 10^n. Quanto vale l'esponente n?",
+    "answer":6, "tol":0,
+    "why":"6 300 000 = 6,3 * 10^6: la virgola si sposta di 6 posti verso sinistra." },
+
+  { "type":"num", "color":1,
+    "q":"Quanto vale 3,7 * 10^2 scritto in forma normale?",
+    "answer":370, "tol":0,
+    "why":"10^2 = 100, quindi 3,7 * 100 = 370." },
+
+  { "type":"mc", "color":1,
+    "q":"Quale numero è scritto correttamente in notazione scientifica?",
+    "prompt":"Guarda il numero davanti alla potenza.",
+    "options":["8,4 · 10^5","84 · 10^4","0,84 · 10^6","840 · 10^3"],
+    "answer":"8,4 · 10^5", "fxOptions":true,
+    "why":"Il numero davanti deve essere maggiore o uguale a 1 e minore di 10. Gli altri valgono la stessa cosa, ma non sono in notazione scientifica." },
+
+  { "type":"mc", "color":2,
+    "q":"Qual è l'ordine di grandezza?",
+    "prompt":"2,3 · 10^5", "fxPrompt":true,
+    "options":["10^5","10^6","10^4","2 · 10^5"],
+    "answer":"10^5", "fxOptions":true,
+    "why":"2,3 è minore di 5, quindi l'ordine di grandezza resta 10^5." },
+
+  { "type":"mc", "color":2,
+    "q":"Qual è l'ordine di grandezza?",
+    "prompt":"7,8 · 10^3", "fxPrompt":true,
+    "options":["10^4","10^3","10^2","8 · 10^3"],
+    "answer":"10^4", "fxOptions":true,
+    "why":"7,8 è più vicino a 10 che a 1, quindi si sale di un gradino: 10^4." },
+
+  { "type":"mc", "color":2,
+    "q":"Qual è l'ordine di grandezza?",
+    "prompt":"0,00062",
+    "options":["10^-3","10^-4","10^-5","10^-2"],
+    "answer":"10^-3", "fxOptions":true,
+    "why":"0,00062 = 6,2 · 10^-4; siccome 6,2 è maggiore di 5 si sale: 10^-3." },
+
+  { "type":"mc", "color":2,
+    "q":"Quanto fa?",
+    "prompt":"(2 * 10^3) * (3 * 10^2)", "fxPrompt":true,
+    "options":["6 · 10^5","6 · 10^6","5 · 10^5","6 · 10^1"],
+    "answer":"6 · 10^5", "fxOptions":true,
+    "why":"Si moltiplicano i numeri (2 · 3 = 6) e si SOMMANO gli esponenti (3 + 2 = 5)." },
+
+  { "type":"mc", "color":2,
+    "q":"Quanto fa?",
+    "prompt":"(8 * 10^6) : (2 * 10^2)", "fxPrompt":true,
+    "options":["4 · 10^4","4 · 10^3","4 · 10^8","6 · 10^4"],
+    "answer":"4 · 10^4", "fxOptions":true,
+    "why":"Si dividono i numeri (8 : 2 = 4) e si SOTTRAGGONO gli esponenti (6 − 2 = 4)." },
+
+  { "type":"order", "color":2,
+    "q":"Portare 0,00058 in notazione scientifica e trovarne l'ordine di grandezza",
+    "steps":[
+      "Sposto la virgola fino ad avere un numero fra 1 e 10: 5,8",
+      "Conto di quanti posti l'ho spostata verso destra: 4, quindi 5,8 * 10^-4",
+      "5,8 è maggiore di 5, quindi l'ordine di grandezza è 10^-3"
+    ],
+    "why":"Prima si sistema il numero, poi si conta l'esponente, e solo alla fine si decide l'ordine di grandezza guardando se la prima parte è sopra o sotto 5." }
+ ]
+}

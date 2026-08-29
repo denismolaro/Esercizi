@@ -1,0 +1,147 @@
+{
+ "id": "fis-06-grafici",
+ "subject": "Fisica",
+ "title": "Grafici e relazioni fra grandezze",
+ "blurb": "Diretta, lineare, quadratica, inversa: riconoscerle dalla formula, dalla tabella e dal grafico.",
+ "updated": "2026-08-29",
+ "items": [
+  {
+   "type": "info",
+   "title": "Le quattro relazioni",
+   "html": "<table style='width:100%;border-collapse:collapse;font-size:14.5px'><tr><td style='padding:5px 6px 5px 0;color:#0E7C86'><b>DIRETTA</b><br>y = k&middot;x</td><td>retta <b>passante per l'origine</b><br><span style='color:#41556B'>resta costante y : x</span></td></tr><tr><td style='padding:5px 6px 5px 0;color:#B06A08'><b>LINEARE</b><br>y = k&middot;x + q</td><td>retta che <b>non</b> passa per l'origine<br><span style='color:#41556B'>taglia l'asse y nel punto q</span></td></tr><tr><td style='padding:5px 6px 5px 0;color:#6244C0'><b>QUADRATICA</b><br>y = k&middot;x<sup>2</sup></td><td>parabola<br><span style='color:#41556B'>resta costante y : x<sup>2</sup></span></td></tr><tr><td style='padding:5px 6px 5px 0;color:#12703F'><b>INVERSA</b><br>y = k : x</td><td>iperbole<br><span style='color:#41556B'>resta costante il prodotto x &middot; y</span></td></tr></table>"
+  },
+  {
+   "type": "info",
+   "title": "Il test veloce: raddoppio la x",
+   "html": "<table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='padding:4px 0'>y raddoppia</td><td>→ <b style='color:#0E7C86'>diretta</b></td></tr><tr><td style='padding:4px 0'>y diventa 4 volte</td><td>→ <b style='color:#6244C0'>quadratica</b></td></tr><tr><td style='padding:4px 0'>y dimezza</td><td>→ <b style='color:#12703F'>inversa</b></td></tr></table><p style='margin:10px 0 0;color:#41556B'>Sugli assi: la variabile <b>indipendente</b> (quella che scelgo io) va sulle <b>x</b>, la <b>dipendente</b> (quella che misuro) sulle <b>y</b>.</p>"
+  },
+
+  { "type":"mc", "color":0,
+    "q":"Su quale asse va la variabile indipendente?",
+    "prompt":"Misuro l'allungamento di una molla al variare del peso appeso.",
+    "options":["Sull'asse x, ed è il peso","Sull'asse y, ed è il peso","Sull'asse x, ed è l'allungamento","Su nessuno dei due"],
+    "answer":"Sull'asse x, ed è il peso",
+    "why":"Indipendente = quella che decido io (il peso che appendo) e va sulle x. Dipendente = quella che ne consegue (l'allungamento) e va sulle y." },
+
+  { "type":"mc", "color":0,
+    "q":"Che relazione è?",
+    "prompt":"y = 3*x", "fxPrompt":true,
+    "options":["diretta","lineare","quadratica","inversa"],
+    "answer":"diretta",
+    "why":"y = k·x senza termine aggiunto: retta che passa per l'origine, cioè proporzionalità diretta." },
+
+  { "type":"mc", "color":0,
+    "q":"Che relazione è?",
+    "prompt":"y = 2*x + 4", "fxPrompt":true,
+    "options":["lineare","diretta","quadratica","inversa"],
+    "answer":"lineare",
+    "why":"C'è il + 4: è ancora una retta, ma non passa per l'origine. Taglia l'asse y all'altezza 4." },
+
+  { "type":"mc", "color":0,
+    "q":"Che relazione è?",
+    "prompt":"y = 5*x^2", "fxPrompt":true,
+    "options":["quadratica","diretta","lineare","inversa"],
+    "answer":"quadratica",
+    "why":"La x è al quadrato: il grafico è una parabola con il vertice nell'origine." },
+
+  { "type":"mc", "color":0,
+    "q":"Che relazione è?",
+    "prompt":"y = (12)/(x)", "fxPrompt":true,
+    "options":["inversa","diretta","lineare","quadratica"],
+    "answer":"inversa",
+    "why":"La x sta al denominatore: se x cresce, y cala. Il grafico è un ramo di iperbole e il prodotto x · y resta 12." },
+
+  { "type":"mc", "color":1,
+    "q":"Che cosa resta costante?",
+    "prompt":"In una proporzionalità diretta",
+    "options":["il rapporto y : x","il prodotto x · y","la differenza y − x","il rapporto y : x^2"],
+    "answer":"il rapporto y : x",
+    "why":"In y = k·x si ha y : x = k sempre uguale. È il modo più rapido per verificarla da una tabella." },
+
+  { "type":"mc", "color":1,
+    "q":"Che cosa resta costante?",
+    "prompt":"In una proporzionalità inversa",
+    "options":["il prodotto x · y","il rapporto y : x","la somma x + y","il rapporto x : y^2"],
+    "answer":"il prodotto x · y",
+    "why":"In y = k : x si ha x · y = k. Se un valore raddoppia, l'altro dimezza." },
+
+  { "type":"mc", "color":1,
+    "q":"Raddoppio la x e la y diventa quattro volte più grande. Che relazione è?",
+    "prompt":"x: 2 → 4     y: 3 → 12",
+    "options":["quadratica","diretta","lineare","inversa"],
+    "answer":"quadratica",
+    "why":"Se x raddoppia, x^2 diventa 4 volte più grande: è il comportamento di y = k·x^2." },
+
+  { "type":"mc", "color":1,
+    "q":"Raddoppio la x e la y dimezza. Che relazione è?",
+    "prompt":"x: 3 → 6     y: 8 → 4",
+    "options":["inversa","diretta","quadratica","lineare"],
+    "answer":"inversa",
+    "why":"Il prodotto resta costante (3 · 8 = 24 e 6 · 4 = 24): proporzionalità inversa." },
+
+  { "type":"mc", "color":1,
+    "q":"Guarda la tabella: che relazione è?",
+    "prompt":"x: 1 2 3 4     y: 5 8 11 14",
+    "options":["lineare","diretta","quadratica","inversa"],
+    "answer":"lineare",
+    "why":"La y cresce sempre di 3, quindi è una retta; ma per x = 0 varrebbe 2, non 0: non passa per l'origine. È lineare, non diretta." },
+
+  { "type":"num", "color":2,
+    "q":"Relazione diretta: per x = 2 si ha y = 6. Quanto vale y per x = 5?",
+    "answer":15, "tol":0,
+    "why":"k = 6 : 2 = 3, quindi y = 3 * 5 = 15." },
+
+  { "type":"num", "color":2,
+    "q":"Relazione inversa: per x = 2 si ha y = 12. Quanto vale y per x = 8?",
+    "answer":3, "tol":0,
+    "why":"k = 2 * 12 = 24, quindi y = 24 : 8 = 3." },
+
+  { "type":"num", "color":2,
+    "q":"Relazione quadratica: per x = 1 si ha y = 4. Quanto vale y per x = 3?",
+    "answer":36, "tol":0,
+    "why":"k = 4, quindi y = 4 * 3^2 = 4 * 9 = 36. Attenzione: non 12." },
+
+  { "type":"num", "color":2,
+    "q":"y = 4*x + 3. Quanto vale y per x = 5?",
+    "answer":23, "tol":0,
+    "why":"4 * 5 = 20, poi + 3 fa 23." },
+
+  { "type":"num", "color":2,
+    "q":"Una retta passa per i punti (2; 5) e (6; 13). Quanto vale la pendenza?",
+    "answer":2, "tol":0,
+    "why":"Pendenza = \\Deltay : \\Deltax = (13 - 5) : (6 - 2) = 8 : 4 = 2." },
+
+  { "type":"num", "color":2,
+    "q":"Una retta passa per i punti (1; 4) e (5; 20). Quanto vale la pendenza?",
+    "answer":4, "tol":0,
+    "why":"(20 - 4) : (5 - 1) = 16 : 4 = 4." },
+
+  { "type":"mc", "color":2,
+    "q":"Che cosa indica la pendenza di una retta?",
+    "prompt":"pendenza = \\Deltay : \\Deltax", "fxPrompt":true,
+    "options":["Di quanto cresce y quando x aumenta di 1","Il punto in cui la retta taglia l'asse y","La lunghezza della retta","L'angolo con l'asse y"],
+    "answer":"Di quanto cresce y quando x aumenta di 1",
+    "why":"È il rapporto fra la crescita di y e quella di x: dice quanto è ripida la retta." },
+
+  { "type":"mc", "color":2,
+    "q":"Che cos'è la retta interpolatrice?",
+    "prompt":"Ho messo in grafico dei dati sperimentali.",
+    "options":["La retta che passa il più vicino possibile a tutti i punti","La retta che unisce il primo e l'ultimo punto","La spezzata che passa per tutti i punti","La retta che passa per l'origine"],
+    "answer":"La retta che passa il più vicino possibile a tutti i punti",
+    "why":"I dati sperimentali hanno sempre delle incertezze, quindi non stanno esattamente allineati: si traccia la retta che li approssima meglio, senza obbligo di toccarli tutti." },
+
+  { "type":"mc", "color":2,
+    "q":"Dov'è l'errore?",
+    "prompt":"Ho unito i punti sperimentali con una spezzata, punto per punto.",
+    "options":["I punti non si uniscono: si traccia la linea che li approssima meglio","Non c'è errore","Bisognava unirli con una curva qualsiasi","Bisognava scartare i punti fuori posto"],
+    "answer":"I punti non si uniscono: si traccia la linea che li approssima meglio",
+    "why":"La spezzata seguirebbe anche gli errori di misura. La linea di tendenza mostra invece la legge fisica che c'è dietro." },
+
+  { "type":"mc", "color":2,
+    "q":"In quale punto la retta taglia l'asse y?",
+    "prompt":"y = 2*x + 6", "fxPrompt":true,
+    "options":["in 6","in 2","nell'origine","in 3"],
+    "answer":"in 6",
+    "why":"Per x = 0 resta y = 6: il termine aggiunto è proprio il punto di intersezione con l'asse y." }
+ ]
+}

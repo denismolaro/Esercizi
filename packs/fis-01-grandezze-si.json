@@ -1,0 +1,117 @@
+{
+ "id": "fis-01-grandezze-si",
+ "subject": "Fisica",
+ "title": "Grandezze, Sistema Internazionale ed equivalenze",
+ "blurb": "Cosa si può misurare, le sette grandezze fondamentali, multipli e sottomultipli.",
+ "updated": "2026-08-29",
+ "items": [
+  {
+   "type": "info",
+   "title": "Le sette grandezze fondamentali",
+   "html": "<table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='padding:3px 0'>lunghezza</td><td><b>metro</b> (m)</td></tr><tr><td style='padding:3px 0'>massa</td><td><b>chilogrammo</b> (kg)</td></tr><tr><td style='padding:3px 0'>tempo</td><td><b>secondo</b> (s)</td></tr><tr><td style='padding:3px 0'>corrente elettrica</td><td><b>ampere</b> (A)</td></tr><tr><td style='padding:3px 0'>temperatura</td><td><b>kelvin</b> (K)</td></tr><tr><td style='padding:3px 0'>quantità di sostanza</td><td><b>mole</b> (mol)</td></tr><tr><td style='padding:3px 0'>intensità luminosa</td><td><b>candela</b> (cd)</td></tr></table><p style='margin:10px 0 0;color:#41556B'>Tutte le altre (area, volume, velocità, densità…) sono <b>derivate</b>: si ottengono da queste sette.</p>"
+  },
+  {
+   "type": "info",
+   "title": "Multipli e sottomultipli",
+   "html": "<table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='padding:3px 0;color:#B06A08'><b>k</b> chilo</td><td>1 000</td><td>10<sup>3</sup></td></tr><tr><td style='padding:3px 0;color:#B06A08'><b>h</b> etto</td><td>100</td><td>10<sup>2</sup></td></tr><tr><td style='padding:3px 0;color:#B06A08'><b>da</b> deca</td><td>10</td><td>10<sup>1</sup></td></tr><tr><td style='padding:3px 0;color:#0E7C86'><b>d</b> deci</td><td>0,1</td><td>10<sup>-1</sup></td></tr><tr><td style='padding:3px 0;color:#0E7C86'><b>c</b> centi</td><td>0,01</td><td>10<sup>-2</sup></td></tr><tr><td style='padding:3px 0;color:#0E7C86'><b>m</b> milli</td><td>0,001</td><td>10<sup>-3</sup></td></tr><tr><td style='padding:3px 0;color:#0E7C86'><b>&#956;</b> micro</td><td>0,000001</td><td>10<sup>-6</sup></td></tr></table><p style='margin:10px 0 0;color:#41556B'>Attenzione alle <b>aree</b> e ai <b>volumi</b>: 1 m = 10 dm, ma 1 m<sup>2</sup> = 100 dm<sup>2</sup> e 1 m<sup>3</sup> = 1000 dm<sup>3</sup>.</p>"
+  },
+
+  { "type":"mc", "color":0,
+    "q":"Quale di queste è una grandezza fisica?",
+    "prompt":"Solo una si può misurare con uno strumento.",
+    "options":["La temperatura dell'acqua","La bellezza di un quadro","La simpatia di un compagno","Il coraggio di una persona"],
+    "answer":"La temperatura dell'acqua",
+    "why":"È una grandezza fisica ciò che si può misurare, cioè confrontare con un'unità di misura. Le altre tre si possono giudicare, non misurare." },
+
+  { "type":"mc", "color":0,
+    "q":"Quale NON è una grandezza fondamentale del SI?",
+    "prompt":"tempo · velocità · massa · temperatura",
+    "options":["velocità","tempo","massa","temperatura"],
+    "answer":"velocità",
+    "why":"La velocità è derivata: si ottiene dividendo una lunghezza per un tempo. Le altre tre sono nell'elenco delle sette fondamentali." },
+
+  { "type":"mc", "color":0,
+    "q":"Qual è l'unità di misura fondamentale della massa?",
+    "prompt":"Attenzione: non è quella che si usa di solito in cucina.",
+    "options":["il chilogrammo (kg)","il grammo (g)","la tonnellata (t)","il newton (N)"],
+    "answer":"il chilogrammo (kg)",
+    "why":"Nel SI l'unità fondamentale della massa è il chilogrammo, non il grammo. È l'unico caso in cui l'unità fondamentale ha già un prefisso." },
+
+  { "type":"mc", "color":0,
+    "q":"Da quali grandezze fondamentali deriva la velocità?",
+    "prompt":"v = (s)/(t)", "fxPrompt":true,
+    "options":["lunghezza e tempo","massa e tempo","lunghezza e massa","tempo e temperatura"],
+    "answer":"lunghezza e tempo",
+    "why":"La velocità è uno spazio diviso un tempo, quindi la sua unità è m/s: metri (lunghezza) diviso secondi (tempo)." },
+
+  { "type":"mc", "color":0,
+    "q":"Qual è l'unità di misura della quantità di sostanza?",
+    "prompt":"È l'unica delle sette che non misura una cosa che si vede.",
+    "options":["la mole","il kelvin","la candela","l'ampere"],
+    "answer":"la mole",
+    "why":"Mole → quantità di sostanza. Kelvin → temperatura, candela → intensità luminosa, ampere → corrente elettrica." },
+
+  { "type":"mc", "color":1,
+    "q":"Che cosa significa il prefisso «milli»?",
+    "prompt":"1 mm = ? m",
+    "options":["un millesimo","mille volte","un milionesimo","un milione di volte"],
+    "answer":"un millesimo",
+    "why":"milli = 10^-3, cioè un millesimo. Quindi 1 mm è la millesima parte del metro: 1 mm = 0,001 m." },
+
+  { "type":"mc", "color":1,
+    "q":"Che cosa significa il prefisso «micro»?",
+    "prompt":"1 \\mum = ? m", "fxPrompt":true,
+    "options":["10^-6","10^-3","10^-2","10^6"],
+    "answer":"10^-6", "fxOptions":true,
+    "why":"micro = 10^-6, un milionesimo. Milli invece è 10^-3." },
+
+  { "type":"num", "color":1, "q":"2,5 km quanti metri sono?", "unit":"m", "answer":2500, "tol":0,
+    "why":"1 km = 1000 m, quindi 2,5 * 1000 = 2500 m. Da un multiplo grande a uno piccolo il numero cresce." },
+
+  { "type":"num", "color":1, "q":"350 cm quanti metri sono?", "unit":"m", "answer":3.5, "tol":0,
+    "why":"1 m = 100 cm, quindi 350 : 100 = 3,5 m. Da unità piccola a unità grande il numero diminuisce." },
+
+  { "type":"num", "color":1, "q":"0,42 kg quanti grammi sono?", "unit":"g", "answer":420, "tol":0,
+    "why":"1 kg = 1000 g, quindi 0,42 * 1000 = 420 g." },
+
+  { "type":"num", "color":1, "q":"3 mm quanti metri sono?", "unit":"m", "answer":0.003, "tol":0,
+    "why":"1 mm = 0,001 m, quindi 3 mm = 0,003 m. Si scrive con tre zeri dopo la virgola." },
+
+  { "type":"num", "color":1, "q":"750 g quanti chilogrammi sono?", "unit":"kg", "answer":0.75, "tol":0,
+    "why":"750 : 1000 = 0,75 kg." },
+
+  { "type":"num", "color":2, "q":"4 m^2 quanti cm^2 sono?", "unit":"cm^2", "answer":40000, "tol":0,
+    "why":"1 m = 100 cm, quindi 1 m^2 = 100 * 100 = 10 000 cm^2. Allora 4 m^2 = 40 000 cm^2. Nelle aree il fattore va al quadrato." },
+
+  { "type":"num", "color":2, "q":"1 m^2 quanti dm^2 sono?", "unit":"dm^2", "answer":100, "tol":0,
+    "why":"1 m = 10 dm, quindi 1 m^2 = 10 * 10 = 100 dm^2, non 10." },
+
+  { "type":"num", "color":2, "q":"2,5 dm^3 quanti cm^3 sono?", "unit":"cm^3", "answer":2500, "tol":0,
+    "why":"1 dm = 10 cm, quindi 1 dm^3 = 10 * 10 * 10 = 1000 cm^3. Allora 2,5 dm^3 = 2500 cm^3." },
+
+  { "type":"num", "color":2, "q":"1 litro quanti cm^3 sono?", "unit":"cm^3", "answer":1000, "tol":0,
+    "why":"1 L = 1 dm^3 = 1000 cm^3. È la stessa equivalenza dei volumi, con un nome diverso." },
+
+  { "type":"num", "color":2, "q":"1,5 ore quanti secondi sono?", "unit":"s", "answer":5400, "tol":0,
+    "why":"1 h = 3600 s, quindi 1,5 * 3600 = 5400 s. Il tempo non va a multipli di 10." },
+
+  { "type":"num", "color":2, "q":"45 minuti quanti secondi sono?", "unit":"s", "answer":2700, "tol":0,
+    "why":"45 * 60 = 2700 s." },
+
+  { "type":"order", "color":2,
+    "q":"Da 2,4 km^2 a m^2: metti in ordine i passaggi",
+    "steps":[
+      "1 km = 1000 m",
+      "1 km^2 = 1000 m * 1000 m = 1 000 000 m^2",
+      "2,4 km^2 = 2,4 * 1 000 000 = 2 400 000 m^2"
+    ],
+    "why":"Prima si converte la lunghezza, poi si eleva al quadrato il fattore, e solo alla fine si moltiplica il numero dato." },
+
+  { "type":"mc", "color":2,
+    "q":"Dov'è l'errore?",
+    "prompt":"5 m^3 = 5000 dm^3 -> 50 000 cm^3", "fxPrompt":true,
+    "options":["Da dm^3 a cm^3 si moltiplica per 1000, non per 10","Non c'è nessun errore","5 m^3 non fa 5000 dm^3","Bisognava dividere, non moltiplicare"],
+    "answer":"Da dm^3 a cm^3 si moltiplica per 1000, non per 10", "fxOptions":true,
+    "why":"Nei volumi ogni gradino vale 1000: 5000 dm^3 = 5 000 000 cm^3." }
+ ]
+}
