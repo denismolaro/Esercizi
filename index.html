@@ -201,6 +201,24 @@ footer{margin-top:26px;font-size:12.5px;color:var(--ink-soft);text-align:center;
   @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 }
 :focus-visible{outline:3px solid var(--a3);outline-offset:2px}
+
+/* ── allenamento di oggi ── */
+.today{display:block;width:100%;text-align:left;border:0;border-radius:var(--r);
+  background:linear-gradient(135deg,var(--ink),#22364a);color:#fff;padding:16px 18px;margin:2px 0 4px;font:inherit}
+.today .t{display:block;font-family:Fraunces,Georgia,serif;font-size:25px;font-weight:700;line-height:1.1}
+.today .b{display:block;font-size:14.5px;opacity:.82;margin-top:5px}
+.today[disabled]{opacity:.55}
+.streak{font-size:13px;color:var(--ink-soft);margin:0 0 16px;text-align:center}
+/* ── risposta scritta ── */
+#txtin{width:100%;font:inherit;font-size:21px;padding:12px 14px;border:2px solid var(--line);
+  border-radius:10px;background:#fff;color:var(--ink);text-align:center}
+#txtin:focus{outline:none;border-color:var(--a1)}
+.gapq{font-size:22px;line-height:1.45}
+.gapq u{text-decoration:none;border-bottom:2.5px dashed var(--a1);padding:0 22px}
+.verdict.sp{background:var(--waitb);color:var(--wait)}
+.areatab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+.areatab td{padding:5px 0;border-bottom:1px solid var(--line)}
+.areatab td:last-child{text-align:right;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -233,7 +251,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "11";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "12";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -307,6 +325,49 @@ function sayList(arr,lang){
   });
 }
 function saySlot(i){ say(REG.texts[i], pack&&pack.lang); }
+
+/* ═══════════ MEMORIA DEGLI ERRORI (ripetizione dilazionata) ═══════════
+   recall → { "<chiave item>": {b:scatola, d:quando riproporlo} }
+   Sbagliato → scatola 0, torna domani. Giusto → sale di scatola e torna piu tardi.   */
+const BOXES=[1,2,4,8,16,32];          /* giorni di attesa per scatola */
+const DAY=86400000;
+function hash32(s){ let h=5381; for(let i=0;i<s.length;i++) h=((h*33)^s.charCodeAt(i))>>>0; return h.toString(36); }
+function itemKey(pid,it){
+  return pid+":"+hash32(String(it.q||it.prompt||it.sentence||"")+"|"+String(it.answer==null?"":it.answer));
+}
+function recall(){ return load("recall",{})||{}; }
+function recallSave(k,ok){
+  if(!k) return;
+  const R=recall(), r=R[k]||{b:0,d:0};
+  r.b = ok ? Math.min(r.b+1,BOXES.length-1) : 0;
+  r.d = Date.now() + BOXES[r.b]*DAY;
+  if(!ok) r.d = Date.now() + DAY;
+  R[k]=r; store("recall",R);
+}
+/* tutti gli item di inglese, divisi in: da rivedere / mai visti / gia sistemati */
+function todayPool(){
+  const now=Date.now(), R=recall(), due=[], fresh=[], later=[];
+  PACKS.forEach(pk=>{
+    if((pk.subject||"")!=="Inglese") return;
+    (pk.items||[]).filter(z=>z.type!=="info").forEach(it=>{
+      const k=itemKey(pk.id,it), r=R[k], o={pk:pk,it:it,k:k};
+      if(!r) fresh.push(o); else if(r.d<=now) due.push(o); else later.push(o);
+    });
+  });
+  return {due:due,fresh:fresh,later:later};
+}
+function todayCount(){ const t=todayPool(); return {due:t.due.length,fresh:t.fresh.length,tot:t.due.length+t.fresh.length+t.later.length}; }
+
+/* striscia di giorni consecutivi */
+function today8(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function bumpStreak(){
+  const s=load("streak",{last:"",n:0})||{last:"",n:0}, t=today8();
+  if(s.last===t) return s;
+  const y=new Date(Date.now()-DAY);
+  const yst=y.getFullYear()+"-"+String(y.getMonth()+1).padStart(2,"0")+"-"+String(y.getDate()).padStart(2,"0");
+  const out={last:t, n:(s.last===yst? (s.n||0)+1 : 1)};
+  store("streak",out); return out;
+}
 
 /* ═══════════ CARICAMENTO PACCHETTI ═══════════ */
 let PACKS=[], loadError="", loading=true;
@@ -430,20 +491,10 @@ function startSession(mode){
     }
   }else{
     const src=(pack.items||[]).filter(x=>x.type!=="info");
-    shuffle(src).slice(0,LEN).forEach(it=>{
-      const q=Object.assign({},it);
-      if(q.type==="mc") q.options=shuffle(q.options);
-      if(q.type==="wh"){
-        q.options=shuffle(q.options);
-        if(q.s1options){                       /* mescolo anche il primo stadio */
-          const giusta=q.s1options[whS1ans(q)];
-          q.s1options=shuffle(q.s1options);
-          q.s1answer=q.s1options.indexOf(giusta);
-        }
-        q.stage=1; q.s1picked=null;
-      }
-      if(q.type==="order"){ q.shuffled=shuffle(q.steps.map((s,i)=>({s:s,i:i}))); q.picked=[]; }
-      items.push(q);
+    /* un pacchetto puo chiedere una serie piu lunga: "len": 20 oppure "len": "all" */
+    const quanti = pack.len==="all" ? src.length : (parseInt(pack.len,10)>0 ? parseInt(pack.len,10) : LEN);
+    shuffle(src).slice(0,quanti).forEach(it=>{
+      items.push(prepItem(pack,it,itemKey(pack.id,it)));
     });
   }
   saved=false;
@@ -453,10 +504,42 @@ function startSession(mode){
 
 let saved=false;
 
+const LEN_TODAY=12, MAX_DUE=8;
+function prepItem(pk,it,k){
+  const q=Object.assign({},it);
+  q._pid=pk.id; q._k=k; q._pt=pk.title; q._lang=pk.lang||"en";
+  if(q.type==="mc") q.options=shuffle(q.options);
+  if(q.type==="wh"){
+    q.options=shuffle(q.options);
+    if(q.s1options){
+      const giusta=q.s1options[whS1ans(q)];
+      q.s1options=shuffle(q.s1options);
+      q.s1answer=q.s1options.indexOf(giusta);
+    }
+    q.stage=1; q.s1picked=null;
+  }
+  if(q.type==="order"){ q.shuffled=shuffle(q.steps.map((s,i)=>({s:s,i:i}))); q.picked=[]; }
+  return q;
+}
+function startToday(){
+  const t=todayPool();
+  let chosen=shuffle(t.due).slice(0,MAX_DUE);
+  if(chosen.length<LEN_TODAY) chosen=chosen.concat(shuffle(t.fresh).slice(0,LEN_TODAY-chosen.length));
+  if(chosen.length<LEN_TODAY) chosen=chosen.concat(shuffle(t.later).slice(0,LEN_TODAY-chosen.length));
+  if(!chosen.length) return;
+  pack={id:"__oggi", title:"Allenamento di oggi", subject:"Inglese", lang:"en", items:[]};
+  const items=shuffle(chosen).map(o=>prepItem(o.pk,o.it,o.k));
+  saved=false;
+  sess={items:items,i:0,right:0,wrong:[],answered:false,picked:null,mode:"today",lastOk:false};
+  view="session"; render();
+}
+
 /* ═══════════ RISPOSTE ═══════════ */
 const PRAISE=["Esatto.","Perfetto.","Sì, proprio quella.","Bravo.","Giusto.","Ottimo."];
-function judge(ok,detail){
-  sess.lastOk=ok; sess.answered=true;
+function judge(ok,detail,spell){
+  sess.lastOk=ok; sess.answered=true; sess.lastSpell=!!spell;
+  const it=sess.items[sess.i];
+  if(it){ it._ok=ok; recallSave(it._k, ok && !spell); }
   if(ok) sess.right++; else sess.wrong.push(detail);
   render();
 }
@@ -488,6 +571,101 @@ function answerNum(){
             : Math.abs(want)*0.01;
   const ok = isFinite(got) && Math.abs(got-want)<=tol+1e-12;
   judge(ok,{q:String(q.q),given:(raw||"(vuoto)"),want:q.answer+(q.unit?" "+q.unit:"")});
+}
+/* ---------- risposta scritta ---------- */
+const CONTR=[["do not","don't"],["does not","doesn't"],["did not","didn't"],
+  ["is not","isn't"],["are not","aren't"],["am not","'m not"],["was not","wasn't"],["were not","weren't"],
+  ["have not","haven't"],["has not","hasn't"],["had not","hadn't"],
+  ["can not","can't"],["cannot","can't"],["could not","couldn't"],["will not","won't"],
+  ["would not","wouldn't"],["should not","shouldn't"],["must not","mustn't"],
+  ["i am","i'm"],["you are","you're"],["he is","he's"],["she is","she's"],["it is","it's"],
+  ["we are","we're"],["they are","they're"],["that is","that's"],["there is","there's"],
+  ["i have","i've"],["you have","you've"],["we have","we've"],["they have","they've"]];
+function normTxt(s){
+  return String(s==null?"":s).toLowerCase()
+    .replace(/[\u2018\u2019\u02BC\u00B4`]/g,"'")
+    .replace(/[.,!?;:]+$/,"")
+    .replace(/\s+/g," ").trim();
+}
+function expandTxt(s){
+  let t=" "+normTxt(s)+" ";
+  CONTR.forEach(c=>{ t=t.split(" "+c[1]+" ").join(" "+c[0]+" "); });
+  return t.trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=[],cur=[];
+  for(let j=0;j<=n;j++) prev[j]=j;
+  for(let i=1;i<=m;i++){
+    cur[0]=i;
+    for(let j=1;j<=n;j++){
+      cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    }
+    prev=cur.slice();
+  }
+  return prev[n];
+}
+/* Parole che PORTANO la grammatica: pronomi, determinanti, ausiliari, quantificatori,
+   forme irregolari, comparativi irregolari. Se il ragazzo ne scrive una al posto di
+   un'altra non e' un errore di ortografia, e' un errore di grammatica: va segnato.
+   Serve perche' "these"/"those" o "worse"/"worst" differiscono per una lettera sola. */
+const GRAM=(" i you he she it we they me him her us them my your his its our their"
++" mine yours hers ours theirs myself yourself himself herself itself ourselves"
++" yourselves themselves each other one ones this that these those"
++" who what which whose where when why how"
++" am is are was were be been being do does did done have has had having"
++" can could will would shall should may might must"
++" not no none nobody nothing any some much many few little lot lots"
++" enough too very more most less least as than so such"
++" good better best bad worse worst well"
++" go goes going went gone write wrote written take took taken find found"
++" buy bought bring brought see saw seen come came make made say said"
++" get got give gave given know knew known think thought ring rang rung"
++" read run ran eat ate eaten drink drank speak spoke spoken meet met"
++" leave left put cut let sit sat stand stood tell told feel felt keep kept"
++" sleep slept teach taught catch caught pay paid send sent build built"
++" hold held break broke broken choose chose chosen drive drove driven"
++" fall fell fallen fly flew flown forget forgot forgotten grow grew grown"
++" hear heard lose lost mean meant ride rode ridden sell sold sing sang sung"
++" swim swam wear wore worn win won understand understood ").split(" ").filter(Boolean);
+const GRAMSET={}; GRAM.forEach(w=>GRAMSET[w]=1);
+function noApos(s){ return expandTxt(s).split("'").join(""); }
+/* solo ortografia: prudente per scelta.
+   "goes"/"go", "went"/"want", "these"/"those", "worse"/"worst", "writed"/"wrote"
+   restano errori, perche' la differenza e' grammaticale e non di grafia. */
+function onlySpelling(got,want){
+  if(noApos(got)===noApos(want)) return true;      /* apostrofo dimenticato */
+  const pairs=[[normTxt(got),normTxt(want)],[expandTxt(got),expandTxt(want)]];
+  for(const pr of pairs){
+    const A=pr[0].split(" "), B=pr[1].split(" ");
+    if(A.length!==B.length) continue;
+    let diff=false, ok=true;
+    for(let i=0;i<B.length;i++){
+      if(A[i]===B[i]) continue;
+      const a=A[i], b=B[i];
+      if(!a.length || GRAMSET[a]){ ok=false; break; }   /* ha scritto un'altra parola grammaticale */
+      if(b.length<5){ ok=false; break; }
+      if(a[0]!==b[0] || a[a.length-1]!==b[b.length-1]){ ok=false; break; }
+      if(Math.abs(a.length-b.length)>2 || lev(a,b)>2){ ok=false; break; }
+      diff=true;
+    }
+    if(ok&&diff) return true;
+  }
+  return false;
+}
+function txtOk(got,q){
+  const cand=[q.answer].concat(q.alts||[]);
+  for(const c of cand){ if(expandTxt(got)===expandTxt(c)) return "ok"; }
+  for(const c of cand){ if(onlySpelling(got,c)) return "sp"; }
+  return "no";
+}
+function answerTxt(){
+  if(sess.answered) return;
+  const q=sess.items[sess.i], el=$("#txtin");
+  const raw=el?el.value:"";
+  sess.picked=raw;
+  const r=txtOk(raw,q);
+  judge(r!=="no", {q:String(q.q), given:(normTxt(raw)||"(vuoto)"), want:q.answer}, r==="sp");
 }
 function tapStep(k){
   if(sess.answered) return;
@@ -938,6 +1116,22 @@ function vHome(){
     const ia=SUBJECTS.indexOf(a), ib=SUBJECTS.indexOf(b);
     return (ia<0?99:ia)-(ib<0?99:ib);
   });
+  /* allenamento del giorno: un solo bottone, prima di tutto il resto */
+  if(PACKS.length){
+    const c=todayCount();
+    if(c.tot){
+      const sub = c.due ? (c.due+(c.due===1?" esercizio":" esercizi")+" da rivedere"
+                           + (c.fresh?", più roba nuova":""))
+                : c.fresh ? "Dodici esercizi nuovi, dieci minuti."
+                : "Niente da rivedere oggi: giro di ripasso.";
+      h+='<button class="today" onclick="startToday()">'
+        +'<span class="t">Allenamento di oggi</span><span class="b">'+esc(sub)+'</span></button>';
+      const s=load("streak",{last:"",n:0})||{last:"",n:0};
+      if(s.n>1) h+='<p class="streak">'+s.n+' giorni di fila</p>';
+      else h+='<div style="height:12px"></div>';
+    }
+  }
+
   let primaSezione=true;
   ordine.forEach(nome=>{
     const si=Math.max(0,SUBJECTS.indexOf(nome));
@@ -1100,6 +1294,7 @@ function vSession(){
   const s=sess;
   if(s.i>=s.items.length){
     saveResult();
+    if(s.mode==="today" && !s.streaked){ s.streaked=true; bumpStreak(); }
     const n=s.items.length, r=s.right;
     const msg = r===n ? "Tutte giuste. Questo pezzo lo sai."
       : r>=n*0.75 ? "Molto bene. Mancano un paio di dettagli."
@@ -1113,6 +1308,20 @@ function vSession(){
         +'<p class="wcount" style="margin-top:8px">Primo passo (capire la frase): '+e1+(e1===1?' errore':' errori')
         +'<br>Secondo passo (scegliere la forma): '+e2+(e2===1?' errore':' errori')+'</p></div>';
     }
+    /* se gli item dichiarano un'area, la resa va spezzata per area: serve al diagnostico */
+    const aree={};
+    s.items.forEach(it=>{ if(it.area){ const a=aree[it.area]=aree[it.area]||{n:0,ok:0}; a.n++; if(it._ok) a.ok++; } });
+    const nomiAree=Object.keys(aree);
+    if(nomiAree.length>1){
+      h+='<div class="card"><div class="meaning"><b>Per argomento</b></div><table class="areatab"><tbody>';
+      nomiAree.sort((a,b)=>(aree[a].ok/aree[a].n)-(aree[b].ok/aree[b].n)).forEach(a=>{
+        const o=aree[a], pc=Math.round(o.ok/o.n*100);
+        const col = pc>=75?"var(--ok)" : pc>=50?"var(--wait)" : "#B3261E";
+        h+='<tr><td>'+esc(a)+'</td><td><b style="color:'+col+'">'+pc+'%</b> '
+          +'<span style="color:var(--ink-soft);font-size:12.5px">('+o.ok+'/'+o.n+')</span></td></tr>';
+      });
+      h+='</tbody></table></div>';
+    }
     if(s.wrong.length){
       h+='<div class="card"><div class="meaning"><b>Da rivedere</b></div><ul style="margin:8px 0 0;padding-left:20px;font-size:15px">';
       s.wrong.forEach(w=>{ h+='<li style="margin-bottom:4px">'+esc(w.q)+' → giusto: <b>'+esc(w.want)+'</b></li>'; });
@@ -1120,8 +1329,9 @@ function vSession(){
     }
     h+='<button class="cta" onclick="shareReport()">Manda il riepilogo a papà</button>'
      + '<div class="row" style="margin-top:8px">'
-     + '<button class="cta ghost" onclick="startSession(\''+s.mode+'\')">Un altro giro</button>'
-     + '<button class="cta ghost" onclick="backToPack()">Torna al ripasso</button></div>';
+     + '<button class="cta ghost" onclick="'+(s.mode==="today"?"startToday()":"startSession(&#39;"+s.mode+"&#39;)")+'">Un altro giro</button>'
+     + '<button class="cta ghost" onclick="'+(s.mode==="today"?"goHome()":"backToPack()")+'">'
+     + (s.mode==="today"?"Torna all&#39;inizio":"Torna al ripasso")+'</button></div>';
     return h;
   }
 
@@ -1198,6 +1408,22 @@ function vSession(){
       +(q.unit?'<span class="unit">'+fx(q.unit)+'</span>':"")+'</div></div>';
     if(!s.answered) h+='<button class="cta" onclick="answerNum()">Controlla</button>';
   }
+  else if(q.type==="txt"){
+    const testo = String(q.q||"").indexOf("___")>=0
+      ? esc(q.q).split("___").join("<u>&nbsp;</u>")
+      : esc(q.q);
+    h+='<div class="q"><div class="qlab" style="color:var('+accent+')">'+esc(q.lab||"Scrivi la risposta")+'</div>'
+      +'<p class="gapq">'+testo+'</p>'
+      +(q.sub?'<p class="qsub">'+esc(q.sub)+'</p>':"")
+      +(q.speak?'<button class="linkish" onclick="saySlot('+regText(q.speak)+')">&#9654; Ascolta</button>':"")
+      +'</div>';
+    h+='<div class="card"><input type="text" id="txtin" autocomplete="off" autocapitalize="off"'
+      +' autocorrect="off" spellcheck="false" inputmode="text" placeholder="scrivi qui"'
+      +' onkeydown="if(event.key===\'Enter\'){event.preventDefault();answerTxt();}" value="'
+      +(s.answered?esc(s.picked||""):"")+'"'+(s.answered?" disabled":"")+'></div>';
+    if(!s.answered) h+='<button class="cta" onclick="answerTxt()">Controlla</button>';
+    else h+='<div class="card" style="text-align:center"><div class="meaning"><b>'+esc(q.answer)+'</b></div></div>';
+  }
   else if(q.type==="order"){
     h+='<div class="q"><div class="qlab" style="color:var('+accent+')">Metti in ordine</div>'
       +'<p class="qbig" style="font-size:22px">'+fx(q.q)+'</p></div>';
@@ -1214,8 +1440,10 @@ function vSession(){
   }
 
   if(s.answered){
-    h+='<div class="verdict '+(s.lastOk?"ok":"no")+'" style="margin-top:12px">'
-      +(s.lastOk?pick(PRAISE):"Non ancora.")
+    const cls = s.lastSpell ? "sp" : (s.lastOk?"ok":"no");
+    const cap = s.lastSpell ? "La struttura è giusta. Guarda come si scrive."
+              : (s.lastOk?pick(PRAISE):"Non ancora.");
+    h+='<div class="verdict '+cls+'" style="margin-top:12px">'+cap
       +(q.why?'<span>'+fx(q.why)+'</span>':"")+'</div>';
     if(q.entry) h+=entryCardHTML(q.entry);
     h+='<button class="cta" onclick="nextQ()">'+(s.i===s.items.length-1?"Vedi il risultato":"Avanti")+'</button>';
@@ -1233,7 +1461,8 @@ function render(){
   }else{
     b.hidden=false;
     t.textContent = pack ? pack.title : "Palestra";
-    st.textContent = view==="study" ? "Studia" : view==="session" ? "Esercitati" : view==="stats" ? "Statistiche" : (pack?pack.subject:"");
+    st.textContent = (sess && sess.mode==="today") ? "Inglese, ogni giorno"
+      : view==="study" ? "Studia" : view==="session" ? "Esercitati" : view==="stats" ? "Statistiche" : (pack?pack.subject:"");
   }
   $("#app").innerHTML = view==="home" ? vHome()
     : view==="pack" ? vPack()
@@ -1241,7 +1470,7 @@ function render(){
     : view==="stats" ? vStats() : vSession();
   $("#foot").textContent = ((view==="home" && PACKS.length) ? PACKS.length+" argomenti · " : "") + "versione "+APPVER;
   window.scrollTo(0,0);
-  const ni=$("#numin");
+  const ni=$("#numin")||$("#txtin");
   if(ni && sess && !sess.answered){ try{ ni.focus({preventScroll:true}); }catch(e){} }
   const bar=$("#typebar"), inp=$("#typein");
   const scrive = view==="session" && sess && sess.mode==="write" && sess.cur && sess.cur.result===null;
@@ -1251,7 +1480,10 @@ function render(){
     try{ inp.focus({preventScroll:true}); }catch(e){}
   }
 }
-function goBack(){ if(view==='session'||view==='study'||view==='stats'){ backToPack(); } else { goHome(); } }
+function goBack(){
+  if(pack && pack.id==="__oggi"){ goHome(); return; }
+  if(view==='session'||view==='study'||view==='stats'){ backToPack(); } else { goHome(); }
+}
 
 /* avvio */
 fetchPacks(false);
