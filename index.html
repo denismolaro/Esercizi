@@ -202,6 +202,23 @@ footer{margin-top:26px;font-size:12.5px;color:var(--ink-soft);text-align:center;
 }
 :focus-visible{outline:3px solid var(--a3);outline-offset:2px}
 
+/* ── pagina iniziale: tre materie ── */
+.subjbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;
+  border:1px solid var(--line);border-left:7px solid var(--a1);border-radius:var(--r);
+  padding:18px 16px;margin-bottom:12px;cursor:pointer;font:inherit;color:var(--ink)}
+.subjbtn .n{flex:1}
+.subjbtn .t{display:block;font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:700;line-height:1.05}
+.subjbtn .b{display:block;font-size:14px;color:var(--ink-soft);margin-top:4px}
+.subjbtn.s-0{border-left-color:var(--a1)} .subjbtn.s-1{border-left-color:var(--a2)} .subjbtn.s-2{border-left-color:var(--a3)}
+.tick{width:34px;height:34px;border-radius:50%;background:var(--ok);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700}
+.tick.off{background:var(--line);color:var(--ink-soft)}
+.vuoto{background:#fff;border:1px dashed var(--line);border-radius:var(--r);padding:22px 16px;
+  text-align:center;color:var(--ink-soft);font-size:15px;line-height:1.5}
+.fatto{display:flex;align-items:center;gap:10px;background:var(--okb);color:var(--ok);
+  border-radius:var(--r);padding:14px 16px;margin:2px 0 14px;font-size:15px;font-weight:600}
+.fatto b{font-size:20px}
+
 /* ── allenamento di oggi ── */
 .today{display:block;width:100%;text-align:left;border:0;border-radius:var(--r);
   background:linear-gradient(135deg,var(--ink),#22364a);color:#fff;padding:16px 18px;margin:2px 0 4px;font:inherit}
@@ -251,7 +268,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "12";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "13";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -333,7 +350,40 @@ const BOXES=[1,2,4,8,16,32];          /* giorni di attesa per scatola */
 const DAY=86400000;
 function hash32(s){ let h=5381; for(let i=0;i<s.length;i++) h=((h*33)^s.charCodeAt(i))>>>0; return h.toString(36); }
 function itemKey(pid,it){
+  if(it._ck) return it._ck;                     /* schede: chiave gia' stabile, verbo + forma */
   return pid+":"+hash32(String(it.q||it.prompt||it.sentence||"")+"|"+String(it.answer==null?"":it.answer));
+}
+/* I pacchetti a schede (i verbi irregolari) non hanno "items": le domande nascono
+   dalle schede. Qui ne ricavo una voce per ogni forma derivata di ogni verbo,
+   cosi anche loro entrano nel giro quotidiano e nella memoria degli errori.      */
+function cardSpecs(pk){
+  const c=pk.cards; if(!c||!c.fields||c.fields.length<2) return [];
+  const out=[];
+  allEntries(pk).forEach(e=>{
+    for(let i=1;i<c.fields.length;i++){
+      if(!e[c.fields[i].key]) continue;
+      out.push({_card:true, _e:e, _fi:i, _ck:pk.id+":"+e[c.fields[0].key]+":"+c.fields[i].key});
+    }
+  });
+  return out;
+}
+/* domanda autosufficiente: non dipende dal pacchetto aperto, quindi funziona
+   anche nell'allenamento di oggi dove i pacchetti sono mescolati */
+function mcFromSpec(pk,sp){
+  const c=pk.cards, F=c.fields, e=sp._e, i=sp._fi;
+  const correct=e[F[i].key], distr=[];
+  for(const xx of shuffle(allEntries(pk))){
+    const v=xx[F[i].key];
+    if(v && v!==correct && distr.indexOf(v)<0) distr.push(v);
+    if(distr.length===3) break;
+  }
+  const trio=F.map(f=>e[f.key]).join(" · ");
+  return {type:"mc", _ck:sp._ck, color:i%3,
+    lab:"Qual e "+F[i].label.toLowerCase()+" di questo verbo?",
+    prompt:e[F[0].key],
+    sub:(c.subField&&e[c.subField])?e[c.subField]:"",
+    options:shuffle([correct].concat(distr)), answer:correct,
+    speak:correct, why:"Le tre forme: "+trio+"."};
 }
 function recall(){ return load("recall",{})||{}; }
 function recallSave(k,ok){
@@ -349,7 +399,8 @@ function todayPool(){
   const now=Date.now(), R=recall(), due=[], fresh=[], later=[];
   PACKS.forEach(pk=>{
     if((pk.subject||"")!=="Inglese") return;
-    (pk.items||[]).filter(z=>z.type!=="info").forEach(it=>{
+    const sorgente=(pk.items||[]).filter(z=>z.type!=="info").concat(cardSpecs(pk));
+    sorgente.forEach(it=>{
       const k=itemKey(pk.id,it), r=R[k], o={pk:pk,it:it,k:k};
       if(!r) fresh.push(o); else if(r.d<=now) due.push(o); else later.push(o);
     });
@@ -357,6 +408,8 @@ function todayPool(){
   return {due:due,fresh:fresh,later:later};
 }
 function todayCount(){ const t=todayPool(); return {due:t.due.length,fresh:t.fresh.length,tot:t.due.length+t.fresh.length+t.later.length}; }
+
+function doneToday(){ const s=load("streak",{last:"",n:0})||{last:"",n:0}; return s.last===today8(); }
 
 /* striscia di giorni consecutivi */
 function today8(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
@@ -404,9 +457,11 @@ async function fetchPacks(force){
 }
 
 /* ═══════════ STATO ═══════════ */
-let view="home", pack=null, groupIdx=0, sess=null;
-function goHome(){ clearTimer(); view="home"; pack=null; sess=null; render(); }
-function openPack(i){ pack=PACKS[i]; groupIdx=0; view="pack"; sess=null; render(); }
+let view="home", pack=null, groupIdx=0, sess=null, subject=null;
+function goHome(){ clearTimer(); view="home"; pack=null; sess=null; subject=null; render(); }
+function openSubject(n){ clearTimer(); subject=n; view="subject"; pack=null; sess=null; render(); }
+function backToSubject(){ clearTimer(); view=subject?"subject":"home"; pack=null; sess=null; render(); }
+function openPack(i){ pack=PACKS[i]; subject=pack.subject||subject; groupIdx=0; view="pack"; sess=null; render(); }
 function backToPack(){ clearTimer(); view="pack"; sess=null; render(); }
 function openStudy(){ view="study"; render(); }
 function openStats(){ clearTimer(); view="stats"; sess=null; render(); }
@@ -504,9 +559,9 @@ function startSession(mode){
 
 let saved=false;
 
-const LEN_TODAY=12, MAX_DUE=8;
+const LEN_TODAY=12, MAX_DUE=8, CARD_MAX=3;   /* al massimo 3 verbi su 12, per non invadere */
 function prepItem(pk,it,k){
-  const q=Object.assign({},it);
+  const q = it._card ? mcFromSpec(pk,it) : Object.assign({},it);
   q._pid=pk.id; q._k=k; q._pt=pk.title; q._lang=pk.lang||"en";
   if(q.type==="mc") q.options=shuffle(q.options);
   if(q.type==="wh"){
@@ -523,9 +578,17 @@ function prepItem(pk,it,k){
 }
 function startToday(){
   const t=todayPool();
-  let chosen=shuffle(t.due).slice(0,MAX_DUE);
-  if(chosen.length<LEN_TODAY) chosen=chosen.concat(shuffle(t.fresh).slice(0,LEN_TODAY-chosen.length));
-  if(chosen.length<LEN_TODAY) chosen=chosen.concat(shuffle(t.later).slice(0,LEN_TODAY-chosen.length));
+  const chosen=shuffle(t.due).slice(0,MAX_DUE);
+  let nCard=chosen.filter(o=>o.it._card).length;
+  const riempi=lista=>{
+    for(const o of shuffle(lista)){
+      if(chosen.length>=LEN_TODAY) return;
+      if(o.it._card){ if(nCard>=CARD_MAX) continue; nCard++; }
+      chosen.push(o);
+    }
+  };
+  riempi(t.fresh);
+  if(chosen.length<LEN_TODAY) riempi(t.later);
   if(!chosen.length) return;
   pack={id:"__oggi", title:"Allenamento di oggi", subject:"Inglese", lang:"en", items:[]};
   const items=shuffle(chosen).map(o=>prepItem(o.pk,o.it,o.k));
@@ -1096,6 +1159,11 @@ function vWrite(){
 }
 
 /* ═══════════ VISTE ═══════════ */
+function packsOf(nome){
+  const out=[];
+  PACKS.forEach((p,i)=>{ if((p.subject||"Altro")===nome) out.push({p:p,i:i}); });
+  return out;
+}
 function vHome(){
   let h="";
   if(GH.user.indexOf("TUO-")===0){
@@ -1104,53 +1172,72 @@ function vHome(){
   if(loadError) h+='<div class="err">Non riesco a scaricare gli esercizi: '+esc(loadError)+'.<br>Controlla la connessione, poi tocca «Cerca nuovi esercizi».</div>';
   if(loading && !PACKS.length) h+='<div class="note">Sto cercando gli esercizi…</div>';
 
-  /* i pacchetti vanno raggruppati per materia: un titolo per sezione */
-  const gruppi={}, ordine=[];
-  PACKS.forEach((p,i)=>{
-    const nome=p.subject||"Altro";
-    if(!gruppi[nome]){ gruppi[nome]=[]; ordine.push(nome); }
-    gruppi[nome].push({p:p,i:i});
+  SUBJECTS.forEach((nome,si)=>{
+    const g=packsOf(nome);
+    let sotto;
+    if(nome==="Inglese"){
+      const c=todayCount();
+      sotto = doneToday() ? "Allenamento di oggi fatto"
+            : c.due ? c.due+(c.due===1?" esercizio":" esercizi")+" da rivedere"
+            : g.length ? "Allenamento di oggi da fare"
+            : "ancora niente";
+    }else{
+      sotto = g.length ? g.length+(g.length===1?" argomento":" argomenti") : "ancora niente";
+    }
+    const spunta = (nome==="Inglese" && g.length)
+      ? '<span class="tick'+(doneToday()?"":" off")+'">'+(doneToday()?"&#10003;":"&#183;")+'</span>' : "";
+    h+='<button class="subjbtn s-'+si+'" onclick="openSubject(&#39;'+esc(nome)+'&#39;)">'
+      +'<span class="n"><span class="t">'+esc(nome)+'</span><span class="b">'+esc(sotto)+'</span></span>'
+      +spunta+'</button>';
   });
-  /* prima le materie previste, nell ordine di SUBJECTS; eventuali altre in fondo */
-  ordine.sort((a,b)=>{
-    const ia=SUBJECTS.indexOf(a), ib=SUBJECTS.indexOf(b);
-    return (ia<0?99:ia)-(ib<0?99:ib);
-  });
-  /* allenamento del giorno: un solo bottone, prima di tutto il resto */
-  if(PACKS.length){
+
+  h+='<button class="cta ghost small" style="margin-top:6px" onclick="fetchPacks(true)">↻ Cerca nuovi esercizi</button>';
+  h+='<div class="toolbar" style="margin-top:14px"><label class="switch">'
+    +'<input type="checkbox" '+(slow()?"checked":"")+' onchange="store(\'slow\',this.checked)"> Voce inglese lenta</label></div>';
+  return h;
+}
+
+function vSubject(){
+  const si=Math.max(0,SUBJECTS.indexOf(subject));
+  const g=packsOf(subject);
+  let h="";
+
+  if(subject==="Inglese"){
     const c=todayCount();
-    if(c.tot){
+    if(!g.length){
+      h+='<div class="vuoto">Qui non c\'è ancora niente.<br>Gli esercizi arrivano durante l\'anno.</div>';
+      return h;
+    }
+    if(doneToday()){
+      const s=load("streak",{last:"",n:0})||{last:"",n:0};
+      h+='<div class="fatto"><b>&#10003;</b> Allenamento di oggi fatto'
+        +(s.n>1?' · '+s.n+' giorni di fila':'')+'</div>';
+      h+='<button class="cta ghost small" style="margin-bottom:16px" onclick="startToday()">Fanne un altro comunque</button>';
+    }else if(c.tot){
       const sub = c.due ? (c.due+(c.due===1?" esercizio":" esercizi")+" da rivedere"
                            + (c.fresh?", più roba nuova":""))
-                : c.fresh ? "Dodici esercizi nuovi, dieci minuti."
-                : "Niente da rivedere oggi: giro di ripasso.";
+                : c.fresh ? "Dodici esercizi, dieci minuti."
+                : "Niente da rivedere: giro di ripasso.";
       h+='<button class="today" onclick="startToday()">'
         +'<span class="t">Allenamento di oggi</span><span class="b">'+esc(sub)+'</span></button>';
       const s=load("streak",{last:"",n:0})||{last:"",n:0};
       if(s.n>1) h+='<p class="streak">'+s.n+' giorni di fila</p>';
       else h+='<div style="height:12px"></div>';
     }
+    h+='<div class="sect s-'+si+' first">Per argomento<i></i></div>';
+  }else if(!g.length){
+    h+='<div class="vuoto">Qui non c\'è ancora niente.<br>Gli esercizi arrivano durante l\'anno,<br>man mano che gli argomenti vengono spiegati.</div>';
+    return h;
   }
 
-  let primaSezione=true;
-  ordine.forEach(nome=>{
-    const si=Math.max(0,SUBJECTS.indexOf(nome));
-    const g=gruppi[nome];
-    if(!g||!g.length) return;
-    h+='<div class="sect s-'+si+(primaSezione?" first":"")+'">'+esc(nome)+'<i></i></div>';
-    primaSezione=false;
-    g.forEach(o=>{
-      const p=o.p, pr=load("prog:"+p.id,null);
-      h+='<button class="packbtn subj-'+si+'" onclick="openPack('+o.i+')">'
-        +'<span class="t">'+esc(p.title)+'</span>'
-        +(p.blurb?'<span class="b">'+esc(p.blurb)+'</span>':"")
-        +(pr?'<span class="bar"><i style="width:'+pr.last+'%"></i></span><span class="b">ultimo giro '+pr.last+'% · record '+pr.best+'%</span>':"")
-        +'</button>';
-    });
+  g.forEach(o=>{
+    const p=o.p, pr=load("prog:"+p.id,null);
+    h+='<button class="packbtn subj-'+si+'" onclick="openPack('+o.i+')">'
+      +'<span class="t">'+esc(p.title)+'</span>'
+      +(p.blurb?'<span class="b">'+esc(p.blurb)+'</span>':"")
+      +(pr?'<span class="bar"><i style="width:'+pr.last+'%"></i></span><span class="b">ultimo giro '+pr.last+'% · record '+pr.best+'%</span>':"")
+      +'</button>';
   });
-  h+='<button class="cta ghost small" onclick="fetchPacks(true)">↻ Cerca nuovi esercizi</button>';
-  h+='<div class="toolbar" style="margin-top:14px"><label class="switch">'
-    +'<input type="checkbox" '+(slow()?"checked":"")+' onchange="store(\'slow\',this.checked)"> Voce inglese lenta</label></div>';
   return h;
 }
 
@@ -1330,8 +1417,8 @@ function vSession(){
     h+='<button class="cta" onclick="shareReport()">Manda il riepilogo a papà</button>'
      + '<div class="row" style="margin-top:8px">'
      + '<button class="cta ghost" onclick="'+(s.mode==="today"?"startToday()":"startSession(&#39;"+s.mode+"&#39;)")+'">Un altro giro</button>'
-     + '<button class="cta ghost" onclick="'+(s.mode==="today"?"goHome()":"backToPack()")+'">'
-     + (s.mode==="today"?"Torna all&#39;inizio":"Torna al ripasso")+'</button></div>';
+     + '<button class="cta ghost" onclick="'+(s.mode==="today"?"backToSubject()":"backToPack()")+'">'
+     + (s.mode==="today"?"Torna a Inglese":"Torna al ripasso")+'</button></div>';
     return h;
   }
 
@@ -1458,6 +1545,8 @@ function render(){
   if(view==="home"){
     b.hidden=true; t.textContent="Palestra";
     st.textContent="Esercizi di inglese, matematica e fisica";
+  }else if(view==="subject"){
+    b.hidden=false; t.textContent=subject; st.textContent="Scegli cosa fare";
   }else{
     b.hidden=false;
     t.textContent = pack ? pack.title : "Palestra";
@@ -1465,10 +1554,11 @@ function render(){
       : view==="study" ? "Studia" : view==="session" ? "Esercitati" : view==="stats" ? "Statistiche" : (pack?pack.subject:"");
   }
   $("#app").innerHTML = view==="home" ? vHome()
+    : view==="subject" ? vSubject()
     : view==="pack" ? vPack()
     : view==="study" ? vStudy()
     : view==="stats" ? vStats() : vSession();
-  $("#foot").textContent = ((view==="home" && PACKS.length) ? PACKS.length+" argomenti · " : "") + "versione "+APPVER;
+  $("#foot").textContent = ((view==="subject" && packsOf(subject).length) ? packsOf(subject).length+" argomenti · " : "") + "versione "+APPVER;
   window.scrollTo(0,0);
   const ni=$("#numin")||$("#txtin");
   if(ni && sess && !sess.answered){ try{ ni.focus({preventScroll:true}); }catch(e){} }
@@ -1481,8 +1571,10 @@ function render(){
   }
 }
 function goBack(){
-  if(pack && pack.id==="__oggi"){ goHome(); return; }
-  if(view==='session'||view==='study'||view==='stats'){ backToPack(); } else { goHome(); }
+  if(pack && pack.id==="__oggi"){ backToSubject(); return; }
+  if(view==='session'||view==='study'||view==='stats'){ backToPack(); return; }
+  if(view==='pack'){ backToSubject(); return; }
+  goHome();
 }
 
 /* avvio */
