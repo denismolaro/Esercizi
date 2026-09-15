@@ -1,0 +1,461 @@
+{
+  "id": "en-07-test5-potere-dovere",
+  "subject": "Inglese",
+  "lang": "en",
+  "title": "Test yourself 5 — potere, dovere, avverbi",
+  "blurb": "Gli esercizi di oggi in classe: could / couldn't / had to / didn't have to / was able to, gli avverbi di modo, lo sport e le Wh-questions.",
+  "updated": "2026-09-14",
+  "len": 14,
+  "items": [
+    {
+      "type": "info",
+      "title": "Potere e dovere al passato",
+      "html": "<table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='background:#1b5e20;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>could</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'><b>sapeva / riusciva</b> — capacità generale nel passato<br><i>He could ski when he was six.</i></td></tr><tr><td style='background:#2e7d32;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>couldn't</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'><b>non riusciva / non poteva</b><br><i>He couldn't take part in competitions.</i></td></tr><tr><td style='background:#0277bd;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>was able to</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'><b>è riuscito quella volta</b> — un risultato singolo<br><i>I was able to beat all my opponents.</i></td></tr><tr><td style='background:#c62828;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>had to</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'><b>doveva / ha dovuto</b> — obbligo<br><i>She had to do her homework.</i></td></tr><tr><td style='background:#ef6c00;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>didn't have to</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'><b>non era obbligato</b> — l'obbligo non c'era<br><i>They didn't have to win the match.</i></td></tr><tr><td style='background:#6a1b9a;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>Did … have to?</td><td style='padding:7px 8px'><b>Dovevi…?</b><br><i>Did you have to get up early?</i></td></tr></table><div style='margin-top:10px;padding:8px;background:#fff3cd;border-left:4px solid #ef6c00;font-size:15px'><b>Non confonderli:</b> <i>didn't have to win</i> = non era obbligato a vincere. <i>couldn't win</i> = non è riuscito a vincere. Sono due cose diverse.</div><div style='margin-top:8px;padding:8px;background:#ffebee;border-left:4px solid #c62828;font-size:15px'>Dopo <b>could</b> e <b>couldn't</b> il verbo resta alla forma base: <i>could ski</i>, non <i>could skied</i>. Dopo <b>have to</b> ci vuole sempre <b>to</b>: <i>didn't have <u>to</u> win</i>.</div>"
+    },
+    {
+      "type": "info",
+      "title": "Gli avverbi di modo",
+      "html": "<table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='background:#00695c;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>+ ly</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'>quick → quick<b>ly</b> · bad → bad<b>ly</b></td></tr><tr><td style='background:#00838f;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>-y → -ily</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'>easy → eas<b>ily</b> · happy → happ<b>ily</b></td></tr><tr><td style='background:#0277bd;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>-le → -ly</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'>gent<b>le</b> → gent<b>ly</b> · simple → simply</td></tr><tr><td style='background:#283593;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>-ic → -ically</td><td style='padding:7px 8px;border-bottom:1px solid #ddd'>energet<b>ic</b> → energet<b>ically</b></td></tr><tr><td style='background:#c62828;color:#fff;padding:7px 8px;font-weight:700;white-space:nowrap'>irregolari</td><td style='padding:7px 8px'>good → <b>well</b> · fast → <b>fast</b> · hard → <b>hard</b></td></tr></table><div style='margin-top:10px;padding:8px;background:#fff3cd;border-left:4px solid #ef6c00;font-size:15px'><b>good</b> descrive una cosa (<i>a good player</i>), <b>well</b> descrive come si fa un'azione (<i>she plays well</i>). Mai <i>she plays good</i>.</div>"
+    },
+
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 0,
+      "lab": "Dall'italiano",
+      "prompt": "Ieri Mary non è riuscita a giocare a tennis perché si era fatta male al braccio.",
+      "sub": "Quale traduzione è corretta?",
+      "options": ["Mary couldn't play tennis yesterday.", "Mary didn't have to play tennis yesterday.", "Mary hadn't to play tennis yesterday.", "Mary didn't could play tennis yesterday."],
+      "answer": "Mary couldn't play tennis yesterday.",
+      "why": "Non riusciva → couldn't. Dopo couldn't il verbo resta base: play."
+    },
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 0,
+      "lab": "Dall'italiano",
+      "prompt": "Non era obbligata a fare i compiti, ma li ha fatti lo stesso.",
+      "sub": "Quale traduzione è corretta?",
+      "options": ["She didn't have to do her homework.", "She couldn't do her homework.", "She didn't had to do her homework.", "She hadn't to do her homework."],
+      "answer": "She didn't have to do her homework.",
+      "why": "Assenza di obbligo → didn't have to. Dopo did ci vuole have, non had."
+    },
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 1,
+      "lab": "Dall'italiano",
+      "prompt": "Da bambino sapeva sciare abbastanza bene.",
+      "sub": "Quale traduzione è corretta?",
+      "options": ["He could ski quite well.", "He couldn't ski quite well.", "He had to ski quite well.", "He could skied quite well."],
+      "answer": "He could ski quite well.",
+      "why": "Sapeva sciare è una frase affermativa: could, senza n't."
+    },
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 1,
+      "lab": "Dall'italiano",
+      "prompt": "Dovevi alzarti presto per andare a nuoto?",
+      "sub": "Quale domanda è corretta?",
+      "options": ["Did you have to get up early?", "Did you get up early?", "Had you to get up early?", "Could you have to get up early?"],
+      "answer": "Did you have to get up early?",
+      "why": "Dovevi…? → Did you have to…? Senza have to la domanda chiede solo se ti sei alzato, non se eri obbligato."
+    },
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 2,
+      "lab": "Dall'italiano",
+      "prompt": "Quella volta sono riuscito a battere il mio avversario.",
+      "sub": "Quale traduzione è corretta?",
+      "options": ["I was able to beat my opponent.", "I was able to be my opponent.", "I was able beat my opponent.", "I could to beat my opponent."],
+      "answer": "I was able to beat my opponent.",
+      "why": "beat = battere. be = essere. Un risultato singolo vuole was able to + verbo base."
+    },
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 2,
+      "lab": "Dall'italiano",
+      "prompt": "Non ha dovuto aspettare molto.",
+      "sub": "Quale traduzione è corretta?",
+      "options": ["He didn't have to wait long.", "He couldn't wait long.", "He hadn't to wait long.", "He didn't have wait long."],
+      "answer": "He didn't have to wait long.",
+      "why": "Non ha dovuto = nessun obbligo → didn't have to. Il to non si toglie mai."
+    },
+
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 0,
+      "lab": "Che cosa dice questa frase?",
+      "prompt": "I had to wear a helmet.",
+      "options": ["Ero obbligato a mettere il casco.", "Non ero obbligato a mettere il casco.", "Non riuscivo a mettere il casco.", "Sapevo mettere il casco."],
+      "answer": "Ero obbligato a mettere il casco.",
+      "why": "had to = obbligo."
+    },
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 0,
+      "lab": "Che cosa dice questa frase?",
+      "prompt": "I didn't have to wear a helmet.",
+      "options": ["Non ero obbligato a mettere il casco.", "Non riuscivo a mettere il casco.", "Ero obbligato a mettere il casco.", "Non mi era permesso mettere il casco."],
+      "answer": "Non ero obbligato a mettere il casco.",
+      "why": "didn't have to = l'obbligo non c'era. Potevo anche metterlo, ma nessuno me lo chiedeva."
+    },
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 1,
+      "lab": "Che cosa dice questa frase?",
+      "prompt": "I couldn't wear a helmet.",
+      "options": ["Non riuscivo a mettere il casco.", "Non ero obbligato a mettere il casco.", "Ero obbligato a mettere il casco.", "Ho deciso di non mettere il casco."],
+      "answer": "Non riuscivo a mettere il casco.",
+      "why": "couldn't = non ci riuscivo o non era possibile. Niente a che vedere con l'obbligo."
+    },
+    {
+      "type": "mc",
+      "area": "Potere e dovere",
+      "color": 1,
+      "lab": "Che cosa dice questa frase?",
+      "prompt": "She could swim when she was four.",
+      "options": ["Sapeva nuotare a quattro anni.", "Doveva nuotare a quattro anni.", "Ha nuotato una volta a quattro anni.", "Non sapeva nuotare a quattro anni."],
+      "answer": "Sapeva nuotare a quattro anni.",
+      "why": "could = capacità che durava nel tempo."
+    },
+
+    {
+      "type": "txt",
+      "area": "Potere e dovere",
+      "color": 0,
+      "lab": "Completa (not / play)",
+      "q": "Mary ___ tennis yesterday because she hurt her arm.",
+      "sub": "Scrivi solo le parole che mancano.",
+      "answer": "couldn't play",
+      "alts": ["could not play"],
+      "why": "Si è fatta male: non ci riusciva, non era un obbligo mancato."
+    },
+    {
+      "type": "txt",
+      "area": "Potere e dovere",
+      "color": 0,
+      "lab": "Completa (do)",
+      "q": "She hurt her arm, but she still ___ her homework.",
+      "sub": "Obbligo al passato. Scrivi solo le parole che mancano.",
+      "answer": "had to do",
+      "why": "had to + verbo base."
+    },
+    {
+      "type": "txt",
+      "area": "Potere e dovere",
+      "color": 1,
+      "lab": "Completa (you / get up)",
+      "q": "___ early to do swimming training when you were younger?",
+      "sub": "La domanda chiede se eri obbligato.",
+      "answer": "Did you have to get up",
+      "why": "Did + soggetto + have to + verbo base."
+    },
+    {
+      "type": "txt",
+      "area": "Potere e dovere",
+      "color": 1,
+      "lab": "Completa (you / go)",
+      "q": "Or ___ after school?",
+      "sub": "Qui si chiede se ci riuscivi, se ne avevi la possibilità.",
+      "answer": "could you go",
+      "why": "could + soggetto invertito nella domanda: could you go."
+    },
+    {
+      "type": "txt",
+      "area": "Potere e dovere",
+      "color": 2,
+      "lab": "Completa (ski)",
+      "q": "Stefan ___ quite well when he was a young child.",
+      "sub": "Frase affermativa. Scrivi solo le parole che mancano.",
+      "answer": "could ski",
+      "why": "Sapeva sciare bene: affermativa, quindi could senza n't."
+    },
+    {
+      "type": "txt",
+      "area": "Potere e dovere",
+      "color": 2,
+      "lab": "Completa (not / take part)",
+      "q": "Stefan ___ in competitions until he was more experienced.",
+      "sub": "Scrivi solo le parole che mancano.",
+      "answer": "couldn't take part",
+      "alts": ["could not take part"],
+      "why": "Non gli era possibile finché non ha avuto esperienza."
+    },
+    {
+      "type": "txt",
+      "area": "Potere e dovere",
+      "color": 0,
+      "lab": "Completa (not / win)",
+      "q": "My favourite rugby team ___ their last match, as they were already top of the league.",
+      "sub": "Erano già primi: vincere non serviva.",
+      "answer": "didn't have to win",
+      "alts": ["did not have to win"],
+      "why": "Non erano obbligati a vincere. Attenzione al to: have to win."
+    },
+    {
+      "type": "txt",
+      "area": "Potere e dovere",
+      "color": 0,
+      "lab": "Completa (not / get)",
+      "q": "Unfortunately, I ___ tickets to see them play.",
+      "sub": "Scrivi solo le parole che mancano.",
+      "answer": "couldn't get",
+      "alts": ["could not get"],
+      "why": "Non è riuscito a trovare i biglietti."
+    },
+
+    {
+      "type": "txt",
+      "area": "Il dialogo",
+      "color": 1,
+      "lab": "Traduci (cosa posso fare)",
+      "q": "Hey coach Green, ___ to improve my running ability?",
+      "answer": "what can I do",
+      "why": "what + can + soggetto + verbo base."
+    },
+    {
+      "type": "txt",
+      "area": "Il dialogo",
+      "color": 1,
+      "lab": "Traduci (non sei potuto venire)",
+      "q": "Why ___ to lessons regularly last week?",
+      "sub": "Domanda negativa al passato.",
+      "answer": "couldn't you come",
+      "alts": ["could not you come", "couldn't you come?"],
+      "why": "come = venire. Dopo couldn't il verbo resta base."
+    },
+    {
+      "type": "txt",
+      "area": "Il dialogo",
+      "color": 1,
+      "lab": "Traduci (non ho potuto fare pratica)",
+      "q": "___ last week because I had a terrible pain in my leg.",
+      "sub": "Serve anche il soggetto.",
+      "answer": "I couldn't practise",
+      "alts": ["I could not practise", "I couldn't practice", "I could not practice"],
+      "why": "Senza il soggetto I la frase non sta in piedi."
+    },
+    {
+      "type": "txt",
+      "area": "Il dialogo",
+      "color": 2,
+      "lab": "Traduci (Potrebbe aiutarmi)",
+      "q": "___ with my sprint technique?",
+      "sub": "È una richiesta gentile a una persona con cui non dai del tu.",
+      "answer": "Could you help me",
+      "alts": ["could you help me"],
+      "why": "Could you…? è la richiesta cortese. Can you…? è più diretta e qui non va bene."
+    },
+    {
+      "type": "txt",
+      "area": "Il dialogo",
+      "color": 2,
+      "lab": "Traduci (riuscivo a battere)",
+      "q": "In the hundred-metre races, I ___ all my opponents at my old school.",
+      "answer": "was able to beat",
+      "alts": ["could beat"],
+      "why": "beat = battere, con la doppia t nessuna: b-e-a-t."
+    },
+    {
+      "type": "txt",
+      "area": "Il dialogo",
+      "color": 0,
+      "lab": "Traduci (fanno del loro meglio)",
+      "q": "The students here always ___.",
+      "answer": "do their best",
+      "why": "their = loro. there = lì. Sono due parole diverse."
+    },
+    {
+      "type": "txt",
+      "area": "Il dialogo",
+      "color": 0,
+      "lab": "Traduci (posso unirmi alla squadra)",
+      "q": "And if I improve, ___ to take part in the next regional race?",
+      "answer": "can I join the team",
+      "alts": ["can I join your team"],
+      "why": "Domanda con can: can + soggetto + verbo base."
+    },
+
+    {
+      "type": "mc",
+      "area": "Avverbi",
+      "color": 1,
+      "lab": "Scegli l'avverbio",
+      "prompt": "She couldn't ski very ___ at first.",
+      "options": ["well", "good", "goodly", "better"],
+      "answer": "well",
+      "why": "L'avverbio di good è well. Good accompagna un nome: a good skier."
+    },
+    {
+      "type": "mc",
+      "area": "Avverbi",
+      "color": 1,
+      "lab": "Scegli l'avverbio",
+      "prompt": "Don't ride so ___ on that street. It's dangerous.",
+      "options": ["fast", "fastly", "quick", "hardly"],
+      "answer": "fast",
+      "why": "fast è uguale come aggettivo e come avverbio. Fastly non esiste."
+    },
+    {
+      "type": "mc",
+      "area": "Avverbi",
+      "color": 2,
+      "lab": "Attenzione al significato",
+      "prompt": "My sister studied ___ and passed all her exams.",
+      "options": ["hard", "hardly", "hardily", "harder"],
+      "answer": "hard",
+      "why": "hard = tanto, con impegno. hardly = quasi per niente: direbbe il contrario."
+    },
+    {
+      "type": "txt",
+      "area": "Avverbi",
+      "color": 2,
+      "lab": "Forma l'avverbio",
+      "q": "gentle → ___",
+      "sub": "Scrivi solo l'avverbio.",
+      "answer": "gently",
+      "why": "Le parole in -le perdono la e: gentle → gently."
+    },
+    {
+      "type": "txt",
+      "area": "Avverbi",
+      "color": 0,
+      "lab": "Forma l'avverbio",
+      "q": "energetic → ___",
+      "sub": "Scrivi solo l'avverbio.",
+      "answer": "energetically",
+      "why": "Le parole in -ic prendono -ally: energetic → energetically."
+    },
+    {
+      "type": "txt",
+      "area": "Avverbi",
+      "color": 0,
+      "lab": "Forma l'avverbio",
+      "q": "happy → ___",
+      "sub": "Scrivi solo l'avverbio.",
+      "answer": "happily",
+      "why": "La y diventa i e si aggiunge -ly: happy → happily."
+    },
+
+    {
+      "type": "mc",
+      "area": "Sport",
+      "color": 1,
+      "lab": "do, go o play?",
+      "prompt": "___ athletics",
+      "options": ["do", "go", "play", "make"],
+      "answer": "do",
+      "why": "do athletics. Si scrive athletics, con th: non atletics."
+    },
+    {
+      "type": "mc",
+      "area": "Sport",
+      "color": 1,
+      "lab": "Qual è scritto giusto?",
+      "prompt": "Lo sport che comprende corsa e salti.",
+      "options": ["athletics", "atletics", "athlethics", "atlethics"],
+      "answer": "athletics",
+      "why": "a-t-h-l-e-t-i-c-s. Il th sta solo all'inizio."
+    },
+    {
+      "type": "mc",
+      "area": "Sport",
+      "color": 2,
+      "lab": "Il luogo giusto",
+      "prompt": "Dove si gioca a golf?",
+      "options": ["on a course", "on a pitch", "on a court", "on a track"],
+      "answer": "on a course",
+      "why": "golf course. Pitch è per il calcio, court per basket e tennis."
+    },
+    {
+      "type": "mc",
+      "area": "Sport",
+      "color": 2,
+      "lab": "L'attrezzo giusto",
+      "prompt": "Nel basket la palla va lanciata dentro a ___",
+      "options": ["a hoop", "a goal", "a post", "a pitch"],
+      "answer": "a hoop",
+      "why": "hoop è il canestro. Goal è la porta del calcio."
+    },
+
+    {
+      "type": "wh",
+      "area": "Domande",
+      "kind": "object",
+      "sentence": "She bought a new sailing boat last year.",
+      "focus": "a new sailing boat",
+      "whyKind": "La barca subisce l'azione: è l'oggetto. Chi compra è she.",
+      "q": "Quale domanda chiede della parte evidenziata?",
+      "options": ["What did she buy last year?", "What bought she last year?", "What she bought last year?", "Who did she buy last year?"],
+      "answer": "What did she buy last year?",
+      "why": "Domanda sull'oggetto: what + did + soggetto + verbo base."
+    },
+    {
+      "type": "wh",
+      "area": "Domande",
+      "kind": "subject",
+      "sentence": "Luigi Busa won against his karate opponent.",
+      "focus": "Luigi Busa",
+      "whyKind": "È lui che vince: compie l'azione, quindi è il soggetto.",
+      "q": "Quale domanda chiede della parte evidenziata?",
+      "options": ["Who won against his karate opponent?", "Who did win against his karate opponent?", "Who did he win against?", "Who was won against his karate opponent?"],
+      "answer": "Who won against his karate opponent?",
+      "why": "Domanda sul soggetto: niente did, il verbo resta al passato. Who won?"
+    },
+    {
+      "type": "wh",
+      "area": "Domande",
+      "kind": "object",
+      "sentence": "Samantha won a gold medal.",
+      "focus": "a gold medal",
+      "whyKind": "La medaglia è ciò che viene vinto: è l'oggetto. Samantha è il soggetto.",
+      "q": "Quale domanda chiede della parte evidenziata?",
+      "options": ["What did Samantha win?", "What won Samantha?", "What did Samantha won?", "Who did Samantha win?"],
+      "answer": "What did Samantha win?",
+      "why": "Con did il verbo torna alla forma base: win, non won."
+    },
+    {
+      "type": "wh",
+      "area": "Domande",
+      "kind": "subject",
+      "sentence": "Charles lost the match.",
+      "focus": "Charles",
+      "whyKind": "È Charles che perde: compie l'azione, quindi è il soggetto.",
+      "q": "Quale domanda chiede della parte evidenziata?",
+      "options": ["Who lost the match?", "Who did lose the match?", "Who did he lose?", "What lost the match?"],
+      "answer": "Who lost the match?",
+      "why": "Quando si chiede del soggetto non si usa did: Who lost…?"
+    },
+    {
+      "type": "wh",
+      "area": "Domande",
+      "kind": "object",
+      "sentence": "Our schoolmates played with a professional team.",
+      "focus": "with a professional team",
+      "whyKind": "Chi gioca sono i compagni: loro sono il soggetto. La squadra professionista è la parte con cui giocano.",
+      "q": "Quale domanda chiede della parte evidenziata?",
+      "options": ["Who did our schoolmates play with?", "Who played with a professional team?", "With who our schoolmates played?", "Who did play our schoolmates with?"],
+      "answer": "Who did our schoolmates play with?",
+      "why": "La preposizione with va in fondo alla domanda."
+    },
+    {
+      "type": "wh",
+      "area": "Domande",
+      "kind": "object",
+      "sentence": "My brother took part in his first tournament at the age of 16.",
+      "focus": "his first tournament",
+      "whyKind": "Chi partecipa è il fratello: lui è il soggetto. Il torneo è la cosa a cui partecipa.",
+      "q": "Quale domanda chiede della parte evidenziata?",
+      "options": ["What did your brother take part in at the age of 16?", "What took your brother part in at the age of 16?", "What did your brother took part in at the age of 16?", "Who did your brother take part at the age of 16?"],
+      "answer": "What did your brother take part in at the age of 16?",
+      "why": "Con did: take, non took. E la preposizione in resta dopo il verbo."
+    }
+  ]
+}
