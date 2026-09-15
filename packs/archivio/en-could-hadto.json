@@ -1,0 +1,465 @@
+{
+ "id": "en-could-hadto",
+ "subject": "Inglese",
+ "title": "Could e had to",
+ "blurb": "Capacità o obbligo nel passato, e il have to che non si smonta.",
+ "lang": "en",
+ "updated": "2026-08-25",
+ "items": [
+  {
+   "type": "info",
+   "title": "could o had to?",
+   "text": "CAPACITÀ (sapevo, riuscivo, potevo)\n   I could swim  /  I couldn't swim  /  Could you swim?\n\nOBBLIGO (dovevo, ho dovuto)\n   I had to train  /  I didn't have to train  /  Did you have to train?\n\nDue regole fisse:\n- dopo could e dopo have to il verbo è alla forma base: mai could to ski, mai had to played\n- nelle domande e nelle negative dell'obbligo il TO non si perde mai:\n   Did you have TO wear a helmet?   They didn't have TO win.\n\nLA TRAPPOLA:\n   couldn't = non ero capace (palestra chiusa, non potevamo allenarci)\n   didn't have to = non ero obbligato (era domenica, non dovevamo allenarci)"
+  },
+  {
+   "type": "mc",
+   "lab": "Capacità o obbligo?",
+   "q": "Da bambino sapevo nuotare bene.",
+   "options": [
+    "could (capacità)",
+    "had to (obbligo)"
+   ],
+   "answer": "could (capacità)",
+   "why": "Si parla di essere capaci o riuscire → could."
+  },
+  {
+   "type": "mc",
+   "lab": "Capacità o obbligo?",
+   "q": "Ieri ho dovuto allenarmi due ore.",
+   "options": [
+    "could (capacità)",
+    "had to (obbligo)"
+   ],
+   "answer": "had to (obbligo)",
+   "why": "Si parla di essere obbligati → had to. Vale anche al negativo: «non ero obbligato» = didn't have to."
+  },
+  {
+   "type": "mc",
+   "lab": "Capacità o obbligo?",
+   "q": "Non sono riuscito a comprare i biglietti.",
+   "options": [
+    "could (capacità)",
+    "had to (obbligo)"
+   ],
+   "answer": "could (capacità)",
+   "why": "Si parla di essere capaci o riuscire → could."
+  },
+  {
+   "type": "mc",
+   "lab": "Capacità o obbligo?",
+   "q": "Dovevamo indossare il casco.",
+   "options": [
+    "could (capacità)",
+    "had to (obbligo)"
+   ],
+   "answer": "had to (obbligo)",
+   "why": "Si parla di essere obbligati → had to. Vale anche al negativo: «non ero obbligato» = didn't have to."
+  },
+  {
+   "type": "mc",
+   "lab": "Capacità o obbligo?",
+   "q": "Non ero obbligato ad alzarmi presto.",
+   "options": [
+    "could (capacità)",
+    "had to (obbligo)"
+   ],
+   "answer": "had to (obbligo)",
+   "why": "Si parla di essere obbligati → had to. Vale anche al negativo: «non ero obbligato» = didn't have to."
+  },
+  {
+   "type": "mc",
+   "lab": "Capacità o obbligo?",
+   "q": "Stefan sapeva sciare a cinque anni.",
+   "options": [
+    "could (capacità)",
+    "had to (obbligo)"
+   ],
+   "answer": "could (capacità)",
+   "why": "Si parla di essere capaci o riuscire → could."
+  },
+  {
+   "type": "mc",
+   "lab": "Capacità o obbligo?",
+   "q": "Non potevo giocare: mi ero fatto male al braccio.",
+   "options": [
+    "could (capacità)",
+    "had to (obbligo)"
+   ],
+   "answer": "could (capacità)",
+   "why": "Si parla di essere capaci o riuscire → could."
+  },
+  {
+   "type": "mc",
+   "lab": "Capacità o obbligo?",
+   "q": "La squadra non era obbligata a vincere.",
+   "options": [
+    "could (capacità)",
+    "had to (obbligo)"
+   ],
+   "answer": "had to (obbligo)",
+   "why": "Si parla di essere obbligati → had to. Vale anche al negativo: «non ero obbligato» = didn't have to."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "Mary ______ (not / play) tennis yesterday because she hurt her arm.",
+   "options": [
+    "couldn't play",
+    "didn't have to play",
+    "couldn't played",
+    "hadn't to play"
+   ],
+   "answer": "couldn't play",
+   "why": "Il braccio le impediva di giocare: impossibilità, non obbligo."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "…but she still ______ (do) her homework.",
+   "options": [
+    "had to do",
+    "could do",
+    "had to did",
+    "have to do"
+   ],
+   "answer": "had to do",
+   "why": "Obbligo al passato: had to + forma base."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "Stefan ______ (ski) quite well when he was a young child.",
+   "options": [
+    "could ski",
+    "could to ski",
+    "had to ski",
+    "could skied"
+   ],
+   "answer": "could ski",
+   "why": "Dopo could nessun to e nessun passato."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "He ______ (not / take part) in competitions until he was older.",
+   "options": [
+    "couldn't take part",
+    "didn't have to take part",
+    "couldn't took part",
+    "hadn't to take part"
+   ],
+   "answer": "couldn't take part",
+   "why": "Non era in grado: mancava esperienza."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "Our team ______ (not / win): we were already top of the league.",
+   "options": [
+    "didn't have to win",
+    "couldn't win",
+    "didn't have win",
+    "hadn't to win"
+   ],
+   "answer": "didn't have to win",
+   "why": "Vincere era possibile, solo non necessario. E il to non si perde."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "When I was younger I ______ (get up) at six for training.",
+   "options": [
+    "had to get up",
+    "could get up",
+    "had to got up",
+    "have to get up"
+   ],
+   "answer": "had to get up",
+   "why": "Obbligo al passato: had to get up."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "The pitch was flooded, so we ______ (not / play).",
+   "options": [
+    "couldn't play",
+    "didn't have to play",
+    "couldn't to play",
+    "didn't have play"
+   ],
+   "answer": "couldn't play",
+   "why": "Il campo allagato rendeva impossibile giocare."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "It was Sunday, so we ______ (not / train).",
+   "options": [
+    "didn't have to train",
+    "couldn't train",
+    "didn't have train",
+    "hadn't to train"
+   ],
+   "answer": "didn't have to train",
+   "why": "Potevamo allenarci, ma non era obbligatorio."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "Last season all the players ______ (wear) a helmet.",
+   "options": [
+    "had to wear",
+    "could wear",
+    "had to wore",
+    "have to wear"
+   ],
+   "answer": "had to wear",
+   "why": "Era una regola: obbligo."
+  },
+  {
+   "type": "mc",
+   "lab": "Completa la frase",
+   "q": "I ______ (not / get) tickets for the final.",
+   "options": [
+    "couldn't get",
+    "didn't have to get",
+    "couldn't got",
+    "hadn't to get"
+   ],
+   "answer": "couldn't get",
+   "why": "Non ci sono riuscito: impossibilità."
+  },
+  {
+   "type": "mc",
+   "lab": "Scrivi la domanda",
+   "q": "Dovevi alzarti presto?",
+   "options": [
+    "Did you have to get up early?",
+    "Did you get up early?",
+    "Had you to get up early?",
+    "Could you get up early?"
+   ],
+   "answer": "Did you have to get up early?",
+   "why": "Obbligo: Did + soggetto + have to + base. Senza have to la domanda diventa «ti sei alzato presto?»."
+  },
+  {
+   "type": "mc",
+   "lab": "Scrivi la domanda",
+   "q": "Sapevi nuotare a cinque anni?",
+   "options": [
+    "Could you swim?",
+    "Did you have to swim?",
+    "Could you swam?",
+    "Did you could swim?"
+   ],
+   "answer": "Could you swim?",
+   "why": "Capacità: Could + soggetto + base."
+  },
+  {
+   "type": "mc",
+   "lab": "Scrivi la domanda",
+   "q": "Dovevate indossare il casco?",
+   "options": [
+    "Did you have to wear a helmet?",
+    "Did you have wear a helmet?",
+    "Did you had to wear a helmet?",
+    "Could you wear a helmet?"
+   ],
+   "answer": "Did you have to wear a helmet?",
+   "why": "Dopo did ci vuole have, non had. E il to resta."
+  },
+  {
+   "type": "mc",
+   "lab": "Scrivi la domanda",
+   "q": "Riuscisti a trovare i biglietti?",
+   "options": [
+    "Could you find the tickets?",
+    "Did you have to find the tickets?",
+    "Could you found the tickets?",
+    "Did you could find the tickets?"
+   ],
+   "answer": "Could you find the tickets?",
+   "why": "Capacità: could + base."
+  },
+  {
+   "type": "mc",
+   "lab": "Scrivi la domanda",
+   "q": "Dovettero cambiare campo?",
+   "options": [
+    "Did they have to change pitch?",
+    "Did they had to change pitch?",
+    "Had they to change pitch?",
+    "Could they change pitch?"
+   ],
+   "answer": "Did they have to change pitch?",
+   "why": "Dopo did il verbo è base: have."
+  },
+  {
+   "type": "mc",
+   "lab": "Scrivi la domanda",
+   "q": "Sapeva giocare a golf? (lui)",
+   "options": [
+    "Could he play golf?",
+    "Did he have to play golf?",
+    "Could he played golf?",
+    "Did he could play golf?"
+   ],
+   "answer": "Could he play golf?",
+   "why": "Capacità: could + base, anche alla terza persona."
+  },
+  {
+   "type": "mc",
+   "lab": "Impossibile o non obbligatorio?",
+   "q": "It was a holiday, so we ______ go to school.",
+   "options": [
+    "couldn't",
+    "didn't have to"
+   ],
+   "answer": "didn't have to",
+   "why": "La scuola era chiusa per festa: non era obbligatorio, non impossibile."
+  },
+  {
+   "type": "mc",
+   "lab": "Impossibile o non obbligatorio?",
+   "q": "The gym was closed, so we ______ train.",
+   "options": [
+    "couldn't",
+    "didn't have to"
+   ],
+   "answer": "couldn't",
+   "why": "La palestra chiusa rende impossibile allenarsi."
+  },
+  {
+   "type": "mc",
+   "lab": "Impossibile o non obbligatorio?",
+   "q": "I had a broken leg, so I ______ play.",
+   "options": [
+    "couldn't",
+    "didn't have to"
+   ],
+   "answer": "couldn't",
+   "why": "La gamba rotta rende impossibile giocare."
+  },
+  {
+   "type": "mc",
+   "lab": "Impossibile o non obbligatorio?",
+   "q": "My mother gave me a lift, so I ______ take the bus.",
+   "options": [
+    "couldn't",
+    "didn't have to"
+   ],
+   "answer": "didn't have to",
+   "why": "Il bus c'era: solo non serviva prenderlo."
+  },
+  {
+   "type": "mc",
+   "lab": "Impossibile o non obbligatorio?",
+   "q": "There was no snow, so we ______ ski.",
+   "options": [
+    "couldn't",
+    "didn't have to"
+   ],
+   "answer": "couldn't",
+   "why": "Senza neve sciare è impossibile."
+  },
+  {
+   "type": "mc",
+   "lab": "Impossibile o non obbligatorio?",
+   "q": "The entrance was free, so we ______ pay.",
+   "options": [
+    "couldn't",
+    "didn't have to"
+   ],
+   "answer": "didn't have to",
+   "why": "Pagare era possibile, ma non richiesto."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale è giusta?",
+   "q": "My team ______ their last match.",
+   "options": [
+    "didn't have to win",
+    "didn't have win"
+   ],
+   "answer": "didn't have to win",
+   "why": "Il to non si perde mai."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale è giusta?",
+   "q": "Stefan ______ very well.",
+   "options": [
+    "could ski",
+    "could to ski"
+   ],
+   "answer": "could ski",
+   "why": "Dopo could non ci va to."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale è giusta?",
+   "q": "She ______ tennis every Saturday.",
+   "options": [
+    "had to play",
+    "had to played"
+   ],
+   "answer": "had to play",
+   "why": "Dopo to il verbo è alla forma base."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale è giusta?",
+   "q": "______ a helmet?",
+   "options": [
+    "Did they have to wear",
+    "Did they had to wear"
+   ],
+   "answer": "Did they have to wear",
+   "why": "Dopo did il verbo è base: have."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale è giusta?",
+   "q": "We ______ on Sunday.",
+   "options": [
+    "didn't have to train",
+    "hadn't to train"
+   ],
+   "answer": "didn't have to train",
+   "why": "«hadn't to» non esiste: serve didn't have to."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale è giusta?",
+   "q": "______ the piano when you were six?",
+   "options": [
+    "Could you play",
+    "Could you played"
+   ],
+   "answer": "Could you play",
+   "why": "Dopo could il verbo è base."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale è giusta?",
+   "q": "I ______ the tickets.",
+   "options": [
+    "couldn't get",
+    "couldn't to get"
+   ],
+   "answer": "couldn't get",
+   "why": "Dopo couldn't non ci va to."
+  },
+  {
+   "type": "mc",
+   "lab": "Quale è giusta?",
+   "q": "(= dovevi alzarti presto?) ______ early?",
+   "options": [
+    "Did you have to get up",
+    "Did you get up"
+   ],
+   "answer": "Did you have to get up",
+   "why": "Senza have to la domanda perde l'idea di obbligo."
+  }
+ ]
+}
