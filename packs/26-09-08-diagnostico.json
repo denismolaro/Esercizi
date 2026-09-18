@@ -1,0 +1,684 @@
+{
+ "id": "en-00-diagnostico",
+ "subject": "Inglese",
+ "title": "Punto di partenza",
+ "blurb": "Un giro lungo su tutti gli argomenti, per vedere dove siamo. Nessun voto.",
+ "lang": "en",
+ "len": "all",
+ "updated": "2026-09-08",
+ "items": [
+  {
+   "type": "info",
+   "title": "Che cos'e questo giro",
+   "text": "Non è un compito e non c'è un voto.\n\nServe a capire, argomento per argomento, cosa è già a posto e cosa va ripreso. Alla fine vedi una tabella con la percentuale di ogni argomento.\n\nDue regole:\n- se non sai, tira a indovinare: sbagliare qui è utile\n- prenditi il tempo che vuoi, non c'è nessun cronometro\n\nMetà degli esercizi sono a scelta multipla, metà li devi scrivere tu. Negli esercizi da scrivere gli errori di ortografia non contano come errori: se la struttura è giusta compare un avviso arancione con la grafia corretta."
+  },
+  {
+   "type": "info",
+   "title": "Come si scrivono le risposte",
+   "text": "Scrivi solo la parte che manca al posto della riga.\n\nEsempio\n   I ___ tennis yesterday.     (ieri non ho giocato)\n   risposta:  didn't play\n\nLe forme contratte e quelle intere valgono uguale:\n   didn't play  =  did not play"
+  },
+  {
+   "type": "mc",
+   "area": "Pronomi e determinanti",
+   "lab": "Scegli la forma giusta",
+   "q": "Loro sono più coraggiosi di me.",
+   "options": [
+    "They are braver than me",
+    "They are braver than I",
+    "They are braver than my",
+    "They are braver than mine"
+   ],
+   "answer": "They are braver than me",
+   "why": "Dopo than ci va il pronome complemento: me."
+  },
+  {
+   "type": "mc",
+   "area": "Pronomi e determinanti",
+   "lab": "Scegli la forma giusta",
+   "q": "Jason ed io non ci vediamo spesso.",
+   "options": [
+    "Jason and I don't see each other often",
+    "Jason and I don't see ourselves often",
+    "Jason and I don't see us often",
+    "Jason and I don't see them often"
+   ],
+   "answer": "Jason and I don't see each other often",
+   "why": "Reciproco (l'uno l'altro) = each other. Ourselves vorrebbe dire che ognuno guarda se stesso."
+  },
+  {
+   "type": "mc",
+   "area": "Pronomi e determinanti",
+   "lab": "Scegli la forma giusta",
+   "q": "Quelle sono notizie di ieri.",
+   "options": [
+    "Those are yesterday's news",
+    "That are yesterday's news",
+    "These are yesterday's news",
+    "This are yesterday's news"
+   ],
+   "answer": "Those are yesterday's news",
+   "why": "Plurale e lontano nel tempo: those. This/these sono per ciò che è vicino."
+  },
+  {
+   "type": "mc",
+   "area": "Pronomi e determinanti",
+   "lab": "Scegli la forma giusta",
+   "q": "Mi sono tagliato mentre preparavo la verdura.",
+   "options": [
+    "I cut myself while I was preparing the vegetables",
+    "I cut me while I was preparing the vegetables",
+    "I cut mine while I was preparing the vegetables",
+    "I cut my while I was preparing the vegetables"
+   ],
+   "answer": "I cut myself while I was preparing the vegetables",
+   "why": "Il soggetto e l'oggetto sono la stessa persona: serve il riflessivo myself."
+  },
+  {
+   "type": "txt",
+   "area": "Pronomi e determinanti",
+   "lab": "Scrivi la parte che manca",
+   "q": "I have read ___ book and I like it.",
+   "answer": "her",
+   "sub": "il libro di lei",
+   "why": "Di una ragazza: aggettivo possessivo her + nome. Hers starebbe da solo, senza il nome dopo."
+  },
+  {
+   "type": "txt",
+   "area": "Pronomi e determinanti",
+   "lab": "Scrivi la parte che manca",
+   "q": "I need a coffee. — I'll make you ___.",
+   "answer": "one",
+   "sub": "Te ne faccio uno.",
+   "why": "One sostituisce un nome singolare già detto (a coffee)."
+  },
+  {
+   "type": "txt",
+   "area": "Pronomi e determinanti",
+   "lab": "Scrivi la parte che manca",
+   "q": "___ was a dark and stormy night.",
+   "answer": "It",
+   "sub": "Era una notte buia e tempestosa.",
+   "why": "Per tempo, ora e meteo il soggetto è sempre it, anche se in italiano non c'è."
+  },
+  {
+   "type": "txt",
+   "area": "Pronomi e determinanti",
+   "lab": "Scrivi la parte che manca",
+   "q": "The children made the cake by ___.",
+   "answer": "themselves",
+   "sub": "I bambini hanno fatto la torta da soli.",
+   "why": "By + riflessivo plurale = da soli. Loro sono più di uno: themselves."
+  },
+  {
+   "type": "mc",
+   "area": "Ausiliari e frase",
+   "lab": "Completa la risposta",
+   "q": "Are they here yet? ~ No, ___",
+   "options": [
+    "they aren't",
+    "they not",
+    "they are",
+    "aren't they"
+   ],
+   "answer": "they aren't",
+   "why": "Risposta breve: soggetto + ausiliare negativo. L'ausiliare della domanda è are, quindi they aren't."
+  },
+  {
+   "type": "mc",
+   "area": "Ausiliari e frase",
+   "lab": "Completa la domanda",
+   "q": "___ Amal speak Arabic?",
+   "options": [
+    "Does",
+    "Do",
+    "Is",
+    "Has"
+   ],
+   "answer": "Does",
+   "why": "Terza persona singolare al presente: does + verbo base. Attenzione, il verbo dopo resta speak, senza -s."
+  },
+  {
+   "type": "mc",
+   "area": "Ausiliari e frase",
+   "lab": "Non ho il dizionario con me.",
+   "q": "I ___ my dictionary with me.",
+   "options": [
+    "haven't got",
+    "hasn't got",
+    "don't got",
+    "not have got"
+   ],
+   "answer": "haven't got",
+   "why": "Con I la forma è haven't got. Have got non usa do per la negazione."
+  },
+  {
+   "type": "mc",
+   "area": "Ausiliari e frase",
+   "lab": "Chiedi dov'è la stazione degli autobus.",
+   "q": "Ask where the bus station ___.",
+   "options": [
+    "is",
+    "is it",
+    "it is",
+    "does it be"
+   ],
+   "answer": "is",
+   "why": "Domanda indiretta: dopo where l'ordine torna normale, soggetto + verbo. Non si ripete il pronome."
+  },
+  {
+   "type": "txt",
+   "area": "Ausiliari e frase",
+   "lab": "Scrivi la parte che manca",
+   "q": "Yesterday I played tennis. → Negativa: I ___ tennis yesterday.",
+   "answer": "didn't play",
+   "sub": "Ieri non ho giocato a tennis.",
+   "why": "Al passato la negazione è didn't + verbo base: mai didn't played.",
+   "alts": [
+    "did not play"
+   ]
+  },
+  {
+   "type": "txt",
+   "area": "Ausiliari e frase",
+   "lab": "Scrivi la parte che manca",
+   "q": "She went to Rome. → Domanda: ___ she go to Rome?",
+   "answer": "Did",
+   "sub": "È andata a Roma?",
+   "why": "Did porta il passato, quindi il verbo dopo torna alla forma base: go."
+  },
+  {
+   "type": "txt",
+   "area": "Ausiliari e frase",
+   "lab": "Scrivi la parte che manca",
+   "q": "He works here. → Negativa: He ___ here.",
+   "answer": "doesn't work",
+   "sub": "Lui non lavora qui.",
+   "why": "Terza persona singolare: doesn't + verbo base. La -s se la prende l'ausiliare.",
+   "alts": [
+    "does not work"
+   ]
+  },
+  {
+   "type": "txt",
+   "area": "Ausiliari e frase",
+   "lab": "Scrivi la parte che manca",
+   "q": "They are studying. → Domanda: ___ they studying?",
+   "answer": "Are",
+   "sub": "Stanno studiando?",
+   "why": "Con il present continuous la domanda si fa spostando be davanti al soggetto."
+  },
+  {
+   "type": "mc",
+   "area": "Presente",
+   "lab": "Scegli la forma giusta",
+   "q": "Look! It ___.",
+   "options": [
+    "is raining",
+    "rains",
+    "rain",
+    "does rain"
+   ],
+   "answer": "is raining",
+   "why": "Look! indica che sta succedendo adesso: present continuous."
+  },
+  {
+   "type": "mc",
+   "area": "Presente",
+   "lab": "Ogni giorno.",
+   "q": "Sam ___ in class every day.",
+   "options": [
+    "talks",
+    "is talking",
+    "talk",
+    "does talk"
+   ],
+   "answer": "talks",
+   "why": "Abitudine, con every day: present simple, terza persona con la -s."
+  },
+  {
+   "type": "mc",
+   "area": "Presente",
+   "lab": "Scegli la forma giusta",
+   "q": "I ___ her very well.",
+   "options": [
+    "don't know",
+    "'m not knowing",
+    "not know",
+    "doesn't know"
+   ],
+   "answer": "don't know",
+   "why": "Know è un verbo di stato: non va al continuous. Con I la negazione è don't."
+  },
+  {
+   "type": "mc",
+   "area": "Presente",
+   "lab": "Situazione temporanea.",
+   "q": "Lili ___ in France for a few months.",
+   "options": [
+    "is studying",
+    "studies",
+    "study",
+    "was studying"
+   ],
+   "answer": "is studying",
+   "why": "Per qualche mese: è una situazione provvisoria, quindi present continuous."
+  },
+  {
+   "type": "txt",
+   "area": "Presente",
+   "lab": "Scrivi la parte che manca",
+   "q": "Every morning she ___ up at seven.",
+   "answer": "gets",
+   "sub": "si alza alle sette (get up)",
+   "why": "Abitudine + terza persona singolare: get diventa gets."
+  },
+  {
+   "type": "txt",
+   "area": "Presente",
+   "lab": "Scrivi la parte che manca",
+   "q": "Listen! The baby ___.",
+   "answer": "is crying",
+   "sub": "il bambino sta piangendo (cry)",
+   "why": "Listen! segnala l'adesso: be + verbo-ing."
+  },
+  {
+   "type": "txt",
+   "area": "Presente",
+   "lab": "Scrivi la parte che manca",
+   "q": "I ___ coffee.",
+   "answer": "don't like",
+   "sub": "non mi piace il caffè (like)",
+   "why": "Presente negativo con I: don't + verbo base.",
+   "alts": [
+    "do not like"
+   ]
+  },
+  {
+   "type": "txt",
+   "area": "Presente",
+   "lab": "Scrivi la parte che manca",
+   "q": "A: ___ today?  B: No, it is my day off.",
+   "answer": "Are you working",
+   "sub": "Lavori oggi? (work)",
+   "why": "Oggi, quindi adesso e per poco: domanda al present continuous, be davanti al soggetto."
+  },
+  {
+   "type": "mc",
+   "area": "Passato",
+   "lab": "Scegli la forma giusta",
+   "q": "I ___ to the cinema yesterday.",
+   "options": [
+    "went",
+    "go",
+    "have gone",
+    "was going"
+   ],
+   "answer": "went",
+   "why": "Yesterday è un momento chiuso nel passato: past simple. Go è irregolare: went."
+  },
+  {
+   "type": "mc",
+   "area": "Passato",
+   "lab": "Scegli la forma giusta",
+   "q": "There ___ a few apples in the bag.",
+   "options": [
+    "were",
+    "was",
+    "wasn't",
+    "are"
+   ],
+   "answer": "were",
+   "why": "A few apples è plurale, quindi there were."
+  },
+  {
+   "type": "mc",
+   "area": "Passato",
+   "lab": "Ti ho invitato ma non sei venuto.",
+   "q": "I invited you to the party, but you ___.",
+   "options": [
+    "didn't come",
+    "didn't came",
+    "didn't went",
+    "not came"
+   ],
+   "answer": "didn't come",
+   "why": "Dopo didn't il verbo torna alla forma base: come, non came."
+  },
+  {
+   "type": "mc",
+   "area": "Passato",
+   "lab": "Azione in corso interrotta.",
+   "q": "He ___ his hair when his girlfriend phoned.",
+   "options": [
+    "was washing",
+    "washed",
+    "washes",
+    "has washed"
+   ],
+   "answer": "was washing",
+   "why": "L'azione lunga che veniva interrotta va al past continuous; quella breve al past simple."
+  },
+  {
+   "type": "txt",
+   "area": "Passato",
+   "lab": "Scrivi la parte che manca",
+   "q": "Yesterday she ___ a long email.",
+   "answer": "wrote",
+   "sub": "ha scritto una lunga email (write)",
+   "why": "Write è irregolare: il past simple è wrote."
+  },
+  {
+   "type": "txt",
+   "area": "Passato",
+   "lab": "Scrivi la parte che manca",
+   "q": "They ___ at home last night.",
+   "answer": "weren't",
+   "sub": "non erano a casa ieri sera (be)",
+   "why": "Loro, plurale, passato negativo: weren't.",
+   "alts": [
+    "were not"
+   ]
+  },
+  {
+   "type": "txt",
+   "area": "Passato",
+   "lab": "Scrivi la parte che manca",
+   "q": "___ the film last week?",
+   "answer": "Did you see",
+   "sub": "Hai visto il film la settimana scorsa? (see)",
+   "why": "Last week è passato chiuso: did + soggetto + verbo base."
+  },
+  {
+   "type": "txt",
+   "area": "Passato",
+   "lab": "Scrivi la parte che manca",
+   "q": "While I was reading, the phone ___.",
+   "answer": "rang",
+   "sub": "il telefono ha suonato (ring)",
+   "why": "L'azione breve che interrompe va al past simple. Ring è irregolare: rang."
+  },
+  {
+   "type": "mc",
+   "area": "Quantificatori",
+   "lab": "Traduci",
+   "q": "Hai del pane?",
+   "options": [
+    "Do you have any bread?",
+    "Do you have some bread?",
+    "Do you have much bread?",
+    "Do you have a bread?"
+   ],
+   "answer": "Do you have any bread?",
+   "why": "Nelle domande sulla quantita' indefinita si usa any. Some si usa quando si offre."
+  },
+  {
+   "type": "mc",
+   "area": "Quantificatori",
+   "lab": "Traduci",
+   "q": "Non c'è molto traffico oggi.",
+   "options": [
+    "There isn't much traffic today",
+    "There isn't many traffic today",
+    "There aren't much traffic today",
+    "There isn't a lot traffic today"
+   ],
+   "answer": "There isn't much traffic today",
+   "why": "Traffic è non numerabile: much. Many va con i plurali contabili."
+  },
+  {
+   "type": "mc",
+   "area": "Quantificatori",
+   "lab": "Traduci",
+   "q": "Ci sono pochi clienti oggi.",
+   "options": [
+    "There are few customers today",
+    "There are a little customers today",
+    "There is few customers today",
+    "There are much customers today"
+   ],
+   "answer": "There are few customers today",
+   "why": "Customers si conta: few. A little va con i non numerabili."
+  },
+  {
+   "type": "mc",
+   "area": "Quantificatori",
+   "lab": "Traduci",
+   "q": "Nessuno dei miei genitori parla inglese.",
+   "options": [
+    "None of my parents speaks English",
+    "No of my parents speaks English",
+    "Any of my parents speaks English",
+    "Nobody of my parents speaks English"
+   ],
+   "answer": "None of my parents speaks English",
+   "why": "Davanti a of si usa none, non no."
+  },
+  {
+   "type": "txt",
+   "area": "Quantificatori",
+   "lab": "Scrivi la parte che manca",
+   "q": "Do you want ___ bread?",
+   "answer": "some",
+   "sub": "Vuoi del pane? (offerta)",
+   "why": "Quando si offre qualcosa si usa some anche nelle domande."
+  },
+  {
+   "type": "txt",
+   "area": "Quantificatori",
+   "lab": "Scrivi la parte che manca",
+   "q": "___ days off did you have?",
+   "answer": "How many",
+   "sub": "Quanti giorni di vacanza hai avuto?",
+   "why": "Days si conta, quindi how many."
+  },
+  {
+   "type": "txt",
+   "area": "Quantificatori",
+   "lab": "Scrivi la parte che manca",
+   "q": "She has ___ patience.",
+   "answer": "a lot of",
+   "sub": "Lei ha molta pazienza.",
+   "why": "Nelle affermative si preferisce a lot of. Much resta soprattutto in negative e domande.",
+   "alts": [
+    "lots of",
+    "much"
+   ]
+  },
+  {
+   "type": "txt",
+   "area": "Quantificatori",
+   "lab": "Scrivi la parte che manca",
+   "q": "There is ___ pasta left.",
+   "answer": "a little",
+   "sub": "È rimasta poca pasta.",
+   "why": "Pasta è non numerabile: a little. A few sarebbe per cose che si contano.",
+   "alts": [
+    "little"
+   ]
+  },
+  {
+   "type": "mc",
+   "area": "Aggettivi e avverbi",
+   "lab": "Superlativo",
+   "q": "Today is the ___ day of the year.",
+   "options": [
+    "hottest",
+    "hotest",
+    "most hot",
+    "more hot"
+   ],
+   "answer": "hottest",
+   "why": "Aggettivo corto: -est. Hot raddoppia la t perché finisce con consonante-vocale-consonante."
+  },
+  {
+   "type": "mc",
+   "area": "Aggettivi e avverbi",
+   "lab": "Comparativo di avverbio",
+   "q": "He drives ___ than you!",
+   "options": [
+    "more slowly",
+    "slowly",
+    "more slower",
+    "slowlier"
+   ],
+   "answer": "more slowly",
+   "why": "Slowly è un avverbio di due sillabe: comparativo con more."
+  },
+  {
+   "type": "mc",
+   "area": "Aggettivi e avverbi",
+   "lab": "Scegli la forma giusta",
+   "q": "I'm not ___ to lift this suitcase.",
+   "options": [
+    "strong enough",
+    "enough strong",
+    "stronger enough",
+    "too strong"
+   ],
+   "answer": "strong enough",
+   "why": "Enough va dopo l'aggettivo: strong enough. Davanti al nome invece va prima."
+  },
+  {
+   "type": "mc",
+   "area": "Aggettivi e avverbi",
+   "lab": "Confronto fra uguali",
+   "q": "These shoes aren't ___ the boots.",
+   "options": [
+    "as expensive as",
+    "so expensive than",
+    "as expensive that",
+    "more expensive as"
+   ],
+   "answer": "as expensive as",
+   "why": "Confronto fra cose uguali o non uguali: as + aggettivo + as."
+  },
+  {
+   "type": "txt",
+   "area": "Aggettivi e avverbi",
+   "lab": "Scrivi la parte che manca",
+   "q": "My results were ___ than last year.",
+   "answer": "worse",
+   "sub": "peggiori (bad)",
+   "why": "Bad è irregolare: bad, worse, the worst. Mai more bad."
+  },
+  {
+   "type": "txt",
+   "area": "Aggettivi e avverbi",
+   "lab": "Scrivi la parte che manca",
+   "q": "She sings ___.",
+   "answer": "beautifully",
+   "sub": "canta in modo bello (beautiful)",
+   "why": "Descrive come si canta, quindi serve l'avverbio: aggettivo + -ly."
+  },
+  {
+   "type": "txt",
+   "area": "Aggettivi e avverbi",
+   "lab": "Scrivi la parte che manca",
+   "q": "This is the ___ film of the year.",
+   "answer": "best",
+   "sub": "il migliore (good)",
+   "why": "Good è irregolare: good, better, the best."
+  },
+  {
+   "type": "txt",
+   "area": "Aggettivi e avverbi",
+   "lab": "Scrivi la parte che manca",
+   "q": "He is ___ than his brother.",
+   "answer": "taller",
+   "sub": "più alto (tall)",
+   "why": "Aggettivo corto: comparativo con -er, poi than."
+  },
+  {
+   "type": "mc",
+   "area": "Lessico e verbi",
+   "lab": "Scegli la parola giusta",
+   "q": "I'd like a ___ of water, please.",
+   "options": [
+    "bottle",
+    "piece",
+    "some",
+    "glass of"
+   ],
+   "answer": "bottle",
+   "why": "Per l'acqua il contenitore è bottle. Piece si usa per cose che si tagliano a pezzi."
+  },
+  {
+   "type": "mc",
+   "area": "Lessico e verbi",
+   "lab": "Dopo can",
+   "q": "My brother can ___ very fast.",
+   "options": [
+    "type",
+    "types",
+    "typing",
+    "to type"
+   ],
+   "answer": "type",
+   "why": "Dopo can il verbo sta sempre alla forma base, senza -s e senza to. Scrivere alla tastiera = to type."
+  },
+  {
+   "type": "mc",
+   "area": "Lessico e verbi",
+   "lab": "Passato di buy",
+   "q": "Yesterday he ___ me a book.",
+   "options": [
+    "bought",
+    "buyed",
+    "brought",
+    "buys"
+   ],
+   "answer": "bought",
+   "why": "Buy è irregolare: bought. Brought invece è il passato di bring."
+  },
+  {
+   "type": "mc",
+   "area": "Lessico e verbi",
+   "lab": "Scegli la forma giusta",
+   "q": "Nice to ___ you.",
+   "options": [
+    "meet",
+    "meat",
+    "met",
+    "meeting"
+   ],
+   "answer": "meet",
+   "why": "Dopo to il verbo va alla forma base: to meet. Meat con la a è la carne."
+  },
+  {
+   "type": "txt",
+   "area": "Lessico e verbi",
+   "lab": "Scrivi la parte che manca",
+   "q": "go → past simple: ___",
+   "answer": "went",
+   "sub": "andare",
+   "why": "Go è irregolare: went, gone."
+  },
+  {
+   "type": "txt",
+   "area": "Lessico e verbi",
+   "lab": "Scrivi la parte che manca",
+   "q": "take → past participle: ___",
+   "answer": "taken",
+   "sub": "prendere",
+   "why": "Take, took, taken. Il participio è taken."
+  },
+  {
+   "type": "txt",
+   "area": "Lessico e verbi",
+   "lab": "Scrivi la parte che manca",
+   "q": "I ___ a lot of emails yesterday.",
+   "answer": "wrote",
+   "sub": "ho scritto (write)",
+   "why": "Write, wrote, written. Attenzione a non inventare la forma partendo dall'italiano."
+  },
+  {
+   "type": "txt",
+   "area": "Lessico e verbi",
+   "lab": "Scrivi la parte che manca",
+   "q": "find → past simple: ___",
+   "answer": "found",
+   "sub": "trovare",
+   "why": "Find, found, found: le ultime due forme sono uguali."
+  }
+ ]
+}
