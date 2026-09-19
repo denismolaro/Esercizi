@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Propagazione delle incertezze</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:26px 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 20px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.card h3{font-size:19px; margin:0 0 10px; letter-spacing:-.01em}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 14px}
+.box{background:var(--accent-soft); border:1px solid #CBDAEC; border-radius:12px; padding:14px 16px; margin:12px 0}
+.box .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:14px 16px; margin:12px 0; font-size:17px}
+.trap b{color:var(--warn)}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:600; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.res b{font-size:20px}
+.chk{display:flex; gap:8px; margin:12px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:12px 14px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus{outline:none; border-color:var(--accent)}
+.chk button{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 18px; font-weight:600}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.row{border-top:1px solid var(--rule); padding:14px 0 6px}
+.row:first-of-type{border-top:none}
+.row .op{font-family:"Times New Roman",Georgia,serif; font-size:21px; margin-bottom:8px}
+.row .op i{font-style:italic}
+.three{display:flex; gap:7px}
+.three button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 4px;
+  font-size:14px; font-weight:600; color:var(--soft); line-height:1.3}
+.three button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.three button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.score{font-size:15px; color:var(--soft); margin-top:14px; font-weight:600}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Fisica · allenamento mirato</div>
+  <h1>Propagazione delle incertezze</h1>
+  <p class="lead">Prima la regola in tre righe, poi 6 esercizi di solo calcolo di incertezza. Rispondi tu, poi apri i passi.</p>
+</header>
+
+<div class="card">
+  <h3>La regola in tre righe</h3>
+  <div class="box">
+    <div class="lbl">× e ÷ → lavoro in percentuale</div>
+    <span class="f">e%(<i>a</i>·<i>b</i>) = e%<i>a</i> + e%<i>b</i> &nbsp;&nbsp; e%(<i>a</i>/<i>b</i>) = e%<i>a</i> + e%<i>b</i></span>
+    <span class="f">e%(<i>a</i><sup>n</sup>) = <b>n</b> · e%<i>a</i></span>
+    Una costante esatta (il 2, il ½, π) <b>non aggiunge niente</b>.
+  </div>
+  <div class="box">
+    <div class="lbl">+ e − → lavoro in assoluto</div>
+    <span class="f">Δ(<i>a</i> + <i>b</i>) = Δ<i>a</i> + Δ<i>b</i> &nbsp;&nbsp; Δ(<i>a</i> − <i>b</i>) = Δ<i>a</i> + Δ<i>b</i></span>
+    Poi, se serve la percentuale, la ricalcolo <b>alla fine</b>: e% = Δ / valore · 100.
+  </div>
+  <div class="trap"><b>Il punto che conta:</b> nella somma e nella differenza <u>non</u> si sommano le percentuali. Nella <b>differenza</b> il valore si rimpicciolisce e l'errore cresce: la percentuale può esplodere.</div>
+  <div class="box">
+    <div class="lbl">Avanti e indietro</div>
+    Δ<i>x</i> → e% : &nbsp; e% = Δ<i>x</i> / <i>x</i> · 100<br>
+    e% → Δ<i>x</i> : &nbsp; Δ<i>x</i> = <i>x</i> · e% / 100
+  </div>
+</div>
+
+<h2>Blocco A — che regola uso?</h2>
+
+<div class="card" id="A">
+  <p class="qtext" style="font-size:17px">Non calcolare niente: scegli solo <b>come</b> si combina l'incertezza. Δ = errore assoluto, e% = percentuale.</p>
+
+  <div class="row"><div class="op">P = <i>a</i> · <i>b</i></div>
+    <div class="three"><button onclick="cls(this,0,0)">sommo<br>le e%</button><button onclick="cls(this,1,0)">sommo<br>i Δ</button><button onclick="cls(this,2,0)">e% × n</button></div></div>
+
+  <div class="row"><div class="op">d = <i>L</i><sub>2</sub> − <i>L</i><sub>1</sub></div>
+    <div class="three"><button onclick="cls(this,0,1)">sommo<br>le e%</button><button onclick="cls(this,1,1)">sommo<br>i Δ</button><button onclick="cls(this,2,1)">e% × n</button></div></div>
+
+  <div class="row"><div class="op">A = <i>l</i><sup>2</sup></div>
+    <div class="three"><button onclick="cls(this,0,2)">sommo<br>le e%</button><button onclick="cls(this,1,2)">sommo<br>i Δ</button><button onclick="cls(this,2,2)">e% × n</button></div></div>
+
+  <div class="row"><div class="op"><i>v</i> = <i>s</i> / <i>t</i></div>
+    <div class="three"><button onclick="cls(this,0,0)">sommo<br>le e%</button><button onclick="cls(this,1,0)">sommo<br>i Δ</button><button onclick="cls(this,2,0)">e% × n</button></div></div>
+
+  <div class="row"><div class="op"><i>p</i> = <i>m</i><sub>1</sub> + <i>m</i><sub>2</sub></div>
+    <div class="three"><button onclick="cls(this,0,1)">sommo<br>le e%</button><button onclick="cls(this,1,1)">sommo<br>i Δ</button><button onclick="cls(this,2,1)">e% × n</button></div></div>
+
+  <div class="row"><div class="op">V = <i>k</i> · <i>r</i><sup>3</sup> &nbsp;<span style="font-size:15px;font-family:-apple-system,Arial;color:#5A6473">(k costante esatta)</span></div>
+    <div class="three"><button onclick="cls(this,0,2)">sommo<br>le e%</button><button onclick="cls(this,1,2)">sommo<br>i Δ</button><button onclick="cls(this,2,2)">e% × n</button></div></div>
+
+  <div class="score" id="scoreA">0 / 6</div>
+</div>
+
+<h2>Blocco B — i calcoli</h2>
+
+<!-- 1 -->
+<div class="card">
+  <div class="qnum">Esercizio 1 · prodotto</div>
+  <p class="qtext"><i>a</i> = (20,0 ± 0,4) cm &nbsp; <i>b</i> = (5,0 ± 0,1) cm<br>Qual è l'incertezza <b>percentuale</b> di <i>a</i>·<i>b</i>?</p>
+  <div class="chk"><input id="i1" type="text" inputmode="decimal" placeholder="... %"><button onclick="chk('1',['4','4.0'])">Controlla</button></div>
+  <div class="fb" id="f1"></div>
+  <button class="btn" onclick="step(this,'1')">Mostra il passo 1</button>
+  <div class="step" id="s1_1"><div class="sn">Passo 1 · una percentuale alla volta</div>
+    <p>e%<i>a</i> = 0,4 / 20,0 · 100 = <b>2%</b><br>e%<i>b</i> = 0,1 / 5,0 · 100 = <b>2%</b></p></div>
+  <div class="step" id="s1_2"><div class="sn">Passo 2 · è un prodotto</div>
+    <p>Prodotto → <mark>sommo le percentuali</mark>: 2% + 2%</p></div>
+  <div class="res" id="r1"><div class="lbl">Risposta</div><b>4%</b><br>
+    <span style="font-size:16px">In assoluto: <i>a</i>·<i>b</i> = 100 cm², Δ = 100 · 0,04 = 4 → (100 ± 4) cm².</span></div>
+</div>
+
+<!-- 2 -->
+<div class="card">
+  <div class="qnum">Esercizio 2 · differenza</div>
+  <p class="qtext"><i>m</i><sub>1</sub> = (250 ± 5) g &nbsp; <i>m</i><sub>2</sub> = (200 ± 4) g<br>Qual è l'incertezza <b>percentuale</b> di <i>m</i><sub>1</sub> − <i>m</i><sub>2</sub>?</p>
+  <div class="chk"><input id="i2" type="text" inputmode="decimal" placeholder="... %"><button onclick="chk('2',['18','18.0'])">Controlla</button></div>
+  <div class="fb" id="f2"></div>
+  <button class="btn" onclick="step(this,'2')">Mostra il passo 1</button>
+  <div class="step" id="s2_1"><div class="sn">Passo 1 · il valore</div>
+    <p>250 − 200 = <b>50 g</b></p></div>
+  <div class="step" id="s2_2"><div class="sn">Passo 2 · l'errore assoluto</div>
+    <p>Differenza → <mark>sommo i Δ</mark>: 5 + 4 = <b>9 g</b></p></div>
+  <div class="step" id="s2_3"><div class="sn">Passo 3 · solo adesso la percentuale</div>
+    <span class="f">9 / 50 · 100</span></div>
+  <div class="res" id="r2"><div class="lbl">Risposta</div><b>18%</b> &nbsp;→ (50 ± 9) g<br>
+    <span style="font-size:16px">Le due misure di partenza erano precise al 2%. Sommando le percentuali avresti scritto 4%: sbagliato di quattro volte.</span></div>
+</div>
+
+<!-- 3 -->
+<div class="card">
+  <div class="qnum">Esercizio 3 · quoziente</div>
+  <p class="qtext"><i>s</i> = (120 ± 3) m &nbsp; <i>t</i> = (20,0 ± 0,5) s<br>Trova <i>v</i> = <i>s</i>/<i>t</i> con la sua incertezza <b>assoluta</b>.</p>
+  <div class="chk"><input id="i3" type="text" inputmode="decimal" placeholder="Δv = ... m/s"><button onclick="chk('3',['0,3','0.3','0.30'])">Controlla</button></div>
+  <div class="fb" id="f3"></div>
+  <button class="btn" onclick="step(this,'3')">Mostra il passo 1</button>
+  <div class="step" id="s3_1"><div class="sn">Passo 1 · le percentuali</div>
+    <p>e%<i>s</i> = 3 / 120 · 100 = <b>2,5%</b><br>e%<i>t</i> = 0,5 / 20,0 · 100 = <b>2,5%</b></p></div>
+  <div class="step" id="s3_2"><div class="sn">Passo 2 · è un quoziente</div>
+    <p>Quoziente → sommo le percentuali: 2,5% + 2,5% = <b>5%</b></p></div>
+  <div class="step" id="s3_3"><div class="sn">Passo 3 · torno all'assoluto</div>
+    <p><i>v</i> = 120 / 20,0 = <b>6,0 m/s</b></p>
+    <span class="f">Δ<i>v</i> = 6,0 · 5 / 100</span></div>
+  <div class="res" id="r3"><div class="lbl">Risposta</div><b>v = (6,0 ± 0,3) m/s</b></div>
+</div>
+
+<!-- 4 -->
+<div class="card">
+  <div class="qnum">Esercizio 4 · potenza</div>
+  <p class="qtext">Il lato di un quadrato è <i>l</i> = (5,0 ± 0,1) cm.<br>Qual è l'incertezza <b>percentuale</b> dell'area <i>A</i> = <i>l</i>²?</p>
+  <div class="chk"><input id="i4" type="text" inputmode="decimal" placeholder="... %"><button onclick="chk('4',['4','4.0'])">Controlla</button></div>
+  <div class="fb" id="f4"></div>
+  <button class="btn" onclick="step(this,'4')">Mostra il passo 1</button>
+  <div class="step" id="s4_1"><div class="sn">Passo 1 · il lato</div>
+    <p>e%<i>l</i> = 0,1 / 5,0 · 100 = <b>2%</b></p></div>
+  <div class="step" id="s4_2"><div class="sn">Passo 2 · l'esponente moltiplica</div>
+    <p><i>l</i>² è <i>l</i>·<i>l</i>: sommo due volte la stessa percentuale.</p>
+    <span class="f">e%<i>A</i> = 2 · 2%</span></div>
+  <div class="res" id="r4"><div class="lbl">Risposta</div><b>4%</b> &nbsp;→ A = 25 cm², ΔA = 1 cm² → (25 ± 1) cm²</div>
+</div>
+
+<!-- 5 -->
+<div class="card">
+  <div class="qnum">Esercizio 5 · dalla percentuale all'assoluto</div>
+  <p class="qtext">Una resistenza vale <i>R</i> = 250 Ω con un'incertezza del <b>4%</b>.<br>Quanto vale l'incertezza <b>assoluta</b> Δ<i>R</i>?</p>
+  <div class="chk"><input id="i5" type="text" inputmode="decimal" placeholder="ΔR = ... Ω"><button onclick="chk('5',['10','10.0'])">Controlla</button></div>
+  <div class="fb" id="f5"></div>
+  <button class="btn" onclick="step(this,'5')">Mostra il passo 1</button>
+  <div class="step" id="s5_1"><div class="sn">Passo 1 · la formula al contrario</div>
+    <span class="f">Δ<i>R</i> = <i>R</i> · e% / 100 = 250 · 4 / 100</span></div>
+  <div class="step" id="s5_2"><div class="sn">Passo 2 · come si scrive</div>
+    <p>L'incertezza si arrotonda a <b>una cifra significativa</b> e la misura si allinea a lei.</p></div>
+  <div class="res" id="r5"><div class="lbl">Risposta</div><b>ΔR = 10 Ω</b> → R = (250 ± 10) Ω</div>
+</div>
+
+<!-- 6 -->
+<div class="card">
+  <div class="qnum">Esercizio 6 · tutto insieme</div>
+  <p class="qtext">Una grandezza si calcola come <span class="f">D = 2 · ( <i>a</i> · <i>b</i> ) / <i>c</i> &nbsp;&nbsp; con <i>c</i> = <i>c</i><sub>2</sub> − <i>c</i><sub>1</sub></span>
+  <i>a</i> = (10,0 ± 0,2) &nbsp; <i>b</i> = (4,0 ± 0,4)<br><i>c</i><sub>1</sub> = (30 ± 1) s &nbsp; <i>c</i><sub>2</sub> = (50 ± 2) s<br>Qual è l'incertezza <b>percentuale</b> di D?</p>
+  <div class="chk"><input id="i6" type="text" inputmode="decimal" placeholder="... %"><button onclick="chk('6',['27','27.0'])">Controlla</button></div>
+  <div class="fb" id="f6"></div>
+  <button class="btn" onclick="step(this,'6')">Mostra il passo 1</button>
+  <div class="step" id="s6_1"><div class="sn">Passo 1 · le misure dirette</div>
+    <p>e%<i>a</i> = 0,2 / 10,0 · 100 = <b>2%</b><br>e%<i>b</i> = 0,4 / 4,0 · 100 = <b>10%</b><br>Il 2 davanti è una costante esatta: <b>non conta</b>.</p></div>
+  <div class="step" id="s6_2"><div class="sn">Passo 2 · c è una differenza</div>
+    <p>Valore: 50 − 30 = <b>20 s</b> · Errore: 1 + 2 = <b>3 s</b><br>e%<i>c</i> = 3 / 20 · 100 = <b>15%</b></p></div>
+  <div class="step" id="s6_3"><div class="sn">Passo 3 · ora è solo × e ÷</div>
+    <span class="f">2% + 10% + 15%</span></div>
+  <div class="res" id="r6"><div class="lbl">Risposta</div><b>27%</b><br>
+    <span style="font-size:16px">Stessa struttura dell'esercizio 1 della verifica: la differenza dei tempi è quasi sempre il pezzo che rovina tutto.</span></div>
+</div>
+
+<p class="foot">Palestra · Fisica — propagazione delle incertezze</p>
+
+</div>
+
+<script>
+var N={'1':2,'2':3,'3':3,'4':2,'5':2,'6':3};
+var cur={'1':0,'2':0,'3':0,'4':0,'5':0,'6':0};
+
+function step(btn,q){
+  cur[q]++;
+  var el=document.getElementById('s'+q+'_'+cur[q]);
+  if(el) el.classList.add('on');
+  if(cur[q]>=N[q]){ document.getElementById('r'+q).classList.add('on'); btn.style.display='none'; }
+  else { btn.textContent='Mostra il passo '+(cur[q]+1); btn.classList.add('solid'); }
+  if(el && el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function num(s){
+  var t=String(s).replace(',', '.').replace(/[^0-9.\-]/g,'');
+  var v=parseFloat(t);
+  return isNaN(v)?null:v;
+}
+function chk(q,ok){
+  var raw=document.getElementById('i'+q).value;
+  var v=num(raw);
+  var f=document.getElementById('f'+q);
+  if(v===null){ f.className='fb'; f.textContent=''; return; }
+  var hit=ok.some(function(a){ return Math.abs(num(a)-v)<1e-9; });
+  f.className='fb '+(hit?'y':'n');
+  f.textContent=hit?'✓ Esatto.':'✗ Non ancora. Apri il passo 1 e rifai il conto.';
+}
+
+var doneA={};
+function cls(btn,scelta,giusta){
+  var row=btn.parentNode, bs=row.querySelectorAll('button'), i;
+  for(i=0;i<bs.length;i++) bs[i].className='';
+  var ok=(scelta===giusta);
+  btn.className=ok?'right':'wrong';
+  if(!ok) bs[giusta].className='right';
+  var rows=document.querySelectorAll('#A .row'), idx=0;
+  for(i=0;i<rows.length;i++) if(rows[i]===row.parentNode) idx=i;
+  doneA[idx]=ok?1:0;
+  var n=0,t=0,k;
+  for(k in doneA){ t++; n+=doneA[k]; }
+  document.getElementById('scoreA').textContent=n+' / 6'+(t<6?' (ne mancano '+(6-t)+')':'');
+}
+</script>
+</body>
+</html>
