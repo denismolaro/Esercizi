@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Verifica teorica (Fila B)</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:26px 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 20px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.card h3{font-size:19px; margin:0 0 10px; letter-spacing:-.01em}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 14px}
+.box{background:var(--accent-soft); border:1px solid #CBDAEC; border-radius:12px; padding:14px 16px; margin:12px 0}
+.box .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:14px 16px; margin:12px 0; font-size:17px}
+.trap b{color:var(--warn)}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:22px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+ul{margin:8px 0 8px; padding-left:22px}
+li{margin:6px 0}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:600; margin-top:10px}
+.btn:active{transform:scale(.995)}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); background:#fff; padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.res b{font-size:21px}
+.chk{display:flex; gap:8px; margin:12px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:12px 14px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus{outline:none; border-color:var(--accent)}
+.chk button{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 18px; font-weight:600}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:17px}
+th,td{border:1px solid var(--rule); padding:8px 6px; text-align:center}
+th{background:var(--accent-soft); font-size:15px}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+.opt{display:block; width:100%; text-align:left; background:#fff; border:2px solid var(--rule);
+  border-radius:12px; padding:13px 16px; margin:0 0 9px; font-size:18px; color:var(--ink)}
+.opt.on{border-color:var(--accent); background:var(--accent-soft); font-weight:600}
+.opt.right{border-color:var(--ok); background:var(--ok-soft); font-weight:600}
+.opt.wrong{border-color:var(--no); background:#FBEAEA}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Fisica · I Lsa A · Fila B</div>
+  <h1>IV verifica “teorica” — 26 maggio 2026</h1>
+  <p class="lead">Prima la teoria che serve (6 schede brevi), poi gli esercizi. Ogni esercizio si apre <b>un passo alla volta</b>: prova da solo, poi scopri il passo dopo. Non c'è fretta.</p>
+</header>
+
+<h2>Parte 1 — Ripasso lampo</h2>
+
+<div class="card">
+  <h3>1. Incertezze: come si propagano</h3>
+  <div class="box">
+    <div class="lbl">Le tre forme dell'errore</div>
+    errore <b>assoluto</b> → Δx (con l'unità di misura)<br>
+    errore <b>relativo</b> → Δx / x (numero puro)<br>
+    errore <b>percentuale</b> → (Δx / x) · 100
+  </div>
+  <div class="box">
+    <div class="lbl">Le due regole da ricordare</div>
+    <b>Somma o differenza</b> → si sommano gli errori <mark>assoluti</mark><br>
+    <b>Prodotto o quoziente</b> → si sommano gli errori <mark>percentuali</mark><br>
+    <b>Potenza x<sup>n</sup></b> → errore percentuale <mark>× n</mark>
+  </div>
+  <div class="trap"><b>Trappola:</b> nella <b>differenza</b> il valore diventa più piccolo ma l'errore diventa più grande. Quindi l'errore percentuale di una differenza è quasi sempre alto.</div>
+</div>
+
+<div class="card">
+  <h3>2. Variabile dipendente e indipendente</h3>
+  <ul>
+    <li><b>Indipendente</b> = quella che faccio variare io. Va sull'asse <b>orizzontale (x)</b>.</li>
+    <li><b>Dipendente</b> = quella che esce dal calcolo. Va sull'asse <b>verticale (y)</b>.</li>
+  </ul>
+  <div class="trap"><b>Trucco:</b> se un simbolo ha già un <b>valore numerico fisso</b> nel testo (es. <i>v</i> = −4 m/s), quello <b>non è una variabile</b>: è una costante. Le variabili sono i simboli rimasti senza numero.</div>
+</div>
+
+<div class="card">
+  <h3>3. Unità di misura</h3>
+  <ul>
+    <li>Si possono <b>sommare o sottrarre</b> solo grandezze con la <b>stessa</b> unità.</li>
+    <li>Per trovare l'unità del risultato: <b>sostituisco le unità al posto dei simboli</b> e semplifico.</li>
+  </ul>
+  <span class="f">(m/s) · s = m &nbsp;&nbsp;|&nbsp;&nbsp; m − m = m</span>
+</div>
+
+<div class="card">
+  <h3>4. I quattro tipi di relazione</h3>
+  <svg viewBox="0 0 640 190" role="img" aria-label="Quattro grafici: diretta, lineare, inversa, quadratica">
+    <g stroke="#DCD7CC" stroke-width="2" fill="none">
+      <path d="M20 150 H150 M20 150 V30"/><path d="M180 150 H310 M180 150 V30"/>
+      <path d="M340 150 H470 M340 150 V30"/><path d="M500 150 H630 M500 150 V30"/>
+    </g>
+    <g stroke="#1D4E89" stroke-width="3" fill="none">
+      <path d="M20 150 L140 40"/>
+      <path d="M180 110 L300 35"/>
+      <path d="M350 40 Q370 140 460 145"/>
+      <path d="M500 150 Q580 150 625 35"/>
+    </g>
+    <g font-size="13" fill="#5A6473" font-family="-apple-system,Arial" text-anchor="middle">
+      <text x="85" y="176">diretta</text><text x="85" y="20" fill="#1B2430" font-size="14">y = k·x</text>
+      <text x="245" y="176">lineare</text><text x="245" y="20" fill="#1B2430" font-size="14">y = k·x + q</text>
+      <text x="405" y="176">inversa</text><text x="405" y="20" fill="#1B2430" font-size="14">y = k / x</text>
+      <text x="565" y="176">quadratica</text><text x="565" y="20" fill="#1B2430" font-size="14">y = k·x²</text>
+    </g>
+  </svg>
+  <div class="trap"><b>Differenza chiave:</b> la <b>proporzionalità diretta</b> è una retta che <b>passa per l'origine</b>. Se c'è un “+ q” o un “− q”, la retta è <b>spostata</b>: si chiama solo <b>relazione lineare</b>.</div>
+</div>
+
+<div class="card">
+  <h3>5. Inversione di formula</h3>
+  <ul>
+    <li>Immagina una <b>bilancia</b>: quello che fai a sinistra lo fai anche a destra.</li>
+    <li>Per togliere un <b>quadrato</b> → radice quadrata di tutto.</li>
+    <li><b>Prima</b> di sostituire i numeri: <b>converti tutto nel S.I.</b> (g → kg, cm → m).</li>
+  </ul>
+  <div class="trap"><b>Controllo finale:</b> sostituisci anche le <b>unità</b> nella formula invertita. Se non esce l'unità giusta, c'è un errore.</div>
+</div>
+
+<div class="card">
+  <h3>6. Radianti e inerzia</h3>
+  <div class="box">
+    <div class="lbl">Radiante</div>
+    <span class="f">θ = <i>s</i> / <i>r</i></span>
+    arco diviso raggio → <b>numero puro</b> (m/m si semplifica).<br>Giro completo: <i>s</i> = 2π<i>r</i> → θ = <b>2π rad</b> = 360°.
+  </div>
+  <div class="box">
+    <div class="lbl">Primo principio (inerzia)</div>
+    Se su un corpo <b>non agiscono forze</b> (o si annullano), esso prosegue di <b>moto rettilineo uniforme</b>: va <b>dritto</b>, alla stessa velocità.
+  </div>
+</div>
+
+<h2>Parte 2 — Gli esercizi</h2>
+
+<!-- ES 1 -->
+<div class="card">
+  <div class="qnum">Esercizio 1 — incertezza percentuale</div>
+  <p class="qtext">Trova l'incertezza percentuale della misura della grandezza <i>L</i>:</p>
+  <span class="f"><i>L</i> = <i>r</i> · ( <i>q</i> · <i>V</i> ) / <i>t</i></span>
+  <p class="qtext" style="font-size:17px">con <i>t</i> = <i>t</i><sub>2</sub> − <i>t</i><sub>1</sub> e:<br>
+  <i>r</i> = 0,80 ± 10% &nbsp; <i>q</i> = 5,0 C ± 0,1 &nbsp; <i>V</i> = (50 ± 5) volt<br>
+  <i>t</i><sub>1</sub> = (50 ± 2) s &nbsp; <i>t</i><sub>2</sub> = (100 ± 3) s</p>
+
+  <div class="chk">
+    <input id="i1" type="text" inputmode="decimal" placeholder="La tua risposta in %">
+    <button onclick="chk('1',[32,'32%','32 %'])">Controlla</button>
+  </div>
+  <div class="fb" id="f1"></div>
+
+  <button class="btn" onclick="step(this,'1')">Mostra il passo 1</button>
+
+  <div class="step" id="s1_1">
+    <div class="sn">Passo 1 · gli errori percentuali facili</div>
+    <p><i>r</i>: ce l'ha già → <b>10%</b><br>
+    <i>q</i>: 0,1 / 5,0 = 0,02 → <b>2%</b><br>
+    <i>V</i>: 5 / 50 = 0,1 → <b>10%</b></p>
+  </div>
+  <div class="step" id="s1_2">
+    <div class="sn">Passo 2 · il tempo è una differenza</div>
+    <p>Valore: <i>t</i> = 100 − 50 = <b>50 s</b><br>
+    Errore: si sommano gli <mark>assoluti</mark> → Δ<i>t</i> = 2 + 3 = <b>5 s</b><br>
+    Percentuale: 5 / 50 = 0,1 → <b>10%</b></p>
+  </div>
+  <div class="step" id="s1_3">
+    <div class="sn">Passo 3 · tutto prodotti e quozienti</div>
+    <p>In <i>L</i> ci sono solo moltiplicazioni e divisioni → sommo le <mark>percentuali</mark>:</p>
+    <span class="f">10% + 2% + 10% + 10%</span>
+  </div>
+  <div class="res" id="r1"><div class="lbl">Risposta</div><b>Incertezza percentuale di L = 32%</b><br>Una misura molto imprecisa: colpa soprattutto della differenza dei tempi.</div>
+</div>
+
+<!-- ES 2 -->
+<div class="card">
+  <div class="qnum">Esercizio 2 — variabili e grafico</div>
+  <p class="qtext">Considera la relazione <span class="f"><i>x</i> = <i>v</i> · Δ<i>t</i> − <i>x</i><sub>0</sub></span>
+  con <i>v</i> = −4 m·s<sup>−1</sup>, Δ<i>t</i> = 1 s, e l'unità di misura di <i>x</i><sub>0</sub> è “m”.</p>
+  <p class="qtext" style="font-size:17px">a) Qual è la variabile dipendente e quale l'indipendente?<br>
+  b) Ricava l'unità di misura di <i>x</i>.<br>
+  c) Rappresenta la relazione sul piano cartesiano con almeno 5 punti in tabella.</p>
+
+  <button class="btn" onclick="step(this,'2')">Mostra il passo 1</button>
+
+  <div class="step" id="s2_1">
+    <div class="sn">Passo 1 · chi ha già un numero?</div>
+    <p><i>v</i> e Δ<i>t</i> hanno un valore fisso → sono <b>costanti</b>.<br>
+    Restano <i>x</i><sub>0</sub> e <i>x</i>.</p>
+    <p><b>a)</b> indipendente = <mark><i>x</i><sub>0</sub></mark> (asse orizzontale) · dipendente = <mark><i>x</i></mark> (asse verticale)</p>
+  </div>
+  <div class="step" id="s2_2">
+    <div class="sn">Passo 2 · le unità</div>
+    <p><i>v</i>·Δ<i>t</i> = (m/s) · s = <b>m</b>. E <i>x</i><sub>0</sub> è in <b>m</b>.<br>
+    m − m = m.</p>
+    <p><b>b)</b> <i>x</i> si misura in <mark>metri</mark>. (Ed è giusto così: si possono sottrarre solo grandezze uguali.)</p>
+  </div>
+  <div class="step" id="s2_3">
+    <div class="sn">Passo 3 · sostituisco le costanti</div>
+    <span class="f"><i>x</i> = (−4)·(1) − <i>x</i><sub>0</sub> = −4 − <i>x</i><sub>0</sub></span>
+    <table>
+      <tr><th><i>x</i><sub>0</sub> (m)</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+      <tr><th><i>x</i> (m)</th><td>−4</td><td>−5</td><td>−6</td><td>−7</td><td>−8</td></tr>
+    </table>
+  </div>
+  <div class="step" id="s2_4">
+    <div class="sn">Passo 4 · il grafico</div>
+    <svg viewBox="0 0 420 260" role="img" aria-label="Retta decrescente che parte da meno quattro">
+      <g stroke="#DCD7CC" stroke-width="1">
+        <path d="M60 20 V240 M60 40 H400"/>
+        <path d="M120 40 V240 M180 40 V240 M240 40 V240 M300 40 V240 M360 40 V240" opacity=".6"/>
+        <path d="M60 80 H400 M60 120 H400 M60 160 H400 M60 200 H400" opacity=".6"/>
+      </g>
+      <g stroke="#1B2430" stroke-width="2" fill="none"><path d="M60 40 V245 M55 40 H405"/></g>
+      <path d="M60 120 L300 240" stroke="#1D4E89" stroke-width="3" fill="none"/>
+      <g fill="#1D4E89">
+        <circle cx="60" cy="120" r="5"/><circle cx="120" cy="150" r="5"/><circle cx="180" cy="180" r="5"/>
+        <circle cx="240" cy="210" r="5"/><circle cx="300" cy="240" r="5"/>
+      </g>
+      <g font-size="13" fill="#5A6473" font-family="-apple-system,Arial">
+        <text x="112" y="34">1</text><text x="172" y="34">2</text><text x="232" y="34">3</text><text x="292" y="34">4</text>
+        <text x="30" y="125">−4</text><text x="30" y="165">−6</text><text x="30" y="205">−8</text>
+        <text x="350" y="30" fill="#1B2430">x₀ (m)</text><text x="66" y="240" fill="#1B2430">x (m)</text>
+      </g>
+    </svg>
+    <p>Una <b>retta che scende</b>, che <b>non passa per l'origine</b>: parte da −4.</p>
+  </div>
+  <div class="res" id="r2"><div class="lbl">Risposta</div>
+    <b>a)</b> dipendente <i>x</i>, indipendente <i>x</i><sub>0</sub> · <b>b)</b> <i>x</i> in metri · <b>c)</b> retta di equazione <i>x</i> = −4 − <i>x</i><sub>0</sub>: relazione <b>lineare decrescente</b> (non proporzionalità diretta, perché non passa per l'origine).
+  </div>
+</div>
+
+<!-- ES 3 -->
+<div class="card">
+  <div class="qnum">Esercizio 3 — riconoscere la relazione</div>
+  <p class="qtext">Disegna, senza numeri e unità di misura, il grafico della formula
+  <span class="f"><i>x</i> = ½ · <i>t</i> · <i>V</i>² / <i>R</i></span>
+  in cui <i>t</i> è la variabile indipendente. Di che tipo di relazione si tratta?</p>
+
+  <button class="btn" onclick="step(this,'3')">Mostra il passo 1</button>
+
+  <div class="step" id="s3_1">
+    <div class="sn">Passo 1 · isola la variabile</div>
+    <p><i>t</i> è l'unica variabile. Quindi <i>V</i> e <i>R</i> sono <b>costanti</b>: tutto quello che non è <i>t</i> lo chiamo <b>k</b>.</p>
+    <span class="f">k = <i>V</i>² / (2<i>R</i>)</span>
+  </div>
+  <div class="step" id="s3_2">
+    <div class="sn">Passo 2 · riscrivi</div>
+    <span class="f"><i>x</i> = k · <i>t</i></span>
+    <p>Questa è esattamente la forma <b>y = k·x</b> della scheda 4.</p>
+  </div>
+  <div class="step" id="s3_3">
+    <div class="sn">Passo 3 · il grafico</div>
+    <svg viewBox="0 0 420 220" role="img" aria-label="Retta crescente passante per l'origine">
+      <g stroke="#1B2430" stroke-width="2" fill="none"><path d="M60 20 V190 M55 190 H400"/></g>
+      <path d="M60 190 L360 45" stroke="#1D4E89" stroke-width="3" fill="none"/>
+      <circle cx="60" cy="190" r="6" fill="#1D4E89"/>
+      <g font-size="14" fill="#1B2430" font-family="-apple-system,Arial">
+        <text x="370" y="205">t</text><text x="40" y="30">x</text>
+      </g>
+      <text x="90" y="178" font-size="13" fill="#5A6473" font-family="-apple-system,Arial">passa per l'origine</text>
+    </svg>
+  </div>
+  <div class="res" id="r3"><div class="lbl">Risposta</div>
+    <b>Proporzionalità diretta</b> tra <i>x</i> e <i>t</i>: una <b>retta passante per l'origine</b>.<br>
+    Motivo: raddoppiando <i>t</i> raddoppia <i>x</i>, e per <i>t</i> = 0 anche <i>x</i> = 0. Il rapporto <i>x</i>/<i>t</i> resta costante.
+  </div>
+</div>
+
+<!-- ES 4 -->
+<div class="card">
+  <div class="qnum">Esercizio 4 — inversione di formula</div>
+  <p class="qtext">Il lavoro <i>L</i> si ricava da <span class="f"><i>L</i> = 2<sup>−1</sup> · <i>m</i> · <i>v</i>²</span>
+  con <i>m</i> = 10,0 g e <i>L</i> = 2,0·10<sup>−2</sup> kg·m²·s<sup>−2</sup>. Ricava la velocità <i>v</i>, riportando tutti i passaggi.</p>
+
+  <div class="chk">
+    <input id="i4" type="text" inputmode="decimal" placeholder="v = ... m/s">
+    <button onclick="chk('4',[2,'2,0','2.0','2 m/s','2,0 m/s','2.0 m/s'])">Controlla</button>
+  </div>
+  <div class="fb" id="f4"></div>
+
+  <button class="btn" onclick="step(this,'4')">Mostra il passo 1</button>
+
+  <div class="step" id="s4_1">
+    <div class="sn">Passo 1 · converti nel S.I.</div>
+    <p><i>m</i> = 10,0 g = <b>1,00·10<sup>−2</sup> kg</b><br>
+    2<sup>−1</sup> vuol dire semplicemente <b>½</b>.</p>
+  </div>
+  <div class="step" id="s4_2">
+    <div class="sn">Passo 2 · inverti la formula</div>
+    <span class="f"><i>L</i> = ½ <i>m v</i>² &nbsp;→&nbsp; 2<i>L</i> = <i>m v</i>² &nbsp;→&nbsp; <i>v</i>² = 2<i>L</i>/<i>m</i></span>
+    <span class="f"><i>v</i> = √( 2<i>L</i> / <i>m</i> )</span>
+  </div>
+  <div class="step" id="s4_3">
+    <div class="sn">Passo 3 · sostituisci i numeri</div>
+    <span class="f"><i>v</i> = √( 2 · 2,0·10<sup>−2</sup> / 1,00·10<sup>−2</sup> ) = √( 4,0·10<sup>−2</sup> / 1,00·10<sup>−2</sup> ) = √4,0</span>
+  </div>
+  <div class="step" id="s4_4">
+    <div class="sn">Passo 4 · controlla le unità</div>
+    <span class="f">√( kg·m²·s<sup>−2</sup> / kg ) = √( m²/s² ) = m/s ✓</span>
+  </div>
+  <div class="res" id="r4"><div class="lbl">Risposta</div><b>v = 2,0 m/s</b></div>
+</div>
+
+<!-- ES 5 -->
+<div class="card">
+  <div class="qnum">Esercizio 5 — misurare un angolo in radianti</div>
+  <p class="qtext">Con parole, disegni e formule descrivi la procedura di misura dell'ampiezza di un angolo in radianti.</p>
+
+  <button class="btn" onclick="step(this,'5')">Mostra il passo 1</button>
+
+  <div class="step" id="s5_1">
+    <div class="sn">Passo 1 · il disegno</div>
+    <svg viewBox="0 0 420 230" role="img" aria-label="Angolo con arco s e raggio r">
+      <path d="M60 190 L370 190" stroke="#1B2430" stroke-width="2"/>
+      <path d="M60 190 L330 55" stroke="#1B2430" stroke-width="2"/>
+      <path d="M200 190 A140 140 0 0 0 185 113" stroke="#1D4E89" stroke-width="5" fill="none"/>
+      <path d="M60 190 L200 190" stroke="#1D4E89" stroke-width="3" stroke-dasharray="6 5"/>
+      <path d="M60 190 L185 113" stroke="#1D4E89" stroke-width="3" stroke-dasharray="6 5"/>
+      <circle cx="60" cy="190" r="5" fill="#1B2430"/>
+      <g font-size="16" fill="#1D4E89" font-family="Georgia,serif" font-style="italic">
+        <text x="125" y="212">r</text><text x="105" y="140">r</text><text x="215" y="140">s</text>
+      </g>
+      <text x="82" y="178" font-size="15" fill="#5A6473" font-family="-apple-system,Arial">θ</text>
+      <text x="40" y="212" font-size="13" fill="#5A6473" font-family="-apple-system,Arial">vertice</text>
+    </svg>
+  </div>
+  <div class="step" id="s5_2">
+    <div class="sn">Passo 2 · la procedura a parole</div>
+    <ul>
+      <li>Punto il <b>compasso nel vertice</b> dell'angolo e traccio un arco di circonferenza di raggio qualsiasi.</li>
+      <li>Misuro il <b>raggio <i>r</i></b> con il righello.</li>
+      <li>Misuro la <b>lunghezza dell'arco <i>s</i></b> compreso tra i due lati (appoggio un filo sull'arco, poi lo distendo sul righello).</li>
+      <li>Faccio il <b>rapporto</b>.</li>
+    </ul>
+  </div>
+  <div class="step" id="s5_3">
+    <div class="sn">Passo 3 · la formula e il controllo</div>
+    <span class="f">θ = <i>s</i> / <i>r</i></span>
+    <p>L'unità è m/m: si <b>semplifica</b>. Il radiante è un <b>numero puro</b>.<br>
+    Verifica: per il giro completo <i>s</i> = 2π<i>r</i>, quindi θ = 2π<i>r</i>/<i>r</i> = <b>2π rad</b> = 360°.<br>
+    Il risultato <b>non dipende</b> dal raggio scelto: raddoppiando <i>r</i> raddoppia anche <i>s</i>.</p>
+  </div>
+  <div class="res" id="r5"><div class="lbl">Risposta</div>
+    θ = <b><i>s</i> / <i>r</i></b> — arco diviso raggio, misurati sullo stesso arco di centro il vertice. Grandezza adimensionale; 1 rad è l'angolo in cui l'arco è lungo quanto il raggio.
+  </div>
+</div>
+
+<!-- ES 6 -->
+<div class="card">
+  <div class="qnum">Esercizio 6 — Giochi di Anacleto 2010</div>
+  <p class="qtext">Su un tavolo orizzontale e liscio è fissata una guida a forma di arco di cerchio <i>PQ</i>, priva di attriti. Una pallina lanciata ad alta velocità da <i>P</i> esce dalla guida nel punto <i>Q</i>. Le forze dell'aria sono trascurabili. <b>Quale percorso seguirà la pallina quando esce dalla guida?</b></p>
+
+  <svg viewBox="0 0 420 260" role="img" aria-label="Guida circolare con quattro percorsi possibili">
+    <circle cx="180" cy="140" r="80" fill="none" stroke="#DCD7CC" stroke-width="2"/>
+    <path d="M100 140 A80 80 0 0 0 260 140" fill="none" stroke="#1B2430" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="100" cy="140" r="5" fill="#1B2430"/><text x="80" y="136" font-size="15" font-family="Georgia,serif" font-style="italic">P</text>
+    <circle cx="260" cy="140" r="7" fill="#1B2430"/><text x="268" y="158" font-size="15" font-family="Georgia,serif" font-style="italic">Q</text>
+    <g stroke="#5A6473" stroke-width="2" fill="none" stroke-dasharray="5 5">
+      <path d="M260 140 Q300 90 340 60"/>
+      <path d="M260 140 Q250 80 210 45"/>
+      <path d="M260 140 Q265 75 225 35"/>
+    </g>
+    <path id="tang" d="M260 140 L260 40" stroke="#5A6473" stroke-width="2" fill="none" stroke-dasharray="5 5"/>
+    <g font-size="15" font-family="-apple-system,Arial" font-weight="700" fill="#1B2430">
+      <text x="344" y="54">A</text><text x="254" y="30">B</text><text x="200" y="38">C</text><text x="216" y="28">D</text>
+    </g>
+  </svg>
+
+  <button class="opt" onclick="pick(this,0)">A — curva verso destra</button>
+  <button class="opt" onclick="pick(this,0)">B — dritta, lungo la tangente</button>
+  <button class="opt" onclick="pick(this,0)">C — curva stretta verso sinistra</button>
+  <button class="opt" onclick="pick(this,0)">D — continua a girare</button>
+  <div class="fb" id="f6"></div>
+
+  <button class="btn" onclick="step(this,'6')">Mostra il passo 1</button>
+
+  <div class="step" id="s6_1">
+    <div class="sn">Passo 1 · perché curvava prima?</div>
+    <p>Sulla guida la pallina curva perché la <b>guida la spinge</b> verso il centro. È la guida a fare la forza: senza di lei la pallina non avrebbe motivo di curvare.</p>
+  </div>
+  <div class="step" id="s6_2">
+    <div class="sn">Passo 2 · cosa succede in Q</div>
+    <p>In <i>Q</i> la guida <b>finisce</b>. Sul piano orizzontale non restano forze: niente attrito, niente aria, e peso e reazione del tavolo <b>si annullano</b>.</p>
+  </div>
+  <div class="step" id="s6_3">
+    <div class="sn">Passo 3 · primo principio</div>
+    <p>Nessuna forza → <b>moto rettilineo uniforme</b>, nella direzione della velocità che aveva in quell'istante: la <b>tangente</b> alla curva in <i>Q</i>.</p>
+  </div>
+  <div class="res" id="r6"><div class="lbl">Risposta</div><b>Percorso B</b> — la traiettoria dritta tangente alla guida.<br>
+    <span style="font-size:16px">Le curve A, C, D richiederebbero una forza che lì non c'è più.</span></div>
+</div>
+
+<p class="foot">Palestra · scheda di ripasso Fisica — 26/05/2026</p>
+
+</div>
+
+<script>
+var N = {'1':3,'2':4,'3':3,'4':4,'5':3,'6':3};
+var cur = {'1':0,'2':0,'3':0,'4':0,'5':0,'6':0};
+
+function step(btn,q){
+  cur[q]++;
+  var el = document.getElementById('s'+q+'_'+cur[q]);
+  if(el) el.classList.add('on');
+  if(cur[q] >= N[q]){
+    document.getElementById('r'+q).classList.add('on');
+    btn.style.display = 'none';
+  } else {
+    btn.textContent = 'Mostra il passo ' + (cur[q]+1);
+    btn.classList.add('solid');
+  }
+  if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function norm(s){
+  return String(s).trim().toLowerCase().replace(/\s+/g,'').replace(',', '.').replace('%','');
+}
+function chk(q, ok){
+  var v = norm(document.getElementById('i'+q).value);
+  var f = document.getElementById('f'+q);
+  if(!v){ f.className='fb'; f.textContent=''; return; }
+  var hit = ok.some(function(a){ return norm(a) === v; });
+  f.className = 'fb ' + (hit ? 'y' : 'n');
+  f.textContent = hit ? '✓ Esatto. Guarda comunque i passi: serve saper spiegare il perché.'
+                      : '✗ Non ancora. Apri il passo 1 e rifai il conto con calma.';
+}
+
+function pick(btn){
+  var opts = btn.parentNode.querySelectorAll('.opt');
+  var f = document.getElementById('f6');
+  for(var i=0;i<opts.length;i++){ opts[i].className='opt'; }
+  var isB = btn.textContent.charAt(0) === 'B';
+  btn.className = 'opt ' + (isB ? 'right' : 'wrong');
+  if(isB){ opts[1].className = 'opt right'; }
+  f.className = 'fb ' + (isB ? 'y' : 'n');
+  f.textContent = isB ? '✓ Giusto. Ora leggi i passi per spiegarlo con il primo principio.'
+                      : '✗ No. Chiediti: chi la sta spingendo a curvare, dopo Q?';
+}
+</script>
+</body>
+</html>
