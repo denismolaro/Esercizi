@@ -270,6 +270,11 @@ const GH = {
 
 const APPVER = "13";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica"];
+const SCHEDE = {
+  "Fisica":[{title:"Verifica teorica — 26 maggio 2026",
+             blurb:"Ripasso + i 6 esercizi svolti passo a passo",
+             href:"schede/26-05-26-fisica-verifica-teorica.html"}]
+};
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const shuffle = a => {a=a.slice();for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
@@ -1200,12 +1205,23 @@ function vHome(){
 function vSubject(){
   const si=Math.max(0,SUBJECTS.indexOf(subject));
   const g=packsOf(subject);
+  const sc=(typeof SCHEDE!=="undefined" && SCHEDE[subject])||[];
   let h="";
+
+  if(sc.length){
+    h+='<div class="sect s-'+si+' first">Schede di ripasso<i></i></div>';
+    sc.forEach(x=>{
+      h+='<button class="packbtn subj-'+si+'" onclick="location.href=\''+x.href+'\'">'
+        +'<span class="t">'+esc(x.title)+'</span>'
+        +(x.blurb?'<span class="b">'+esc(x.blurb)+'</span>':"")
+        +'</button>';
+    });
+  }
 
   if(subject==="Inglese"){
     const c=todayCount();
     if(!g.length){
-      h+='<div class="vuoto">Qui non c\'è ancora niente.<br>Gli esercizi arrivano durante l\'anno.</div>';
+      if(!sc.length) h+='<div class="vuoto">Qui non c\'è ancora niente.<br>Gli esercizi arrivano durante l\'anno.</div>';
       return h;
     }
     if(doneToday()){
@@ -1226,7 +1242,7 @@ function vSubject(){
     }
     h+='<div class="sect s-'+si+' first">Per argomento<i></i></div>';
   }else if(!g.length){
-    h+='<div class="vuoto">Qui non c\'è ancora niente.<br>Gli esercizi arrivano durante l\'anno,<br>man mano che gli argomenti vengono spiegati.</div>';
+    if(!sc.length) h+='<div class="vuoto">Qui non c\'è ancora niente.<br>Gli esercizi arrivano durante l\'anno,<br>man mano che gli argomenti vengono spiegati.</div>';
     return h;
   }
 
