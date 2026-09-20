@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Storia — La grande crisi della Repubblica</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#8C2F39; --accent-soft:#F7EAEB;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(96px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:26px 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+/* indice delle parti */
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+/* la carta */
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.when{display:inline-block; background:var(--ink); color:#fff; border-radius:8px; padding:3px 10px;
+  font-size:15px; font-weight:700; margin:8px 0 4px; letter-spacing:.02em}
+.card p{margin:12px 0}
+figure{margin:14px 0 6px; text-align:center}
+figure img{max-width:100%; border-radius:12px; border:1px solid var(--rule); background:#F2EFE8}
+figure img.tall{max-height:300px; width:auto}
+figcaption{font-size:14px; color:var(--soft); margin-top:6px; line-height:1.45}
+
+/* schemi disegnati */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16px; line-height:1.5}
+.flow .st b{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.two{display:flex; gap:10px; margin:14px 0; flex-wrap:wrap}
+.two > div{flex:1 1 200px; border:1px solid var(--rule); border-radius:12px; padding:12px 14px; font-size:16px; line-height:1.5}
+.two .a{background:var(--ok-soft); border-color:#BFD6CC}
+.two .b{background:var(--warn-soft); border-color:#EBD9AE}
+.two h4{margin:0 0 6px; font-size:15px; letter-spacing:.06em; text-transform:uppercase}
+.two .a h4{color:var(--ok)} .two .b h4{color:var(--warn)}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 10px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.06em; text-transform:uppercase}
+td b{color:var(--ink)}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+/* quiz date */
+.qz{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px}
+.qrow{display:flex; gap:8px; align-items:center; margin:9px 0; flex-wrap:wrap}
+.qrow .d{flex:0 0 96px; font-weight:800; font-size:17px}
+.qrow select{flex:1 1 180px; font:inherit; font-size:16px; padding:9px 10px; border:2px solid var(--rule);
+  border-radius:10px; background:#fff; color:var(--ink); min-width:0}
+.qrow.right select{border-color:var(--ok); background:var(--ok-soft)}
+.qrow.wrong select{border-color:var(--no); background:#FBEAEA}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:34px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Storia · capitoli 18 e 19</div>
+  <h1>La grande crisi della Repubblica</h1>
+  <p class="lead">Una carta per volta. Tocca <b>Leggi</b> e la voce legge la carta mentre la frase si illumina. Le parole difficili si aprono con un tocco.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+
+<div id="stage"></div>
+
+<div class="qz" id="quiz" hidden>
+  <div class="kicker">Verifica rapida</div>
+  <h2 style="font-size:23px;margin:6px 0 10px">Collega le date agli eventi</h2>
+  <p style="margin:0 0 14px">È l'esercizio del libro a pagina 419. Scegli l'evento giusto per ogni data, poi controlla.</p>
+  <div id="qrows"></div>
+  <button class="mini" style="margin-top:12px" onclick="checkQuiz()">Controlla</button>
+  <div id="qfb" style="font-weight:700;margin-top:10px;min-height:1.3em"></div>
+</div>
+
+<p class="foot" id="foot"></p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Indietro">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Avanti">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button data-r="0.72" onclick="setRate(0.72,this)">lenta</button>
+    <button data-r="0.88" class="on" onclick="setRate(0.88,this)">normale</button>
+    <button data-r="1.05" onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+/* ═══════ immagini: Wikimedia Commons, dominio pubblico o CC ═══════ */
+function wm(file,w){
+  return "https://commons.wikimedia.org/wiki/Special:FilePath/"
+       + encodeURIComponent(file) + "?width=" + (w||640);
+}
+const IMG = {
+  mario:   wm("Marius Glyptothek Munich 319.jpg",520),
+  silla:   wm("Sulla Glyptothek Munich 309.jpg",520),
+  gracchi: wm("Eugene Guillaume - the Gracchi (cropped).jpg",560),
+  cornelia:wm("Jules Cavelier - Cornélie.jpg",460),
+  centur:  wm("CenturiazioneProvPadova.jpg",640)
+};
+
+/* ═══════ le parti ═══════ */
+const PARTI = [
+  "1 · Perché scoppia la crisi",
+  "2 · Schiavi e latifondo",
+  "3 · Tiberio Gracco",
+  "4 · Gaio Gracco",
+  "5 · Gaio Mario",
+  "6 · Guerra sociale e Silla",
+  "7 · Le parole e le date"
+];
+
+/* ═══════ le carte ═══════
+   parte  = indice della parte
+   t      = titolo
+   when   = data in evidenza (facoltativa)
+   img    = {src, cap, tall}
+   body   = HTML della carta (i <p class="s"> vengono letti ad alta voce)
+   words  = [[parola, significato], ...]
+   ask    = [domanda, risposta]
+*/
+const CARDS = [
+
+/* ---------- PARTE 1 ---------- */
+{parte:0, t:"Roma padrona del Mediterraneo", when:"metà del II secolo a.C.",
+ body:`<p class="s">A metà del secondo secolo avanti Cristo Roma è ormai la superpotenza del Mediterraneo. I suoi domini vanno dalla Penisola iberica, a ovest, fino all'Anatolia, a est.</p>
+<p class="s">Dalle conquiste arrivano tesori, schiavi, terre, metalli preziosi. Roma diventa il centro finanziario del Mediterraneo.</p>
+<p class="s">Attenzione a una cosa importante: non fu una crisi economica. La ricchezza continuava a crescere. Fu una crisi di trasformazione, cioè una crisi nei rapporti fra i gruppi sociali e nel modo di fare politica.</p>`,
+ words:[["domini","i territori controllati da Roma"],["crisi di trasformazione","non manca la ricchezza: cambiano i rapporti fra i gruppi sociali"]],
+ ask:["Perché si dice che non fu una crisi economica?","Perché la produzione e la ricchezza continuavano a crescere. A entrare in crisi furono i rapporti fra i gruppi sociali, la politica e i valori del mos maiorum."]},
+
+{parte:0, t:"Il patto sociale e la sua rottura",
+ body:`<p class="s">Per secoli Roma si era retta su un patto sociale non scritto. Il cittadino comune era allo stesso tempo piccolo proprietario terriero, agricoltore e soldato: per questo si chiama cittadino-soldato.</p>
+<p class="s">Sopra di lui c'era la nobilitas, un'élite austera, sobria, legata alla terra e devota allo Stato.</p>
+<p class="s">Le conquiste rompono questo equilibrio. Il bottino e le terre non vengono divisi in modo equo: l'élite senatoria si arricchisce a dismisura, mentre i cittadini-soldati, lontani da casa per anni, perdono le loro terre.</p>`,
+ words:[["nobilitas","l'élite romana: le famiglie che arrivano al Senato"],["mos maiorum","il costume degli antenati: le regole non scritte della tradizione romana"]],
+ ask:["Chi è il cittadino-soldato?","Il piccolo proprietario terriero che coltiva il suo campo e allo stesso tempo combatte nelle legioni. È la base dell'esercito romano."]},
+
+{parte:0, t:"I quattro gruppi sociali",
+ body:`<p class="s">Dopo le conquiste la società romana si divide in quattro gruppi. Tienili a mente in quest'ordine: dal più ricco al più povero.</p>
+<table>
+<tr><th>Gruppo</th><th>Chi sono</th><th>Come stanno</th></tr>
+<tr><td><b>Élite senatoria</b><br>(nobilitas)</td><td>Patrizi e plebei ricchi. Controllano il Senato e le province.</td><td>Si prendono l'agro pubblico e costruiscono enormi latifondi con gli schiavi.</td></tr>
+<tr><td><b>Ordine equestre</b><br>(cavalieri, equites)</td><td>Cittadini ricchissimi ma non senatori.</td><td>Commercio, finanza, appalto delle imposte (pubblicani), opere pubbliche.</td></tr>
+<tr><td><b>Piccoli proprietari</b><br>(cittadini-soldati)</td><td>La base dell'esercito e dell'agricoltura.</td><td>Rovinati dalle lunghe guerre e dal grano che arriva dalle province.</td></tr>
+<tr><td><b>Proletariato urbano</b></td><td>Contadini senza più terra, emigrati a Roma.</td><td>Nullatenenti: lavori occasionali nei cantieri, oppure elargizioni.</td></tr>
+</table>
+<p class="s">I cavalieri erano ricchi quanto i senatori, ma socialmente contavano meno: a teatro dovevano sedersi in seconda fila, dietro ai senatori.</p>`,
+ words:[["equites","i cavalieri: i cittadini più ricchi, che nell'esercito servivano nella cavalleria"],["pubblicani","i cavalieri che prendevano in appalto la riscossione delle tasse nelle province"],["nullatenenti","chi non possiede niente"],["agro pubblico","ager publicus: la terra dello Stato, tolta ai popoli sconfitti"]],
+ ask:["Qual è la differenza fra un senatore e un cavaliere?","Sono ricchi tutti e due, ma il senatore fa carriera politica e la sua ricchezza è la terra; il cavaliere fa affari, commercio e finanza, e ha meno prestigio."]},
+
+{parte:0, t:"La legge Claudia: due carriere separate", when:"218 a.C.",
+ body:`<p class="s">Nel duecentodiciotto avanti Cristo il tribuno Quinto Claudio fa approvare la legge Claudia.</p>
+<p class="s">La legge vietava ai senatori tre cose: possedere grandi navi commerciali, prestare denaro a interesse, partecipare agli appalti pubblici.</p>
+<p class="s">Lo scopo era tenere l'élite senatoria dedicata solo alla politica e alla terra. Il risultato fu la separazione netta fra carriera politica, dei senatori, e carriera d'affari, dei cavalieri.</p>
+<p class="s">Nella pratica però molti senatori aggiravano la legge intestando gli affari a prestanome o ai propri liberti.</p>`,
+ words:[["liberti","gli schiavi che sono stati liberati"],["prestanome","una persona che mette il proprio nome al posto del tuo"],["appalto","un lavoro pubblico affidato a un privato"]],
+ ask:["Cosa vietava la lex Claudia ai senatori?","Navi commerciali di grande stazza, prestito di denaro a interesse, appalti pubblici."]},
+
+/* ---------- PARTE 2 ---------- */
+{parte:1, t:"Un'economia fondata sugli schiavi", when:"II–I secolo a.C.",
+ body:`<p class="s">Prima delle grandi conquiste la schiavitù a Roma era un fenomeno limitato e domestico: pochi schiavi, che vivevano con la famiglia del padrone.</p>
+<p class="s">Dopo le vittorie tutto cambia. I prigionieri venduti come schiavi furono sessantamila nella terza guerra sannitica, cinquantamila nella guerra punica, centocinquantamila nella guerra macedonica.</p>
+<p class="s">Gli schiavi diventano i principali produttori di beni: raccolti, manifatture, miniere. E cambia anche la mentalità: lavorare per un salario, per un uomo libero, diventa una cosa degradante.</p>`,
+ words:[["servi","in latino gli schiavi"],["manifattura","la produzione di oggetti a mano, in laboratorio"]],
+ ask:["Cosa cambia nella mentalità romana con l'arrivo di tanti schiavi?","Produrre significa produrre con gli schiavi. Per un uomo libero nato da buona famiglia, lavorare in cambio di un salario diventa degradante e inaccettabile."]},
+
+{parte:1, t:"Lo schiavo come merce",
+ body:`<p class="s">Il più grande mercato di schiavi del Mediterraneo era sull'isola di Delo, nel Mar Egeo. Lì si vendevano fino a diecimila schiavi al giorno.</p>
+<p class="s">A Roma gli schiavi meno cari si vendevano nel Foro, quelli più rinomati nel Campo Marzio.</p>
+<p class="s">Il letterato Varrone li classificava così: gli strumenti muti sono i carri e gli aratri; gli strumenti semiparlanti sono i buoi; gli strumenti dotati di parola sono gli schiavi.</p>
+<p class="s">Gli schiavi migliori stavano in casa: i servi domestici e gli schiavi intellettuali, presi soprattutto in Grecia, che facevano i medici, i maestri, i contabili. Alcuni venivano liberati e diventavano liberti.</p>
+<p class="s">Il peggio toccava agli schiavi dei campi e delle miniere: incatenati, sorvegliati, e di notte chiusi nell'ergastolo, la prigione della fattoria.</p>`,
+ words:[["Delo","isola dell'Egeo, il più grande mercato di schiavi"],["ergastolo","la prigione dove gli schiavi agricoli venivano chiusi di notte"],["manomissione","l'atto con cui un padrone libera uno schiavo"],["De agri cultura","il manuale di agricoltura di Catone il Censore: spiega come spremere il massimo profitto dagli schiavi"]],
+ ask:["Come classificava Varrone gli strumenti di lavoro?","Strumenti muti (carri, aratri), strumenti semiparlanti (i buoi), strumenti dotati di parola (gli schiavi)."]},
+
+{parte:1, t:"Le rivolte degli schiavi in Sicilia", when:"136–132 e 104–100 a.C.",
+ body:`<p class="s">La prima rivolta di massa scoppiò in Sicilia nel centotrentasei avanti Cristo. A guidarla c'era Èuno, uno schiavo originario della Siria, che si vantava di capacità profetiche e si faceva chiamare Antioco, come un re.</p>
+<p class="s">La rivolta partì da Enna e coinvolse circa duecentomila persone: schiavi, ma anche uomini liberi impoveriti. I ribelli furono sconfitti a Taormina; Èuno fu catturato e morì in prigione.</p>
+<p class="s">Una seconda rivolta esplose ancora in Sicilia fra il centoquattro e il cento avanti Cristo, guidata da due schiavi, Salvio e Atenione. Fu repressa rapidamente.</p>`,
+ words:[["Èuno","lo schiavo siriano capo della prima rivolta, si fece chiamare Antioco"],["Enna","la città siciliana dove scoppiò la rivolta"],["Salvio e Atenione","i due capi della seconda rivolta servile"]],
+ ask:["Chi guidò la prima rivolta servile e dove scoppiò?","Èuno, schiavo siriano che si fece chiamare Antioco. Scoppiò a Enna, in Sicilia, nel 136 a.C."]},
+
+{parte:1, t:"Il circolo vizioso del contadino-soldato",
+ body:`<p class="s">Questa è la catena da ricordare: cinque anelli, uno dopo l'altro. È il cuore di tutto il capitolo.</p>
+<div class="flow">
+<div class="st"><b>1 · Parte</b>Il contadino è arruolato nelle legioni per campagne lunghe anni, lontano dall'Italia.</div>
+<div class="st"><b>2 · Il campo si rovina</b>I terreni restano incolti, la famiglia si indebita.</div>
+<div class="st"><b>3 · Arriva il grano dalle province</b>Il grano di Sicilia e d'Africa costa meno. Il prezzo crolla.</div>
+<div class="st"><b>4 · Vende</b>Non ha i capitali per passare a vite e olivi. Vende il podere ai ricchi, a volte sotto minaccia.</div>
+<div class="st"><b>5 · Va a Roma</b>Nasce il latifondo. Lui diventa un proletario urbano.</div>
+</div>
+<p class="s">Il risultato finale è doppio: meno piccoli proprietari significa anche meno soldati, perché l'esercito si reclutava in base al censo. È la crisi del reclutamento.</p>`,
+ words:[["censo","la ricchezza in base alla quale un cittadino era classificato e arruolato"],["podere","il piccolo campo di una famiglia contadina"]],
+ ask:["Perché la rovina dei contadini è anche un problema militare?","Perché nell'esercito si arruolavano solo i cittadini proprietari. Meno piccoli proprietari significa meno soldati arruolabili."]},
+
+{parte:1, t:"Il latifondo e la villa schiavile",
+ body:`<p class="s">Le terre comprate dai ricchi si uniscono in proprietà enormi: i latifondi. Un latifondo poteva valere mille o duemila piccoli poderi messi insieme.</p>
+<p class="s">Al centro c'era la villa schiavile, una grande azienda agricola specializzata nei prodotti da esportare: soprattutto vino e olio. Era divisa in tre parti.</p>
+<div class="two">
+<div class="a"><h4>1 · Pars urbana</h4>La casa elegante del padrone, con atri, sale, bagni e mosaici.</div>
+<div class="b"><h4>2 · Pars rustica</h4>Stalle, alloggi dei lavoratori, casa del fattore, ergastula degli schiavi.</div>
+<div><h4 style="color:var(--accent)">3 · Pars fructuaria</h4>Magazzini, frantoi, cantine: dove si lavora e si conserva il prodotto.</div>
+</div>
+<p class="s">L'esempio del libro è la villa di Settefinestre, ad Ansedonia: centoventicinque ettari, coltivata soprattutto a vigneto, con una produzione stimata intorno ai centoventimila litri di vino all'anno.</p>`,
+ words:[["latifondo","da latus, vasto, e fundus, podere: una proprietà terriera enorme"],["vilicus","il fattore: lo schiavo di fiducia che dirigeva la villa"],["Settefinestre","la villa schiavile presso Ansedonia, l'esempio del libro"]],
+ ask:["Quali sono le tre parti della villa schiavile?","Pars urbana (il padrone), pars rustica (schiavi e stalle), pars fructuaria (magazzini e lavorazione)."]},
+
+{parte:1, t:"Misurare la terra: iugero e centuriazione",
+ img:{src:IMG.centur, cap:"Le tracce della centuriazione romana nella provincia di Padova: ancora oggi le strade e i canali formano un grande reticolo quadrato."},
+ body:`<p class="s">Lo iugero è l'unità di misura romana della terra: circa duemilacinquecento metri quadrati, cioè un quarto di ettaro. Il nome viene da iugum, il giogo: è il terreno arabile in una giornata da un paio di buoi.</p>
+<p class="s">La centuriazione, in latino limitatio, è il modo romano di dividere il territorio. La centuria è un quadrato con il lato di circa settecento metri, cioè cinquanta ettari, diviso all'interno in cento lotti per cento famiglie. Da qui il nome.</p>
+<p class="s">Per tracciarla si segnavano due strade perpendicolari: il decumano massimo da est a ovest, il cardo massimo da nord a sud. Le tracce si vedono ancora oggi dall'alto in Veneto, Lombardia e Campania.</p>`,
+ words:[["iugero","circa 2500 m², un quarto di ettaro"],["centuria","quadrato di 700 m di lato, 50 ettari, 100 lotti"],["decumano massimo","l'asse est-ovest"],["cardo massimo","l'asse nord-sud"],["limitatio","il nome latino della centuriazione: la delimitazione del suolo"]],
+ ask:["Quanto misura una centuria e in quanti lotti si divide?","Circa 700 metri di lato, 50 ettari, divisa in 100 lotti per 100 famiglie."]},
+
+/* ---------- PARTE 3 ---------- */
+{parte:2, t:"Chi era Tiberio Gracco", when:"tribuno nel 133 a.C.",
+ img:{src:IMG.cornelia, tall:true, cap:"Cornelia, madre dei Gracchi, nella scultura di Jules Cavelier, 1861 (Museo d'Orsay, Parigi)."},
+ body:`<p class="s">Tiberio Sempronio Gracco veniva da una delle famiglie più illustri di Roma. Sua madre era Cornelia, figlia di Scipione l'Africano, il vincitore di Annibale.</p>
+<p class="s">Era anche un buon militare: a diciassette anni era all'assedio di Cartagine con Scipione Emiliano, e fu premiato con la corona muralis.</p>
+<p class="s">Nel centotrentatré avanti Cristo si fece eleggere tribuno della plebe. Era la carica strategica per contrastare il Senato, perché permetteva di far approvare dal concilio della plebe i plebisciti, che avevano valore di legge per tutti.</p>`,
+ words:[["tribuno della plebe","magistrato che difende la plebe e può proporre leggi al concilio della plebe"],["plebiscito","la delibera del concilio della plebe: dopo la lex Hortensia valeva come legge per tutti"],["Cornelia","la madre dei Gracchi, figlia di Scipione l'Africano"]],
+ ask:["Perché il tribunato della plebe era la carica giusta per Tiberio?","Perché poteva proporre leggi direttamente al concilio della plebe, i plebisciti, senza passare per il Senato."]},
+
+{parte:2, t:"La legge agraria: la lex Sempronia", when:"133 a.C.",
+ body:`<p class="s">La legge di Tiberio non toccava la proprietà privata: riguardava l'agro pubblico, cioè la terra dello Stato che i ricchi si erano presi. Funzionava così.</p>
+<div class="flow">
+<div class="st"><b>Tetto</b>Massimo 500 iugeri di agro pubblico a testa, più 250 per ogni figlio maschio, fino a un massimo di 1000.</div>
+<div class="st"><b>In cambio</b>Quei 500 o 1000 iugeri diventano piena proprietà privata di chi li occupa. Serviva a ridurre l'opposizione del Senato.</div>
+<div class="st"><b>Il resto si confisca</b>Le terre in eccesso tornano allo Stato e si dividono in lotti da 30 iugeri, circa 7 ettari, quattro volte il lotto tradizionale.</div>
+<div class="st"><b>A chi</b>Ai cittadini poveri, in possesso precario: il lotto resta dello Stato, così non si può rivendere ai ricchi.</div>
+<div class="st"><b>Chi esegue</b>Una commissione di tre membri, il triumvirato agrario, censisce e ridistribuisce.</div>
+</div>
+<p class="s">Occhio: non era una riforma egualitaria. I poveri ricevevano trenta iugeri in possesso precario, i ricchi ne tenevano da cinquecento a mille in piena proprietà.</p>`,
+ words:[["lex Sempronia","la legge agraria di Tiberio Gracco"],["possesso precario","hai l'uso della terra ma non la proprietà: non puoi venderla"],["triumvirato agrario","la commissione di tre che eseguiva la riforma"]],
+ ask:["Perché i lotti erano dati in possesso precario e non in proprietà?","Per evitare che i contadini poveri li rivendessero ai ricchi, tornando al punto di partenza."]},
+
+{parte:2, t:"Il veto e la deposizione di Marco Ottavio",
+ body:`<p class="s">Il Senato reagì convincendo l'altro tribuno della plebe, Marco Ottavio, a porre il veto sulla proposta. Anche lui era un grande possessore di terra pubblica.</p>
+<p class="s">Tiberio allora convocò il concilio della plebe e fece destituire il collega, sostenendo che un tribuno che agisce contro gli interessi della plebe perde la sua funzione.</p>
+<p class="s">Formalmente non era illegale, ma era una rottura gravissima con la tradizione: un magistrato non poteva essere deposto da un collega. La riforma passò e il triumvirato agrario iniziò i lavori.</p>`,
+ words:[["veto","il potere di bloccare una proposta di legge"],["destituire","togliere a qualcuno la carica"]],
+ ask:["Cosa fece Tiberio quando Marco Ottavio pose il veto?","Convocò il concilio della plebe e lo fece deporre, dicendo che un tribuno contro la plebe non è più un tribuno."]},
+
+{parte:2, t:"Il tesoro di Pergamo e la morte di Tiberio", when:"133 a.C.",
+ img:{src:IMG.gracchi, cap:"I due fratelli Gracchi nel bronzo di Eugène Guillaume (Museo d'Orsay, Parigi). A sinistra Tiberio, a destra Gaio."},
+ body:`<p class="s">Il Senato cercò di bloccare tutto negando i finanziamenti. Tiberio rispose in modo geniale e pericolosissimo: propose di pagare la riforma con il tesoro di Attalo terzo, re di Pergamo, che aveva appena lasciato il suo regno in eredità a Roma.</p>
+<p class="s">Era un'altra rottura: la politica estera era prerogativa del Senato, non dei tribuni.</p>
+<p class="s">Gli avversari lo accusarono di mirare al potere regio, cioè di voler comandare Roma da solo come un re. Quando Tiberio si ricandidò al tribunato senza rispettare l'intervallo previsto, in città scoppiarono i tumulti.</p>
+<p class="s">Tiberio e trecento dei suoi sostenitori furono uccisi con pietre e bastoni da un gruppo di Romani, fra cui membri del Senato. Con la sua morte Roma entra nell'epoca delle lotte fratricide e degli assassinii politici fra cittadini.</p>`,
+ words:[["Attalo III","il re di Pergamo che lasciò il regno in eredità a Roma"],["prerogativa","un potere che spetta solo a un organo"],["lotte fratricide","scontri violenti fra cittadini dello stesso Stato"]],
+ ask:["Perché la proposta sul tesoro di Pergamo fu così grave?","Perché la politica estera spettava al Senato. Un tribuno che decide su un'eredità straniera scavalca il Senato."]},
+
+/* ---------- PARTE 4 ---------- */
+{parte:3, t:"Gaio Gracco raccoglie l'eredità", when:"tribuno nel 123 a.C.",
+ body:`<p class="s">Dieci anni dopo la morte di Tiberio, nel centoventitré avanti Cristo, suo fratello Gaio si candida al tribunato e viene eletto. Non aveva ancora trent'anni.</p>
+<p class="s">Era amato per l'intelligenza, per la retorica, e soprattutto per il ricordo del fratello. Folle di cittadini vennero a Roma da tutta Italia per eleggerlo.</p>
+<p class="s">La sua mossa politica è più larga di quella di Tiberio: non parla solo ai contadini, ma cerca di costruire una coalizione con la plebe urbana, i cavalieri, i Latini e gli Italici, per isolare il Senato.</p>`,
+ words:[["retorica","l'arte di parlare in pubblico in modo convincente"],["coalizione","un'alleanza fra gruppi diversi"],["Italici","gli alleati italiani di Roma, i socii: combattono per Roma ma non sono cittadini romani"]],
+ ask:["In cosa la strategia di Gaio è diversa da quella di Tiberio?","Tiberio puntava sui contadini. Gaio costruisce un fronte più largo: plebe urbana, cavalieri, Latini e Italici."]},
+
+{parte:3, t:"Le leggi di Gaio Gracco", when:"123–122 a.C.",
+ body:`<p class="s">Sono quattro pacchetti di leggi. Per ognuno chiediti sempre: a chi serve?</p>
+<table>
+<tr><th>Legge</th><th>Cosa fa</th><th>A chi serve</th></tr>
+<tr><td><b>Legge agraria</b></td><td>Riprende la ridistribuzione e fonda nuove colonie: Taranto, Squillace e perfino Cartagine.</td><td>Contadini poveri</td></tr>
+<tr><td><b>Legge frumentaria</b><br>(frumentationes)</td><td>Grano a prezzo ridotto ogni mese: almeno 5 modii, circa 45 litri, a ogni cittadino residente a Roma.</td><td>Plebe urbana</td></tr>
+<tr><td><b>Legge giudiziaria</b></td><td>I tribunali sui governatori accusati di concussione passano ai cavalieri. E ai pubblicani va la riscossione dei tributi in Asia.</td><td>Cavalieri</td></tr>
+<tr><td><b>Opere pubbliche</b></td><td>Strade, magazzini del grano, infrastrutture.</td><td>Nullatenenti urbani</td></tr>
+</table>
+<p class="s">Prima di questa legge i governatori accusati erano giudicati da tribunali di soli senatori, spesso loro parenti o amici: le assoluzioni erano quasi automatiche.</p>`,
+ words:[["frumentationes","le distribuzioni mensili di grano a prezzo calmierato"],["modio","misura romana: 5 modii sono circa 45 litri"],["concussione","il reato del funzionario che estorce denaro sfruttando la sua carica"]],
+ ask:["Perché la legge giudiziaria colpiva duramente il Senato?","Perché toglieva ai senatori il potere di giudicare i propri colleghi governatori, e lo dava ai cavalieri."]},
+
+{parte:3, t:"Latini e Italici: l'errore fatale", when:"122–121 a.C.",
+ body:`<p class="s">Nel centoventidue Gaio viene rieletto tribuno, ma l'ostilità del Senato cresce. L'occasione per abbatterlo arriva dalla questione degli alleati italiani.</p>
+<p class="s">I Latini e gli Italici combattevano nelle guerre di Roma senza godere dei vantaggi riservati ai cittadini romani. Gaio propose una soluzione moderata: cittadinanza romana ai soli Latini, cittadinanza latina agli Italici.</p>
+<p class="s">I senatori scatenarono una propaganda ostile e convinsero i cittadini romani, che non volevano dividere con altri i loro privilegi: il grano a prezzo ridotto, le terre, il voto. Gaio perse l'appoggio della plebe urbana e non fu eletto per la terza volta, nel centoventuno.</p>
+<p class="s">Finito l'anno da tribuno, il Senato lo dichiarò nemico della patria con il senatus consultum ultimum. Rifugiatosi sull'Aventino, Gaio si suicidò per non cadere vivo nelle mani dei nemici, e tremila suoi sostenitori furono massacrati.</p>`,
+ words:[["senatus consultum ultimum","il decreto d'emergenza con cui il Senato dava ai consoli pieni poteri, anche di usare la forza"],["Aventino","il colle dove si rifugiavano tradizionalmente i plebei in rivolta"]],
+ ask:["Perché la proposta sugli Italici fece cadere Gaio?","Perché toccava i privilegi della plebe romana, che non voleva condividere grano, terre e diritti politici. Così Gaio restò isolato."]},
+
+{parte:3, t:"Popolari e ottimati: due anime della nobilitas",
+ body:`<p class="s">Dopo i Gracchi, dentro la stessa nobilitas nascono due orientamenti che dureranno un secolo. Non sono partiti: sono due modi di fare politica.</p>
+<div class="two">
+<div class="b"><h4>Ottimati · optimates</h4>Da optimi, i migliori. Difendono la centralità del Senato e i privilegi della nobilitas. Contrari alle riforme agrarie. Strumento: il Senato e il veto.</div>
+<div class="a"><h4>Popolari · populares</h4>Come i Gracchi. Riforme a favore del popolo, ridistribuzione delle terre. Strumento: il concilio della plebe e il tribunato.</div>
+</div>
+<p class="s">Cambia anche il tribunato: da magistratura tranquilla diventa la carica politica d'opposizione allo strapotere senatorio.</p>`,
+ words:[["optimates","gli ottimati: la parte conservatrice, legata al Senato"],["populares","i popolari: la parte riformatrice, legata al concilio della plebe"],["clientela","il gruppo di sostenitori fedeli legati a un patrono"]],
+ ask:["Ottimati e popolari erano due partiti?","No. Erano due orientamenti interni alla stessa nobilitas: entrambi venivano dall'aristocrazia, anche i Gracchi."]},
+
+/* ---------- PARTE 5 ---------- */
+{parte:4, t:"Gaio Mario, l'uomo nuovo", when:"console nel 107 a.C.",
+ img:{src:IMG.mario, tall:true, cap:"Busto di Gaio Mario, I secolo a.C. (Gliptoteca, Monaco di Baviera). È lo stesso busto che trovi sul libro."},
+ body:`<p class="s">Gaio Mario è un homo novus, un uomo nuovo: non veniva dalla nobilitas ma da una famiglia di cavalieri, e nessuno dei suoi antenati aveva mai ricoperto una magistratura.</p>
+<p class="s">Brillante soldato già a vent'anni, percorse il cursus honorum: prima tribuno, poi edile, poi pretore.</p>
+<p class="s">Nel centodieci avanti Cristo sposò Giulia, di una delle famiglie più antiche di Roma, la gens Iulia. Quel matrimonio gli aprì la strada al consolato: fu eletto console nel centosette avanti Cristo.</p>`,
+ words:[["homo novus","uomo nuovo: il primo della sua famiglia ad arrivare alle alte cariche"],["cursus honorum","la scala delle cariche politiche romane, in ordine"],["gens Iulia","l'antica famiglia romana in cui Mario si sposò: sarà la famiglia di Cesare"]],
+ ask:["Cosa significa che Mario era un homo novus?","Che non apparteneva alla nobilitas: nessuno dei suoi antenati aveva ricoperto magistrature. Arrivò al consolato da solo."]},
+
+{parte:4, t:"La guerra giugurtina", when:"112–105 a.C.",
+ body:`<p class="s">Giugurta era re di Numidia, in Africa settentrionale. Nel centododici avanti Cristo, in lotta con i cugini alleati di Roma, conquistò la città di Cirta e massacrò anche i mercanti romani e italici che vi si trovavano.</p>
+<p class="s">Il Senato esitò a intervenire, anche per i legami fra l'aristocrazia senatoria e Giugurta, che distribuiva grandi somme di denaro. La guerra fu poi condotta con poca determinazione.</p>
+<p class="s">L'elezione di Mario nacque proprio dall'indignazione popolare per quella gestione. Arrivato in Africa, sconfisse Giugurta senza difficoltà. Nel centocinque il re africano sfilò in catene per le vie di Roma durante il trionfo, e subito dopo fu giustiziato.</p>`,
+ words:[["Giugurta","re di Numidia, sconfitto da Mario"],["Cirta","la città africana conquistata da Giugurta nel 112 a.C."],["trionfo","la sfilata solenne del generale vittorioso a Roma"]],
+ ask:["Perché la guerra giugurtina danneggiò il Senato?","Perché mostrò i legami di corruzione fra i senatori e Giugurta, e l'incapacità dei generali aristocratici. L'indignazione popolare portò Mario al consolato."]},
+
+{parte:4, t:"La riforma dell'esercito", when:"dal 107 a.C.",
+ body:`<p class="s">Questa è la riforma più importante di tutto il capitolo, perché cambia la storia di Roma. Tre punti.</p>
+<div class="flow">
+<div class="st"><b>1 · Reclutamento aperto</b>Si arruolano volontari, anche nullatenenti. Non serve più il censo. La ferma dura sedici anni.</div>
+<div class="st"><b>2 · Nuova tattica</b>La coorte sostituisce il manipolo: tre manipoli, 500-600 soldati. Dieci coorti fanno una legione.</div>
+<div class="st"><b>3 · La terra ai veterani</b>Il console promette un lotto di terra a chi si congeda.</div>
+</div>
+<p class="s">Da milizia temporanea di cittadini-agricoltori, le legioni diventano un esercito di professionisti, stipendiato e bene addestrato.</p>
+<p class="s">Ma c'è il rovescio della medaglia, ed è politico: il generale li arruola, li guida, li congeda e li premia. Le legioni si legano a lui e diventano eserciti personali, pronti a seguirlo anche contro la Repubblica.</p>`,
+ words:[["ferma","il periodo di servizio militare obbligatorio"],["coorte","unità di 500-600 soldati, formata da tre manipoli"],["veterano","il soldato che ha finito il servizio e si congeda"]],
+ ask:["Qual è la conseguenza politica pericolosa della riforma di Mario?","I soldati dipendono dal generale per la paga e per la terra. Le legioni diventano eserciti personali, fedeli al comandante più che allo Stato."]},
+
+{parte:4, t:"Cimbri e Teutoni, e la caduta di Mario", when:"105–100 a.C.",
+ body:`<p class="s">Dal nord arrivava un'altra minaccia: due popoli, i Cimbri e i Teutoni. Nel centocinque avanti Cristo due armate romane furono sterminate ad Arausio, l'odierna Orange, nella Francia meridionale. A Roma tornò l'antica paura di un'invasione dal nord.</p>
+<p class="s">Mario fu rieletto console per cinque anni consecutivi, contro tutte le leggi. Nel centodue sconfisse i Teutoni ad Aquae Sextiae, oggi Aix-en-Provence. Nel centouno sterminò i Cimbri ai Campi Raudii, vicino a Vercelli.</p>
+<p class="s">In politica interna andò peggio. Il tribuno Saturnino, insieme a Galba, promosse nel cento avanti Cristo un'insurrezione popolare in cui cadde un candidato al consolato. Il Senato impose a Mario di intervenire e la rivolta fu repressa nel sangue. Mario perse così l'appoggio dei popolari e si ritirò, almeno per il momento.</p>`,
+ words:[["Arausio","odierna Orange: la disfatta romana del 105 a.C."],["Aquae Sextiae","odierna Aix-en-Provence: vittoria sui Teutoni, 102 a.C."],["Campi Raudii","vicino a Vercelli: vittoria sui Cimbri, 101 a.C."],["Saturnino","il tribuno popolare la cui rivolta costò a Mario l'appoggio della plebe"]],
+ ask:["Le tre battaglie del nord, in ordine?","105 Arausio, disfatta romana. 102 Aquae Sextiae, Mario batte i Teutoni. 101 Campi Raudii, Mario stermina i Cimbri."]},
+
+/* ---------- PARTE 6 ---------- */
+{parte:5, t:"La guerra sociale", when:"91–88 a.C.",
+ body:`<p class="s">Gli alleati italici, i socii, da secoli fornivano a Roma tributi, truppe e mezzi, senza avere la cittadinanza romana. Volevano i diritti politici, le terre pubbliche e il grano a prezzo politico.</p>
+<p class="s">Nel novantuno avanti Cristo il tribuno Marco Livio Druso propose un progetto complessivo di riforma. Il Senato si divise, la riforma si bloccò, e Druso fu ucciso in casa sua da un assassino mai identificato.</p>
+<p class="s">Persa ogni speranza, gli Italici si federarono in una lega antiromana con capitale Corfinio, ribattezzata Italica. Scoppiò la guerra sociale, micidiale proprio perché i due contendenti erano addestrati e armati allo stesso modo. Fra il novantuno e l'ottantotto i morti furono decine di migliaia.</p>
+<p class="s">Il finale è paradossale: Roma vinse la guerra, ma Latini e Italici ottennero la cittadinanza romana. Tutta l'Italia a sud dei fiumi Magra e Rubicone divenne un'unica entità politica.</p>`,
+ words:[["socii","gli alleati italici di Roma"],["Corfinio","la città abruzzese capitale della lega italica, ribattezzata Italica"],["municipio","lo statuto dato alle città italiane dopo la guerra sociale"],["prezzo politico","prezzo calmierato dallo Stato, più basso del costo reale"]],
+ ask:["Perché il risultato della guerra sociale è paradossale?","Perché Roma vinse militarmente, ma dovette concedere proprio quello per cui gli alleati si erano ribellati: la cittadinanza romana."]},
+
+{parte:5, t:"Mitridate e la marcia su Roma", when:"88 a.C.",
+ body:`<p class="s">Mentre l'Italia bruciava, si aprì un fronte in Oriente. Mitridate sesto, re del Ponto, invase le province romane d'Asia e d'Acaia. In un solo giorno le popolazioni locali massacrarono ottantamila fra Romani e Italici: tanto era l'odio per lo sfruttamento romano.</p>
+<p class="s">Il Senato affidò la guerra al console Lucio Cornelio Silla, un aristocratico ottimate. Ma il tribuno Sulpicio Rufo fece approvare un plebiscito che revocava il comando a Silla per darlo a Mario.</p>
+<p class="s">Silla prese allora una decisione senza precedenti: invece di obbedire, marciò su Roma con oltre trentamila soldati. Gli ufficiali lo abbandonarono, i soldati semplici lo seguirono senza esitare.</p>
+<p class="s">Era una violazione sacrilega: un esercito poteva entrare in armi a Roma solo nel giorno del trionfo. Per la prima volta gli effetti politici della riforma di Mario si vedevano in modo dirompente.</p>`,
+ words:[["Mitridate VI","re del Ponto, nemico di Roma in Oriente"],["Sulpicio Rufo","il tribuno che revocò il comando a Silla"],["sacrilego","che viola una regola sacra"]],
+ ask:["Perché la marcia di Silla su Roma è il segnale della crisi?","Perché mostra che le legioni ormai obbediscono al generale e non allo Stato: è esattamente l'effetto della riforma di Mario."]},
+
+{parte:5, t:"La guerra civile e la dittatura di Silla", when:"86–78 a.C.",
+ img:{src:IMG.silla, tall:true, cap:"Busto di Lucio Cornelio Silla, I secolo a.C. (Gliptoteca, Monaco di Baviera)."},
+ body:`<p class="s">Mario morì nell'ottantasei per malattia, cosa eccezionale per quel periodo. Sotto il console Cinna i popolari stavano trattando con gli ottimati, ma Cinna fu ucciso in una sommossa e i negoziati saltarono.</p>
+<p class="s">Nella primavera dell'ottantatré Silla sbarcò a Brindisi. Per due anni l'Italia fu sconvolta: nelle battaglie caddero almeno centomila uomini. Nel novembre dell'ottantadue Silla sconfisse i popolari appena fuori Roma, nella battaglia di Porta Collina.</p>
+<p class="s">Tornato a Roma, Silla ripristinò la dittatura, ma a tempo indeterminato e con il potere di emanare leggi: una cosa mai vista. Scrisse le liste di proscrizione, gli elenchi affissi in pubblico dei nemici per la cui uccisione c'era un premio.</p>
+<p class="s">Poi rafforzò il Senato: i senatori raddoppiarono da trecento a seicento e riebbero il monopolio dei tribunali, mentre i poteri dei tribuni della plebe furono ridotti quasi a nulla.</p>
+<p class="s">Nel settantanove abbandonò spontaneamente la vita politica e si ritirò in Campania. Morì l'anno dopo, nel settantotto, dopo aver restituito il controllo della Repubblica all'élite senatoria.</p>`,
+ words:[["dittatura","magistratura d'emergenza, normalmente di sei mesi: Silla la prese a tempo indeterminato"],["liste di proscrizione","gli elenchi pubblici dei nemici da uccidere, con premio e confisca dei beni"],["Porta Collina","la battaglia del novembre 82 a.C. alle porte di Roma"],["guerra civile","conflitto interno a una cittadinanza, fra fazioni dello stesso Stato"]],
+ ask:["Cosa c'è di inedito nella dittatura di Silla?","Era a tempo indeterminato, non di sei mesi, e gli dava il potere di emanare leggi. Un potere personale illimitato di un capo militare vittorioso."]},
+
+/* ---------- PARTE 7 ---------- */
+{parte:6, t:"Il filo di tutto il capitolo",
+ body:`<p class="s">Se dovessi raccontare tutto in un minuto, il filo è questo. Seguilo dall'alto in basso.</p>
+<div class="flow">
+<div class="st"><b>Conquiste</b>Arrivano ricchezze e schiavi a fiumi.</div>
+<div class="st"><b>Rovina dei contadini</b>I piccoli proprietari perdono la terra; nasce il latifondo.</div>
+<div class="st"><b>Crisi militare e sociale</b>Meno proprietari significa meno soldati, e Roma si riempie di proletari.</div>
+<div class="st"><b>Tentativo di riforma · i Gracchi</b>133 Tiberio, 123 Gaio. Falliscono. Entra la violenza politica.</div>
+<div class="st"><b>Soluzione militare · Mario</b>107: esercito di volontari. Il problema del reclutamento è risolto, ma le legioni diventano personali.</div>
+<div class="st"><b>Guerra civile · Silla</b>88 marcia su Roma, 82 dittatura. Il potere personale di un generale vince sulle istituzioni.</div>
+</div>
+<p class="s">La domanda da tenere in testa è una sola: ogni personaggio prova a risolvere la crisi dei contadini-soldati, e ogni soluzione crea un problema più grosso.</p>`,
+ ask:["Qual è il filo che collega Gracchi, Mario e Silla?","Tutti rispondono alla stessa crisi: i piccoli proprietari rovinati. I Gracchi con la terra, Mario con l'esercito di volontari, Silla con il potere personale."]},
+
+{parte:6, t:"Glossario: le parole da sapere",
+ body:`<p class="s">Queste sono le parole che il libro chiede nell'esercizio di lessico. Toccale una per volta e prova a dire il significato prima di aprirle.</p>`,
+ words:[
+  ["agro pubblico","ager publicus: la terra dello Stato romano, tolta ai popoli sconfitti. Doveva essere affittata, ma i ricchi se ne impadronirono."],
+  ["ergastolo","la prigione della fattoria dove gli schiavi agricoli venivano chiusi di notte. Oggi la parola indica il carcere a vita."],
+  ["iugero","unità di misura della terra: circa 2500 metri quadrati, un quarto di ettaro."],
+  ["latifondo","da latus, vasto, e fundus, podere: una proprietà terriera enorme, lavorata dagli schiavi."],
+  ["popolari","populares: gli aristocratici che, come i Gracchi, sostengono le riforme a favore del popolo."],
+  ["ottimati","optimates, da optimi, i migliori: gli aristocratici che difendono il Senato e i privilegi della nobilitas."],
+  ["ordine equestre","i cavalieri, equites: i cittadini ricchissimi non senatori, dediti ad affari, finanza e appalti."],
+  ["coorte","unità tattica di 500-600 soldati, formata da tre manipoli. Dieci coorti fanno una legione."],
+  ["centuriazione","limitatio: la divisione del territorio in centurie quadrate di 700 metri di lato, con decumano e cardo."],
+  ["plebiscito","la delibera votata dal concilio della plebe su proposta di un tribuno: valeva come legge per tutti."],
+  ["senatus consultum ultimum","il decreto d'emergenza con cui il Senato dava ai consoli pieni poteri contro un nemico interno."],
+  ["pubblicani","i cavalieri che prendevano in appalto la riscossione dei tributi nelle province."]
+ ]},
+
+{parte:6, t:"Le date da sapere a memoria",
+ body:`<table>
+<tr><th>Anno</th><th>Cosa succede</th></tr>
+<tr><td><b>218 a.C.</b></td><td>Lex Claudia: separazione fra carriera politica e carriera d'affari.</td></tr>
+<tr><td><b>136–132 a.C.</b></td><td>Prima rivolta servile in Sicilia, guidata da Èuno.</td></tr>
+<tr><td><b>133 a.C.</b></td><td>Tiberio Gracco tribuno, lex Sempronia. Viene ucciso nello stesso anno.</td></tr>
+<tr><td><b>123 a.C.</b></td><td>Gaio Gracco tribuno.</td></tr>
+<tr><td><b>121 a.C.</b></td><td>Morte di Gaio Gracco sull'Aventino.</td></tr>
+<tr><td><b>112 a.C.</b></td><td>Giugurta conquista Cirta.</td></tr>
+<tr><td><b>107 a.C.</b></td><td>Gaio Mario console. Riforma dell'esercito.</td></tr>
+<tr><td><b>105 a.C.</b></td><td>Armate romane sterminate ad Arausio.</td></tr>
+<tr><td><b>102 a.C.</b></td><td>Mario vince ad Aquae Sextiae (Teutoni).</td></tr>
+<tr><td><b>101 a.C.</b></td><td>Mario vince ai Campi Raudii (Cimbri).</td></tr>
+<tr><td><b>91–88 a.C.</b></td><td>Guerra sociale.</td></tr>
+<tr><td><b>88 a.C.</b></td><td>Silla marcia su Roma.</td></tr>
+<tr><td><b>82 a.C.</b></td><td>Battaglia di Porta Collina, dittatura di Silla.</td></tr>
+<tr><td><b>78 a.C.</b></td><td>Morte di Silla.</td></tr>
+</table>
+<p class="s">Un trucco per ricordarle: i due Gracchi sono a dieci anni di distanza, centotrentatré e centoventitré. Mario è centosette. Silla è ottantadue. Le date scendono, i problemi salgono.</p>`}
+];
+
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+const quizBox = document.getElementById("quiz");
+
+/* ═══════ indice delle parti ═══════ */
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+/* ═══════ disegna la carta ═══════ */
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  if(c.when) h += '<div class="when">'+c.when+'</div>';
+  if(c.img){
+    h += '<figure><img '+(c.img.tall?'class="tall" ':'')+'src="'+c.img.src+'" alt="'+c.t+'" loading="lazy" '
+      +'onerror="this.parentNode.style.display=&quot;none&quot;">'
+      +'<figcaption>'+c.img.cap+'</figcaption></figure>';
+  }
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{
+      h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>';
+    });
+    h += '<div id="defs"></div>';
+    c.words.forEach((w,i)=>{
+      h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>';
+    });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a dirlo, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += '</article>';
+  stage.innerHTML = h;
+
+  quizBox.hidden = !(idx === CARDS.length-1);
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{
+    b.className = (i===c.parte) ? "on" : "";
+  });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  document.getElementById("foot").textContent =
+    "Immagini da Wikimedia Commons. Contenuto dal libro di testo, capitoli 18 e 19.";
+  window.scrollTo(0,0);
+}
+
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+
+function flip(btn,i){
+  const d = document.getElementById("d"+i);
+  if(!d) return;
+  const on = d.classList.toggle("on");
+  btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  const a = btn.parentNode.querySelector(".a");
+  a.classList.add("on");
+  btn.style.display = "none";
+}
+
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+}
+
+/* scioglie le abbreviazioni, così la voce non legge "a punto C punto" */
+function say(t){
+  return t.replace(/a\.C\./g,"avanti Cristo")
+          .replace(/d\.C\./g,"dopo Cristo")
+          .replace(/ecc\./g,"eccetera")
+          .replace(/\s+/g," ")
+          .trim();
+}
+
+function toggleRead(){
+  if(reading) stop(); else start();
+}
+function start(){
+  if(!window.speechSynthesis){
+    alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome.");
+    return;
+  }
+  queue = Array.prototype.slice.call(stage.querySelectorAll("p.s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  document.getElementById("play").textContent = "■ Ferma";
+  document.getElementById("play").classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-130){
+    el.scrollIntoView({block:"center", behavior:"smooth"});
+  }
+  const u = new SpeechSynthesisUtterance(say(el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll("p.s.reading"),
+    x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+/* ═══════ quiz date ═══════ */
+const QUIZ = [
+  ["107 a.C.","Gaio Mario eletto console"],
+  ["105 a.C.","Armate romane sterminate ad Arausio"],
+  ["102 a.C.","Vittoria di Mario ad Aquae Sextiae"],
+  ["112 a.C.","Giugurta conquista la città di Cirta"],
+  ["101 a.C.","Vittoria di Mario ai Campi Raudii"],
+  ["123 a.C.","Elezione del tribuno Gaio Gracco"],
+  ["133 a.C.","Elezione del tribuno Tiberio Gracco"]
+];
+(function buildQuiz(){
+  const rows = document.getElementById("qrows");
+  const opzioni = QUIZ.map(q=>q[1]).slice().sort();
+  QUIZ.forEach((q,i)=>{
+    const d = document.createElement("div");
+    d.className = "qrow"; d.id = "qr"+i;
+    let o = '<option value="">— scegli —</option>';
+    opzioni.forEach(t=>{ o += '<option value="'+t+'">'+t+'</option>'; });
+    d.innerHTML = '<span class="d">'+q[0]+'</span><select id="qs'+i+'">'+o+'</select>';
+    rows.appendChild(d);
+  });
+})();
+function checkQuiz(){
+  let ok = 0;
+  QUIZ.forEach((q,i)=>{
+    const sel = document.getElementById("qs"+i);
+    const row = document.getElementById("qr"+i);
+    row.classList.remove("right","wrong");
+    if(!sel.value) return;
+    if(sel.value === q[1]){ row.classList.add("right"); ok++; }
+    else row.classList.add("wrong");
+  });
+  document.getElementById("qfb").textContent =
+    ok === QUIZ.length ? "Tutte giuste. Sei pronto su questa parte."
+                       : ok + " giuste su " + QUIZ.length + ". Rivedi quelle in rosso e riprova.";
+}
+
+render();
+</script>
+</body>
+</html>
