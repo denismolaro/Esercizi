@@ -21,6 +21,7 @@
   --a1:#0E7C86; --a1b:#E2F2F3;
   --a2:#B06A08; --a2b:#FBEEDA;
   --a3:#6244C0; --a3b:#EBE7FA;
+  --a4:#8C2F39; --a4b:#F7EAEB;
   --ok:#12703F; --okb:#E3F3E9;
   --wait:#8A5A12; --waitb:#FBF0DC;
   --r:14px;
@@ -75,12 +76,13 @@ button{font-family:inherit}
 .subj-0{border-left-color:var(--a1)} .subj-0 .k{color:var(--a1)}
 .subj-1{border-left-color:var(--a2)} .subj-1 .k{color:var(--a2)}
 .subj-2{border-left-color:var(--a3)} .subj-2 .k{color:var(--a3)}
+.subj-3{border-left-color:var(--a4)} .subj-3 .k{color:var(--a4)}
 /* titoli di sezione nella pagina iniziale */
 .sect{display:flex;align-items:center;gap:10px;margin:22px 0 10px;
   font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--a1)}
 .sect i{flex:1;height:1px;background:var(--line);display:block}
 .sect.first{margin-top:4px}
-.sect.s-0{color:var(--a1)} .sect.s-1{color:var(--a2)} .sect.s-2{color:var(--a3)}
+.sect.s-0{color:var(--a1)} .sect.s-1{color:var(--a2)} .sect.s-2{color:var(--a3)} .sect.s-3{color:var(--a4)}
 
 /* schede a tre forme */
 .trio{display:grid;gap:7px}
@@ -209,7 +211,7 @@ footer{margin-top:26px;font-size:12.5px;color:var(--ink-soft);text-align:center;
 .subjbtn .n{flex:1}
 .subjbtn .t{display:block;font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:700;line-height:1.05}
 .subjbtn .b{display:block;font-size:14px;color:var(--ink-soft);margin-top:4px}
-.subjbtn.s-0{border-left-color:var(--a1)} .subjbtn.s-1{border-left-color:var(--a2)} .subjbtn.s-2{border-left-color:var(--a3)}
+.subjbtn.s-0{border-left-color:var(--a1)} .subjbtn.s-1{border-left-color:var(--a2)} .subjbtn.s-2{border-left-color:var(--a3)} .subjbtn.s-3{border-left-color:var(--a4)}
 .tick{width:34px;height:34px;border-radius:50%;background:var(--ok);color:#fff;flex:none;
   display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700}
 .tick.off{background:var(--line);color:var(--ink-soft)}
@@ -268,15 +270,18 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "13";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
-const SUBJECTS = ["Inglese","Matematica","Fisica"];
+const APPVER = "14";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const SUBJECTS = ["Inglese","Matematica","Fisica","Storia"];
 const SCHEDE = {
   "Fisica":[{title:"Incertezze — allenamento",
              blurb:"Somma, differenza, prodotto, quoziente, potenza",
              href:"schede/26-09-19-fisica-incertezze.html"},
             {title:"Verifica teorica — 26 maggio 2026",
              blurb:"Ripasso + i 6 esercizi svolti passo a passo",
-             href:"schede/26-05-26-fisica-verifica-teorica.html"}]
+             href:"schede/26-05-26-fisica-verifica-teorica.html"}],
+  "Storia":[{title:"La grande crisi della Repubblica",
+             blurb:"Capitoli 18 e 19 — 28 carte con lettura ad alta voce",
+             href:"schede/26-09-20-storia-crisi-repubblica.html"}]
 };
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1190,7 +1195,9 @@ function vHome(){
             : g.length ? "Allenamento di oggi da fare"
             : "ancora niente";
     }else{
-      sotto = g.length ? g.length+(g.length===1?" argomento":" argomenti") : "ancora niente";
+      const nsc=((typeof SCHEDE!=="undefined" && SCHEDE[nome])||[]).length;
+      const tot=g.length+nsc;
+      sotto = tot ? tot+(tot===1?" argomento":" argomenti") : "ancora niente";
     }
     const spunta = (nome==="Inglese" && g.length)
       ? '<span class="tick'+(doneToday()?"":" off")+'">'+(doneToday()?"&#10003;":"&#183;")+'</span>' : "";
