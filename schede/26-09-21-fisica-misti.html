@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Esercizi misti in stile verifica</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:26px 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 20px; font-size:16px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:16px 0}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 14px}
+.dati{background:var(--accent-soft); border:1px solid #CBDAEC; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:600; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.res b{font-size:20px}
+.chk{display:flex; gap:8px; margin:10px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:12px 14px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus{outline:none; border-color:var(--accent)}
+.chk button{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 18px; font-weight:600}
+.lab{font-size:15px; color:var(--soft); font-weight:600; margin-top:12px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.opts{margin:10px 0 0}
+.opts button{display:block; width:100%; text-align:left; background:#fff; border:2px solid var(--rule);
+  border-radius:12px; padding:12px 16px; margin:0 0 8px; font-size:17px; color:var(--ink)}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); font-weight:600}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:17px}
+th,td{border:1px solid var(--rule); padding:8px 6px; text-align:center}
+th{background:var(--accent-soft); font-size:15px}
+svg{display:block; width:100%; height:auto; margin:10px 0}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Fisica · simulazione</div>
+  <h1>Esercizi misti in stile verifica</h1>
+  <p class="lead">Otto esercizi con le stesse richieste del compito: incertezze, misure ripetute, variabili e grafici, inversione di formula, radianti, inerzia. Prova tu, poi apri i passi uno alla volta.</p>
+</header>
+
+<!-- 1 -->
+<div class="card">
+  <div class="qnum">Esercizio 1 · incertezza percentuale</div>
+  <p class="qtext">Trova l'incertezza percentuale di <i>E</i>:</p>
+  <span class="f"><i>E</i> = <i>k</i> · ( <i>m</i> · <i>d</i> ) / <i>T</i></span>
+  <div class="dati">con <i>T</i> = <i>T</i><sub>2</sub> − <i>T</i><sub>1</sub> e:<br>
+    <i>k</i> = 1,5 ± 4% &nbsp;·&nbsp; <i>m</i> = (2,00 ± 0,08) kg &nbsp;·&nbsp; <i>d</i> = (25 ± 1) m<br>
+    <i>T</i><sub>1</sub> = (20 ± 1) s &nbsp;·&nbsp; <i>T</i><sub>2</sub> = (60 ± 3) s</div>
+  <div class="chk"><input id="i1" inputmode="decimal" placeholder="... %"><button onclick="chk('1',[22])">Controlla</button></div>
+  <div class="fb" id="f1"></div>
+  <button class="btn" onclick="step(this,'1')">Mostra il passo 1</button>
+  <div class="step" id="s1_1"><div class="sn">Passo 1 · le percentuali facili</div>
+    <p><i>k</i>: già data → <b>4%</b><br><i>m</i>: 0,08 / 2,00 · 100 = <b>4%</b><br><i>d</i>: 1 / 25 · 100 = <b>4%</b></p></div>
+  <div class="step" id="s1_2"><div class="sn">Passo 2 · T è una differenza</div>
+    <p>Valore: 60 − 20 = <b>40 s</b><br>Errore: <mark>sommo gli assoluti</mark> 1 + 3 = <b>4 s</b><br>e%<i>T</i> = 4 / 40 · 100 = <b>10%</b></p></div>
+  <div class="step" id="s1_3"><div class="sn">Passo 3 · ora è tutto × e ÷</div>
+    <span class="f">4% + 4% + 4% + 10%</span></div>
+  <div class="res" id="r1"><div class="lbl">Risposta</div><b>e%E = 22%</b><br>
+    <span style="font-size:16px">Anche qui la differenza dei tempi pesa da sola più di tutto il resto.</span></div>
+</div>
+
+<!-- 2 -->
+<div class="card">
+  <div class="qnum">Esercizio 2 · misura ripetuta e cifre significative</div>
+  <p class="qtext"><b>a)</b> Misurando quattro volte la stessa lunghezza si ottiene:</p>
+  <div class="dati">12,4 cm &nbsp; 12,7 cm &nbsp; 12,5 cm &nbsp; 12,8 cm</div>
+  <p class="qtext" style="font-size:17px">Scrivi il valore più attendibile e l'errore assoluto.</p>
+  <div class="lab">Valore medio (cm)</div>
+  <div class="chk"><input id="i2a" inputmode="decimal" placeholder="..."><button onclick="chk('2a',[12.6])">Controlla</button></div>
+  <div class="fb" id="f2a"></div>
+  <div class="lab">Errore assoluto (cm)</div>
+  <div class="chk"><input id="i2b" inputmode="decimal" placeholder="..."><button onclick="chk('2b',[0.2])">Controlla</button></div>
+  <div class="fb" id="f2b"></div>
+  <button class="btn" onclick="step(this,'2')">Mostra il passo 1</button>
+  <div class="step" id="s2_1"><div class="sn">Passo 1 · la media</div>
+    <span class="f">(12,4 + 12,7 + 12,5 + 12,8) / 4 = 50,4 / 4 = <b>12,6 cm</b></span></div>
+  <div class="step" id="s2_2"><div class="sn">Passo 2 · l'errore assoluto</div>
+    <span class="f">e<sub>a</sub> = (<i>x</i><sub>max</sub> − <i>x</i><sub>min</sub>) / 2 = (12,8 − 12,4) / 2 = <b>0,2 cm</b></span></div>
+  <div class="step" id="s2_3"><div class="sn">Passo 3 · punto b</div>
+    <p><b>b)</b> Un'altra serie dà media 4,732 s con e<sub>a</sub> = 0,18 s. Come si scrive?</p>
+    <p>L'incertezza si arrotonda a <mark>una sola cifra significativa</mark>: 0,18 → <b>0,2 s</b>.<br>
+    Poi la misura si allinea alla stessa posizione decimale: 4,732 → <b>4,7 s</b>.</p></div>
+  <div class="res" id="r2"><div class="lbl">Risposta</div>
+    <b>a) l = (12,6 ± 0,2) cm</b><br><b>b) t = (4,7 ± 0,2) s</b><br>
+    <span style="font-size:16px">Scrivere 4,732 ± 0,2 sarebbe sbagliato: dichiari millesimi che non conosci.</span></div>
+</div>
+
+<!-- 3 -->
+<div class="card">
+  <div class="qnum">Esercizio 3 · variabili, unità, grafico</div>
+  <p class="qtext">Considera la relazione <span class="f"><i>p</i> = <i>F</i> / <i>A</i></span>
+  con <i>F</i> = 20 N costante e <i>A</i> misurata in m².</p>
+  <p class="qtext" style="font-size:17px">a) Variabile dipendente e indipendente · b) unità di misura di <i>p</i> · c) 5 punti in tabella e grafico · d) che relazione è?</p>
+  <div class="lab">Quanto vale <i>p</i> quando A = 4 m²?</div>
+  <div class="chk"><input id="i3" inputmode="decimal" placeholder="..."><button onclick="chk('3',[5])">Controlla</button></div>
+  <div class="fb" id="f3"></div>
+  <div class="lab">Che tipo di relazione lega p e A?</div>
+  <div class="opts" data-ok="1">
+    <button onclick="pick(this,0,'f3b')">Proporzionalità diretta</button>
+    <button onclick="pick(this,1,'f3b')">Proporzionalità inversa</button>
+    <button onclick="pick(this,2,'f3b')">Relazione lineare</button>
+    <button onclick="pick(this,3,'f3b')">Proporzionalità quadratica</button>
+  </div>
+  <div class="fb" id="f3b"></div>
+  <button class="btn" onclick="step(this,'3')">Mostra il passo 1</button>
+  <div class="step" id="s3_1"><div class="sn">Passo 1 · chi ha il numero?</div>
+    <p><i>F</i> = 20 N è fissa → è una <b>costante</b>.<br>
+    <b>a)</b> indipendente = <mark><i>A</i></mark>, dipendente = <mark><i>p</i></mark>.</p></div>
+  <div class="step" id="s3_2"><div class="sn">Passo 2 · le unità</div>
+    <p><b>b)</b> N / m² = <b>N/m²</b> (si chiama pascal, Pa).</p></div>
+  <div class="step" id="s3_3"><div class="sn">Passo 3 · la tabella</div>
+    <span class="f"><i>p</i> = 20 / <i>A</i></span>
+    <table>
+      <tr><th>A (m²)</th><td>1</td><td>2</td><td>4</td><td>5</td><td>10</td></tr>
+      <tr><th>p (N/m²)</th><td>20</td><td>10</td><td>5</td><td>4</td><td>2</td></tr>
+    </table>
+    <p>Controllo: il <b>prodotto</b> p · A fa sempre 20.</p></div>
+  <div class="step" id="s3_4"><div class="sn">Passo 4 · il grafico</div>
+    <svg viewBox="0 0 420 230" role="img" aria-label="Iperbole decrescente">
+      <g stroke="#1B2430" stroke-width="2" fill="none"><path d="M60 20 V200 M55 200 H400"/></g>
+      <path d="M78 30 Q110 170 200 183 T380 193" stroke="#1D4E89" stroke-width="3" fill="none"/>
+      <g fill="#1D4E89"><circle cx="92" cy="45" r="5"/><circle cx="124" cy="122" r="5"/><circle cx="188" cy="161" r="5"/><circle cx="220" cy="169" r="5"/><circle cx="380" cy="193" r="5"/></g>
+      <g font-size="14" fill="#1B2430" font-family="-apple-system,Arial"><text x="378" y="220">A</text><text x="36" y="30">p</text></g>
+    </svg>
+    <p>Una <b>curva che scende</b> e non tocca mai gli assi: l'iperbole.</p></div>
+  <div class="res" id="r3"><div class="lbl">Risposta</div>
+    <b>a)</b> dipendente <i>p</i>, indipendente <i>A</i> · <b>b)</b> N/m² · <b>c)</b> p = 20/A · <b>d)</b> <b>proporzionalità inversa</b> (p · A = costante).</div>
+</div>
+
+<!-- 4 -->
+<div class="card">
+  <div class="qnum">Esercizio 4 · la stessa formula, due grafici</div>
+  <p class="qtext">Considera <span class="f"><i>E</i> = ½ · <i>m</i> · <i>v</i>²</span></p>
+  <div class="lab">Se la variabile indipendente è <b>v</b> (m costante), che relazione è?</div>
+  <div class="opts" data-ok="2">
+    <button onclick="pick(this,0,'f4a')">Proporzionalità diretta</button>
+    <button onclick="pick(this,1,'f4a')">Proporzionalità inversa</button>
+    <button onclick="pick(this,2,'f4a')">Proporzionalità quadratica</button>
+  </div>
+  <div class="fb" id="f4a"></div>
+  <div class="lab">Se invece la variabile indipendente è <b>m</b> (v costante)?</div>
+  <div class="opts" data-ok="0">
+    <button onclick="pick(this,0,'f4b')">Proporzionalità diretta</button>
+    <button onclick="pick(this,1,'f4b')">Proporzionalità inversa</button>
+    <button onclick="pick(this,2,'f4b')">Proporzionalità quadratica</button>
+  </div>
+  <div class="fb" id="f4b"></div>
+  <button class="btn" onclick="step(this,'4')">Mostra il passo 1</button>
+  <div class="step" id="s4_1"><div class="sn">Passo 1 · raccogli le costanti in k</div>
+    <p>Con <i>v</i> variabile: <i>E</i> = (½<i>m</i>) · <i>v</i>² = <b>k · v²</b><br>
+    Con <i>m</i> variabile: <i>E</i> = (½<i>v</i>²) · <i>m</i> = <b>k · m</b></p></div>
+  <div class="step" id="s4_2"><div class="sn">Passo 2 · i due grafici</div>
+    <svg viewBox="0 0 420 200" role="img" aria-label="Parabola e retta per l'origine">
+      <g stroke="#1B2430" stroke-width="2" fill="none"><path d="M30 20 V160 M25 160 H190"/><path d="M240 20 V160 M235 160 H400"/></g>
+      <path d="M30 160 Q130 158 180 30" stroke="#1D4E89" stroke-width="3" fill="none"/>
+      <path d="M240 160 L390 40" stroke="#1D4E89" stroke-width="3" fill="none"/>
+      <g font-size="14" fill="#1B2430" font-family="-apple-system,Arial">
+        <text x="178" y="180">v</text><text x="10" y="30">E</text>
+        <text x="388" y="180">m</text><text x="220" y="30">E</text></g>
+      <g font-size="13" fill="#5A6473" font-family="-apple-system,Arial"><text x="60" y="185">parabola</text><text x="280" y="185">retta</text></g>
+    </svg>
+    <p>Entrambi partono dall'origine, ma la parabola <b>cresce sempre più in fretta</b>.</p></div>
+  <div class="res" id="r4"><div class="lbl">Risposta</div>
+    <b>v indipendente → quadratica</b> (parabola) · <b>m indipendente → diretta</b> (retta per l'origine).<br>
+    <span style="font-size:16px">Il tipo di relazione dipende da <u>quale</u> simbolo scegli come variabile.</span></div>
+</div>
+
+<!-- 5 -->
+<div class="card">
+  <div class="qnum">Esercizio 5 · inversione di formula</div>
+  <p class="qtext">La densità è <span class="f">ρ = <i>m</i> / <i>V</i></span>
+  Un blocco di alluminio ha ρ = 2,7·10³ kg/m³ e <i>m</i> = 540 g.<br>Ricava il volume <i>V</i>, riportando tutti i passaggi.</p>
+  <div class="lab">Quanto vale V in cm³?</div>
+  <div class="chk"><input id="i5" inputmode="decimal" placeholder="... cm³"><button onclick="chk('5',[200])">Controlla</button></div>
+  <div class="fb" id="f5"></div>
+  <button class="btn" onclick="step(this,'5')">Mostra il passo 1</button>
+  <div class="step" id="s5_1"><div class="sn">Passo 1 · converti nel S.I.</div>
+    <p><i>m</i> = 540 g = <b>0,540 kg</b> &nbsp;(prima dei conti, sempre)</p></div>
+  <div class="step" id="s5_2"><div class="sn">Passo 2 · inverti</div>
+    <span class="f">ρ = <i>m</i>/<i>V</i> → ρ·<i>V</i> = <i>m</i> → <i>V</i> = <i>m</i>/ρ</span></div>
+  <div class="step" id="s5_3"><div class="sn">Passo 3 · sostituisci e controlla le unità</div>
+    <span class="f"><i>V</i> = 0,540 / 2700 = 2,0·10<sup>−4</sup></span>
+    <span class="f">kg / (kg/m³) = m³ ✓</span>
+    <p>In cm³: 2,0·10<sup>−4</sup> m³ · 10<sup>6</sup> = <b>200 cm³</b></p></div>
+  <div class="res" id="r5"><div class="lbl">Risposta</div><b>V = 2,0·10⁻⁴ m³</b> &nbsp;(cioè 200 cm³)</div>
+</div>
+
+<!-- 6 -->
+<div class="card">
+  <div class="qnum">Esercizio 6 · inversione con la radice</div>
+  <p class="qtext">Un cerchio ha area <i>A</i> = 12,56 m². Sapendo che <i>A</i> = π<i>r</i>² (usa π = 3,14), ricava il raggio <i>r</i>.</p>
+  <div class="chk"><input id="i6" inputmode="decimal" placeholder="r = ... m"><button onclick="chk('6',[2])">Controlla</button></div>
+  <div class="fb" id="f6"></div>
+  <button class="btn" onclick="step(this,'6')">Mostra il passo 1</button>
+  <div class="step" id="s6_1"><div class="sn">Passo 1 · isola il quadrato</div>
+    <span class="f"><i>A</i> = π<i>r</i>² → <i>r</i>² = <i>A</i>/π</span></div>
+  <div class="step" id="s6_2"><div class="sn">Passo 2 · togli il quadrato</div>
+    <span class="f"><i>r</i> = √( <i>A</i>/π ) = √( 12,56 / 3,14 ) = √4,00</span>
+    <p>Unità: √(m²) = <b>m</b> ✓</p></div>
+  <div class="res" id="r6"><div class="lbl">Risposta</div><b>r = 2,0 m</b></div>
+</div>
+
+<!-- 7 -->
+<div class="card">
+  <div class="qnum">Esercizio 7 · radianti</div>
+  <p class="qtext"><b>a)</b> Un angolo con vertice nel centro di una circonferenza di raggio <i>r</i> = 6,0 cm intercetta un arco lungo <i>s</i> = 15 cm. Quanto misura l'angolo in radianti?</p>
+  <div class="chk"><input id="i7a" inputmode="decimal" placeholder="... rad"><button onclick="chk('7a',[2.5])">Controlla</button></div>
+  <div class="fb" id="f7a"></div>
+  <p class="qtext" style="font-size:17px; margin-top:16px"><b>b)</b> Su una circonferenza di raggio 20 cm, quanto è lungo l'arco sotteso da un angolo di 0,50 rad?</p>
+  <div class="chk"><input id="i7b" inputmode="decimal" placeholder="... cm"><button onclick="chk('7b',[10])">Controlla</button></div>
+  <div class="fb" id="f7b"></div>
+  <button class="btn" onclick="step(this,'7')">Mostra il passo 1</button>
+  <div class="step" id="s7_1"><div class="sn">Passo 1 · la formula</div>
+    <span class="f">θ = <i>s</i> / <i>r</i> = 15 / 6,0 = <b>2,5</b></span>
+    <p>cm/cm si semplifica: il radiante è un <b>numero puro</b>. (Non serve convertire in metri: basta che siano la stessa unità.)</p></div>
+  <div class="step" id="s7_2"><div class="sn">Passo 2 · la stessa formula al contrario</div>
+    <span class="f"><i>s</i> = θ · <i>r</i> = 0,50 · 20 = <b>10 cm</b></span></div>
+  <div class="step" id="s7_3"><div class="sn">Passo 3 · in gradi, se serve</div>
+    <p>Mezzo giro = π rad = 180°, quindi 1 rad = 180/π ≈ 57°.<br>
+    2,5 rad ≈ 2,5 · 57° ≈ <b>143°</b> (poco meno di un angolo piatto: torna).</p></div>
+  <div class="res" id="r7"><div class="lbl">Risposta</div><b>a) θ = 2,5 rad</b> (≈ 143°) &nbsp;·&nbsp; <b>b) s = 10 cm</b></div>
+</div>
+
+<!-- 8 -->
+<div class="card">
+  <div class="qnum">Esercizio 8 · inerzia</div>
+  <p class="qtext">Una pallina legata a un filo viene fatta girare su un tavolo orizzontale e liscio, in un cerchio. A un certo punto il <b>filo si spezza</b>.<br>Che traiettoria segue la pallina subito dopo?</p>
+  <svg viewBox="0 0 420 240" role="img" aria-label="Pallina che gira legata a un filo">
+    <circle cx="190" cy="120" r="80" fill="none" stroke="#DCD7CC" stroke-width="2" stroke-dasharray="6 6"/>
+    <circle cx="190" cy="120" r="4" fill="#5A6473"/>
+    <path d="M190 120 L270 120" stroke="#1B2430" stroke-width="2"/>
+    <circle cx="270" cy="120" r="9" fill="#1B2430"/>
+    <path d="M270 120 L270 60" stroke="#1D4E89" stroke-width="3" marker-end="url(#a)"/>
+    <defs><marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#1D4E89"/></marker></defs>
+    <text x="278" y="60" font-size="14" fill="#1D4E89" font-family="-apple-system,Arial" font-weight="700">v</text>
+    <text x="150" y="112" font-size="13" fill="#5A6473" font-family="-apple-system,Arial">filo</text>
+  </svg>
+  <div class="opts" data-ok="1">
+    <button onclick="pick(this,0,'f8')">Continua a girare sullo stesso cerchio</button>
+    <button onclick="pick(this,1,'f8')">Va dritta lungo la tangente, nel verso di v</button>
+    <button onclick="pick(this,2,'f8')">Schizza via lungo il raggio, verso l'esterno</button>
+    <button onclick="pick(this,3,'f8')">Si ferma subito</button>
+  </div>
+  <div class="fb" id="f8"></div>
+  <button class="btn" onclick="step(this,'8')">Mostra il passo 1</button>
+  <div class="step" id="s8_1"><div class="sn">Passo 1 · chi la faceva curvare?</div>
+    <p>Il <b>filo</b>, che tirava verso il centro. È quella forza a piegare continuamente la traiettoria.</p></div>
+  <div class="step" id="s8_2"><div class="sn">Passo 2 · quando il filo si spezza</div>
+    <p>La forza verso il centro <b>sparisce</b>. Il tavolo è liscio, quindi in orizzontale non resta nessuna forza.</p></div>
+  <div class="step" id="s8_3"><div class="sn">Passo 3 · primo principio</div>
+    <p>Nessuna forza → <b>moto rettilineo uniforme</b> nella direzione che aveva in quell'istante: la <mark>tangente</mark>.</p>
+    <p>Non verso l'esterno: nessuno la sta spingendo via dal centro.</p></div>
+  <div class="res" id="r8"><div class="lbl">Risposta</div><b>Va dritta lungo la tangente</b>, con la velocità che aveva quando il filo si è rotto.</div>
+</div>
+
+<p class="foot">Palestra · Fisica — simulazione in stile verifica</p>
+
+</div>
+
+<script>
+var N={'1':3,'2':3,'3':4,'4':2,'5':3,'6':2,'7':3,'8':3};
+var cur={'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0};
+
+function step(btn,q){
+  cur[q]++;
+  var el=document.getElementById('s'+q+'_'+cur[q]);
+  if(el) el.classList.add('on');
+  if(cur[q]>=N[q]){ document.getElementById('r'+q).classList.add('on'); btn.style.display='none'; }
+  else { btn.textContent='Mostra il passo '+(cur[q]+1); btn.classList.add('solid'); }
+  if(el && el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function num(s){
+  var t=String(s).replace(',', '.').replace(/[^0-9.eE\-]/g,'');
+  var v=parseFloat(t);
+  return isNaN(v)?null:v;
+}
+function chk(q,ok){
+  var v=num(document.getElementById('i'+q).value);
+  var f=document.getElementById('f'+q);
+  if(v===null){ f.className='fb'; f.textContent=''; return; }
+  var hit=ok.some(function(a){ return Math.abs(a-v)<=Math.abs(a)*1e-6+1e-9; });
+  f.className='fb '+(hit?'y':'n');
+  f.textContent=hit?'✓ Esatto.':'✗ Non ancora. Apri il passo 1 e rifai il conto.';
+}
+
+function pick(btn,scelta,fbid){
+  var box=btn.parentNode, bs=box.querySelectorAll('button'), i;
+  var giusta=+box.getAttribute('data-ok');
+  for(i=0;i<bs.length;i++) bs[i].className='';
+  var ok=(scelta===giusta);
+  btn.className=ok?'right':'wrong';
+  if(!ok) bs[giusta].className='right';
+  var f=document.getElementById(fbid);
+  f.className='fb '+(ok?'y':'n');
+  f.textContent=ok?'✓ Esatto.':'✗ No. Apri i passi e guarda il ragionamento.';
+}
+</script>
+</body>
+</html>
