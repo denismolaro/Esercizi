@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Che relazione è?</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:26px 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 20px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.card h3{font-size:19px; margin:0 0 10px; letter-spacing:-.01em}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 14px}
+.box{background:var(--accent-soft); border:1px solid #CBDAEC; border-radius:12px; padding:14px 16px; margin:12px 0}
+.box .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:14px 16px; margin:12px 0; font-size:17px}
+.trap b{color:var(--warn)}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:600; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.res b{font-size:20px}
+.chk{display:flex; gap:8px; margin:10px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:12px 14px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus{outline:none; border-color:var(--accent)}
+.chk button{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 18px; font-weight:600}
+.lab{font-size:15px; color:var(--soft); font-weight:600; margin-top:12px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.row{border-top:1px solid var(--rule); padding:14px 0 4px}
+.row:first-of-type{border-top:none}
+.op{font-family:"Times New Roman",Georgia,serif; font-size:21px; margin-bottom:4px}
+.op i{font-style:italic}
+.varia{font-size:15px; font-family:-apple-system,Arial; color:var(--soft); margin-bottom:8px}
+.four{display:grid; grid-template-columns:1fr 1fr; gap:7px}
+.four button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:11px 4px;
+  font-size:15px; font-weight:600; color:var(--soft)}
+.four button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.four button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.score{font-size:15px; color:var(--soft); margin-top:14px; font-weight:600}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:17px}
+th,td{border:1px solid var(--rule); padding:8px 4px; text-align:center}
+th{background:var(--accent-soft); font-size:15px}
+svg{display:block; width:100%; height:auto; margin:10px 0}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Fisica · allenamento mirato</div>
+  <h1>Che relazione è?</h1>
+  <p class="lead">Trovare la variabile indipendente e riconoscere il tipo di relazione — da una formula, da una tabella, da un grafico.</p>
+</header>
+
+<div class="card">
+  <h3>Il metodo, sempre uguale</h3>
+  <div class="box">
+    <div class="lbl">Passo 1 · chi è costante, chi è variabile</div>
+    Se un simbolo ha un <b>valore numerico fisso</b>, è una costante.<br>
+    L'<b>indipendente</b> è quella che scelgo io (asse x), la <b>dipendente</b> è quella che esce dal calcolo (asse y).
+  </div>
+  <div class="box">
+    <div class="lbl">Passo 2 · riscrivi con una sola k</div>
+    Raccogli <u>tutte</u> le costanti in una sola lettera <b>k</b> e guarda che forma resta:
+    <span class="f"><i>y</i> = k·<i>x</i> &nbsp;|&nbsp; <i>y</i> = k/<i>x</i> &nbsp;|&nbsp; <i>y</i> = k·<i>x</i>² &nbsp;|&nbsp; <i>y</i> = k·<i>x</i> + q</span>
+  </div>
+  <svg viewBox="0 0 640 175" role="img" aria-label="I quattro grafici">
+    <g stroke="#DCD7CC" stroke-width="2" fill="none">
+      <path d="M20 140 H150 M20 140 V30"/><path d="M180 140 H310 M180 140 V30"/>
+      <path d="M340 140 H470 M340 140 V30"/><path d="M500 140 H630 M500 140 V30"/>
+    </g>
+    <g stroke="#1D4E89" stroke-width="3" fill="none">
+      <path d="M20 140 L140 40"/>
+      <path d="M32 35 Q55 125 145 133"/>
+      <path d="M340 140 Q420 138 468 35"/>
+      <path d="M500 105 L620 35"/>
+    </g>
+    <g font-size="13" fill="#5A6473" font-family="-apple-system,Arial" text-anchor="middle">
+      <text x="85" y="166">diretta</text><text x="85" y="20" fill="#1B2430" font-size="14">y = k·x</text>
+      <text x="245" y="166">inversa</text><text x="245" y="20" fill="#1B2430" font-size="14">y = k / x</text>
+      <text x="405" y="166">quadratica</text><text x="405" y="20" fill="#1B2430" font-size="14">y = k·x²</text>
+      <text x="565" y="166">lineare</text><text x="565" y="20" fill="#1B2430" font-size="14">y = k·x + q</text>
+    </g>
+  </svg>
+  <div class="box">
+    <div class="lbl">Passo 3 · i test sui numeri</div>
+    <table>
+      <tr><th>Relazione</th><th>Cosa resta costante</th><th>Se raddoppio x</th></tr>
+      <tr><td><b>diretta</b></td><td><i>y</i> / <i>x</i></td><td>y raddoppia</td></tr>
+      <tr><td><b>inversa</b></td><td><i>y</i> · <i>x</i></td><td>y si dimezza</td></tr>
+      <tr><td><b>quadratica</b></td><td><i>y</i> / <i>x</i>²</td><td>y diventa 4 volte</td></tr>
+      <tr><td><b>lineare</b></td><td>i <b>salti</b> di y a passi uguali di x</td><td>y non raddoppia</td></tr>
+    </table>
+  </div>
+  <div class="trap"><b>La domanda che scioglie tutto:</b> se <i>x</i> = 0, quanto vale <i>y</i>?<br>
+  Se viene <b>0</b> → la retta passa per l'origine → <b>diretta</b>.<br>
+  Se viene un <b>altro numero</b> → la retta è alzata → <b>lineare</b>.</div>
+</div>
+
+<h2>Blocco A — dalla formula</h2>
+
+<div class="card blk" id="A">
+  <p class="qtext" style="font-size:17px">Guarda <b>quale</b> è la variabile indipendente, raccogli le costanti in k e scegli.</p>
+
+  <div class="row"><div class="op"><i>v</i> = <i>s</i> / <i>t</i></div>
+    <div class="varia">variabile: <b>t</b> &nbsp;(s costante)</div>
+    <div class="four" data-ok="1"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row"><div class="op"><i>v</i> = <i>s</i> / <i>t</i></div>
+    <div class="varia">variabile: <b>s</b> &nbsp;(t costante)</div>
+    <div class="four" data-ok="0"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row"><div class="op"><i>F</i> = <i>m</i> · <i>a</i></div>
+    <div class="varia">variabile: <b>a</b> &nbsp;(m costante)</div>
+    <div class="four" data-ok="0"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row"><div class="op"><i>A</i> = <i>l</i>²</div>
+    <div class="varia">variabile: <b>l</b></div>
+    <div class="four" data-ok="2"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row"><div class="op"><i>s</i> = <i>s</i><sub>0</sub> + <i>v</i> · <i>t</i></div>
+    <div class="varia">variabile: <b>t</b> &nbsp;(s<sub>0</sub> = 5 m, v = 3 m/s)</div>
+    <div class="four" data-ok="3"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row"><div class="op"><i>p</i> = <i>F</i> / <i>A</i></div>
+    <div class="varia">variabile: <b>A</b> &nbsp;(F costante)</div>
+    <div class="four" data-ok="1"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row"><div class="op"><i>E</i> = ½ · <i>m</i> · <i>v</i>²</div>
+    <div class="varia">variabile: <b>v</b> &nbsp;(m costante)</div>
+    <div class="four" data-ok="2"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row"><div class="op"><i>C</i> = 2π<i>r</i></div>
+    <div class="varia">variabile: <b>r</b></div>
+    <div class="four" data-ok="0"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="score" id="scoreA">0 / 8</div>
+  <button class="btn" onclick="step(this,'A')">Vedi il ragionamento</button>
+  <div class="step" id="sA_1"><div class="sn">Le due righe uguali</div>
+    <p>La formula <i>v</i> = <i>s</i>/<i>t</i> è la stessa, ma cambia chi è la variabile:</p>
+    <p>• variabile a <b>denominatore</b> → <mark>inversa</mark> (<i>v</i> = k/<i>t</i>)<br>
+       • variabile a <b>numeratore</b> → <mark>diretta</mark> (<i>v</i> = k·<i>s</i>)</p></div>
+  <div class="step" id="sA_2"><div class="sn">Le altre</div>
+    <p><i>F</i> = <i>m·a</i> e <i>C</i> = 2π<i>r</i>: la variabile è moltiplicata per una costante → <b>diretta</b>.<br>
+       <i>A</i> = <i>l</i>² e <i>E</i> = ½<i>mv</i>²: la variabile è al quadrato → <b>quadratica</b>.<br>
+       <i>s</i> = <i>s</i><sub>0</sub> + <i>vt</i>: c'è un pezzo aggiunto che resta anche con t = 0 → <b>lineare</b>.</p></div>
+  <div class="res" id="rA"><div class="lbl">Da ricordare</div>
+    <b>Non guardare la formula: guarda dove sta la variabile.</b> Numeratore → diretta. Denominatore → inversa. Al quadrato → quadratica. Con un pezzo aggiunto → lineare.</div>
+</div>
+
+<h2>Blocco B — dalla tabella</h2>
+
+<div class="card blk" id="B">
+  <p class="qtext" style="font-size:17px">Qui non c'è la formula: hai solo i numeri. Fai il <b>test</b> (y/x, y·x, y/x², i salti).</p>
+
+  <div class="row">
+    <table><tr><th>x</th><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+           <tr><th>y</th><td>3</td><td>6</td><td>9</td><td>12</td></tr></table>
+    <div class="four" data-ok="0"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row">
+    <table><tr><th>x</th><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+           <tr><th>y</th><td>24</td><td>12</td><td>8</td><td>6</td></tr></table>
+    <div class="four" data-ok="1"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row">
+    <table><tr><th>x</th><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+           <tr><th>y</th><td>2</td><td>8</td><td>18</td><td>32</td></tr></table>
+    <div class="four" data-ok="2"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="row">
+    <table><tr><th>x</th><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+           <tr><th>y</th><td>5</td><td>7</td><td>9</td><td>11</td></tr></table>
+    <div class="four" data-ok="3"><button onclick="cls(this,0)">diretta</button><button onclick="cls(this,1)">inversa</button><button onclick="cls(this,2)">quadratica</button><button onclick="cls(this,3)">lineare</button></div></div>
+
+  <div class="score" id="scoreB">0 / 4</div>
+  <button class="btn" onclick="step(this,'B')">Vedi i test</button>
+  <div class="step" id="sB_1"><div class="sn">Tabella 1 e 2</div>
+    <p><b>1)</b> y/x = 3/1 = 6/2 = 9/3 = <b>3</b> sempre → <b>diretta</b> (y = 3x).<br>
+       <b>2)</b> y·x = 24 · 1 = 12 · 2 = 8 · 3 = <b>24</b> sempre → <b>inversa</b> (y = 24/x).</p></div>
+  <div class="step" id="sB_2"><div class="sn">Tabella 3 e 4</div>
+    <p><b>3)</b> y/x² = 2/1 = 8/4 = 18/9 = <b>2</b> sempre → <b>quadratica</b> (y = 2x²).<br>
+       Si vede anche così: x raddoppia da 1 a 2 e y fa ×4 (da 2 a 8).<br>
+       <b>4)</b> i salti sono +2, +2, +2 (regolari) ma y/x = 5, 3,5, 3 <b>non</b> è costante → <b>lineare</b> (y = 2x + 3).</p></div>
+  <div class="step" id="sB_3"><div class="sn">Il controllo finale</div>
+    <p>Nella tabella 4, per x = 0 verrebbe y = 3: <b>non parte da zero</b>, quindi non è diretta.</p></div>
+  <div class="res" id="rB"><div class="lbl">Ordine dei test</div>
+    1) Provo <b>y/x</b>: costante → diretta. 2) Provo <b>y·x</b>: costante → inversa. 3) Provo <b>y/x²</b>: costante → quadratica. 4) Se i salti sono regolari ma niente di tutto questo → lineare.</div>
+</div>
+
+<h2>Blocco C — esercizi completi</h2>
+
+<!-- C1 -->
+<div class="card">
+  <div class="qnum">Esercizio 1</div>
+  <p class="qtext">Considera <span class="f"><i>I</i> = <i>V</i> / <i>R</i></span>
+  con <i>V</i> = 12 volt costante e <i>R</i> misurata in ohm (Ω).</p>
+  <div class="lab">Quanto vale I se R = 3 Ω?</div>
+  <div class="chk"><input id="i1" inputmode="decimal" placeholder="..."><button onclick="chk('1',[4])">Controlla</button></div>
+  <div class="fb" id="f1"></div>
+  <div class="lab">Che relazione lega I e R?</div>
+  <div class="opts four" data-ok="1"><button onclick="pick(this,0,'f1b')">diretta</button><button onclick="pick(this,1,'f1b')">inversa</button><button onclick="pick(this,2,'f1b')">quadratica</button><button onclick="pick(this,3,'f1b')">lineare</button></div>
+  <div class="fb" id="f1b"></div>
+  <button class="btn" onclick="step(this,'1')">Mostra il passo 1</button>
+  <div class="step" id="s1_1"><div class="sn">Passo 1 · variabili</div>
+    <p>V = 12 è fisso → costante.<br>Indipendente = <mark>R</mark> · dipendente = <mark>I</mark>.</p></div>
+  <div class="step" id="s1_2"><div class="sn">Passo 2 · forma e tabella</div>
+    <span class="f"><i>I</i> = 12 / <i>R</i> &nbsp;→&nbsp; y = k/x</span>
+    <table><tr><th>R (Ω)</th><td>2</td><td>3</td><td>4</td><td>6</td><td>12</td></tr>
+           <tr><th>I (A)</th><td>6</td><td>4</td><td>3</td><td>2</td><td>1</td></tr></table>
+    <p>Test: I · R = 12 sempre ✓</p></div>
+  <div class="res" id="r1"><div class="lbl">Risposta</div>
+    Indipendente <b>R</b>, dipendente <b>I</b> · unità: volt/ohm = <b>ampere</b> · <b>proporzionalità inversa</b>, grafico a iperbole.</div>
+</div>
+
+<!-- C2 -->
+<div class="card">
+  <div class="qnum">Esercizio 2</div>
+  <p class="qtext">Considera <span class="f"><i>d</i> = ½ · <i>a</i> · <i>t</i>²</span>
+  con <i>a</i> = 4 m/s² costante e <i>t</i> in secondi.</p>
+  <div class="lab">Quanto vale d dopo t = 3 s?</div>
+  <div class="chk"><input id="i2" inputmode="decimal" placeholder="... m"><button onclick="chk('2',[18])">Controlla</button></div>
+  <div class="fb" id="f2"></div>
+  <div class="lab">Che relazione lega d e t?</div>
+  <div class="opts four" data-ok="2"><button onclick="pick(this,0,'f2b')">diretta</button><button onclick="pick(this,1,'f2b')">inversa</button><button onclick="pick(this,2,'f2b')">quadratica</button><button onclick="pick(this,3,'f2b')">lineare</button></div>
+  <div class="fb" id="f2b"></div>
+  <button class="btn" onclick="step(this,'2')">Mostra il passo 1</button>
+  <div class="step" id="s2_1"><div class="sn">Passo 1 · raccogli le costanti</div>
+    <span class="f"><i>d</i> = ½ · 4 · <i>t</i>² = 2·<i>t</i>² &nbsp;→&nbsp; y = k·x²</span></div>
+  <div class="step" id="s2_2"><div class="sn">Passo 2 · la tabella</div>
+    <table><tr><th>t (s)</th><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+           <tr><th>d (m)</th><td>0</td><td>2</td><td>8</td><td>18</td></tr></table>
+    <p>Da t = 1 a t = 2 il tempo raddoppia e lo spazio fa <b>×4</b>: firma della quadratica.</p></div>
+  <div class="step" id="s2_3"><div class="sn">Passo 3 · unità e grafico</div>
+    <p>m/s² · s² = <b>m</b> ✓ — Il grafico è un <b>ramo di parabola</b> che parte dall'origine e si impenna.</p></div>
+  <div class="res" id="r2"><div class="lbl">Risposta</div>
+    d = 2t², dopo 3 s → <b>18 m</b> · <b>proporzionalità quadratica</b>.</div>
+</div>
+
+<!-- C3 -->
+<div class="card">
+  <div class="qnum">Esercizio 3 · la più insidiosa</div>
+  <p class="qtext">Una molla lunga 10 cm si allunga di 0,5 cm per ogni newton applicato:</p>
+  <span class="f"><i>L</i> = 10 + 0,5 · <i>F</i></span>
+  <p class="qtext" style="font-size:17px">con <i>L</i> in cm e <i>F</i> in newton.</p>
+  <div class="lab">Quanto è lunga la molla con F = 6 N?</div>
+  <div class="chk"><input id="i3" inputmode="decimal" placeholder="... cm"><button onclick="chk('3',[13])">Controlla</button></div>
+  <div class="fb" id="f3"></div>
+  <div class="lab">Che relazione lega L e F?</div>
+  <div class="opts four" data-ok="3"><button onclick="pick(this,0,'f3b')">diretta</button><button onclick="pick(this,1,'f3b')">inversa</button><button onclick="pick(this,2,'f3b')">quadratica</button><button onclick="pick(this,3,'f3b')">lineare</button></div>
+  <div class="fb" id="f3b"></div>
+  <button class="btn" onclick="step(this,'3')">Mostra il passo 1</button>
+  <div class="step" id="s3_1"><div class="sn">Passo 1 · la tabella</div>
+    <table><tr><th>F (N)</th><td>0</td><td>2</td><td>4</td><td>6</td></tr>
+           <tr><th>L (cm)</th><td>10</td><td>11</td><td>12</td><td>13</td></tr></table></div>
+  <div class="step" id="s3_2"><div class="sn">Passo 2 · perché non è diretta</div>
+    <p>Da F = 2 a F = 4 la forza <b>raddoppia</b>, ma L passa da 11 a 12: <b>non</b> raddoppia.<br>
+    E con F = 0 la molla è lunga <b>10 cm</b>, non 0: la retta <b>non passa per l'origine</b>.</p></div>
+  <div class="step" id="s3_3"><div class="sn">Passo 3 · il grafico</div>
+    <svg viewBox="0 0 420 220" role="img" aria-label="Retta che parte da 10">
+      <g stroke="#1B2430" stroke-width="2" fill="none"><path d="M60 20 V190 M55 190 H400"/></g>
+      <path d="M60 150 L360 60" stroke="#1D4E89" stroke-width="3" fill="none"/>
+      <g fill="#1D4E89"><circle cx="60" cy="150" r="5"/><circle cx="160" cy="120" r="5"/><circle cx="260" cy="90" r="5"/><circle cx="360" cy="60" r="5"/></g>
+      <path d="M60 150 L55 150" stroke="#1B2430" stroke-width="2"/>
+      <text x="26" y="155" font-size="13" fill="#5A6473" font-family="-apple-system,Arial">10</text>
+      <g font-size="14" fill="#1B2430" font-family="-apple-system,Arial"><text x="374" y="210">F</text><text x="36" y="30">L</text></g>
+      <text x="120" y="182" font-size="13" fill="#8A5A00" font-family="-apple-system,Arial">parte da 10, non da 0</text>
+    </svg></div>
+  <div class="res" id="r3"><div class="lbl">Risposta</div>
+    L = 13 cm · <b>relazione lineare</b> (y = kx + q), <u>non</u> proporzionalità diretta.<br>
+    <span style="font-size:16px">È proporzionale l'<b>allungamento</b> (L − 10), non la lunghezza totale.</span></div>
+</div>
+
+<p class="foot">Palestra · Fisica — riconoscere le relazioni</p>
+
+</div>
+
+<script>
+var N={'A':2,'B':3,'1':2,'2':3,'3':3};
+var cur={'A':0,'B':0,'1':0,'2':0,'3':0};
+
+function step(btn,q){
+  cur[q]++;
+  var el=document.getElementById('s'+q+'_'+cur[q]);
+  if(el) el.classList.add('on');
+  if(cur[q]>=N[q]){ document.getElementById('r'+q).classList.add('on'); btn.style.display='none'; }
+  else { btn.textContent='Continua'; btn.classList.add('solid'); }
+  if(el && el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function num(s){
+  var t=String(s).replace(',', '.').replace(/[^0-9.eE\-]/g,'');
+  var v=parseFloat(t);
+  return isNaN(v)?null:v;
+}
+function chk(q,ok){
+  var v=num(document.getElementById('i'+q).value);
+  var f=document.getElementById('f'+q);
+  if(v===null){ f.className='fb'; f.textContent=''; return; }
+  var hit=ok.some(function(a){ return Math.abs(a-v)<=Math.abs(a)*1e-6+1e-9; });
+  f.className='fb '+(hit?'y':'n');
+  f.textContent=hit?'✓ Esatto.':'✗ Non ancora. Apri il passo 1.';
+}
+
+function segna(box,btn,scelta){
+  var bs=box.querySelectorAll('button'), i;
+  var giusta=+box.getAttribute('data-ok');
+  for(i=0;i<bs.length;i++) bs[i].className='';
+  var ok=(scelta===giusta);
+  btn.className=ok?'right':'wrong';
+  if(!ok) bs[giusta].className='right';
+  return ok;
+}
+function pick(btn,scelta,fbid){
+  var ok=segna(btn.parentNode,btn,scelta);
+  var f=document.getElementById(fbid);
+  f.className='fb '+(ok?'y':'n');
+  f.textContent=ok?'✓ Esatto.':'✗ No. Guarda dove sta la variabile, poi apri i passi.';
+}
+function cls(btn,scelta){
+  var box=btn.parentNode;
+  var ok=segna(box,btn,scelta);
+  box.setAttribute('data-done',ok?'1':'0');
+  var blk=box;
+  while(blk && !(typeof blk.className==='string' && blk.className.indexOf('blk')>=0)) blk=blk.parentNode;
+  if(!blk) return;
+  var all=blk.querySelectorAll('.four'), n=0, t=0, i;
+  for(i=0;i<all.length;i++){
+    var v=all[i].getAttribute('data-done');
+    if(v!==null){ t++; if(v==='1') n++; }
+  }
+  var sc=document.getElementById('score'+blk.id);
+  if(sc) sc.textContent=n+' / '+all.length+(t<all.length?' (ne mancano '+(all.length-t)+')':'');
+}
+</script>
+</body>
+</html>
