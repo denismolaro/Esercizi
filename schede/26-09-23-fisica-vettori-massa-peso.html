@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Vettori, forze, massa e peso, radianti</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --mod:#1D4E89; --dir:#1F7A4D; --ver:#B3261E;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:26px 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 20px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.card h3{font-size:19px; margin:0 0 10px; letter-spacing:-.01em}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 14px}
+.box{background:var(--accent-soft); border:1px solid #CBDAEC; border-radius:12px; padding:14px 16px; margin:12px 0}
+.box .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:14px 16px; margin:12px 0; font-size:17px}
+.trap b{color:var(--warn)}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:600; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.btn.half{width:auto; flex:1; font-size:16px; padding:12px 8px}
+.btns{display:flex; gap:8px; flex-wrap:wrap}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:12px 14px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus{outline:none; border-color:var(--accent)}
+.chk button{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 18px; font-weight:600}
+.lab{font-size:17px; margin-top:16px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.row{border-top:1px solid var(--rule); padding:14px 0 6px}
+.row:first-child{border-top:none}
+.op{font-size:18px; margin-bottom:8px}
+.opts{display:grid; gap:7px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opts.four{grid-template-columns:repeat(4,1fr)}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:11px 4px;
+  font-size:16px; font-weight:600; color:var(--soft)}
+.opts.arw button{font-size:26px; line-height:1; padding:10px 4px; color:var(--ink)}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+.why{display:none; font-size:16px; color:var(--soft); margin:8px 0 2px; line-height:1.55}
+.why.on{display:block}
+.score{font-size:15px; color:var(--soft); margin-top:14px; font-weight:600}
+.tri{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:6px}
+.tri button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 2px; font-size:15px; font-weight:700}
+.tri button[data-k="m"]{color:var(--mod)} .tri button[data-k="d"]{color:var(--dir)} .tri button[data-k="v"]{color:var(--ver)}
+.tri button[data-k="0"]{color:var(--soft)}
+.tri button.sel{background:var(--ink); border-color:var(--ink); color:#fff}
+.pair{border-top:1px solid var(--rule); padding:12px 0 8px}
+.pair:first-child{border-top:none}
+.pair .chkb{margin-top:8px; width:100%; border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:11px; padding:10px; font-weight:600}
+.cm{color:var(--mod); font-weight:700} .cd{color:var(--dir); font-weight:700} .cv{color:var(--ver); font-weight:700}
+.pills{display:flex; gap:6px; flex-wrap:wrap; margin:8px 0 2px}
+.pill{border:2px solid var(--rule); border-radius:999px; padding:3px 12px; font-size:15px; font-weight:700; color:var(--soft)}
+.pill.chg{color:#fff}
+.pill.chg.pm{background:var(--mod); border-color:var(--mod)}
+.pill.chg.pd{background:var(--dir); border-color:var(--dir)}
+.pill.chg.pv{background:var(--ver); border-color:var(--ver)}
+.say{font-size:17px; min-height:2.9em; margin:6px 0 0}
+.ordbtns{display:flex; flex-wrap:wrap; gap:7px; margin:8px 0}
+.ordbtns button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; font-size:16px; font-weight:600; color:var(--ink); text-align:left}
+.ordbtns button.used{opacity:.3}
+ol.seq{margin:6px 0; padding-left:26px; min-height:1.5em}
+ol.seq li{font-weight:600}
+ol.seq.y li{color:var(--ok)} ol.seq.n li{color:var(--no)}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:8px 6px; text-align:center; vertical-align:middle}
+th{background:var(--accent-soft); font-size:15px}
+td.l{text-align:left; color:var(--soft); font-size:15px}
+svg{display:block; width:100%; height:auto; margin:10px 0}
+.cp{cursor:pointer}
+.v{position:relative; display:inline-block; font-family:"Times New Roman",Georgia,serif; font-style:italic; padding-top:.28em; line-height:1}
+.v::after{content:"\2192"; position:absolute; left:0; right:0; top:-.22em; text-align:center; font-style:normal; font-size:.72em}
+.map{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.map div{border:1px solid var(--rule); border-radius:12px; padding:10px 12px; font-size:16px; line-height:1.5}
+.map b{display:block; font-size:15px; color:var(--accent); margin-bottom:2px}
+.map .wide{grid-column:1 / -1}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (max-width:420px){ .map{grid-template-columns:1fr} .opts button{font-size:15px} }
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto!important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Fisica · verso il compito</div>
+  <h1>Vettori, forze, massa e peso, radianti</h1>
+  <p class="lead">Scalari e vettori, modulo direzione e verso, la forza, la massa e le sue unità, la differenza tra massa e peso, e perché il giro vale 2π radianti. Prova sempre prima tu, poi apri i passi.</p>
+</header>
+
+<!-- ═══════════════ BLOCCO A ═══════════════ -->
+<h2>Blocco A — scalari e vettori</h2>
+
+<div class="card">
+  <h3>Due tipi di grandezze</h3>
+  <div class="box">
+    <div class="lbl">Scalare</div>
+    Basta <b>un numero con l'unità di misura</b>.<br>
+    <span style="color:var(--soft)">20 °C · 5 minuti · 60 kg · 2 litri</span>
+  </div>
+  <div class="box">
+    <div class="lbl">Vettore</div>
+    Serve una <b>freccia</b>: il numero da solo non basta, bisogna dire anche <b>dove</b> va.<br>
+    <span style="color:var(--soft)">1,5 km verso sud-ovest · una forza di 20 N verso l'alto</span>
+  </div>
+  <p>Un vettore si descrive con tre cose:</p>
+  <svg id="anat" viewBox="0 0 460 200" role="img" aria-label="Una freccia con modulo, direzione e verso"></svg>
+  <table>
+    <tr><td class="cm">modulo</td><td class="l">quanto è <b>lunga</b> la freccia: un numero positivo con l'unità (es. 1,5 km)</td></tr>
+    <tr><td class="cd">direzione</td><td class="l">la <b>retta</b> su cui sta la freccia (orizzontale, verticale, nord–sud…)</td></tr>
+    <tr><td class="cv">verso</td><td class="l">da che parte <b>punta</b> sulla retta (la punta della freccia)</td></tr>
+  </table>
+  <div class="trap"><b>Il test veloce:</b> ha senso chiedere «<i>verso dove?</i>»<br>
+  Sì → <b>vettore</b>. &nbsp;No → <b>scalare</b>.</div>
+</div>
+
+<div class="card">
+  <h3>Direzione e verso non sono la stessa cosa</h3>
+  <svg id="dirver" viewBox="0 0 460 220" role="img" aria-label="Frecce con stessa direzione e verso opposto, e una con direzione diversa"></svg>
+  <p style="margin:4px 0">Le frecce <b>1</b> e <b>2</b> stanno su rette parallele: <span class="cd">stessa direzione</span> (orizzontale), ma una punta a destra e l'altra a sinistra: <span class="cv">verso opposto</span>.<br>
+  La freccia <b>3</b> sta su una retta verticale: <span class="cd">direzione diversa</span>.</p>
+  <div class="trap"><b>Regola:</b> il verso si confronta <b>solo</b> tra frecce con la stessa direzione. Una retta ha due versi possibili, non di più.</div>
+  <div class="box">
+    <div class="lbl">Come si scrive</div>
+    <span class="v">A</span> con la freccia sopra = il vettore intero.<br>
+    <i style="font-family:'Times New Roman',Georgia,serif">A</i> senza freccia (oppure |<span class="v">A</span>|) = solo il <span class="cm">modulo</span>, cioè un numero.<br>
+    −<span class="v">A</span> = il <b>vettore opposto</b>: stesso modulo, stessa direzione, <span class="cv">verso contrario</span>.
+  </div>
+</div>
+
+<div class="card blk" id="A1">
+  <div class="qnum">Esercizio A1 · scalare o vettore?</div>
+  <p class="qtext" style="font-size:17px">Una risposta per riga, e non si cambia: pensa prima di toccare. Usa il test «verso dove?».</p>
+  <div class="rows">
+    <div class="row"><div class="op">Alle <b>10:45</b> Yuri parte (istante di tempo)</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">Un orario non va da nessuna parte: è solo un numero.</div></div>
+    <div class="row"><div class="op">Uno <b>spostamento di 3 km verso est</b></div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">C'è il verso (est): è una freccia.</div></div>
+    <div class="row"><div class="op">La <b>massa</b> di Liam: 60 kg</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">La massa non punta da nessuna parte: scalare.</div></div>
+    <div class="row"><div class="op">La <b>distanza percorsa</b> in bici: 3 km</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">La distanza dice solo quanta strada hai fatto, non dove sei arrivato. Lo <b>spostamento</b> invece è un vettore.</div></div>
+    <div class="row"><div class="op">Una <b>forza di 20 N</b> verso l'alto</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">Ogni forza è un vettore: ha modulo (20 N), direzione e verso.</div></div>
+    <div class="row"><div class="op">Dopo <b>5 minuti</b> (intervallo di tempo)</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">Anche l'intervallo di tempo è solo un numero con l'unità.</div></div>
+    <div class="row"><div class="op">Il <b>peso</b> di un sacco: 98 N</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">Trabocchetto: il verso non è scritto, ma il peso è una <b>forza</b> e punta sempre verso il basso. Vettore.</div></div>
+    <div class="row"><div class="op">La <b>temperatura</b> della stanza: 18 °C</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">«18 °C verso dove?» non ha senso: scalare.</div></div>
+    <div class="row"><div class="op">Una <b>velocità di 50 km/h verso nord</b></div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">Ha direzione e verso (nord): vettore.</div></div>
+    <div class="row"><div class="op">Il <b>volume</b> di una bottiglia: 1,5 L</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">scalare</button><button onclick="scegli(this,1)">vettore</button></div>
+      <div class="why">Il volume è solo «quanto spazio»: scalare.</div></div>
+  </div>
+  <div class="score" id="scoreA1">0 / 10</div>
+  <button class="btn" id="redoA1" style="display:none" onclick="rifai('A1')">Rifai in un altro ordine</button>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio A2 · tocca la freccia giusta</div>
+  <p class="qtext" style="font-size:17px" id="bq">…</p>
+  <svg id="buss" viewBox="0 0 300 300" role="img" aria-label="Rosa dei venti con otto frecce" style="max-width:340px; margin:0 auto"></svg>
+  <div class="fb" id="bfb"></div>
+  <button class="btn solid" id="bnext" style="display:none" onclick="bussolaNext()">Prossima</button>
+</div>
+
+<!-- ═══════════════ BLOCCO B ═══════════════ -->
+<h2>Blocco B — cosa cambia?</h2>
+
+<div class="card">
+  <h3>Prova tu: cambia una cosa alla volta</h3>
+  <p style="margin:0 0 4px; font-size:17px">La freccia tratteggiata è com'era prima. Guarda cosa cambia e cosa resta uguale.</p>
+  <svg id="play" viewBox="0 0 400 256" role="img" aria-label="Freccia da modificare"></svg>
+  <div class="pills"><span class="pill pm" id="pm">modulo</span><span class="pill pd" id="pd">direzione</span><span class="pill pv" id="pv">verso</span></div>
+  <p class="say" id="psay">Tocca un pulsante.</p>
+  <div class="btns">
+    <button class="btn half" onclick="gioca('m')">Cambia modulo</button>
+    <button class="btn half" onclick="gioca('d')">Cambia direzione</button>
+  </div>
+  <div class="btns">
+    <button class="btn half" onclick="gioca('v')">Cambia verso</button>
+    <button class="btn half" onclick="gioca('s')">Sposta la freccia</button>
+  </div>
+  <div class="trap" style="margin-top:14px"><b>Da ricordare:</b> se sposti una freccia senza girarla né allungarla, è <b>lo stesso vettore</b>. Conta com'è fatta, non dove sta.</div>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio B1 · confronta le coppie</div>
+  <p class="qtext" style="font-size:17px">Per ogni coppia scegli <b>tutto</b> quello che è diverso (anche più di una casella), poi controlla. Conta i quadretti.</p>
+  <div id="pairs"></div>
+</div>
+
+<!-- ═══════════════ BLOCCO C ═══════════════ -->
+<h2>Blocco C — la forza è un vettore</h2>
+
+<div class="card">
+  <h3>La forza</h3>
+  <svg id="forze" viewBox="0 0 460 195" role="img" aria-label="Una spinta orizzontale su una scatola e il peso di una mela"></svg>
+  <div class="box">
+    <div class="lbl">In breve</div>
+    Una forza <b>cambia la velocità</b> di un corpo (lo mette in moto, lo frena, lo fa curvare) oppure lo <b>deforma</b>.<br>
+    Unità di misura: il <b>newton</b> (N). Si misura con il <b>dinamometro</b>, una molla con una scala.<br>
+    Si disegna con una freccia che parte dal punto in cui la forza agisce (il <b>punto di applicazione</b>).
+  </div>
+  <p style="font-size:16px; color:var(--soft); margin:6px 0 0">Nel libro trovi tre forze: la forza elastica (molla), la forza-peso e la forza di attrito. Qui ci serve soprattutto la forza-peso.</p>
+</div>
+
+<div class="card blk" id="C1">
+  <div class="qnum">Esercizio C1 · che verso ha la forza?</div>
+  <div class="rows">
+    <div class="row"><div class="op">Il <b>peso</b> di una mela appesa all'albero</div>
+      <div class="opts four arw" data-ok="2"><button onclick="scegli(this,0)" aria-label="su">↑</button><button onclick="scegli(this,1)" aria-label="destra">→</button><button onclick="scegli(this,2)" aria-label="giù">↓</button><button onclick="scegli(this,3)" aria-label="sinistra">←</button></div>
+      <div class="why">Il peso punta sempre verso il basso, verso il centro della Terra.</div></div>
+    <div class="row"><div class="op">La tua mano che <b>solleva</b> lo zaino</div>
+      <div class="opts four arw" data-ok="0"><button onclick="scegli(this,0)" aria-label="su">↑</button><button onclick="scegli(this,1)" aria-label="destra">→</button><button onclick="scegli(this,2)" aria-label="giù">↓</button><button onclick="scegli(this,3)" aria-label="sinistra">←</button></div>
+      <div class="why">Sollevare = tirare verso l'alto.</div></div>
+    <div class="row"><div class="op">Una slitta scivola <b>verso destra</b>: la forza di <b>attrito</b> della neve</div>
+      <div class="opts four arw" data-ok="3"><button onclick="scegli(this,0)" aria-label="su">↑</button><button onclick="scegli(this,1)" aria-label="destra">→</button><button onclick="scegli(this,2)" aria-label="giù">↓</button><button onclick="scegli(this,3)" aria-label="sinistra">←</button></div>
+      <div class="why">L'attrito <b>si oppone</b> al movimento: stessa direzione, verso opposto. Se la slitta va a destra, l'attrito tira a sinistra.</div></div>
+    <div class="row"><div class="op">Tiri la slitta con la corda <b>verso destra</b></div>
+      <div class="opts four arw" data-ok="1"><button onclick="scegli(this,0)" aria-label="su">↑</button><button onclick="scegli(this,1)" aria-label="destra">→</button><button onclick="scegli(this,2)" aria-label="giù">↓</button><button onclick="scegli(this,3)" aria-label="sinistra">←</button></div>
+      <div class="why">La forza ha il verso in cui tiri.</div></div>
+  </div>
+  <div class="score" id="scoreC1">0 / 4</div>
+  <button class="btn" id="redoC1" style="display:none" onclick="rifai('C1')">Rifai in un altro ordine</button>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio C2 · la forza disegnata in scala</div>
+  <p class="qtext" style="font-size:17px">Nel disegno ogni quadretto vale un certo numero di newton (è scritto nella <b>scala</b>). Il modulo = quadretti × valore di un quadretto.</p>
+  <svg id="sc1" viewBox="0 0 400 110" role="img" aria-label="Forza orizzontale su quadretti, scala 1 quadretto uguale 5 newton"></svg>
+  <div class="lab"><b>a)</b> Quanto vale il modulo di <span class="v">F</span><sub>1</sub>?</div>
+  <div class="chk"><input id="ic2a" inputmode="decimal" placeholder="... N" autocomplete="off"><button onclick="chk('c2a')">Controlla</button></div>
+  <div class="fb" id="fc2a"></div>
+  <svg id="sc2" viewBox="0 0 400 230" role="img" aria-label="Forza verticale su quadretti, scala 1 quadretto uguale 2 newton"></svg>
+  <div class="lab"><b>b)</b> Quanto vale il modulo di <span class="v">F</span><sub>2</sub>?</div>
+  <div class="chk"><input id="ic2b" inputmode="decimal" placeholder="... N" autocomplete="off"><button onclick="chk('c2b')">Controlla</button></div>
+  <div class="fb" id="fc2b"></div>
+  <div class="lab"><b>c)</b> Devi disegnare una forza di <b>36 N</b> con la scala 1 quadretto = 4 N. Quanti quadretti è lunga la freccia?</div>
+  <div class="chk"><input id="ic2c" inputmode="decimal" placeholder="... quadretti" autocomplete="off"><button onclick="chk('c2c')">Controlla</button></div>
+  <div class="fb" id="fc2c"></div>
+  <button class="btn" onclick="step(this,'c2')">Mostra il passo 1</button>
+  <div class="step" id="sc2_1"><div class="sn">Passo 1 · a)</div><p><span class="f">4 quadretti × 5 N = <b>20 N</b></span></p></div>
+  <div class="step" id="sc2_2"><div class="sn">Passo 2 · b)</div><p><span class="f">7 quadretti × 2 N = <b>14 N</b></span>Il modulo non dipende dal verso: anche se la freccia va in su, è un numero positivo.</p></div>
+  <div class="step" id="sc2_3"><div class="sn">Passo 3 · c) al contrario</div><p>Quante volte il 4 sta nel 36? Si <b>divide</b>:<span class="f">36 N : 4 N = <b>9 quadretti</b></span></p></div>
+  <div class="res" id="rc2"><div class="lbl">Risposta</div><b>a) 20 N &nbsp; b) 14 N &nbsp; c) 9 quadretti</b></div>
+</div>
+
+<!-- ═══════════════ BLOCCO D ═══════════════ -->
+<h2>Blocco D — la massa</h2>
+
+<div class="card">
+  <h3>Che cos'è la massa e come si misura</h3>
+  <svg id="bil" viewBox="0 0 320 175" role="img" aria-label="Bilancia a bracci uguali in equilibrio" style="max-width:360px; margin:0 auto"></svg>
+  <div class="box">
+    <div class="lbl">Definizione operativa</div>
+    La massa è la grandezza che si misura con la <b>bilancia a bracci uguali</b>.<br>
+    Due oggetti hanno la <b>stessa massa</b> se, messi sui due piatti, i piatti restano in <b>equilibrio</b> (non salgono e non scendono).<br>
+    Unità nel Sistema Internazionale: il <b>kilogrammo (kg)</b>. La massa è uno <b>scalare</b>.
+  </div>
+  <p style="margin:12px 0 4px"><b>Il kilogrammo è cambiato tre volte</b>, sempre per avere più precisione:</p>
+  <table>
+    <tr><th>quando</th><th>il kg era…</th></tr>
+    <tr><td><b>1793</b></td><td class="l">1000 grammi; il grammo = massa di <b>1 cm³ d'acqua</b></td></tr>
+    <tr><td><b>1889</b></td><td class="l">la massa di un <b>cilindro di platino e iridio</b> (alto 39 mm, largo 39 mm) conservato a <b>Sèvres</b>, in Francia</td></tr>
+    <tr><td><b>oggi</b></td><td class="l">definito con <b>costanti fisiche</b>: la costante di Planck <i>h</i>, la radiazione del cesio-133, la velocità della luce <i>c</i></td></tr>
+  </table>
+  <div class="trap"><b>Perché il cilindro non bastava più?</b> Si poteva <b>rovinare</b> col tempo, ed era <b>uno solo</b>: per confrontarlo bisognava andare lì. Le costanti fisiche invece sono uguali ovunque e non si consumano.</div>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio D1 · la storia del kg in ordine</div>
+  <p class="qtext" style="font-size:17px">Tocca le tre definizioni dalla <b>più vecchia</b> alla <b>più nuova</b>. Aiuto: si va dalla più semplice alla più precisa.</p>
+  <div class="ord" id="o1" data-ok="a,b,c">
+    <div class="ordbtns">
+      <button data-k="b" onclick="ord(this)">un cilindro conservato a Sèvres</button>
+      <button data-k="c" onclick="ord(this)">le costanti fisiche (costante di Planck)</button>
+      <button data-k="a" onclick="ord(this)">il grammo = massa di 1 cm³ d'acqua</button>
+    </div>
+    <ol class="seq" id="qo1"></ol>
+    <div class="fb" id="fo1"></div>
+    <div class="why" id="wo1">1793 acqua → 1889 cilindro di Sèvres → oggi costanti fisiche.</div>
+    <button class="btn" id="xo1" style="display:none" onclick="ordReset('o1')">Riprova</button>
+  </div>
+</div>
+
+<div class="card blk" id="D2">
+  <div class="qnum">Esercizio D2 · vero o falso?</div>
+  <div class="rows">
+    <div class="row"><div class="op">Nel 1889 il kg era la massa di un cilindro conservato a Sèvres.</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">vero</button><button onclick="scegli(this,1)">falso</button></div>
+      <div class="why">Vero: il campione di Sèvres, dal 1889.</div></div>
+    <div class="row"><div class="op">Il cilindro di Sèvres era di ferro.</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">vero</button><button onclick="scegli(this,1)">falso</button></div>
+      <div class="why">Falso: era una lega di <b>platino e iridio</b>.</div></div>
+    <div class="row"><div class="op">Il kg è stato definito sempre nello stesso modo.</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">vero</button><button onclick="scegli(this,1)">falso</button></div>
+      <div class="why">Falso: è cambiato tre volte (1793, 1889, oggi).</div></div>
+    <div class="row"><div class="op">Il cilindro poteva rovinarsi col tempo.</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">vero</button><button onclick="scegli(this,1)">falso</button></div>
+      <div class="why">Vero: era <b>deteriorabile</b>, uno dei due problemi.</div></div>
+    <div class="row"><div class="op">Oggi il kg è la massa di un litro d'acqua.</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">vero</button><button onclick="scegli(this,1)">falso</button></div>
+      <div class="why">Falso: l'acqua era l'idea del <b>1793</b>. Oggi si usano le costanti fisiche.</div></div>
+    <div class="row"><div class="op">Il campione di Sèvres era uno solo, quindi era difficile fare confronti.</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">vero</button><button onclick="scegli(this,1)">falso</button></div>
+      <div class="why">Vero: era <b>unico</b>, l'altro dei due problemi.</div></div>
+    <div class="row"><div class="op">Oggi il kg si definisce con costanti fisiche, come la costante di Planck <i>h</i>.</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">vero</button><button onclick="scegli(this,1)">falso</button></div>
+      <div class="why">Vero, insieme al cesio-133 e alla velocità della luce.</div></div>
+  </div>
+  <div class="score" id="scoreD2">0 / 7</div>
+  <button class="btn" id="redoD2" style="display:none" onclick="rifai('D2')">Rifai in un altro ordine</button>
+</div>
+
+<div class="card">
+  <h3>La scala dei multipli e sottomultipli</h3>
+  <svg id="scala" viewBox="0 0 400 330" role="img" aria-label="Scala: kg, hg, dag, g, dg, cg, mg, ogni gradino per 10"></svg>
+  <div class="box">
+    <div class="lbl">Come si usa</div>
+    <b>Scendi</b> di un gradino (verso unità più piccole) → il numero <b>× 10</b>.<br>
+    <b>Sali</b> di un gradino (verso unità più grandi) → il numero <b>: 10</b>.<br>
+    La tonnellata sta sopra: <b>1 t = 1000 kg = 10³ kg</b>.
+  </div>
+  <table>
+    <tr><th>nome</th><th>simbolo</th><th>in kg</th></tr>
+    <tr><td>tonnellata</td><td>t</td><td>10³</td></tr>
+    <tr><td>ettogrammo</td><td>hg</td><td>10⁻¹</td></tr>
+    <tr><td>grammo</td><td>g</td><td>10⁻³</td></tr>
+    <tr><td>decigrammo</td><td>dg</td><td>10⁻⁴</td></tr>
+    <tr><td>milligrammo</td><td>mg</td><td>10⁻⁶</td></tr>
+  </table>
+  <p style="font-size:16px; color:var(--soft); margin:4px 0 0">È la tabella 6 del libro. L'esponente conta i gradini dal kg: il grammo è 3 gradini sotto → 10⁻³.</p>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio D3 · trasforma</div>
+  <p class="qtext" style="font-size:17px">Puoi scrivere i numeri piccoli come 0,0009 oppure 9·10^-4.</p>
+  <div class="lab"><b>a)</b> 2,5 t = … kg</div>
+  <div class="chk"><input id="id3a" inputmode="decimal" placeholder="... kg" autocomplete="off"><button onclick="chk('d3a')">Controlla</button></div>
+  <div class="fb" id="fd3a"></div>
+  <div class="lab"><b>b)</b> 350 g = … kg</div>
+  <div class="chk"><input id="id3b" inputmode="decimal" placeholder="... kg" autocomplete="off"><button onclick="chk('d3b')">Controlla</button></div>
+  <div class="fb" id="fd3b"></div>
+  <div class="lab"><b>c)</b> 4 hg = … g</div>
+  <div class="chk"><input id="id3c" inputmode="decimal" placeholder="... g" autocomplete="off"><button onclick="chk('d3c')">Controlla</button></div>
+  <div class="fb" id="fd3c"></div>
+  <div class="lab"><b>d)</b> 1500 mg = … g</div>
+  <div class="chk"><input id="id3d" inputmode="decimal" placeholder="... g" autocomplete="off"><button onclick="chk('d3d')">Controlla</button></div>
+  <div class="fb" id="fd3d"></div>
+  <div class="lab"><b>e)</b> 120 g = … mg</div>
+  <div class="chk"><input id="id3e" inputmode="decimal" placeholder="... mg" autocomplete="off"><button onclick="chk('d3e')">Controlla</button></div>
+  <div class="fb" id="fd3e"></div>
+  <div class="lab"><b>f)</b> Il libro ha massa 900 g. Quanto fa in tonnellate? (è l'esempio 4 del libro)</div>
+  <div class="chk"><input id="id3f" inputmode="decimal" placeholder="... t" autocomplete="off"><button onclick="chk('d3f')">Controlla</button></div>
+  <div class="fb" id="fd3f"></div>
+  <button class="btn" onclick="step(this,'d3')">Mostra il passo 1</button>
+  <div class="step" id="sd3_1"><div class="sn">Passo 1 · il metodo</div>
+    <p>Trova le due unità sulla scala. Conta i <b>gradini</b> e guarda se <b>scendi</b> (× 10 ogni gradino) o <b>sali</b> (: 10 ogni gradino).</p></div>
+  <div class="step" id="sd3_2"><div class="sn">Passo 2 · a) b) c)</div>
+    <p><b>a)</b> 1 t = 1000 kg → 2,5 × 1000 = <b>2500 kg</b><br>
+    <b>b)</b> da g a kg sali 3 gradini → 350 : 1000 = <b>0,35 kg</b><br>
+    <b>c)</b> da hg a g scendi 2 gradini → 4 × 100 = <b>400 g</b></p></div>
+  <div class="step" id="sd3_3"><div class="sn">Passo 3 · d) e)</div>
+    <p><b>d)</b> da mg a g sali 3 gradini → 1500 : 1000 = <b>1,5 g</b><br>
+    <b>e)</b> da g a mg scendi 3 gradini → 120 × 1000 = <b>120 000 mg</b></p></div>
+  <div class="step" id="sd3_4"><div class="sn">Passo 4 · f) passando dal kg, come nel libro</div>
+    <span class="f">900 g = 900 · 10⁻³ kg = 0,900 kg</span>
+    <p>1 t = 10³ kg, quindi 1 kg = 10⁻³ t:</p>
+    <span class="f">0,900 kg = 0,900 · 10⁻³ t = 0,000900 t = <b>9,00 · 10⁻⁴ t</b></span></div>
+  <div class="res" id="rd3"><div class="lbl">Risposta</div>
+    <b>a) 2500 kg &nbsp; b) 0,35 kg &nbsp; c) 400 g<br>d) 1,5 g &nbsp; e) 120 000 mg &nbsp; f) 9,00·10⁻⁴ t</b></div>
+</div>
+
+<!-- ═══════════════ BLOCCO E ═══════════════ -->
+<h2>Blocco E — massa e peso</h2>
+
+<div class="card">
+  <h3>Non sono la stessa cosa</h3>
+  <table>
+    <tr><th></th><th>massa</th><th>peso</th></tr>
+    <tr><td class="l">che cos'è</td><td>quanta materia c'è</td><td>la <b>forza</b> con cui la Terra attira il corpo</td></tr>
+    <tr><td class="l">tipo</td><td><b>scalare</b></td><td><b>vettore</b>, verticale verso il basso</td></tr>
+    <tr><td class="l">unità</td><td><b>kg</b></td><td><b>N</b></td></tr>
+    <tr><td class="l">strumento</td><td>bilancia a bracci uguali</td><td>dinamometro</td></tr>
+    <tr><td class="l">sulla Luna</td><td>uguale</td><td>circa 6 volte più piccolo</td></tr>
+  </table>
+  <div class="box">
+    <div class="lbl">La formula</div>
+    <span class="f"><i>P</i> = <i>m</i> · <i>g</i></span>
+    <i>m</i> in <b>kg</b>, <i>P</i> in <b>N</b>. Sulla Terra <i>g</i> = <b>9,81 N/kg</b>: ogni kg pesa 9,81 N.<br>
+    Sulla Luna <i>g</i> = 1,62 N/kg.
+  </div>
+  <svg id="trian" viewBox="0 0 320 170" role="img" aria-label="Triangolo della formula: P sopra, m e g sotto" style="max-width:300px; margin:0 auto"></svg>
+  <p style="font-size:16px; margin:0 0 6px; text-align:center">Copri quello che cerchi: <b>P = m · g</b> &nbsp;&nbsp; <b>m = P : g</b> &nbsp;&nbsp; <b>g = P : m</b></p>
+  <div class="trap"><b>Trappola della vita di tutti i giorni:</b> «peso 60 kg» in fisica è la <b>massa</b>!<br>
+  Il peso vero è 60 · 9,81 = <b>588,6 N</b>.</div>
+  <div class="trap"><b>Seconda trappola:</b> nella formula la massa va in <b>kg</b>. Se hai grammi, prima trasformali.</div>
+</div>
+
+<div class="card blk" id="E1">
+  <div class="qnum">Esercizio E1 · massa o peso?</div>
+  <p class="qtext" style="font-size:17px">Di chi si parla? Una risposta per riga.</p>
+  <div class="rows">
+    <div class="row"><div class="op">Si misura in newton.</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">Il peso è una forza: newton.</div></div>
+    <div class="row"><div class="op">Si misura con la bilancia a bracci uguali.</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">È la definizione operativa della massa.</div></div>
+    <div class="row"><div class="op">È un vettore.</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">Il peso ha direzione (verticale) e verso (in basso).</div></div>
+    <div class="row"><div class="op">Sulla Luna diventa più piccolo.</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">Sulla Luna <i>g</i> è più piccola, quindi il peso diminuisce. La materia resta la stessa.</div></div>
+    <div class="row"><div class="op">Si misura in kilogrammi.</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">Il kg è l'unità della massa.</div></div>
+    <div class="row"><div class="op">Si misura con il dinamometro.</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">Il dinamometro misura forze: il peso è una forza.</div></div>
+    <div class="row"><div class="op">È uguale sulla Terra e sulla Luna.</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">La quantità di materia non cambia se ti sposti.</div></div>
+    <div class="row"><div class="op">«Luca pesa 45 kg»: quel 45 kg è…</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">Trappola: c'è scritto «pesa», ma i kg sono l'unità della <b>massa</b>.</div></div>
+    <div class="row"><div class="op">È uno scalare.</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">La massa è solo un numero con l'unità.</div></div>
+    <div class="row"><div class="op">Punta sempre verso il basso.</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">massa</button><button onclick="scegli(this,1)">peso</button></div>
+      <div class="why">Il peso tira verso il centro della Terra.</div></div>
+  </div>
+  <div class="score" id="scoreE1">0 / 10</div>
+  <button class="btn" id="redoE1" style="display:none" onclick="rifai('E1')">Rifai in un altro ordine</button>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio E2 · dalla massa al peso</div>
+  <div class="lab" style="margin-top:4px"><b>a)</b> Uno zaino ha massa <i>m</i> = 2,0 kg. Quanto pesa sulla Terra?</div>
+  <div class="chk"><input id="ie2a" inputmode="decimal" placeholder="... N" autocomplete="off"><button onclick="chk('e2a')">Controlla</button></div>
+  <div class="fb" id="fe2a"></div>
+  <div class="lab"><b>b)</b> Un libro ha massa <i>m</i> = 500 g. Quanto pesa sulla Terra?</div>
+  <div class="chk"><input id="ie2b" inputmode="decimal" placeholder="... N" autocomplete="off"><button onclick="chk('e2b')">Controlla</button></div>
+  <div class="fb" id="fe2b"></div>
+  <button class="btn" onclick="step(this,'e2')">Mostra il passo 1</button>
+  <div class="step" id="se2_1"><div class="sn">Passo 1 · la formula</div>
+    <span class="f"><i>P</i> = <i>m</i> · <i>g</i> &nbsp; con &nbsp; <i>g</i> = 9,81 N/kg</span><p>La massa deve essere in kg.</p></div>
+  <div class="step" id="se2_2"><div class="sn">Passo 2 · a)</div>
+    <span class="f"><i>P</i> = 2,0 · 9,81 = <b>19,62 N</b> ≈ 19,6 N</span></div>
+  <div class="step" id="se2_3"><div class="sn">Passo 3 · b) prima i grammi in kg</div>
+    <span class="f">500 g = 0,500 kg</span>
+    <span class="f"><i>P</i> = 0,500 · 9,81 = <b>4,905 N</b> ≈ 4,9 N</span></div>
+  <div class="res" id="re2"><div class="lbl">Risposta</div><b>a) 19,6 N &nbsp; b) 4,9 N</b></div>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio E3 · al contrario, e sulla Luna</div>
+  <div class="lab" style="margin-top:4px"><b>a)</b> Un sacco pesa <i>P</i> = 98,1 N. Che massa ha?</div>
+  <div class="chk"><input id="ie3a" inputmode="decimal" placeholder="... kg" autocomplete="off"><button onclick="chk('e3a')">Controlla</button></div>
+  <div class="fb" id="fe3a"></div>
+  <div class="lab"><b>b)</b> Un astronauta ha massa 70 kg sulla Terra. Che <b>massa</b> ha sulla Luna?</div>
+  <div class="chk"><input id="ie3b" inputmode="decimal" placeholder="... kg" autocomplete="off"><button onclick="chk('e3b')">Controlla</button></div>
+  <div class="fb" id="fe3b"></div>
+  <div class="lab"><b>c)</b> Quanto <b>pesa</b> l'astronauta sulla Luna? (<i>g</i> = 1,62 N/kg)</div>
+  <div class="chk"><input id="ie3c" inputmode="decimal" placeholder="... N" autocomplete="off"><button onclick="chk('e3c')">Controlla</button></div>
+  <div class="fb" id="fe3c"></div>
+  <button class="btn" onclick="step(this,'e3')">Mostra il passo 1</button>
+  <div class="step" id="se3_1"><div class="sn">Passo 1 · a) cerco m: copro m nel triangolo</div>
+    <span class="f"><i>m</i> = <i>P</i> : <i>g</i> = 98,1 : 9,81 = <b>10 kg</b></span></div>
+  <div class="step" id="se3_2"><div class="sn">Passo 2 · b) la massa non cambia</div>
+    <p>La massa è la quantità di materia: andando sulla Luna l'astronauta non perde pezzi. Resta <b>70 kg</b>. Nessun calcolo.</p></div>
+  <div class="step" id="se3_3"><div class="sn">Passo 3 · c) cambia solo g</div>
+    <span class="f"><i>P</i> = 70 · 1,62 = <b>113,4 N</b></span>
+    <p>Sulla Terra sarebbe 70 · 9,81 = 686,7 N: circa 6 volte di più.</p></div>
+  <div class="res" id="re3"><div class="lbl">Risposta</div><b>a) 10 kg &nbsp; b) 70 kg &nbsp; c) 113,4 N</b></div>
+</div>
+
+<!-- ═══════════════ BLOCCO F ═══════════════ -->
+<h2>Blocco F — i radianti</h2>
+
+<div class="card">
+  <h3>Quanti raggi stanno sul bordo di un cerchio?</h3>
+  <p style="margin:0 0 4px; font-size:17px">Prendi il raggio, piegalo e appoggialo sul bordo. L'angolo che vedi dal centro è <b>1 radiante</b>.</p>
+  <svg id="rad" viewBox="0 0 340 330" role="img" aria-label="Cerchio con archi lunghi quanto il raggio" style="max-width:380px; margin:0 auto"></svg>
+  <p class="say" id="rsay">Tocca «Appoggia un raggio».</p>
+  <button class="btn solid" id="radd" onclick="raggio()">Appoggia un raggio</button>
+  <button class="btn" id="rclose" style="display:none" onclick="chiudiGiro()">Chiudi il giro</button>
+  <button class="btn" onclick="azzeraRaggi()">Ricomincia</button>
+</div>
+
+<div class="card">
+  <h3>Il perché: angolo giro = 2π radianti</h3>
+  <div class="box">
+    <div class="lbl">La definizione</div>
+    <span class="f">θ (in radianti) = <i>arco</i> : <i>raggio</i> = <i>s</i> / <i>r</i></span>
+    Quanti raggi stanno nell'arco. Arco lungo come il raggio → 1 rad.
+  </div>
+  <button class="btn" onclick="step(this,'f1')">Mostra il passo 1</button>
+  <div class="step" id="sf1_1"><div class="sn">Passo 1 · l'arco dell'angolo giro</div>
+    <p>L'angolo giro «vede» tutto il bordo. Il bordo intero è la <b>circonferenza</b>:</p>
+    <span class="f"><i>C</i> = 2π<i>r</i> &nbsp;&nbsp; (π ≈ 3,14)</span></div>
+  <div class="step" id="sf1_2"><div class="sn">Passo 2 · dentro la definizione</div>
+    <span class="f">θ = <i>s</i> / <i>r</i> = 2π<i>r</i> / <i>r</i></span></div>
+  <div class="step" id="sf1_3"><div class="sn">Passo 3 · il raggio si semplifica</div>
+    <span class="f">θ = 2π<s style="text-decoration-color:var(--ver)"><i>r</i></s> / <s style="text-decoration-color:var(--ver)"><i>r</i></s> = <b>2π ≈ 6,28 rad</b></span>
+    <p>La <i>r</i> sparisce: il risultato <b>non dipende da quanto è grande il cerchio</b>. In ogni cerchio, piccolo o enorme, sul bordo stanno 6,28 raggi. È quello che hai visto sopra.</p></div>
+  <div class="res" id="rf1"><div class="lbl">Da qui tutto il resto</div>
+    <b>360° = 2π rad</b> &nbsp;→&nbsp; <b>180° = π rad</b><br>
+    <span style="font-size:16px">e quindi 1 rad = 180° : π ≈ 57°</span></div>
+</div>
+
+<div class="card">
+  <h3>Le fette di pizza</h3>
+  <svg id="pizze" viewBox="0 0 420 300" role="img" aria-label="Sei cerchi con fette da 360, 180, 90, 60, 45 e 30 gradi"></svg>
+  <div class="box">
+    <div class="lbl">Il trucco</div>
+    Parti da <b>π = 180°</b> e dividi: π/2 = 180°/2 = 90°, π/3 = 60°, π/4 = 45°, π/6 = 30°.
+  </div>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio F1 · gradi e radianti</div>
+  <div class="lab" style="margin-top:4px"><b>a)</b> π/2 rad = … °</div>
+  <div class="chk"><input id="if2a" inputmode="decimal" placeholder="... °" autocomplete="off"><button onclick="chk('f2a')">Controlla</button></div>
+  <div class="fb" id="ff2a"></div>
+  <div class="lab"><b>b)</b> π/3 rad = … °</div>
+  <div class="chk"><input id="if2b" inputmode="decimal" placeholder="... °" autocomplete="off"><button onclick="chk('f2b')">Controlla</button></div>
+  <div class="fb" id="ff2b"></div>
+  <div class="lab"><b>c)</b> 2π rad = … °</div>
+  <div class="chk"><input id="if2c" inputmode="decimal" placeholder="... °" autocomplete="off"><button onclick="chk('f2c')">Controlla</button></div>
+  <div class="fb" id="ff2c"></div>
+  <div class="lab"><b>d)</b> 45° = π / … &nbsp;(scrivi solo il numero sotto)</div>
+  <div class="chk"><input id="if2d" inputmode="decimal" placeholder="..." autocomplete="off"><button onclick="chk('f2d')">Controlla</button></div>
+  <div class="fb" id="ff2d"></div>
+  <div class="lab"><b>e)</b> 30° = π / …</div>
+  <div class="chk"><input id="if2e" inputmode="decimal" placeholder="..." autocomplete="off"><button onclick="chk('f2e')">Controlla</button></div>
+  <div class="fb" id="ff2e"></div>
+  <div class="lab"><b>f)</b> 1 rad ≈ … ° (basta un numero intero)</div>
+  <div class="chk"><input id="if2f" inputmode="decimal" placeholder="... °" autocomplete="off"><button onclick="chk('f2f')">Controlla</button></div>
+  <div class="fb" id="ff2f"></div>
+  <button class="btn" onclick="step(this,'f2')">Mostra il passo 1</button>
+  <div class="step" id="sf2_1"><div class="sn">Passo 1 · la chiave</div>
+    <span class="f">π rad = 180°</span><p>Al posto di π metti 180°.</p></div>
+  <div class="step" id="sf2_2"><div class="sn">Passo 2 · a) b) c)</div>
+    <p><b>a)</b> 180° : 2 = <b>90°</b> &nbsp; <b>b)</b> 180° : 3 = <b>60°</b> &nbsp; <b>c)</b> 2 · 180° = <b>360°</b></p></div>
+  <div class="step" id="sf2_3"><div class="sn">Passo 3 · d) e) al contrario</div>
+    <p>Quante volte 45° sta in 180°? <b>4</b> volte → 45° = π/4.<br>
+    Quante volte 30° sta in 180°? <b>6</b> volte → 30° = π/6.</p></div>
+  <div class="step" id="sf2_4"><div class="sn">Passo 4 · f)</div>
+    <span class="f">1 rad = 180° : π = 180 : 3,14 ≈ <b>57°</b></span></div>
+  <div class="res" id="rf2"><div class="lbl">Risposta</div><b>a) 90° &nbsp; b) 60° &nbsp; c) 360° &nbsp; d) 4 &nbsp; e) 6 &nbsp; f) 57°</b></div>
+</div>
+
+<div class="card">
+  <div class="qnum">Esercizio F2 · dal più piccolo al più grande</div>
+  <p class="qtext" style="font-size:17px">Tocca gli angoli in ordine, dal più piccolo al più grande. Attenzione: sono mescolati gradi e radianti.</p>
+  <div class="ord" id="o2" data-ok="a,b,c,d,e,f">
+    <div class="ordbtns">
+      <button data-k="c" onclick="ord(this)">1 rad</button>
+      <button data-k="d" onclick="ord(this)">90°</button>
+      <button data-k="b" onclick="ord(this)">π/4 rad</button>
+      <button data-k="f" onclick="ord(this)">2π rad</button>
+      <button data-k="a" onclick="ord(this)">30°</button>
+      <button data-k="e" onclick="ord(this)">π rad</button>
+    </div>
+    <ol class="seq" id="qo2"></ol>
+    <div class="fb" id="fo2"></div>
+    <div class="why" id="wo2">30° → π/4 = 45° → 1 rad ≈ 57° → 90° → π = 180° → 2π = 360°. Il radiante sta tra 45° e 60°.</div>
+    <button class="btn" id="xo2" style="display:none" onclick="ordReset('o2')">Riprova</button>
+  </div>
+</div>
+
+<!-- ═══════════════ SCHEMA ═══════════════ -->
+<h2>Lo schema da tenere sotto mano</h2>
+
+<div class="card">
+  <div class="map">
+    <div><b>Scalare</b>numero + unità<br>(tempo, massa, temperatura)</div>
+    <div><b>Vettore</b>freccia: <span class="cm">modulo</span>, <span class="cd">direzione</span>, <span class="cv">verso</span></div>
+    <div><b>Direzione</b>la retta</div>
+    <div><b>Verso</b>dove punta sulla retta</div>
+    <div class="wide"><b>Forza</b>vettore · unità newton (N) · si misura col dinamometro · cambia la velocità o deforma</div>
+    <div><b>Massa</b>scalare · kg · bilancia a bracci uguali · non cambia sulla Luna</div>
+    <div><b>Peso</b>forza → vettore verso il basso · N · <i>P</i> = <i>m</i>·<i>g</i>, <i>g</i> = 9,81 N/kg</div>
+    <div class="wide"><b>Unità di massa</b>kg → hg → dag → g → dg → cg → mg: ogni gradino giù × 10 &nbsp;·&nbsp; 1 t = 1000 kg</div>
+    <div class="wide"><b>Radianti</b>θ = arco : raggio &nbsp;·&nbsp; giro: 2π<i>r</i> : <i>r</i> = 2π &nbsp;·&nbsp; 180° = π &nbsp;·&nbsp; 1 rad ≈ 57°</div>
+  </div>
+</div>
+
+<p class="foot">Palestra · Fisica — vettori, forze, massa e peso, radianti</p>
+
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+function fx(n){ return (Math.round(n*10)/10).toString(); }
+
+/* ---------- disegno ---------- */
+var C={ink:'#1B2430', soft:'#5A6473', grid:'#E6E1D6', rule:'#DCD7CC', acc:'#1D4E89', accs:'#E7EEF7',
+       ok:'#1F5C4B', oks:'#E8F0EC', warn:'#8A5A00', mod:'#1D4E89', dir:'#1F7A4D', ver:'#B3261E', no:'#9B2C2C'};
+function arrow(x1,y1,x2,y2,c,hc,w,dash){
+  w=w||4;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy)||1, ux=dx/L, uy=dy/L;
+  var h=Math.max(13,w*3.4), hw=h*0.55, bx=x2-ux*h, by=y2-uy*h;
+  return '<path d="M'+fx(x1)+' '+fx(y1)+' L'+fx(bx)+' '+fx(by)+'" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round" fill="none"'+(dash?' stroke-dasharray="7 6"':'')+'/>'+
+         '<polygon points="'+fx(x2)+','+fx(y2)+' '+fx(bx-uy*hw)+','+fx(by+ux*hw)+' '+fx(bx+uy*hw)+','+fx(by-ux*hw)+'" fill="'+(hc||c)+'"'+(dash?' fill-opacity=".45"':'')+'/>';
+}
+function grid(cols,rows,s,ox,oy){
+  var h='<g stroke="'+C.grid+'" stroke-width="1">', i;
+  for(i=0;i<=cols;i++) h+='<path d="M'+(ox+i*s)+' '+oy+' V'+(oy+rows*s)+'"/>';
+  for(i=0;i<=rows;i++) h+='<path d="M'+ox+' '+(oy+i*s)+' H'+(ox+cols*s)+'"/>';
+  return h+'</g>';
+}
+function txt(x,y,t,o){
+  o=o||{};
+  return '<text x="'+fx(x)+'" y="'+fx(y)+'" font-size="'+(o.s||15)+'" fill="'+(o.c||C.ink)+'" font-family="-apple-system,Arial,sans-serif"'+
+         (o.a?' text-anchor="'+o.a+'"':'')+(o.w?' font-weight="'+o.w+'"':'')+(o.i?' font-style="italic"':'')+'>'+t+'</text>';
+}
+
+/* anatomia del vettore */
+(function(){
+  var y=function(x){ return 178-(130/432)*(x-14); };
+  var h='<path d="M14 '+fx(y(14))+' L446 '+fx(y(446))+'" stroke="'+C.dir+'" stroke-width="2.5" stroke-dasharray="8 7"/>';
+  h+=arrow(100,y(100),335,y(335),C.mod,C.ver,7);
+  h+='<circle cx="100" cy="'+fx(y(100))+'" r="7" fill="'+C.mod+'"/>';
+  h+=txt(228,190,'modulo = lunghezza',{c:C.mod,w:700,a:'middle',s:19});
+  h+=txt(446,y(420)-18,'direzione = la retta',{c:C.dir,w:700,a:'end',s:19});
+  h+=txt(378,y(378)+48,'verso = la punta',{c:C.ver,w:700,a:'middle',s:19});
+  h+=txt(84,y(100)+30,'coda',{c:C.soft,a:'middle',s:15});
+  $('anat').innerHTML=h;
+})();
+
+/* direzione vs verso */
+(function(){
+  var h='';
+  h+='<path d="M14 55 H340" stroke="'+C.dir+'" stroke-width="2.5" stroke-dasharray="8 7"/>';
+  h+='<path d="M14 145 H340" stroke="'+C.dir+'" stroke-width="2.5" stroke-dasharray="8 7"/>';
+  h+='<path d="M405 14 V206" stroke="'+C.dir+'" stroke-width="2.5" stroke-dasharray="8 7" opacity=".45"/>';
+  h+=arrow(60,55,290,55,C.ink,C.ver,6);
+  h+=arrow(290,145,60,145,C.ink,C.ver,6);
+  h+=arrow(405,190,405,30,C.ink,C.ver,6);
+  h+=txt(175,38,'1',{w:700,a:'middle',s:21}); h+=txt(175,128,'2',{w:700,a:'middle',s:21});
+  h+=txt(424,116,'3',{w:700,s:21});
+  h+=txt(175,186,'stessa direzione,',{c:C.soft,a:'middle',s:17});
+  h+=txt(175,207,'verso opposto',{c:C.soft,a:'middle',s:17});
+  $('dirver').innerHTML=h;
+})();
+
+/* ---------- passi ---------- */
+function step(btn,q){
+  var all=document.querySelectorAll('[id^="s'+q+'_"]'), n=0, i;
+  for(i=0;i<all.length;i++) if(all[i].classList.contains('on')) n++;
+  var el=all[n];
+  if(el){ el.classList.add('on'); if(el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'center'}); }
+  if(n+1>=all.length){ var r=$('r'+q); if(r) r.classList.add('on'); btn.style.display='none'; }
+  else { btn.textContent='Continua'; btn.classList.add('solid'); }
+}
+
+/* ---------- numeri: virgola, punto delle migliaia, 9·10^-4, 9e-4 ---------- */
+function nums(s){
+  s=String(s).trim(); if(!s) return [];
+  var sup={'\u2070':'0','\u00b9':'1','\u00b2':'2','\u00b3':'3','\u2074':'4','\u2075':'5','\u2076':'6','\u2077':'7','\u2078':'8','\u2079':'9','\u207b':'-','\u207a':'+'};
+  s=s.replace(/[\u2070\u00b9\u00b2\u00b3\u2074-\u2079\u207b\u207a]+/g,function(m){ var o='^',i; for(i=0;i<m.length;i++) o+=sup[m.charAt(i)]; return o; });
+  s=s.replace(/\s+/g,'').replace(/[\u2212\u2013]/g,'-').replace(/[\u00d7xX\u00b7\u22c5*]/g,'*');
+  s=s.replace(/(°|rad|quadretti|quadretto|quad|kg|hg|dag|dg|cg|mg|g|t|N|n)$/,'');
+  var vars=[];
+  if(s.indexOf(',')>=0) vars.push(s.replace(/\./g,'').replace(/,/g,'.'));
+  else { vars.push(s); if(/^[+-]?[1-9]\d{0,2}(\.\d{3})+(\*|$)/.test(s)) vars.push(s.replace(/\.(?=\d{3})/g,'')); }
+  var out=[];
+  vars.forEach(function(t){
+    var m=t.match(/^([+-]?\d*\.?\d+)\*10\^([+-]?\d+)$/);
+    if(m){ out.push(parseFloat(m[1])*Math.pow(10,parseInt(m[2],10))); return; }
+    m=t.match(/^10\^([+-]?\d+)$/);
+    if(m){ out.push(Math.pow(10,parseInt(m[1],10))); return; }
+    if(/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(t)) out.push(parseFloat(t));
+  });
+  return out;
+}
+function volte(k){ var s=String(Math.pow(10,k)); return s.length>4 ? s.replace(/\B(?=(\d{3})+(?!\d))/g,' ') : s; }
+
+var SPEC={
+  c2a:{ok:[20], traps:[{v:4,msg:'4 sono i quadretti: ora moltiplica per 5 N.'},{v:9,msg:'Hai sommato: ogni quadretto vale 5 N, quindi si moltiplica.'}]},
+  c2b:{ok:[14], traps:[{v:-14,msg:'Il modulo è sempre positivo: il verso lo dice la freccia, non il segno.'},{v:7,msg:'7 sono i quadretti: ora moltiplica per 2 N.'}]},
+  c2c:{ok:[9], traps:[{v:144,msg:'Hai moltiplicato: qui devi dividere 36 : 4.'}]},
+  d3a:{ok:[2500], mag:true},
+  d3b:{ok:[0.35], mag:true},
+  d3c:{ok:[400], mag:true},
+  d3d:{ok:[1.5], mag:true},
+  d3e:{ok:[120000], mag:true},
+  d3f:{ok:[0.0009], mag:true},
+  e2a:{ok:[19.62], tol:0.03, traps:[{v:2,msg:'2 kg è la massa: il peso si calcola con P = m · g.'},{v:0.2039,tol:0.002,msg:'Hai diviso: il peso è m per g, non m diviso g.'}]},
+  e2b:{ok:[4.905], tol:0.011, traps:[{v:4905,tol:1,msg:'Hai usato 500 come se fossero kg. Prima: 500 g = 0,5 kg.'},{v:50.97,tol:0.1,msg:'Hai diviso. E prima trasforma 500 g in kg.'}]},
+  e3a:{ok:[10], tol:0.01, traps:[{v:962.36,tol:0.5,msg:'Hai moltiplicato: per trovare m si divide, m = P : g.'}]},
+  e3b:{ok:[70], traps:[{v:113.4,tol:0.5,msg:'Quello è il peso sulla Luna, in newton. La massa non cambia.'},{v:686.7,tol:0.5,msg:'Quello è il peso sulla Terra, in newton. Ti chiedo la massa.'},{v:11.67,tol:0.1,msg:'La massa non si divide per 6: è il peso che diminuisce.'}]},
+  e3c:{ok:[113.4], tol:0.5, traps:[{v:686.7,tol:0.5,msg:'Hai usato g della Terra (9,81). Sulla Luna g = 1,62 N/kg.'},{v:70,msg:'70 kg è la massa. Il peso si calcola: P = m · g.'},{v:43.2,tol:0.1,msg:'Hai diviso: P = m per g.'}]},
+  f2a:{ok:[90], traps:[{v:1.57,tol:0.01,msg:'1,57 è il valore in radianti: ti chiedo i gradi. Metti 180° al posto di π.'}]},
+  f2b:{ok:[60], traps:[{v:1.05,tol:0.01,msg:'Quelli sono radianti: metti 180° al posto di π.'}]},
+  f2c:{ok:[360], traps:[{v:6.28,tol:0.01,msg:'6,28 sono radianti: ti chiedo i gradi.'},{v:180,msg:'180° è π, cioè mezzo giro. 2π è il giro intero.'}]},
+  f2d:{ok:[4], traps:[{v:2,msg:'π/2 = 90°, che è il doppio di 45°. Quante volte 45° sta in 180°?'}]},
+  f2e:{ok:[6], traps:[{v:3,msg:'π/3 = 60°, il doppio di 30°. Quante volte 30° sta in 180°?'}]},
+  f2f:{ok:[57.3], tol:0.35, traps:[{v:180,msg:'180° è π radianti, non 1. Fai 180 : 3,14.'},{v:3.14,tol:0.01,msg:'3,14 è π. Fai 180 : 3,14.'}]}
+};
+function chk(id){
+  var sp=SPEC[id], vs=nums($('i'+id).value), f=$('f'+id);
+  if(!vs.length){ f.className='fb n'; f.textContent='Scrivi un numero (puoi usare la virgola).'; return; }
+  var tolOf=function(a){ return sp.tol!=null ? sp.tol : Math.abs(a)*1e-6+1e-12; };
+  var hit=vs.some(function(v){ return sp.ok.some(function(a){ return Math.abs(v-a)<=tolOf(a); }); });
+  if(hit){ f.className='fb y'; f.textContent='\u2713 Esatto.'; return; }
+  var v=vs[0], msg=null;
+  (sp.traps||[]).forEach(function(t){
+    var tt=(t.tol!=null)?t.tol:Math.abs(t.v)*0.002+1e-9;
+    if(msg===null && Math.abs(v-t.v)<=tt) msg=t.msg;
+  });
+  if(msg===null && sp.mag && v>0){
+    var L=Math.log(v/sp.ok[0])/Math.LN10, k=Math.round(L);
+    if(k!==0 && Math.abs(L-k)<0.005)
+      msg='Le cifre vanno bene, ma il numero è '+(k>0?'troppo grande':'troppo piccolo')+' di '+volte(Math.abs(k))+' volte. Conta i gradini e guarda se sali o scendi.';
+  }
+  f.className='fb n'; f.textContent='\u2717 '+(msg||'Non ancora. Apri il passo 1.');
+}
+(function(){
+  var ins=document.querySelectorAll('.chk input'), i;
+  for(i=0;i<ins.length;i++) ins[i].addEventListener('keydown',function(e){
+    if(e.key==='Enter'){ var b=this.parentNode.querySelector('button'); if(b) b.click(); }
+  });
+})();
+
+/* ---------- scelte a riga (una sola risposta, poi si blocca) ---------- */
+function blkOf(el){ while(el && !(el.classList && el.classList.contains('blk'))) el=el.parentNode; return el; }
+function scegli(btn,k){
+  var box=btn.parentNode;
+  if(box.getAttribute('data-done')!==null) return;
+  var ok=+box.getAttribute('data-ok'), bs=box.querySelectorAll('button');
+  var giusto=(k===ok);
+  btn.className=giusto?'right':'wrong';
+  if(!giusto) bs[ok].className='right';
+  box.setAttribute('data-done',giusto?'1':'0');
+  box.classList.add('locked');
+  var w=box.parentNode.querySelector('.why'); if(w) w.classList.add('on');
+  punti(blkOf(box));
+}
+function punti(blk){
+  if(!blk) return;
+  var all=blk.querySelectorAll('.opts'), n=0, t=0, i;
+  for(i=0;i<all.length;i++){ var v=all[i].getAttribute('data-done'); if(v!==null){ t++; if(v==='1') n++; } }
+  var sc=$('score'+blk.id);
+  if(sc) sc.textContent=n+' / '+all.length+(t<all.length?' (ne mancano '+(all.length-t)+')':(n===all.length?' \u2014 tutto giusto!':''));
+  var r=$('redo'+blk.id); if(r) r.style.display=(t===all.length)?'block':'none';
+}
+function rifai(id){
+  var blk=$(id), cont=blk.querySelector('.rows'), rows=[], i;
+  var rs=cont.querySelectorAll('.row');
+  for(i=0;i<rs.length;i++) rows.push(rs[i]);
+  for(i=rows.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=rows[i]; rows[i]=rows[j]; rows[j]=t; }
+  rows.forEach(function(r){
+    var box=r.querySelector('.opts'); box.removeAttribute('data-done'); box.classList.remove('locked');
+    var bs=box.querySelectorAll('button'); for(var k=0;k<bs.length;k++) bs[k].className='';
+    var w=r.querySelector('.why'); if(w) w.classList.remove('on');
+    cont.appendChild(r);
+  });
+  punti(blk);
+  if(blk.scrollIntoView) blk.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ---------- rosa dei venti ---------- */
+var BN=['N','NE','E','SE','S','SO','O','NO'];
+var BQ=[
+  {t:'Uno spostamento di 1,5 km <b>verso sud-ovest</b>.', ok:5},
+  {t:'Stessa <b>direzione</b> di prima, ma <b>verso opposto</b>.', ok:1},
+  {t:'Direzione nord–sud, <b>verso nord</b>.', ok:0},
+  {t:'Direzione est–ovest, <b>verso ovest</b>.', ok:6},
+  {t:'Direzione nord-ovest–sud-est, <b>verso sud-est</b>.', ok:3}
+];
+var bi=0, berr=0, bdone=false;
+function bussolaDraw(sel,cls){
+  var cx=150, cy=150, h='<circle cx="150" cy="150" r="118" fill="none" stroke="'+C.rule+'" stroke-width="1.5"/>', k;
+  for(k=0;k<8;k++){
+    var a=k*Math.PI/4, ex=cx+100*Math.sin(a), ey=cy-100*Math.cos(a);
+    var col=C.soft;
+    if(sel===k) col=(cls==='y')?C.ok:C.no;
+    h+='<g class="cp" id="bk'+k+'" onclick="bussola('+k+')">';
+    h+='<path d="M'+cx+' '+cy+' L'+fx(ex)+' '+fx(ey)+'" stroke="#000" stroke-opacity="0" stroke-width="34" pointer-events="stroke"/>';
+    h+=arrow(cx+14*Math.sin(a),cy-14*Math.cos(a),ex,ey,col,col,sel===k?5:3.5);
+    h+=txt(cx+134*Math.sin(a),cy-134*Math.cos(a)+5,BN[k],{a:'middle',w:700,s:15,c:sel===k?col:C.ink});
+    h+='</g>';
+  }
+  h+='<circle cx="150" cy="150" r="5" fill="'+C.ink+'"/>';
+  $('buss').innerHTML=h;
+}
+function bussolaShow(){
+  $('bq').innerHTML='<b>'+(bi+1)+' di '+BQ.length+'.</b> '+BQ[bi].t;
+  $('bfb').className='fb'; $('bfb').textContent=''; $('bnext').style.display='none';
+  bussolaDraw(-1,'');
+}
+function bussola(k){
+  if(bdone || $('bnext').style.display!=='none') return;
+  var q=BQ[bi], f=$('bfb');
+  if(k===q.ok){
+    bussolaDraw(k,'y'); f.className='fb y'; f.textContent='\u2713 Esatto: '+BN[k]+'.';
+    $('bnext').style.display='block';
+    $('bnext').textContent=(bi===BQ.length-1)?'Finito: ricomincia':'Prossima';
+  } else {
+    berr++;
+    bussolaDraw(k,'n'); f.className='fb n';
+    f.textContent=(k===(q.ok+4)%8)?'\u2717 Direzione giusta, verso sbagliato: la punta va dall\u2019altra parte.':'\u2717 Direzione sbagliata: quella freccia sta su un\u2019altra retta.';
+  }
+}
+function bussolaNext(){
+  if(bi===BQ.length-1){ bi=0; berr=0; } else bi++;
+  bussolaShow();
+}
+bussolaShow();
+
+/* ---------- laboratorio: cambia una cosa ---------- */
+var P={x:8,y:5,ax:0,s:1,L:4.5}, PS=24, PO=8, PPOS=[[8,5],[5,5],[11,5]], ppi=0, prev=null;
+function pEnd(p){ var a=p.ax*Math.PI/4; return [p.x+p.s*p.L*Math.cos(a), p.y-p.s*p.L*Math.sin(a)]; }
+function pDraw(){
+  var h=grid(16,10,PS,PO,PO), e;
+  if(prev){ e=pEnd(prev); h+=arrow(PO+prev.x*PS,PO+prev.y*PS,PO+e[0]*PS,PO+e[1]*PS,'#9AA3AE','#9AA3AE',3.5,true); }
+  e=pEnd(P); h+=arrow(PO+P.x*PS,PO+P.y*PS,PO+e[0]*PS,PO+e[1]*PS,C.mod,C.ver,5.5);
+  h+='<circle cx="'+(PO+P.x*PS)+'" cy="'+(PO+P.y*PS)+'" r="5" fill="'+C.mod+'"/>';
+  $('play').innerHTML=h;
+}
+function gioca(k){
+  prev={x:P.x,y:P.y,ax:P.ax,s:P.s,L:P.L};
+  var say='';
+  if(k==='m'){ P.L=(P.L===4.5)?2.5:4.5; say='La freccia è più '+(P.L===4.5?'lunga':'corta')+': cambia solo il <span class="cm">modulo</span>. Stessa retta, stessa punta.'; }
+  if(k==='d'){ P.ax=(P.ax+1)%4; say='La freccia sta su un\u2019altra retta: cambia la <span class="cd">direzione</span>. Il verso non si confronta più.'; }
+  if(k==='v'){ P.s=-P.s; say='Stessa retta, stessa lunghezza, punta dall\u2019altra parte: cambia il <span class="cv">verso</span>. È il vettore opposto.'; }
+  if(k==='s'){ ppi=(ppi+1)%PPOS.length; P.x=PPOS[ppi][0]; P.y=PPOS[ppi][1]; say='Si è spostata ma è uguale: <b>nessuna</b> delle tre cose cambia. È lo stesso vettore.'; }
+  $('pm').className='pill pm'+(k==='m'?' chg':'');
+  $('pd').className='pill pd'+(k==='d'?' chg':'');
+  $('pv').className='pill pv'+(k==='v'?' chg':'');
+  $('psay').innerHTML=say;
+  pDraw();
+}
+pDraw();
+
+/* ---------- coppie ---------- */
+var PAIRS=[
+  {a:[1,4,3,0], b:[6,2,6,0], ok:'m',  why:'Stessa retta orizzontale, stessa punta; B è lunga il doppio.'},
+  {a:[1,2,4,0], b:[11,4,-4,0], ok:'v', why:'Rette parallele, stessa lunghezza, punte opposte: sono vettori opposti.'},
+  {a:[1,3,4,0], b:[8,5,0,-4], ok:'d', why:'Una è orizzontale, l\u2019altra verticale. Lunghe uguali (4 quadretti).'},
+  {a:[1,5,3,-3], b:[7,4,3,-3], ok:'0', why:'Uguali in tutto: sono solo in posti diversi. È lo stesso vettore.'},
+  {a:[2,1,0,2], b:[7,5,0,-4], ok:'mv', why:'Tutte e due verticali (stessa direzione); A va giù ed è lunga 2, B va su ed è lunga 4.'},
+  {a:[1,4,2,0], b:[6,5,4,-4], ok:'md', why:'A è orizzontale e corta, B è inclinata e molto più lunga.'}
+];
+(function(){
+  var S=24, O=8, h='', i;
+  for(i=0;i<PAIRS.length;i++){
+    var p=PAIRS[i], a=p.a, b=p.b;
+    var g=grid(12,6,S,O,O);
+    g+=arrow(O+a[0]*S,O+a[1]*S,O+(a[0]+a[2])*S,O+(a[1]+a[3])*S,C.ink,C.ink,4);
+    g+=arrow(O+b[0]*S,O+b[1]*S,O+(b[0]+b[2])*S,O+(b[1]+b[3])*S,C.warn,C.warn,4);
+    g+=txt(O+(a[0]+a[2]/2)*S-(a[3]?14:0),O+(a[1]+a[3]/2)*S-(a[3]?0:9),'A',{w:700,s:16,a:'middle'});
+    g+=txt(O+(b[0]+b[2]/2)*S-(b[3]?14:0),O+(b[1]+b[3]/2)*S-(b[3]?0:9),'B',{w:700,s:16,a:'middle',c:C.warn});
+    h+='<div class="pair"><div class="op"><b>Coppia '+(i+1)+'</b></div>'+
+       '<svg viewBox="0 0 304 160" role="img" aria-label="Coppia di frecce '+(i+1)+'">'+g+'</svg>'+
+       '<div class="tri" id="tp'+i+'" data-ok="'+p.ok+'">'+
+       '<button data-k="m" onclick="tog(this)">modulo</button><button data-k="d" onclick="tog(this)">direzione</button>'+
+       '<button data-k="v" onclick="tog(this)">verso</button><button data-k="0" onclick="tog(this)">niente</button></div>'+
+       '<button class="chkb" onclick="coppia('+i+')">Controlla</button>'+
+       '<div class="fb" id="fp'+i+'"></div></div>';
+  }
+  $('pairs').innerHTML=h;
+})();
+function tog(btn){
+  var box=btn.parentNode;
+  if(box.getAttribute('data-done')==='1') return;
+  var k=btn.getAttribute('data-k'), bs=box.querySelectorAll('button'), i;
+  if(k==='0'){ for(i=0;i<bs.length;i++) if(bs[i]!==btn) bs[i].classList.remove('sel'); }
+  else box.querySelector('[data-k="0"]').classList.remove('sel');
+  btn.classList.toggle('sel');
+}
+function coppia(i){
+  var box=$('tp'+i), ok=box.getAttribute('data-ok'), f=$('fp'+i), sel='';
+  ['m','d','v','0'].forEach(function(k){ if(box.querySelector('[data-k="'+k+'"]').classList.contains('sel')) sel+=k; });
+  if(!sel){ f.className='fb n'; f.textContent='Scegli almeno una casella.'; return; }
+  if(sel===ok){ f.className='fb y'; f.textContent='\u2713 Esatto. '+PAIRS[i].why; box.setAttribute('data-done','1'); return; }
+  var has=function(s,c){ return s.indexOf(c)>=0; }, m;
+  if(has(ok,'d') && has(sel,'v')) m='Se la direzione è diversa, il verso non si confronta: basta «direzione».';
+  else if(ok==='0') m='Guarda bene: stessa lunghezza, rette parallele, punte dalla stessa parte. Spostare una freccia non la cambia.';
+  else if(has(ok,'m') && !has(sel,'m')) m='Conta i quadretti: le due frecce non sono lunghe uguali.';
+  else if(!has(ok,'m') && has(sel,'m')) m='Conta i quadretti: sono lunghe uguali.';
+  else if(has(ok,'d') && !has(sel,'d')) m='Guarda l\u2019inclinazione: le due rette non sono parallele.';
+  else if(!has(ok,'d') && has(sel,'d')) m='Le due frecce sono parallele: la direzione è la stessa.';
+  else if(has(ok,'v') && !has(sel,'v')) m='Rette parallele, ma guarda le punte.';
+  else if(!has(ok,'v') && has(sel,'v')) m='Le punte vanno dalla stessa parte: il verso è lo stesso.';
+  else m='Non ancora: guarda una cosa alla volta.';
+  f.className='fb n'; f.textContent='\u2717 '+m;
+}
+
+/* ---------- forze ---------- */
+(function(){
+  var h='<path d="M10 160 H225" stroke="'+C.ink+'" stroke-width="2"/>';
+  h+='<rect x="24" y="100" width="76" height="60" rx="4" fill="'+C.accs+'" stroke="'+C.ink+'" stroke-width="2"/>';
+  h+=arrow(100,130,215,130,C.ink,C.ink,6);
+  h+='<circle cx="100" cy="130" r="6" fill="'+C.ink+'"/>';
+  h+=txt(158,114,'F = 20 N',{a:'middle',w:700,s:19});
+  h+=txt(100,186,'punto di applicazione',{a:'middle',c:C.soft,s:15});
+  h+='<path d="M268 16 H450" stroke="#8B6B4A" stroke-width="7" stroke-linecap="round"/>';
+  h+='<path d="M340 16 V34" stroke="#6B5A3A" stroke-width="3"/>';
+  h+='<circle cx="340" cy="54" r="20" fill="#B04A3A"/>';
+  h+=arrow(340,54,340,180,C.ink,C.ink,6);
+  h+='<circle cx="340" cy="54" r="5" fill="'+C.ink+'"/>';
+  h+=txt(358,124,'P (peso)',{w:700,s:19});
+  h+=txt(358,148,'verso il basso',{c:C.soft,s:16});
+  $('forze').innerHTML=h;
+})();
+
+/* ---------- forza in scala ---------- */
+(function(){
+  var S=28, O=10, h=grid(13,3,S,O,O);
+  h+=arrow(O+1*S,O+1.5*S,O+5*S,O+1.5*S,C.ink,C.ink,5);
+  h+=txt(O+3*S,O+1.5*S-10,'F\u2081',{a:'middle',w:700,s:16});
+  h+='<path d="M'+(O+7*S)+' '+(O+2.5*S)+' H'+(O+8*S)+'" stroke="'+C.acc+'" stroke-width="4"/>';
+  h+='<path d="M'+(O+7*S)+' '+(O+2.5*S-6)+' V'+(O+2.5*S+6)+' M'+(O+8*S)+' '+(O+2.5*S-6)+' V'+(O+2.5*S+6)+'" stroke="'+C.acc+'" stroke-width="2"/>';
+  h+=txt(O+8*S+8,O+2.5*S+5,'1 quadretto = 5 N',{c:C.acc,w:700,s:16});
+  $('sc1').innerHTML=h;
+  var h2=grid(13,7,S,O,O);
+  h2+=arrow(O+2*S,O+7*S-2,O+2*S,O+0*S+2,C.ink,C.ink,5);
+  h2+=txt(O+2*S+12,O+3.5*S,'F\u2082',{w:700,s:16});
+  h2+='<path d="M'+(O+7*S)+' '+(O+6*S)+' H'+(O+8*S)+'" stroke="'+C.acc+'" stroke-width="4"/>';
+  h2+='<path d="M'+(O+7*S)+' '+(O+6*S-6)+' V'+(O+6*S+6)+' M'+(O+8*S)+' '+(O+6*S-6)+' V'+(O+6*S+6)+'" stroke="'+C.acc+'" stroke-width="2"/>';
+  h2+=txt(O+7*S,O+6*S-12,'1 quadretto = 2 N',{c:C.acc,w:700,s:16});
+  $('sc2').innerHTML=h2;
+})();
+
+/* ---------- bilancia ---------- */
+(function(){
+  var h='<path d="M110 160 H210" stroke="'+C.ink+'" stroke-width="3" stroke-linecap="round"/>';
+  h+='<path d="M152 160 L157 58 H163 L168 160 Z" fill="'+C.rule+'" stroke="'+C.ink+'" stroke-width="2"/>';
+  h+='<path d="M50 58 H270" stroke="'+C.ink+'" stroke-width="5" stroke-linecap="round"/>';
+  h+='<circle cx="160" cy="58" r="7" fill="'+C.ink+'"/>';
+  h+='<path d="M160 50 V26" stroke="'+C.acc+'" stroke-width="3"/>';
+  h+='<path d="M60 58 L40 118 M60 58 L80 118 M260 58 L240 118 M260 58 L280 118" stroke="'+C.soft+'" stroke-width="1.5"/>';
+  h+='<path d="M30 118 Q60 134 90 118 Z" fill="'+C.accs+'" stroke="'+C.ink+'" stroke-width="2"/>';
+  h+='<path d="M230 118 Q260 134 290 118 Z" fill="'+C.accs+'" stroke="'+C.ink+'" stroke-width="2"/>';
+  h+='<rect x="46" y="88" width="30" height="30" rx="3" fill="#C9B79C" stroke="'+C.ink+'" stroke-width="1.5"/>';
+  h+='<rect x="242" y="100" width="16" height="18" rx="2" fill="#9AA3AE" stroke="'+C.ink+'" stroke-width="1.5"/>';
+  h+='<rect x="262" y="104" width="12" height="14" rx="2" fill="#9AA3AE" stroke="'+C.ink+'" stroke-width="1.5"/>';
+  h+=txt(160,18,'equilibrio',{a:'middle',c:C.acc,w:700,s:14});
+  $('bil').innerHTML=h;
+})();
+
+/* ---------- scala delle unità ---------- */
+(function(){
+  var U=['kg','hg','dag','g','dg','cg','mg'], V=['1','10','100','1000','10 000','100 000','1 000 000'];
+  var W=34, X0=10, Y0=50, D=40, i;
+  var d='M'+X0+' '+Y0;
+  for(i=0;i<7;i++){ d+=' H'+(X0+W*(i+1)); if(i<6) d+=' V'+(Y0+D*(i+1)); }
+  d+=' V322 H'+X0+' Z';
+  var h='<path d="'+d+'" fill="'+C.accs+'" stroke="'+C.acc+'" stroke-width="2"/>';
+  h+=txt(392,16,'1 kg è uguale a…',{a:'end',c:C.soft,s:15});
+  for(i=0;i<7;i++){
+    var top=Y0+D*i, cx=X0+W*i+W/2;
+    var hl=(U[i]==='kg'||U[i]==='g');
+    h+=txt(cx,top-9,U[i],{a:'middle',w:700,s:20,c:hl?C.acc:C.ink});
+    h+='<path d="M'+(X0+W*(i+1)+(i<6?30:6))+' '+(top-15)+' H'+fx(384-(V[i]+' '+U[i]).length*9.5)+'" stroke="'+C.rule+'" stroke-width="1.5" stroke-dasharray="2 5"/>';
+    h+=txt(392,top-9,V[i]+' '+U[i],{a:'end',w:700,s:17,c:hl?C.acc:C.ink});
+    if(i<6) h+=txt(X0+W*(i+1)-4,top+D/2+6,'\u00d710',{s:13,c:C.acc,w:700,a:'end'});
+  }
+  $('scala').innerHTML=h;
+})();
+
+/* ---------- triangolo P = m g ---------- */
+(function(){
+  var h='<path d="M160 12 L302 158 H18 Z" fill="'+C.accs+'" stroke="'+C.acc+'" stroke-width="2.5" stroke-linejoin="round"/>';
+  h+='<path d="M90 92 H230" stroke="'+C.acc+'" stroke-width="2.5"/><path d="M160 92 V158" stroke="'+C.acc+'" stroke-width="2.5"/>';
+  h+=txt(160,74,'P',{a:'middle',w:700,s:30,i:true});
+  h+=txt(115,140,'m',{a:'middle',w:700,s:28,i:true});
+  h+=txt(205,140,'g',{a:'middle',w:700,s:28,i:true});
+  $('trian').innerHTML=h;
+})();
+
+/* ---------- radianti: avvolgi il raggio ---------- */
+var RC={x:170,y:160,r:112}, rn=0, rclosed=false;
+function rp(a,r){ return [RC.x+r*Math.cos(a), RC.y-r*Math.sin(a)]; }
+function rArc(a0,a1,col,w){
+  var s=rp(a0,RC.r), e=rp(a1,RC.r), big=(a1-a0)>Math.PI?1:0;
+  return '<path d="M'+fx(s[0])+' '+fx(s[1])+' A'+RC.r+' '+RC.r+' 0 '+big+' 0 '+fx(e[0])+' '+fx(e[1])+'" stroke="'+col+'" stroke-width="'+w+'" fill="none" stroke-linecap="butt"/>';
+}
+function rDraw(){
+  var h='<circle cx="'+RC.x+'" cy="'+RC.y+'" r="'+RC.r+'" fill="none" stroke="'+C.rule+'" stroke-width="2"/>', k, e;
+  for(k=1;k<=rn;k++){
+    var col=(k%2)?C.acc:C.ok;
+    h+=rArc(k-1,k,col,8);
+    e=rp(k,RC.r); h+='<path d="M'+RC.x+' '+RC.y+' L'+fx(e[0])+' '+fx(e[1])+'" stroke="'+C.rule+'" stroke-width="1.5"/>';
+    var m=rp(k-0.5,RC.r+24); h+=txt(m[0],m[1]+6,String(k),{a:'middle',w:700,s:18,c:col});
+  }
+  if(rclosed){
+    h+=rArc(6,2*Math.PI,C.ver,8);
+    var q=rp(6.14,RC.r+30); h+=txt(q[0]+4,q[1]+6,'0,28',{a:'middle',w:700,s:15,c:C.ver});
+  }
+  var s0=rp(rn,RC.r), col0=rn<6?((rn+1)%2?C.acc:C.ok):C.soft;
+  if(!rclosed){
+    h+='<path d="M'+RC.x+' '+RC.y+' L'+fx(s0[0])+' '+fx(s0[1])+'" stroke="'+col0+'" stroke-width="5" stroke-linecap="round"/>';
+    var lm=rp(rn+0.18,RC.r*0.55); if(rn<6) h+=txt(lm[0],lm[1]+5,'r',{a:'middle',w:700,s:18,i:true,c:col0});
+  }
+  h+='<circle cx="'+RC.x+'" cy="'+RC.y+'" r="5" fill="'+C.ink+'"/>';
+  $('rad').innerHTML=h;
+}
+function raggio(){
+  if(rn>=6) return;
+  rn++; rDraw();
+  var g=Math.round(rn*57.3);
+  var t='Raggi appoggiati: <b>'+rn+'</b> → angolo = <b>'+rn+' rad</b> (circa '+g+'°).';
+  if(rn===6){ t+='<br>Il giro non è chiuso: manca un pezzetto più corto di un raggio.'; $('radd').style.display='none'; $('rclose').style.display='block'; }
+  $('rsay').innerHTML=t;
+}
+function chiudiGiro(){
+  if(rn<6 || rclosed) return;
+  rclosed=true; rDraw();
+  $('rclose').style.display='none';
+  $('rsay').innerHTML='Il pezzetto è 0,28 di raggio. In tutto sul bordo stanno <b>6 + 0,28 = 6,28 raggi = 2π</b>.<br>Angolo giro = <b>2π rad</b>. Vale in ogni cerchio, grande o piccolo.';
+}
+function azzeraRaggi(){
+  rn=0; rclosed=false; rDraw();
+  $('radd').style.display='block'; $('rclose').style.display='none';
+  $('rsay').innerHTML='Tocca «Appoggia un raggio».';
+}
+rDraw();
+
+/* ---------- pizze ---------- */
+(function(){
+  var Z=[[360,'2π','360°'],[180,'π','180°'],[90,'π/2','90°'],[60,'π/3','60°'],[45,'π/4','45°'],[30,'π/6','30°']];
+  var h='', i, R=46;
+  for(i=0;i<Z.length;i++){
+    var cx=70+140*(i%3), cy=56+150*Math.floor(i/3), deg=Z[i][0], a=deg*Math.PI/180;
+    h+='<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="#fff" stroke="'+C.rule+'" stroke-width="2"/>';
+    if(deg>=360) h+='<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="'+C.accs+'" stroke="'+C.acc+'" stroke-width="2.5"/>';
+    else {
+      var ex=cx+R*Math.cos(a), ey=cy-R*Math.sin(a);
+      h+='<path d="M'+cx+' '+cy+' L'+(cx+R)+' '+cy+' A'+R+' '+R+' 0 '+(deg>180?1:0)+' 0 '+fx(ex)+' '+fx(ey)+' Z" fill="'+C.accs+'" stroke="'+C.acc+'" stroke-width="2.5" stroke-linejoin="round"/>';
+    }
+    h+=txt(cx,cy+R+25,Z[i][1]+' rad',{a:'middle',w:700,s:20,c:C.acc});
+    h+=txt(cx,cy+R+46,Z[i][2],{a:'middle',s:18,c:C.soft});
+  }
+  $('pizze').innerHTML=h;
+})();
+
+/* ---------- ordinare ---------- */
+function ord(btn){
+  var box=btn.parentNode.parentNode, id=box.id;
+  if(btn.classList.contains('used') || box.getAttribute('data-done')) return;
+  btn.classList.add('used');
+  var li=document.createElement('li'); li.textContent=btn.textContent; li.setAttribute('data-k',btn.getAttribute('data-k'));
+  $('q'+id).appendChild(li);
+  var want=box.getAttribute('data-ok').split(','), got=$('q'+id).querySelectorAll('li');
+  if(got.length<want.length) return;
+  var seq=[], i; for(i=0;i<got.length;i++) seq.push(got[i].getAttribute('data-k'));
+  var ok=seq.join(',')===want.join(',');
+  box.setAttribute('data-done','1');
+  $('q'+id).className='seq '+(ok?'y':'n');
+  $('f'+id).className='fb '+(ok?'y':'n');
+  $('f'+id).textContent=ok?'\u2713 Ordine giusto.':'\u2717 Ordine sbagliato. Leggi sotto e riprova.';
+  $('w'+id).classList.add('on');
+  if(!ok) $('x'+id).style.display='block';
+}
+function ordReset(id){
+  var box=$(id), bs=box.querySelectorAll('.ordbtns button'), i;
+  for(i=0;i<bs.length;i++) bs[i].classList.remove('used');
+  $('q'+id).innerHTML=''; $('q'+id).className='seq';
+  $('f'+id).className='fb'; $('f'+id).textContent='';
+  $('w'+id).classList.remove('on'); $('x'+id).style.display='none';
+  box.removeAttribute('data-done');
+}
+</script>
+</body>
+</html>
