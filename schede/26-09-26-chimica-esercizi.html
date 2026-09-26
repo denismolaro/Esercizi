@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chimica — Esercizi in stile compito</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --su:#B4531A;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:4px 0 8px}
+.chips a{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:6px 12px;
+  font-size:14px; font-weight:600; color:var(--soft); text-decoration:none}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 12px}
+.dati{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:10px 16px; margin:12px 0; font-size:17px}
+.dati .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:12px 14px; font-size:17px; font-weight:600; margin-top:12px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.step p{margin:6px 0}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:11px 12px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus, .ns input:focus{outline:none; border-color:var(--accent)}
+.chk .u{align-self:center; font-size:16px; color:var(--soft); font-weight:600; min-width:34px}
+.chk button, .go{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 16px; font-weight:600; font-size:16px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em; line-height:1.5}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.opts{display:grid; gap:7px; margin-top:8px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{min-width:0; overflow-wrap:break-word}
+@media (max-width:460px){ .opts.three button{font-size:14px; padding:10px 3px} }
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 6px;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.3}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+.why{display:none; font-size:15.5px; color:var(--soft); margin:6px 0 2px; line-height:1.5}
+.why.on{display:block}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:6px 8px; text-align:center}
+th{background:var(--accent-soft); font-size:14px}
+
+/* righe veloci: notazione ed equivalenze */
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:20px; font-weight:700; font-family:"Times New Roman",Georgia,serif; margin-bottom:6px}
+.op .to{font-family:-apple-system,Arial,sans-serif; font-size:16px; color:var(--soft); font-weight:600}
+.ns{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+.ns .nm{flex:1 1 auto; min-width:0; width:100%; font:inherit; font-size:19px; padding:10px 12px; border:2px solid var(--rule); border-radius:12px; background:#fff; color:var(--ink)}
+.ns .x{font-family:"Times New Roman",Georgia,serif; font-size:21px; white-space:nowrap}
+.ns .pw{display:flex; align-items:center; gap:3px; transform:translateY(-11px)}
+.ns .ex{width:58px; font:inherit; font-size:16px; padding:5px 6px; border:2px solid var(--rule); border-radius:9px; background:#fff; color:var(--ink); text-align:center}
+.ns .pm{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:3px 7px; font-size:15px; font-weight:700; color:var(--ink)}
+.acts{display:flex; gap:8px; margin-top:6px}
+.acts .go{padding:9px 16px}
+.linkish{background:none; border:none; font-size:15px; color:var(--accent); text-decoration:underline; padding:4px 2px}
+.how{display:none; background:#F4F1EA; border-radius:10px; padding:10px 12px; margin-top:8px; font-size:16px; line-height:1.6}
+.how.on{display:block}
+.score{font-size:15px; color:var(--soft); margin-top:12px; font-weight:600}
+.row.done .op::after{content:" ✓"; color:var(--ok)}
+.redo{display:none; margin-top:10px}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Chimica · stile compito</div>
+  <h1>Esercizi in stile compito</h1>
+  <p class="lead">Prova da solo, poi tocca <b>Controlla</b>. Se non torna, apri i passi uno per volta. Il tasto 🔊 legge il testo dell'esercizio.</p>
+  <div class="chips">
+    <a href="#A">Notazione</a><a href="#B">Equivalenze</a><a href="#C">Densità</a><a href="#D">Leggi ponderali</a><a href="#E">Teoria veloce</a>
+  </div>
+</header>
+
+<div class="note"><b>Come scrivere i numeri.</b> Puoi usare la virgola o il punto: 0,45 e 0.45 vanno bene tutti e due. Per le potenze usa la casellina piccola in alto dopo × 10; il tasto ± mette il meno.</div>
+
+<!-- ═══════════ A · NOTAZIONE SCIENTIFICA ═══════════ -->
+<h2 id="A">A · Notazione scientifica</h2>
+<div class="card">
+  <div class="qhead"><div class="qnum">Scrivi in notazione scientifica</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Scrivi i numeri in notazione scientifica. Nella casella grande il numero tra uno e dieci, nella casella piccola l'esponente. Ricorda: virgola a sinistra, l'esponente sale. Virgola a destra, l'esponente scende. Se c'è già una potenza, la aggiusti.">🔊</button></div>
+  <p style="margin:0 0 6px;font-size:16px;color:var(--soft)">Nella casella grande il numero tra 1 e 10, in quella piccola l'esponente.</p>
+  <div class="rows" id="rowsA"></div>
+  <div class="score" id="scoreA"></div>
+</div>
+
+<!-- ═══════════ B · EQUIVALENZE ═══════════ -->
+<h2 id="B">B · Equivalenze</h2>
+<div class="card">
+  <div class="qhead"><div class="qnum">Risolvi le equivalenze</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Risolvi le equivalenze. Puoi scrivere il risultato come numero normale, oppure con la potenza di dieci. Se scendi verso un'unità più piccola moltiplichi, se sali dividi. Con i metri quadrati ogni gradino vale cento, con i metri cubi mille.">🔊</button></div>
+  <p style="margin:0 0 6px;font-size:16px;color:var(--soft)">Scrivi il risultato come ti viene comodo: 0,0365 oppure 3,65 × 10<sup>−2</sup>. Se non usi la potenza, lascia vuota la casellina.</p>
+  <div class="rows" id="rowsB"></div>
+  <div class="score" id="scoreB"></div>
+</div>
+
+<!-- ═══════════ C · DENSITÀ E CONCENTRAZIONE ═══════════ -->
+<h2 id="C">C · Volume, densità, concentrazione</h2>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C1 · massa dalla densità</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Un cubetto di alluminio ha un volume di 25 virgola 0 centimetri cubi. La densità dell'alluminio è 2 virgola 7 grammi al centimetro cubo. Qual è la massa del cubetto?">🔊</button></div>
+  <p class="qtext">Un cubetto di alluminio ha un volume di 25,0 cm³. La densità dell'alluminio è 2,7 g/cm³. Qual è la massa del cubetto?</p>
+  <div class="dati"><div class="lbl">Dati</div><i>V</i> = 25,0 cm³ &nbsp;·&nbsp; <i>d</i> = 2,7 g/cm³ &nbsp;·&nbsp; <i>m</i> = ?</div>
+  <div class="chk"><input id="ic1" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('c1')">Controlla</button></div>
+  <div class="fb" id="fc1"></div>
+  <button class="btn" onclick="step(this,'c1')">Mostra il passo 1</button>
+  <div class="step" id="sc1_1"><div class="sn">Passo 1 · che formula?</div><p>Cerco la massa. Nel triangolo copro <i>m</i>: restano <i>d</i> e <i>V</i> affiancate.</p><span class="f"><i>m</i> = <i>d</i> · <i>V</i></span></div>
+  <div class="step" id="sc1_2"><div class="sn">Passo 2 · il conto</div><p>Le unità vanno già d'accordo: cm³ e g/cm³.</p><span class="f"><i>m</i> = 2,7 × 25,0 = 67,5 g</span></div>
+  <div class="res" id="rc1"><div class="lbl">Risposta</div><b>m = 67,5 g</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C2 · riconosci il metallo</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Un anello ha massa 9 virgola 65 grammi e volume 0 virgola 50 centimetri cubi. Domanda a: calcola la densità. Domanda b: guarda la tabella e scopri di che metallo è fatto.">🔊</button></div>
+  <p class="qtext">Un anello ha massa 9,65 g e volume 0,50 cm³. <b>a)</b> Calcola la densità. <b>b)</b> Di che metallo è fatto?</p>
+  <table><tr><th>alluminio</th><th>ferro</th><th>rame</th><th>argento</th><th>piombo</th><th>oro</th></tr>
+  <tr><td>2,7</td><td>7,88</td><td>8,9</td><td>10,5</td><td>10,64</td><td>19,3</td></tr></table>
+  <div class="lab">a) Densità</div>
+  <div class="chk"><input id="ic2a" inputmode="decimal" placeholder="..."><span class="u">g/cm³</span><button onclick="chk('c2a')">Controlla</button></div>
+  <div class="fb" id="fc2a"></div>
+  <div class="lab">b) Il metallo è…</div>
+  <div class="opts two" data-ok="1">
+    <button onclick="scegli(this,0)">argento</button><button onclick="scegli(this,1)">oro</button>
+    <button onclick="scegli(this,2)">piombo</button><button onclick="scegli(this,3)">rame</button>
+  </div>
+  <div class="why">19,3 g/cm³ è la densità dell'oro. La densità è intensiva: riconosce il materiale, qualunque sia la sua quantità.</div>
+  <button class="btn" onclick="step(this,'c2')">Mostra il passo 1</button>
+  <div class="step" id="sc2_1"><div class="sn">Passo 1 · la formula</div><span class="f"><i>d</i> = <i>m</i> / <i>V</i></span><p>La massa sta sopra.</p></div>
+  <div class="step" id="sc2_2"><div class="sn">Passo 2 · il conto</div><span class="f"><i>d</i> = 9,65 / 0,50 = 19,3 g/cm³</span></div>
+  <div class="res" id="rc2"><div class="lbl">Risposta</div><b>d = 19,3 g/cm³ → oro</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C3 · attenzione alle unità</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Una bottiglia contiene 0 virgola 75 litri di olio di oliva. La densità dell'olio è 0 virgola 92 grammi al millilitro. Quanti grammi di olio ci sono nella bottiglia?">🔊</button></div>
+  <p class="qtext">Una bottiglia contiene 0,75 L di olio d'oliva. La densità dell'olio è 0,92 g/mL. Quanti grammi di olio ci sono?</p>
+  <div class="dati"><div class="lbl">Dati</div><i>V</i> = 0,75 L &nbsp;·&nbsp; <i>d</i> = 0,92 g/mL &nbsp;·&nbsp; <i>m</i> = ?</div>
+  <div class="chk"><input id="ic3" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('c3')">Controlla</button></div>
+  <div class="fb" id="fc3"></div>
+  <button class="btn" onclick="step(this,'c3')">Mostra il passo 1</button>
+  <div class="step" id="sc3_1"><div class="sn">Passo 1 · prima le unità</div><p>La densità è in g/<mark>mL</mark>, il volume in <mark>L</mark>: non vanno d'accordo.</p><span class="f">0,75 L = 750 mL</span></div>
+  <div class="step" id="sc3_2"><div class="sn">Passo 2 · il conto</div><span class="f"><i>m</i> = <i>d</i> · <i>V</i> = 0,92 × 750 = 690 g</span></div>
+  <div class="res" id="rc3"><div class="lbl">Risposta</div><b>m = 690 g</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C4 · volume dalla densità</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Che volume occupano 500 grammi di mercurio? La densità del mercurio è 13 virgola 6 grammi al centimetro cubo.">🔊</button></div>
+  <p class="qtext">Che volume occupano 500 g di mercurio? La densità del mercurio è 13,6 g/cm³.</p>
+  <div class="dati"><div class="lbl">Dati</div><i>m</i> = 500 g &nbsp;·&nbsp; <i>d</i> = 13,6 g/cm³ &nbsp;·&nbsp; <i>V</i> = ?</div>
+  <div class="chk"><input id="ic4" inputmode="decimal" placeholder="..."><span class="u">cm³</span><button onclick="chk('c4')">Controlla</button></div>
+  <div class="fb" id="fc4"></div>
+  <button class="btn" onclick="step(this,'c4')">Mostra il passo 1</button>
+  <div class="step" id="sc4_1"><div class="sn">Passo 1 · che formula?</div><p>Nel triangolo copro <i>V</i>: resta <i>m</i> sopra <i>d</i>.</p><span class="f"><i>V</i> = <i>m</i> / <i>d</i></span></div>
+  <div class="step" id="sc4_2"><div class="sn">Passo 2 · il conto</div><span class="f"><i>V</i> = 500 / 13,6 = 36,8 cm³</span></div>
+  <div class="res" id="rc4"><div class="lbl">Risposta</div><b>V ≈ 36,8 cm³</b><br><span style="font-size:16px">Poco: il mercurio è molto denso.</span></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C5 · concentrazione % m/m</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Sciogli 15 virgola 0 grammi di sale in 135 grammi di acqua. Qual è la concentrazione percentuale massa su massa della soluzione?">🔊</button></div>
+  <p class="qtext">Sciogli 15,0 g di sale in 135 g di acqua. Qual è la concentrazione % <i>m/m</i> della soluzione?</p>
+  <div class="chk"><input id="ic5" inputmode="decimal" placeholder="..."><span class="u">%</span><button onclick="chk('c5')">Controlla</button></div>
+  <div class="fb" id="fc5"></div>
+  <button class="btn" onclick="step(this,'c5')">Mostra il passo 1</button>
+  <div class="step" id="sc5_1"><div class="sn">Passo 1 · la massa della soluzione</div><p>Soluto + solvente:</p><span class="f">15,0 + 135 = 150 g</span></div>
+  <div class="step" id="sc5_2"><div class="sn">Passo 2 · la percentuale</div><span class="f">15,0 / 150 × 100 = 10,0%</span></div>
+  <div class="res" id="rc5"><div class="lbl">Risposta</div><b>10,0% m/m</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C6 · concentrazione % m/V</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="In quale volume devono essere sciolti 3 virgola 60 grammi di soluto per avere una soluzione all'1 virgola 50 per cento massa su volume?">🔊</button></div>
+  <p class="qtext">In quale volume devono essere sciolti 3,60 g di soluto per avere una soluzione all'1,50% <i>m/V</i>?</p>
+  <div class="chk"><input id="ic6" inputmode="decimal" placeholder="..."><span class="u">mL</span><button onclick="chk('c6')">Controlla</button></div>
+  <div class="fb" id="fc6"></div>
+  <button class="btn" onclick="step(this,'c6')">Mostra il passo 1</button>
+  <div class="step" id="sc6_1"><div class="sn">Passo 1 · che cosa vuol dire 1,50%</div><p>1,50 g di soluto ogni 100 mL di soluzione.</p></div>
+  <div class="step" id="sc6_2"><div class="sn">Passo 2 · proporzione</div><span class="f">1,50 : 100 = 3,60 : <i>V</i></span><span class="f"><i>V</i> = 3,60 × 100 / 1,50 = 240 mL</span></div>
+  <div class="res" id="rc6"><div class="lbl">Risposta</div><b>V = 240 mL</b></div>
+</div>
+
+<!-- ═══════════ D · LEGGI PONDERALI ═══════════ -->
+<h2 id="D">D · Leggi ponderali</h2>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D1 · Lavoisier e rapporto</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Bruciando all'aria 4 virgola 80 grammi di magnesio si ottengono 7 virgola 96 grammi di ossido di magnesio. Domanda a: quanto ossigeno ha reagito? Domanda b: calcola il rapporto di combinazione magnesio su ossigeno.">🔊</button></div>
+  <p class="qtext">Bruciando all'aria 4,80 g di magnesio si ottengono 7,96 g di ossido di magnesio. <b>a)</b> Quanto ossigeno ha reagito? <b>b)</b> Calcola il rapporto di combinazione Mg/O.</p>
+  <div class="dati"><div class="lbl">Dati</div>magnesio + ossigeno → ossido di magnesio<br>4,80 g &nbsp;+&nbsp; ? &nbsp;→&nbsp; 7,96 g</div>
+  <div class="lab">a) Ossigeno</div>
+  <div class="chk"><input id="id1a" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d1a')">Controlla</button></div>
+  <div class="fb" id="fd1a"></div>
+  <div class="lab">b) Rapporto Mg/O</div>
+  <div class="chk"><input id="id1b" inputmode="decimal" placeholder="..."><span class="u"></span><button onclick="chk('d1b')">Controlla</button></div>
+  <div class="fb" id="fd1b"></div>
+  <button class="btn" onclick="step(this,'d1')">Mostra il passo 1</button>
+  <div class="step" id="sd1_1"><div class="sn">Passo 1 · Lavoisier</div><p>Massa dei reagenti = massa dei prodotti. Manca un reagente: sottraggo.</p><span class="f"><i>m</i> O = 7,96 − 4,80 = 3,16 g</span></div>
+  <div class="step" id="sd1_2"><div class="sn">Passo 2 · il rapporto</div><p>Mg/O: il magnesio sta sopra.</p><span class="f">4,80 / 3,16 = 1,52</span></div>
+  <div class="res" id="rd1"><div class="lbl">Risposta</div><b>a) 3,16 g di ossigeno &nbsp; b) Mg/O = 1,52</b><br><span style="font-size:16px">Cioè 1,52 g di magnesio per ogni grammo di ossigeno.</span></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D2 · Lavoisier con quattro sostanze</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Lo zinco reagisce con l'acido cloridrico e si formano cloruro di zinco e idrogeno. 13 virgola 0 grammi di zinco reagiscono completamente con 14 virgola 5 grammi di acido cloridrico. Si formano 0 virgola 40 grammi di idrogeno. Quanto cloruro di zinco si forma?">🔊</button></div>
+  <p class="qtext">13,0 g di zinco reagiscono completamente con 14,5 g di acido cloridrico. Si formano cloruro di zinco e 0,40 g di idrogeno. Quanto cloruro di zinco si forma?</p>
+  <div class="dati"><div class="lbl">Dati</div>zinco + acido cloridrico → cloruro di zinco + idrogeno<br>13,0 g &nbsp;+&nbsp; 14,5 g &nbsp;→&nbsp; ? &nbsp;+&nbsp; 0,40 g</div>
+  <div class="chk"><input id="id2" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d2')">Controlla</button></div>
+  <div class="fb" id="fd2"></div>
+  <button class="btn" onclick="step(this,'d2')">Mostra il passo 1</button>
+  <div class="step" id="sd2_1"><div class="sn">Passo 1 · tutti i reagenti</div><span class="f">13,0 + 14,5 = 27,5 g</span></div>
+  <div class="step" id="sd2_2"><div class="sn">Passo 2 · i prodotti pesano uguale</div><p>27,5 g divisi tra cloruro di zinco e idrogeno. Tolgo l'idrogeno:</p><span class="f">27,5 − 0,40 = 27,1 g</span></div>
+  <div class="res" id="rd2"><div class="lbl">Risposta</div><b>27,1 g di cloruro di zinco</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D3 · percentuale di acqua</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Riscaldando 25 virgola 0 grammi di solfato di rame idrato, di colore azzurro, si ottengono 16 virgola 0 grammi di solfato di rame anidro, di colore bianco, e vapore acqueo. Domanda a: quanta acqua se n'è andata? Domanda b: qual è la percentuale di acqua nel solfato di rame idrato?">🔊</button></div>
+  <p class="qtext">Riscaldando 25,0 g di solfato di rame idrato (azzurro) si ottengono 16,0 g di solfato di rame anidro (bianco) e vapore acqueo. <b>a)</b> Quanta acqua se n'è andata? <b>b)</b> Qual è la percentuale di acqua nel sale idrato?</p>
+  <div class="lab">a) Acqua</div>
+  <div class="chk"><input id="id3a" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d3a')">Controlla</button></div>
+  <div class="fb" id="fd3a"></div>
+  <div class="lab">b) Percentuale di acqua</div>
+  <div class="chk"><input id="id3b" inputmode="decimal" placeholder="..."><span class="u">%</span><button onclick="chk('d3b')">Controlla</button></div>
+  <div class="fb" id="fd3b"></div>
+  <button class="btn" onclick="step(this,'d3')">Mostra il passo 1</button>
+  <div class="step" id="sd3_1"><div class="sn">Passo 1 · Lavoisier</div><p>idrato → anidro + acqua</p><span class="f">25,0 − 16,0 = 9,0 g di acqua</span></div>
+  <div class="step" id="sd3_2"><div class="sn">Passo 2 · la percentuale, sul sale di partenza</div><span class="f">9,0 / 25,0 × 100 = 36,0%</span></div>
+  <div class="res" id="rd3"><div class="lbl">Risposta</div><b>a) 9,0 g &nbsp; b) 36,0% di acqua</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D4 · usare il rapporto</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Nel solfuro di ferro il rapporto di combinazione ferro su zolfo è 1 virgola 74. Domanda a: quanti grammi di ferro si combinano con 8 virgola 00 grammi di zolfo? Domanda b: quanto solfuro di ferro si forma?">🔊</button></div>
+  <p class="qtext">Nel solfuro di ferro il rapporto di combinazione Fe/S è 1,74. <b>a)</b> Quanti grammi di ferro si combinano con 8,00 g di zolfo? <b>b)</b> Quanto solfuro di ferro si forma?</p>
+  <div class="lab">a) Ferro</div>
+  <div class="chk"><input id="id4a" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d4a')">Controlla</button></div>
+  <div class="fb" id="fd4a"></div>
+  <div class="lab">b) Solfuro di ferro</div>
+  <div class="chk"><input id="id4b" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d4b')">Controlla</button></div>
+  <div class="fb" id="fd4b"></div>
+  <button class="btn" onclick="step(this,'d4')">Mostra il passo 1</button>
+  <div class="step" id="sd4_1"><div class="sn">Passo 1 · che cosa vuol dire 1,74</div><p>Fe/S = 1,74: il ferro sta sopra. 1 g di zolfo si combina con 1,74 g di ferro. Dallo zolfo al ferro <b>moltiplico</b>.</p></div>
+  <div class="step" id="sd4_2"><div class="sn">Passo 2 · il ferro</div><span class="f">8,00 × 1,74 = 13,9 g</span></div>
+  <div class="step" id="sd4_3"><div class="sn">Passo 3 · il prodotto, con Lavoisier</div><span class="f">8,00 + 13,9 = 21,9 g</span></div>
+  <div class="res" id="rd4"><div class="lbl">Risposta</div><b>a) 13,9 g di ferro &nbsp; b) 21,9 g di solfuro di ferro</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D5 · composizione percentuale</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Per formare 44 virgola 0 grammi di diossido di carbonio servono 12 virgola 0 grammi di carbonio. Domanda a: quanto ossigeno serve? Domanda b: qual è la percentuale di carbonio? Domanda c: e quella di ossigeno? Domanda d: quanti grammi di carbonio ci sono in 110 grammi di diossido di carbonio?">🔊</button></div>
+  <p class="qtext">Per formare 44,0 g di diossido di carbonio servono 12,0 g di carbonio. <b>a)</b> Quanto ossigeno serve? <b>b)</b> Percentuale di carbonio? <b>c)</b> Percentuale di ossigeno? <b>d)</b> Quanti grammi di carbonio ci sono in 110 g di diossido di carbonio?</p>
+  <div class="lab">a) Ossigeno</div>
+  <div class="chk"><input id="id5a" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d5a')">Controlla</button></div>
+  <div class="fb" id="fd5a"></div>
+  <div class="lab">b) % carbonio</div>
+  <div class="chk"><input id="id5b" inputmode="decimal" placeholder="..."><span class="u">%</span><button onclick="chk('d5b')">Controlla</button></div>
+  <div class="fb" id="fd5b"></div>
+  <div class="lab">c) % ossigeno</div>
+  <div class="chk"><input id="id5c" inputmode="decimal" placeholder="..."><span class="u">%</span><button onclick="chk('d5c')">Controlla</button></div>
+  <div class="fb" id="fd5c"></div>
+  <div class="lab">d) Carbonio in 110 g</div>
+  <div class="chk"><input id="id5d" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d5d')">Controlla</button></div>
+  <div class="fb" id="fd5d"></div>
+  <button class="btn" onclick="step(this,'d5')">Mostra il passo 1</button>
+  <div class="step" id="sd5_1"><div class="sn">Passo 1 · Lavoisier</div><span class="f">44,0 − 12,0 = 32,0 g di ossigeno</span></div>
+  <div class="step" id="sd5_2"><div class="sn">Passo 2 · le percentuali, sul composto</div><span class="f">% C = 12,0 / 44,0 × 100 = 27,3%</span><span class="f">% O = 100 − 27,3 = 72,7%</span></div>
+  <div class="step" id="sd5_3"><div class="sn">Passo 3 · dalla percentuale alla massa</div><span class="f">110 × 27,3 / 100 = 30,0 g</span><p>Oppure con la proporzione: 12,0 : 44,0 = <i>x</i> : 110.</p></div>
+  <div class="res" id="rd5"><div class="lbl">Risposta</div><b>a) 32,0 g &nbsp; b) 27,3% &nbsp; c) 72,7% &nbsp; d) 30,0 g</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D6 · reagente in eccesso</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Per formare 34 virgola 0 grammi di ammoniaca servono 28 virgola 0 grammi di azoto. Domanda a: quanti grammi di idrogeno servono? Domanda b: qual è il rapporto di combinazione azoto su idrogeno? Domanda c: si fanno reagire 42 virgola 0 grammi di azoto con 10 virgola 0 grammi di idrogeno. Quanta ammoniaca si forma? Domanda d: quale reagente è in eccesso, e quanti grammi ne avanzano?">🔊</button></div>
+  <p class="qtext">Per formare 34,0 g di ammoniaca servono 28,0 g di azoto. <b>a)</b> Quanti grammi di idrogeno servono? <b>b)</b> Rapporto di combinazione N/H? <b>c)</b> Si fanno reagire 42,0 g di azoto con 10,0 g di idrogeno: quanta ammoniaca si forma? <b>d)</b> Quale reagente è in eccesso, e quanto ne avanza?</p>
+  <div class="lab">a) Idrogeno</div>
+  <div class="chk"><input id="id6a" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d6a')">Controlla</button></div>
+  <div class="fb" id="fd6a"></div>
+  <div class="lab">b) Rapporto N/H</div>
+  <div class="chk"><input id="id6b" inputmode="decimal" placeholder="..."><span class="u"></span><button onclick="chk('d6b')">Controlla</button></div>
+  <div class="fb" id="fd6b"></div>
+  <div class="lab">c) Ammoniaca che si forma</div>
+  <div class="chk"><input id="id6c" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d6c')">Controlla</button></div>
+  <div class="fb" id="fd6c"></div>
+  <div class="lab">d) In eccesso c'è…</div>
+  <div class="opts three" data-ok="1">
+    <button onclick="scegli(this,0)">azoto</button><button onclick="scegli(this,1)">idrogeno</button><button onclick="scegli(this,2)">nessuno</button>
+  </div>
+  <div class="why">L'azoto si consuma tutto e usa solo 9,0 g di idrogeno: dei 10,0 g ne resta un po'.</div>
+  <div class="lab">…e ne avanzano</div>
+  <div class="chk"><input id="id6d" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d6d')">Controlla</button></div>
+  <div class="fb" id="fd6d"></div>
+  <button class="btn" onclick="step(this,'d6')">Mostra il passo 1</button>
+  <div class="step" id="sd6_1"><div class="sn">Passo 1 · Lavoisier</div><span class="f">H = 34,0 − 28,0 = 6,0 g</span></div>
+  <div class="step" id="sd6_2"><div class="sn">Passo 2 · il rapporto</div><span class="f">N/H = 28,0 / 6,0 = 4,67</span></div>
+  <div class="step" id="sd6_3"><div class="sn">Passo 3 · quanto ne serve</div><p>Parto dall'azoto: 42,0 g. L'idrogeno sta sotto, quindi divido.</p><span class="f">H che serve = 42,0 / 4,67 = 9,0 g</span></div>
+  <div class="step" id="sd6_4"><div class="sn">Passo 4 · confronto</div><p>Servono 9,0 g, ne ho 10,0 g: l'idrogeno basta e <b>avanza</b>. L'azoto si consuma tutto.</p><span class="f">avanzo = 10,0 − 9,0 = 1,0 g di idrogeno</span></div>
+  <div class="step" id="sd6_5"><div class="sn">Passo 5 · il prodotto</div><p>Sommo solo quello che ha reagito, non l'avanzo.</p><span class="f">42,0 + 9,0 = 51,0 g di ammoniaca</span></div>
+  <div class="res" id="rd6"><div class="lbl">Risposta</div><b>a) 6,0 g &nbsp; b) 4,67 &nbsp; c) 51,0 g &nbsp; d) idrogeno, avanzano 1,0 g</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D7 · rapporto 2 : 3 ed eccesso</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Nell'anidride solforica il rapporto di combinazione tra le masse di zolfo e ossigeno è 2 a 3. Domanda a: quanti grammi di zolfo si combinano con 6 virgola 0 grammi di ossigeno? Domanda b: calcola le percentuali di zolfo e di ossigeno. Domanda c: si fanno reagire 30 virgola 0 grammi di zolfo con 40 virgola 0 grammi di ossigeno. Quanta anidride solforica si forma? Domanda d: quale reagente avanza, e quanto?">🔊</button></div>
+  <p class="qtext">Nell'anidride solforica il rapporto di combinazione tra zolfo e ossigeno è 2 : 3. <b>a)</b> Quanti grammi di zolfo si combinano con 6,0 g di ossigeno? <b>b)</b> Percentuali di zolfo e ossigeno? <b>c)</b> Si fanno reagire 30,0 g di zolfo con 40,0 g di ossigeno: quanta anidride si forma? <b>d)</b> Chi avanza, e quanto?</p>
+  <div class="lab">a) Zolfo</div>
+  <div class="chk"><input id="id7a" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d7a')">Controlla</button></div>
+  <div class="fb" id="fd7a"></div>
+  <div class="lab">b) % zolfo</div>
+  <div class="chk"><input id="id7b" inputmode="decimal" placeholder="..."><span class="u">%</span><button onclick="chk('d7b')">Controlla</button></div>
+  <div class="fb" id="fd7b"></div>
+  <div class="lab">b) % ossigeno</div>
+  <div class="chk"><input id="id7c" inputmode="decimal" placeholder="..."><span class="u">%</span><button onclick="chk('d7c')">Controlla</button></div>
+  <div class="fb" id="fd7c"></div>
+  <div class="lab">c) Anidride che si forma</div>
+  <div class="chk"><input id="id7d" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d7d')">Controlla</button></div>
+  <div class="fb" id="fd7d"></div>
+  <div class="lab">d) Avanza…</div>
+  <div class="opts three" data-ok="0">
+    <button onclick="scegli(this,0)">zolfo</button><button onclick="scegli(this,1)">ossigeno</button><button onclick="scegli(this,2)">nessuno</button>
+  </div>
+  <div class="why">Per 30,0 g di zolfo servirebbero 45,0 g di ossigeno, ma ce ne sono 40,0: l'ossigeno finisce prima. Avanza lo zolfo, anche se i suoi grammi sono di meno.</div>
+  <div class="lab">…e ne avanzano</div>
+  <div class="chk"><input id="id7e" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d7e')">Controlla</button></div>
+  <div class="fb" id="fd7e"></div>
+  <button class="btn" onclick="step(this,'d7')">Mostra il passo 1</button>
+  <div class="step" id="sd7_1"><div class="sn">Passo 1 · che cosa vuol dire 2 : 3</div><p>2 g di zolfo ogni 3 g di ossigeno. S/O = 2 / 3 = 0,667.</p><span class="f">S = 6,0 × 2 / 3 = 4,0 g</span></div>
+  <div class="step" id="sd7_2"><div class="sn">Passo 2 · le percentuali</div><p>In tutto le parti sono 2 + 3 = 5.</p><span class="f">% S = 2 / 5 × 100 = 40% &nbsp;&nbsp; % O = 3 / 5 × 100 = 60%</span></div>
+  <div class="step" id="sd7_3"><div class="sn">Passo 3 · quanto ne serve</div><p>Parto dallo zolfo: 30,0 g.</p><span class="f">O che serve = 30,0 × 3 / 2 = 45,0 g</span><p>Ne ho solo 40,0 g: <b>non basta</b>. Allora finisce l'ossigeno, e rifaccio il conto partendo da lui.</p></div>
+  <div class="step" id="sd7_4"><div class="sn">Passo 4 · partendo dall'ossigeno</div><span class="f">S che serve = 40,0 × 2 / 3 = 26,7 g</span><span class="f">avanzo = 30,0 − 26,7 = 3,3 g di zolfo</span></div>
+  <div class="step" id="sd7_5"><div class="sn">Passo 5 · il prodotto</div><span class="f">26,7 + 40,0 = 66,7 g di anidride</span></div>
+  <div class="res" id="rd7"><div class="lbl">Risposta</div><b>a) 4,0 g &nbsp; b) S 40%, O 60% &nbsp; c) 66,7 g &nbsp; d) zolfo, avanzano 3,3 g</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D8 · Dalton con le masse</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Azoto e ossigeno formano due ossidi diversi. Nel primo, 7 virgola 00 grammi di azoto sono combinati con 8 virgola 00 grammi di ossigeno. Nel secondo, 7 virgola 00 grammi di azoto sono combinati con 16 virgola 0 grammi di ossigeno. Qual è il rapporto di Dalton riferito all'ossigeno?">🔊</button></div>
+  <p class="qtext">Nel primo ossido di azoto 7,00 g di azoto sono combinati con 8,00 g di ossigeno. Nel secondo, 7,00 g di azoto sono combinati con 16,0 g di ossigeno. Qual è il rapporto di Dalton riferito all'ossigeno?</p>
+  <div class="lab">Rapporto di Dalton</div>
+  <div class="chk"><input id="id8x" inputmode="numeric" placeholder="..." style="flex:0 1 90px"><span class="u" style="text-align:center">:</span><input id="id8y" inputmode="numeric" placeholder="..." style="flex:0 1 90px"><button onclick="chkRatio('d8')">Controlla</button></div>
+  <div class="fb" id="fd8"></div>
+  <button class="btn" onclick="step(this,'d8')">Mostra il passo 1</button>
+  <div class="step" id="sd8_1"><div class="sn">Passo 1 · l'azoto è già uguale</div><p>In tutti e due gli ossidi ci sono 7,00 g di azoto. Posso confrontare subito l'ossigeno.</p></div>
+  <div class="step" id="sd8_2"><div class="sn">Passo 2 · confronto</div><span class="f">8,00 : 16,0 → divido per 8,00 → 1 : 2</span></div>
+  <div class="res" id="rd8"><div class="lbl">Risposta</div><b>1 : 2</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio D9 · Dalton con le percentuali</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Due ossidi di ferro contengono il 77 virgola 7 per cento e il 69 virgola 9 per cento di ferro. Domanda a: per ciascun ossido, calcola quanti grammi di ossigeno si combinano con un grammo di ferro. Domanda b: calcola il rapporto di Dalton riferito all'ossigeno.">🔊</button></div>
+  <p class="qtext">Due ossidi di ferro contengono il 77,7% e il 69,9% di ferro. <b>a)</b> Per ciascuno, quanti grammi di ossigeno si combinano con 1 g di ferro? <b>b)</b> Rapporto di Dalton riferito all'ossigeno?</p>
+  <div class="lab">a) Primo ossido: g di O per 1 g di Fe</div>
+  <div class="chk"><input id="id9a" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d9a')">Controlla</button></div>
+  <div class="fb" id="fd9a"></div>
+  <div class="lab">a) Secondo ossido: g di O per 1 g di Fe</div>
+  <div class="chk"><input id="id9b" inputmode="decimal" placeholder="..."><span class="u">g</span><button onclick="chk('d9b')">Controlla</button></div>
+  <div class="fb" id="fd9b"></div>
+  <div class="lab">b) Rapporto di Dalton</div>
+  <div class="chk"><input id="id9x" inputmode="numeric" placeholder="..." style="flex:0 1 90px"><span class="u" style="text-align:center">:</span><input id="id9y" inputmode="numeric" placeholder="..." style="flex:0 1 90px"><button onclick="chkRatio('d9')">Controlla</button></div>
+  <div class="fb" id="fd9"></div>
+  <button class="btn" onclick="step(this,'d9')">Mostra il passo 1</button>
+  <div class="step" id="sd9_1"><div class="sn">Passo 1 · le percentuali che mancano</div><span class="f">O = 100 − 77,7 = 22,3% &nbsp;&nbsp; O = 100 − 69,9 = 30,1%</span></div>
+  <div class="step" id="sd9_2"><div class="sn">Passo 2 · ossigeno per 1 g di ferro</div><span class="f">22,3 / 77,7 = 0,287 &nbsp;&nbsp; 30,1 / 69,9 = 0,431</span></div>
+  <div class="step" id="sd9_3"><div class="sn">Passo 3 · divido per il più piccolo</div><span class="f">0,287 / 0,287 = 1 &nbsp;&nbsp; 0,431 / 0,287 = 1,5</span><p>1 : 1,5 non sono interi: moltiplico per 2.</p><span class="f">2 : 3</span></div>
+  <div class="res" id="rd9"><div class="lbl">Risposta</div><b>a) 0,287 g e 0,431 g &nbsp; b) 2 : 3</b></div>
+</div>
+
+<!-- ═══════════ E · TEORIA VELOCE ═══════════ -->
+<h2 id="E">E · Teoria veloce</h2>
+<p style="font-size:16px;color:var(--soft);margin:0">Una risposta per riga: dopo il tocco si blocca e compare il perché. Alla fine puoi rifare il gruppo mescolato.</p>
+<div id="blocks"></div>
+
+<p class="foot">Palestra · Chimica — esercizi in stile compito</p>
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+
+/* ---------- numeri: virgola o punto come decimale, spazi tollerati ---------- */
+function num(s){
+  s = String(s==null?"":s).trim();
+  if(!s) return NaN;
+  s = s.replace(/\s+/g,"").replace(/[\u2212\u2013]/g,"-");
+  s = s.replace(/(g\/cm3|g\/cm³|g\/ml|g\/mL|cm3|cm³|ml|mL|kg|g|L|l|%)$/,"");
+  if(s.indexOf(",")>=0){ if(s.indexOf(".")>=0) s = s.replace(/\./g,""); s = s.replace(/,/g,"."); }
+  if(!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s)) return NaN;
+  return parseFloat(s);
+}
+function expOf(el){
+  const t = String(el.value||"").trim().replace(/[\u2212\u2013]/g,"-").replace(/^\+/,"");
+  if(!t) return null;
+  if(!/^-?\d+$/.test(t)) return NaN;
+  return parseInt(t,10);
+}
+function near(a,b,rel){ return Math.abs(a-b) <= Math.abs(b)*(rel==null?1e-6:rel) + 1e-15; }
+function it(x){                     /* numero in formato italiano, per i messaggi */
+  return String(x).replace(".",",");
+}
+function sup(n){ return "10<sup>"+String(n).replace("-","−")+"</sup>"; }
+function volte(k){ const s = String(Math.pow(10,k)); return s.length>4 ? "10<sup>"+k+"</sup>" : s; }
+function pm(id){
+  const el = $(id); let v = String(el.value||"").trim().replace(/[\u2212\u2013]/g,"-");
+  el.value = v.charAt(0)==="-" ? v.slice(1) : "-"+v;
+}
+
+/* ═══════════ A · notazione scientifica ═══════════ */
+/* [come appare, mantissa giusta, esponente giusto, esponente che c'era già] */
+const A = [
+  ["672,4",               "6,724",  2,  0],
+  ["0,000519",            "5,19",  -4,  0],
+  ["58300",               "5,83",   4,  0],
+  ["0,0061",              "6,1",   -3,  0],
+  ["9,02",                "9,02",   0,  0],
+  ["0,50",                "5,0",   -1,  0],
+  ["62,5 × 10<sup>5</sup>",      "6,25",  6,  5],
+  ["0,038 × 10<sup>4</sup>",     "3,8",   2,  4],
+  ["4210 × 10<sup>−8</sup>",     "4,21", -5, -8],
+  ["0,0072 × 10<sup>−2</sup>",   "7,2",  -5, -2],
+  ["830000 × 10<sup>3</sup>",    "8,3",   8,  3],
+  ["275 × 10<sup>−3</sup>",      "2,75", -1, -3]
+];
+function howA(r){
+  const k = r[2]-r[3], n = Math.abs(k), posti = n+(n===1?" posto":" posti");
+  let h;
+  if(k===0) h = "Il numero è già tra 1 e 10: la virgola resta dov'è.";
+  else h = "Virgola "+posti+" a "+(k>0?"<b class='su'>sinistra</b>: l'esponente sale di "+n:"<b class='giu'>destra</b>: l'esponente scende di "+n)+".";
+  if(r[3]!==0) h += "<br>Esponente: "+String(r[3]).replace("-","−")+(k>0?" + ":" − ")+n+" = "+String(r[2]).replace("-","−")+".";
+  h += "<br>→ <b>"+r[1]+" × "+sup(r[2])+"</b>";
+  return h;
+}
+const stA = {};
+function buildA(){
+  let h = "";
+  A.forEach((r,i)=>{
+    const id = "a"+i;
+    h += '<div class="row" id="r'+id+'"><div class="op">'+r[0]+'</div>'
+      + '<div class="ns"><input class="nm" id="m'+id+'" inputmode="decimal" placeholder="numero" aria-label="numero tra 1 e 10">'
+      + '<span class="x">× 10</span><span class="pw"><button class="pm" onclick="pm(\'e'+id+'\')" aria-label="cambia segno">±</button>'
+      + '<input class="ex" id="e'+id+'" inputmode="numeric" placeholder="esp" aria-label="esponente"></span></div>'
+      + '<div class="acts"><button class="go" onclick="chkA('+i+')">Controlla</button><button class="linkish" onclick="how(\''+id+'\')">Come si fa</button></div>'
+      + '<div class="fb" id="f'+id+'"></div><div class="how" id="h'+id+'">'+howA(r)+'</div></div>';
+  });
+  $("rowsA").innerHTML = h;
+  scoreOf("A");
+}
+function chkA(i){
+  const r = A[i], id = "a"+i, f = $("f"+id);
+  const m = num($("m"+id).value);
+  let e = expOf($("e"+id));
+  const M = num(r[1]), E = r[2], G = r[3];
+  if(!isFinite(m)){ bad(f,"Scrivi il numero nella casella grande (puoi usare la virgola)."); return; }
+  if(e===null && E===0 && near(m,M)){ good(id,f,"✓ Esatto: "+r[1]+" × 10<sup>0</sup>, perché 10<sup>0</sup> = 1."); return; }
+  if(e===null){ bad(f,"Scrivi anche l'esponente nella casellina in alto."); return; }
+  if(isNaN(e)){ bad(f,"L'esponente è un numero intero, per esempio 3 oppure −4."); return; }
+  const inRange = Math.abs(m)>=1 && Math.abs(m)<10;
+  const same = near(m,M);
+  if(same && e===E){ good(id,f,"✓ Esatto."); return; }
+  if(!inRange && near(m*Math.pow(10,e), M*Math.pow(10,E), 1e-9)){
+    bad(f,"Il valore è giusto, ma non è notazione scientifica: prima della virgola ci vuole una sola cifra, diversa da zero."); return; }
+  if(same){
+    if(E!==0 && e===-E){ bad(f,"Le cifre vanno bene, ma il segno dell'esponente è al contrario."); return; }
+    if(G!==0 && e===E-G){ bad(f,"Hai dimenticato la potenza che c'era già ("+sup(G)+"): lo spostamento va aggiunto a "+String(G).replace("-","−")+"."); return; }
+    if(G!==0 && e===G-(E-G)){ bad(f,"Hai aggiustato l'esponente nel verso sbagliato: virgola a sinistra → l'esponente sale; a destra → scende."); return; }
+    bad(f,"Le cifre vanno bene. Riconta di quanti posti si sposta la virgola."); return;
+  }
+  if(inRange){ bad(f,"Controlla le cifre: restano le stesse del numero di partenza, cambia solo il posto della virgola."); return; }
+  bad(f,"Il primo numero deve stare tra 1 e 10. Apri «Come si fa».");
+}
+
+/* ═══════════ B · equivalenze ═══════════ */
+/* [testo, valore di partenza, esponente del fattore, dimensione, spiegazione] */
+const B = [
+  ["36,5 mm <span class='to'>in</span> m", 36.5, -3, 1,
+   "Da mm a m <b class='su'>salgo 3 gradini</b> → divido per 10<sup>3</sup>.<br>36,5 ÷ 1000 = <b>0,0365 m</b> = 3,65 × 10<sup>−2</sup> m"],
+  ["0,72 nm <span class='to'>in</span> cm", 0.72, -7, 1,
+   "Esponenti: (−9) − (−2) = −7 → × 10<sup>−7</sup>.<br>0,72 × 10<sup>−7</sup> = <b>7,2 × 10<sup>−8</sup> cm</b>"],
+  ["48,6 cm <span class='to'>in</span> km", 48.6, -5, 1,
+   "Da cm a km <b class='su'>salgo 5 gradini</b> → × 10<sup>−5</sup>.<br>48,6 × 10<sup>−5</sup> = <b>4,86 × 10<sup>−4</sup> km</b> = 0,000486 km"],
+  ["3,5 kJ <span class='to'>in</span> J", 3.5, 3, 1,
+   "Da kJ a J <b class='giu'>scendo 3 gradini</b> → × 10<sup>3</sup>.<br>3,5 × 1000 = <b>3500 J</b>"],
+  ["0,27 km <span class='to'>in</span> dm", 0.27, 4, 1,
+   "Da km a dm <b class='giu'>scendo 4 gradini</b> → × 10<sup>4</sup>.<br>0,27 × 10 000 = <b>2700 dm</b>"],
+  ["450 mL <span class='to'>in</span> L", 450, -3, 1,
+   "Da mL a L <b class='su'>salgo 3 gradini</b> → ÷ 1000.<br>450 ÷ 1000 = <b>0,45 L</b>"],
+  ["12,3 km <span class='to'>in</span> mm", 12.3, 6, 1,
+   "Da km a mm <b class='giu'>scendo 6 gradini</b> → × 10<sup>6</sup>.<br>12,3 × 10<sup>6</sup> = <b>1,23 × 10<sup>7</sup> mm</b>"],
+  ["0,62 × 10<sup>3</sup> mm <span class='to'>in</span> km", 620, -6, 1,
+   "Da mm a km <b class='su'>salgo 6 gradini</b> → × 10<sup>−6</sup>.<br>0,62 × 10<sup>3</sup> × 10<sup>−6</sup> = 0,62 × 10<sup>−3</sup> = <b>6,2 × 10<sup>−4</sup> km</b>"],
+  ["1500 × 10<sup>4</sup> nm <span class='to'>in</span> mm", 1.5e7, -6, 1,
+   "Esponenti: (−9) − (−3) = −6 → × 10<sup>−6</sup>.<br>1500 × 10<sup>4</sup> × 10<sup>−6</sup> = 1500 × 10<sup>−2</sup> = <b>15 mm</b>"],
+  ["0,0064 × 10<sup>−5</sup> mm <span class='to'>in</span> nm", 6.4e-8, 6, 1,
+   "Esponenti: (−3) − (−9) = +6 → × 10<sup>6</sup>.<br>0,0064 × 10<sup>−5</sup> × 10<sup>6</sup> = 0,0064 × 10<sup>1</sup> = <b>0,064 nm</b>"],
+  ["0,0075 × 10<sup>3</sup> mL <span class='to'>in</span> L", 7.5, -3, 1,
+   "Prima: 0,0075 × 10<sup>3</sup> = 7,5 mL.<br>Da mL a L <b class='su'>salgo 3 gradini</b>: 7,5 ÷ 1000 = <b>0,0075 L</b>"],
+  ["25 m² <span class='to'>in</span> dm²", 25, 2, 2,
+   "Da m² a dm² <b class='giu'>scendo 1 gradino</b>, e con i m² un gradino vale 100.<br>25 × 100 = <b>2500 dm²</b>"],
+  ["4,2 m² <span class='to'>in</span> cm²", 4.2, 4, 2,
+   "Da m² a cm² <b class='giu'>scendo 2 gradini</b> da 100 → × 10<sup>4</sup>.<br>4,2 × 10 000 = <b>42 000 cm²</b>"],
+  ["76 m³ <span class='to'>in</span> cm³", 76, 6, 3,
+   "Da m³ a cm³ <b class='giu'>scendo 2 gradini</b> da 1000 → × 10<sup>6</sup>.<br>76 × 10<sup>6</sup> = <b>7,6 × 10<sup>7</sup> cm³</b>"],
+  ["2,5 L <span class='to'>in</span> cm³", 2.5, 3, 1,
+   "Il ponte: 1 L = 1 dm³, quindi 2,5 L = 2,5 dm³.<br>Da dm³ a cm³: un gradino da 1000 → <b>2500 cm³</b>.<br>Oppure: 2,5 L = 2500 mL = 2500 cm³."],
+  ["850 cm³ <span class='to'>in</span> L", 850, -3, 1,
+   "Il ponte: 1 cm³ = 1 mL, quindi 850 cm³ = 850 mL.<br>Da mL a L ÷ 1000 → <b>0,85 L</b>"]
+];
+function buildB(){
+  let h = "";
+  B.forEach((r,i)=>{
+    const id = "b"+i;
+    h += '<div class="row" id="r'+id+'"><div class="op">'+r[0]+'</div>'
+      + '<div class="ns"><input class="nm" id="m'+id+'" inputmode="decimal" placeholder="risultato" aria-label="risultato">'
+      + '<span class="x">× 10</span><span class="pw"><button class="pm" onclick="pm(\'e'+id+'\')" aria-label="cambia segno">±</button>'
+      + '<input class="ex" id="e'+id+'" inputmode="numeric" placeholder="" aria-label="esponente, facoltativo"></span></div>'
+      + '<div class="acts"><button class="go" onclick="chkB('+i+')">Controlla</button><button class="linkish" onclick="how(\''+id+'\')">Come si fa</button></div>'
+      + '<div class="fb" id="f'+id+'"></div><div class="how" id="h'+id+'">'+r[4]+'</div></div>';
+  });
+  $("rowsB").innerHTML = h;
+  scoreOf("B");
+}
+function chkB(i){
+  const r = B[i], id = "b"+i, f = $("f"+id);
+  const m = num($("m"+id).value);
+  let e = expOf($("e"+id));
+  if(!isFinite(m)){ bad(f,"Scrivi il risultato nella casella grande (puoi usare la virgola o il punto)."); return; }
+  if(isNaN(e)){ bad(f,"Nella casellina va un numero intero, oppure lasciala vuota."); return; }
+  if(e===null) e = 0;
+  const v = m*Math.pow(10,e), x = r[1], k = r[2], dim = r[3], want = x*Math.pow(10,k);
+  if(near(v,want,1e-6)){ good(id,f,"✓ Esatto."); return; }
+  if(near(v,x*Math.pow(10,-k),1e-6)){
+    bad(f, k>0 ? "Hai diviso, ma vai verso un'unità più piccola: il numero deve diventare più grande, quindi moltiplichi."
+                : "Hai moltiplicato, ma vai verso un'unità più grande: il numero deve diventare più piccolo, quindi dividi."); return; }
+  if(dim>1 && near(v,x*Math.pow(10,k/dim),1e-6)){
+    bad(f,"Hai contato ogni gradino come 10. Con i "+(dim===2?"m² ogni gradino vale 100":"m³ ogni gradino vale 1000")+"."); return; }
+  if(v>0){
+    const L = Math.log(v/want)/Math.LN10, n = Math.round(L);
+    if(n!==0 && Math.abs(L-n)<0.004){
+      bad(f,"Le cifre vanno bene, ma il numero è "+(n>0?"troppo grande":"troppo piccolo")+" di "+volte(Math.abs(n))+" volte. Riconta i gradini."); return; }
+  }
+  bad(f,"Non ancora. Apri «Come si fa».");
+}
+
+/* ---------- comune alle righe ---------- */
+const helped = {};
+function how(id){ $("h"+id).classList.toggle("on"); helped[id] = true; }
+function good(id,f,msg){
+  f.className = "fb y"; f.innerHTML = msg + (helped[id] ? " <span style='color:var(--soft);font-weight:600'>(con l'aiuto)</span>" : "");
+  const row = $("r"+id); row.classList.add("done"); row.setAttribute("data-ok", helped[id] ? "h" : "1");
+  scoreOf(id.charAt(0).toUpperCase());
+}
+function bad(f,msg){ f.className = "fb n"; f.innerHTML = "✗ "+msg; }
+function scoreOf(L){
+  const cont = $("rows"+L); if(!cont) return;
+  const rs = cont.querySelectorAll(".row"); let solo = 0, aiuto = 0;
+  Array.prototype.forEach.call(rs, r=>{ const v = r.getAttribute("data-ok"); if(v==="1") solo++; else if(v==="h") aiuto++; });
+  $("score"+L).textContent = "Giuste da solo: "+solo+" su "+rs.length+(aiuto?" · con l'aiuto: "+aiuto:"");
+}
+
+/* ═══════════ C e D · esercizi con i passi ═══════════ */
+const SPEC = {
+  c1:{ok:67.5, traps:[[9.26,"Hai diviso il volume per la densità. Nel triangolo copri la m: m = d × V."],
+                       [0.108,"Hai diviso la densità per il volume. Per la massa si moltiplica: m = d × V."]]},
+  c2a:{ok:19.3, traps:[[0.0518,"Hai diviso al contrario: d = m / V, la massa sta sopra."],[4.825,"Hai moltiplicato: la densità è massa diviso volume."]]},
+  c3:{ok:690, traps:[[0.69,"Hai usato 0,75 L con una densità in g/mL. Prima trasforma: 0,75 L = 750 mL."],
+                      [815.2,"Hai diviso: la massa è d × V."],[0.815,"Hai diviso, e senza trasformare i litri. m = d × V, con V in mL."]]},
+  c4:{ok:36.76, tol:0.01, traps:[[6800,"Hai moltiplicato: il volume si trova con V = m / d."],[0.0272,"Hai diviso al contrario: V = m / d, la massa sta sopra."]]},
+  c5:{ok:10.0, traps:[[11.11,"Hai diviso per la massa dell'acqua. Va divisa per la massa della soluzione: 15,0 + 135 = 150 g."]]},
+  c6:{ok:240, traps:[[5.4,"Hai moltiplicato 3,60 × 1,50. Dalla proporzione: V = 3,60 × 100 / 1,50."],
+                      [2.4,"Hai dimenticato il × 100: 1,50% vuol dire 1,50 g ogni 100 mL."],[0.0417,"Hai diviso al contrario: V = 3,60 × 100 / 1,50."]]},
+  d1a:{ok:3.16, traps:[[12.76,"Hai sommato. L'ossido è il prodotto e contiene già il magnesio: m O = 7,96 − 4,80."]]},
+  d1b:{ok:1.519, tol:0.01, traps:[[0.658,"Hai fatto O/Mg. Nel rapporto Mg/O il magnesio sta sopra: 4,80 / 3,16."],
+                                  [0.603,"Hai usato l'ossido. Il rapporto è tra i due elementi: magnesio / ossigeno."]]},
+  d2:{ok:27.1, tol:0.005, traps:[[27.5,"Anche l'idrogeno è un prodotto e ha una massa: 27,5 − 0,40."],
+                      [27.9,"L'idrogeno sta tra i prodotti: va tolto, non aggiunto."]]},
+  d3a:{ok:9.0, traps:[[41,"Hai sommato. L'acqua è quello che manca: 25,0 − 16,0."]]},
+  d3b:{ok:36.0, traps:[[56.25,"Hai diviso per il sale anidro. La percentuale si calcola sul sale di partenza, 25,0 g."],
+                       [64,"Questa è la percentuale del sale anidro, non dell'acqua. Fai 100 − 64, oppure 9,0 / 25,0 × 100."]]},
+  d4a:{ok:13.92, tol:0.01, traps:[[4.598,"Hai diviso. Fe/S = 1,74: il ferro sta sopra. Dallo zolfo al ferro moltiplichi."]]},
+  d4b:{ok:21.92, tol:0.01, traps:[[12.6,"Usa il ferro giusto: 8,00 + 13,9."],[9.74,"Il solfuro si forma da ferro + zolfo, con le masse in grammi: 8,00 + 13,9."]]},
+  d5a:{ok:32.0, traps:[[56,"Hai sommato: il diossido di carbonio contiene già il carbonio. 44,0 − 12,0."]]},
+  d5b:{ok:27.27, tol:0.01, traps:[[37.5,"Hai diviso per l'ossigeno. La percentuale si calcola sulla massa del composto, 44,0 g."],
+                                  [72.7,"Questa è la percentuale dell'ossigeno."]]},
+  d5c:{ok:72.73, tol:0.01, traps:[[27.3,"Questa è la percentuale del carbonio."],[266.7,"Hai diviso per il carbonio. La percentuale si calcola sul composto, 44,0 g."]]},
+  d5d:{ok:30.0, tol:0.012, traps:[[80,"Questa è la massa dell'ossigeno in 110 g. Il carbonio è il 27,3%."],[403,"Hai diviso: dalla percentuale alla massa si fa 110 × 27,3 / 100."]]},
+  d6a:{ok:6.0, traps:[[62,"Hai sommato: l'ammoniaca contiene già l'azoto. 34,0 − 28,0."]]},
+  d6b:{ok:4.667, tol:0.012, traps:[[0.214,"Hai fatto H/N. Nel rapporto N/H l'azoto sta sopra: 28,0 / 6,0."],[0.824,"Questa è la frazione di azoto nel composto. Il rapporto è azoto / idrogeno."]]},
+  d6c:{ok:51.0, traps:[[52,"Hai sommato tutto. Una parte dell'idrogeno non reagisce: trova prima chi avanza."],
+                      [56.67,"Per consumare 10,0 g di idrogeno servirebbero 46,7 g di azoto, ma ne hai 42,0. Parti dall'azoto."],
+                      [46.67,"Questo è l'azoto che servirebbe per tutto l'idrogeno. Parti dall'azoto: H che serve = 42,0 / 4,67."]]},
+  d6d:{ok:1.0, traps:[[4.67,"Qui hai confrontato l'azoto. Parti dall'azoto: H che serve = 42,0 / 4,67 = 9,0 g. Ne hai 10,0."],[9,"Questo è l'idrogeno che reagisce. L'avanzo è 10,0 − 9,0."]]},
+  d7a:{ok:4.0, traps:[[9,"Hai usato 3/2. S/O = 2/3: dall'ossigeno allo zolfo moltiplichi per 2 e dividi per 3."]]},
+  d7b:{ok:40, traps:[[66.7,"Hai fatto 2/3 × 100. Le parti in tutto sono 2 + 3 = 5: % S = 2/5 × 100."],[60,"Questa è la percentuale dell'ossigeno."]]},
+  d7c:{ok:60, traps:[[150,"Hai fatto 3/2 × 100. Le parti in tutto sono 5: % O = 3/5 × 100."],[40,"Questa è la percentuale dello zolfo."]]},
+  d7d:{ok:66.67, tol:0.01, traps:[[75,"Per 30,0 g di zolfo servirebbero 45,0 g di ossigeno, ma ne hai 40,0. Parti dall'ossigeno."],
+                                  [70,"Hai sommato tutto: una parte dello zolfo avanza."]]},
+  d7e:{ok:3.33, tol:0.02, traps:[[5,"Hai confrontato 45 con 40, ma l'ossigeno non avanza: manca. Parti dall'ossigeno: S che serve = 40,0 × 2/3."],
+                                 [10,"Hai fatto 40 − 30. Calcola prima lo zolfo che reagisce: 40,0 × 2/3 = 26,7 g."]]},
+  d9a:{ok:0.287, tol:0.01, traps:[[3.484,"Hai fatto ferro / ossigeno. Cerchi i grammi di ossigeno per 1 g di ferro: O / Fe = 22,3 / 77,7."],[0.223,"Hai usato solo la percentuale. Dividila per quella del ferro: 22,3 / 77,7."]]},
+  d9b:{ok:0.4306, tol:0.01, traps:[[2.322,"Hai fatto ferro / ossigeno. Cerchi O / Fe = 30,1 / 69,9."],[0.301,"Dividi per la percentuale del ferro: 30,1 / 69,9."]]}
+};
+const RATIO = { d8:[1,2], d9:[2,3] };
+
+function chk(id){
+  const sp = SPEC[id], f = $("f"+id), v = num($("i"+id).value);
+  if(!isFinite(v)){ bad(f,"Scrivi un numero (puoi usare la virgola)."); return; }
+  const tol = sp.tol!=null ? sp.tol : 0.015;
+  if(near(v,sp.ok,tol)){ f.className = "fb y"; f.innerHTML = "✓ Esatto."; return; }
+  let msg = null;
+  (sp.traps||[]).forEach(t=>{ if(msg===null && near(v,t[0],0.012)) msg = t[1]; });
+  if(msg===null && v>0){
+    const L = Math.log(v/sp.ok)/Math.LN10, n = Math.round(L);
+    if(n!==0 && Math.abs(L-n)<0.01) msg = "Le cifre vanno bene, ma il numero è "+(n>0?"troppo grande":"troppo piccolo")+" di "+volte(Math.abs(n))+" volte. Controlla le unità.";
+  }
+  bad(f, msg || "Non ancora. Apri il passo 1.");
+}
+function chkRatio(id){
+  const f = $("f"+id), a = num($("i"+id+"x").value), b = num($("i"+id+"y").value), w = RATIO[id];
+  if(!isFinite(a) || !isFinite(b) || a<=0 || b<=0){ bad(f,"Scrivi i due numeri del rapporto."); return; }
+  const giusto = near(a/b, w[0]/w[1], 0.01);
+  if(giusto && a===w[0] && b===w[1]){ f.className = "fb y"; f.innerHTML = "✓ Esatto: "+w[0]+" : "+w[1]+"."; return; }
+  if(giusto && (a%1!==0 || b%1!==0)){ bad(f,"Il rapporto è giusto, ma servono numeri interi: moltiplica tutti e due finché diventano interi."); return; }
+  if(giusto){ bad(f,"Il rapporto è giusto, ma semplificalo: servono i numeri interi più piccoli."); return; }
+  if(near(a/b, w[1]/w[0], 0.01)){ bad(f,"Hai scritto i numeri al contrario: prima il primo ossido, poi il secondo."); return; }
+  bad(f,"Non ancora. Apri il passo 1.");
+}
+function step(btn,q){
+  const all = document.querySelectorAll('[id^="s'+q+'_"]'); let n = 0;
+  for(let i=0;i<all.length;i++) if(all[i].classList.contains("on")) n++;
+  const el = all[n];
+  if(el){ el.classList.add("on"); if(el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"center"}); }
+  if(n+1>=all.length){ const r = $("r"+q); if(r) r.classList.add("on"); btn.style.display = "none"; }
+  else { btn.textContent = "Continua"; btn.classList.add("solid"); }
+}
+
+/* ---------- scelte (una sola risposta, poi si blocca) ---------- */
+function scegli(btn,k){
+  const box = btn.parentNode;
+  if(box.getAttribute("data-done")!==null) return;
+  const ok = +box.getAttribute("data-ok"), bs = box.querySelectorAll("button"), giusto = (k===ok);
+  btn.className = giusto ? "right" : "wrong";
+  if(!giusto) bs[ok].className = "right";
+  box.setAttribute("data-done", giusto?"1":"0");
+  box.classList.add("locked");
+  let w = box.nextElementSibling;
+  if(w && w.classList.contains("why")) w.classList.add("on");
+  const blk = box.closest ? box.closest(".blk") : null;
+  if(blk) punti(blk);
+}
+
+/* ═══════════ E · teoria veloce ═══════════ */
+const BLK = [
+ {id:"e1", t:"Trasformazione fisica o chimica?", o:["fisica","chimica"], rows:[
+  ["Il ghiaccio fonde",0,"Cambia solo lo stato: è sempre acqua."],
+  ["Il ferro arrugginisce",1,"Si forma una sostanza nuova: la ruggine."],
+  ["Il sale si scioglie nell'acqua",0,"Se l'acqua evapora, il sale torna com'era."],
+  ["Il legno brucia",1,"Si formano cenere, fumo e gas: sostanze nuove."],
+  ["Lo iodio sublima",0,"Cambia stato ma resta iodio, anche se l'aspetto cambia molto."],
+  ["Il pane lievita",1,"I lieviti producono un gas nuovo: le bollicine."],
+  ["L'acqua bolle",0,"Passa da liquido a vapore: è sempre acqua."],
+  ["L'aceto sul calcare fa le bollicine",1,"Le bollicine sono un gas che prima non c'era."],
+  ["Il magnesio brucia con una luce bianca",1,"Si forma una sostanza nuova: l'ossido di magnesio."]]},
+ {id:"e2", t:"Sistema omogeneo o eterogeneo?", o:["omogeneo","eterogeneo"], rows:[
+  ["Acqua e olio",1,"Due strati: due fasi."],
+  ["Acqua con zucchero sciolto",0,"Una sola fase, anche se i componenti sono due."],
+  ["Acqua e ghiaccio",1,"Una sola sostanza, ma due fasi: solida e liquida."],
+  ["Aria pulita",0,"È una soluzione di gas."],
+  ["Ottone",0,"È una lega: una soluzione solida di rame e zinco."],
+  ["Maionese",1,"È un'emulsione: goccioline di un liquido dentro un altro."],
+  ["Sabbia",1,"Con la lente si vedono granelli diversi."],
+  ["Acqua gassata chiusa in bottiglia",0,"Il gas è disciolto: una sola fase. Versata, con le bolle, diventa eterogenea."]]},
+ {id:"e3", t:"Sostanza pura o miscuglio?", o:["sostanza pura","miscuglio"], rows:[
+  ["Acqua distillata",0,"Contiene solo acqua: particelle tutte uguali."],
+  ["Acqua di mare",1,"Contiene sali disciolti: evaporando li lascia."],
+  ["Oro",0,"È un elemento: una sostanza pura."],
+  ["Aria",1,"È una soluzione di azoto, ossigeno e altri gas."],
+  ["Acqua del rubinetto",1,"Contiene sali minerali disciolti."],
+  ["Ossigeno",0,"Solo molecole O₂, tutte uguali."],
+  ["Cloruro di sodio",0,"È un composto: una sostanza pura."],
+  ["Latte",1,"Contiene acqua, grassi, zuccheri e altro."]]},
+ {id:"e4", t:"Elemento o composto?", o:["elemento","composto"], rows:[
+  ["Oro, Au",0,"Non si può scomporre in sostanze più semplici."],
+  ["Acqua, H₂O",1,"È fatta di due elementi: idrogeno e ossigeno."],
+  ["Ossigeno, O₂",0,"La molecola ha due atomi, ma uguali: resta un elemento."],
+  ["Anidride carbonica, CO₂",1,"Carbonio e ossigeno: due elementi diversi."],
+  ["Ferro, Fe",0,"Un solo simbolo: un elemento."],
+  ["Cloruro di sodio, NaCl",1,"Sodio e cloro: due elementi diversi."],
+  ["Azoto, N₂",0,"Due atomi uguali: elemento."],
+  ["Ammoniaca, NH₃",1,"Azoto e idrogeno: un composto."]]},
+ {id:"e5", t:"Come si chiama il passaggio di stato?", rows:[
+  ["solido → liquido",["fusione","solidificazione","sublimazione"],0,"Scaldando, il solido fonde."],
+  ["liquido → aeriforme",["vaporizzazione","condensazione","sublimazione"],0,"Evaporazione ed ebollizione sono due tipi di vaporizzazione."],
+  ["solido → aeriforme",["sublimazione","brinamento","fusione"],0,"Come il ghiaccio secco e lo iodio."],
+  ["aeriforme → solido",["brinamento","sublimazione","solidificazione"],0,"Così si forma la brina sui prati."],
+  ["aeriforme → liquido",["condensazione","vaporizzazione","brinamento"],0,"Come il vapore che diventa goccioline sullo specchio."],
+  ["liquido → solido",["solidificazione","fusione","condensazione"],0,"Raffreddando, il liquido solidifica."]]},
+ {id:"e6", t:"Con quale tecnica li separi?", rows:[
+  ["Acqua e sabbia",["filtrazione","distillazione","cromatografia"],0,"La sabbia resta sul filtro: separa per dimensione."],
+  ["Alcol da un liquore",["distillazione","filtrazione","setacciatura"],0,"L'alcol è più volatile: evapora prima."],
+  ["Panna dal latte",["centrifugazione","cromatografia","setacciatura"],0,"Separa per densità, girando velocissimo."],
+  ["I colori di un inchiostro",["cromatografia","decantazione","filtrazione"],0,"I colori migrano a velocità diverse."],
+  ["Acqua e fango lasciati riposare",["decantazione","distillazione","estrazione"],0,"Il fango, più denso, va sul fondo."],
+  ["Semi di dimensioni diverse",["setacciatura","centrifugazione","distillazione"],0,"Il setaccio separa per dimensione."],
+  ["Caffeina dai chicchi di caffè",["estrazione","setacciatura","decantazione"],0,"Si usa un solvente in cui la caffeina si scioglie."]]},
+ {id:"e7", t:"Che miscuglio eterogeneo è?", rows:[
+  ["gas disperso in un liquido",["schiuma","nebbia","emulsione"],0,"Come il cappuccino."],
+  ["liquido disperso in un gas",["nebbia","fumo","schiuma"],0,"Goccioline d'acqua nell'aria."],
+  ["solido disperso in un gas",["fumo","nebbia","sospensione"],0,"Come il fumo di un camino."],
+  ["liquido disperso in un liquido",["emulsione","sospensione","schiuma"],0,"Come la maionese."],
+  ["solido disperso in un liquido",["sospensione","fumo","emulsione"],0,"Come il succo di frutta."]]}
+];
+function shuf(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function sillaba(o){ /* a capo pulito sulle parole lunghe (schermi stretti) */
+  return String(o).replace(/(centrifu|vaporiz|cromato|solidifi|condensa|setaccia|decanta|distilla|sublima|filtra)(zione|gazione|zazione|grafia|cazione|tura)/g,"$1&shy;$2");
+}
+function rowHTML(b,r){
+  let opts, ok;
+  if(b.o){ opts = b.o; ok = r[1]; }
+  else { const giusta = r[1][r[2]]; opts = shuf(r[1]); ok = opts.indexOf(giusta); }
+  const why = b.o ? r[2] : r[3];
+  let h = '<div class="row"><div class="op" style="font-family:inherit;font-size:18px">'+r[0]+'</div>'
+        + '<div class="opts '+(opts.length===2?"two":"three")+'" data-ok="'+ok+'">';
+  opts.forEach((o,k)=>{ h += '<button onclick="scegli(this,'+k+')">'+sillaba(o)+'</button>'; });
+  return h + '</div><div class="why">'+why+'</div></div>';
+}
+function buildBlock(b, mescola){
+  const el = $(b.id); const rows = mescola ? shuf(b.rows) : b.rows;
+  let h = '<div class="qnum">'+b.t+'</div><div class="rows">';
+  rows.forEach(r=>{ h += rowHTML(b,r); });
+  h += '</div><div class="score" id="score'+b.id+'"></div>'
+     + '<button class="btn redo" id="redo'+b.id+'" onclick="rifai(\''+b.id+'\')">Rifai mescolato</button>';
+  el.innerHTML = h;
+  punti(el);
+}
+function punti(blk){
+  const all = blk.querySelectorAll(".opts"); let n = 0, t = 0;
+  for(let i=0;i<all.length;i++){ const v = all[i].getAttribute("data-done"); if(v!==null){ t++; if(v==="1") n++; } }
+  const sc = $("score"+blk.id);
+  if(sc) sc.textContent = n+" / "+all.length+(t<all.length ? " (ne mancano "+(all.length-t)+")" : (n===all.length ? " — tutto giusto!" : ""));
+  const r = $("redo"+blk.id); if(r) r.style.display = (t===all.length) ? "block" : "none";
+}
+function rifai(id){
+  const b = BLK.find(x=>x.id===id); buildBlock(b,true);
+  const el = $(id); if(el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ---------- voce ---------- */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;               /* secondo tocco sullo stesso tasto: ferma */
+  const u = new SpeechSynthesisUtterance(btn.getAttribute("data-say") || "");
+  u.lang = "it-IT"; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on");
+  speechSynthesis.speak(u);
+}
+
+/* ---------- avvio ---------- */
+buildA(); buildB();
+(function(){
+  const cont = $("blocks");
+  BLK.forEach(b=>{ const d = document.createElement("div"); d.className = "card blk"; d.id = b.id; cont.appendChild(d); buildBlock(b,false); });
+  const ins = document.querySelectorAll(".chk input, .ns input");
+  for(let i=0;i<ins.length;i++) ins[i].addEventListener("keydown", function(e){
+    if(e.key!=="Enter") return;
+    let p = this.parentNode; while(p && !p.classList.contains("row") && !p.classList.contains("chk")) p = p.parentNode;
+    const b = p ? p.querySelector("button.go, .chk > button") : null; if(b) b.click();
+  });
+})();
+</script>
+</body>
+</html>
