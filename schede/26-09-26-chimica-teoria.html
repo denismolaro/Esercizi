@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chimica — Misure, materia, leggi ponderali</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --giu-soft:#E6EEF9;   /* scendo la scala: moltiplico */
+  --su:#B4531A;  --su-soft:#FBEDE3;    /* salgo la scala: divido */
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:23px; text-align:center; display:block; margin:14px 0; line-height:1.5}
+.f i{font-style:italic}
+.f.big{font-size:30px}
+.ex{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px; line-height:1.6}
+.ex .lbl, .box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.ex .fx{font-family:"Times New Roman",Georgia,serif; font-size:20px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.giu{color:var(--giu); font-weight:700} .su{color:var(--su); font-weight:700}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+td.c, th.c{text-align:center}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+
+/* passi numerati del metodo */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16.5px; line-height:1.55}
+.flow .st b.n{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.flow .st.av{border-left-color:var(--warn); background:var(--warn-soft)}
+.flow .st.av b.n{color:var(--warn)}
+
+/* mappa della materia */
+.tree{margin:14px 0; font-size:16px}
+.tree .n0{background:var(--ink); color:#fff; border-radius:10px; padding:8px 12px; text-align:center; font-weight:700}
+.tree .lv{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+.tree .n1{border:2px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 10px; text-align:center; font-weight:700; color:var(--accent)}
+.tree .n2{border:1px solid var(--rule); background:#fff; border-radius:10px; padding:7px 9px; font-size:15px; line-height:1.4; margin-top:6px}
+.tree .n2 b{display:block}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* la virgola che si sposta */
+.vm{border:2px solid var(--accent-line); border-radius:14px; padding:14px; margin:14px 0; background:#fff}
+.vm .num{font-family:"Times New Roman",Georgia,serif; font-size:34px; text-align:center; line-height:1.3; word-break:break-all; margin:6px 0}
+.vm .num .cm{color:var(--accent); font-weight:700; font-size:40px}
+.vm .num sup{font-size:22px}
+.vm .msg{font-size:16px; text-align:center; min-height:3.1em; font-weight:600}
+.vm .msg.ok{color:var(--ok)}
+.vm .ctl{display:flex; gap:8px; margin-top:8px}
+.vm .ctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 6px; font:inherit; font-size:16px; font-weight:700; cursor:pointer}
+.vm .pre{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; justify-content:center}
+.vm .pre button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:4px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.vm .pre button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft)}
+
+/* la scala dei prefissi */
+.lad{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.lad .dims{display:flex; gap:6px; margin-bottom:10px}
+.lad .dims button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 4px; font:inherit; font-size:16px; font-weight:700; color:var(--soft); cursor:pointer}
+.lad .dims button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.lad .hint{font-size:15px; color:var(--soft); text-align:center; margin-bottom:8px}
+.rungs{display:flex; flex-direction:column; gap:4px}
+.rung{display:flex; align-items:center; gap:10px; border:2px solid var(--rule); border-radius:10px; padding:6px 10px; background:#fff; cursor:pointer; font:inherit; color:var(--ink); text-align:left; width:100%}
+.rung .u{font-family:"Times New Roman",Georgia,serif; font-size:21px; font-weight:700; min-width:64px}
+.rung .e{font-size:14px; color:var(--soft)}
+.rung.gap{border-style:dashed; padding:0 10px; min-height:14px; cursor:default; background:transparent}
+.rung.gap .e{font-size:12.5px}
+.rung.mid{background:#F4F1EA}
+.rung.from{border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+.rung.to{border-color:var(--ink); background:var(--ink); color:#fff}
+.rung.to .e{color:#DDE3EA}
+.lad .out{margin-top:10px; border-radius:12px; padding:10px 12px; font-size:17px; line-height:1.55; min-height:3.2em; background:#F4F1EA}
+.lad .out.g{background:var(--giu-soft); color:var(--giu)}
+.lad .out.s{background:var(--su-soft); color:var(--su)}
+
+/* passaggi di stato */
+.sb{font-size:14px}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Chimica · capitoli 1, 2 e 3</div>
+  <h1>Misure, materia, leggi ponderali</h1>
+  <p class="lead">Una carta per volta. Tocca <b>Leggi</b> e la voce legge la carta mentre la frase si illumina. Le parole difficili si aprono con un tocco. Gli esercizi sono nell'altra scheda.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<p class="foot" id="foot">Contenuto dal libro di testo: le misure, le trasformazioni fisiche, dalle trasformazioni chimiche alla teoria atomica.</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const PARTI = [
+  "1 · Numeri e unità",
+  "2 · Volume e densità",
+  "3 · La materia",
+  "4 · Miscugli e soluzioni",
+  "5 · Reazioni e particelle",
+  "6 · Leggi ponderali"
+];
+
+const CARDS = [
+
+/* ---------- PARTE 1 · NUMERI E UNITÀ ---------- */
+{parte:0, t:"La notazione scientifica",
+ body:`<p class="s">La notazione scientifica serve a scrivere in modo corto i numeri molto grandi e quelli molto piccoli.</p>
+<span class="f big">N × 10<sup><i>n</i></sup></span>
+<p class="s">Ha due pezzi. Il primo è un numero compreso tra uno e dieci. Il secondo è una potenza di dieci.</p>
+<p class="s">Il primo numero deve avere una sola cifra prima della virgola, e questa cifra non può essere zero.</p>
+<table>
+<tr><th>Scritto così</th><th class="c">È notazione scientifica?</th></tr>
+<tr><td>4,5 × 10<sup>4</sup></td><td class="c"><b style="color:var(--ok)">sì</b></td></tr>
+<tr><td>45 × 10<sup>3</sup></td><td class="c"><b style="color:var(--no)">no</b>: due cifre prima della virgola</td></tr>
+<tr><td>0,45 × 10<sup>5</sup></td><td class="c"><b style="color:var(--no)">no</b>: prima della virgola c'è 0</td></tr>
+</table>
+<div class="trap s" data-say="Attenzione: nella scheda di esercizi del professore il punto fa da virgola. Quattrocentocinquantatré punto ottantanove vuol dire quattrocentocinquantatré virgola ottantanove. E ventiquattro punto trecento millimetri vuol dire ventiquattro virgola tre millimetri, non ventiquattromila."><b>Nella scheda del prof il punto fa da virgola.</b> 453.89 vuol dire 453,89. E 24.300 mm vuol dire 24,3 mm, non ventiquattromila.</div>`,
+ words:[["potenza di dieci","10 moltiplicato per se stesso tante volte quanto dice l'esponente. 10<sup>3</sup> = 1000. Con l'esponente negativo è una divisione: 10<sup>−3</sup> = 0,001."],
+        ["esponente","il numerino in alto. In 10<sup>−3</sup> l'esponente è −3."]],
+ ask:["Quale dei due è in notazione scientifica: 38 × 10² oppure 3,8 × 10³?","<b>3,8 × 10³.</b> In 38 × 10² prima della virgola ci sono due cifre."]},
+
+{parte:0, t:"Come si sposta la virgola",
+ body:`<p class="s">Sposta la virgola finché resta una sola cifra, diversa da zero, prima di lei. Poi conta di quanti posti l'hai spostata: quello è l'esponente.</p>
+<p class="s">Se la virgola va verso sinistra, il numero era grande: l'esponente è positivo.</p>
+<p class="s">Se la virgola va verso destra, il numero era piccolo, cioè minore di uno: l'esponente è negativo.</p>
+<div class="vm" id="vm"></div>
+<div class="ex"><div class="lbl">Due esempi</div>
+<span class="fx">453,89</span> → virgola 2 posti a <b>sinistra</b> → <span class="fx">4,5389 × 10<sup>2</sup></span><br>
+<span class="fx">0,008332</span> → virgola 3 posti a <b>destra</b> → <span class="fx">8,332 × 10<sup>−3</sup></span></div>
+<p class="s">Prova con i bottoni: sposta la virgola e guarda come cambia l'esponente.</p>`,
+ init:"vmInit",
+ ask:["38779 in notazione scientifica?","<b>3,8779 × 10⁴.</b> La virgola, che in un numero intero sta alla fine, va 4 posti a sinistra."]},
+
+{parte:0, t:"Se c'è già una potenza",
+ body:`<p class="s">A volte il numero ha già una potenza di dieci, ma il primo pezzo non è tra uno e dieci. Per esempio: quarantacinque virgola ottantanove per dieci alla settima.</p>
+<p class="s">Sposti la virgola come prima. Poi aggiusti l'esponente che c'era già: ogni posto verso sinistra aggiunge uno, ogni posto verso destra toglie uno.</p>
+<div class="ex"><div class="lbl">Virgola a sinistra: l'esponente sale</div>
+<span class="fx">45,89 × 10<sup>7</sup></span> → 1 posto a sinistra → <span class="fx">4,589 × 10<sup>7+1</sup> = 4,589 × 10<sup>8</sup></span></div>
+<div class="ex"><div class="lbl">Virgola a destra: l'esponente scende</div>
+<span class="fx">0,0017 × 10<sup>−3</sup></span> → 3 posti a destra → <span class="fx">1,7 × 10<sup>−3−3</sup> = 1,7 × 10<sup>−6</sup></span></div>
+<p class="s">Pensa a una bilancia. Se il primo numero diventa più piccolo, la potenza deve diventare più grande. Se il primo numero diventa più grande, la potenza diventa più piccola. Il valore totale non cambia.</p>
+<div class="trap s" data-say="Attenzione ai segni: meno tre meno tre fa meno sei, non zero. E meno sette più quattro fa meno tre."><b>Occhio ai segni.</b> −3 − 3 fa −6, non 0. E −7 + 4 fa −3.</div>`,
+ ask:["35688,56 × 10⁻⁷ in notazione scientifica?","<b>3,568856 × 10⁻³.</b> La virgola va 4 posti a sinistra, quindi l'esponente sale di 4: −7 + 4 = −3."]},
+
+{parte:0, t:"La scala dei prefissi",
+ body:`<p class="s">I prefissi dicono quante volte un'unità è più grande o più piccola dell'unità di base. Chilo vuol dire mille. Milli vuol dire un millesimo.</p>
+<div class="scroll"><table>
+<tr><th>Prefisso</th><th class="c">Simbolo</th><th class="c">Vale</th><th>Esempio</th></tr>
+<tr><td>chilo</td><td class="c"><b>k</b></td><td class="c">10<sup>3</sup></td><td>1 km = 1000 m</td></tr>
+<tr><td>etto</td><td class="c"><b>h</b></td><td class="c">10<sup>2</sup></td><td>1 hm = 100 m</td></tr>
+<tr><td>deca</td><td class="c"><b>da</b></td><td class="c">10<sup>1</sup></td><td>1 dam = 10 m</td></tr>
+<tr><td><i>unità</i></td><td class="c">—</td><td class="c">10<sup>0</sup> = 1</td><td>m, g, L, J</td></tr>
+<tr><td>deci</td><td class="c"><b>d</b></td><td class="c">10<sup>−1</sup></td><td>1 dm = 0,1 m</td></tr>
+<tr><td>centi</td><td class="c"><b>c</b></td><td class="c">10<sup>−2</sup></td><td>1 cm = 0,01 m</td></tr>
+<tr><td>milli</td><td class="c"><b>m</b></td><td class="c">10<sup>−3</sup></td><td>1 mm = 0,001 m</td></tr>
+<tr><td>micro</td><td class="c"><b>μ</b></td><td class="c">10<sup>−6</sup></td><td>1 μm = 0,000001 m</td></tr>
+<tr><td>nano</td><td class="c"><b>n</b></td><td class="c">10<sup>−9</sup></td><td>1 nm = 10<sup>−9</sup> m</td></tr>
+</table></div>
+<p class="s">Attenzione: dopo il milli la scala fa salti di tre. Micro è dieci alla meno sei. Nano è dieci alla meno nove.</p>
+<p class="s">Gli stessi prefissi valgono per i grammi, i litri e i joule: chilojoule, millilitro, milligrammo.</p>`,
+ words:[["kJ","chilojoule: mille joule. Il joule è l'unità di misura dell'energia."],
+        ["μ","la lettera greca mi. Si legge «micro»."]],
+ ask:["Quanti joule sono 24 kJ?","<b>24 000 J</b>, cioè 2,4 × 10⁴ J. Chilo vale mille."]},
+
+{parte:0, t:"Equivalenze: scendo o salgo?",
+ body:`<p class="s">Se vai verso un'unità più piccola, scendi la scala: il numero diventa più grande, quindi moltiplichi.</p>
+<p class="s">Se vai verso un'unità più grande, sali la scala: il numero diventa più piccolo, quindi dividi.</p>
+<p class="s">Per le lunghezze, i grammi, i litri e i joule, ogni gradino vale dieci.</p>
+<div class="lad" id="lad"></div>
+<div class="ex"><div class="lbl">Esempio</div>
+0,34 km in dm → da km a dm <span class="giu">scendo 4 gradini</span> → × 10<sup>4</sup> → <b>3400 dm</b></div>
+<div class="trap s" data-say="Un trucco per i salti lunghi: fai esponente di partenza meno esponente di arrivo. Da nanometri a centimetri: meno nove, meno meno due, fa meno sette. Quindi moltiplichi per dieci alla meno sette. Zero virgola cinquantaquattro nanometri diventano cinque virgola quattro per dieci alla meno otto centimetri."><b>Il trucco degli esponenti.</b> Esponente di partenza meno esponente di arrivo.<br>nm → cm: (−9) − (−2) = −7, quindi <b>× 10<sup>−7</sup></b>.<br>0,54 nm = 0,54 × 10<sup>−7</sup> cm = 5,4 × 10<sup>−8</sup> cm.</div>
+<p class="s">Tocca due gradini della scala: prima l'unità di partenza, poi quella di arrivo.</p>`,
+ init:"ladInit",
+ ask:["23,18 cm in km: moltiplichi o dividi? Per quanto?","<b>Dividi per 10⁵</b>: da cm a km sali 5 gradini. 23,18 cm = 2,318 × 10⁻⁴ km."]},
+
+{parte:0, t:"Metri quadrati e metri cubi",
+ body:`<p class="s">Con le superfici, cioè i metri quadrati, ogni gradino vale cento, perché è dieci per dieci.</p>
+<svg viewBox="0 0 320 170" role="img" aria-label="Un decimetro quadrato diviso in cento centimetri quadrati">
+<g id="sqgrid"></g>
+<text x="190" y="40" font-size="15" fill="#1B2430" font-family="-apple-system,Arial,sans-serif">1 dm² =</text>
+<text x="190" y="64" font-size="15" fill="#1B2430" font-family="-apple-system,Arial,sans-serif" font-weight="700">10 × 10 = 100 cm²</text>
+<text x="190" y="100" font-size="14" fill="#5A6473" font-family="-apple-system,Arial,sans-serif">ogni quadratino</text>
+<text x="190" y="120" font-size="14" fill="#5A6473" font-family="-apple-system,Arial,sans-serif">è 1 cm²</text>
+</svg>
+<p class="s">Con i volumi, cioè i metri cubi, ogni gradino vale mille, perché è dieci per dieci per dieci.</p>
+<table>
+<tr><th>Misura</th><th class="c">Un gradino vale</th><th>Esempio</th></tr>
+<tr><td>m, g, L, J</td><td class="c">× 10</td><td>1 m = 10 dm</td></tr>
+<tr><td>m²</td><td class="c">× 100</td><td>1 m² = 100 dm²</td></tr>
+<tr><td>m³</td><td class="c">× 1000</td><td>1 m³ = 1000 dm³</td></tr>
+</table>
+<div class="ex"><div class="lbl">Esempi</div>
+3,4 m² in cm² → <span class="giu">2 gradini × 100</span> → × 10 000 → <b>34 000 cm²</b><br>
+93 m³ in cm³ → <span class="giu">2 gradini × 1000</span> → × 10<sup>6</sup> → <b>9,3 × 10<sup>7</sup> cm³</b></div>
+<p class="s">Con il trucco degli esponenti: per i metri quadrati moltiplichi la differenza per due, per i metri cubi per tre.</p>`,
+ init:"sqInit",
+ ask:["12 m² in dm²?","<b>1200 dm².</b> Un gradino, che per le superfici vale 100."]},
+
+/* ---------- PARTE 2 · VOLUME E DENSITÀ ---------- */
+{parte:1, t:"Volume e capacità",
+ body:`<p class="s">Il volume è la porzione di spazio occupata da un corpo. Nel Sistema Internazionale si misura in metri cubi.</p>
+<p class="s">La capacità è quanto fluido può contenere un recipiente. Si misura in litri. Il litro non fa parte del Sistema Internazionale, ma si usa in tutto il mondo.</p>
+<svg viewBox="0 0 320 150" role="img" aria-label="Un cubo di un decimetro di lato contiene un litro">
+<polygon points="60,50 150,50 150,135 60,135" fill="#E6EEF9" stroke="#1D5FA8" stroke-width="2"/>
+<polygon points="60,50 90,25 180,25 150,50" fill="#F4F8FD" stroke="#1D5FA8" stroke-width="2"/>
+<polygon points="150,50 180,25 180,110 150,135" fill="#D4E2F4" stroke="#1D5FA8" stroke-width="2"/>
+<text x="105" y="98" text-anchor="middle" font-size="22" font-weight="700" fill="#1D5FA8" font-family="-apple-system,Arial,sans-serif">1 L</text>
+<text x="105" y="150" text-anchor="middle" font-size="13" fill="#5A6473" font-family="-apple-system,Arial,sans-serif">lato 1 dm</text>
+<text x="200" y="70" font-size="16" fill="#1B2430" font-family="-apple-system,Arial,sans-serif" font-weight="700">1 dm³ = 1 L</text>
+<text x="200" y="100" font-size="16" fill="#1B2430" font-family="-apple-system,Arial,sans-serif" font-weight="700">1 cm³ = 1 mL</text>
+</svg>
+<p class="s">Il ponte da ricordare: un decimetro cubo è un litro, e un centimetro cubo è un millilitro.</p>
+<table>
+<tr><th>Volume</th><th class="c"></th><th>Capacità</th></tr>
+<tr><td>1 m³ = 1000 dm³</td><td class="c">=</td><td>1000 L</td></tr>
+<tr><td><b>1 dm³</b></td><td class="c">=</td><td><b>1 L</b></td></tr>
+<tr><td>0,1 dm³</td><td class="c">=</td><td>1 dL</td></tr>
+<tr><td>0,01 dm³</td><td class="c">=</td><td>1 cL</td></tr>
+<tr><td><b>1 cm³</b> = 0,001 dm³</td><td class="c">=</td><td><b>1 mL</b></td></tr>
+</table>`,
+ words:[["capacità","il volume di fluido che un recipiente può contenere."],
+        ["SI","Sistema Internazionale di unità di misura: le unità ufficiali usate dagli scienziati."]],
+ ask:["340 mL in L? E 2,5 L in cm³?","<b>0,34 L</b>: da mL a L sali 3 gradini, dividi per 1000.<br><b>2500 cm³</b>: 2,5 L = 2500 mL, e 1 mL = 1 cm³."]},
+
+{parte:1, t:"La densità",
+ body:`<p class="s">La densità è il rapporto tra la massa e il volume di un materiale. Si calcola dividendo la massa per il volume.</p>
+<span class="f big"><i>d</i> = <i>m</i> / <i>V</i></span>
+<svg viewBox="0 0 320 170" role="img" aria-label="Triangolo della densità: m sopra, d e V sotto">
+<polygon points="160,10 290,160 30,160" fill="#F8E9F2" stroke="#A8327A" stroke-width="2.5"/>
+<line x1="80" y1="102" x2="240" y2="102" stroke="#A8327A" stroke-width="2.5"/>
+<line x1="160" y1="102" x2="160" y2="160" stroke="#A8327A" stroke-width="2.5"/>
+<text x="160" y="84" text-anchor="middle" font-size="30" font-style="italic" font-family="Georgia,serif" fill="#1B2430">m</text>
+<text x="115" y="144" text-anchor="middle" font-size="30" font-style="italic" font-family="Georgia,serif" fill="#1B2430">d</text>
+<text x="205" y="144" text-anchor="middle" font-size="30" font-style="italic" font-family="Georgia,serif" fill="#1B2430">V</text>
+</svg>
+<p class="s">Il triangolo aiuta con le formule inverse. Copri con il dito quello che cerchi. Se copri la emme, restano di e vu affiancate: massa uguale densità per volume. Se copri la vu, resta emme sopra di: volume uguale massa diviso densità.</p>
+<div class="ex"><span class="fx"><i>m</i> = <i>d</i> · <i>V</i></span> &nbsp;&nbsp;&nbsp; <span class="fx"><i>V</i> = <i>m</i> / <i>d</i></span></div>
+<p class="s">Per solidi e liquidi si usano i grammi al centimetro cubo, che sono uguali ai grammi al millilitro. Per i gas si usano i grammi al litro.</p>
+<div class="trap s" data-say="Prima di fare il conto, controlla che le unità vadano d'accordo: se la densità è in grammi al millilitro, il volume deve essere in millilitri. Se è in litri, trasformalo prima."><b>Prima le unità, poi il conto.</b> Se la densità è in g/mL e il volume è in litri, trasforma i litri in millilitri.<br>1 g/cm³ = 1000 kg/m³.</div>`,
+ ask:["Un oggetto ha massa 54 g e volume 20 cm³. Quanto vale la sua densità?","<b>2,7 g/cm³</b>: 54 / 20 = 2,7. Dalla tabella del libro è alluminio."]},
+
+{parte:1, t:"La densità è intensiva",
+ body:`<p class="s">Se prendi il doppio di un materiale, raddoppia la massa ma raddoppia anche il volume. Il loro rapporto resta uguale.</p>
+<p class="s">Per questo la densità è una proprietà intensiva: non dipende da quanto materiale hai. Massa e volume invece sono proprietà estensive: dipendono dalla quantità.</p>
+<p class="s">La densità cambia con la temperatura. Se la temperatura sale, il volume aumenta e la densità diminuisce. Per i gas conta anche la pressione: se la pressione aumenta, la densità aumenta.</p>
+<table>
+<tr><th>Materiale</th><th class="c">Densità (g/cm³)</th></tr>
+<tr><td>acqua (4 °C)</td><td class="c"><b>1,00</b></td></tr>
+<tr><td>ghiaccio</td><td class="c">0,92</td></tr>
+<tr><td>olio di oliva</td><td class="c">0,92</td></tr>
+<tr><td>alcol etilico</td><td class="c">0,79</td></tr>
+<tr><td>alluminio</td><td class="c">2,7</td></tr>
+<tr><td>ferro</td><td class="c">7,88</td></tr>
+<tr><td>argento</td><td class="c">10,5</td></tr>
+<tr><td>mercurio</td><td class="c">13,6</td></tr>
+<tr><td>oro</td><td class="c">19,3</td></tr>
+<tr><td>aria (gas)</td><td class="c">1,21 <b>g/L</b></td></tr>
+</table>
+<p class="s">Un materiale meno denso dell'acqua galleggia sull'acqua, come l'olio e il legno.</p>
+<p class="s">L'acqua è un'eccezione: da solida, cioè ghiaccio, ha un volume maggiore che da liquida. Quindi il ghiaccio è meno denso e galleggia.</p>`,
+ words:[["intensiva","che non dipende dalla quantità: densità, temperatura, colore."],
+        ["estensiva","che dipende dalla quantità: massa, volume."]],
+ ask:["Un pezzo di ferro da 1 kg e un chiodo di ferro hanno la stessa densità?","<b>Sì.</b> La densità è intensiva: è la stessa per ogni pezzo dello stesso materiale, alla stessa temperatura."]},
+
+/* ---------- PARTE 3 · LA MATERIA ---------- */
+{parte:2, t:"Gli stati di aggregazione",
+ body:`<div class="scroll"><table>
+<tr><th></th><th>Solidi</th><th>Liquidi</th><th>Aeriformi</th></tr>
+<tr><td><b>Volume</b></td><td>proprio</td><td>proprio</td><td>occupano tutto il volume disponibile</td></tr>
+<tr><td><b>Forma</b></td><td>propria</td><td>del recipiente</td><td>del recipiente</td></tr>
+<tr><td><b>Densità</b></td><td>alta</td><td>media</td><td>bassa</td></tr>
+<tr><td><b>Pressione</b></td><td>incomprimibili</td><td>incomprimibili</td><td>comprimibili</td></tr>
+</table></div>
+<p class="s">I solidi hanno volume proprio e forma propria.</p>
+<p class="s">I liquidi hanno volume proprio, ma prendono la forma del recipiente.</p>
+<p class="s">Gli aeriformi occupano tutto lo spazio disponibile e si possono comprimere.</p>
+<p class="s">La parola aeriforme comprende sia i gas sia i vapori. Si vedono solo se sono colorati: il vapore acqueo è incolore, le nuvole che vediamo sono goccioline di acqua liquida.</p>`,
+ words:[["comprimibile","che si può schiacciare in un volume più piccolo aumentando la pressione."]],
+ ask:["Un materiale occupa tutto il recipiente chiuso. È per forza un aeriforme?","<b>No.</b> Anche un liquido che riempie fino all'orlo occupa tutto il recipiente. Per capirlo, prova a cambiare recipiente o a comprimerlo."]},
+
+{parte:2, t:"I passaggi di stato",
+ body:`<svg viewBox="0 0 340 250" role="img" aria-label="Schema dei passaggi di stato">
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B3261E"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1D5FA8"/></marker>
+</defs>
+<rect x="8" y="105" width="90" height="40" rx="9" fill="#fff" stroke="#1B2430" stroke-width="2"/>
+<rect x="125" y="105" width="90" height="40" rx="9" fill="#fff" stroke="#1B2430" stroke-width="2"/>
+<rect x="242" y="105" width="90" height="40" rx="9" fill="#fff" stroke="#1B2430" stroke-width="2"/>
+<text x="53" y="131" text-anchor="middle" font-size="15" font-weight="700" fill="#1B2430" font-family="-apple-system,Arial,sans-serif">solido</text>
+<text x="170" y="131" text-anchor="middle" font-size="15" font-weight="700" fill="#1B2430" font-family="-apple-system,Arial,sans-serif">liquido</text>
+<text x="287" y="131" text-anchor="middle" font-size="15" font-weight="700" fill="#1B2430" font-family="-apple-system,Arial,sans-serif">aeriforme</text>
+<path d="M60,103 V78 H160 V101" fill="none" stroke="#B3261E" stroke-width="2.5" marker-end="url(#ar)"/>
+<text x="110" y="72" text-anchor="middle" font-size="13.5" fill="#B3261E" font-family="-apple-system,Arial,sans-serif" font-weight="700">fusione</text>
+<path d="M180,103 V78 H280 V101" fill="none" stroke="#B3261E" stroke-width="2.5" marker-end="url(#ar)"/>
+<text x="230" y="72" text-anchor="middle" font-size="13.5" fill="#B3261E" font-family="-apple-system,Arial,sans-serif" font-weight="700">vaporizzazione</text>
+<path d="M40,103 V36 H300 V101" fill="none" stroke="#B3261E" stroke-width="2.5" marker-end="url(#ar)"/>
+<text x="170" y="30" text-anchor="middle" font-size="13.5" fill="#B3261E" font-family="-apple-system,Arial,sans-serif" font-weight="700">sublimazione</text>
+<path d="M160,147 V172 H60 V149" fill="none" stroke="#1D5FA8" stroke-width="2.5" marker-end="url(#ab)"/>
+<text x="110" y="189" text-anchor="middle" font-size="13.5" fill="#1D5FA8" font-family="-apple-system,Arial,sans-serif" font-weight="700">solidificazione</text>
+<path d="M280,147 V172 H180 V149" fill="none" stroke="#1D5FA8" stroke-width="2.5" marker-end="url(#ab)"/>
+<text x="230" y="189" text-anchor="middle" font-size="13.5" fill="#1D5FA8" font-family="-apple-system,Arial,sans-serif" font-weight="700">condensazione</text>
+<path d="M300,147 V214 H40 V149" fill="none" stroke="#1D5FA8" stroke-width="2.5" marker-end="url(#ab)"/>
+<text x="170" y="232" text-anchor="middle" font-size="13.5" fill="#1D5FA8" font-family="-apple-system,Arial,sans-serif" font-weight="700">brinamento</text>
+</svg>
+<p class="s">Le frecce rosse, in alto, si percorrono scaldando. Le frecce blu, in basso, raffreddando.</p>
+<p class="s">Scaldando: fusione, da solido a liquido. Vaporizzazione, da liquido ad aeriforme. Sublimazione, da solido direttamente ad aeriforme.</p>
+<p class="s">Raffreddando: solidificazione, da liquido a solido. Condensazione, da aeriforme a liquido. Brinamento, da aeriforme direttamente a solido.</p>
+<p class="s">La vaporizzazione ha due forme. L'evaporazione avviene solo in superficie. L'ebollizione avviene in tutto il liquido, con le bolle.</p>
+<p class="s">Se un gas diventa liquido perché aumenta la pressione, si parla di liquefazione.</p>
+<div class="ex"><div class="lbl">Esempi</div>Il ghiaccio secco, cioè anidride carbonica solida, sublima. La brina sui prati si forma per brinamento del vapore acqueo.</div>
+<p class="s">Nel passaggio da liquido ad aeriforme la massa resta uguale ma il volume cresce molto, quindi la densità diminuisce molto.</p>`,
+ ask:["Da aeriforme a solido, senza passare dal liquido: come si chiama?","<b>Brinamento.</b> Il contrario è la sublimazione."]},
+
+{parte:2, t:"Sistemi omogenei ed eterogenei",
+ body:`<p class="s">Una fase è una porzione di materia fisicamente distinguibile e delimitata, che ha proprietà intensive uniformi.</p>
+<p class="s">Un sistema con una sola fase si dice omogeneo. Un sistema con due o più fasi si dice eterogeneo.</p>
+<svg viewBox="0 0 330 160" role="img" aria-label="Tre bicchieri: acqua zuccherata, acqua e olio, acqua e ghiaccio">
+<g font-family="-apple-system,Arial,sans-serif" font-size="13" text-anchor="middle">
+<path d="M20,30 L30,120 H90 L100,30" fill="none" stroke="#1B2430" stroke-width="2"/>
+<path d="M24,55 L30,120 H90 L96,55 Z" fill="#CFE0F3"/>
+<text x="60" y="140" fill="#1B2430" font-weight="700">acqua e zucchero</text>
+<text x="60" y="156" fill="#1F5C4B">1 fase · omogeneo</text>
+<path d="M125,30 L135,120 H195 L205,30" fill="none" stroke="#1B2430" stroke-width="2"/>
+<path d="M130,78 L135,120 H195 L200,78 Z" fill="#CFE0F3"/>
+<path d="M128,55 L130,78 H200 L202,55 Z" fill="#F2D98A"/>
+<text x="165" y="140" fill="#1B2430" font-weight="700">acqua e olio</text>
+<text x="165" y="156" fill="#9B2C2C">2 fasi · eterogeneo</text>
+<path d="M230,30 L240,120 H300 L310,30" fill="none" stroke="#1B2430" stroke-width="2"/>
+<path d="M234,55 L240,120 H300 L306,55 Z" fill="#CFE0F3"/>
+<rect x="248" y="58" width="18" height="16" rx="3" fill="#fff" stroke="#6F8FB5" stroke-width="1.5"/>
+<rect x="274" y="62" width="18" height="16" rx="3" fill="#fff" stroke="#6F8FB5" stroke-width="1.5"/>
+<text x="270" y="140" fill="#1B2430" font-weight="700">acqua e ghiaccio</text>
+<text x="270" y="156" fill="#9B2C2C">2 fasi · eterogeneo</text>
+</g></svg>
+<p class="s">Acqua e zucchero: due componenti, ma una sola fase. Sistema omogeneo.</p>
+<p class="s">Acqua e olio: due strati, due fasi. Sistema eterogeneo.</p>
+<p class="s">Acqua e ghiaccio: una sola sostanza, ma due fasi, quella solida e quella liquida. Sistema eterogeneo.</p>
+<div class="trap"><b>Fasi e sostanze sono cose diverse.</b> Contare le fasi non ti dice quante sostanze ci sono.</div>`,
+ words:[["fase","una parte di materia che si distingue dalle altre e che dentro è tutta uguale."],
+        ["proprietà intensive uniformi","colore, densità e le altre proprietà intensive sono le stesse in ogni punto."]],
+ ask:["Acqua e ghiaccio è un sistema omogeneo?","<b>No, eterogeneo</b>: due fasi, anche se la sostanza è una sola."]},
+
+{parte:2, t:"Sostanze pure e miscugli",
+ body:`<p class="s">Nel linguaggio di tutti i giorni puro vuol dire non contaminato. In chimica vuol dire un'altra cosa.</p>
+<p class="s">Un sistema è puro solo se è formato da una sola sostanza: particelle tutte uguali, proprietà caratteristiche e composizione costante.</p>
+<svg viewBox="0 0 320 130" role="img" aria-label="Sostanza pura con sfere uguali e miscuglio con sfere di colori diversi">
+<g id="spheres"></g>
+<text x="75" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#1B2430" font-family="-apple-system,Arial,sans-serif">sostanza pura</text>
+<text x="245" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#1B2430" font-family="-apple-system,Arial,sans-serif">miscuglio</text>
+</svg>
+<p class="s">Nei disegni una sostanza pura si rappresenta con sfere tutte uguali, un miscuglio con sfere di colori diversi.</p>
+<p class="s">L'acqua distillata è pura. L'acqua del rubinetto e l'acqua di mare no: evaporando lasciano i sali che avevano disciolti.</p>
+<p class="s">Quasi tutta la materia intorno a noi è fatta di miscugli.</p>
+<div class="tree">
+  <div class="n0">MATERIA</div>
+  <div class="lv">
+    <div><div class="n1">sostanze pure</div>
+      <div class="n2"><b>elementi</b>oro, ossigeno, ferro</div>
+      <div class="n2"><b>composti</b>acqua, sale, anidride carbonica</div></div>
+    <div><div class="n1">miscugli</div>
+      <div class="n2"><b>omogenei = soluzioni</b>acqua e sale, aria, ottone</div>
+      <div class="n2"><b>eterogenei</b>acqua e olio, sabbia, maionese</div></div>
+  </div>
+</div>`,
+ init:"sphInit",
+ ask:["L'acqua di mare è una sostanza pura?","<b>No</b>, è un miscuglio omogeneo: acqua più sali disciolti. Lo prova il sale che resta quando evapora."]},
+
+/* ---------- PARTE 4 · MISCUGLI E SOLUZIONI ---------- */
+{parte:3, t:"Le soluzioni",
+ body:`<p class="s">Un miscuglio omogeneo di due o più sostanze si chiama soluzione. Le sue particelle sono piccolissime: meno di un nanometro.</p>
+<p class="s">Il componente più abbondante è il solvente. I componenti meno abbondanti sono i soluti.</p>
+<div class="ex"><div class="lbl">Acqua e sale</div>acqua = <b>solvente</b> &nbsp;·&nbsp; sale = <b>soluto</b></div>
+<p class="s">Le soluzioni possono essere liquide, come acqua e sale. Gassose, come l'aria. Solide, come le leghe metalliche: per esempio l'ottone, fatto di rame e zinco.</p>
+<p class="s">L'aria è una soluzione di gas. Il componente principale è l'azoto, il settantotto per cento. Poi l'ossigeno, il ventuno per cento. L'uno per cento sono altri gas.</p>
+<p class="s">Anche l'acqua gassata chiusa in bottiglia è una soluzione: un gas sciolto in un liquido. Quando la versi e fa le bolle, diventa un miscuglio eterogeneo.</p>`,
+ words:[["solvente","il componente più abbondante, quello che scioglie."],
+        ["soluto","il componente meno abbondante, quello che viene sciolto."],
+        ["lega","una soluzione solida di metalli, come l'ottone o il bronzo."]],
+ ask:["Nell'aria, chi è il solvente?","<b>L'azoto</b>, perché è il componente più abbondante: il 78%."]},
+
+{parte:3, t:"Miscugli eterogenei e colloidi",
+ body:`<p class="s">Un miscuglio eterogeneo ha fasi distinguibili, a occhio nudo o al microscopio. Le sue particelle sono più grandi di mille nanometri.</p>
+<div class="scroll"><table>
+<tr><th>Nome</th><th>Che cosa è disperso in che cosa</th><th>Esempio</th></tr>
+<tr><td><b>schiuma</b></td><td>gas in un liquido</td><td>cappuccino</td></tr>
+<tr><td><b>nebbia</b></td><td>liquido in un gas</td><td>goccioline d'acqua nell'aria</td></tr>
+<tr><td><b>fumo</b></td><td>solido in un gas</td><td>fumo di un camino</td></tr>
+<tr><td><b>emulsione</b></td><td>liquido in un liquido</td><td>maionese</td></tr>
+<tr><td><b>sospensione</b></td><td>solido in un liquido</td><td>succo di frutta</td></tr>
+</table></div>
+<p class="s">Schiuma: gas in un liquido. Nebbia: liquido in un gas. Fumo: solido in un gas. Emulsione: due liquidi che non si mescolano. Sospensione: un solido in un liquido.</p>
+<p class="s">A metà strada ci sono i colloidi, con particelle tra uno e mille nanometri. Il gel, come la gelatina. Il sol, come l'albume dell'uovo. L'aerosol, un liquido disperso nell'aria.</p>
+<svg viewBox="0 0 330 70" role="img" aria-label="Dimensione delle particelle: soluzioni sotto 1 nanometro, colloidi tra 1 e 1000, eterogenei sopra 1000">
+<g font-family="-apple-system,Arial,sans-serif" font-size="13" text-anchor="middle">
+<rect x="4" y="8" width="96" height="30" rx="6" fill="#E8F0EC"/><text x="52" y="28" fill="#1F5C4B" font-weight="700">soluzioni</text>
+<rect x="104" y="8" width="118" height="30" rx="6" fill="#F8E9F2"/><text x="163" y="28" fill="#A8327A" font-weight="700">colloidi</text>
+<rect x="226" y="8" width="100" height="30" rx="6" fill="#FBF3E2"/><text x="276" y="28" fill="#8A5A00" font-weight="700">eterogenei</text>
+<text x="52" y="58" fill="#5A6473">&lt; 1 nm</text><text x="163" y="58" fill="#5A6473">1 – 1000 nm</text><text x="276" y="58" fill="#5A6473">&gt; 1000 nm</text>
+</g></svg>
+<p class="s">Il termine smog viene dall'inglese: smoke, fumo, più fog, nebbia.</p>`,
+ words:[["disperso","sparso dentro un'altra sostanza in piccole parti."],
+        ["immiscibili","liquidi che non si mescolano tra loro, come acqua e olio."]],
+ ask:["La maionese che tipo di miscuglio è?","<b>Un'emulsione</b>: due liquidi immiscibili, agitati in goccioline minuscole."]},
+
+{parte:3, t:"La solubilità",
+ body:`<p class="s">Se metti zucchero nell'acqua e mescoli, a un certo punto non si scioglie più e resta sul fondo. Quel solido si chiama corpo di fondo, e la soluzione si dice satura.</p>
+<p class="s">La solubilità è la quantità massima di soluto che si può sciogliere in una certa quantità di solvente, a una certa temperatura.</p>
+<p class="s">La solubilità dipende da soluto e solvente. Per esempio la benzina non si scioglie in acqua, ma si scioglie nell'olio.</p>
+<p class="s">Dipende anche dalla temperatura. Di solito solidi e liquidi si sciolgono di più se la temperatura sale. Il sale da cucina è un'eccezione: la temperatura cambia poco la sua solubilità.</p>
+<p class="s">I gas invece si sciolgono di più a bassa temperatura e ad alta pressione. Per questo una bibita gassata lasciata aperta fuori dal frigo perde le bollicine.</p>
+<div class="ex"><div class="lbl">Da ricordare</div>solidi e liquidi: più caldo → <b>più</b> solubili<br>gas: più caldo → <b>meno</b> solubili</div>`,
+ words:[["satura","una soluzione che contiene già la massima quantità possibile di soluto."],
+        ["corpo di fondo","il soluto in più che non si scioglie e resta sul fondo."]],
+ ask:["Perché una bibita gassata calda fa meno bollicine di una fredda?","Perché i <b>gas</b> sono <b>meno solubili</b> quando la temperatura sale: il gas scappa via prima."]},
+
+{parte:3, t:"La concentrazione in percentuale",
+ body:`<p class="s">La concentrazione dice quanto soluto c'è in una soluzione.</p>
+<span class="f">% <i>m/m</i> = (<i>massa soluto</i> / <i>massa soluzione</i>) × 100</span>
+<span class="f">% <i>m/V</i> = (<i>grammi soluto</i> / <i>mL soluzione</i>) × 100</span>
+<p class="s">Percento massa su massa: grammi di soluto diviso grammi di soluzione, per cento. Percento massa su volume: grammi di soluto diviso millilitri di soluzione, per cento.</p>
+<div class="trap s" data-say="Attenzione: la massa della soluzione è soluto più solvente. Venti grammi di sale in ottanta grammi di acqua fanno cento grammi di soluzione, al venti per cento. Non si divide venti per ottanta."><b>La soluzione è soluto + solvente.</b> 20 g di sale in 80 g di acqua fanno 100 g di soluzione, quindi il 20% <i>m/m</i>. Non 20/80.</div>
+<div class="ex"><div class="lbl">Formula inversa</div>In quanti mL sciolgo 3,60 g per avere l'1,50% <i>m/V</i>?<br><span class="fx">V = 3,60 / 1,50 × 100 = 240 mL</span></div>`,
+ ask:["Sciogli 5 g di zucchero in 45 g di acqua. Che concentrazione % m/m ottieni?","<b>10%.</b> La soluzione pesa 5 + 45 = 50 g, e 5 / 50 × 100 = 10."]},
+
+{parte:3, t:"Separare i miscugli",
+ body:`<div class="scroll"><table>
+<tr><th>Tecnica</th><th>Separa grazie a</th><th>Esempio</th><th class="c">Per</th></tr>
+<tr><td><b>filtrazione</b></td><td>dimensione</td><td>acqua e sabbia</td><td class="c">E</td></tr>
+<tr><td><b>setacciatura</b></td><td>dimensione</td><td>semi di varie misure</td><td class="c">E</td></tr>
+<tr><td><b>decantazione</b></td><td>densità</td><td>acqua e fango</td><td class="c">E</td></tr>
+<tr><td><b>centrifugazione</b></td><td>densità</td><td>panna dal latte</td><td class="c">E</td></tr>
+<tr><td><b>estrazione</b></td><td>solubilità</td><td>caffeina dal caffè</td><td class="c">O ed E</td></tr>
+<tr><td><b>cromatografia</b></td><td>velocità di migrazione</td><td>inchiostri</td><td class="c">O</td></tr>
+<tr><td><b>distillazione</b></td><td>volatilità</td><td>alcol da un liquore</td><td class="c">O</td></tr>
+</table></div>
+<p style="font-size:14px;color:var(--soft);margin-top:-6px">O = miscugli omogenei · E = miscugli eterogenei</p>
+<p class="s">Filtrazione e setacciatura separano per dimensione delle particelle. Decantazione e centrifugazione per densità.</p>
+<p class="s">L'estrazione separa per solubilità. La cromatografia per velocità di migrazione. La distillazione per volatilità, cioè per quanto facilmente una sostanza evapora.</p>
+<p class="s">Per i miscugli omogenei servono distillazione, cromatografia o estrazione. Filtrare una soluzione non serve a niente: il soluto passa dal filtro insieme al solvente.</p>`,
+ words:[["volatilità","la facilità con cui una sostanza passa allo stato di vapore."],
+        ["decantazione","si lascia riposare il miscuglio: la parte più densa va sul fondo."]],
+ ask:["Come separi l'alcol da un liquore?","Con la <b>distillazione</b>: l'alcol è più volatile dell'acqua ed evapora prima."]},
+
+/* ---------- PARTE 5 · REAZIONI E PARTICELLE ---------- */
+{parte:4, t:"Trasformazioni fisiche e chimiche",
+ body:`<p class="s">Le trasformazioni fisiche cambiano lo stato o l'aspetto della materia, ma non cambiano la sua composizione chimica. Non si formano nuove sostanze.</p>
+<p class="s">Le trasformazioni chimiche, o reazioni chimiche, cambiano la composizione delle sostanze di partenza, i reagenti, e formano nuove sostanze, i prodotti.</p>
+<span class="f"><b style="color:#B3261E">reagenti</b> → <b style="color:var(--ok)">prodotti</b></span>
+<span class="f" style="font-size:19px">magnesio + ossigeno → ossido di magnesio</span>
+<p class="s">Segnali che fanno pensare a una reazione: si formano bollicine, cambia il colore, un solido si forma o scompare, cambia la temperatura, cambia l'odore, si emette luce.</p>
+<div class="trap s"><b>I segnali non bastano.</b> Anche lo iodio che sublima e il ferro che fonde cambiano aspetto, ma sono trasformazioni fisiche. Per essere sicuri serve l'analisi chimica.</div>
+<div class="ex"><div class="lbl">Fisiche</div>ghiaccio che fonde, sale che si scioglie, iodio che sublima, ferro che fonde</div>
+<div class="ex"><div class="lbl">Chimiche</div>ferro che arrugginisce, legno che brucia, pane che lievita, aceto sul calcare</div>`,
+ ask:["Lo zucchero che si scioglie nell'acqua è una trasformazione chimica?","<b>No, fisica.</b> Se fai evaporare l'acqua, lo zucchero torna uguale: non si è formata una nuova sostanza."]},
+
+{parte:4, t:"Reazioni ed energia",
+ body:`<p class="s">Durante le reazioni chimiche si scambia energia con l'ambiente, sotto forma di luce o di calore.</p>
+<table>
+<tr><th></th><th>Liberano energia</th><th>Assorbono energia</th></tr>
+<tr><td><b>energia in generale</b></td><td>esoergoniche</td><td>endoergoniche</td></tr>
+<tr><td><b>solo calore</b></td><td>esotermiche</td><td>endotermiche</td></tr>
+</table>
+<p class="s">Esoergoniche: liberano energia. Endoergoniche: assorbono energia dall'esterno.</p>
+<p class="s">Se l'energia è calore si dice esotermiche, quando producono calore, ed endotermiche, quando lo assorbono.</p>
+<div class="ex"><div class="lbl">Per ricordarlo</div><b>eso</b> = fuori: l'energia esce &nbsp;·&nbsp; <b>endo</b> = dentro: l'energia entra</div>
+<p class="s">La combustione del legno è esotermica: libera calore. La fotosintesi è endoergonica: le piante assorbono l'energia della luce.</p>`,
+ ask:["La fotosintesi è eso o endo?","<b>Endoergonica</b>: le piante assorbono energia dalla luce."]},
+
+{parte:4, t:"Elementi e composti",
+ body:`<p class="s">Tutti i materiali della Terra sono fatti di due tipi di sostanze pure: gli elementi e i composti.</p>
+<p class="s">Un elemento è una sostanza pura che non si può scomporre in sostanze più semplici con processi chimici. Esempio: l'oro. Puoi tagliarlo in pezzetti piccolissimi, ma resta oro.</p>
+<p class="s">Un composto è una sostanza pura formata da elementi diversi, uniti in rapporti fissi. Con una reazione si può scomporre. Esempio: l'acqua, fatta di idrogeno e ossigeno.</p>
+<p class="s">Ogni elemento ha un simbolo: una lettera maiuscola, oppure una maiuscola e una minuscola. Il simbolo si legge lettera per lettera. Li, il litio, si legge elle i.</p>
+<div class="ex"><div class="lbl">Simboli da sapere</div>
+H idrogeno · He elio · C carbonio · N azoto · O ossigeno · Na sodio · Mg magnesio · Al alluminio · Si silicio · S zolfo · Cl cloro · Fe ferro · Cu rame · Zn zinco · Hg mercurio · Pb piombo · Au oro</div>
+<p class="s">Nell'universo quasi tutta la materia è idrogeno ed elio. Nella crosta terrestre prevalgono ossigeno e silicio. Nel corpo umano ossigeno, carbonio, idrogeno e azoto fanno il novantasei per cento.</p>`,
+ words:[["scomporre","dividere una sostanza in sostanze più semplici con una reazione chimica."]],
+ ask:["L'acqua è un elemento o un composto?","<b>Un composto</b>: è fatta di idrogeno e ossigeno e si può scomporre."]},
+
+{parte:4, t:"Atomi, molecole, ioni",
+ body:`<p class="s">L'atomo è la particella più piccola di un elemento che ne conserva le proprietà chimiche.</p>
+<p class="s">Un singolo atomo non ha colore, né densità, né conducibilità. Queste sono proprietà macroscopiche: nascono dall'unione di tantissimi atomi.</p>
+<p class="s">Alcuni elementi esistono come molecole, cioè gruppi di atomi uguali legati. Idrogeno, ossigeno, azoto, fluoro, cloro, bromo e iodio: molecole di due atomi. Fosforo e arsenico: di quattro. Zolfo e selenio: fino a otto.</p>
+<span class="f" style="font-size:21px">H<sub>2</sub> O<sub>2</sub> N<sub>2</sub> F<sub>2</sub> Cl<sub>2</sub> Br<sub>2</sub> I<sub>2</sub> &nbsp;·&nbsp; P<sub>4</sub> As<sub>4</sub> &nbsp;·&nbsp; S<sub>8</sub> Se<sub>8</sub></span>
+<p class="s">La molecola di un composto è fatta di atomi diversi: l'acqua, l'anidride carbonica, l'ammoniaca, il metano.</p>
+<p class="s">Gli ioni sono atomi, o gruppi di atomi, con una o più cariche elettriche. Quelli positivi si chiamano cationi, quelli negativi anioni.</p>
+<div class="ex"><div class="lbl">Per ricordarlo</div>ca<b style="font-size:22px">t</b>ione: la <b>t</b> sembra un <b>+</b> → positivo</div>
+<p class="s">I composti ionici, come il sale da cucina, sono fatti di ioni, non di molecole.</p>`,
+ words:[["molecola","un gruppo di atomi legati tra loro. Può essere di un elemento, come O₂, o di un composto, come H₂O."],
+        ["catione","ione con carica positiva."],["anione","ione con carica negativa."]],
+ ask:["La particella più piccola dell'idrogeno gassoso è l'atomo?","<b>No, la molecola H₂.</b> L'idrogeno gassoso è fatto di molecole di due atomi."]},
+
+{parte:4, t:"Da Democrito a Dalton",
+ body:`<table>
+<tr><th>Quando</th><th>Chi</th><th>Che cosa</th></tr>
+<tr><td>450 a.C. circa</td><td>Leucippo</td><td>la materia è fatta di particelle piccolissime</td></tr>
+<tr><td>460–370 a.C.</td><td>Democrito</td><td>le chiama <b>atomi</b>: «indivisibili»</td></tr>
+<tr><td>384–322 a.C.</td><td>Aristotele</td><td>materia divisibile all'infinito, 4 elementi: aria, acqua, terra, fuoco</td></tr>
+<tr><td>1743–1794</td><td>Lavoisier</td><td>conservazione della massa</td></tr>
+<tr><td>1803</td><td>Dalton</td><td>teoria atomica basata sugli esperimenti</td></tr>
+</table>
+<p class="s">Leucippo, nel quattrocentocinquanta avanti Cristo circa, pensò che la materia fosse fatta di particelle piccolissime. Il suo allievo Democrito le chiamò atomi, dal greco atomos, che vuol dire indivisibile.</p>
+<p class="s">Aristotele invece pensava che la materia fosse divisibile all'infinito, formata da quattro elementi: aria, acqua, terra e fuoco. La sua idea dominò fino alla fine del Settecento.</p>
+<p class="s">Nel milleottocentotré l'inglese John Dalton propose il primo modello atomico basato sugli esperimenti. Partì da tre leggi, dette leggi ponderali: la conservazione della massa, le proporzioni definite, le proporzioni multiple.</p>`,
+ words:[["ponderali","dal latino pondus, peso: leggi che riguardano le masse."]],
+ ask:["Qual è la differenza tra l'atomo di Democrito e quello di Dalton?","Quello di Democrito era un'idea filosofica. Quello di Dalton si basava su <b>esperimenti</b> e sulle tre leggi ponderali."]},
+
+/* ---------- PARTE 6 · LEGGI PONDERALI ---------- */
+{parte:5, t:"Lavoisier: la massa si conserva",
+ body:`<p class="s">Lavoisier fu il primo a notare che, in una reazione chimica, la somma delle masse dei reagenti è sempre uguale alla somma delle masse dei prodotti.</p>
+<span class="f big"><i>m</i> reagenti = <i>m</i> prodotti</span>
+<p class="s">È la legge di conservazione della massa: nelle reazioni chimiche la materia si conserva.</p>
+<div class="ex"><div class="lbl">Sintesi: due reagenti, un prodotto</div>
+magnesio + ossigeno → ossido di magnesio<br>
+<span class="fx">2,93 g + ? = 4,86 g</span><br>
+<span class="fx"><i>m</i> ossigeno = 4,86 − 2,93 = <b>1,93 g</b></span></div>
+<div class="ex"><div class="lbl">Decomposizione: un reagente, due prodotti</div>
+ossido di mercurio → mercurio + ossigeno<br>
+<span class="fx">216,6 g = 200,6 g + ?</span> &nbsp;→&nbsp; <span class="fx"><i>m</i> ossigeno = <b>16,0 g</b></span></div>
+<p class="s">Se manca una massa, la trovi con una sottrazione. Metti tutti i reagenti da una parte, tutti i prodotti dall'altra, e fai in modo che i due lati pesino uguale.</p>
+<div class="trap s"><b>Anche i gas contano.</b> Se si forma idrogeno o vapore acqueo che se ne va, la sua massa va messa tra i prodotti.</div>`,
+ ask:["10,0 g di zinco reagiscono con 11,0 g di acido cloridrico e si formano 0,3 g di idrogeno. Quanto cloruro di zinco si forma?","<b>20,7 g.</b> Reagenti 10,0 + 11,0 = 21,0 g. Prodotti: 21,0 − 0,3 = 20,7 g di cloruro di zinco."]},
+
+{parte:5, t:"Proust: il rapporto di combinazione",
+ body:`<p class="s">In un composto gli elementi si combinano sempre nello stesso rapporto di massa. È la legge delle proporzioni definite, di Proust.</p>
+<span class="f">rapporto Mg/O = <i>m</i> Mg / <i>m</i> O = 2,93 / 1,93 = <b>1,52</b></span>
+<p class="s">Rapporto magnesio su ossigeno uguale uno virgola cinquantadue. Vuol dire: un grammo di ossigeno si combina con uno virgola cinquantadue grammi di magnesio. Il primo elemento scritto sta sopra.</p>
+<svg viewBox="0 0 330 120" role="img" aria-label="Da ossigeno a magnesio si moltiplica per il rapporto, da magnesio a ossigeno si divide">
+<defs><marker id="mk1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1D5FA8"/></marker>
+<marker id="mk2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#B4531A"/></marker></defs>
+<g font-family="-apple-system,Arial,sans-serif">
+<rect x="10" y="38" width="96" height="44" rx="10" fill="#fff" stroke="#1B2430" stroke-width="2"/>
+<text x="58" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#1B2430">Mg</text>
+<rect x="224" y="38" width="96" height="44" rx="10" fill="#fff" stroke="#1B2430" stroke-width="2"/>
+<text x="272" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#1B2430">O</text>
+<path d="M222,46 C180,14 150,14 110,46" fill="none" stroke="#1D5FA8" stroke-width="2.5" marker-end="url(#mk1)"/>
+<text x="165" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="#1D5FA8">× 1,52</text>
+<path d="M110,76 C150,108 180,108 222,76" fill="none" stroke="#B4531A" stroke-width="2.5" marker-end="url(#mk2)"/>
+<text x="165" y="116" text-anchor="middle" font-size="15" font-weight="700" fill="#B4531A">÷ 1,52</text>
+</g></svg>
+<p class="s">Per usare il rapporto: dall'elemento di sotto a quello di sopra moltiplichi. Da quello di sopra a quello di sotto dividi.</p>
+<div class="ex"><div class="lbl">Con la proporzione</div>Rapporto P/Cl = 0,290. Quanto fosforo con 6,22 g di cloro?<br>
+<span class="fx">0,290 : 1 = <i>x</i> : 6,22 &nbsp;→&nbsp; <i>x</i> = 0,290 × 6,22 = <b>1,80 g</b></span></div>
+<div class="trap"><b>Rapporto 2 : 3</b> vuol dire S/O = 2 / 3 = 0,667. Cioè 2 g di zolfo ogni 3 g di ossigeno.</div>`,
+ words:[["rapporto di combinazione","quanti grammi del primo elemento si uniscono a 1 grammo del secondo, in quel composto."]],
+ ask:["Rapporto Cl/Na = 1,5. Quanto cloro si combina con 5,00 g di sodio?","<b>7,50 g.</b> Il sodio sta sotto, il cloro sopra: moltiplichi. 5,00 × 1,5 = 7,50."]},
+
+{parte:5, t:"La composizione percentuale",
+ body:`<p class="s">La percentuale di un elemento in un composto è la sua massa divisa per la massa del composto, per cento.</p>
+<span class="f">% A = (<i>m</i> A / <i>m</i> composto) × 100</span>
+<p class="s">Le percentuali di tutti gli elementi fanno sempre cento. Se ne conosci una, l'altra è cento meno quella.</p>
+<div class="ex"><div class="lbl">Dalle masse alla percentuale</div>170 g di ammoniaca contengono 140 g di azoto e 30 g di idrogeno.<br>
+<span class="fx">% N = 140 / 170 × 100 = <b>82,4%</b></span> &nbsp; <span class="fx">% H = 100 − 82,4 = <b>17,6%</b></span></div>
+<div class="ex"><div class="lbl">Dalla percentuale alla massa</div>Il cloruro di sodio contiene il 39,3% di sodio. Quanto sodio in 250 g di sale?<br>
+<span class="fx"><i>m</i> Na = 250 × 39,3 / 100 = <b>98,3 g</b></span></div>
+<div class="ex"><div class="lbl">Dalle percentuali al rapporto</div>Nell'acqua: O 88,9%, H 11,1%.<br>
+<span class="fx">O/H = 88,9 / 11,1 = <b>8,0</b></span> → 8 g di ossigeno per ogni grammo di idrogeno</div>
+<p class="s">Dalla percentuale alla massa: moltiplichi la massa del composto per la percentuale e dividi per cento. Dalle percentuali al rapporto: dividi una percentuale per l'altra.</p>`,
+ ask:["Riscaldando 20,00 g di solfato di rame idrato restano 12,78 g di sale anidro. Che percentuale di acqua c'era?","<b>36,1%.</b> Acqua persa: 20,00 − 12,78 = 7,22 g. Poi 7,22 / 20,00 × 100 = 36,1."]},
+
+{parte:5, t:"Chi avanza? Il reagente in eccesso",
+ body:`<p class="s">Spesso i reagenti non sono nel rapporto giusto. Uno si consuma tutto, l'altro ne avanza un po': è il reagente in eccesso.</p>
+<div class="ex"><div class="lbl">Esempio</div>Nell'ossido di calcio il rapporto Ca/O è 2,5. Si fanno reagire 20,0 g di calcio con 10,0 g di ossigeno.</div>
+<div class="flow">
+<div class="st"><b class="n">Passo 1 · quanto ne serve</b>Parto da uno dei due, il calcio, e calcolo quanto ossigeno gli serve.<br>
+<span class="fx">O che serve = 20,0 / 2,5 = 8,0 g</span></div>
+<div class="st"><b class="n">Passo 2 · confronto</b>Ne servono 8,0 g e ne ho 10,0 g: l'ossigeno basta e avanza. Il calcio si consuma tutto.</div>
+<div class="st av"><b class="n">Passo 3 · l'avanzo</b><span class="fx">10,0 − 8,0 = 2,0 g</span> di ossigeno in eccesso</div>
+<div class="st"><b class="n">Passo 4 · il prodotto, con Lavoisier</b>Sommo solo quello che ha reagito.<br>
+<span class="fx">20,0 + 8,0 = 28,0 g</span> di ossido di calcio</div>
+</div>
+<p class="s">Primo passo: parti da un reagente e calcola quanto serve dell'altro. Secondo passo: confronta con quello che hai. Terzo: calcola l'avanzo. Quarto: la massa del prodotto è la somma delle sole parti che hanno reagito.</p>
+<div class="trap s" data-say="Attenzione: non è in eccesso per forza il reagente con più grammi, dipende dal rapporto. Con zolfo e ossigeno nel rapporto due a tre, se hai trenta grammi di zolfo e quaranta di ossigeno, avanza lo zolfo. E l'avanzo non va sommato nel prodotto."><b>Non vince chi ha più grammi.</b> Con zolfo e ossigeno nel rapporto 2 : 3, se hai 30 g di zolfo e 40 g di ossigeno, avanza lo zolfo, anche se l'ossigeno è di più.<br><b>L'avanzo non entra nel prodotto.</b></div>
+<p class="s">Se al passo due ti accorgi che non basta, rifai il conto partendo dall'altro reagente.</p>`,
+ ask:["Cl/Na = 1,5. Si fanno reagire 5,00 g di sodio con 8,00 g di cloro. Chi avanza, e quanto sale si forma?","Cloro che serve: 5,00 × 1,5 = 7,50 g. Ne ho 8,00: <b>avanzano 0,50 g di cloro</b>. Sale: 5,00 + 7,50 = <b>12,50 g</b>."]},
+
+{parte:5, t:"Dalton: le proporzioni multiple",
+ body:`<p class="s">A volte due elementi formano più di un composto. Per esempio piombo e ossigeno formano due ossidi diversi.</p>
+<p class="s">Legge di Dalton: le masse di un elemento che si combinano con la stessa massa dell'altro stanno tra loro in un rapporto di numeri interi piccoli, come uno a due, o due a tre.</p>
+<div class="flow">
+<div class="st"><b class="n">Passo 1 · stessa massa del primo elemento</b>Per ogni composto calcola quanti grammi dell'altro elemento si legano a 1 g del primo: dividi.</div>
+<div class="st"><b class="n">Passo 2 · confronta</b>Dividi tutti i risultati per il più piccolo.</div>
+<div class="st"><b class="n">Passo 3 · numeri interi</b>Se esce 1,5 moltiplica tutto per 2: 1 : 1,5 diventa 2 : 3.</div>
+</div>
+<div class="ex"><div class="lbl">Con le masse · ossidi di piombo</div>
+1° ossido: 20,70 g Pb con 1,6 g O → <span class="fx">1,6 / 20,70 = 0,0773</span><br>
+2° ossido: 10,35 g Pb con 1,6 g O → <span class="fx">1,6 / 10,35 = 0,1546</span><br>
+<span class="fx">0,1546 / 0,0773 = 2</span> → rapporto di Dalton <b>1 : 2</b></div>
+<div class="ex"><div class="lbl">Con le percentuali · pirite e solfuro di ferro</div>
+S nella pirite: 100 − 46,55 = 53,45% → <span class="fx">53,45 / 46,55 = 1,148</span> g S per 1 g Fe<br>
+S nel solfuro: 100 − 63,53 = 36,47% → <span class="fx">36,47 / 63,53 = 0,574</span> g S per 1 g Fe<br>
+<span class="fx">1,148 / 0,574 = 2</span> → <b>1 : 2</b></div>
+<p class="s">Con le percentuali: prima trovi la percentuale che manca, poi dividi la percentuale del secondo elemento per quella del primo. Così ottieni i grammi del secondo per ogni grammo del primo.</p>`,
+ words:[["riferito all'ossigeno","si confrontano le masse di ossigeno, tenendo fissa la massa dell'altro elemento."]],
+ ask:["Tre ossidi di manganese danno 0,291, 0,437 e 0,583 g di ossigeno per 1 g di manganese. Rapporto di Dalton?","Divido per 0,291: 1 : 1,5 : 2. Moltiplico per 2: <b>2 : 3 : 4</b>."]}
+];
+
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += '</article>';
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("chim-teoria-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+
+/* ═══════ la virgola che si sposta ═══════ */
+const VMP = [
+  {lab:"453,89", d:"45389", p:3, e:0},
+  {lab:"0,008332", d:"0008332", p:1, e:0},
+  {lab:"38779", d:"38779", p:5, e:0},
+  {lab:"45,89 × 10⁷", d:"4589", p:2, e:7},
+  {lab:"0,0017 × 10⁻³", d:"00017", p:1, e:-3}
+];
+let vm = null;
+function vmInit(){ vmSet(0); }
+function vmSet(k){ vm = {k:k, d:VMP[k].d, p:VMP[k].p, e:VMP[k].e, e0:VMP[k].e, p0:VMP[k].p}; vmDraw(); }
+function vmMove(dir){           /* dir = -1: virgola a sinistra; +1: a destra */
+  if(!vm) return;
+  if(dir<0){
+    if(vm.p<=0) vm.d = "0"+vm.d; else vm.p--;
+    if(vm.p===0){ vm.d="0"+vm.d; vm.p=1; }
+    vm.e++;
+  }else{
+    vm.p++;
+    if(vm.p>vm.d.length) vm.d = vm.d+"0";
+    vm.e--;
+  }
+  vmDraw();
+}
+function vmParts(){
+  let ip = vm.d.slice(0,vm.p).replace(/^0+/,""), fp = vm.d.slice(vm.p);
+  if(!ip) ip = "0";
+  return [ip, fp];
+}
+function supE(n){ return String(n).replace("-","−"); }
+function vmDraw(){
+  const box = document.getElementById("vm"); if(!box) return;
+  const pr = vmParts(), ip = pr[0], fp = pr[1];
+  let num = ip + (fp ? '<span class="cm">,</span>'+fp : '');
+  num += ' × 10<sup>'+supE(vm.e)+'</sup>';
+  const moved = vm.e - vm.e0;
+  let msg, cls = "msg";
+  if(ip.length===1 && ip!=="0"){
+    cls += " ok";
+    const n = Math.abs(moved), posti = n+(n===1?" posto":" posti");
+    msg = "✓ Notazione scientifica."+(moved>0 ? " Virgola "+posti+" a sinistra: l'esponente sale di "+n+"."
+                                     : moved<0 ? " Virgola "+posti+" a destra: l'esponente scende di "+n+"." : "");
+  }else if(ip==="0"){
+    msg = "Prima della virgola c'è 0: sposta la virgola a destra ▶";
+  }else{
+    msg = "Prima della virgola ci sono "+ip.length+" cifre: sposta la virgola a sinistra ◀";
+  }
+  let pre = '<div class="pre">';
+  VMP.forEach((x,i)=>{ pre += '<button class="'+(i===vm.k?"on":"")+'" onclick="vmSet('+i+')">'+x.lab+'</button>'; });
+  pre += '</div>';
+  box.innerHTML = '<div class="num">'+num+'</div><div class="'+cls+'">'+msg+'</div>'
+    + '<div class="ctl"><button onclick="vmMove(-1)">◀ virgola a sinistra</button><button onclick="vmMove(1)">virgola a destra ▶</button></div>'
+    + pre;
+}
+
+/* ═══════ la scala dei prefissi ═══════ */
+const RUNGS = [["k",3],["h",2],["da",1],["",0],["d",-1],["c",-2],["m",-3],["μ",-6],["n",-9]];
+let lad = {dim:1, from:null, to:null};
+function ladInit(){ lad = {dim:1, from:null, to:null}; ladDraw(); }
+function ladDim(n){ lad.dim = n; ladDraw(); }
+function ladTap(i){
+  if(lad.from===null || lad.to!==null){ lad.from = i; lad.to = null; }
+  else if(i!==lad.from){ lad.to = i; }
+  ladDraw();
+}
+function unitName(i){ const s = ["","","²","³"][lad.dim]; return RUNGS[i][0]+"m"+s; }
+function ladDraw(){
+  const box = document.getElementById("lad"); if(!box) return;
+  let h = '<div class="dims">';
+  [[1,"m"],[2,"m²"],[3,"m³"]].forEach(x=>{ h += '<button class="'+(lad.dim===x[0]?"on":"")+'" onclick="ladDim('+x[0]+')">'+x[1]+'</button>'; });
+  h += '</div><div class="hint">'+(lad.from===null?"Tocca l'unità di partenza":(lad.to===null?"Ora tocca l'unità di arrivo":"Tocca un'altra unità per ricominciare"))+'</div><div class="rungs">';
+  const lo = lad.to===null?null:Math.min(lad.from,lad.to), hi = lad.to===null?null:Math.max(lad.from,lad.to);
+  RUNGS.forEach((r,i)=>{
+    if(i>0 && RUNGS[i-1][1]-r[1]>1){
+      h += '<div class="rung gap"><span class="e">'+(RUNGS[i-1][1]-r[1]-1)+' gradini senza nome</span></div>';
+    }
+    let cl = "rung";
+    if(i===lad.from) cl += " from";
+    else if(i===lad.to) cl += " to";
+    else if(lo!==null && i>lo && i<hi) cl += " mid";
+    h += '<button class="'+cl+'" onclick="ladTap('+i+')"><span class="u">'+unitName(i)+'</span><span class="e">10<sup>'+supE(r[1]*lad.dim)+'</sup> m'+["","","²","³"][lad.dim]+'</span></button>';
+  });
+  h += '</div>';
+  let out = '<div class="out">Ogni gradino vale × '+[0,10,100,1000][lad.dim]+'.</div>';
+  if(lad.from!==null && lad.to!==null){
+    const g = Math.abs(RUNGS[lad.from][1]-RUNGS[lad.to][1]), k = g*lad.dim;
+    const scendo = RUNGS[lad.to][1] < RUNGS[lad.from][1];
+    out = '<div class="out '+(scendo?"g":"s")+'"><b>'+unitName(lad.from)+' → '+unitName(lad.to)+'</b>: '
+      +(scendo?"scendo ":"salgo ")+g+(g===1?" gradino":" gradini")
+      +(lad.dim>1?"; con "+["","","m²","m³"][lad.dim]+" ogni gradino vale "+[0,10,100,1000][lad.dim]+", cioè esponente "+g+" × "+lad.dim+" = "+k:"")
+      +'<br>→ <b>'+(scendo?"moltiplico per 10<sup>"+k+"</sup>":"divido per 10<sup>"+k+"</sup>, cioè × 10<sup>−"+k+"</sup>")+'</b></div>';
+  }
+  box.innerHTML = h + out;
+}
+
+/* ═══════ disegni piccoli ═══════ */
+function sqInit(){
+  const g = document.getElementById("sqgrid"); if(!g) return;
+  let s = '<rect x="20" y="15" width="140" height="140" fill="#E6EEF9" stroke="#1D5FA8" stroke-width="2.5"/>';
+  for(let i=1;i<10;i++){
+    s += '<line x1="'+(20+i*14)+'" y1="15" x2="'+(20+i*14)+'" y2="155" stroke="#9DB7DA" stroke-width="1"/>';
+    s += '<line x1="20" y1="'+(15+i*14)+'" x2="160" y2="'+(15+i*14)+'" stroke="#9DB7DA" stroke-width="1"/>';
+  }
+  s += '<rect x="20" y="15" width="14" height="14" fill="#1D5FA8"/>';
+  g.innerHTML = s;
+}
+function sphInit(){
+  const g = document.getElementById("spheres"); if(!g) return;
+  const cols = ["#4F86C6","#E0A43A","#B3261E","#1F7A4D"];
+  let s = '<circle cx="75" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/><circle cx="245" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/>';
+  const pts = [[-26,-18],[-6,-26],[14,-22],[30,-6],[-32,4],[-12,-4],[8,-2],[26,14],[-24,24],[-4,18],[14,28],[-14,34]];
+  pts.forEach((p,i)=>{
+    s += '<circle cx="'+(75+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="#4F86C6"/>';
+    s += '<circle cx="'+(245+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="'+cols[(i*7)%4]+'"/>';
+  });
+  g.innerHTML = s;
+}
+
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){
+  return t.replace(/a\.C\./g,"avanti Cristo").replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = new SpeechSynthesisUtterance(say(el.getAttribute("data-say") || el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("chim-teoria-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>
