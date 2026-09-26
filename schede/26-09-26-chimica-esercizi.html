@@ -112,7 +112,7 @@ th{background:var(--accent-soft); font-size:14px}
   <h1>Esercizi in stile compito</h1>
   <p class="lead">Prova da solo, poi tocca <b>Controlla</b>. Se non torna, apri i passi uno per volta. Il tasto 🔊 legge il testo dell'esercizio.</p>
   <div class="chips">
-    <a href="#A">Notazione</a><a href="#B">Equivalenze</a><a href="#C">Densità</a><a href="#D">Leggi ponderali</a><a href="#E">Teoria veloce</a>
+    <a href="#A">Notazione</a><a href="#B">Equivalenze</a><a href="#C">Densità</a><a href="#D">Leggi ponderali</a><a href="#E">Teoria veloce</a><a href="#F">Calore e particelle</a>
   </div>
 </header>
 
@@ -415,6 +415,96 @@ th{background:var(--accent-soft); font-size:14px}
 <p style="font-size:16px;color:var(--soft);margin:0">Una risposta per riga: dopo il tocco si blocca e compare il perché. Alla fine puoi rifare il gruppo mescolato.</p>
 <div id="blocks"></div>
 
+<!-- ═══════════ F · CALORE E PARTICELLE ═══════════ -->
+<h2 id="F">F · Calore, passaggi di stato, particelle</h2>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio F1 · leggere una curva di riscaldamento</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Nel grafico ci sono i dati raccolti scaldando due campioni di acido stearico, una sostanza solida. La linea rossa è il campione A, la linea blu è il campione B. Guarda il grafico e rispondi alle domande. Ricorda: il tratto orizzontale è la sosta termica. La durata si trova facendo fine meno inizio.">🔊</button></div>
+  <p class="qtext">Nel grafico ci sono i dati raccolti scaldando due campioni di <b>acido stearico</b>, una sostanza solida. Rispondi guardando il grafico.</p>
+  <svg viewBox="0 0 340 250" role="img" aria-label="Grafico: due curve di riscaldamento, rossa e blu" style="display:block;width:100%;height:auto;margin:6px 0">
+  <g font-family="-apple-system,Arial,sans-serif" font-size="11" fill="#5A6473">
+  <g stroke="#E4E0D7" stroke-width="1">
+   <line x1="80" y1="20" x2="80" y2="210"/><line x1="115" y1="20" x2="115" y2="210"/><line x1="150" y1="20" x2="150" y2="210"/><line x1="185" y1="20" x2="185" y2="210"/><line x1="220" y1="20" x2="220" y2="210"/><line x1="255" y1="20" x2="255" y2="210"/><line x1="290" y1="20" x2="290" y2="210"/><line x1="325" y1="20" x2="325" y2="210"/>
+   <line x1="45" y1="191" x2="325" y2="191"/><line x1="45" y1="172" x2="325" y2="172"/><line x1="45" y1="153" x2="325" y2="153"/><line x1="45" y1="134" x2="325" y2="134"/><line x1="45" y1="115" x2="325" y2="115"/><line x1="45" y1="96" x2="325" y2="96"/><line x1="45" y1="77" x2="325" y2="77"/><line x1="45" y1="58" x2="325" y2="58"/><line x1="45" y1="39" x2="325" y2="39"/><line x1="45" y1="20" x2="325" y2="20"/>
+  </g>
+  <line x1="45" y1="14" x2="45" y2="210" stroke="#1B2430" stroke-width="1.8"/><line x1="45" y1="210" x2="330" y2="210" stroke="#1B2430" stroke-width="1.8"/>
+  <text x="40" y="214" text-anchor="end">0</text><text x="40" y="195" text-anchor="end">10</text><text x="40" y="176" text-anchor="end">20</text><text x="40" y="157" text-anchor="end">30</text><text x="40" y="138" text-anchor="end">40</text><text x="40" y="119" text-anchor="end">50</text><text x="40" y="100" text-anchor="end">60</text><text x="40" y="81" text-anchor="end">70</text><text x="40" y="62" text-anchor="end">80</text><text x="40" y="43" text-anchor="end">90</text><text x="40" y="24" text-anchor="end">100</text>
+  <text x="45" y="226" text-anchor="middle">0</text><text x="80" y="226" text-anchor="middle">2</text><text x="115" y="226" text-anchor="middle">4</text><text x="150" y="226" text-anchor="middle">6</text><text x="185" y="226" text-anchor="middle">8</text><text x="220" y="226" text-anchor="middle">10</text><text x="255" y="226" text-anchor="middle">12</text><text x="290" y="226" text-anchor="middle">14</text><text x="325" y="226" text-anchor="middle">16</text>
+  <text x="330" y="244" text-anchor="end" font-size="12" fill="#1B2430">asse orizzontale: ?</text>
+  <text x="4" y="10" font-size="12" fill="#1B2430">asse verticale: ?</text>
+  <polyline points="45,172 115,77 290,77 325,39" fill="none" stroke="#1D5FA8" stroke-width="6" stroke-linejoin="round"/>
+  <polyline points="45,172 80,77 167.5,77 185,39" fill="none" stroke="#B3261E" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="210" y="118" width="108" height="46" rx="6" fill="#fff" stroke="#DCD7CC"/>
+  <line x1="218" y1="134" x2="240" y2="134" stroke="#B3261E" stroke-width="3"/><text x="246" y="138" font-size="12" fill="#1B2430">campione A</text>
+  <line x1="218" y1="152" x2="240" y2="152" stroke="#1D5FA8" stroke-width="6"/><text x="246" y="156" font-size="12" fill="#1B2430">campione B</text>
+  </g></svg>
+
+  <div class="lab">a) Sull'asse orizzontale c'è…</div>
+  <div class="opts three" data-ok="1"><button onclick="scegli(this,0)">la temperatura</button><button onclick="scegli(this,1)">il tempo</button><button onclick="scegli(this,2)">la massa</button></div>
+  <div class="why">Il tempo, in minuti. Sull'asse verticale c'è la temperatura, in °C.</div>
+  <div class="lab">b) All'inizio la sostanza è…</div>
+  <div class="opts three" data-ok="2"><button onclick="scegli(this,0)">liquida</button><button onclick="scegli(this,1)">aeriforme</button><button onclick="scegli(this,2)">solida</button></div>
+  <div class="why">L'acido stearico parte da 20 °C ed è solido: fonde più in alto. Alla fine è liquido.</div>
+  <div class="lab">c) Quale passaggio di stato avviene?</div>
+  <div class="opts three" data-ok="1"><button onclick="scegli(this,0)">solidificazione</button><button onclick="scegli(this,1)">fusione</button><button onclick="scegli(this,2)">ebollizione</button></div>
+  <div class="why">Da solido a liquido, scaldando: è la fusione.</div>
+  <div class="lab">d) Temperatura al tempo 0</div>
+  <div class="chk"><input id="if1d" inputmode="decimal" placeholder="..."><span class="u">°C</span><button onclick="chk('f1d')">Controlla</button></div>
+  <div class="fb" id="ff1d"></div>
+  <div class="lab">e) Temperatura di fusione</div>
+  <div class="chk"><input id="if1e" inputmode="decimal" placeholder="..."><span class="u">°C</span><button onclick="chk('f1e')">Controlla</button></div>
+  <div class="fb" id="ff1e"></div>
+  <div class="lab">f) Il campione A inizia a fondere dopo</div>
+  <div class="chk"><input id="if1f" inputmode="decimal" placeholder="..."><span class="u">min</span><button onclick="chk('f1f')">Controlla</button></div>
+  <div class="fb" id="ff1f"></div>
+  <div class="lab">g) La fusione di A dura</div>
+  <div class="chk"><input id="if1g" inputmode="decimal" placeholder="..."><span class="u">min</span><button onclick="chk('f1g')">Controlla</button></div>
+  <div class="fb" id="ff1g"></div>
+  <div class="lab">h) Il campione B inizia a fondere dopo</div>
+  <div class="chk"><input id="if1h" inputmode="decimal" placeholder="..."><span class="u">min</span><button onclick="chk('f1h')">Controlla</button></div>
+  <div class="fb" id="ff1h"></div>
+  <div class="lab">i) La fusione di B dura</div>
+  <div class="chk"><input id="if1i" inputmode="decimal" placeholder="..."><span class="u">min</span><button onclick="chk('f1i')">Controlla</button></div>
+  <div class="fb" id="ff1i"></div>
+  <div class="lab">j) Un campione pesa 4,0 g, l'altro 8,0 g. Quello da 8,0 g è…</div>
+  <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">il campione A</button><button onclick="scegli(this,1)">il campione B</button></div>
+  <div class="why">B ha la sosta più lunga: 10 minuti contro 5. Più sostanza, sosta più lunga. La temperatura di fusione invece è la stessa.</div>
+  <button class="btn" onclick="step(this,'f1')">Mostra il passo 1</button>
+  <div class="step" id="sf1_1"><div class="sn">Passo 1 · gli assi</div><p>Orizzontale: il tempo, in minuti. Verticale: la temperatura, in °C. Tutte e due le curve partono da <b>20 °C</b>.</p></div>
+  <div class="step" id="sf1_2"><div class="sn">Passo 2 · la sosta</div><p>Il tratto orizzontale è la fusione: ci sono solido e liquido insieme. Per tutti e due i campioni è a <b>70 °C</b>.</p></div>
+  <div class="step" id="sf1_3"><div class="sn">Passo 3 · le durate</div><span class="f">A: da 2 a 7 min → 7 − 2 = 5 min</span><span class="f">B: da 4 a 14 min → 14 − 4 = 10 min</span></div>
+  <div class="res" id="rf1"><div class="lbl">Risposta</div><b>a) il tempo &nbsp; b) solida &nbsp; c) fusione &nbsp; d) 20 °C &nbsp; e) 70 °C &nbsp; f) 2 min &nbsp; g) 5 min &nbsp; h) 4 min &nbsp; i) 10 min &nbsp; j) B</b></div>
+</div>
+
+<div id="blocksF"></div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio F2 · completa il riassunto</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Completa il riassunto su passaggi di stato e pressione. Per ogni spazio scegli la parola giusta.">🔊</button></div>
+  <p class="qtext">Per ogni spazio scegli la parola giusta.</p>
+  <div class="lab">Da liquido ad aeriforme il volume…</div>
+  <div class="opts three" data-ok="1"><button onclick="scegli(this,0)">resta uguale</button><button onclick="scegli(this,1)">aumenta molto</button><button onclick="scegli(this,2)">diminuisce</button></div>
+  <div class="why">Circa mille volte.</div>
+  <div class="lab">…quindi un aumento della pressione ___ l'ebollizione</div>
+  <div class="opts three" data-ok="0"><button onclick="scegli(this,0)">ostacola</button><button onclick="scegli(this,1)">favorisce</button><button onclick="scegli(this,2)">non cambia</button></div>
+  <div class="why">La pressione esterna si oppone all'espansione del vapore.</div>
+  <div class="lab">…e la temperatura di ebollizione…</div>
+  <div class="opts three" data-ok="2"><button onclick="scegli(this,0)">diminuisce</button><button onclick="scegli(this,1)">resta 100 °C</button><button onclick="scegli(this,2)">aumenta</button></div>
+  <div class="why">Nella pentola a pressione l'acqua bolle sopra i 100 °C.</div>
+  <div class="lab">Da solido a liquido il volume cambia…</div>
+  <div class="opts three" data-ok="0"><button onclick="scegli(this,0)">poco</button><button onclick="scegli(this,1)">di mille volte</button><button onclick="scegli(this,2)">del doppio</button></div>
+  <div class="why">Per questo la pressione conta poco sulla fusione.</div>
+  <div class="lab">L'acqua è un'eccezione: quando il ghiaccio fonde, il volume…</div>
+  <div class="opts three" data-ok="1"><button onclick="scegli(this,0)">aumenta</button><button onclick="scegli(this,1)">diminuisce</button><button onclick="scegli(this,2)">resta uguale</button></div>
+  <div class="why">Il ghiaccio occupa più volume dell'acqua liquida: infatti galleggia.</div>
+  <div class="lab">…quindi la pressione ___ la fusione del ghiaccio</div>
+  <div class="opts three" data-ok="2"><button onclick="scegli(this,0)">impedisce</button><button onclick="scegli(this,1)">non cambia</button><button onclick="scegli(this,2)">aiuta</button></div>
+  <div class="why">Sotto pressione il ghiaccio fonde anche sotto 0 °C: così scivolano i pattini.</div>
+</div>
+
+<div id="blocksF2"></div>
+
 <p class="foot">Palestra · Chimica — esercizi in stile compito</p>
 </div>
 
@@ -640,6 +730,12 @@ const SPEC = {
   d7e:{ok:3.33, tol:0.02, traps:[[5,"Hai confrontato 45 con 40, ma l'ossigeno non avanza: manca. Parti dall'ossigeno: S che serve = 40,0 × 2/3."],
                                  [10,"Hai fatto 40 − 30. Calcola prima lo zolfo che reagisce: 40,0 × 2/3 = 26,7 g."]]},
   d9a:{ok:0.287, tol:0.01, traps:[[3.484,"Hai fatto ferro / ossigeno. Cerchi i grammi di ossigeno per 1 g di ferro: O / Fe = 22,3 / 77,7."],[0.223,"Hai usato solo la percentuale. Dividila per quella del ferro: 22,3 / 77,7."]]},
+  f1d:{ok:20, traps:[[0,"0 è il tempo di partenza. Leggi sull'asse verticale dove parte la curva."]]},
+  f1e:{ok:70, traps:[[90,"90 °C è la temperatura finale. La fusione è il tratto orizzontale."],[20,"20 °C è la temperatura iniziale. La fusione è il tratto orizzontale."]]},
+  f1f:{ok:2, traps:[[7,"A 7 minuti la fusione di A finisce. Inizia dove comincia il tratto orizzontale rosso."],[4,"4 minuti è il campione B, la linea blu."]]},
+  f1g:{ok:5, traps:[[7,"7 è il minuto in cui finisce. Durata = fine − inizio: 7 − 2."],[2,"2 è il minuto in cui inizia. Durata = fine − inizio: 7 − 2."],[10,"Questa è la durata di B, la linea blu."]]},
+  f1h:{ok:4, traps:[[14,"A 14 minuti la fusione di B finisce. Inizia dove comincia il tratto orizzontale blu."],[2,"2 minuti è il campione A, la linea rossa."]]},
+  f1i:{ok:10, traps:[[14,"14 è il minuto in cui finisce. Durata = fine − inizio: 14 − 4."],[4,"4 è il minuto in cui inizia. Durata = fine − inizio: 14 − 4."],[5,"Questa è la durata di A, la linea rossa."]]},
   d9b:{ok:0.4306, tol:0.01, traps:[[2.322,"Hai fatto ferro / ossigeno. Cerchi O / Fe = 30,1 / 69,9."],[0.301,"Dividi per la percentuale del ferro: 30,1 / 69,9."]]}
 };
 const RATIO = { d8:[1,2], d9:[2,3] };
@@ -751,6 +847,75 @@ const BLK = [
   ["solido disperso in un gas",["fumo","nebbia","sospensione"],0,"Come il fumo di un camino."],
   ["liquido disperso in un liquido",["emulsione","sospensione","schiuma"],0,"Come la maionese."],
   ["solido disperso in un liquido",["sospensione","fumo","emulsione"],0,"Come il succo di frutta."]]}
+ ,{id:"f1", c:"blocksF", t:"Curva di riscaldamento dell'acqua: che cosa c'è nel tratto?",
+  pre:'<svg viewBox="0 0 350 250" role="img" aria-label="Curva di riscaldamento dell\'acqua con i punti da A a F" style="display:block;width:100%;height:auto;margin:6px 0 10px">'
+   +'<g font-family="-apple-system,Arial,sans-serif" font-size="12.5" fill="#1B2430">'
+   +'<line x1="40" y1="55" x2="345" y2="55" stroke="#8C95A1" stroke-dasharray="4 4"/><line x1="40" y1="185" x2="345" y2="185" stroke="#8C95A1" stroke-dasharray="4 4"/>'
+   +'<line x1="40" y1="14" x2="40" y2="226" stroke="#1B2430" stroke-width="1.8"/><line x1="40" y1="226" x2="346" y2="226" stroke="#1B2430" stroke-width="1.8"/>'
+   +'<text x="4" y="14">t (°C)</text><text x="346" y="244" text-anchor="end">tempo →</text>'
+   +'<text x="36" y="59" text-anchor="end">100</text><text x="36" y="189" text-anchor="end">0</text><text x="36" y="212" text-anchor="end">−18</text>'
+   +'<polyline points="45,208.4 85,185 150,185 215,55 300,55 337,39.4" fill="none" stroke="#1B2430" stroke-width="3" stroke-linejoin="round"/>'
+   +'<g font-size="14" font-weight="700"><text x="48" y="223">A</text><text x="88" y="177">B</text><text x="153" y="202">C</text><text x="218" y="47">D</text><text x="303" y="47">E</text><text x="325" y="31">F</text></g>'
+   +'</g></svg>',
+  o:["solido","solido + liquido","liquido","liquido + aeriforme","aeriforme"], rows:[
+  ["Tratto A–B",0,"La temperatura sale e c'è un solo stato: il ghiaccio, sotto 0 °C."],
+  ["Tratto B–C",1,"Tratto orizzontale a 0 °C: è la fusione, ghiaccio e acqua insieme."],
+  ["Tratto C–D",2,"Sale da 0 °C a 100 °C: solo acqua liquida."],
+  ["Tratto D–E",3,"Tratto orizzontale a 100 °C: è l'ebollizione, acqua e vapore insieme."],
+  ["Tratto E–F",4,"Sopra 100 °C: solo vapore."]]}
+ ,{id:"f2", c:"blocksF", t:"Che stato ha a quella temperatura? (pressione 1 atm)",
+  pre:'<table><tr><th>Sostanza</th><th>fusione (°C)</th><th>ebollizione (°C)</th></tr>'
+   +'<tr><td>ossigeno</td><td>−218,4</td><td>−183</td></tr><tr><td>azoto</td><td>−210</td><td>−196</td></tr>'
+   +'<tr><td>alcol etilico</td><td>−115</td><td>78,5</td></tr><tr><td>acqua</td><td>0</td><td>100</td></tr>'
+   +'<tr><td>mercurio</td><td>−38,8</td><td>356,7</td></tr><tr><td>sale da cucina</td><td>801</td><td>1465</td></tr>'
+   +'<tr><td>alluminio</td><td>660</td><td>2327</td></tr><tr><td>oro</td><td>1065</td><td>2808</td></tr></table>'
+   +'<div class="note" style="margin-top:6px">Sotto la fusione: <b>solido</b>. Tra fusione ed ebollizione: <b>liquido</b>. Sopra l\'ebollizione: <b>aeriforme</b>.<br>Occhio ai negativi: −220 è più freddo di −210.</div>',
+  o:["solido","liquido","aeriforme"], rows:[
+  ["Mercurio a 20 °C",1,"−38,8 &lt; 20 &lt; 356,7: tra fusione ed ebollizione → liquido."],
+  ["Ossigeno a −200 °C",1,"−218,4 &lt; −200 &lt; −183 → liquido. −200 è più freddo di −183."],
+  ["Alcol etilico a 90 °C",2,"90 è sopra 78,5, la temperatura di ebollizione → aeriforme."],
+  ["Sale da cucina a 1000 °C",1,"801 &lt; 1000 &lt; 1465 → liquido."],
+  ["Azoto a −220 °C",0,"−220 è più freddo di −210, la temperatura di fusione → solido."],
+  ["Alluminio a 500 °C",0,"500 è sotto 660, la temperatura di fusione → solido."],
+  ["Oro a 1200 °C",1,"1065 &lt; 1200 &lt; 2808 → liquido."],
+  ["Mercurio a −50 °C",0,"−50 è più freddo di −38,8 → solido."],
+  ["Acqua a 110 °C",2,"Sopra 100 °C l'acqua è vapore → aeriforme."],
+  ["Ossigeno a 20 °C",2,"20 è molto sopra −183 → aeriforme. Infatti sta nell'aria."]]}
+ ,{id:"f3", c:"blocksF", t:"Evaporazione o ebollizione?", o:["evaporazione","ebollizione"], rows:[
+  ["Avviene solo in superficie",0,"Il vapore si forma solo sulla superficie, senza bolle."],
+  ["Si formano bolle in tutto il liquido",1,"Le bolle di vapore nascono ovunque, anche sul fondo."],
+  ["Può avvenire anche a 20 °C",0,"L'evaporazione avviene anche sotto la temperatura di ebollizione."],
+  ["La tensione di vapore è uguale alla pressione esterna",1,"È la definizione di temperatura di ebollizione."],
+  ["I panni stesi che si asciugano",0,"L'acqua se ne va piano dalla superficie, senza bolle."],
+  ["L'acqua della pasta a 100 °C",1,"Bolle grosse in tutta la pentola."],
+  ["La tensione di vapore è minore della pressione atmosferica",0,"Il vapore riesce a formarsi solo in superficie."],
+  ["La pozzanghera che sparisce al sole",0,"Nessuna bolla: evapora dalla superficie."]]}
+ ,{id:"f4", c:"blocksF", t:"Aumenta, diminuisce o resta uguale?", o:["aumenta","diminuisce","resta uguale"], rows:[
+  ["La temperatura del ghiaccio mentre fonde",2,"È una sosta termica: resta 0 °C finché c'è ghiaccio."],
+  ["La temperatura di ebollizione dell'acqua in montagna",1,"La pressione è più bassa: a 3000 m l'acqua bolle a circa 90 °C."],
+  ["La temperatura di ebollizione nella pentola a pressione",0,"Più pressione: l'acqua bolle sopra i 100 °C."],
+  ["La temperatura di ebollizione se metti il doppio dell'acqua",2,"La temperatura di ebollizione non dipende dalla quantità."],
+  ["La durata della sosta termica se metti il doppio dell'acqua",0,"Più sostanza, sosta più lunga."],
+  ["L'energia cinetica media delle particelle se scaldi l'acqua liquida",0,"Le particelle vanno più veloci: sale la temperatura."],
+  ["L'energia potenziale delle particelle durante la fusione",0,"Il calore allontana le particelle: aumenta l'energia potenziale."],
+  ["L'energia cinetica media delle particelle durante l'ebollizione",2,"La temperatura resta 100 °C, quindi l'energia cinetica media non cambia."],
+  ["Il volume di un palloncino messo nel freezer",1,"L'aria si raffredda: le particelle rallentano e si avvicinano."],
+  ["La temperatura di fusione del ghiaccio sotto le lame dei pattini",1,"L'acqua è un'eccezione: sotto pressione il ghiaccio fonde anche sotto 0 °C."],
+  ["Il volume dell'acqua in una bottiglia piena che si scalda di 10 °C",0,"Dilatazione termica: un po' d'acqua esce dalla bottiglia."],
+  ["L'energia interna del ghiaccio mentre fonde",0,"Aumenta l'energia potenziale, anche se la temperatura resta ferma."]]}
+ ,{id:"f5", c:"blocksF2", t:"Vero o falso?", o:["vero","falso"], rows:[
+  ["Le particelle di un solido stanno ferme.",1,"Vibrano intorno a posizioni fisse: non stanno mai ferme."],
+  ["Tra le particelle c'è spazio vuoto.",0,"È il primo punto della teoria cinetica."],
+  ["Una singola molecola d'acqua ha una temperatura di ebollizione.",1,"Le proprietà fisiche nascono da tante particelle insieme, non da una sola."],
+  ["Nei liquidi le particelle sono a contatto, ma si muovono più liberamente che nei solidi.",0,"Per questo i liquidi scorrono e prendono la forma del recipiente."],
+  ["Negli aeriformi il moto delle particelle è ordinato.",1,"È disordinato: la libertà di movimento è massima."],
+  ["La temperatura assoluta è proporzionale all'energia cinetica media delle particelle.",0,"Più veloci si muovono, più alta è la temperatura."],
+  ["L'energia interna è la somma di energia cinetica ed energia potenziale delle particelle.",0,"E = E<sub>c</sub> + E<sub>p</sub>."],
+  ["Durante una sosta termica il calore fornito si perde.",1,"Diventa energia potenziale: le particelle si allontanano."],
+  ["L'evaporazione avviene solo a 100 °C.",1,"L'evaporazione avviene anche a temperatura ambiente, in superficie."],
+  ["Una sostanza fonde e solidifica alla stessa temperatura.",0,"L'acqua fonde e solidifica a 0 °C."],
+  ["Premendo la neve, un po' di ghiaccio fonde e poi ricongela: così la palla diventa compatta.",0,"È l'effetto della pressione sul ghiaccio."],
+  ["Con −60 °C in Antartide si pattina bene come da noi.",1,"Fa troppo freddo: la pressione dei pattini non basta a far fondere il ghiaccio."]]}
 ];
 function shuf(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 function sillaba(o){ /* a capo pulito sulle parole lunghe (schermi stretti) */
@@ -768,7 +933,7 @@ function rowHTML(b,r){
 }
 function buildBlock(b, mescola){
   const el = $(b.id); const rows = mescola ? shuf(b.rows) : b.rows;
-  let h = '<div class="qnum">'+b.t+'</div><div class="rows">';
+  let h = '<div class="qnum">'+b.t+'</div>'+(b.pre||"")+'<div class="rows">';
   rows.forEach(r=>{ h += rowHTML(b,r); });
   h += '</div><div class="score" id="score'+b.id+'"></div>'
      + '<button class="btn redo" id="redo'+b.id+'" onclick="rifai(\''+b.id+'\')">Rifai mescolato</button>';
@@ -810,8 +975,7 @@ function leggi(btn){
 /* ---------- avvio ---------- */
 buildA(); buildB();
 (function(){
-  const cont = $("blocks");
-  BLK.forEach(b=>{ const d = document.createElement("div"); d.className = "card blk"; d.id = b.id; cont.appendChild(d); buildBlock(b,false); });
+  BLK.forEach(b=>{ const d = document.createElement("div"); d.className = "card blk"; d.id = b.id; $(b.c||"blocks").appendChild(d); buildBlock(b,false); });
   const ins = document.querySelectorAll(".chk input, .ns input");
   for(let i=0;i<ins.length;i++) ins[i].addEventListener("keydown", function(e){
     if(e.key!=="Enter") return;
