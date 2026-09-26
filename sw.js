@@ -2,7 +2,7 @@
    Tiene in cache le pagine dell'app, così si apre anche senza rete.
    Gli esercizi arrivano da GitHub e l'app li tiene già in localStorage:
    qui le chiamate esterne non vengono toccate. */
-const CACHE = "palestra-13";
+const CACHE = "palestra-14";
 const SHELL = [
   "./",
   "./index.html",
