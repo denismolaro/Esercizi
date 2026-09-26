@@ -22,6 +22,7 @@
   --a2:#B06A08; --a2b:#FBEEDA;
   --a3:#6244C0; --a3b:#EBE7FA;
   --a4:#8C2F39; --a4b:#F7EAEB;
+  --a5:#A8327A; --a5b:#F8E9F2;
   --ok:#12703F; --okb:#E3F3E9;
   --wait:#8A5A12; --waitb:#FBF0DC;
   --r:14px;
@@ -77,12 +78,13 @@ button{font-family:inherit}
 .subj-1{border-left-color:var(--a2)} .subj-1 .k{color:var(--a2)}
 .subj-2{border-left-color:var(--a3)} .subj-2 .k{color:var(--a3)}
 .subj-3{border-left-color:var(--a4)} .subj-3 .k{color:var(--a4)}
+.subj-4{border-left-color:var(--a5)} .subj-4 .k{color:var(--a5)}
 /* titoli di sezione nella pagina iniziale */
 .sect{display:flex;align-items:center;gap:10px;margin:22px 0 10px;
   font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--a1)}
 .sect i{flex:1;height:1px;background:var(--line);display:block}
 .sect.first{margin-top:4px}
-.sect.s-0{color:var(--a1)} .sect.s-1{color:var(--a2)} .sect.s-2{color:var(--a3)} .sect.s-3{color:var(--a4)}
+.sect.s-0{color:var(--a1)} .sect.s-1{color:var(--a2)} .sect.s-2{color:var(--a3)} .sect.s-3{color:var(--a4)} .sect.s-4{color:var(--a5)}
 
 /* schede a tre forme */
 .trio{display:grid;gap:7px}
@@ -211,7 +213,7 @@ footer{margin-top:26px;font-size:12.5px;color:var(--ink-soft);text-align:center;
 .subjbtn .n{flex:1}
 .subjbtn .t{display:block;font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:700;line-height:1.05}
 .subjbtn .b{display:block;font-size:14px;color:var(--ink-soft);margin-top:4px}
-.subjbtn.s-0{border-left-color:var(--a1)} .subjbtn.s-1{border-left-color:var(--a2)} .subjbtn.s-2{border-left-color:var(--a3)} .subjbtn.s-3{border-left-color:var(--a4)}
+.subjbtn.s-0{border-left-color:var(--a1)} .subjbtn.s-1{border-left-color:var(--a2)} .subjbtn.s-2{border-left-color:var(--a3)} .subjbtn.s-3{border-left-color:var(--a4)} .subjbtn.s-4{border-left-color:var(--a5)}
 .tick{width:34px;height:34px;border-radius:50%;background:var(--ok);color:#fff;flex:none;
   display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700}
 .tick.off{background:var(--line);color:var(--ink-soft)}
@@ -270,8 +272,8 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "18";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
-const SUBJECTS = ["Inglese","Matematica","Fisica","Storia"];
+const APPVER = "19";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const SUBJECTS = ["Inglese","Matematica","Fisica","Storia","Chimica"];
 const SCHEDE = {
   "Fisica":[{title:"Verifica — simulazione completa",
              blurb:"Incertezze, formule inverse, grafici, radianti, vettori da disegnare, kg-massa e kg-peso",
@@ -293,7 +295,13 @@ const SCHEDE = {
              href:"schede/26-05-26-fisica-verifica-teorica.html"}],
   "Storia":[{title:"La grande crisi della Repubblica",
              blurb:"Capitoli 18 e 19 — 28 carte con lettura ad alta voce",
-             href:"schede/26-09-20-storia-crisi-repubblica.html"}]
+             href:"schede/26-09-20-storia-crisi-repubblica.html"}],
+  "Chimica":[{title:"Teoria — misure, materia, leggi ponderali",
+             blurb:"28 carte con lettura ad alta voce: notazione, equivalenze, densità, miscugli, Lavoisier, Proust, Dalton",
+             href:"schede/26-09-26-chimica-teoria.html"},
+            {title:"Esercizi — stile compito",
+             blurb:"Notazione scientifica, equivalenze, densità, leggi ponderali, eccesso, Dalton, teoria veloce",
+             href:"schede/26-09-26-chimica-esercizi.html"}]
 };
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
