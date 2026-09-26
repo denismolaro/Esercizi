@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Chimica — Misure, materia, leggi ponderali</title>
+<title>Chimica — Misure, materia, leggi ponderali, calore</title>
 <style>
 :root{
   --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
@@ -123,6 +123,21 @@ svg{display:block; width:100%; height:auto; margin:12px 0}
 /* passaggi di stato */
 .sb{font-size:14px}
 
+/* curve di riscaldamento */
+.curva{margin:14px 0}
+.cbtns{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.cb{border:2px solid var(--rule); border-left-width:12px; background:#fff; border-radius:10px; padding:8px 12px;
+  font:inherit; font-size:16px; text-align:left; color:var(--ink); cursor:pointer}
+.cb.on{border-top-color:var(--accent); border-right-color:var(--accent); border-bottom-color:var(--accent); background:var(--accent-soft)}
+.cout{margin-top:8px; border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:#F4F1EA; color:var(--soft); min-height:3.2em}
+.cout.on{background:var(--accent-soft); color:var(--ink); border:1px solid var(--accent-line)}
+/* striscia dei punti fissi */
+.strip{display:flex; align-items:stretch; margin:12px 0 2px; font-size:15px; font-weight:700; text-align:center}
+.strip .z{flex:1; padding:9px 4px; border-radius:8px}
+.strip .z1{background:#D5DCE3} .strip .z2{background:#D3E5F6} .strip .z3{background:#FAEBC0}
+.strip .mk{flex:0 0 auto; align-self:center; padding:0 6px; font-family:"Times New Roman",Georgia,serif; font-size:19px; color:var(--accent)}
+.stripax{font-size:13px; color:var(--soft); text-align:right; margin-bottom:10px}
+
 /* lettura */
 .s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
 
@@ -151,14 +166,14 @@ svg{display:block; width:100%; height:auto; margin:12px 0}
 <div class="wrap">
 
 <header>
-  <div class="tag">Chimica · capitoli 1, 2 e 3</div>
-  <h1>Misure, materia, leggi ponderali</h1>
+  <div class="tag">Chimica · capitoli 1, 2, 3 e 4</div>
+  <h1>Misure, materia, leggi ponderali, calore</h1>
   <p class="lead">Una carta per volta. Tocca <b>Leggi</b> e la voce legge la carta mentre la frase si illumina. Le parole difficili si aprono con un tocco. Gli esercizi sono nell'altra scheda.</p>
 </header>
 
 <div class="chips" id="chips"></div>
 <div id="stage"></div>
-<p class="foot" id="foot">Contenuto dal libro di testo: le misure, le trasformazioni fisiche, dalle trasformazioni chimiche alla teoria atomica.</p>
+<p class="foot" id="foot">Contenuto dal libro di testo: le misure, le trasformazioni fisiche, dalle trasformazioni chimiche alla teoria atomica, la teoria cinetico-molecolare.</p>
 
 </div>
 
@@ -183,7 +198,9 @@ const PARTI = [
   "3 · La materia",
   "4 · Miscugli e soluzioni",
   "5 · Reazioni e particelle",
-  "6 · Leggi ponderali"
+  "6 · Leggi ponderali",
+  "7 · Calore e passaggi di stato",
+  "8 · Particelle ed energia"
 ];
 
 const CARDS = [
@@ -680,7 +697,180 @@ S nel solfuro: 100 − 63,53 = 36,47% → <span class="fx">36,47 / 63,53 = 0,574
 <span class="fx">1,148 / 0,574 = 2</span> → <b>1 : 2</b></div>
 <p class="s">Con le percentuali: prima trovi la percentuale che manca, poi dividi la percentuale del secondo elemento per quella del primo. Così ottieni i grammi del secondo per ogni grammo del primo.</p>`,
  words:[["riferito all'ossigeno","si confrontano le masse di ossigeno, tenendo fissa la massa dell'altro elemento."]],
- ask:["Tre ossidi di manganese danno 0,291, 0,437 e 0,583 g di ossigeno per 1 g di manganese. Rapporto di Dalton?","Divido per 0,291: 1 : 1,5 : 2. Moltiplico per 2: <b>2 : 3 : 4</b>."]}
+ ask:["Tre ossidi di manganese danno 0,291, 0,437 e 0,583 g di ossigeno per 1 g di manganese. Rapporto di Dalton?","Divido per 0,291: 1 : 1,5 : 2. Moltiplico per 2: <b>2 : 3 : 4</b>."]},
+
+/* ---------- PARTE 7 · CALORE E PASSAGGI DI STATO ---------- */
+{parte:6, t:"La curva di riscaldamento",
+ body:`<p class="s" data-say="Prendiamo del ghiaccio dal freezer, a meno diciotto gradi, e lo scaldiamo finché l'acqua bolle. A intervalli di tempo regolari segniamo la temperatura.">Prendiamo del ghiaccio dal freezer, a −18&nbsp;°C, e lo scaldiamo finché l'acqua bolle. A intervalli di tempo regolari segniamo la temperatura.</p>
+<p class="s">Il grafico della temperatura in funzione del tempo si chiama curva di riscaldamento.</p>
+<div class="curva" data-k="risc"></div>
+<p class="s">Tocca i tratti sotto il grafico: il tratto si colora e compare che cosa succede.</p>
+<p class="s">Nei tratti in salita c'è un solo stato e la temperatura sale.</p>
+<p class="s">Nei tratti orizzontali ci sono due stati insieme e la temperatura non cambia, anche se continuiamo a scaldare. Si chiamano soste termiche.</p>`,
+ init:"curvInit",
+ words:[["curva di riscaldamento","il grafico della temperatura in funzione del tempo mentre si scalda una sostanza."],
+        ["sosta termica","tratto orizzontale della curva: è in corso un passaggio di stato e la temperatura resta costante."]],
+ ask:["In quale tratto ci sono insieme ghiaccio e acqua liquida? A quale temperatura?","<b>B–C, la fusione, a 0&nbsp;°C.</b> È la prima sosta termica."]},
+
+{parte:6, t:"Le soste termiche",
+ body:`<p class="s">La temperatura alla quale coesistono lo stato solido e lo stato liquido è la temperatura di fusione. Per il ghiaccio è zero gradi.</p>
+<div class="ex s" data-say="La lunghezza della sosta dipende dalla quantità di sostanza: più ghiaccio c'è, più lunga è la sosta."><div class="lbl">La lunghezza</div>Dipende dalla <b>quantità</b> di sostanza: più ghiaccio c'è, più lunga è la sosta.</div>
+<div class="ex s" data-say="L'altezza della sosta, cioè la sua temperatura, non dipende dalla quantità: una goccia o un litro d'acqua bollono sempre a cento gradi."><div class="lbl">L'altezza</div>La temperatura della sosta <b>non</b> dipende dalla quantità: una goccia o un litro d'acqua bollono sempre a 100&nbsp;°C.</div>
+<svg viewBox="0 0 340 160" role="img" aria-label="Due curve: con 200 grammi la sosta è lunga il doppio, alla stessa temperatura">
+<g font-family="-apple-system,Arial,sans-serif" font-size="12">
+<line x1="20" y1="15" x2="20" y2="130" stroke="#1B2430" stroke-width="1.5"/><line x1="20" y1="130" x2="165" y2="130" stroke="#1B2430" stroke-width="1.5"/>
+<line x1="185" y1="15" x2="185" y2="130" stroke="#1B2430" stroke-width="1.5"/><line x1="185" y1="130" x2="332" y2="130" stroke="#1B2430" stroke-width="1.5"/>
+<line x1="20" y1="80" x2="165" y2="80" stroke="#9AA3AE" stroke-dasharray="4 4"/><line x1="185" y1="80" x2="332" y2="80" stroke="#9AA3AE" stroke-dasharray="4 4"/>
+<text x="24" y="75" fill="#5A6473">0&nbsp;°C</text><text x="189" y="75" fill="#5A6473">0&nbsp;°C</text>
+<polyline points="20,120 35,80 65,80 85,40" fill="none" stroke="#1B2430" stroke-width="3"/>
+<polyline points="185,120 215,80 275,80 315,40" fill="none" stroke="#1B2430" stroke-width="3"/>
+<line x1="35" y1="80" x2="65" y2="80" stroke="#A8327A" stroke-width="6"/>
+<line x1="215" y1="80" x2="275" y2="80" stroke="#A8327A" stroke-width="6"/>
+<path d="M35,92 V98 H65 V92" fill="none" stroke="#A8327A" stroke-width="1.5"/><text x="50" y="112" text-anchor="middle" fill="#A8327A" font-weight="700">sosta</text>
+<path d="M215,92 V98 H275 V92" fill="none" stroke="#A8327A" stroke-width="1.5"/><text x="245" y="112" text-anchor="middle" fill="#A8327A" font-weight="700">sosta doppia</text>
+<text x="92" y="150" text-anchor="middle" fill="#1B2430" font-weight="700" font-size="13">100 g di ghiaccio</text>
+<text x="258" y="150" text-anchor="middle" fill="#1B2430" font-weight="700" font-size="13">200 g di ghiaccio</text>
+</g></svg>
+<div class="trap s" data-say="Attenzione: più sostanza vuol dire sosta più lunga, non più alta. La temperatura di fusione resta la stessa."><b>Più sostanza → sosta più lunga, non più alta.</b> La temperatura di fusione resta la stessa.</div>`,
+ ask:["Con la stessa fiamma scaldi 200 g di ghiaccio invece di 100 g. Che cosa cambia nella curva?","La sosta a 0&nbsp;°C dura <b>circa il doppio</b>. La temperatura di fusione resta <b>0&nbsp;°C</b>."]},
+
+{parte:6, t:"Evaporazione ed ebollizione",
+ body:`<p class="s">Tra zero e cento gradi l'acqua liquida vaporizza, cioè passa ad aeriforme. Lo fa in due modi: evaporazione ed ebollizione.</p>
+<p class="s">Appena si forma, il vapore esercita una pressione: si chiama tensione di vapore.</p>
+<p class="s">Finché la tensione di vapore è minore della pressione atmosferica, il vapore si forma solo in superficie: è l'evaporazione.</p>
+<p class="s">Quando la tensione di vapore diventa uguale alla pressione esterna, le bolle si formano in tutto il liquido: è l'ebollizione.</p>
+<p class="s"><mark>La temperatura alla quale la tensione di vapore eguaglia la pressione esterna si dice temperatura di ebollizione.</mark></p>
+<div class="scroll"><table>
+<tr><th></th><th>Evaporazione</th><th>Ebollizione</th></tr>
+<tr><td><b>Dove</b></td><td>solo in superficie</td><td>in tutto il liquido, con le bolle</td></tr>
+<tr><td><b>Quando</b></td><td>anche sotto i 100&nbsp;°C</td><td>a una temperatura precisa: 100&nbsp;°C a 1 atm</td></tr>
+<tr><td><b>Tensione di vapore</b></td><td>minore della pressione esterna</td><td>uguale alla pressione esterna</td></tr>
+<tr><td><b>Esempio</b></td><td>i panni che si asciugano</td><td>l'acqua della pasta</td></tr>
+</table></div>`,
+ words:[["tensione di vapore","la pressione del vapore che si forma dal liquido."],
+        ["pressione atmosferica","la pressione dell'aria intorno a noi. Al livello del mare vale 1 atmosfera, 1 atm."]],
+ ask:["La pozzanghera che sparisce al sole: evaporazione o ebollizione?","<b>Evaporazione</b>: avviene in superficie, senza bolle, sotto i 100&nbsp;°C."]},
+
+{parte:6, t:"La curva di raffreddamento",
+ body:`<p class="s">Se raffreddiamo del vapore acqueo e segniamo la temperatura nel tempo, otteniamo la curva di raffreddamento. È la curva di riscaldamento al contrario.</p>
+<div class="curva" data-k="raff"></div>
+<p class="s">Anche qui ci sono due soste termiche. Nel tratto B–C il vapore diventa liquido: è la condensazione, a cento gradi.</p>
+<p class="s">Nel tratto D–E il liquido diventa solido: è la solidificazione, a zero gradi.</p>
+<p class="s"><mark>Fusione e solidificazione avvengono alla stessa temperatura.</mark> Anche ebollizione e condensazione, se la pressione resta di un'atmosfera.</p>`,
+ init:"curvInit",
+ ask:["L'acqua fonde a 0&nbsp;°C. A che temperatura solidifica?","<b>A 0&nbsp;°C</b>: fusione e solidificazione avvengono alla stessa temperatura."]},
+
+{parte:6, t:"I punti fissi",
+ body:`<p class="s">Tutte le sostanze pure hanno soste termiche nei passaggi di stato.</p>
+<p class="s">Ogni sostanza ha le sue temperature di fusione e di ebollizione: si chiamano temperature fisse, o punti fissi.</p>
+<p class="s">Sono proprietà intensive: non dipendono dalla quantità. Servono a riconoscere una sostanza e a capire in che stato si trova a una certa temperatura.</p>
+<div class="scroll"><table>
+<tr><th>Sostanza</th><th class="c">Fusione (°C)</th><th class="c">Ebollizione (°C)</th></tr>
+<tr><td>ossigeno</td><td class="c">−218,4</td><td class="c">−183</td></tr>
+<tr><td>azoto</td><td class="c">−210</td><td class="c">−196</td></tr>
+<tr><td>alcol etilico</td><td class="c">−115</td><td class="c">78,5</td></tr>
+<tr><td>acqua</td><td class="c">0</td><td class="c">100</td></tr>
+<tr><td>mercurio</td><td class="c">−38,8</td><td class="c">356,7</td></tr>
+<tr><td>sale da cucina</td><td class="c">801</td><td class="c">1465</td></tr>
+<tr><td>alluminio</td><td class="c">660</td><td class="c">2327</td></tr>
+<tr><td>oro</td><td class="c">1065</td><td class="c">2808</td></tr>
+</table></div>
+<p class="s">Per trovare lo stato, confronta la temperatura con i due punti fissi.</p>
+<div class="strip"><span class="z z1">solido</span><span class="mk">t<sub>f</sub></span><span class="z z2">liquido</span><span class="mk">t<sub>eb</sub></span><span class="z z3">aeriforme</span></div>
+<div class="stripax">temperatura più alta →</div>
+<div class="ex s" data-say="Esempio: il mercurio a venti gradi. Venti è tra meno trentotto virgola otto e trecentocinquantasei virgola sette, quindi il mercurio è liquido."><div class="lbl">Esempio</div>Mercurio a 20&nbsp;°C: −38,8 &lt; 20 &lt; 356,7 → <b>liquido</b>.</div>
+<div class="trap s" data-say="Occhio ai numeri negativi: meno duecentoventi è più freddo di meno duecentodieci."><b>Occhio ai negativi.</b> −220&nbsp;°C è più freddo di −210&nbsp;°C.</div>`,
+ words:[["punti fissi","le temperature di fusione e di ebollizione di una sostanza pura."],
+        ["proprietà intensiva","una proprietà che non dipende dalla quantità di materia, come la densità."]],
+ ask:["Alcol etilico a 90&nbsp;°C: in che stato è?","<b>Aeriforme</b>: 90&nbsp;°C è sopra la sua temperatura di ebollizione, 78,5&nbsp;°C."]},
+
+{parte:6, t:"Passaggi di stato e pressione",
+ body:`<p class="s">L'acqua bolle a cento gradi solo se la pressione esterna è di un'atmosfera.</p>
+<div class="scroll"><table>
+<tr><th>Pressione esterna</th><th>L'acqua bolle…</th></tr>
+<tr><td><span class="giu">più bassa</span><br>in montagna</td><td><span class="giu">sotto i 100&nbsp;°C</span><br>a 3000 m circa 90&nbsp;°C</td></tr>
+<tr><td>1 atm<br>al livello del mare</td><td>a 100&nbsp;°C</td></tr>
+<tr><td><span class="su">più alta</span><br>pentola a pressione, autoclave</td><td><span class="su">sopra i 100&nbsp;°C</span><br>nell'autoclave circa 120&nbsp;°C</td></tr>
+</table></div>
+<p class="s">Perché? Per diventare aeriforme un liquido deve aumentare il suo volume di circa mille volte. La pressione esterna ostacola questa espansione.</p>
+<p class="s">Nella fusione invece il volume cambia poco, quindi la pressione conta poco. Di solito più pressione ostacola un po' la fusione.</p>
+<div class="trap s" data-say="L'acqua è un'eccezione: il ghiaccio occupa più volume dell'acqua liquida. Sotto pressione il ghiaccio fonde più facilmente, anche sotto zero gradi."><b>L'acqua è un'eccezione.</b> Il ghiaccio occupa più volume dell'acqua liquida. Sotto pressione il ghiaccio fonde più facilmente, anche sotto 0&nbsp;°C.</div>
+<div class="ex s" data-say="Esempi. Le lame dei pattini premono sul ghiaccio, che fonde: i pattini scivolano sull'acqua. Premendo la neve, un po' di ghiaccio fonde e poi ricongela: la palla diventa compatta. Se fa molto freddo, la pressione non basta a far fondere il ghiaccio."><div class="lbl">Esempi</div>Le lame dei <b>pattini</b> premono sul ghiaccio, che fonde: i pattini scivolano.<br>Premendo la <b>neve</b> un po' di ghiaccio fonde e poi ricongela: la palla diventa compatta. Se fa molto freddo, la pressione non basta.</div>`,
+ words:[["autoclave","apparecchio che sterilizza gli strumenti con vapore ad alta pressione, a circa 120&nbsp;°C."]],
+ ask:["Perché in montagna la pasta cuoce più lentamente?","La pressione è più bassa, quindi l'acqua bolle <b>sotto i 100&nbsp;°C</b>: a 3000 m circa 90&nbsp;°C. L'acqua è meno calda."]},
+
+/* ---------- PARTE 8 · PARTICELLE ED ENERGIA ---------- */
+{parte:7, t:"La teoria cinetica",
+ body:`<p class="s">Per spiegare i passaggi di stato serve la teoria cinetica, a cui lavorarono i fisici Boltzmann e Maxwell. I suoi punti fondamentali sono tre.</p>
+<div class="flow">
+<div class="st s"><b class="n">1 · Spazio vuoto e movimento</b>Le particelle sono separate da spazio vuoto e si muovono sempre, senza fermarsi mai.</div>
+<div class="st s"><b class="n">2 · Temperatura e calore</b>Temperatura e calore sono manifestazioni del moto delle particelle.</div>
+<div class="st s"><b class="n">3 · Proprietà</b>Ogni particella ha massa e proprietà chimiche. Le proprietà fisiche, come il colore o la temperatura di fusione, non hanno senso per una particella da sola.</div>
+</div>
+<svg viewBox="0 0 340 158" role="img" aria-label="Particelle in un solido, in un liquido e in un aeriforme">
+<g font-family="-apple-system,Arial,sans-serif" text-anchor="middle">
+<rect x="5" y="8" width="100" height="100" rx="8" fill="#fff" stroke="#1B2430" stroke-width="2"/>
+<rect x="120" y="8" width="100" height="100" rx="8" fill="#fff" stroke="#1B2430" stroke-width="2"/>
+<rect x="235" y="8" width="100" height="100" rx="8" fill="#fff" stroke="#1B2430" stroke-width="2"/>
+<g id="parts"></g>
+<text x="55" y="128" font-size="13.5" font-weight="700" fill="#1B2430">solido</text>
+<text x="170" y="128" font-size="13.5" font-weight="700" fill="#1B2430">liquido</text>
+<text x="285" y="128" font-size="13.5" font-weight="700" fill="#1B2430">aeriforme</text>
+<text x="55" y="146" font-size="11.5" fill="#5A6473">vibrano sul posto</text>
+<text x="170" y="146" font-size="11.5" fill="#5A6473">a contatto, scorrono</text>
+<text x="285" y="146" font-size="11.5" fill="#5A6473">liberi, disordinati</text>
+</g></svg>
+<p class="s">Nei solidi le particelle oscillano e vibrano intorno a posizioni fisse. Nei solidi cristallini sono disposte in modo compatto e ordinato.</p>
+<p class="s">Nei liquidi le particelle sono ancora a contatto, ma si muovono con più libertà.</p>
+<p class="s">Negli aeriformi la libertà di movimento è massima e il moto è disordinato.</p>
+<div class="ex s" data-say="Tre modi di descrivere lo stesso fenomeno. Macro: ghiaccio, acqua, vapore. Micro: le particelle. Simboli: acca due o solido, acca due o liquido, acca due o gassoso."><div class="lbl">Tre modi di vederlo</div><b>macro</b>: ghiaccio, acqua, vapore · <b>micro</b>: le particelle · <b>simboli</b>:<br><span class="fx">H<sub>2</sub>O<sub>(s)</sub> → H<sub>2</sub>O<sub>(l)</sub> → H<sub>2</sub>O<sub>(g)</sub></span></div>`,
+ init:"partInit",
+ words:[["cinetica","dal greco kinesis, movimento: che riguarda il moto."]],
+ ask:["In quale stato le particelle vibrano intorno a posizioni fisse?","Nel <b>solido</b>. Nel liquido scorrono a contatto, nell'aeriforme si muovono libere."]},
+
+{parte:7, t:"Temperatura ed energia cinetica",
+ body:`<p class="s">Le particelle sono sempre in movimento, quindi hanno energia cinetica.</p>
+<p class="s">Quando scaldiamo un corpo, le particelle si muovono più velocemente, si urtano più spesso e si allontanano. Aumenta la temperatura e aumenta anche il volume.</p>
+<p class="s"><mark>La temperatura assoluta di un corpo è direttamente proporzionale all'energia cinetica media delle sue particelle.</mark></p>
+<div class="ex s" data-say="Il permanganato di potassio si scioglie più in fretta in acqua calda, perché il moto delle particelle è più intenso."><div class="lbl">Esperimento</div>I cristalli viola di permanganato si sciolgono più in fretta in <b>acqua calda</b>: il moto delle particelle è più intenso.</div>
+<p class="s">L'aumento di volume si chiama dilatazione termica. È molto evidente nei gas.</p>
+<div class="ex s" data-say="Un palloncino gonfio messo nel freezer si sgonfia. Riportato a temperatura ambiente, l'aria si riscalda e il palloncino si rigonfia. Nei solidi e nei liquidi la dilatazione è più piccola, ma c'è: nei viadotti si mettono i giunti di dilatazione."><div class="lbl">Esempi</div>Un <b>palloncino</b> nel freezer si sgonfia; a temperatura ambiente si rigonfia.<br>Nei solidi e nei liquidi la dilatazione è più piccola, ma c'è: nei <b>viadotti</b> si mettono i giunti di dilatazione.</div>`,
+ words:[["energia cinetica","l'energia che una cosa ha perché si muove."],
+        ["media","le particelle non vanno tutte alla stessa velocità: si considera la media."],
+        ["dilatazione termica","l'aumento di volume di un corpo quando si scalda."]],
+ ask:["Una bottiglia piena fino all'orlo si scalda di circa 10&nbsp;°C. Che cosa ti aspetti?","L'acqua si <b>dilata</b>: il volume aumenta un po' ed esce qualche goccia."]},
+
+{parte:7, t:"Energia potenziale ed energia interna",
+ body:`<p class="s">Scaldando un corpo non aumenta solo l'energia cinetica. Aumenta anche l'energia potenziale delle particelle, perché si allontanano.</p>
+<p class="s">L'energia potenziale nasce dalle forze di attrazione tra cariche di segno opposto, che tengono vicine le particelle. È come l'energia potenziale di un oggetto attirato dalla Terra.</p>
+<p class="s">Quando le particelle si allontanano, l'energia potenziale aumenta: come quando si solleva un oggetto da terra.</p>
+<div class="scroll"><table>
+<tr><th></th><th>Energia cinetica E<sub>c</sub></th><th>Energia potenziale E<sub>p</sub></th></tr>
+<tr><td><b>Nasce da</b></td><td>il movimento delle particelle</td><td>le forze di attrazione tra le particelle</td></tr>
+<tr><td><b>Aumenta se</b></td><td>le particelle vanno più veloci</td><td>le particelle si allontanano</td></tr>
+<tr><td><b>Come…</b></td><td>una palla che corre</td><td>un oggetto sollevato da terra</td></tr>
+</table></div>
+<p class="s">La somma dell'energia cinetica e dell'energia potenziale delle particelle si chiama energia interna.</p>
+<span class="f big">E<sub>sistema</sub> = E<sub>c</sub> + E<sub>p</sub></span>
+<p class="s"><mark>Fornire calore a un oggetto significa aumentare la sua energia interna.</mark></p>`,
+ words:[["forze di coesione","le attrazioni tra le particelle, di natura elettrica. Scaldando si indeboliscono."],
+        ["energia interna","la somma di energia cinetica ed energia potenziale di tutte le particelle."]],
+ ask:["Che cos'è l'energia interna?","La somma di <b>energia cinetica</b> ed <b>energia potenziale</b> delle particelle: E = E<sub>c</sub> + E<sub>p</sub>."]},
+
+{parte:7, t:"Perché nella sosta la temperatura non sale",
+ body:`<p class="s">Adesso si capisce la sosta termica.</p>
+<p class="s">Nei tratti in salita il calore fa muovere più in fretta le particelle: aumenta soprattutto l'energia cinetica, quindi sale la temperatura.</p>
+<p class="s">Nella sosta il calore serve ad allontanare le particelle, vincendo le forze che le tengono unite: aumenta l'energia potenziale. L'energia cinetica media non cambia, quindi la temperatura resta ferma.</p>
+<div class="scroll"><table>
+<tr><th></th><th class="c">tratto in salita</th><th class="c">sosta termica</th></tr>
+<tr><td><b>Il calore serve a…</b></td><td class="c">far correre le particelle</td><td class="c">allontanare le particelle</td></tr>
+<tr><td><b>Energia cinetica media</b></td><td class="c"><span class="su">aumenta ↑</span></td><td class="c">resta uguale =</td></tr>
+<tr><td><b>Energia potenziale</b></td><td class="c">cresce poco</td><td class="c"><span class="su">aumenta ↑</span></td></tr>
+<tr><td><b>Temperatura</b></td><td class="c"><span class="su">sale ↑</span></td><td class="c">resta ferma =</td></tr>
+</table></div>
+<div class="trap s" data-say="Nella sosta il calore non sparisce: diventa energia potenziale delle particelle. L'energia interna aumenta anche se la temperatura resta ferma."><b>Nella sosta il calore non sparisce.</b> Diventa energia potenziale delle particelle: l'energia interna aumenta anche se la temperatura resta ferma.</div>`,
+ ask:["Durante la fusione del ghiaccio l'energia interna aumenta?","<b>Sì</b>: aumenta l'energia potenziale delle particelle, anche se la temperatura resta 0&nbsp;°C."]}
+
 ];
 
 /* ═══════ stato ═══════ */
@@ -849,6 +1039,79 @@ function sphInit(){
     s += '<circle cx="'+(75+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="#4F86C6"/>';
     s += '<circle cx="'+(245+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="'+cols[(i*7)%4]+'"/>';
   });
+  g.innerHTML = s;
+}
+
+/* ═══════ curve di riscaldamento e raffreddamento ═══════ */
+const CURVE = {
+  risc:{ pts:[[45,-18],[85,0],[150,0],[215,100],[300,100],[337,112]],
+    col:["#D5DCE3","#DDD3EF","#D3E5F6","#F4D3E1","#FAEBC0"],
+    dk:["#8A99AA","#9C85C9","#6FA3D6","#D98AAE","#E0B84A"], below:[0,2],
+    tr:[["A–B","solido","Solo ghiaccio. La temperatura sale da −18&nbsp;°C a 0&nbsp;°C."],
+        ["B–C","solido + liquido","<b>Fusione.</b> Ghiaccio e acqua insieme. Sosta termica: si scalda, ma la temperatura resta 0&nbsp;°C finché c'è ghiaccio."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura sale da 0&nbsp;°C a 100&nbsp;°C."],
+        ["D–E","liquido + aeriforme","<b>Ebollizione.</b> Acqua e vapore insieme. Seconda sosta termica: la temperatura resta 100&nbsp;°C finché c'è liquido."],
+        ["E–F","aeriforme","Solo vapore. La temperatura riprende a salire."]]},
+  raff:{ pts:[[45,112],[80,100],[165,100],[225,0],[295,0],[337,-18]],
+    col:["#FAEBC0","#F4D3E1","#D3E5F6","#DDD3EF","#D5DCE3"],
+    dk:["#E0B84A","#D98AAE","#6FA3D6","#9C85C9","#8A99AA"],
+    tr:[["A–B","aeriforme","Solo vapore. La temperatura scende fino a 100&nbsp;°C."],
+        ["B–C","aeriforme + liquido","<b>Condensazione.</b> Il vapore diventa liquido. Sosta termica a 100&nbsp;°C."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura scende da 100&nbsp;°C a 0&nbsp;°C."],
+        ["D–E","liquido + solido","<b>Solidificazione.</b> L'acqua diventa ghiaccio. Sosta termica a 0&nbsp;°C."],
+        ["E–F","solido","Solo ghiaccio. La temperatura scende sotto 0&nbsp;°C."]]}
+};
+function curvY(T){ return 185 - T*1.3; }
+function curvInit(){
+  Array.prototype.forEach.call(stage.querySelectorAll(".curva"), el=>curvDraw(el, null));
+}
+function curvDraw(el, sel){
+  const C = CURVE[el.getAttribute("data-k")], P = C.pts.map(p=>[p[0], curvY(p[1])]);
+  const F = 'font-family="-apple-system,Arial,sans-serif"';
+  let s = '<svg viewBox="0 0 350 250" role="img" aria-label="Curva della temperatura nel tempo">';
+  for(let i=0;i<5;i++){
+    const op = sel===null ? .6 : (i===sel ? 1 : .18);
+    s += '<rect x="'+P[i][0]+'" y="22" width="'+(P[i+1][0]-P[i][0])+'" height="204" fill="'+C.col[i]+'" opacity="'+op+'"/>';
+  }
+  s += '<line x1="40" y1="'+curvY(100)+'" x2="345" y2="'+curvY(100)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="'+curvY(0)+'" x2="345" y2="'+curvY(0)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="14" x2="40" y2="226" stroke="#1B2430" stroke-width="1.8"/><line x1="40" y1="226" x2="346" y2="226" stroke="#1B2430" stroke-width="1.8"/>';
+  s += '<g '+F+' font-size="12.5" fill="#1B2430"><text x="4" y="14">t (°C)</text><text x="346" y="244" text-anchor="end">tempo →</text>';
+  s += '<text x="36" y="'+(curvY(100)+4)+'" text-anchor="end">100</text><text x="36" y="'+(curvY(0)+4)+'" text-anchor="end">0</text><text x="36" y="'+(curvY(-18)+4)+'" text-anchor="end">−18</text></g>';
+  s += '<polyline points="'+P.map(p=>p.join(",")).join(" ")+'" fill="none" stroke="#1B2430" stroke-width="3" stroke-linejoin="round"/>';
+  if(sel!==null) s += '<line x1="'+P[sel][0]+'" y1="'+P[sel][1]+'" x2="'+P[sel+1][0]+'" y2="'+P[sel+1][1]+'" stroke="#A8327A" stroke-width="7" stroke-linecap="round"/>';
+  const L = "ABCDEF";
+  P.forEach((p,i)=>{
+    s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="#1B2430"/>';
+    const up = (C.below && C.below.indexOf(i)>=0) ? 17 : -8;
+    s += '<text x="'+(p[0]+(i===5?-12:3))+'" y="'+(p[1]+up)+'" '+F+' font-size="14" font-weight="700" fill="#1B2430">'+L[i]+'</text>';
+  });
+  s += '</svg>';
+  let b = '<div class="cbtns">';
+  C.tr.forEach((t,i)=>{
+    b += '<button class="cb'+(i===sel?' on':'')+'" style="border-left-color:'+C.dk[i]+'" onclick="curvSel(this,'+i+')"><b>'+t[0]+'</b> · '+t[1]+'</button>';
+  });
+  b += '</div>';
+  const out = '<div class="cout'+(sel===null?'':' on')+'">'+(sel===null ? 'Tocca un tratto.' : '<b>Tratto '+C.tr[sel][0]+'</b> — '+C.tr[sel][2])+'</div>';
+  el.innerHTML = s + b + out;
+}
+function curvSel(btn,i){
+  let el = btn; while(el && !(el.classList && el.classList.contains("curva"))) el = el.parentNode;
+  if(el) curvDraw(el, i);
+}
+function partInit(){
+  const g = document.getElementById("parts"); if(!g) return;
+  let s = "";
+  for(let r=0;r<3;r++) for(let c=0;c<4;c++){
+    const x = 25+c*20, y = 50+r*20;
+    s += '<path d="M'+(x-12)+','+(y-12)+' q3,-3 6,0" fill="none" stroke="#9AA3AE" stroke-width="1"/>';
+    s += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#4F86C6"/>';
+  }
+  [[132,97],[151,98],[170,96],[189,98],[208,97],[142,80],[161,81],[180,79],[199,81],[151,63],[172,63]]
+    .forEach(p=>{ s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  [[254,28,-14,4],[302,40,10,10],[278,70,-12,-8],[316,90,8,-12],[252,95,-12,6]]
+    .forEach(p=>{ s += '<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+p[2])+'" y2="'+(p[1]+p[3])+'" stroke="#9AA3AE" stroke-width="2" stroke-linecap="round"/>'
+                    + '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
   g.innerHTML = s;
 }
 
