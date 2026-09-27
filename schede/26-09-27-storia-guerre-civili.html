@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Storia — Roma al tempo delle guerre civili</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#4A3A8C; --accent-soft:#EAE8F6;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(96px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:26px 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+/* indice delle parti */
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+/* la carta */
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.when{display:inline-block; background:var(--ink); color:#fff; border-radius:8px; padding:3px 10px;
+  font-size:15px; font-weight:700; margin:8px 0 4px; letter-spacing:.02em}
+.card p{margin:12px 0}
+figure{margin:14px 0 6px; text-align:center}
+figure img{max-width:100%; border-radius:12px; border:1px solid var(--rule); background:#F2EFE8}
+figure img.tall{max-height:300px; width:auto}
+figcaption{font-size:14px; color:var(--soft); margin-top:6px; line-height:1.45}
+
+/* schemi disegnati */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16px; line-height:1.5}
+.flow .st b{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.two{display:flex; gap:10px; margin:14px 0; flex-wrap:wrap}
+.two > div{flex:1 1 200px; border:1px solid var(--rule); border-radius:12px; padding:12px 14px; font-size:16px; line-height:1.5}
+.two .a{background:var(--ok-soft); border-color:#BFD6CC}
+.two .b{background:var(--warn-soft); border-color:#EBD9AE}
+.two h4{margin:0 0 6px; font-size:15px; letter-spacing:.06em; text-transform:uppercase}
+.two .a h4{color:var(--ok)} .two .b h4{color:var(--warn)}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 10px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.06em; text-transform:uppercase}
+td b{color:var(--ink)}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+/* quiz date */
+.qz{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px}
+.qrow{display:flex; gap:8px; align-items:center; margin:9px 0; flex-wrap:wrap}
+.qrow .d{flex:0 0 96px; font-weight:800; font-size:17px}
+.qrow select{flex:1 1 180px; font:inherit; font-size:16px; padding:9px 10px; border:2px solid var(--rule);
+  border-radius:10px; background:#fff; color:var(--ink); min-width:0}
+.qrow.right select{border-color:var(--ok); background:var(--ok-soft)}
+.qrow.wrong select{border-color:var(--no); background:#FBEAEA}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:34px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Storia · capitolo 19</div>
+  <h1>Roma al tempo delle guerre civili</h1>
+  <p class="lead">Da Spartaco a Ottaviano. Una carta per volta: tocca <b>Leggi</b> e la voce legge mentre la frase si illumina. Le parole difficili si aprono con un tocco.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+
+<div id="stage"></div>
+
+<div class="qz" id="quiz" hidden>
+  <div class="kicker">Verifica rapida</div>
+  <h2 style="font-size:23px;margin:6px 0 10px">Collega le date agli eventi</h2>
+  <p style="margin:0 0 14px">Dieci date, dieci eventi. Scegli l'evento giusto per ogni data, poi controlla.</p>
+  <div id="qrows"></div>
+  <button class="mini" style="margin-top:12px" onclick="checkQuiz()">Controlla</button>
+  <div id="qfb" style="font-weight:700;margin-top:10px;min-height:1.3em"></div>
+</div>
+
+<p class="foot" id="foot"></p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Indietro">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Avanti">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button data-r="0.72" onclick="setRate(0.72,this)">lenta</button>
+    <button data-r="0.88" class="on" onclick="setRate(0.88,this)">normale</button>
+    <button data-r="1.05" onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+/* ═══════ immagini: Wikimedia Commons, dominio pubblico o CC ═══════ */
+function wm(file,w){
+  return "https://commons.wikimedia.org/wiki/Special:FilePath/"
+       + encodeURIComponent(file) + "?width=" + (w||640);
+}
+const IMG = {
+  cicerone: wm("Bust of Cicero (1st-cent. BC) - Palazzo Nuovo - Musei Capitolini - Rome 2016.jpg",460),
+  maccari:  wm("Cicero Denounces Catiline in the Roman Senate by Cesare Maccari - 3.jpg",680),
+  cesare:   wm("César (13667960455).jpg",460),
+  ottaviano:wm("Bust of augustus.jpg",440)
+};
+
+/* ═══════ le parti ═══════ */
+const PARTI = [
+  "1 · Spartaco e Crasso",
+  "2 · Pompeo: pirati e Oriente",
+  "3 · Cicerone contro Catilina",
+  "4 · Il primo triumvirato",
+  "5 · La Gallia e la rottura",
+  "6 · Cesare contro Pompeo",
+  "7 · Cesare dittatore",
+  "8 · Ottaviano e il secondo triumvirato",
+  "9 · Le parole e le date"
+];
+
+const CARDS = [
+
+/* ---------- PARTE 1 ---------- */
+{parte:0, t:"Chi era Marco Licinio Crasso",
+ body:`<p class="s">Dopo la morte di Silla restano a Roma due uomini forti, e vengono tutti e due dalla sua scuola. Il primo è Crasso.</p>
+<p class="s">Crasso era l'uomo più ricco di Roma, e lo era diventato proprio grazie ai patrimoni confiscati alle vittime delle proscrizioni di Silla: comprava a prezzi stracciati i beni dei condannati a morte.</p>
+<p class="s">Aveva anche dato prova di notevoli doti militari combattendo al fianco di Silla. Per questo il Senato lo ritenne la persona adatta ad affrontare una minaccia improvvisa e pericolosa.</p>`,
+ words:[["proscrizioni","le liste dei nemici da uccidere, volute da Silla: i loro beni venivano confiscati e rivenduti"]],
+ ask:["Come aveva fatto Crasso a diventare l'uomo più ricco di Roma?","Comprando a poco prezzo i beni confiscati alle vittime delle proscrizioni di Silla."]},
+
+{parte:0, t:"La rivolta di Spartaco", when:"73 a.C.",
+ body:`<p class="s">Nel settantatré avanti Cristo scoppiò la più grande rivolta di schiavi della storia romana. A guidarla era Spartaco, un gladiatore proveniente dalla Tracia.</p>
+<p class="s">Tutto cominciò in una scuola per gladiatori, a Capua. Da lì la rivolta si allargò: Spartaco annientò tutte le truppe che Roma gli mandò contro.</p>
+<p class="s">Gli scontri si consumarono prima nel Sud della penisola e poi anche al Nord, coinvolgendo migliaia di schiavi ribelli.</p>`,
+ words:[["gladiatore","da gladius, la spada dei legionari: i lottatori, quasi tutti schiavi, costretti a combattimenti mortali nelle arene"],["Capua","la città campana dove c'era la scuola di gladiatori da cui partì la rivolta"],["Tracia","la regione da cui veniva Spartaco, fra l'odierna Bulgaria e la Grecia del nord"]],
+ ask:["Dove e quando scoppiò la rivolta di Spartaco?","In una scuola per gladiatori a Capua, nel 73 a.C."]},
+
+{parte:0, t:"La repressione e le croci sulla via Appia", when:"71 a.C.",
+ body:`<p class="s">Crasso ricevette dal Senato l'imperium per guidare l'esercito, anche se non rivestiva la carica di console. Con una serie di battaglie sanguinose debellò gli schiavi.</p>
+<p class="s">I sopravvissuti che cercavano di allontanarsi dall'Italia furono intercettati dall'esercito di Pompeo, che stava tornando dalla Spagna, e massacrati.</p>
+<p class="s">Spartaco morì in battaglia. Seimila suoi compagni furono catturati e crocifissi nel settantuno avanti Cristo lungo i duecento chilometri della via Appia, la strada che da Capua portava a Roma.</p>
+<p class="s">Era un avvertimento: ogni schiavo che percorreva quella strada vedeva che fine faceva chi si ribellava.</p>`,
+ words:[["imperium","il potere di comandare un esercito, normalmente riservato ai magistrati"],["crocifissione","preceduta dalla flagellazione, era uno dei metodi più crudeli di condanna a morte per schiavi e ribelli"],["via Appia","la strada che collegava Capua a Roma, lunga circa 200 km"]],
+ ask:["Chi si prese il merito di aver finito la rivolta?","Crasso la vinse, ma Pompeo intercettò e massacrò i fuggitivi e si attribuì gran parte del merito."]},
+
+{parte:0, t:"Pompeo e Crasso consoli insieme", when:"70 a.C.",
+ body:`<p class="s">Nel settantuno avanti Cristo sotto le mura di Roma arrivarono entrambe le armate vittoriose, ognuna fedele al proprio comandante: quella di Pompeo e quella di Crasso.</p>
+<p class="s">Piuttosto che scontrarsi fra loro, i due preferirono l'accordo alla guerra civile. Nel settanta ottennero insieme il consolato, anche se Pompeo non aveva concluso il cursus honorum e non aveva ancora l'età per diventare console. Le eccezioni istituzionali diventavano sempre più frequenti.</p>
+<p class="s">Da consoli smantellarono le riforme di Silla, che pure era stato il loro maestro. Guarda cosa restituirono e a chi.</p>
+<div class="flow">
+<div class="st"><b>Ai tribuni della plebe</b>Riebbero gli antichi poteri che Silla aveva ridotto a nulla.</div>
+<div class="st"><b>Ai cavalieri</b>Tornarono a fare i giudici nei tribunali e ripresero l'appalto delle entrate delle province asiatiche.</div>
+<div class="st"><b>Alla plebe</b>Le distribuzioni di grano furono ampliate.</div>
+</div>
+<p class="s">In apparenza era la politica dei popolari. In realtà lo scopo era un altro: diminuire l'autorità del Senato, l'unico organismo che poteva contrastare le loro ambizioni personali.</p>`,
+ words:[["cursus honorum","la scala ordinata delle cariche politiche romane"],["appalto","il diritto, comprato dallo Stato, di riscuotere le tasse tenendosi la differenza"]],
+ ask:["Perché Pompeo e Crasso smantellarono le riforme di Silla?","Non per convinzione popolare, ma per indebolire il Senato, l'unico che poteva frenare le loro ambizioni."]},
+
+/* ---------- PARTE 2 ---------- */
+{parte:1, t:"Pompeo contro i pirati", when:"67 a.C.",
+ body:`<p class="s">Nel sessantasette avanti Cristo una legge apposita assegnò a Pompeo un comando straordinario cum imperio, esteso a tutto il Mediterraneo per tre anni. E questo pur non rivestendo lui nessun incarico da magistrato: una concentrazione di poteri senza precedenti.</p>
+<p class="s">Partiva con una flotta di cinquecento navi, un esercito di centoventimila fanti e migliaia di cavalieri.</p>
+<p class="s">I pirati avevano sempre infestato le acque davanti alle coste meridionali dell'odierna Turchia, dove l'intrico di isole e insenature offriva basi sicure. Si erano perfino organizzati in una sorta di federazione, e le loro flotte minacciavano ormai i rifornimenti alimentari diretti a Roma.</p>
+<p class="s">In soli tre mesi Pompeo annientò i pirati e occupò la Cilicia, la regione dell'Asia Minore che faceva da base alle loro operazioni.</p>`,
+ words:[["cum imperio","con il potere di comando militare"],["Cilicia","regione dell'Asia Minore, base dei pirati"],["comando straordinario","un potere eccezionale, fuori dalle regole normali delle magistrature"]],
+ ask:["Cosa c'è di anomalo nel comando dato a Pompeo nel 67 a.C.?","Non era magistrato, eppure ottenne il comando su tutto il Mediterraneo per tre anni: poteri mai concentrati prima in una persona."]},
+
+{parte:1, t:"L'Oriente disegnato da Pompeo", when:"66–62 a.C.",
+ body:`<p class="s">Forte delle vittorie e del sostegno dei popolari e dei cavalieri, Pompeo cercò un nuovo obiettivo per accrescere gloria e bottino: Mitridate, il re del Ponto, che dopo la pace raggiunta con Silla nell'ottantacinque aveva continuato una politica indipendente, giudicata a Roma inaccettabile.</p>
+<p class="s">Pompeo lo sconfisse e Mitridate si uccise nel sessantatré avanti Cristo. Poi riorganizzò tutto l'Oriente. Ecco il risultato.</p>
+<table>
+<tr><th>Territorio</th><th>Che fine fa</th></tr>
+<tr><td><b>Ponto e Bitinia</b></td><td>Diventano province romane.</td></tr>
+<tr><td><b>Armenia</b></td><td>Il re è obbligato a sottomettersi a Roma.</td></tr>
+<tr><td><b>Siria</b></td><td>Approfittando della crisi dei Seleucidi, ridotta a provincia romana.</td></tr>
+<tr><td><b>Giudea</b> (Palestina)</td><td>Ridotta a Stato cliente dopo l'assedio di Gerusalemme.</td></tr>
+</table>
+<p class="s">Nei regni lungo i confini orientali Pompeo impose sovrani fedeli a Roma e, soprattutto, a sé stesso. L'Oriente passò sotto il dominio diretto della Repubblica, garantendo entrate ingentissime allo Stato e nuovi affari ai cavalieri.</p>`,
+ words:[["Mitridate VI","il re del Ponto, grande nemico di Roma in Oriente: si uccise nel 63 a.C."],["Stato cliente","un regno formalmente indipendente ma di fatto controllato da Roma"],["Seleucidi","la dinastia ellenistica che regnava in Siria, ormai in crisi"]],
+ ask:["Quali due nuove province nascono dalla vittoria su Mitridate?","Ponto e Bitinia. Poi Pompeo aggiunse anche la Siria."]},
+
+{parte:1, t:"Le campagne di Pompeo in ordine",
+ body:`<p class="s">Quattro campagne in dieci anni. Se ti chiedono di raccontarle, seguile in quest'ordine: da ovest verso est.</p>
+<table>
+<tr><th>Anni</th><th>Contro chi</th><th>Dove</th></tr>
+<tr><td><b>76–72 a.C.</b></td><td>Sertorio</td><td>Penisola iberica</td></tr>
+<tr><td><b>71 a.C.</b></td><td>Gli schiavi ribelli in fuga</td><td>Italia del Nord</td></tr>
+<tr><td><b>67 a.C.</b></td><td>I pirati</td><td>Tutto il Mediterraneo, poi la Cilicia</td></tr>
+<tr><td><b>66–63 a.C.</b></td><td>Mitridate</td><td>Ponto, poi Armenia, Siria, Giudea</td></tr>
+</table>
+<p class="s">Il filo è sempre lo stesso: ogni vittoria gli porta gloria, bottino e soldati fedeli. È così che si costruisce l'uomo forte di Roma.</p>`,
+ ask:["Le quattro campagne di Pompeo, in ordine?","76-72 Sertorio in Spagna, 71 gli schiavi in fuga, 67 i pirati, 66-63 Mitridate in Oriente."]},
+
+/* ---------- PARTE 3 ---------- */
+{parte:2, t:"Cicerone, un uomo nuovo fra gli ottimati", when:"106–43 a.C.",
+ img:{src:IMG.cicerone, tall:true, cap:"Busto di Marco Tullio Cicerone, I secolo a.C. (Musei Capitolini, Roma)."},
+ body:`<p class="s">Negli anni delle conquiste orientali di Pompeo, sulla scena pubblica di Roma si distingueva Marco Tullio Cicerone, vissuto dal centosei al quarantatré avanti Cristo.</p>
+<p class="s">Era un uomo nuovo, come era stato Gaio Mario: nessuno dei suoi antenati aveva ricoperto magistrature. A differenza di Mario, però, Cicerone non era un condottiero militare.</p>
+<p class="s">La sua arma era la parola. Dotato di notevole cultura e di straordinarie capacità oratorie, esordì come avvocato con successi immediati. In politica si fece notare quando, come questore della Sicilia, denunciò la corruzione e i soprusi dell'ex governatore Gaio Verre. Così si conquistò simpatie anche fra i popolari.</p>`,
+ words:[["homo novus","uomo nuovo: il primo della sua famiglia ad arrivare alle alte cariche"],["questore","il magistrato che si occupava dei conti pubblici, primo gradino del cursus honorum"],["Gaio Verre","l'ex governatore della Sicilia che Cicerone accusò di corruzione"]],
+ ask:["In cosa Cicerone è diverso da Mario, pur essendo anche lui un uomo nuovo?","Mario fece carriera con le armi, Cicerone con la parola: avvocato e oratore, non condottiero."]},
+
+{parte:2, t:"La visione politica di Cicerone",
+ body:`<p class="s">Cicerone pensava che la pacificazione della vita politica romana fosse ancora possibile. Non voleva rivoluzioni: voleva riportare l'ordine.</p>
+<p class="s">Era un convinto sostenitore dell'aristocrazia senatoria, che considerava la sola forza sociale capace di difendere il mos maiorum e le istituzioni repubblicane.</p>
+<p class="s">Nella sua visione i senatori dovevano riacquistare prestigio e imporre, con la loro restaurata autorità, un accordo fra tutti i gruppi sociali. Un accordo che avrebbe coinvolto soprattutto quelli che lui chiamava gli uomini onesti, in latino i viri boni, di ogni classe, chiamati ad agire unicamente per il bene della Repubblica.</p>`,
+ words:[["viri boni","gli uomini onesti: per Cicerone i cittadini perbene di ogni classe che devono guidare lo Stato"],["mos maiorum","il costume degli antenati, la tradizione non scritta di Roma"]],
+ ask:["Qual era il progetto politico di Cicerone?","Un accordo fra tutti i gruppi sociali sotto la guida restaurata del Senato, per salvare le istituzioni repubblicane."]},
+
+{parte:2, t:"Cesare entra in scena", when:"nato nel 100 a.C.",
+ body:`<p class="s">Intanto alle file dei popolari si era aggiunto l'ex console Crasso, che grazie alle enormi ricchezze poteva manovrare facilmente le elezioni. E Crasso aveva trovato un alleato in un giovane politico ambizioso: Gaio Giulio Cesare.</p>
+<p class="s">Cesare era nato nel cento avanti Cristo e apparteneva a una delle più antiche famiglie della nobilitas, la gens Iulia, che faceva risalire le proprie origini addirittura alla dea Venere e all'eroe Enea.</p>
+<p class="s">C'è un dettaglio di famiglia decisivo: sua zia Giulia aveva sposato Gaio Mario. Cesare era quindi a tutti gli effetti il nipote di Mario, e per questo i popolari lo riconobbero come loro capo naturale.</p>
+<p class="s">Con i soldi prestati da Crasso vinse le campagne elettorali: fu edile nel sessantacinque e pontefice massimo nel sessantatré, una carica prestigiosissima e molto ambita.</p>`,
+ words:[["gens Iulia","l'antichissima famiglia di Cesare, che si diceva discendente di Venere ed Enea"],["edile","il magistrato che curava strade, mercati e giochi pubblici"],["pontefice massimo","il capo della religione romana: carica a vita, di grandissimo prestigio"]],
+ ask:["Perché i popolari vedevano in Cesare il loro capo naturale?","Perché sua zia Giulia era la moglie di Gaio Mario: Cesare era il nipote del grande capo popolare."]},
+
+{parte:2, t:"La congiura di Catilina", when:"63–62 a.C.",
+ img:{src:IMG.maccari, cap:"Cesare Maccari, Cicerone denuncia Catilina, 1882-1888 (Palazzo Madama, Roma). Catilina è l'uomo seduto da solo, a destra: nessuno gli si siede accanto."},
+ body:`<p class="s">Proprio nel sessantatré, mentre Cesare era pontefice e Pompeo si apprestava a rientrare dall'Oriente, Cicerone sventò una grave minaccia per la Repubblica: la congiura di Lucio Sergio Catilina.</p>
+<p class="s">Catilina apparteneva a un'antica famiglia della nobilitas, aveva sostenuto Silla e aveva contratto debiti enormi per fare campagna elettorale. Ambiva al consolato e intercettava le esigenze di altri aristocratici indebitati e di tanti Romani in difficoltà economica.</p>
+<p class="s">Sconfitto per pochi voti da Cicerone alle elezioni del sessantatré, fu sconfitto di nuovo a quelle del sessantadue. A quel punto tentò la congiura.</p>
+<p class="s">Cicerone, che era console, ne venne a conoscenza e la denunciò in Senato con una famosa orazione, la Prima Catilinaria. Catilina fuggì in Etruria e numerosi congiurati furono arrestati.</p>
+<p class="s">Qui arriva il punto discusso: violando le leggi, Cicerone sostenne la necessità di giustiziare i congiurati senza un regolare processo. Tutti furono messi a morte, con il consenso dell'élite senatoria e dei cavalieri. Poco dopo un esercito raggiunse e massacrò Catilina nella battaglia di Pistoia, nel sessantadue.</p>
+<p class="s">Cicerone apparve come il salvatore della patria. Ma la congiura era un'ulteriore conferma della fragilità delle istituzioni di Roma.</p>`,
+ words:[["congiura","accordo segreto, sancito da un giuramento comune, dal latino cum iurare: serve a eliminare un avversario o rovesciare il potere con la forza"],["Prima Catilinaria","la famosa orazione con cui Cicerone denunciò Catilina in Senato"],["Pistoia","la battaglia del 62 a.C. in cui Catilina fu ucciso"]],
+ ask:["Cosa fece Cicerone di legalmente grave?","Fece giustiziare i congiurati senza un regolare processo cittadino. Quell'atto gli costerà l'esilio pochi anni dopo."]},
+
+/* ---------- PARTE 4 ---------- */
+{parte:3, t:"Il ritorno di Pompeo dall'Oriente", when:"62 a.C.",
+ body:`<p class="s">Nel sessantadue Pompeo rientrò in Italia carico di bottino e di gloria. L'élite senatoria temeva che si imponesse con la minaccia delle truppe, come aveva fatto Silla.</p>
+<p class="s">Invece Pompeo congedò i suoi soldati e rimase fedele alle tradizioni della Repubblica, limitandosi a chiedere due cose al Senato: ratificare i provvedimenti presi in Oriente e assegnare le terre ai suoi veterani.</p>
+<p class="s">Il suo atteggiamento non aggressivo sembrò però non ripagarlo. I senatori ottimati ritardavano di giorno in giorno l'approvazione delle sue richieste: pensavano così di riaffermare la propria autorità sulla politica estera e di ridurre il prestigio del generale presso i suoi soldati.</p>
+<p class="s">Risultato: l'accordo fra il Senato e l'uomo forte del momento non si trovava. E questo aprì la porta a tutto il resto.</p>`,
+ words:[["ratificare","approvare ufficialmente una decisione già presa"],["veterani","i soldati che hanno finito il servizio e attendono la terra promessa"]],
+ ask:["Perché gli ottimati temporeggiavano con Pompeo?","Per riaffermare l'autorità del Senato sulla politica estera e ridurre il prestigio di Pompeo davanti ai suoi soldati."]},
+
+{parte:3, t:"Il patto fra Cesare, Pompeo e Crasso", when:"60 a.C.",
+ img:{src:IMG.cesare, tall:true, cap:"Busto di Giulio Cesare. Nel libro trovi la versione della Galleria degli Uffizi, a Firenze."},
+ body:`<p class="s">Fu Cesare a saper trarre il massimo vantaggio dalla situazione di stallo. Nel sessanta avanti Cristo fece a Pompeo una proposta allettante: se Pompeo lo avesse sostenuto nelle elezioni a console, Cesare avrebbe fatto approvare tutte le sue richieste al Senato.</p>
+<p class="s">Nel patto fu coinvolto anche Crasso, interessato per sé e per i cavalieri a ottenere migliori condizioni negli appalti delle province orientali, e disposto a finanziare la campagna elettorale di Cesare.</p>
+<p class="s">Questa intesa è stata chiamata dagli storici primo triumvirato, come se fosse una magistratura di tre membri. Attenzione: non lo era. Era un accordo privato, e all'inizio segreto, fra i tre uomini più potenti di Roma, che mettendo insieme clientele, ricchezze ed eserciti erano in grado di imporre la loro volontà.</p>
+<p class="s">Ognuno metteva qualcosa: Pompeo la gloria e i soldati, Crasso il denaro, Cesare l'abilità politica. Divenuto console nel cinquantanove, Cesare si affrettò a emanare le leggi volute dai due alleati.</p>`,
+ words:[["triumvirato","gruppo di tre uomini al potere. Il primo però non era una vera magistratura, ma un accordo privato"],["clientela","il gruppo di sostenitori fedeli legati a un uomo potente"],["stallo","situazione bloccata, in cui nessuno riesce a ottenere quello che vuole"]],
+ ask:["Perché il primo triumvirato non era una vera magistratura?","Perché era un accordo privato e segreto fra tre persone, non una carica istituita da una legge. Il secondo triumvirato sarà diverso."]},
+
+{parte:3, t:"La riforma agraria di Cesare console", when:"59 a.C.",
+ body:`<p class="s">Cesare agì subito con due proposte di legge agraria che distribuivano lotti di terra nell'agro pubblico della penisola ai veterani di Pompeo e ai cittadini poveri con tre o più figli.</p>
+<p class="s">In Senato si opponeva il blocco conservatore, la cui voce era l'intransigente Marco Porcio Catone, detto Catone l'Uticense. Ma le leggi passarono comunque, sotto la pressione del potere militare di Pompeo.</p>
+<p class="s">C'è una differenza fondamentale rispetto ai Gracchi, ed è la chiave per capire perché stavolta funzionò.</p>
+<div class="two">
+<div class="b"><h4>I Gracchi, 133 e 123 a.C.</h4>La terra veniva <b>confiscata</b> ai grandi proprietari. Risultato: scontro frontale, violenza, morte dei riformatori.</div>
+<div class="a"><h4>Cesare, 59 a.C.</h4>La terra veniva <b>comprata</b> con le entrate delle ricche province d'Oriente. Risultato: nessun privilegio degli ottimati intaccato, legge approvata.</div>
+</div>
+<p class="s">Della riforma si giovarono oltre ventimila padri di famiglia con più di tre figli, più un numero imprecisato di plebei. Ottennero un podere da coltivare, inalienabile, cioè non cedibile, per vent'anni.</p>`,
+ words:[["Catone l'Uticense","Marco Porcio Catone (93-45 a.C.), capo intransigente degli ottimati. Detto Uticense da Utica, dove morì"],["inalienabile","che non si può vendere né cedere"],["agro pubblico","la terra di proprietà dello Stato romano"]],
+ ask:["Perché la riforma di Cesare passò mentre quelle dei Gracchi fallirono?","Perché non sequestrava la terra ai ricchi: la comprava con i soldi delle province d'Oriente. Nessun privilegio veniva toccato."]},
+
+{parte:3, t:"Cesare proconsole, Cicerone in esilio",
+ body:`<p class="s">Il triumvirato esercitava un controllo quasi totale sullo Stato: imponeva l'elezione dei propri candidati e bloccava ogni opposizione del Senato.</p>
+<p class="s">Cicerone, il più autorevole rivale politico dei triumviri, fu esiliato con l'accusa di aver violato le leggi quando aveva giustiziato senza processo i seguaci di Catilina. Il conto arrivava a distanza di anni.</p>
+<p class="s">E i senatori dovettero accettare una legge che assegnava a Cesare il proconsolato straordinario di cinque anni su tre territori: la Gallia Cisalpina, cioè al di qua delle Alpi a nord del Po; l'Illirico, la costa orientale dell'Adriatico; e la Gallia Narbonense, prima chiamata Transalpina, cioè al di là delle Alpi, l'attuale Francia meridionale.</p>
+<p class="s">La scelta era strana: di solito un console non sceglieva regioni povere e turbolente. Ma l'obiettivo di Cesare non erano i profitti: era la possibilità di primeggiare in nuove conquiste al Nord, e mettere fine per sempre all'incubo delle invasioni dei popoli settentrionali.</p>`,
+ words:[["proconsole","chi governa una provincia dopo essere stato console"],["Gallia Cisalpina","al di qua delle Alpi: la pianura padana a nord del Po"],["Gallia Narbonense","al di là delle Alpi: l'attuale Francia meridionale"]],
+ ask:["Perché Cesare scelse province povere e turbolente?","Non per i soldi, ma per avere l'occasione di conquistare e costruirsi gloria e un esercito fedele."]},
+
+/* ---------- PARTE 5 ---------- */
+{parte:4, t:"La conquista della Gallia", when:"58–52 a.C.",
+ body:`<p class="s">Cesare partì per le Gallie lasciando a Roma uomini di sua fiducia, come Publio Clodio, grande avversario degli ottimati, che piazzò al tribunato della plebe.</p>
+<p class="s">La conquista della Gallia Comata durò dal cinquantotto al cinquantadue avanti Cristo. Nell'ultimo anno Cesare domò la grande ribellione capitanata dal re Vercingetorige, a capo di una confederazione di tribù galliche, ed espugnò la roccaforte di Alesia, nell'attuale Francia nordorientale.</p>
+<p class="s">Nei due anni successivi l'esercito assicurò la sottomissione definitiva: intere popolazioni, migliaia di persone, furono sterminate o ridotte in schiavitù.</p>
+<p class="s">Dopo sei anni di prigionia, nel quarantasei avanti Cristo, Vercingetorige fu condotto a Roma e fatto sfilare in catene nel corteo trionfale di Cesare, per poi essere ucciso. L'antica civiltà celtica dei Galli si avviò a una profonda romanizzazione.</p>
+<p class="s">Nel cinquantacinque Cesare si spinse fino in Britannia, senza però occupare l'isola.</p>`,
+ words:[["Gallia Comata","la Gallia chiomata, cioè quella non ancora romanizzata, dai capelli lunghi"],["Vercingetorige","il re gallico che guidò la grande ribellione, sconfitto ad Alesia nel 52 a.C."],["Alesia","la roccaforte gallica espugnata da Cesare nel 52 a.C."],["romanizzazione","il processo con cui un popolo conquistato adotta lingua, leggi e costumi romani"]],
+ ask:["Chi era Vercingetorige e che fine fece?","Il re che guidò la confederazione gallica. Sconfitto ad Alesia nel 52, dopo sei anni di prigionia sfilò in catene nel trionfo di Cesare e fu ucciso nel 46."]},
+
+{parte:4, t:"L'anarchia a Roma",
+ body:`<p class="s">Mentre Cesare conquistava la Gallia, nelle strade di Roma gli scontri politici si erano fatti continui e violenti.</p>
+<p class="s">Publio Clodio aveva allestito squadre di picchiatori che resero la violenza fisica il principale modo di fare politica: terrorizzavano gli avversari e scioglievano le assemblee a loro sfavorevoli.</p>
+<p class="s">L'ottimate Milone gli aveva contrapposto una milizia di gladiatori, con l'effetto di moltiplicare gli scontri.</p>
+<p class="s">Pompeo però era preoccupato più dell'ascesa di Cesare che dell'anarchia, e iniziò a prestare ascolto ai senatori ottimati, fra cui Catone l'Uticense, che volevano allontanarlo politicamente dal governatore delle Gallie.</p>`,
+ words:[["anarchia","dal greco an, senza, e archo, io comando: una fase di disordine in cui il governo è assente e ciascuno agisce senza rispettare regole condivise"],["Publio Clodio","il tribuno popolare che organizzò le squadre di picchiatori"],["Milone","l'ottimate che rispose con una milizia di gladiatori"]],
+ ask:["Cosa vuol dire, alla lettera, anarchia?","Senza comando: dal greco an- (senza) e archo (io comando). Una fase in cui il governo è assente."]},
+
+{parte:4, t:"I patti di Lucca", when:"56 a.C.",
+ body:`<p class="s">Per evitare la rottura del triumvirato, nel cinquantasei Cesare promosse un incontro a Lucca con i due alleati, rinnovando i patti. Ognuno ottenne qualcosa.</p>
+<div class="flow">
+<div class="st"><b>Pompeo</b>Consolato l'anno successivo e, per cinque anni, l'imperium straordinario sulle ricche province della Penisola iberica.</div>
+<div class="st"><b>Crasso</b>Consolato l'anno successivo e, per cinque anni, l'altrettanto ricca Siria.</div>
+<div class="st"><b>Cesare</b>Altri cinque anni di proconsolato straordinario per terminare la conquista della Gallia.</div>
+</div>
+<p class="s">In pratica i tre si erano spartiti l'impero come una proprietà privata. Il Senato poteva solo ratificare.</p>`,
+ words:[["Lucca","la città toscana dove nel 56 a.C. i tre rinnovarono i patti"]],
+ ask:["Cosa ottenne ciascuno dei tre a Lucca?","Pompeo la Spagna, Crasso la Siria, entrambi con cinque anni di comando e il consolato; Cesare altri cinque anni in Gallia."]},
+
+{parte:4, t:"La fine del primo triumvirato", when:"53–52 a.C.",
+ body:`<p class="s">L'accordo non bastò. Crasso partì per la Siria, ma nel cinquantatré trovò la morte a Carre, in Mesopotamia, nel tentativo di attaccare il regno dei Parti. Il triumvirato perdeva la sua gamba di mezzo, quella che teneva insieme gli altri due.</p>
+<p class="s">Contravvenendo ai patti, Pompeo preferì restare a Roma invece di andare in Spagna, per seguire da vicino la situazione politica. Era il solo uomo forte rimasto in città e il Senato lo corteggiava per allontanarlo da Cesare.</p>
+<p class="s">Nel cinquantadue le violenze politiche scoppiarono forti come mai prima, dopo l'uccisione del popolare Publio Clodio in un ennesimo scontro di piazza. Il Senato diede allora pieni poteri a Pompeo, nominandolo console senza collega: mai prima di allora la collegialità dei consoli era stata violata.</p>
+<p class="s">Intanto scadeva il secondo quinquennio di Cesare in Gallia. Doveva rientrare a Roma come privato cittadino, esposto ai tribunali e alle vendette del Senato. Chiese allora di essere nominato console: il Senato e Pompeo si opposero. Fu l'atto finale del primo triumvirato.</p>`,
+ words:[["Carre","la località mesopotamica dove Crasso fu sconfitto e ucciso dai Parti nel 53 a.C."],["Parti","il popolo che dominava a est dei confini romani, temuto per i suoi arcieri a cavallo"],["console senza collega","una carica mai vista prima: un solo console, senza l'altro che lo controlla"]],
+ ask:["Perché Cesare non voleva tornare a Roma da privato cittadino?","Perché senza cariche perdeva l'immunità: sarebbe stato processato dai tribunali e colpito dalle vendette del Senato."]},
+
+/* ---------- PARTE 6 ---------- */
+{parte:5, t:"Il Rubicone", when:"gennaio 49 a.C.",
+ body:`<p class="s">Nel cinquantadue, allo scadere del mandato, Cesare si trovava a Ravenna, la città della Gallia Cisalpina più vicina al confine con l'Italia. Il confine era segnato allora dal piccolo fiume Rubicone, vicino a Rimini.</p>
+<p class="s">Il generale fece un ultimo tentativo di compromesso, dichiarandosi disposto a congedare l'esercito se anche Pompeo avesse sciolto le sue legioni. Il Senato rifiutò.</p>
+<p class="s">Nel gennaio del quarantanove Cesare oltrepassò il Rubicone alla testa dei suoi soldati, contravvenendo alla regola che vietava ai condottieri di entrare in armi in Italia.</p>
+<p class="s">Compiendo questo gesto pronunciò la celebre frase alea iacta est, il dado è stato lanciato: aveva preso la sua decisione ed era pronto ad affrontare il rischio, non poteva più tornare indietro. La guerra civile tornava a scoppiare.</p>`,
+ words:[["Rubicone","il piccolo fiume vicino a Rimini che segnava il confine dell'Italia"],["alea iacta est","il dado è tratto: la decisione è presa, non si torna indietro"]],
+ ask:["Perché attraversare il Rubicone era un atto gravissimo?","Perché una regola vietava ai generali di entrare in armi in Italia. Farlo significava dichiarare guerra alla Repubblica."]},
+
+{parte:5, t:"Farsalo e la morte di Pompeo", when:"48 a.C.",
+ body:`<p class="s">Cesare, amatissimo dai soldati e dalla maggioranza della popolazione romana, conquistò l'Italia in nemmeno due mesi. Pompeo fuggì in Grecia con molti senatori, contando sui sostenitori che aveva in Oriente.</p>
+<p class="s">Senza inseguire il nemico, con grande intelligenza strategica Cesare puntò prima alla Spagna, per annientare le legioni fedeli a Pompeo. Fatto questo, poté puntare verso la Grecia senza temere di essere attaccato alle spalle.</p>
+<p class="s">Nel quarantotto a Farsalo, in Tessaglia, le legioni di Cesare sconfissero quelle di Pompeo, che alla fine si arresero.</p>
+<p class="s">Pompeo fuggì in Egitto, dove contava sull'appoggio del giovanissimo faraone Tolomeo tredicesimo, all'epoca quattordicenne. Ma aveva sbagliato i calcoli: sperando di ottenere l'aiuto di Cesare nella contesa per il trono contro la sorella Cleopatra, il sovrano fece uccidere Pompeo a tradimento.</p>`,
+ words:[["Farsalo","la battaglia decisiva del 48 a.C., in Tessaglia (Grecia)"],["Tolomeo XIII","il faraone quattordicenne che fece uccidere Pompeo"]],
+ ask:["Perché Cesare andò prima in Spagna e non subito in Grecia?","Per distruggere le legioni pompeiane in Spagna ed evitare di essere attaccato alle spalle mentre inseguiva Pompeo."]},
+
+{parte:5, t:"Egitto, Cleopatra e la fine dei pompeiani", when:"47–45 a.C.",
+ body:`<p class="s">Cesare reagì indignato alla notizia di un cittadino romano ucciso impunemente in terra straniera. Probabilmente il suo sdegno era anche un calcolo politico, per giustificare un intervento militare in Egitto.</p>
+<p class="s">Divenne amante di Cleopatra, da cui ebbe un figlio, Cesarione, che in greco significa piccolo Cesare. Si inserì nella guerra per il trono fra Cleopatra e il fratello, sconfiggendo Tolomeo, che morì nello scontro.</p>
+<p class="s">Cleopatra ottenne il trono, ma il controllo romano sull'Egitto e sulla sua enorme produzione di grano divenne fortissimo: nuove risorse per Cesare.</p>
+<p class="s">La guerra civile finì con altre due vittorie. Nel quarantasei a Tapso, in Africa, vicino a Utica dove era di stanza Catone l'Uticense, che si suicidò prima dell'arrivo delle truppe. E nel quarantacinque a Munda, in Spagna.</p>`,
+ words:[["Cleopatra","l'ultima regina d'Egitto (70-30 a.C.)"],["Cesarione","il figlio di Cesare e Cleopatra: in greco piccolo Cesare"],["Tapso","la vittoria del 46 a.C. in Africa"],["Munda","l'ultima vittoria, nel 45 a.C. in Spagna"]],
+ ask:["Le tre battaglie che chiudono la guerra civile?","48 Farsalo in Grecia, 46 Tapso in Africa, 45 Munda in Spagna."]},
+
+/* ---------- PARTE 7 ---------- */
+{parte:6, t:"Cesare dittatore con poteri sovrani", when:"48–44 a.C.",
+ body:`<p class="s">Cesare era convinto che la Repubblica avesse dimostrato di non funzionare e che il Senato fosse lo strumento della cieca ostinazione della nobilitas più conservatrice. Per lui occorreva cambiare: un regime basato sulla concentrazione dei poteri in un'unica persona.</p>
+<p class="s">Guarda quanti poteri accumulò addosso.</p>
+<table>
+<tr><th>Potere</th><th>Dettaglio</th></tr>
+<tr><td><b>Pontefice massimo</b></td><td>La carica religiosa più alta, rivestita da quasi un ventennio.</td></tr>
+<tr><td><b>Consolato</b></td><td>Ottenuto molte volte.</td></tr>
+<tr><td><b>Poteri dei tribuni</b></td><td>Fra cui l'inviolabilità della persona.</td></tr>
+<tr><td><b>Poteri dei censori</b></td><td>Il controllo sulle liste dei cittadini e dei senatori.</td></tr>
+<tr><td><b>Dittatura</b></td><td>Assegnata nel <b>48 a.C.</b> a tempo indeterminato, e nel <b>44 a.C.</b> confermata <b>a vita</b>.</td></tr>
+</table>
+<p class="s">A queste cariche aggiunse i simboli tipici dei sovrani orientali: portare in permanenza la corona d'alloro, ostentare sempre il titolo di imperator che era concesso solo nel giorno del trionfo, sedere in Senato su un seggio dorato, collocare sue statue nei templi. E, cosa mai immaginata a Roma, predispose di essere divinizzato dopo la morte.</p>
+<p class="s">La Repubblica era ormai solo un ricordo. L'impero di Roma aveva il suo primo sovrano, non ufficializzato.</p>`,
+ words:[["imperator","il titolo acclamato per il generale vittorioso, concesso solo nel giorno del trionfo"],["divinizzato","reso dio dopo la morte, con un culto e un tempio"],["inviolabilità","la persona del tribuno non poteva essere toccata: chi lo faceva era maledetto"]],
+ ask:["Cosa c'è di rivoluzionario nella dittatura di Cesare rispetto a quella di Silla?","Silla la prese a tempo indeterminato e poi si ritirò. Cesare nel 44 se la fece confermare a vita, con i simboli dei re orientali."]},
+
+{parte:6, t:"Le riforme di Cesare", when:"dal 46 a.C.",
+ body:`<p class="s">Con i pieni poteri Cesare portò avanti una serie impressionante di riforme. Cinque da ricordare.</p>
+<div class="flow">
+<div class="st"><b>Nuova classe dirigente</b>Il Senato passa da 600 a 900 membri. I nuovi senatori sono scelti fra i cavalieri, gli ufficiali dell'esercito e le aristocrazie provinciali.</div>
+<div class="st"><b>Cittadinanza</b>Estesa alla Gallia Cisalpina.</div>
+<div class="st"><b>Grano e lavoro</b>Razionalizza le distribuzioni pubbliche di grano e combatte la disoccupazione con imponenti opere pubbliche, come la bonifica delle Paludi Pontine nel Lazio.</div>
+<div class="st"><b>Debiti e colonie</b>Fa condonare molti debiti e fonda colonie fuori dall'Italia, specie in Spagna e nelle Gallie, dove si stanziano almeno 80 mila cittadini.</div>
+<div class="st"><b>Clemenza</b>Il carattere più sorprendente: nessun omicidio di massa, nessuna proscrizione. Richiamò in patria chi era fuggito per ragioni politiche.</div>
+</div>
+<p class="s">Dal quarantasei fu edificato anche il Foro di Cesare, il primo dei fori imperiali, con il tempio di Venere Genitrice di cui restano ancora oggi tre colonne.</p>`,
+ words:[["bonifica","prosciugare una zona paludosa per renderla coltivabile e abitabile"],["colonia","città fondata da Roma con propri cittadini, fuori dal territorio originario"],["clemenza","la scelta di perdonare gli avversari invece di ucciderli"]],
+ ask:["Qual è l'aspetto più sorprendente della politica di Cesare vincitore?","La clemenza: niente proscrizioni né stragi, anzi richiamò in patria gli avversari fuggiti."]},
+
+{parte:6, t:"Le Idi di marzo", when:"15 marzo 44 a.C.",
+ body:`<p class="s">Le riforme non bastarono a placare l'ostilità. Una parte dei senatori vedeva nella dittatura a vita e nei simboli regali la fine della libertà repubblicana.</p>
+<p class="s">Alle Idi di marzo del quarantaquattro avanti Cristo, cioè il quindici marzo, Cesare fu pugnalato durante una seduta del Senato che si teneva nel grande teatro di Pompeo.</p>
+<p class="s">La congiura era guidata da Cassio Longino e da Bruto, che Cesare aveva beneficiato e al quale era legato: per questo la tradizione gli mette in bocca lo stupore rivolto proprio a lui.</p>
+<p class="s">Gli assassini pensavano di aver salvato la Repubblica. Avevano sbagliato completamente i conti.</p>`,
+ words:[["Idi","nel calendario romano il giorno di mezzo del mese: il 15 di marzo, maggio, luglio e ottobre"],["cesaricidi","gli uccisori di Cesare: Bruto e Cassio Longino i più noti"]],
+ ask:["Dove e quando fu ucciso Cesare?","Alle Idi di marzo, il 15 marzo del 44 a.C., in una seduta del Senato nel teatro di Pompeo."]},
+
+/* ---------- PARTE 8 ---------- */
+{parte:7, t:"La terza guerra civile",
+ body:`<p class="s">Gli assassini di Cesare, e molti senatori che non avevano partecipato alla congiura, speravano che eliminato il dittatore la Repubblica fosse finalmente salva.</p>
+<p class="s">Invece il loro fu un grave abbaglio politico: la morte del dittatore non fu accolta come una liberazione, anzi la plebe e l'esercito si mostrarono ancora più saldamente legati ai loro generali.</p>
+<p class="s">La scomparsa di Cesare aprì la strada a un nuovo sanguinoso conflitto civile: era il terzo nella storia romana, dopo quello fra Silla e i seguaci di Mario e quello fra Cesare e Pompeo. E provocò la definitiva caduta della Repubblica.</p>`,
+ words:[["abbaglio","un errore di valutazione grossolano"]],
+ ask:["Quali sono le tre guerre civili in ordine?","Silla contro i seguaci di Mario, Cesare contro Pompeo, e quella aperta dalla morte di Cesare."]},
+
+{parte:7, t:"L'eredità di Cesare: Antonio o Ottaviano?", when:"44 a.C.",
+ img:{src:IMG.ottaviano, tall:true, cap:"Ritratto del giovane Gaio Ottavio, poi Ottaviano. Nel libro è la versione dei Musei Capitolini, Roma."},
+ body:`<p class="s">Nelle ore successive all'uccisione, fu il generale più fidato di Cesare a provare a sedare gli animi: Marco Antonio, vissuto dall'ottantatré al trenta avanti Cristo, che al momento della congiura ricopriva la carica di console.</p>
+<p class="s">Antonio si mosse con cautela per evitare spargimenti di sangue e per porsi come nuovo punto di riferimento. Come console propose al Senato un accordo di compromesso: salvezza per i congiurati, ma anche funerali solenni per Cesare e conferma di tutte le sue leggi.</p>
+<p class="s">Tutti pensavano che l'erede designato fosse Antonio stesso. Ma la lettura del testamento, tre giorni dopo l'assassinio, smentì ogni previsione: erede di Cesare era il pronipote appena diciannovenne Gaio Ottavio, adottato dal dittatore. Come figlio di Cesare egli assunse il nome di Gaio Giulio Cesare Ottaviano.</p>`,
+ words:[["Marco Antonio","il generale più fidato di Cesare, console nel 44 a.C."],["Gaio Ottavio","il pronipote diciannovenne, erede adottivo: diventa Ottaviano"],["pronipote","il nipote di un fratello o di una sorella: parente, ma non figlio"]],
+ ask:["Chi era l'erede di Cesare e chi tutti si aspettavano?","Tutti si aspettavano Marco Antonio. Il testamento indicava invece il pronipote diciannovenne Gaio Ottavio."]},
+
+{parte:7, t:"I funerali e l'abilità di Ottaviano",
+ body:`<p class="s">Ottaviano si trovava in Macedonia, in attesa che il padre adottivo lo raggiungesse per attaccare il regno dei Parti. Alla notizia dell'attentato si precipitò in Italia.</p>
+<p class="s">A Roma, il venti marzo, due settimane dopo l'omicidio, si tennero i solenni funerali di Stato. La vista del cadavere insanguinato e le parole appassionate del discorso funebre di Antonio fecero insorgere il popolo, che invocò la morte degli assassini. Fu il caos: Bruto fuggì in Macedonia, Cassio in Asia.</p>
+<p class="s">Arrivato a Roma, Ottaviano ricevette un'accoglienza freddissima da Antonio, che si rifiutava di consegnargli il tesoro di Cesare. Allora fece una mossa spettacolare: vendette i beni della propria famiglia per garantire il lascito di settantacinque denari che il padre adottivo aveva disposto per ognuno dei duecentocinquantamila membri della plebe romana.</p>
+<p class="s">Pochi nella storia hanno fatto un investimento così profittevole. Quella generosità, e il nome di Cesare, lo resero il beniamino del popolo e dei veterani.</p>`,
+ words:[["lascito","quello che una persona lascia in eredità"],["denaro","la moneta d'argento romana: 75 denari erano una somma notevole per un plebeo"],["beniamino","il preferito, il più amato"]],
+ ask:["Cosa fece Ottaviano quando Antonio gli negò il tesoro di Cesare?","Vendette i beni di famiglia per pagare di tasca propria i 75 denari promessi a 250 mila plebei. Si comprò il favore del popolo."]},
+
+{parte:7, t:"Il secondo triumvirato", when:"43 a.C.",
+ body:`<p class="s">Il Senato mandò contro Antonio un esercito al quale si unì anche Ottaviano. Antonio fu sconfitto nella battaglia di Modena, nel quarantatré, e si ritirò in Gallia Narbonense, dove ottenne il sostegno di un altro ex ufficiale di Cesare, Marco Emilio Lepido.</p>
+<p class="s">Ottaviano invece tornò a Roma oltrepassando in armi il Rubicone, proprio come aveva fatto Cesare, e armi in mano si fece eleggere console.</p>
+<p class="s">I tre generali sapevano però che i loro soldati, tutti seguaci di Cesare, non volevano combattersi fra loro. Così Ottaviano, Antonio e Lepido scelsero l'accordo. E qui c'è la differenza fondamentale con il primo triumvirato.</p>
+<div class="two">
+<div class="b"><h4>Primo triumvirato, 60 a.C.</h4>Un <b>patto privato</b> e segreto fra Cesare, Pompeo e Crasso. Nessun valore legale.</div>
+<div class="a"><h4>Secondo triumvirato, 43 a.C.</h4>Una vera <b>magistratura straordinaria</b>, istituita per cinque anni con una legge votata dalle assemblee, con poteri amplissimi.</div>
+</div>`,
+ words:[["Modena","la battaglia del 43 a.C. in cui Antonio fu sconfitto"],["Marco Emilio Lepido","il terzo triumviro, il meno autorevole dei tre"],["magistratura straordinaria","una carica eccezionale creata da una legge per una situazione d'emergenza"]],
+ ask:["Qual è la differenza fra primo e secondo triumvirato?","Il primo era un accordo privato e segreto. Il secondo era una magistratura vera, votata dalle assemblee, per cinque anni."]},
+
+{parte:7, t:"Proscrizioni, Filippi e la spartizione", when:"43–42 a.C.",
+ body:`<p class="s">I triumviri agirono in primo luogo per punire gli assassini di Cesare. Furono redatte liste di proscrizione per eliminare ogni avversario politico confiscandone i patrimoni.</p>
+<p class="s">Nel bagno di sangue morirono centinaia di senatori e migliaia di cavalieri, fra cui Cicerone, la voce più autorevole e tenace contro i cesariani, e nemico soprattutto di Antonio.</p>
+<p class="s">Nel quarantadue l'esercito del triumvirato vendicò Cesare sconfiggendo a Filippi, in Macedonia, quello di Cassio e Bruto: i due cesaricidi si suicidarono.</p>
+<p class="s">Eliminati i nemici comuni, i vincitori si spartirono il potere.</p>
+<table>
+<tr><th>Chi</th><th>Cosa prende</th></tr>
+<tr><td><b>Antonio</b></td><td>Gallia Narbonense e tutto l'Oriente: la parte più ricca.</td></tr>
+<tr><td><b>Lepido</b></td><td>La provincia d'Africa, che perse presto. Era il meno autorevole dei tre.</td></tr>
+<tr><td><b>Ottaviano</b></td><td>La Spagna, più il compito difficilissimo di trovare in Italia la terra promessa a oltre 150 mila veterani di Cesare.</td></tr>
+</table>
+<p class="s">Per trovare quei terreni servirono sequestri delle proprietà dei vinti e di molti cittadini senza colpa. Il malcontento provocò una vera ribellione. Ma con una buona amministrazione dell'Italia e della Spagna Ottaviano riuscì a guadagnarsi il favore generale e molti consensi anche in Senato.</p>`,
+ words:[["Filippi","la battaglia del 42 a.C. in Macedonia: fine di Bruto e Cassio"],["cesariani","i sostenitori di Cesare"]],
+ ask:["Chi fu la vittima più illustre delle proscrizioni del secondo triumvirato?","Cicerone, che era stato il nemico più tenace dei cesariani e in particolare di Antonio."]},
+
+{parte:7, t:"Verso lo scontro finale", when:"31 a.C.",
+ body:`<p class="s">Nel frattempo Antonio si era stabilito presso la corte di Cleopatra, in Egitto, e aveva iniziato una relazione con la regina.</p>
+<p class="s">Restavano due uomini soli, uno a ovest e uno a est: Ottaviano in Italia e Spagna, Antonio in Oriente. L'accordo non poteva reggere a lungo.</p>
+<p class="s">Lo scontro decisivo sarà la battaglia navale di Azio, nel trentuno avanti Cristo, sulla costa occidentale della Grecia. Da lì comincia una storia nuova: quella di Ottaviano padrone unico di Roma.</p>`,
+ words:[["Azio","la battaglia navale del 31 a.C. che chiude l'età delle guerre civili"]],
+ ask:["Perché lo scontro fra Ottaviano e Antonio era inevitabile?","Perché restavano due soli uomini forti, uno padrone dell'Occidente e uno dell'Oriente, e nessuno dei due poteva accettare l'altro."]},
+
+/* ---------- PARTE 9 ---------- */
+{parte:8, t:"Il filo di tutto il capitolo",
+ body:`<p class="s">Tutto il capitolo si riassume in una frase: chi comanda l'esercito comanda Roma. Segui la catena.</p>
+<div class="flow">
+<div class="st"><b>Comandi straordinari</b>Crasso contro Spartaco, Pompeo contro i pirati: poteri eccezionali dati a chi non è magistrato.</div>
+<div class="st"><b>Accordi privati</b>60: Cesare, Pompeo e Crasso si dividono lo Stato senza passare dal Senato.</div>
+<div class="st"><b>Eserciti personali</b>58-52: Cesare in Gallia si costruisce legioni fedeli solo a lui.</div>
+<div class="st"><b>Guerra civile</b>49: il Rubicone. 48: Farsalo. Le armi decidono la politica.</div>
+<div class="st"><b>Potere di uno solo</b>44: dittatura a vita. Le Idi di marzo non la fermano.</div>
+<div class="st"><b>Fine della Repubblica</b>43: il secondo triumvirato è una magistratura legale. 31: Azio. Resta un uomo solo.</div>
+</div>
+<p class="s">Le istituzioni repubblicane non vengono abolite: vengono svuotate. Continuano a esistere consoli, Senato e assemblee, ma chi decide davvero è chi ha le legioni.</p>`,
+ ask:["Qual è il filo che tiene insieme tutto il capitolo 19?","La Repubblica non viene abolita ma svuotata: le cariche restano, ma il potere reale passa a chi comanda gli eserciti."]},
+
+{parte:8, t:"Glossario: le parole da sapere",
+ body:`<p class="s">Toccale una per volta e prova a dire il significato prima di aprirle.</p>`,
+ words:[
+  ["gladiatore","da gladius, la spada dei legionari: i lottatori, quasi tutti schiavi, costretti a combattere fino alla morte nelle arene."],
+  ["crocifissione","condanna a morte crudelissima, preceduta dalla flagellazione, riservata a schiavi e ribelli."],
+  ["imperium","il potere di comandare un esercito. Normalmente spettava solo ai magistrati."],
+  ["comando straordinario","un potere eccezionale, fuori dalle regole: Pompeo lo ebbe nel 67 a.C. su tutto il Mediterraneo."],
+  ["triumvirato","gruppo di tre uomini al potere. Il primo (60 a.C.) era un accordo privato; il secondo (43 a.C.) una vera magistratura."],
+  ["congiura","accordo segreto sancito da un giuramento comune, dal latino cum iurare, per eliminare un avversario o rovesciare il potere."],
+  ["anarchia","dal greco an, senza, e archo, io comando: fase di disordine in cui il governo è assente."],
+  ["alea iacta est","il dado è tratto: la frase di Cesare al Rubicone, la decisione è presa."],
+  ["proscrizione","la lista pubblica dei nemici da uccidere, con confisca dei beni. Usata da Silla e poi dal secondo triumvirato."],
+  ["cesaricidi","gli uccisori di Cesare: soprattutto Bruto e Cassio Longino."],
+  ["divinizzato","reso dio dopo la morte, con un culto e un tempio. Cesare fu il primo a Roma."],
+  ["Stato cliente","un regno formalmente indipendente ma di fatto controllato da Roma."],
+  ["romanizzazione","il processo con cui un popolo conquistato adotta lingua, leggi e costumi romani."],
+  ["Idi","nel calendario romano il giorno di mezzo del mese: le Idi di marzo sono il 15."]
+ ]},
+
+{parte:8, t:"Le date da sapere a memoria",
+ body:`<table>
+<tr><th>Anno</th><th>Cosa succede</th></tr>
+<tr><td><b>73 a.C.</b></td><td>Scoppia a Capua la rivolta di Spartaco.</td></tr>
+<tr><td><b>71 a.C.</b></td><td>Crasso la reprime; 6000 crocifissi sulla via Appia.</td></tr>
+<tr><td><b>70 a.C.</b></td><td>Pompeo e Crasso consoli insieme: smantellano le riforme di Silla.</td></tr>
+<tr><td><b>67 a.C.</b></td><td>Pompeo annienta i pirati con un comando straordinario.</td></tr>
+<tr><td><b>63 a.C.</b></td><td>Mitridate si uccide. Cicerone console sventa la congiura di Catilina.</td></tr>
+<tr><td><b>62 a.C.</b></td><td>Catilina ucciso a Pistoia. Pompeo rientra dall'Oriente.</td></tr>
+<tr><td><b>60 a.C.</b></td><td>Primo triumvirato: Cesare, Pompeo, Crasso.</td></tr>
+<tr><td><b>59 a.C.</b></td><td>Cesare console: la riforma agraria.</td></tr>
+<tr><td><b>58–52 a.C.</b></td><td>Conquista della Gallia. Alesia nel 52.</td></tr>
+<tr><td><b>56 a.C.</b></td><td>I patti di Lucca.</td></tr>
+<tr><td><b>53 a.C.</b></td><td>Crasso muore a Carre contro i Parti.</td></tr>
+<tr><td><b>49 a.C.</b></td><td>Cesare oltrepassa il Rubicone.</td></tr>
+<tr><td><b>48 a.C.</b></td><td>Farsalo. Pompeo ucciso in Egitto. Cesare dittatore.</td></tr>
+<tr><td><b>46 a.C.</b></td><td>Tapso. Suicidio di Catone l'Uticense.</td></tr>
+<tr><td><b>45 a.C.</b></td><td>Munda, ultima vittoria in Spagna.</td></tr>
+<tr><td><b>44 a.C.</b></td><td>Dittatura a vita. Idi di marzo: Cesare ucciso.</td></tr>
+<tr><td><b>43 a.C.</b></td><td>Modena. Secondo triumvirato. Proscrizioni: muore Cicerone.</td></tr>
+<tr><td><b>42 a.C.</b></td><td>Filippi: fine di Bruto e Cassio.</td></tr>
+<tr><td><b>31 a.C.</b></td><td>Azio.</td></tr>
+</table>
+<p class="s">Un aggancio per ricordarle: il Rubicone è il quarantanove, Farsalo l'anno dopo, le Idi di marzo il quarantaquattro, Filippi il quarantadue, Azio il trentuno. I numeri scendono e il potere si concentra.</p>`}
+];
+
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+const quizBox = document.getElementById("quiz");
+
+/* ═══════ indice delle parti ═══════ */
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+/* ═══════ disegna la carta ═══════ */
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  if(c.when) h += '<div class="when">'+c.when+'</div>';
+  if(c.img){
+    h += '<figure><img '+(c.img.tall?'class="tall" ':'')+'src="'+c.img.src+'" alt="'+c.t+'" loading="lazy" '
+      +'onerror="this.parentNode.style.display=&quot;none&quot;">'
+      +'<figcaption>'+c.img.cap+'</figcaption></figure>';
+  }
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{
+      h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>';
+    });
+    h += '<div id="defs"></div>';
+    c.words.forEach((w,i)=>{
+      h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>';
+    });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a dirlo, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += '</article>';
+  stage.innerHTML = h;
+
+  quizBox.hidden = !(idx === CARDS.length-1);
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{
+    b.className = (i===c.parte) ? "on" : "";
+  });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  document.getElementById("foot").textContent =
+    "Immagini da Wikimedia Commons. Contenuto dal libro di testo, capitolo 19.";
+  window.scrollTo(0,0);
+}
+
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+
+function flip(btn,i){
+  const d = document.getElementById("d"+i);
+  if(!d) return;
+  const on = d.classList.toggle("on");
+  btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  const a = btn.parentNode.querySelector(".a");
+  a.classList.add("on");
+  btn.style.display = "none";
+}
+
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+}
+
+/* scioglie le abbreviazioni, così la voce non legge "a punto C punto" */
+function say(t){
+  return t.replace(/a\.C\./g,"avanti Cristo")
+          .replace(/d\.C\./g,"dopo Cristo")
+          .replace(/ecc\./g,"eccetera")
+          .replace(/\s+/g," ")
+          .trim();
+}
+
+function toggleRead(){
+  if(reading) stop(); else start();
+}
+function start(){
+  if(!window.speechSynthesis){
+    alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome.");
+    return;
+  }
+  queue = Array.prototype.slice.call(stage.querySelectorAll("p.s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  document.getElementById("play").textContent = "■ Ferma";
+  document.getElementById("play").classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-130){
+    el.scrollIntoView({block:"center", behavior:"smooth"});
+  }
+  const u = new SpeechSynthesisUtterance(say(el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll("p.s.reading"),
+    x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+/* ═══════ quiz date ═══════ */
+const QUIZ = [
+  ["73 a.C.","Scoppia a Capua la rivolta di Spartaco"],
+  ["70 a.C.","Pompeo e Crasso consoli insieme"],
+  ["63 a.C.","Cicerone sventa la congiura di Catilina"],
+  ["60 a.C.","Nasce il primo triumvirato"],
+  ["52 a.C.","Vercingetorige sconfitto ad Alesia"],
+  ["49 a.C.","Cesare oltrepassa il Rubicone"],
+  ["48 a.C.","Battaglia di Farsalo"],
+  ["44 a.C.","Cesare ucciso alle Idi di marzo"],
+  ["42 a.C.","Battaglia di Filippi"],
+  ["31 a.C.","Battaglia di Azio"]
+];
+(function buildQuiz(){
+  const rows = document.getElementById("qrows");
+  const opzioni = QUIZ.map(q=>q[1]).slice().sort();
+  QUIZ.forEach((q,i)=>{
+    const d = document.createElement("div");
+    d.className = "qrow"; d.id = "qr"+i;
+    let o = '<option value="">— scegli —</option>';
+    opzioni.forEach(t=>{ o += '<option value="'+t+'">'+t+'</option>'; });
+    d.innerHTML = '<span class="d">'+q[0]+'</span><select id="qs'+i+'">'+o+'</select>';
+    rows.appendChild(d);
+  });
+})();
+function checkQuiz(){
+  let ok = 0;
+  QUIZ.forEach((q,i)=>{
+    const sel = document.getElementById("qs"+i);
+    const row = document.getElementById("qr"+i);
+    row.classList.remove("right","wrong");
+    if(!sel.value) return;
+    if(sel.value === q[1]){ row.classList.add("right"); ok++; }
+    else row.classList.add("wrong");
+  });
+  document.getElementById("qfb").textContent =
+    ok === QUIZ.length ? "Tutte giuste. Sei pronto su questa parte."
+                       : ok + " giuste su " + QUIZ.length + ". Rivedi quelle in rosso e riprova.";
+}
+
+render();
+</script>
+</body>
+</html>
