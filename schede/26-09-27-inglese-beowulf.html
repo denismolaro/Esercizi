@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inglese — Beowulf: il contesto storico e culturale</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#0E7C86; --accent-soft:#E2F2F3; --accent-line:#BFE0E3;
+  --gold:#9A6A12; --gold-soft:#F6EEDB; --gold-line:#E6D3A6;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --rom:#5A6473; --ang:#1D5FA8; --sax:#1F7A4D; --jut:#B4531A; --cel:#6B3FA0; --vik:#9B2C2C; --nor:#A8327A; --chr:#0E7C86;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px; box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.when{display:inline-block; background:var(--ink); color:#fff; border-radius:8px; padding:3px 10px; font-size:15px; font-weight:700; margin:8px 0 4px}
+.card p{margin:12px 0}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+.e{font:inherit; background:none; border:none; padding:0 1px; margin:0; color:var(--accent); font-weight:700; text-decoration:underline dotted; text-underline-offset:4px; cursor:pointer}
+
+/* fatto in inglese + traduzione */
+.fa{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 13px; margin:10px 0}
+.fa .fe{font-size:19px; line-height:1.5; cursor:pointer}
+.fa .fe::after{content:" \1F50A"; font-size:14px; opacity:.45}
+.fa .fi{font-size:15.5px; color:var(--soft); line-height:1.45; margin-top:2px}
+.fa.g{border-left-color:var(--gold); background:var(--gold-soft)}
+
+/* mappa */
+.bmap{border:2px solid var(--accent-line); border-radius:14px; padding:10px; margin:12px 0; background:#fff}
+.bmap svg{display:block; width:100%; height:auto; border-radius:10px}
+.lay{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px}
+.lay button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:5px 12px; font:inherit; font-size:14.5px; font-weight:700; color:var(--soft); cursor:pointer}
+.lay button.on{color:#fff}
+.mcap{margin-top:8px; border-radius:10px; background:#F4F1EA; padding:8px 12px; min-height:4.4em}
+.mcap .ce{font-size:18px; line-height:1.45; font-weight:600; cursor:pointer}
+.mcap .ci{font-size:15px; color:var(--soft); line-height:1.4}
+
+/* linea del tempo */
+.tl{position:relative; margin:14px 0 6px; padding-left:4px}
+.tl::before{content:""; position:absolute; left:98px; top:6px; bottom:6px; width:3px; background:var(--rule); border-radius:2px}
+.tr{display:grid; grid-template-columns:84px 1fr; gap:28px; align-items:start; padding:6px 0; cursor:pointer; position:relative}
+.tr .d{text-align:right; font-weight:800; font-size:16px; line-height:1.25; padding-top:3px}
+.tr .d small{display:block; font-weight:600; font-size:11.5px; color:var(--soft)}
+.tr .x{font-size:16.5px; line-height:1.4}
+.tr .x i{display:block; font-style:normal; font-size:14px; color:var(--soft)}
+.tr::after{content:""; position:absolute; left:89.5px; top:10px; width:14px; height:14px; border-radius:50%; background:var(--dc,#999); border:3px solid #fff; box-shadow:0 0 0 1px var(--rule)}
+.legend{display:flex; flex-wrap:wrap; gap:10px; font-size:13.5px; color:var(--soft); margin:6px 0}
+.legend span::before{content:""; display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--lc); margin-right:5px}
+
+/* tabella fact file */
+.ff{margin:12px 0}
+.ffr{border:1px solid var(--rule); border-radius:12px; padding:8px 12px; margin:7px 0}
+.ffr .q{font-size:14px; color:var(--soft); font-weight:700; line-height:1.35}
+.ffr .q b{color:var(--accent)}
+.ffr .an{font-size:17.5px; line-height:1.45; cursor:pointer}
+.ffr .an::after{content:" \1F50A"; font-size:13px; opacity:.45}
+.ff.hide .an{display:none}
+.ff.hide .ffr.show .an{display:block}
+.ff.hide .ffr{cursor:pointer}
+.ff.hide .ffr:not(.show)::after{content:"tocca per vedere"; display:block; font-size:13px; color:var(--accent); font-weight:700}
+
+/* armi */
+.wpn{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:12px 0}
+@media (max-width:460px){ .wpn{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.wp{border:1px solid var(--rule); border-radius:12px; padding:6px 6px 8px; text-align:center; cursor:pointer; background:#fff}
+.wp svg{width:100%; max-width:90px; height:auto; display:block; margin:0 auto}
+.wp .en{font-size:18px; font-weight:800; color:var(--accent); line-height:1.2}
+.wp .it{font-size:13.5px; color:var(--soft); line-height:1.3}
+
+/* albero */
+.tree{margin:14px 0; display:flex; flex-direction:column; align-items:center; gap:0}
+.nd{border:2px solid var(--gold-line); background:var(--gold-soft); border-radius:12px; padding:5px 12px; text-align:center; cursor:pointer; min-width:150px}
+.nd b{display:block; font-size:18px; line-height:1.3}
+.nd i{display:block; font-style:normal; font-size:13px; color:var(--soft); line-height:1.3}
+.nd.hi{border-color:var(--gold); background:#fff; box-shadow:0 0 0 3px var(--gold-soft)}
+.vl{width:3px; height:16px; background:var(--gold-line)}
+.kids{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; width:100%; border-top:3px solid var(--gold-line); padding-top:10px}
+.kids .nd{min-width:0; padding:5px 6px}
+.kids .nd b{font-size:16.5px}
+.grendel{margin-top:10px; border:2px solid #E8C4C4; background:#FBEAEA; border-radius:12px; padding:8px 12px; font-size:16px; line-height:1.5}
+.grendel b{color:var(--no)}
+
+/* allitterazione */
+.alli{font-size:21px; line-height:1.6; text-align:center; margin:14px 0; cursor:pointer}
+.alli u{text-decoration:none; color:var(--no); font-weight:800; background:#FBEAEA; border-radius:4px; padding:0 2px}
+
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px; font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px; font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97); border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom)); -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff; color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px; padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Inglese · Beowulf</div>
+  <h1>Beowulf: la storia, il poema, il capitolo 1</h1>
+  <p class="lead">Ogni fatto è scritto in inglese semplice, con la traduzione sotto. <b>Leggi</b> fa sentire l'inglese e poi l'italiano. Le frasi inglesi si ascoltano anche con un tocco. Nel compito le domande saranno in inglese.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<p class="foot">Contenuto dalle pagine del libro condivise su Didattica: The Historical Background, The Cultural Background, Before you read, Chapter One.</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.02,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const PARTI = ["1 · La storia", "2 · Il poema", "3 · Prima di leggere", "4 · Capitolo 1"];
+
+/* un fatto: frase inglese + traduzione */
+function F(en, it, g){
+  return '<div class="fa'+(g?' g':'')+'"><div class="fe s" data-l="en" onclick="hear(this)">'+en+'</div><div class="fi s">'+it+'</div></div>';
+}
+
+const CARDS = [
+
+/* ---------- 1 · LA STORIA ---------- */
+{parte:0, t:"La mappa: chi arriva e da dove", init:"bmapInit",
+ body:`<p class="s">Tocca i bottoni uno dopo l'altro, in ordine. La mappa mostra chi arriva in Britannia, da dove, e dove va. Sotto trovi la frase da ricordare.</p>
+<div class="bmap"><div class="lay" id="lay"></div><div id="bsvg"></div><div class="mcap" id="mcap"></div></div>`,
+ ask:["Da dove venivano gli Anglo-Sassoni?","<b>From north Germany and Denmark.</b> Dalla Germania del nord e dalla Danimarca."]},
+
+{parte:0, t:"La linea del tempo", init:"tlInit",
+ body:`<p class="s">Tutte le date, dalla più antica alla più recente. Il colore dice di chi si parla. Tocca una riga per ascoltarla in inglese.</p>
+<div class="legend"><span style="--lc:var(--rom)">Romani</span><span style="--lc:var(--ang)">Anglo-Sassoni</span><span style="--lc:var(--chr)">cristianesimo</span><span style="--lc:var(--vik)">Vichinghi</span><span style="--lc:var(--nor)">Normanni</span><span style="--lc:var(--gold)">Beowulf</span></div>
+<div class="tl" id="tl"></div>`,
+ ask:["Cosa succede nel 1066?","<b>The Battle of Hastings.</b> William, leader of the Normans, defeats Harold, the last Anglo-Saxon king."]},
+
+{parte:0, t:"I Romani se ne vanno", when:"410",
+ body:`${F("In the <b>4th century</b> the Roman Empire in western Europe began to break up.","Nel IV secolo l'Impero romano d'Occidente cominciò a crollare.")}
+${F("The Roman army left Britain in <b>410</b>.","L'esercito romano lasciò la Britannia nel 410.")}
+${F("The Romans had conquered the Celts, and the Celts had adapted to Roman life.","I Romani avevano conquistato i Celti, e i Celti si erano abituati alla vita romana.")}
+${F("After the Romans left, the Celts <b>could not govern</b> the country on their own.","Quando i Romani se ne andarono, i Celti non riuscirono a governare da soli.")}`,
+ words:[["conquered","conquistato, preso il controllo completo"],["to break up","andare in pezzi, crollare"],["to govern","governare"],["on their own","da soli"]],
+ ask:["Vero o falso? «After the Romans left Britain the Celts formed an effective government.»","<b>False.</b> The Celts could not govern the country on their own."]},
+
+{parte:0, t:"Arrivano gli Anglo-Sassoni", when:"5th century",
+ body:`${F("In the <b>5th century</b> the Anglo-Saxons began to invade Britain.","Nel V secolo gli Anglo-Sassoni cominciarono a invadere la Britannia.")}
+${F("They came from <b>north Germany</b> and <b>Denmark</b>.","Venivano dalla Germania del nord e dalla Danimarca.")}
+${F("They were different peoples: the <b>Angles</b>, the <b>Saxons</b> and the <b>Jutes</b>.","Erano popoli diversi: gli Angli, i Sassoni e gli Juti.")}
+${F("The word <b>English</b> comes from the name of the Angles.","La parola English viene dal nome degli Angli.")}`,
+ words:[["to invade","invadere, entrare con la forza, con i soldati"],["peoples","popoli"]],
+ ask:["Vero o falso? «The Anglo-Saxons were just one people.»","<b>False.</b> They were different peoples: the Angles, the Saxons and the Jutes."]},
+
+{parte:0, t:"I Celti vanno a nord e a ovest",
+ body:`${F("The Celts were forced to move to the <b>north</b> and the <b>west</b>.","I Celti furono costretti a spostarsi a nord e a ovest.")}
+${F("They kept their language and culture in <b>Wales</b> and <b>Cornwall</b>.","Conservarono la loro lingua e la loro cultura in Galles e in Cornovaglia.")}
+${F("Many examples of Celtic <b>art</b> survive, but none of their <b>literature</b>.","Restano molti esempi di arte celtica, ma niente della loro letteratura.")}`,
+ words:[["were forced","furono costretti"],["Wales","il Galles"],["Cornwall","la Cornovaglia"],["to survive","sopravvivere, restare fino a oggi"]],
+ ask:["Vero o falso? «Celtic culture survived in some parts of Britain.»","<b>True.</b> In Wales and Cornwall."]},
+
+{parte:0, t:"I regni anglosassoni", when:"7th century",
+ body:`${F("By the <b>7th century</b> the Anglo-Saxons had their own kingdoms.","Nel VII secolo gli Anglo-Sassoni avevano i loro regni.")}
+${F("The <b>Angles</b>: in the east, the north and the centre of England.","Gli Angli: a est, a nord e al centro dell'Inghilterra.")}
+${F("The <b>Saxons</b>: in the south and south-west. The <b>Jutes</b>: in the south-east.","I Sassoni: a sud e a sud-ovest. Gli Juti: a sud-est.")}
+${F("In the <b>early 9th century</b> the kingdoms were united under <b>Wessex</b>, the kingdom of the West Saxons.","All'inizio del IX secolo i regni furono uniti sotto il Wessex, il regno dei Sassoni dell'ovest.")}`,
+ words:[["kingdom","regno"],["united","uniti"],["Wessex","West Saxons: i Sassoni dell'ovest"]],
+ ask:["Sotto quale regno si uniscono i regni anglosassoni?","<b>Wessex</b>, the kingdom of the West Saxons, in the early 9th century."]},
+
+{parte:0, t:"Arriva il cristianesimo", when:"597",
+ body:`${F("The Anglo-Saxons were <b>pagans</b>: they believed in many gods.","Gli Anglo-Sassoni erano pagani: credevano in molti dèi.")}
+${F("In <b>597</b> Pope Gregory sent a priest called <b>Augustine</b> to Britain to convert them.","Nel 597 papa Gregorio mandò in Britannia un sacerdote di nome Agostino per convertirli.")}
+${F("Augustine became the first <b>Archbishop of Canterbury</b>.","Agostino diventò il primo arcivescovo di Canterbury.")}
+${F("In about a hundred years the Anglo-Saxons became Christian, but pagan ideas <b>did not disappear completely</b>.","In circa cent'anni gli Anglo-Sassoni diventarono cristiani, ma le idee pagane non sparirono del tutto.")}
+${F("The <b>Lindisfarne Gospels</b> (early 8th century) is an illustrated Bible made in a monastery on Lindisfarne island.","I Vangeli di Lindisfarne, dell'inizio dell'VIII secolo, sono una Bibbia illustrata fatta in un monastero sull'isola di Lindisfarne.",1)}`,
+ words:[["pagan","pagano: crede in molti dèi, e la natura è importante"],["to convert","convertire, far cambiare religione"],["Archbishop of Canterbury","arcivescovo di Canterbury, il capo della Chiesa anglicana"],["priest","sacerdote, prete"]],
+ ask:["Due vero o falso: «Augustine was sent to England by Pope Gregory.» «Pagan ways disappeared immediately.»","Il primo è <b>true</b>. Il secondo è <b>false</b>: pagan ideas did not disappear completely."]},
+
+{parte:0, t:"I Vichinghi", when:"end of the 8th century",
+ body:`${F("At the end of the <b>8th century</b> the <b>Vikings</b>, fierce people from <b>Norway</b> and <b>Denmark</b>, began to attack the British coast.","Alla fine dell'VIII secolo i Vichinghi, popolo feroce della Norvegia e della Danimarca, cominciarono ad attaccare le coste britanniche.")}
+${F("First there were <b>raids</b>, then real invasions.","Prima ci furono incursioni, poi vere invasioni.")}
+${F("Then the Vikings began to <b>live permanently</b> in parts of Britain.","Poi i Vichinghi cominciarono a vivere stabilmente in alcune parti della Britannia.")}
+${F("The Anglo-Saxons called the Viking invaders <b>the Danes</b>.","Gli Anglo-Sassoni chiamavano gli invasori vichinghi i Danesi.")}`,
+ words:[["fierce","feroce"],["raids","incursioni: attacchi improvvisi e violenti"],["permanently","per sempre, stabilmente"],["the Danes","i Danesi: così si chiamavano gli invasori vichinghi"]],
+ ask:["Da dove venivano i Vichinghi?","<b>From Norway and Denmark.</b>"]},
+
+{parte:0, t:"Alfred the Great", when:"871–899",
+ body:`${F("<b>Alfred the Great</b> was king of <b>Wessex</b> from 871 to 899.","Alfredo il Grande fu re del Wessex dall'871 all'899.")}
+${F("He was the <b>only king</b> who successfully resisted the Vikings.","Fu l'unico re che riuscì a resistere ai Vichinghi.")}
+${F("He fought many battles against the Danes.","Combatté molte battaglie contro i Danesi.")}
+${F("He founded the first English <b>navy</b>.","Fondò la prima flotta inglese.")}
+${F("He encouraged English culture, and had important Latin works translated into <b>Old English</b>, the language of the Anglo-Saxons.","Aiutò la cultura inglese e fece tradurre importanti opere latine in inglese antico, la lingua degli Anglo-Sassoni.")}`,
+ words:[["to resist","resistere"],["founded","fondò, creò per la prima volta"],["navy","marina militare, flotta"],["Old English","inglese antico, la lingua degli Anglo-Sassoni"]],
+ ask:["Vero o falso? «Alfred the Great was the only king who managed to resist the Danes.»","<b>True.</b>"]},
+
+{parte:0, t:"Un re danese", when:"1017",
+ body:`${F("In spite of Alfred's successes, a Danish king, <b>Cnut</b>, became king of England in <b>1017</b>.","Nonostante i successi di Alfredo, un re danese, Cnut, diventò re d'Inghilterra nel 1017.")}
+${F("Anglo-Saxon rule started again in <b>1042</b>, but it did not last long.","I re anglosassoni tornarono nel 1042, ma non durò a lungo.")}`,
+ words:[["in spite of","nonostante"],["rule","governo, dominio"],["to last","durare"]],
+ ask:["Vero o falso? «A Dane was king of England for a short time.»","<b>True.</b> Cnut became king in 1017; Anglo-Saxon rule started again in 1042."]},
+
+{parte:0, t:"La battaglia di Hastings", when:"1066",
+ body:`${F("In <b>1066</b> the Anglo-Saxon king <b>Harold</b> was defeated by <b>William</b>, leader of the <b>Normans</b>.","Nel 1066 il re anglosassone Harold fu sconfitto da Guglielmo, capo dei Normanni.")}
+${F("This was the <b>Battle of Hastings</b>, and it was the <b>last invasion</b> of England.","Fu la battaglia di Hastings, e fu l'ultima invasione dell'Inghilterra.")}
+${F("William became King <b>William I</b> of England.","Guglielmo diventò re Guglielmo I d'Inghilterra.")}
+${F("The <b>Bayeux Tapestry</b>, made a few years later, shows the battle and the death of Harold.","L'arazzo di Bayeux, fatto pochi anni dopo, mostra la battaglia e la morte di Harold.",1)}`,
+ words:[["was defeated","fu sconfitto"],["leader","capo"],["tapestry","arazzo, grande tessuto ricamato"]],
+ ask:["Chi era Harold?","<b>The last Anglo-Saxon king of England.</b> He was killed at the Battle of Hastings in 1066."]},
+
+{parte:0, t:"Chi erano i Normanni?", when:"911",
+ body:`${F("The word <b>Normans</b> comes from <b>Northmen</b>, the men of the north.","La parola Normanni viene da Northmen, gli uomini del nord.")}
+${F("They were <b>descended from the Vikings</b>. They arrived in <b>Normandy</b>, in north-west France, in <b>911</b>.","Discendevano dai Vichinghi. Arrivarono in Normandia, nel nord-ovest della Francia, nel 911.")}
+${F("They became Christian and adopted the French language, but they remained violent and restless.","Diventarono cristiani e presero la lingua francese, ma rimasero violenti e irrequieti.")}
+${F("After 1066 other Normans founded kingdoms in the <b>south of Italy</b> and in <b>Sicily</b>.","Dopo il 1066 altri Normanni fondarono regni nel sud dell'Italia e in Sicilia.")}`,
+ words:[["descended from","discendenti da, parenti di persone vissute molto tempo prima"],["to adopt","prendere, fare proprio"],["restless","irrequieto"]],
+ ask:["Vero o falso? «The Normans, who conquered England in 1066, were also Anglo-Saxons.»","<b>False.</b> The Normans were descended from the Vikings."]},
+
+{parte:0, t:"«Anglo-Saxons» oggi",
+ body:`${F("Today people often call the English-speaking peoples of the UK, the Commonwealth and the USA <b>Anglo-Saxons</b>.","Oggi si chiamano spesso Anglo-Sassoni i popoli che parlano inglese nel Regno Unito, nel Commonwealth e negli Stati Uniti.")}
+${F("This is <b>not correct</b>.","Non è corretto.")}
+${F("The Irish, the Scots and the Welsh are mostly descended from the <b>Celts</b> and the <b>Vikings</b>.","Irlandesi, Scozzesi e Gallesi discendono soprattutto dai Celti e dai Vichinghi.")}
+${F("In the USA fewer than <b>15%</b> of the people are descended from the British.","Negli Stati Uniti meno del 15% delle persone discende dai Britannici.")}`,
+ words:[["inaccurate","non corretto, impreciso"],["the Welsh","i Gallesi"],["the Scots","gli Scozzesi"]]},
+
+{parte:0, t:"Il tesoro di Sutton Hoo",
+ body:`${F("At <b>Sutton Hoo</b>, in eastern England, archaeologists found an Anglo-Saxon <b>treasure</b> from the early 7th century.","A Sutton Hoo, nell'Inghilterra dell'est, gli archeologi hanno trovato un tesoro anglosassone dell'inizio del VII secolo.",1)}
+${F("In the book you can see two objects from the treasure: a <b>purse lid</b> and a <b>gold belt buckle</b>.","Nel libro vedi due oggetti del tesoro: il coperchio di una borsa e una fibbia d'oro per la cintura.",1)}
+<div class="trap s" data-say="Queste immagini sono nelle pagine del libro: guardale mentre ripassi. Il coperchio della borsa e la fibbia sono fatti di oro e pietre rosse, con disegni di animali intrecciati."><b>Guarda le foto nel libro.</b> Il coperchio della borsa e la fibbia sono d'oro e pietre rosse, con disegni di animali intrecciati.</div>`,
+ words:[["treasure","tesoro"],["purse lid","coperchio di una borsa"],["belt buckle","fibbia della cintura"]]},
+
+/* ---------- 2 · IL POEMA ---------- */
+{parte:1, t:"Beowulf: perché è famoso",
+ body:`<p class="s">Nel fact file del libro la prima domanda chiede tre motivi per cui il Beowulf è famoso. Eccoli.</p>
+${F("<b>1.</b> It is a poem of <b>3,182 lines</b>: the <b>longest</b> poem that survives in <b>Old English</b>.","È un poema di tremilacentottantadue versi: il più lungo poema in inglese antico arrivato fino a noi.",1)}
+${F("<b>2.</b> It is the first important poem in a European language that is <b>not Greek or Latin</b>.","È il primo poema importante in una lingua europea che non sia il greco o il latino.",1)}
+${F("<b>3.</b> It is the <b>only complete</b> example of a Germanic folk epic.","È l'unico esempio completo di poema epico popolare germanico.",1)}`,
+ words:[["line","verso (di una poesia)"],["longest","il più lungo"],["to survive","arrivare fino a oggi"],["folk epic","poema epico popolare"]],
+ ask:["Quanti versi ha il Beowulf?","<b>3,182 lines</b> (three thousand one hundred and eighty-two)."]},
+
+{parte:1, t:"Quando e chi", when:"700–750",
+ body:`${F("A few historical references in the poem are from the <b>6th century</b>.","Alcuni riferimenti storici del poema sono del VI secolo.",1)}
+${F("But the version we have was probably composed <b>between 700 and 750</b>.","Ma la versione che abbiamo fu composta probabilmente tra il 700 e il 750.",1)}
+${F("We do <b>not know the name</b> of the poet.","Non sappiamo il nome del poeta.",1)}
+${F("People think it was composed by <b>just one person</b>.","Si pensa che l'abbia composto una sola persona.",1)}`,
+ words:[["composed","composto, scritto (una poesia o una musica)"],["historical references","riferimenti a fatti storici veri"]],
+ ask:["When was Beowulf composed?","<b>Between 700 and 750.</b>"]},
+
+{parte:1, t:"Prima raccontato, poi scritto", when:"c. 1000",
+ body:`${F("Like other early poetry, Beowulf was first <b>told orally</b>.","Come altre poesie antiche, il Beowulf all'inizio fu raccontato a voce.",1)}
+${F("It passed from poet to poet for a long time before it was <b>written down</b>.","Passò da un poeta all'altro per molto tempo prima di essere scritto.",1)}
+${F("The Anglo-Saxon poet was called a <b>scop</b>, pronounced 'shop'. He sang poems on special occasions.","Il poeta anglosassone si chiamava scop, e si pronuncia come shop. Cantava le poesie nelle occasioni speciali.",1)}
+${F("The first written version is a <b>manuscript</b> from about the year <b>1000</b>.","La prima versione scritta è un manoscritto di circa l'anno mille.",1)}
+${F("It is in <b>London</b>, in the British Museum.","Si trova a Londra, al British Museum.",1)}
+<div class="trap s" data-say="Il libro dice British Museum, e nel compito scrivi così. In realtà oggi il manoscritto si trova alla British Library, sempre a Londra."><b>Il libro dice British Museum</b>, e nel compito scrivi così. In realtà oggi il manoscritto è alla British Library, sempre a Londra.</div>`,
+ words:[["orally","a voce"],["to write down","mettere per iscritto"],["manuscript","manoscritto: libro scritto a mano"],["scop","il poeta-cantore anglosassone: si pronuncia shop"]],
+ ask:["Perché all'inizio non fu scritto?","<b>It was oral poetry:</b> it was told orally and passed from poet to poet."]},
+
+{parte:1, t:"Dove si svolge e che cosa racconta",
+ body:`${F("The events of the poem are set in <b>southern Scandinavia</b>.","Le vicende del poema si svolgono nella Scandinavia del sud.",1)}
+${F("The story is mostly a mixture of <b>Germanic myth and legend</b>, with a few historical references.","La storia è soprattutto un miscuglio di miti e leggende germaniche, con pochi riferimenti storici.",1)}
+${F("The main values are <b>loyalty</b> to the chief and the tribe, and <b>revenge</b> on enemies.","I valori principali sono la fedeltà al capo e alla tribù, e la vendetta sui nemici.",1)}
+${F("There are also some comments from a <b>Christian</b> point of view.","Ci sono anche alcuni commenti da un punto di vista cristiano.",1)}`,
+ words:[["are set","si svolgono, sono ambientati"],["loyalty","fedeltà, lealtà"],["chief","capo"],["tribe","tribù"],["revenge","vendetta: fare del male a chi ti ha fatto del male"]],
+ ask:["What are the main values of the poem?","<b>Loyalty to the chief and the tribe, and revenge on enemies.</b>"]},
+
+{parte:1, t:"L'allitterazione",
+ body:`${F("Beowulf, like nearly all Old English poetry, uses <b>alliteration</b>.","Il Beowulf, come quasi tutta la poesia in inglese antico, usa l'allitterazione.",1)}
+${F("The same <b>consonant sounds</b> are repeated at the <b>beginning</b> of words that are near each other.","Gli stessi suoni di consonante si ripetono all'inizio di parole vicine.",1)}
+<div class="alli s" data-l="en" data-say="They put his body on the boat and then began to burn it." onclick="hear(this)">They put his <u>b</u>ody on the <u>b</u>oat and then <u>b</u>egan to <u>b</u>urn it.</div>
+<p class="s" data-say="Questo è l'esempio del libro: senti quante volte torna il suono bi.">L'esempio del libro: senti quante volte torna il suono <b>b</b>.</p>
+${F("English poetry started to use <b>rhyme</b> only after the Norman invasion of <b>1066</b>, with French poetry.","La poesia inglese cominciò a usare la rima solo dopo l'invasione normanna del 1066, con la poesia francese.",1)}`,
+ words:[["alliteration","allitterazione: lo stesso suono all'inizio di parole vicine"],["rhyme","rima: le ultime sillabe dei versi suonano uguali"]],
+ ask:["What is the most important element of style in Beowulf?","<b>Alliteration.</b>"]},
+
+{parte:1, t:"Il fact file di p. 11, completo", init:"ffInit",
+ body:`<p class="s">Queste sono le risposte al fact file del libro. Prima leggile. Poi tocca Nascondi e prova a rispondere a voce, riga per riga.</p>
+<button class="mini" id="ffBtn" onclick="ffToggle()">Nascondi le risposte</button>
+<div class="ff" id="ff"></div>`},
+
+/* ---------- 3 · PRIMA DI LEGGERE ---------- */
+{parte:2, t:"Guerrieri e armi (p. 12)",
+ body:`<p class="s">Le armi dei guerrieri anglosassoni. Tocca un disegno per sentire la parola. Hilt è solo una parte della spada: l'impugnatura.</p>
+<div class="wpn" id="wpn"></div>`, init:"wpnInit",
+ ask:["Come si dice «elmo»? E «scudo»?","<b>helmet</b> e <b>shield</b>."]},
+
+{parte:2, t:"La corte del re (p. 13)",
+ body:`<p class="s">Nel capitolo uno vedi la vita alla corte di un re danese del sesto secolo. Ecco le risposte dell'esercizio tre.</p>
+${F("The place where the king has his court is the <b>Hall</b>.","Il luogo dove il re tiene la sua corte si chiama the Hall, la sala.",1)}
+${F("To show his royal authority the king sits on a <b>throne</b>: a decorated, impressive chair.","Per mostrare la sua autorità il re siede su un trono: una sedia decorata e imponente.",1)}
+${F("When they celebrate, people drink <b>mead</b>: an alcoholic drink made from <b>honey</b> and water.","Quando festeggiano bevono idromele: una bevanda alcolica fatta con miele e acqua.",1)}
+${F("The music at court is usually played on the <b>harp</b>. The musicians are called <b>harpists</b>.","A corte la musica si suona di solito con l'arpa. I musicisti si chiamano arpisti.",1)}`,
+ words:[["hall","sala, salone"],["mead hall","la sala dove si beve l'idromele e si fa festa"],["throne","trono"],["mead","idromele"],["honey","miele"],["harp","arpa"]],
+ ask:["What do people drink in the Hall?","<b>Mead</b>, made from honey and water."]},
+
+/* ---------- 4 · CAPITOLO 1 ---------- */
+{parte:3, t:"I re danesi",
+ body:`<p class="s">Il capitolo uno comincia con la famiglia dei re danesi. Scendi dall'alto verso il basso: ogni re è figlio di quello sopra.</p>
+<div class="tree">
+<div class="nd s" data-l="en" data-say="Shield Sheafson. He was abandoned as a child, but he became a fierce warrior and a good king." onclick="hear(this)"><b>Shield Sheafson</b><i>abbandonato da bambino, diventa un guerriero feroce e un buon re</i></div>
+<div class="vl"></div>
+<div class="nd s" data-l="en" data-say="Beow. He was generous with his people, and loyal friends gathered around him." onclick="hear(this)"><b>Beow</b><i>generoso con il popolo, ha amici leali</i></div>
+<div class="vl"></div>
+<div class="nd s" data-l="en" data-say="Halfdane, the great, Beow's heir." onclick="hear(this)"><b>Halfdane</b><i>il grande, erede di Beow</i></div>
+<div class="vl"></div>
+<div class="kids">
+<div class="nd s" data-l="en" data-say="Heorogar." onclick="hear(this)"><b>Heorogar</b><i>figlio</i></div>
+<div class="nd hi s" data-l="en" data-say="Hrothgar. He is lucky in war and builds Heorot Hall." onclick="hear(this)"><b>Hrothgar</b><i>fortunato in guerra: costruisce Heorot</i></div>
+<div class="nd s" data-l="en" data-say="Halga." onclick="hear(this)"><b>Halga</b><i>figlio</i></div>
+<div class="nd s" data-l="en" data-say="A daughter, who married the Swedish king Onela." onclick="hear(this)"><b>una figlia</b><i>sposa Onela, re di Svezia</i></div>
+</div></div>
+${F("When Shield died, they put his body in a <b>boat</b> with treasure and a golden flag, and pushed it out to sea.","Quando Shield morì, misero il suo corpo in una barca con un tesoro e una bandiera d'oro, e la spinsero in mare.",1)}`,
+ words:[["exploits","imprese, avventure"],["subdued","sottomise, conquistò"],["blessed","benedetto, protetto"],["golden standard","bandiera d'oro"],["drifted","andò alla deriva, portato dalle onde"],["heir","erede"]],
+ ask:["Chi costruisce la grande sala?","<b>Hrothgar</b>, the son of Halfdane."]},
+
+{parte:3, t:"Heorot e Grendel",
+ body:`${F("Hrothgar wanted a great <b>mead hall</b>: a sign of his power, his throne room, a place to share his goods with the people.","Hrothgar voleva una grande sala dell'idromele: il segno del suo potere, la sala del trono, un luogo per dividere i suoi beni con il popolo.",1)}
+${F("Workers came from all over the world. The hall was called <b>Heorot</b>. Its towers were high and its roof was wide.","Vennero operai da tutto il mondo. La sala si chiamò Heorot. Le sue torri erano alte e il tetto era largo.",1)}
+${F("Every day there were feasts and singing. Harpists played, and poets told how God created the earth, the sun and the moon.","Ogni giorno c'erano banchetti e canti. Gli arpisti suonavano e i poeti raccontavano come Dio creò la terra, il sole e la luna.",1)}
+<div class="grendel s" data-say="Ma c'era un demone che odiava la felicità di Heorot. Si chiamava Grendel e viveva in una parte desolata della costa. Una notte trovò i Danesi addormentati dopo aver bevuto, prese trenta uomini e li portò via. Più tardi tornò e lasciò trenta cadaveri insanguinati."><b>Grendel</b> è un demone che odia la felicità di Heorot. Vive in una parte desolata della costa. Prima viveva in esilio con la famiglia di Caino, che aveva ucciso il fratello Abele.<br>Una notte trova i Danesi addormentati dopo aver bevuto: prende <b>trenta uomini</b> e li porta via. Poi torna e lascia trenta cadaveri.</div>`,
+ words:[["summoned","chiamò, ordinò di venire"],["feasts","banchetti, feste"],["demon","demone, spirito cattivo"],["bleak","desolato, vuoto e triste"],["exile","esilio"],["seized","afferrò con violenza"],["bloodstained","sporco di sangue"],["corpses","cadaveri"]],
+ ask:["How many men does Grendel take the first night?","<b>Thirty men.</b>"]}
+];
+
+/* ═══════ mappa ═══════ */
+const GBP = "M83 24 L91 25 L92 29 L90 34 L75 49 L72 60 L64 72 L77 71 L85 67 L106 68 L119 68 L125 77 L117 92 L114 101 L107 112 L99 123 L94 125 L104 131 L97 135 L87 142 L98 144 L105 144 L116 149 L119 154 L128 164 L131 178 L134 188 L136 198 L140 203 L147 208 L156 212 L164 223 L170 229 L167 239 L175 253 L175 259 L181 273 L175 284 L181 288 L185 281 L206 282 L216 292 L218 302 L214 320 L208 326 L202 333 L196 338 L193 344 L188 347 L196 351 L210 352 L208 363 L198 373 L188 376 L178 381 L164 377 L151 382 L143 378 L132 380 L120 383 L107 389 L95 382 L82 387 L79 396 L76 404 L62 398 L48 401 L34 416 L21 411 L27 405 L38 395 L46 387 L52 368 L61 365 L80 360 L93 358 L102 344 L88 349 L77 349 L64 343 L57 344 L53 338 L41 342 L37 335 L32 329 L48 320 L64 306 L65 292 L56 288 L46 288 L58 273 L50 261 L64 265 L71 264 L90 263 L93 250 L91 242 L97 230 L87 230 L76 212 L79 202 L87 191 L77 194 L65 197 L56 203 L43 205 L39 191 L44 178 L49 168 L45 153 L32 167 L19 176 L21 158 L26 144 L27 126 L16 117 L8 112 L18 99 L21 86 L19 80 L19 68 L34 59 L32 47 L40 26 L46 28 L61 29 L79 27 Z";
+const CTP = "M120 464 L120 428 L130 428 L139 432 L143 443 L167 446 L175 437 L201 417 L214 401 L221 371 L235 367 L249 359 L265 351 L283 324 L294 302 L298 281 L312 261 L336 259 L352 259 L363 248 L384 254 L402 240 L407 221 L400 194 L389 167 L386 144 L389 112 L400 95 L423 92 L452 66 L447 81 L450 99 L445 122 L460 126 L442 144 L434 158 L429 171 L426 189 L437 207 L460 216 L468 225 L468 464 Z";
+const NOP = "M302 0 L310 14 L320 27 L331 41 L357 55 L384 45 L410 22 L437 9 L450 0 L450 0 Z";
+const COL = {rom:"#5A6473", kin:"#1B2430", ang:"#1D5FA8", sax:"#1F7A4D", jut:"#B4531A", cel:"#6B3FA0", vik:"#9B2C2C", nor:"#A8327A", chr:"#0E7C86"};
+function arr(x1,y1,x2,y2,c,cx,cy){
+  const d = (cx!=null) ? 'M'+x1+' '+y1+' Q'+cx+' '+cy+' '+x2+' '+y2 : 'M'+x1+' '+y1+' L'+x2+' '+y2;
+  return '<path d="'+d+'" fill="none" stroke="'+COL[c]+'" stroke-width="4" stroke-linecap="round" marker-end="url(#m-'+c+')"/>';
+}
+function lab(x,y,t,c,size,anchor){
+  return '<text x="'+x+'" y="'+y+'" fill="'+(c?COL[c]:"#1B2430")+'" font-size="'+(size||14)+'" font-weight="800" text-anchor="'+(anchor||"middle")+'" paint-order="stroke" stroke="#fff" stroke-width="4" stroke-linejoin="round">'+t+'</text>';
+}
+function dot(x,y,c){ return '<circle cx="'+x+'" cy="'+y+'" r="5" fill="'+COL[c]+'" stroke="#fff" stroke-width="2"/>'; }
+const LAYERS = [
+ {k:"rom", b:"410", en:"410: the Roman army leaves Britain. The Celts cannot govern alone.", it:"410: l'esercito romano lascia la Britannia. I Celti non riescono a governare da soli.",
+  g: arr(150,300,235,445,"rom",215,360) + lab(262,420,"Romans leave","rom",15) + lab(262,437,"410","rom",15) + lab(118,250,"Celts","cel",16)},
+ {k:"ang", b:"5th century", en:"5th century: the Angles, the Saxons and the Jutes come from north Germany and Denmark.", it:"V secolo: Angli, Sassoni e Juti arrivano dalla Germania del nord e dalla Danimarca.",
+  g: arr(405,125,225,348,"jut",300,215) + arr(428,205,215,285,"ang",320,215) + arr(425,215,150,200,"ang",300,150) + arr(390,282,205,330,"sax",300,285)
+   + lab(415,112,"Jutes","jut",15) + lab(440,236,"Angles","ang",15) + lab(372,305,"Saxons","sax",15) + lab(405,330,"north Germany",null,12) + lab(415,152,"Denmark",null,12)},
+ {k:"cel", b:"Celts", en:"The Celts move to the north and the west. They keep their language in Wales and Cornwall.", it:"I Celti vanno a nord e a ovest. Conservano la loro lingua in Galles e in Cornovaglia.",
+  g: arr(145,280,92,305,"cel") + arr(140,330,66,382,"cel",100,345) + arr(130,230,85,140,"cel",115,180)
+   + lab(62,300,"Wales","cel",15) + lab(40,420,"Cornwall","cel",14,"start") + lab(66,110,"Scotland","cel",15)},
+ {k:"kin", b:"7th century", en:"7th century: Angles in the east, north and centre; Saxons in the south; Jutes in the south-east. Later: all united under Wessex.", it:"VII secolo: Angli a est, nord e centro; Sassoni a sud; Juti a sud-est. Poi tutti uniti sotto il Wessex.",
+  g: lab(128,205,"Northumbria","ang",14) + lab(128,285,"Mercia","ang",14) + lab(222,300,"East Anglia","ang",13,"start") + lab(180,322,"Essex","sax",12)
+   + lab(105,362,"Wessex","sax",15) + lab(158,398,"Sussex","sax",12) + lab(218,372,"Kent","jut",14,"start") + dot(207,320,"chr") + lab(212,312,"Sutton Hoo","chr",11,"start")},
+ {k:"chr", b:"597", en:"597: Augustine, sent by Pope Gregory, becomes the first Archbishop of Canterbury.", it:"597: Agostino, mandato da papa Gregorio, diventa il primo arcivescovo di Canterbury.",
+  g: arr(265,460,207,362,"chr",250,410) + dot(201,356,"chr") + lab(212,346,"Canterbury","chr",14,"start") + lab(288,445,"Augustine from Rome","chr",13)
+   + dot(124,158,"chr") + lab(132,152,"Lindisfarne","chr",13,"start")},
+ {k:"vik", b:"Vikings", en:"End of the 8th century: Viking raids from Norway and Denmark. Alfred the Great, king of Wessex, resists them.", it:"Fine dell'VIII secolo: incursioni vichinghe dalla Norvegia e dalla Danimarca. Alfredo il Grande, re del Wessex, resiste.",
+  g: arr(345,55,130,160,"vik",220,70) + arr(400,150,160,240,"vik",280,170) + arr(335,55,95,70,"vik",210,20)
+   + lab(385,75,"Vikings","vik",15) + lab(384,22,"Norway",null,12) + lab(415,152,"Denmark",null,12) + lab(105,362,"Wessex: Alfred","ang",14)},
+ {k:"nor", b:"1066", en:"1066: William, leader of the Normans, defeats Harold at Hastings. The last invasion of England.", it:"1066: Guglielmo, capo dei Normanni, sconfigge Harold a Hastings. L'ultima invasione dell'Inghilterra.",
+  g: arr(170,440,187,384,"nor",160,410) + dot(187,375,"nor") + lab(150,378,"Hastings","nor",14,"end") + lab(215,455,"Normandy 911","nor",13,"start") + lab(214,428,"William","nor",14,"start")}
+];
+let bLayer = 0;
+function bmapInit(){
+  const lay = document.getElementById("lay"); if(!lay) return;
+  lay.innerHTML = LAYERS.map((L,i)=>'<button onclick="bmapSet('+i+')">'+L.b+'</button>').join("");
+  let defs = '<defs>';
+  Object.keys(COL).forEach(c=>{ defs += '<marker id="m-'+c+'" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="'+COL[c]+'"/></marker>'; });
+  defs += '</defs>';
+  let svg = '<svg viewBox="0 0 470 465" role="img" aria-label="Mappa della Britannia e delle coste del Mare del Nord">'+defs
+    + '<rect width="470" height="465" fill="#DCEBEF"/>'
+    + '<path d="'+CTP+'" fill="#EFE9DC" stroke="#9A9282" stroke-width="1.2" stroke-linejoin="round"/>'
+    + '<path d="'+NOP+'" fill="#EFE9DC" stroke="#9A9282" stroke-width="1.2" stroke-linejoin="round"/>'
+    + '<path d="'+GBP+'" fill="#FBF8F0" stroke="#5A6473" stroke-width="1.6" stroke-linejoin="round"/>'
+    + '<text x="285" y="190" fill="#7F9BA3" font-size="14" font-style="italic" text-anchor="middle">North Sea</text>'
+    + '<text x="68" y="445" fill="#7F9BA3" font-size="12" font-style="italic" text-anchor="middle">Channel</text>';
+  LAYERS.forEach((L,i)=>{ svg += '<g id="L'+i+'" style="display:none">'+L.g+'</g>'; });
+  document.getElementById("bsvg").innerHTML = svg + '</svg>';
+  bmapSet(0, true);
+}
+function bmapSet(i, quiet){
+  bLayer = i;
+  LAYERS.forEach((L,j)=>{ const g = document.getElementById("L"+j); if(g) g.style.display = (j===i) ? "" : "none"; });
+  const bs = document.getElementById("lay").children;
+  for(let j=0;j<bs.length;j++){
+    const on = (j===i), c = COL[LAYERS[j].k];
+    bs[j].className = on ? "on" : "";
+    bs[j].style.background = on ? c : "#fff"; bs[j].style.borderColor = on ? c : "";
+  }
+  const L = LAYERS[i];
+  document.getElementById("mcap").innerHTML = '<div class="ce s" data-l="en" onclick="hear(this)">'+L.en+'</div><div class="ci s">'+L.it+'</div>';
+  if(!quiet) hear({getAttribute:()=>null, textContent:L.en});
+}
+
+/* ═══════ linea del tempo ═══════ */
+const TL = [
+ ["410","","rom","The Roman army leaves Britain.","L'esercito romano lascia la Britannia."],
+ ["5th c.","V secolo","ang","The Anglo-Saxons begin to invade Britain.","Gli Anglo-Sassoni cominciano a invadere la Britannia."],
+ ["597","","chr","Pope Gregory sends Augustine to convert the Anglo-Saxons.","Papa Gregorio manda Agostino a convertire gli Anglo-Sassoni."],
+ ["7th c.","VII secolo","ang","The Angles, Saxons and Jutes have their kingdoms.","Angli, Sassoni e Juti hanno i loro regni."],
+ ["700–750","","gold","Beowulf is composed.","Viene composto il Beowulf."],
+ ["end 8th c.","fine VIII secolo","vik","The Vikings begin their raids.","I Vichinghi cominciano le incursioni."],
+ ["early 9th c.","inizio IX secolo","ang","The kingdoms are united under Wessex.","I regni vengono uniti sotto il Wessex."],
+ ["871–899","","ang","Alfred the Great, king of Wessex, resists the Danes.","Alfredo il Grande, re del Wessex, resiste ai Danesi."],
+ ["911","","nor","The Normans arrive in Normandy.","I Normanni arrivano in Normandia."],
+ ["c. 1000","circa","gold","The Beowulf manuscript is written.","Viene scritto il manoscritto del Beowulf."],
+ ["1017","","vik","Cnut, a Danish king, becomes king of England.","Cnut, un re danese, diventa re d'Inghilterra."],
+ ["1042","","ang","Anglo-Saxon rule starts again.","Tornano i re anglosassoni."],
+ ["1066","","nor","The Battle of Hastings: William defeats Harold.","La battaglia di Hastings: Guglielmo sconfigge Harold."]
+];
+const TLC = {rom:"var(--rom)", ang:"var(--ang)", chr:"var(--chr)", vik:"var(--vik)", nor:"var(--nor)", gold:"var(--gold)"};
+function tlInit(){
+  const el = document.getElementById("tl"); if(!el) return;
+  el.innerHTML = TL.map(r=>'<div class="tr" style="--dc:'+TLC[r[2]]+'" onclick="hear(this.querySelector(\'.te\'))">'
+    + '<div class="d" style="color:'+TLC[r[2]]+'">'+r[0]+(r[1]?'<small>'+r[1]+'</small>':'')+'</div>'
+    + '<div class="x"><span class="te s" data-l="en">'+r[3]+'</span><i class="s">'+r[4]+'</i></div></div>').join("");
+}
+
+/* ═══════ fact file ═══════ */
+const FF = [
+ ["1","Three reasons why it is famous","It is the longest poem in Old English. It is the first important poem in a European language that is not Greek or Latin. It is the only complete Germanic folk epic."],
+ ["2","When it was composed","Between 700 and 750."],
+ ["3","Why it was not written down at first","It was oral poetry: poets told it and passed it from poet to poet."],
+ ["4","When it was written down","About the year 1000."],
+ ["5","Name of the poet","We don't know it."],
+ ["6","Where the events are set","In southern Scandinavia."],
+ ["7","Main values found in the poem","Loyalty to the chief and the tribe, and revenge on enemies."],
+ ["8","Most important element of style","Alliteration."],
+ ["9","Where the manuscript is kept now","In London, in the British Museum."]
+];
+let ffHide = false;
+function ffInit(){ ffHide = false; ffDraw(); }
+function ffToggle(){ ffHide = !ffHide; ffDraw(); }
+function ffDraw(){
+  const el = document.getElementById("ff"); if(!el) return;
+  el.className = "ff"+(ffHide?" hide":"");
+  document.getElementById("ffBtn").textContent = ffHide ? "Mostra tutte le risposte" : "Nascondi le risposte";
+  el.innerHTML = FF.map(r=>'<div class="ffr" onclick="ffTap(this)"><div class="q"><b>'+r[0]+'.</b> '+r[1]+'</div><div class="an s" data-l="en">'+r[2]+'</div></div>').join("");
+}
+function ffTap(row){
+  row.classList.add("show");
+  hear(row.querySelector(".an"));
+}
+
+/* ═══════ armi ═══════ */
+const STEEL = "#8C96A3", STEEL2 = "#C9D0D8", WOOD = "#9A6A3A", GOLD = "#C8962E", DARK = "#3C4550";
+const WPN = [
+ ["sword","spada",'<polygon points="40,4 44,12 44,50 36,50 36,12" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/><rect x="27" y="50" width="26" height="6" rx="2" fill="'+DARK+'"/><rect x="37.5" y="56" width="5" height="14" fill="'+WOOD+'"/><ellipse cx="40" cy="73" rx="6" ry="4" fill="'+DARK+'"/>'],
+ ["spear","lancia",'<line x1="40" y1="20" x2="40" y2="78" stroke="'+WOOD+'" stroke-width="4" stroke-linecap="round"/><polygon points="40,2 47,16 40,26 33,16" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/>'],
+ ["knife","coltello",'<path d="M40 14 Q47 26 45 46 L36 46 L36 22 Z" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/><rect x="35" y="46" width="11" height="4" fill="'+DARK+'"/><rect x="36.5" y="50" width="8" height="18" rx="3" fill="'+WOOD+'"/>'],
+ ["helmet","elmo",'<path d="M16 46 Q16 12 40 12 Q64 12 64 46 L56 46 L56 62 Q48 66 44 58 L44 40 L36 40 L36 58 Q32 66 24 62 L24 46 Z" fill="'+STEEL+'" stroke="'+DARK+'" stroke-width="1.5"/><path d="M40 12 L40 40" stroke="'+GOLD+'" stroke-width="3"/><path d="M24 34 Q30 30 36 34 M44 34 Q50 30 56 34" stroke="'+GOLD+'" stroke-width="3" fill="none"/>'],
+ ["axe","ascia",'<line x1="34" y1="8" x2="34" y2="78" stroke="'+WOOD+'" stroke-width="5" stroke-linecap="round"/><path d="M34 12 Q58 6 64 20 Q60 34 34 32 Z" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/>'],
+ ["shield","scudo",'<circle cx="40" cy="40" r="32" fill="'+WOOD+'" stroke="'+DARK+'" stroke-width="3"/><path d="M40 8 V72 M24 12 V68 M56 12 V68" stroke="#7E5429" stroke-width="1.5"/><circle cx="40" cy="40" r="9" fill="'+STEEL+'" stroke="'+DARK+'" stroke-width="1.5"/>'],
+ ["armour","armatura",'<path d="M26 14 L54 14 L70 30 L62 38 L56 32 L56 74 L24 74 L24 32 L18 38 L10 30 Z" fill="url(#mail)" stroke="'+DARK+'" stroke-width="1.5"/>'],
+ ["hilt","elsa, impugnatura della spada",'<polygon points="40,4 44,12 44,50 36,50 36,12" fill="#E4E8EC" stroke="#B5BDC6" stroke-width="1"/><rect x="27" y="50" width="26" height="6" rx="2" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><rect x="37.5" y="56" width="5" height="14" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><ellipse cx="40" cy="73" rx="6" ry="4" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><path d="M60 50 Q66 62 60 76" stroke="'+GOLD+'" stroke-width="2.5" fill="none"/>']
+];
+function wpnInit(){
+  const el = document.getElementById("wpn"); if(!el) return;
+  const pat = '<defs><pattern id="mail" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="'+STEEL2+'"/><circle cx="3" cy="3" r="2" fill="none" stroke="'+STEEL+'" stroke-width="1"/></pattern></defs>';
+  el.innerHTML = WPN.map(w=>'<div class="wp" onclick="hear({getAttribute:()=>null,textContent:\''+w[0]+'\'})"><svg viewBox="0 0 80 80" aria-hidden="true">'+(w[0]==="armour"?pat:"")+w[2]+'</svg><div class="en">'+w[0]+'</div><div class="it">'+w[1]+'</div></div>').join("");
+}
+
+/* ═══════ carte ═══════ */
+let idx = 0, reading = false, queue = [], qi = 0, rate = 0.88;
+const stage = document.getElementById("stage"), chips = document.getElementById("chips");
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button"); b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card"><div class="kicker">'+PARTI[c.parte]+'</div><h2>'+c.t+'</h2>';
+  if(c.when) h += '<div class="when">'+c.when+'</div>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div><button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button><div class="a">'+c.ask[1]+'</div></div>';
+  }
+  stage.innerHTML = h + '</article>';
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("ing-beowulf-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+  if(on) hear({getAttribute:()=>null, textContent:btn.textContent});
+}
+function reveal(btn){ btn.parentNode.querySelector(".a").classList.add("on"); btn.style.display = "none"; }
+
+/* ═══════ voce: italiano e inglese ═══════ */
+let voIt = null, voEn = null, warmed = false;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voIt = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+  voEn = vs.find(v=>v.lang==="en-GB") || vs.find(v=>/^en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function warmUp(){ if(warmed || !window.speechSynthesis) return; warmed = true; try{ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("touchstart", warmUp, {once:true});
+document.addEventListener("click", warmUp, {once:true});
+function clean(t,en){
+  t = String(t);
+  if(en){
+    t = t.replace(/\bc\. ?1000\b/g,"around the year one thousand").replace(/(\d)–(\d)/g,"$1 to $2")
+         .replace(/\b5th c\./g,"fifth century").replace(/\b7th c\./g,"seventh century").replace(/\b8th c\./g,"eighth century").replace(/\b9th c\./g,"ninth century")
+         .replace(/\bscop\b(?!, pronounced)/g,"scop");
+  }else{
+    t = t.replace(/(\d)–(\d)/g,"$1 al $2");
+  }
+  return t.replace(/→|↔/g,", ").replace(/[·()]/g," ").replace(/\s+/g," ").trim();
+}
+function mk(t,en){
+  const u = new SpeechSynthesisUtterance(clean(t,en));
+  u.lang = en ? "en-GB" : "it-IT"; u.rate = en ? Math.max(0.6, rate-0.06) : rate; u.pitch = 1;
+  const v = en ? voEn : voIt; if(v) u.voice = v;
+  return u;
+}
+function hear(el){
+  if(!window.speechSynthesis || !el) return;
+  if(reading) stop();
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const t = (el.getAttribute && (el.getAttribute("data-en") || el.getAttribute("data-say"))) || el.textContent;
+  speechSynthesis.speak(mk(t, true));
+}
+function isEn(el){ return el.getAttribute("data-l")==="en"; }
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s")).filter(el=>el.offsetParent!==null || !el.closest(".ff.hide"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = mk(el.getAttribute("data-say") || el.textContent, isEn(el));
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play"); if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("ing-beowulf-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>

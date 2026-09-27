@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inglese — Unit 7: carattere, comparativi, superlativi</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#0E7C86; --accent-soft:#E2F2F3; --accent-line:#BFE0E3;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --verb:#1D5FA8; --verb-soft:#E6EEF9;
+  --than:#B4531A; --than-soft:#FBEDE3;
+  --r0:#1D5FA8; --r0s:#E6EEF9;
+  --r1:#6B3FA0; --r1s:#F0E9F8;
+  --r2:#1F7A4D; --r2s:#E4F2EA;
+  --r3:#B4531A; --r3s:#FBEDE3;
+  --r4:#8A6D00; --r4s:#F7F0D6;
+  --r5:#A8327A; --r5s:#F8E9F2;
+  --r6:#1B2430; --r6s:#ECEEF1;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+.no{color:var(--no); text-decoration:line-through; text-decoration-thickness:2px}
+.yes{color:var(--ok); font-weight:700}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+
+/* parole inglesi da ascoltare */
+.e{font:inherit; background:none; border:none; padding:0 1px; margin:0; color:var(--accent); font-weight:700;
+  text-decoration:underline dotted; text-underline-offset:4px; cursor:pointer}
+.exen{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:10px 14px; margin:12px 0}
+.lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.l{font-size:19px; line-height:1.5; padding:5px 0; cursor:pointer; border-bottom:1px dashed var(--accent-line)}
+.l:last-child{border-bottom:none}
+.l::after{content:" \1F50A"; font-size:14px; opacity:.45}
+.l small{display:block; font-size:14.5px; color:var(--soft); line-height:1.35}
+
+/* la frase a pezzi */
+.strip{display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 4px; cursor:pointer}
+.ck{display:flex; flex-direction:column; align-items:center; border:2px solid var(--rule); border-radius:10px; padding:5px 10px 3px; background:#fff}
+.ck b{font-size:20px; line-height:1.3}
+.ck i{font-style:normal; font-size:12px; color:var(--soft); line-height:1.3}
+.ck.v{border-color:var(--verb); background:var(--verb-soft)} .ck.v b{color:var(--verb)}
+.ck.c{border-color:var(--accent); background:var(--accent-soft)} .ck.c b{color:var(--accent)}
+.ck.t{border-color:var(--than); background:var(--than-soft)} .ck.t b{color:var(--than)}
+
+/* regole a colori */
+.rbox{border-left:6px solid var(--ink); border-radius:10px; padding:9px 13px; margin:10px 0; font-size:16.5px; line-height:1.55}
+.rbox .rt{font-weight:700; display:block}
+.rbox .rx{font-size:19px; display:block; cursor:pointer}
+.rbox .rx::after{content:" \1F50A"; font-size:14px; opacity:.45}
+.k0{border-color:var(--r0); background:var(--r0s)} .k0 .rt{color:var(--r0)}
+.k1{border-color:var(--r1); background:var(--r1s)} .k1 .rt{color:var(--r1)}
+.k2{border-color:var(--r2); background:var(--r2s)} .k2 .rt{color:var(--r2)}
+.k3{border-color:var(--r3); background:var(--r3s)} .k3 .rt{color:var(--r3)}
+.k4{border-color:var(--r4); background:var(--r4s)} .k4 .rt{color:var(--r4)}
+.k5{border-color:var(--r5); background:var(--r5s)} .k5 .rt{color:var(--r5)}
+.k6{border-color:var(--r6); background:var(--r6s)} .k6 .rt{color:var(--r6)}
+
+/* tessere delle parole */
+.tiles{display:flex; flex-wrap:wrap; gap:7px; margin:12px 0 8px}
+.tile{border:2px solid var(--accent-line); background:#fff; border-radius:10px; padding:7px 11px; font:inherit; font-size:16.5px; font-weight:700; color:var(--accent); cursor:pointer}
+.tiles.neg .tile{border-color:#E8C4C4; color:var(--no)}
+.tile.on{background:var(--accent); color:#fff; border-color:var(--accent)}
+.tiles.neg .tile.on{background:var(--no); border-color:var(--no); color:#fff}
+.tout{background:#F4F1EA; border-radius:12px; padding:10px 14px; font-size:17px; line-height:1.55; min-height:3em; margin-bottom:10px}
+.tout b{font-size:20px}
+.tout table{margin:4px 0; font-size:15px}
+.tout td{padding:4px 7px}
+
+/* i contrari */
+.pairs{display:flex; flex-direction:column; gap:7px; margin:12px 0}
+.pr{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:6px; border:1px solid var(--rule); border-radius:12px; padding:7px 10px; cursor:pointer}
+.pr .a{color:var(--accent); font-weight:700; font-size:18px; text-align:right}
+.pr .b{color:var(--no); font-weight:700; font-size:18px}
+.pr .x{color:var(--soft); font-size:16px}
+.pr .it{grid-column:1 / -1; text-align:center; font-size:14px; color:var(--soft); line-height:1.3}
+
+/* definizioni e prove con risposta nascosta */
+.def{border:1px solid var(--rule); border-radius:12px; padding:9px 12px; margin:8px 0; font-size:17px; line-height:1.5}
+.def .hid{display:none; color:var(--ok); font-weight:700; font-size:19px}
+.def .hid.on{display:inline}
+.rvb{border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:9px; padding:2px 12px; font:inherit; font-size:15px; font-weight:700; cursor:pointer; margin-left:4px}
+
+/* domanda di controllo */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{color:var(--soft)}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* la macchina dei comparativi */
+.mach{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.mach .adj{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px}
+.mach .adj button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:5px 12px; font:inherit; font-size:15.5px; font-weight:700; color:var(--ink); cursor:pointer}
+.mach .adj button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.rungs{display:flex; flex-direction:column; gap:5px}
+.rung{border:2px solid var(--rule); border-left-width:10px; border-radius:10px; padding:6px 10px; font-size:15px; line-height:1.4; color:var(--soft); background:#fff}
+.rung b{color:var(--ink)}
+.rung.on{color:#fff}
+.rung.on b{color:#fff}
+.mout{margin:0 0 12px; border-radius:12px; padding:12px 14px; background:#F4F1EA; min-height:4.2em; font-size:16px; line-height:1.55}
+.mout .fm{display:flex; flex-wrap:wrap; gap:8px; margin:6px 0}
+.mout .fm span{border-radius:10px; padding:5px 11px; background:#fff; border:2px solid var(--rule); font-size:19px; font-weight:700}
+.mout .fm span i{display:block; font-style:normal; font-size:11.5px; color:var(--soft); font-weight:600; letter-spacing:.06em; text-transform:uppercase}
+
+/* la mappa */
+.gmap{margin:14px 0}
+.gm{border-left:8px solid var(--ink); border-radius:10px; padding:8px 12px; margin:0 0 8px; background:#fff; border-top:1px solid var(--rule); border-right:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+.gm .gl{font-size:14.5px; line-height:1.35; font-weight:700}
+.gm .gi{font-size:13px; color:var(--soft); line-height:1.35}
+.gm .gr{display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:6px}
+.gm .gc{font-size:16px; line-height:1.4}
+.gm .gc small{display:block; font-size:11.5px; color:var(--soft); letter-spacing:.06em; text-transform:uppercase; font-weight:700}
+.ans{font:inherit; font-size:16.5px; font-weight:700; background:none; border:none; padding:0; color:var(--ink); cursor:pointer; text-align:left}
+.gmap.hide .ans{background:#F4F1EA; border:2px dashed var(--rule); border-radius:8px; padding:1px 9px; color:transparent; position:relative; min-width:84px}
+.gmap.hide .ans::before{content:attr(data-n); position:absolute; left:8px; color:var(--soft); font-size:14px}
+.gmap.hide .ans.show{color:var(--ink); background:var(--ok-soft); border-style:solid; border-color:#BFD6CC}
+.gmap.hide .ans.show::before{content:""}
+.g0{border-left-color:var(--r0)} .g1{border-left-color:var(--r1)} .g2{border-left-color:var(--r2)} .g3{border-left-color:var(--r3)}
+.g4{border-left-color:var(--r4)} .g5{border-left-color:var(--r5)} .g6{border-left-color:var(--r6)}
+.frm{border:2px solid var(--rule); border-radius:12px; padding:9px 12px; margin:9px 0; font-size:16px; line-height:1.5}
+.frm .ft{font-weight:700; font-size:16.5px}
+.frm .fe{font-size:18px; cursor:pointer}
+.frm .fe::after{content:" \1F50A"; font-size:13px; opacity:.45}
+
+/* le similitudini */
+.sims{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px; margin:12px 0}
+.sim{border:1px solid var(--rule); border-radius:12px; padding:8px 12px; cursor:pointer; background:#fff;
+  display:grid; grid-template-columns:44px 1fr; column-gap:8px; align-items:center}
+.sim .em{font-size:30px; line-height:1.2; grid-row:1 / span 2; text-align:center}
+.sim .en{font-size:18px; font-weight:700; color:var(--accent); line-height:1.35}
+.sim .it{font-size:14.5px; color:var(--soft); line-height:1.35}
+
+/* conta o non conta */
+.cnt{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0}
+.cnt > div{border-radius:12px; padding:10px 12px; font-size:15.5px; line-height:1.45}
+.cnt .ca{background:var(--r0s); border:1px solid #C7D7EE}
+.cnt .cb{background:var(--r3s); border:1px solid #EFD2BF}
+.cnt .big{font-size:26px; line-height:1.3}
+.cnt h4{margin:0 0 4px; font-size:16px}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Inglese · Unit 7 e Grammar Files 20–21</div>
+  <h1>Carattere, comparativi e superlativi</h1>
+  <p class="lead">Una carta per volta. Tocca <b>Leggi</b>: la voce legge in italiano e le frasi inglesi con la pronuncia inglese. Ogni frase inglese si ascolta anche con un tocco. Gli esercizi sono nell'altra scheda.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<p class="foot">Contenuto dal libro: Phases 1, unità 7 (mappa p. 230, esercizi p. 231 e lettura p. 236) e New Grammar Files, pp. 188–190 e 194–195.</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.02,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const PARTI = [
+  "1 · Il carattere",
+  "2 · Più… di",
+  "3 · Il più…",
+  "4 · Meno… di",
+  "5 · Tanto… quanto",
+  "6 · Le espressioni",
+  "7 · La mappa"
+];
+
+const CARDS = [
+
+/* ---------- 1 · IL CARATTERE ---------- */
+{parte:0, t:"Parole per il carattere: quelle positive", init:"tilesInit",
+ body:`<p class="s">Nell'unità sette impari gli aggettivi per descrivere il carattere di una persona. Tocca una parola: la senti in inglese e vedi cosa vuol dire.</p>
+<div class="tiles" id="tilesP"></div>
+<div class="tout" id="toutP">Tocca una parola.</div>
+<button class="mini" onclick="allTr('P')">Mostrale tutte con la traduzione</button>`,
+ ask:["Come si dice «affidabile, una persona su cui puoi contare»?","<b>reliable</b>. E «sicuro di sé» è <b>confident</b>."]},
+
+{parte:0, t:"Parole per il carattere: quelle negative", init:"tilesInit",
+ body:`<p class="s">Queste sono le parole negative. Anche qui: tocca, ascolta, leggi il significato.</p>
+<div class="tiles neg" id="tilesN"></div>
+<div class="tout" id="toutN">Tocca una parola.</div>
+<button class="mini" onclick="allTr('N')">Mostrale tutte con la traduzione</button>
+<div class="trap s" data-say="Attenzione: la parola che vuol dire prepotente, uno che dà sempre ordini, è simile a boss, il capo."><b>Un aiuto per ricordare.</b> <button class="e" onclick="hear(this)">bossy</button> viene da <i>boss</i>, il capo: è chi dà sempre ordini.</div>`,
+ ask:["Come si dice «egoista»? E «timido»?","<b>selfish</b> (egoista) e <b>shy</b> (timido)."]},
+
+{parte:0, t:"I contrari",
+ body:`<p class="s">Molte parole si imparano meglio in coppia, con il loro contrario. A sinistra la parola positiva, a destra quella negativa. Tocca una coppia per ascoltarla.</p>
+<div class="pairs">
+<div class="pr s" data-l="en" data-say="generous. selfish." onclick="hear(this)"><span class="a">generous</span><span class="x">↔</span><span class="b">selfish</span><span class="it">generoso ↔ egoista</span></div>
+<div class="pr s" data-l="en" data-say="optimistic. pessimistic." onclick="hear(this)"><span class="a">optimistic</span><span class="x">↔</span><span class="b">pessimistic</span><span class="it">ottimista ↔ pessimista</span></div>
+<div class="pr s" data-l="en" data-say="polite. rude." onclick="hear(this)"><span class="a">polite</span><span class="x">↔</span><span class="b">rude</span><span class="it">educato ↔ maleducato</span></div>
+<div class="pr s" data-l="en" data-say="hard-working. lazy." onclick="hear(this)"><span class="a">hard-working</span><span class="x">↔</span><span class="b">lazy</span><span class="it">gran lavoratore ↔ pigro</span></div>
+<div class="pr s" data-l="en" data-say="confident. insecure." onclick="hear(this)"><span class="a">confident</span><span class="x">↔</span><span class="b">insecure</span><span class="it">sicuro di sé ↔ insicuro</span></div>
+<div class="pr s" data-l="en" data-say="easy-going. anxious." onclick="hear(this)"><span class="a">easy-going</span><span class="x">↔</span><span class="b">anxious</span><span class="it">tranquillo ↔ ansioso</span></div>
+<div class="pr s" data-l="en" data-say="cheerful. moody." onclick="hear(this)"><span class="a">cheerful</span><span class="x">↔</span><span class="b">moody</span><span class="it">di buon umore ↔ lunatico</span></div>
+<div class="pr s" data-l="en" data-say="outgoing. shy." onclick="hear(this)"><span class="a">outgoing</span><span class="x">↔</span><span class="b">shy</span><span class="it">estroverso ↔ timido</span></div>
+</div>`,
+ ask:["Qual è il contrario di <b>lazy</b>? E di <b>polite</b>?","<b>hard-working</b> e <b>rude</b>."]},
+
+{parte:0, t:"Attenzione: parole che ingannano",
+ body:`<p class="s">Due coppie di parole si confondono facilmente. La prima è la più pericolosa, perché sembra italiana.</p>
+<div class="rbox k5"><span class="rt s">sensible vuol dire giudizioso</span><span class="s">È chi ha buon senso e fa cose ragionevoli. Non vuol dire sensibile!</span>
+<span class="rx s" data-l="en" onclick="hear(this)">She's very sensible: she never does dangerous things.</span></div>
+<div class="rbox k0"><span class="rt s">sensitive vuol dire sensibile</span><span class="s">È chi capisce i sentimenti degli altri, o si offende facilmente.</span>
+<span class="rx s" data-l="en" onclick="hear(this)">Our teacher is sensitive and understands our problems.</span></div>
+<div class="rbox k3"><span class="rt s">nervous: agitato per una cosa precisa</span><span class="s">Sei nervoso prima di un compito, di una partita.</span>
+<span class="rx s" data-l="en" onclick="hear(this)">I'm nervous about the test tomorrow.</span></div>
+<div class="rbox k4"><span class="rt s">anxious: ansioso sempre, in generale</span><span class="s">È un modo di essere: si preoccupa di tutto.</span>
+<span class="rx s" data-l="en" onclick="hear(this)">My parents are really anxious: they always worry a lot.</span></div>`,
+ ask:["«Mio fratello è molto sensibile»: sensible o sensitive?","<b>sensitive</b>: My brother is very sensitive. <i>Sensible</i> vuol dire giudizioso."]},
+
+{parte:0, t:"Chi è? Le definizioni",
+ body:`<p class="s">Nel libro le parole si spiegano con una frase che comincia con Someone who, cioè qualcuno che. Leggi la definizione, pensa alla parola, poi tocca il punto di domanda.</p>
+<div class="def s" data-l="en" data-say="Someone who is always telling people what to do.">Someone who is always telling people what to do. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">bossy</span></div>
+<div class="def s" data-l="en" data-say="Someone who tells the truth and never cheats.">Someone who tells the truth and never cheats. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">honest</span></div>
+<div class="def s" data-l="en" data-say="Someone who is practical and shows good sense.">Someone who is practical and shows good sense. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">sensible</span></div>
+<div class="def s" data-l="en" data-say="Someone who has a lot of original ideas.">Someone who has a lot of original ideas. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">creative</span></div>
+<div class="def s" data-l="en" data-say="Someone you can trust and count on.">Someone you can trust and count on. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">reliable</span></div>
+<div class="def s" data-l="en" data-say="Someone who is worried about an important event.">Someone who is worried about an important event. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">nervous</span></div>
+<div class="def s" data-l="en" data-say="Someone who isn't polite.">Someone who isn't polite. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">rude</span></div>
+<div class="def s" data-l="en" data-say="Someone who talks a lot.">Someone who talks a lot. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">talkative</span></div>`,
+ words:[["someone who","qualcuno che"],["to cheat","imbrogliare, copiare"],["to trust","fidarsi"],["to count on","contare su"],["to worry","preoccuparsi"]]},
+
+/* ---------- 2 · PIÙ… DI ---------- */
+{parte:1, t:"Più… di: come si costruisce la frase",
+ body:`<p class="s">Quando confronti due persone o due cose usi il comparativo. La frase ha sempre questi pezzi, in questo ordine.</p>
+<div class="strip s" data-l="en" data-say="My brother is taller than me." onclick="hear(this)">
+<span class="ck"><b>My brother</b><i>chi</i></span><span class="ck v"><b>is</b><i>verbo</i></span><span class="ck c"><b>taller</b><i>più alto</i></span><span class="ck t"><b>than</b><i>di</i></span><span class="ck"><b>me.</b><i>con chi</i></span>
+</div>
+<p class="s" data-say="Il verbo non si salta mai. In italiano diciamo: mio fratello è più alto di me. Anche in inglese serve il verbo essere, al singolare o al plurale.">Il verbo non si salta mai: in italiano diciamo «mio fratello <b>è</b> più alto di me», e anche in inglese serve <b>is</b> o <b>are</b>.</p>
+<div class="exen"><div class="lbl">Esempi</div>
+<div class="l s" data-l="en" onclick="hear(this)">Cats are lazier than dogs.</div>
+<div class="l s" data-l="en" onclick="hear(this)">This exercise is easier than the other one.</div>
+<div class="l s" data-l="en" onclick="hear(this)">Lowri is more confident than her friends.</div>
+</div>
+<div class="trap s" data-say="Attenzione a tre parole simili. Than vuol dire di, e si usa nei confronti. Then vuol dire poi. That vuol dire che, oppure quello. Nel confronto ci vuole sempre than."><b>than, then, that</b><br><b>than</b> = di, nei confronti · <b>then</b> = poi · <b>that</b> = che, quello.<br>Nel confronto ci vuole sempre <b>than</b>.</div>`,
+ words:[["than","di / che, nel confronto: taller than me"],["then","poi, allora"],["me, him, her, us, them","dopo than si usano queste forme: older than me, taller than him"]],
+ ask:["Traduci: «I gatti sono più pigri dei cani.»","<b>Cats are lazier than dogs.</b> Non dimenticare <b>are</b>."]},
+
+{parte:1, t:"La macchina dei comparativi", init:"machInit",
+ body:`<p class="s">Tocca un aggettivo. La macchina accende la regola giusta e ti mostra le due forme: il comparativo, cioè più di, e il superlativo, cioè il più di tutti. I colori sono gli stessi in tutta la scheda.</p>
+<div class="mach" id="mach"></div>`,
+ ask:["Con quale regola va <b>lazy</b>?","Due sillabe che finiscono in <b>-y</b>: la y diventa i, quindi <b>lazier</b>, <b>the laziest</b>."]},
+
+{parte:1, t:"Aggettivi corti: una sillaba",
+ body:`<p class="s">Gli aggettivi di una sillaba sono i più facili. Ci sono tre casi.</p>
+<div class="rbox k0"><span class="rt s" data-say="Primo caso. Una sillaba: si aggiunge e erre.">Una sillaba → + -er</span>
+<span class="rx s" data-l="en" onclick="hear(this)">small → smaller</span><span class="rx s" data-l="en" onclick="hear(this)">cheap → cheaper</span><span class="rx s" data-l="en" onclick="hear(this)">old → older</span></div>
+<div class="rbox k1"><span class="rt s" data-say="Secondo caso. Una sillaba che finisce con una vocale e una consonante: la consonante si raddoppia.">Una vocale + una consonante → raddoppia</span>
+<span class="rx s" data-l="en" onclick="hear(this)">hot → hotter</span><span class="rx s" data-l="en" onclick="hear(this)">big → bigger</span><span class="rx s" data-l="en" onclick="hear(this)">thin → thinner</span></div>
+<div class="rbox k2"><span class="rt s" data-say="Terzo caso. L'aggettivo finisce già con la e: si aggiunge solo la erre.">Finisce in -e → + -r</span>
+<span class="rx s" data-l="en" onclick="hear(this)">safe → safer</span><span class="rx s" data-l="en" onclick="hear(this)">nice → nicer</span><span class="rx s" data-l="en" onclick="hear(this)">brave → braver</span></div>
+<div class="trap s" data-say="Attenzione: si raddoppia solo se prima della consonante c'è una vocale sola. Cheap ha due vocali, quindi cheaper con una pi. Fast finisce con due consonanti, quindi faster."><b>Si raddoppia solo con una vocale sola.</b> <span class="yes">cheaper</span> (non <span class="no">cheapper</span>): ea sono due vocali. <span class="yes">faster</span>: st sono due consonanti.</div>`,
+ ask:["Scrivi il comparativo di <b>hot</b>, <b>cheap</b> e <b>brave</b>.","<b>hotter</b>, <b>cheaper</b>, <b>braver</b>."]},
+
+{parte:1, t:"Due sillabe in -y: la y diventa i",
+ body:`<p class="s" data-say="Gli aggettivi di due sillabe che finiscono con la ipsilon cambiano la ipsilon in i, e poi aggiungono e erre. Fa così anche l'avverbio early, presto.">Gli aggettivi di due sillabe che finiscono in <b>-y</b> cambiano la y in <b>i</b> e aggiungono <b>-er</b>. Fa così anche l'avverbio <button class="e" onclick="hear(this)">early</button>.</p>
+<div class="rbox k3"><span class="rt">-y → -ier</span>
+<span class="rx s" data-l="en" onclick="hear(this)">busy → busier</span><span class="rx s" data-l="en" onclick="hear(this)">happy → happier</span><span class="rx s" data-l="en" onclick="hear(this)">lazy → lazier</span><span class="rx s" data-l="en" onclick="hear(this)">friendly → friendlier</span><span class="rx s" data-l="en" onclick="hear(this)">early → earlier</span></div>
+<div class="trap s" data-say="Attenzione: non si scrive busyer con la ipsilon, e per il libro non si dice more busy. Si scrive busier."><b>Niente y prima di -er.</b> <span class="no">busyer</span> <span class="no">more busy</span> → <span class="yes">busier</span></div>`,
+ ask:["Comparativo di <b>bossy</b> e di <b>lively</b>?","<b>bossier</b> e <b>livelier</b>."]},
+
+{parte:1, t:"Due sillabe in -er, -le, -ow: due strade",
+ body:`<p class="s" data-say="Gli aggettivi di due sillabe che finiscono in e erre, elle e, o doppia vu, e l'aggettivo common, possono fare il comparativo in due modi: con e erre, oppure con more.">Gli aggettivi di due sillabe che finiscono in <b>-er</b>, <b>-le</b>, <b>-ow</b> (e l'aggettivo <button class="e" onclick="hear(this)">common</button>) possono fare il comparativo in due modi.</p>
+<div class="rbox k4"><span class="rt">+ -er oppure more</span>
+<span class="rx s" data-l="en" onclick="hear(this)">clever → cleverer / more clever</span><span class="rx s" data-l="en" onclick="hear(this)">simple → simpler / more simple</span><span class="rx s" data-l="en" onclick="hear(this)">narrow → narrower / more narrow</span></div>
+<p class="s" data-say="Nella mappa del libro, ai numeri nove e dieci, devi scrivere tutte e due le forme.">Nella mappa del libro (numeri 9 e 10) scrivi <b>tutte e due</b> le forme.</p>`,
+ ask:["Scrivi le due forme del comparativo di <b>narrow</b>.","<b>narrower</b> e <b>more narrow</b>."]},
+
+{parte:1, t:"Aggettivi lunghi: more",
+ body:`<p class="s" data-say="Gli altri aggettivi di due sillabe o più, e gli avverbi che finiscono in elle ipsilon, usano more davanti.">Gli aggettivi di due sillabe o più, e gli avverbi in <b>-ly</b>, mettono <b>more</b> davanti. L'aggettivo non cambia.</p>
+<div class="rbox k5"><span class="rt">more + aggettivo</span>
+<span class="rx s" data-l="en" onclick="hear(this)">generous → more generous</span><span class="rx s" data-l="en" onclick="hear(this)">expensive → more expensive</span><span class="rx s" data-l="en" onclick="hear(this)">interesting → more interesting</span><span class="rx s" data-l="en" onclick="hear(this)">patient → more patient</span><span class="rx s" data-l="en" onclick="hear(this)">slowly → more slowly</span></div>
+<div class="trap s" data-say="La regola d'oro: o si aggiunge e erre, oppure si mette more. Mai tutte e due insieme. Non si dice more taller, e non si dice more better."><b>Mai tutte e due insieme.</b> O -er, o more.<br><span class="no">more taller</span> → <span class="yes">taller</span> · <span class="no">more better</span> → <span class="yes">better</span> · <span class="no">expensiver</span> → <span class="yes">more expensive</span></div>`,
+ ask:["Traduci: «Questa maglia è più costosa di quella.»","<b>This pullover is more expensive than that one.</b>"]},
+
+{parte:1, t:"Anche gli avverbi si confrontano",
+ body:`<p class="s">Gli avverbi dicono come si fa una cosa: velocemente, lentamente, bene. Anche loro hanno il comparativo, e stanno dopo il verbo.</p>
+<div class="exen"><div class="lbl">Una sillaba → -er</div>
+<div class="l s" data-l="en" onclick="hear(this)">Mark runs faster than me.<small>corre più veloce di me</small></div>
+<div class="l s" data-l="en" onclick="hear(this)">She works harder than her brother.<small>lavora più duramente di suo fratello</small></div>
+<div class="l s" data-l="en" onclick="hear(this)">We arrived earlier than you.<small>siamo arrivati prima di voi</small></div></div>
+<div class="exen"><div class="lbl">In -ly → more</div>
+<div class="l s" data-l="en" onclick="hear(this)">Please speak more slowly.<small>parla più lentamente, per favore</small></div>
+<div class="l s" data-l="en" onclick="hear(this)">He drives more carefully than his father.<small>guida con più attenzione di suo padre</small></div></div>
+<div class="exen"><div class="lbl">Irregolari</div>
+<div class="l s" data-l="en" onclick="hear(this)">Liam plays football better than Tom.<small>well → better</small></div>
+<div class="l s" data-l="en" onclick="hear(this)">I sing worse than my sister.<small>badly → worse</small></div></div>`,
+ ask:["Comparativo di <b>slowly</b>? E di <b>well</b>?","<b>more slowly</b> e <b>better</b>."]},
+
+{parte:1, t:"Gli irregolari",
+ body:`<p class="s">Pochi aggettivi non seguono le regole: si imparano a memoria. Ascoltali più volte.</p>
+<div class="rbox k6"><span class="rt s" data-say="I tre irregolari della mappa.">I tre della mappa</span>
+<span class="rx s" data-l="en" onclick="hear(this)">good / well → better → the best</span>
+<span class="rx s" data-l="en" onclick="hear(this)">bad / badly → worse → the worst</span>
+<span class="rx s" data-l="en" onclick="hear(this)">far → farther / further → the farthest / the furthest</span></div>
+<div class="trap s" data-say="Attenzione: worse con la e è il comparativo, peggiore. Worst con la ti è il superlativo, il peggiore. Si dice worse than, e the worst."><b>worse o worst?</b> <span class="yes">worse</span> = peggiore (worse <b>than</b>) · <span class="yes">the worst</span> = il peggiore.<br><span class="no">gooder</span> <span class="no">more good</span> <span class="no">badder</span></div>
+<table>
+<tr><th>parola</th><th>quando si usa</th></tr>
+<tr><td class="s" data-l="en" data-say="further. further information."><b>further</b></td><td>anche «ulteriore»: <i>further information</i> = altre informazioni</td></tr>
+<tr><td class="s" data-l="en" data-say="elder. the eldest."><b>elder, the eldest</b></td><td>solo in famiglia: <i>my elder brother</i>. Mai con than: <span class="no">elder than me</span> → <span class="yes">older than me</span></td></tr>
+</table>`,
+ words:[["far","lontano"],["further","più lontano, ma anche ulteriore"],["elder","maggiore di età, tra fratelli"]],
+ ask:["«Il mio voto è peggiore del tuo.» Come si dice?","<b>My mark is worse than yours.</b>"]},
+
+/* ---------- 3 · IL PIÙ… ---------- */
+{parte:2, t:"Il superlativo: il più… di tutti",
+ body:`<p class="s">Il superlativo confronta una persona con tutto il suo gruppo. Si formano con le stesse regole, ma con the davanti.</p>
+<div class="strip s" data-l="en" data-say="Mark is the tallest of the three boys." onclick="hear(this)">
+<span class="ck"><b>Mark</b><i>chi</i></span><span class="ck v"><b>is</b><i>verbo</i></span><span class="ck c"><b>the tallest</b><i>il più alto</i></span><span class="ck t"><b>of</b><i>di</i></span><span class="ck"><b>the three boys.</b><i>il gruppo</i></span>
+</div>
+<div class="rbox k0"><span class="rt s" data-say="Aggettivi corti: the, e poi e esse ti alla fine.">corti → the … -est</span><span class="rx s" data-l="en" onclick="hear(this)">the smallest, the hottest, the safest, the busiest</span></div>
+<div class="rbox k5"><span class="rt s" data-say="Aggettivi lunghi: the most davanti.">lunghi → the most …</span><span class="rx s" data-l="en" onclick="hear(this)">the most generous, the most expensive</span></div>
+<p class="s" data-say="Dopo il superlativo, di si dice in due modi. Of, se c'è un gruppo di persone o di cose. In, se c'è un luogo.">Dopo il superlativo, «di» si dice in due modi:</p>
+<div class="exen"><div class="lbl">of + un gruppo</div>
+<div class="l s" data-l="en" onclick="hear(this)">She's the cleverest of all.</div>
+<div class="l s" data-l="en" onclick="hear(this)">This pullover is the most expensive of all the pullovers in the shop.</div></div>
+<div class="exen"><div class="lbl">in + un luogo</div>
+<div class="l s" data-l="en" onclick="hear(this)">He's the nicest person in town.</div>
+<div class="l s" data-l="en" onclick="hear(this)">Shanghai is one of the biggest cities in the world.</div></div>
+<div class="trap s" data-say="Non dimenticare the. E si dice in the world, non of the world."><b>Non dimenticare the.</b> <span class="no">He's tallest</span> → <span class="yes">He's the tallest</span><br><span class="no">of the world</span> → <span class="yes">in the world</span></div>`,
+ ask:["«È la ragazza più simpatica della classe.»","<b>She's the nicest girl in the class.</b> Classe è un luogo: <b>in</b>."]},
+
+{parte:2, t:"Tre casi speciali",
+ body:`<p class="s">Questi tre casi compaiono spesso negli esercizi del libro.</p>
+<div class="rbox k5"><span class="rt s" data-say="Primo: one of the, più il superlativo, più un nome al plurale.">one of the … + plurale</span>
+<span class="rx s" data-l="en" onclick="hear(this)">Cricket is one of the most popular sports in England.</span>
+<span class="s" data-say="Il nome va al plurale, con la esse.">Il nome va al plurale: <span class="no">sport</span> → <span class="yes">sports</span>.</span></div>
+<div class="rbox k0"><span class="rt s" data-say="Secondo: dopo il superlativo può venire una frase con that. That si può anche togliere.">the … (that) I have ever…</span>
+<span class="rx s" data-l="en" onclick="hear(this)">This is the best book (that) I have ever read.</span>
+<span class="rx s" data-l="en" onclick="hear(this)">Death Valley is the hottest place on earth.</span></div>
+<div class="rbox k3"><span class="rt s" data-say="Terzo: se le cose sono solo due, si usa il comparativo con the davanti.">Tra due soltanto → the + comparativo</span>
+<span class="rx s" data-l="en" onclick="hear(this)">Which is the cheaper of the two pullovers?</span></div>`,
+ words:[["ever","mai, in tutta la vita: the best I have ever seen"],["on earth","sulla terra: the hottest place on earth"]],
+ ask:["Completa: «Ireland is one of the (wet) … countries in the world.»","<b>the wettest countries</b>: wet raddoppia la t, e countries è plurale."]},
+
+/* ---------- 4 · MENO… DI ---------- */
+{parte:3, t:"Meno… di: less e fewer",
+ body:`<p class="s">Per dire meno di si usa less. Ma davanti a un nome, prima devi capire se quella cosa si conta o no.</p>
+<div class="exen"><div class="lbl">less + aggettivo o avverbio + than</div>
+<div class="l s" data-l="en" onclick="hear(this)">This film is less interesting than the book.</div>
+<div class="l s" data-l="en" onclick="hear(this)">He studies less than me.<small>dopo un verbo: verbo + less</small></div></div>
+<div class="cnt">
+<div class="ca"><h4>si contano → fewer</h4><div class="big">🍎🍎🍎</div><span class="s" data-l="en" data-say="fewer students. fewer friends. fewer mistakes." onclick="hear(this)">fewer <b>students</b>, fewer <b>friends</b>, fewer <b>mistakes</b></span></div>
+<div class="cb"><h4>non si contano → less</h4><div class="big">💧💶⏳</div><span class="s" data-l="en" data-say="less water. less money. less time." onclick="hear(this)">less <b>water</b>, less <b>money</b>, less <b>time</b></span></div>
+</div>
+<p class="s" data-say="Il trucco: se puoi dire uno, due, tre, si conta, e ci vuole fewer.">Il trucco: se puoi dire «uno, due, tre…», si conta → <b>fewer</b>.</p>
+<div class="rbox k6"><span class="rt s" data-say="Il superlativo: the least, e the fewest.">Il meno di tutti</span>
+<span class="rx s" data-l="en" onclick="hear(this)">the least expensive shirt in the shop</span>
+<span class="rx s" data-l="en" onclick="hear(this)">Tom made the fewest mistakes of all.</span></div>`,
+ ask:["«Ho meno amici di mia sorella.» fewer o less?","<b>I have fewer friends than my sister.</b> Gli amici si contano."]},
+
+{parte:3, t:"Gli inglesi preferiscono not as… as",
+ body:`<p class="s">Less si usa poco. Gli inglesi preferiscono dire la stessa cosa in un altro modo. Ci sono due strade.</p>
+<div class="rbox k6"><span class="rt s" data-say="Frase con less.">Con less</span><span class="rx s" data-l="en" onclick="hear(this)">This car is less fast than that one.</span></div>
+<div class="rbox k2"><span class="rt s" data-say="Prima strada: not as, aggettivo, as.">Strada 1 · not as … as</span><span class="rx s" data-l="en" onclick="hear(this)">This car isn't as fast as that one.</span></div>
+<div class="rbox k0"><span class="rt s" data-say="Seconda strada: il comparativo dell'aggettivo contrario.">Strada 2 · il contrario + -er</span><span class="rx s" data-l="en" onclick="hear(this)">This car is slower than that one.</span></div>
+<p class="s">Per la seconda strada servono i contrari. Eccone alcuni.</p>
+<div class="exen">
+<div class="l s" data-l="en" onclick="hear(this)">expensive ↔ cheap</div>
+<div class="l s" data-l="en" onclick="hear(this)">interesting ↔ boring</div>
+<div class="l s" data-l="en" onclick="hear(this)">difficult ↔ easy</div>
+<div class="l s" data-l="en" onclick="hear(this)">heavy ↔ light</div>
+<div class="l s" data-l="en" onclick="hear(this)">lazy ↔ active</div>
+</div>`,
+ ask:["Trasforma: «The test was less difficult than I expected.» con il contrario.","<b>The test was easier than I expected.</b>"]},
+
+/* ---------- 5 · TANTO… QUANTO ---------- */
+{parte:4, t:"Tanto… quanto: as… as",
+ body:`<p class="s">Per dire che due cose sono uguali si usa as, prima e dopo l'aggettivo. Al posto di than, qui ci vuole il secondo as.</p>
+<div class="strip s" data-l="en" data-say="Lucy is as old as Paul." onclick="hear(this)">
+<span class="ck"><b>Lucy</b><i>chi</i></span><span class="ck v"><b>is</b><i>verbo</i></span><span class="ck t"><b>as</b><i>tanto</i></span><span class="ck c"><b>old</b><i>vecchio</i></span><span class="ck t"><b>as</b><i>quanto</i></span><span class="ck"><b>Paul.</b><i>con chi</i></span>
+</div>
+<table>
+<tr><th>davanti a</th><th>si usa</th></tr>
+<tr><td>aggettivo o avverbio</td><td class="s" data-l="en" data-say="as tall as. Shirley dances as well as me."><b>as … as</b><br><i>Shirley dances as well as me.</i></td></tr>
+<tr><td>nome che non si conta</td><td class="s" data-l="en" data-say="as much money as."><b>as much … as</b><br><i>as much money as</i></td></tr>
+<tr><td>nome plurale che si conta</td><td class="s" data-l="en" data-say="as many people as."><b>as many … as</b><br><i>as many people as</i></td></tr>
+<tr><td>dopo un verbo</td><td class="s" data-l="en" data-say="He earns as much as me."><b>verbo + as much as</b><br><i>He earns as much as me.</i></td></tr>
+</table>
+<div class="trap s" data-say="Attenzione: as e than non vanno insieme. Non si dice as tall than. E people è plurale, quindi as many people, non as much people."><b>as va con as.</b> <span class="no">as tall than</span> → <span class="yes">as tall as</span><br><span class="no">as much people</span> → <span class="yes">as many people</span> (people è plurale)</div>`,
+ ask:["«Ho tanti libri quanto te.» much o many?","<b>I have as many books as you.</b> I libri si contano."]},
+
+{parte:4, t:"Non così… come, il doppio, lo stesso",
+ body:`<p class="s">Con as… as si possono dire anche altre cose.</p>
+<div class="rbox k6"><span class="rt s" data-say="Negativo: not as, oppure not so.">Negativo · not as / not so … as</span>
+<span class="rx s" data-l="en" onclick="hear(this)">John isn't as tall as his brother.</span>
+<span class="rx s" data-l="en" onclick="hear(this)">I didn't eat as much meat as Steve.</span></div>
+<div class="rbox k0"><span class="rt s" data-say="Il doppio, il triplo: twice as, three times as.">Il doppio · twice as … as</span>
+<span class="rx s" data-l="en" onclick="hear(this)">Stuart is twice as tall as Alan.</span>
+<span class="rx s" data-l="en" onclick="hear(this)">Ted swims three times as fast as you.</span></div>
+<div class="rbox k2"><span class="rt s" data-say="Lo stesso: the same, un nome, as.">Lo stesso · the same + nome + as</span>
+<span class="rx s" data-l="en" onclick="hear(this)">You are the same height as Alan.</span>
+<span class="rx s" data-l="en" onclick="hear(this)">Ted's birthday is on the same day as Bob's.</span></div>`,
+ words:[["twice","due volte"],["three times","tre volte"],["height","altezza"],["age","età"]],
+ ask:["«Alice ha la stessa età di Emily.»","<b>Alice is the same age as Emily.</b>"]},
+
+/* ---------- 6 · LE ESPRESSIONI ---------- */
+{parte:5, t:"Le espressioni da imparare (p. 195, n. 1)",
+ body:`<p class="s">La prof ha chiesto di imparare queste espressioni. Sono paragoni fissi con as… as. Tocca un riquadro per ascoltarlo. Guarda bene l'animale o l'oggetto: spesso non è lo stesso dell'italiano.</p>
+<div class="sims">
+<div class="sim s" data-l="en" data-say="as light as a feather" onclick="hear(this)"><div class="em">🪶</div><div class="en">as light as a feather</div><div class="it">leggero come una piuma</div></div>
+<div class="sim s" data-l="en" data-say="as quick as a flash" onclick="hear(this)"><div class="em">⚡</div><div class="en">as quick as a flash</div><div class="it">veloce come un lampo</div></div>
+<div class="sim s" data-l="en" data-say="as busy as a bee" onclick="hear(this)"><div class="em">🐝</div><div class="en">as busy as a bee</div><div class="it">indaffarato come un'ape</div></div>
+<div class="sim s" data-l="en" data-say="as clean as a whistle" onclick="hear(this)"><div class="em">✨</div><div class="en">as clean as a whistle</div><div class="it">pulitissimo (whistle = fischietto)</div></div>
+<div class="sim s" data-l="en" data-say="as good as gold" onclick="hear(this)"><div class="em">🥇</div><div class="en">as good as gold</div><div class="it">buono come il pane, bravissimo</div></div>
+<div class="sim s" data-l="en" data-say="as deaf as a post" onclick="hear(this)"><div class="em">🔇</div><div class="en">as deaf as a post</div><div class="it">sordo come una campana (post = palo)</div></div>
+<div class="sim s" data-l="en" data-say="as blind as a bat" onclick="hear(this)"><div class="em">🦇</div><div class="en">as blind as a bat</div><div class="it">cieco come una talpa (bat = pipistrello)</div></div>
+<div class="sim s" data-l="en" data-say="as obstinate as a mule" onclick="hear(this)"><div class="em">🐴</div><div class="en">as obstinate as a mule</div><div class="it">testardo come un mulo</div></div>
+</div>
+<div class="trap s" data-say="In più, dalla lettura di pagina duecentotrentasei: as cool as a cucumber, calmo come un cetriolo, cioè tranquillissimo, sangue freddo." ><b>In più, dalla lettura di p. 236:</b> <button class="e" onclick="hear(this)">as cool as a cucumber</button> 🥒 = calmissimo, con sangue freddo.</div>`,
+ words:[["feather","piuma"],["flash","lampo"],["bee","ape"],["whistle","fischietto"],["gold","oro"],["post","palo"],["bat","pipistrello"],["mule","mulo"],["deaf","sordo"],["blind","cieco"],["obstinate","testardo"]],
+ ask:["«Senza occhiali non vedo niente.» Quale espressione?","<b>I'm as blind as a bat without my glasses.</b>"]},
+
+{parte:5, t:"Mettiti alla prova: quale espressione?",
+ body:`<p class="s">Leggi la situazione e pensa a quale espressione ci sta. Poi tocca il punto di domanda.</p>
+<div class="def s" data-l="en" data-say="Tom finished his homework in two minutes. He was...">Tom finished his homework in two minutes. He was… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as quick as a flash</span></div>
+<div class="def s" data-l="en" data-say="My little sister never behaves badly. She's...">My little sister never behaves badly. She's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as good as gold</span></div>
+<div class="def s" data-l="en" data-say="Grandpa can't hear anything. He's...">Grandpa can't hear anything. He's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as deaf as a post</span></div>
+<div class="def s" data-l="en" data-say="My mum works, studies and cooks every day. She's always...">My mum works, studies and cooks every day. She's always… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as busy as a bee</span></div>
+<div class="def s" data-l="en" data-say="This bag weighs almost nothing. It's...">This bag weighs almost nothing. It's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as light as a feather</span></div>
+<div class="def s" data-l="en" data-say="Mark never changes his mind, even when he's wrong. He's...">Mark never changes his mind, even when he's wrong. He's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as obstinate as a mule</span></div>
+<div class="def s" data-l="en" data-say="We cleaned the kitchen after the party. Now it's...">We cleaned the kitchen after the party. Now it's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as clean as a whistle</span></div>
+<div class="def s" data-l="en" data-say="I can't see anything without my glasses. I'm...">I can't see anything without my glasses. I'm… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as blind as a bat</span></div>`},
+
+/* ---------- 7 · LA MAPPA ---------- */
+{parte:6, t:"La mappa della grammatica (p. 230)", init:"mapInit",
+ body:`<p class="s">Questa è la mappa del libro, già completata, con gli stessi colori della macchina. Prima leggila. Poi tocca Nascondi le risposte e prova a dire ogni numero a voce: tocca il riquadro per controllare.</p>
+<button class="mini" id="mapBtn" onclick="mapToggle()">Nascondi le risposte</button>
+<div class="gmap" id="gmap"></div>`,
+ ask:["Numeri 9, 10, 11 e 12: le forme di <b>simple</b>?","<b>simpler</b> oppure <b>more simple</b>; <b>the simplest</b> oppure <b>the most simple</b>."]},
+
+{parte:6, t:"La mappa: meno, uguale, non uguale",
+ body:`<p class="s">La parte bassa della mappa ha le formule con un esempio da completare. Eccole con un esempio completo per ognuna.</p>
+<div class="frm k6"><div class="ft">LESS + aggettivo / avverbio / non numerabile + THAN</div><div class="fe s" data-l="en" onclick="hear(this)">She was less nervous than me.</div></div>
+<div class="frm k6"><div class="ft">FEWER + plurale numerabile + THAN</div><div class="fe s" data-l="en" onclick="hear(this)">There were fewer students than last year.</div></div>
+<div class="frm k6"><div class="ft">THE LEAST / THE FEWEST + … + IN / OF</div><div class="fe s" data-l="en" onclick="hear(this)">This is the least expensive shirt in the shop.</div><div class="fe s" data-l="en" onclick="hear(this)">I scored the fewest points of all.</div></div>
+<div class="frm k2"><div class="ft">AS + aggettivo / avverbio + AS</div><div class="fe s" data-l="en" onclick="hear(this)">My mum is as tall as me.</div></div>
+<div class="frm k2"><div class="ft">AS MUCH + non numerabile + AS</div><div class="fe s" data-l="en" onclick="hear(this)">This week I have as much homework as last week.</div></div>
+<div class="frm k2"><div class="ft">AS MANY + plurale numerabile + AS</div><div class="fe s" data-l="en" onclick="hear(this)">I have as many books as you.</div></div>
+<div class="frm k2"><div class="ft">verbo + AS MUCH AS</div><div class="fe s" data-l="en" onclick="hear(this)">Here it snows as much as in Norway.</div></div>
+<div class="frm k3"><div class="ft">NOT AS / SO … AS · NOT AS MUCH / MANY … AS</div><div class="fe s" data-l="en" onclick="hear(this)">My cat is not as lazy as my dog.</div><div class="fe s" data-l="en" onclick="hear(this)">I did not buy as many sweets as you.</div><div class="fe s" data-l="en" onclick="hear(this)">I don't talk as much as my sister.</div></div>`}
+];
+
+/* ═══════ carte ═══════ */
+let idx = 0, reading = false, queue = [], qi = 0, rate = 0.88;
+const stage = document.getElementById("stage"), chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += '</article>';
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("ing-u7-teoria-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+  if(on) hear({getAttribute:()=>null, textContent:btn.textContent});
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+function rv(btn){
+  const h = btn.nextElementSibling; if(h){ h.classList.add("on"); hear({getAttribute:()=>null, textContent:h.textContent}); }
+  btn.style.display = "none";
+}
+
+/* ═══════ tessere del carattere ═══════ */
+const POS = [
+ ["cheerful","allegro, di buon umore"],["confident","sicuro di sé"],["outgoing","estroverso, espansivo"],
+ ["hard-working","gran lavoratore"],["open-minded","di mentalità aperta"],["sensible","giudizioso, con buon senso (non vuol dire sensibile!)"],
+ ["reliable","affidabile, su cui puoi contare"],["lively","vivace, pieno di vita"],["brave","coraggioso"],
+ ["honest","onesto, sincero"],["generous","generoso"],["serious","serio"],["sensitive","sensibile"],
+ ["creative","creativo"],["optimistic","ottimista"],["sociable","socievole"],["easy-going","tranquillo, accomodante"],
+ ["helpful","disponibile, che aiuta"],["patient","paziente"],["talkative","chiacchierone"],["polite","educato"]
+];
+const NEG = [
+ ["bossy","prepotente, dà sempre ordini"],["insecure","insicuro"],["moody","lunatico, cambia umore"],
+ ["pessimistic","pessimista"],["anxious","ansioso, si preoccupa sempre"],["selfish","egoista"],
+ ["nervous","agitato per una cosa precisa"],["rude","maleducato"],["shy","timido"],["lazy","pigro"]
+];
+function tilesInit(){
+  [["P",POS],["N",NEG]].forEach(([k,L])=>{
+    const el = document.getElementById("tiles"+k); if(!el) return;
+    el.innerHTML = L.map((w,i)=>'<button class="tile" onclick="tileTap(\''+k+'\','+i+',this)">'+w[0]+'</button>').join("");
+  });
+}
+function tileTap(k,i,btn){
+  const L = k==="P" ? POS : NEG;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  document.getElementById("tout"+k).innerHTML = '<b>'+L[i][0]+'</b> = '+L[i][1];
+  hear({getAttribute:()=>null, textContent:L[i][0]});
+}
+function allTr(k){
+  const L = k==="P" ? POS : NEG;
+  document.getElementById("tout"+k).innerHTML = '<table>'+L.map(w=>'<tr><td><b style="font-size:16px">'+w[0]+'</b></td><td>'+w[1]+'</td></tr>').join("")+'</table>';
+}
+
+/* ═══════ la macchina dei comparativi ═══════ */
+const RULES = [
+ {c:"--r0", t:"Una sillaba", f:"+ -er · the + -est"},
+ {c:"--r1", t:"Una sillaba: una vocale + una consonante", f:"raddoppia + -er · -est"},
+ {c:"--r2", t:"Finisce in -e", f:"+ -r · + -st"},
+ {c:"--r3", t:"Due sillabe in -y (e l'avverbio early)", f:"y → i + -er · -est"},
+ {c:"--r4", t:"Due sillabe in -er, -le, -ow (e common)", f:"-er oppure more"},
+ {c:"--r5", t:"Due sillabe o più, avverbi in -ly", f:"more · the most"},
+ {c:"--r6", t:"Irregolari", f:"a memoria"}
+];
+const ADJ = [
+ ["tall",0,"taller","the tallest","tall ha una sola sillaba."],
+ ["generous",5,"more generous","the most generous","ge-ne-rous: tre sillabe."],
+ ["big",1,"bigger","the biggest","b-i-g: una vocale e una consonante in fondo, quindi la g raddoppia."],
+ ["busy",3,"busier","the busiest","bu-sy: due sillabe in -y. La y diventa i."],
+ ["nice",2,"nicer","the nicest","finisce già in -e: basta aggiungere -r."],
+ ["good",6,"better","the best","è irregolare: si impara a memoria."],
+ ["clever",4,"cleverer / more clever","the cleverest / the most clever","cle-ver: due sillabe in -er. Vanno bene tutte e due."],
+ ["cheap",0,"cheaper","the cheapest","una sillaba, ma con due vocali (ea): niente raddoppio."],
+ ["expensive",5,"more expensive","the most expensive","ex-pen-sive: tre sillabe."],
+ ["hot",1,"hotter","the hottest","h-o-t: la t raddoppia."],
+ ["lazy",3,"lazier","the laziest","la-zy: due sillabe in -y."],
+ ["safe",2,"safer","the safest","finisce in -e."],
+ ["bad",6,"worse","the worst","irregolare. Attenzione: worse è peggiore, worst è il peggiore."],
+ ["simple",4,"simpler / more simple","the simplest / the most simple","sim-ple: due sillabe in -le."],
+ ["shy",0,"shyer","the shyest","una sola sillaba."],
+ ["interesting",5,"more interesting","the most interesting","quattro sillabe."],
+ ["friendly",3,"friendlier","the friendliest","friend-ly: due sillabe in -y."],
+ ["brave",2,"braver","the bravest","finisce in -e."],
+ ["far",6,"farther / further","the farthest / the furthest","irregolare: due forme."],
+ ["narrow",4,"narrower / more narrow","the narrowest / the most narrow","nar-row: due sillabe in -ow."],
+ ["patient",5,"more patient","the most patient","pa-tient: due sillabe, ma non finisce in -y, -er, -le, -ow."],
+ ["fast",0,"faster","the fastest","avverbio di una sillaba: si comporta come tall."],
+ ["early",3,"earlier","the earliest","l'avverbio early segue la regola della -y."],
+ ["slowly",5,"more slowly","the most slowly","avverbio in -ly: sempre more."],
+ ["well",6,"better","the best","avverbio irregolare, come good."],
+ ["thin",1,"thinner","the thinnest","t-h-i-n: una vocale e una consonante in fondo."],
+ ["rude",2,"ruder","the rudest","finisce in -e."],
+ ["lively",3,"livelier","the liveliest","live-ly: due sillabe in -y."]
+];
+let machSel = -1;
+function machInit(){ machSel = -1; machDraw(); }
+function machPick(i){
+  machSel = i; machDraw();
+  const a = ADJ[i];
+  hear({getAttribute:()=>null, textContent:a[0]+". "+a[2]+". "+a[3]+"."});
+}
+function machDraw(){
+  const el = document.getElementById("mach"); if(!el) return;
+  const a = machSel>=0 ? ADJ[machSel] : null;
+  let h = '<div class="adj">';
+  ADJ.forEach((x,i)=>{ h += '<button class="'+(i===machSel?"on":"")+'" onclick="machPick('+i+')">'+x[0]+'</button>'; });
+  h += '</div><div class="mout">';
+  if(a){
+    h += '<div class="fm"><span><i>più… di</i>'+a[2]+'</span><span><i>il più…</i>'+a[3]+'</span></div>'
+       + '<div>Perché: '+a[4]+'</div>';
+  }else{
+    h += 'Tocca un aggettivo qui sopra.';
+  }
+  h += '</div><div class="rungs">';
+  RULES.forEach((r,k)=>{
+    const on = a && a[1]===k;
+    h += '<div class="rung'+(on?" on":"")+'" style="border-left-color:var('+r.c+');'+(on?'background:var('+r.c+');border-color:var('+r.c+')':'')+'"><b>'+r.t+'</b> → '+r.f+'</div>';
+  });
+  el.innerHTML = h + '</div>';
+}
+
+/* ═══════ la mappa ═══════ */
+const MAP = [
+ [0,"One-syllable adjectives / adverbs","una sillaba","small","smaller","the smallest","1","2"],
+ [1,"One-syllable adjectives ending in one vowel + one consonant","una vocale + una consonante","hot","hotter","the hottest","3","4"],
+ [2,"One- / two-syllable adjectives ending in -e","finiscono in -e","safe","safer","the safest","5","6"],
+ [3,"Two-syllable adjectives ending in -y and the adverb early","due sillabe in -y, ed early","busy","busier","the busiest","7","8"],
+ [4,"Two-syllable adjectives ending in -er, -le or -ow and the adjective common","due sillabe in -er, -le, -ow, e common","simple","simpler OR more simple","the simplest OR the most simple","9 · 10","11 · 12"],
+ [5,"Adjectives of two or more syllables, adverbs ending in -ly and the adjectives eager and tender","due sillabe o più, avverbi in -ly","generous","more generous","the most generous","13","14"],
+ [6,"Irregular adjectives / adverbs","irregolari","good","better","the best","15","18"],
+ [6,"","","bad","worse","the worst","16","19"],
+ [6,"","","far","farther / further","the farthest / the furthest","17","20"]
+];
+let mapHide = false;
+function mapInit(){ mapHide = false; mapDraw(); }
+function mapToggle(){ mapHide = !mapHide; mapDraw(); }
+function mapDraw(){
+  const el = document.getElementById("gmap"); if(!el) return;
+  el.className = "gmap"+(mapHide?" hide":"");
+  const b = document.getElementById("mapBtn"); if(b) b.textContent = mapHide ? "Mostra tutte le risposte" : "Nascondi le risposte";
+  let h = "";
+  MAP.forEach(m=>{
+    h += '<div class="gm g'+m[0]+'">'
+      + (m[1] ? '<div class="gl">'+m[1]+'</div><div class="gi">'+m[2]+'</div>' : '')
+      + '<div class="gr"><div class="gc"><small>comparativo</small>'+m[3]+' → <button class="ans" data-n="'+m[6]+'" onclick="ansTap(this)">'+m[4]+'</button></div>'
+      + '<div class="gc"><small>superlativo</small>'+m[3]+' → <button class="ans" data-n="'+m[7]+'" onclick="ansTap(this)">'+m[5]+'</button></div></div></div>';
+  });
+  el.innerHTML = h;
+}
+function ansTap(b){
+  b.classList.add("show");
+  hear({getAttribute:()=>null, textContent:b.textContent});
+}
+
+/* ═══════ lettura ad alta voce: italiano e inglese ═══════ */
+let voIt = null, voEn = null, warmed = false;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voIt = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+  voEn = vs.find(v=>v.lang==="en-GB") || vs.find(v=>/^en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function warmUp(){
+  if(warmed || !window.speechSynthesis) return;
+  warmed = true;
+  try{ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }catch(e){}
+}
+document.addEventListener("touchstart", warmUp, {once:true});
+document.addEventListener("click", warmUp, {once:true});
+
+function clean(t,en){
+  return String(t)
+    .replace(/…/g, en ? "... " : ", ")
+    .replace(/→|↔/g, ", ")
+    .replace(/\s\/\s/g, en ? " or " : " oppure ")
+    .replace(/\bOR\b/g, "or")
+    .replace(/[·✗✓()]/g, " ")
+    .replace(/\s+/g, " ").trim();
+}
+function mk(t,en){
+  const u = new SpeechSynthesisUtterance(clean(t,en));
+  u.lang = en ? "en-GB" : "it-IT";
+  u.rate = en ? Math.max(0.6, rate-0.06) : rate;
+  u.pitch = 1;
+  const v = en ? voEn : voIt; if(v) u.voice = v;
+  return u;
+}
+function hear(el){
+  if(!window.speechSynthesis) return;
+  if(reading) stop();
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const t = (el.getAttribute && (el.getAttribute("data-en") || el.getAttribute("data-say"))) || el.textContent;
+  speechSynthesis.speak(mk(t, true));
+}
+function isEn(el){ return el.getAttribute("data-l")==="en"; }
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = mk(el.getAttribute("data-say") || el.textContent, isEn(el));
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("ing-u7-teoria-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>
