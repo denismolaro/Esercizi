@@ -1,0 +1,935 @@
+{
+ "id": "st-01-nomi-date",
+ "subject": "Storia",
+ "lang": "it",
+ "title": "Nomi, date e parole — capitoli 18 e 19",
+ "blurb": "Solo scelta multipla e riordino, niente da scrivere. I nomi propri, le date, i luoghi e le parole dei due capitoli sulla crisi della Repubblica, con le coppie che si confondono.",
+ "updated": "2026-09-27",
+ "len": 14,
+ "items": [
+  {
+   "type": "info",
+   "title": "Le coppie che si confondono",
+   "html": "<p style='margin:0 0 9px;font-size:15px'>Questi sono i nomi che si assomigliano. Guardali una volta prima di cominciare.</p><table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='background:#8C2F39;color:#fff;padding:7px;font-weight:700;white-space:nowrap;vertical-align:top'>Èuno<br>Spartaco</td><td style='padding:7px;border-bottom:1px solid #ddd'>Due rivolte diverse. <b>Èuno</b>: schiavo siriano, Enna, Sicilia, 136 a.C. <b>Spartaco</b>: gladiatore tracio, Capua, 73 a.C.</td></tr><tr><td style='background:#8C2F39;color:#fff;padding:7px;font-weight:700;white-space:nowrap;vertical-align:top'>Catone<br>il Censore<br>l'Uticense</td><td style='padding:7px;border-bottom:1px solid #ddd'><b>Il Censore</b>: il manuale De agri cultura, capitolo 18. <b>L'Uticense</b>: l'ottimate che si oppone a Cesare, capitolo 19.</td></tr><tr><td style='background:#4A3A8C;color:#fff;padding:7px;font-weight:700;white-space:nowrap;vertical-align:top'>Clodio<br>Milone</td><td style='padding:7px;border-bottom:1px solid #ddd'><b>Clodio</b> è il popolare con i picchiatori. <b>Milone</b> è l'ottimate con i gladiatori.</td></tr><tr><td style='background:#4A3A8C;color:#fff;padding:7px;font-weight:700;white-space:nowrap;vertical-align:top'>Cornelia<br>Giulia</td><td style='padding:7px;border-bottom:1px solid #ddd'><b>Cornelia</b> è la madre dei Gracchi. <b>Giulia</b> è la zia di Cesare che sposò Mario.</td></tr><tr><td style='background:#4A3A8C;color:#fff;padding:7px;font-weight:700;white-space:nowrap;vertical-align:top'>Farsalo<br>Filippi</td><td style='padding:7px'><b>Farsalo</b> 48: Cesare contro Pompeo. <b>Filippi</b> 42: il triumvirato contro Bruto e Cassio.</td></tr></table>"
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Èuno",
+   "options": [
+    "Lo schiavo siriano che guidò la prima rivolta in Sicilia",
+    "Il re di Pergamo che lasciò il regno a Roma",
+    "Il tribuno che pose il veto a Tiberio Gracco",
+    "Il gladiatore tracio della rivolta del 73 a.C."
+   ],
+   "answer": "Lo schiavo siriano che guidò la prima rivolta in Sicilia",
+   "why": "Èuno si faceva chiamare Antioco, come un re. La rivolta partì da Enna nel 136 a.C. Il gladiatore tracio è Spartaco, molto più tardi."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Marco Ottavio",
+   "options": [
+    "Il tribuno che pose il veto alla legge di Tiberio Gracco",
+    "Il console che marciò su Roma nell'88 a.C.",
+    "Il capo degli ottimati contro Cesare",
+    "Il re di Numidia sconfitto da Mario"
+   ],
+   "answer": "Il tribuno che pose il veto alla legge di Tiberio Gracco",
+   "why": "Era l'altro tribuno del 133 a.C., anche lui grande possessore di agro pubblico. Tiberio lo fece deporre dal concilio della plebe."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Attalo III",
+   "options": [
+    "Il re di Pergamo che lasciò il suo regno in eredità a Roma",
+    "Il re del Ponto sconfitto da Pompeo",
+    "Il faraone che fece uccidere Pompeo",
+    "Il re gallico sconfitto ad Alesia"
+   ],
+   "answer": "Il re di Pergamo che lasciò il suo regno in eredità a Roma",
+   "why": "Tiberio Gracco propose di usare il suo tesoro per finanziare la riforma agraria, scavalcando il Senato. Il re del Ponto è Mitridate."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Saturnino",
+   "options": [
+    "Il tribuno popolare la cui rivolta costò a Mario l'appoggio dei popolari",
+    "Il tribuno che revocò a Silla il comando contro Mitridate",
+    "Il tribuno ucciso in casa sua nel 91 a.C.",
+    "Il console senza collega del 52 a.C."
+   ],
+   "answer": "Il tribuno popolare la cui rivolta costò a Mario l'appoggio dei popolari",
+   "why": "Nel 100 a.C. Saturnino e Galba guidarono un'insurrezione. Il Senato impose a Mario di reprimerla e Mario perse i popolari. Il tribuno ucciso nel 91 è Druso."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Sulpicio Rufo",
+   "options": [
+    "Il tribuno che fece revocare a Silla il comando contro Mitridate",
+    "Il tribuno che propose la cittadinanza agli Italici",
+    "Il capo della seconda rivolta servile",
+    "Il generale che sconfisse Spartaco"
+   ],
+   "answer": "Il tribuno che fece revocare a Silla il comando contro Mitridate",
+   "why": "Fu quel plebiscito a far scattare la marcia di Silla su Roma nell'88 a.C. Chi sconfisse Spartaco fu Crasso."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Giugurta",
+   "options": [
+    "Il re di Numidia che conquistò Cirta nel 112 a.C.",
+    "Il capo dei Cimbri sconfitto ai Campi Raudii",
+    "Il re di Armenia sottomesso da Pompeo",
+    "Il capo della lega italica di Corfinio"
+   ],
+   "answer": "Il re di Numidia che conquistò Cirta nel 112 a.C.",
+   "why": "La guerra giugurtina portò Mario al consolato del 107. Nel 105 Giugurta sfilò in catene a Roma e fu giustiziato."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Marco Livio Druso",
+   "options": [
+    "Il tribuno del 91 a.C. ucciso in casa, la cui morte fece scoppiare la guerra sociale",
+    "Il tribuno che revocò il comando a Silla",
+    "Il console che vinse a Porta Collina",
+    "Il capo dei picchiatori popolari a Roma"
+   ],
+   "answer": "Il tribuno del 91 a.C. ucciso in casa, la cui morte fece scoppiare la guerra sociale",
+   "why": "Aveva proposto una riforma complessiva. Con la sua morte gli Italici persero ogni speranza e si federarono a Corfinio."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Spartaco",
+   "options": [
+    "Il gladiatore tracio che guidò la rivolta scoppiata a Capua nel 73 a.C.",
+    "Lo schiavo siriano che si fece chiamare Antioco",
+    "Uno dei due capi della seconda rivolta servile in Sicilia",
+    "Il gladiatore che guidò la milizia di Milone"
+   ],
+   "answer": "Il gladiatore tracio che guidò la rivolta scoppiata a Capua nel 73 a.C.",
+   "why": "Lo schiavo siriano di nome Antioco è Èuno, un'altra rivolta e un altro secolo. Spartaco morì in battaglia nel 71 a.C."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Gaio Verre",
+   "options": [
+    "L'ex governatore della Sicilia che Cicerone accusò di corruzione",
+    "Il console che fece giustiziare i catilinari",
+    "Il questore che denunciò i soprusi in Sicilia",
+    "Il governatore delle Gallie prima di Cesare"
+   ],
+   "answer": "L'ex governatore della Sicilia che Cicerone accusò di corruzione",
+   "why": "Attenzione a non invertirli: il questore che accusa è Cicerone, l'accusato è Verre."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Catone l'Uticense",
+   "options": [
+    "Il capo intransigente degli ottimati, contrario alla riforma agraria di Cesare",
+    "Il capo dei popolari dopo la morte di Cesare",
+    "L'autore del manuale De agri cultura",
+    "Il console che denunciò Catilina"
+   ],
+   "answer": "Il capo intransigente degli ottimati, contrario alla riforma agraria di Cesare",
+   "why": "Marco Porcio Catone (93-45 a.C.) si suicidò a Utica nel 46, da cui il soprannome. L'autore del De agri cultura è Catone il Censore, un suo antenato."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Publio Clodio",
+   "options": [
+    "Il tribuno popolare che organizzò le squadre di picchiatori a Roma",
+    "L'ottimate che rispose con una milizia di gladiatori",
+    "Il tribuno che propose la legge frumentaria",
+    "Il generale che conquistò Alesia"
+   ],
+   "answer": "Il tribuno popolare che organizzò le squadre di picchiatori a Roma",
+   "why": "Clodio era l'uomo di Cesare a Roma. L'ottimate con i gladiatori è Milone. L'uccisione di Clodio nel 52 fece nominare Pompeo console senza collega."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Vercingetorige",
+   "options": [
+    "Il re gallico sconfitto da Cesare ad Alesia nel 52 a.C.",
+    "Il capo dei Teutoni battuto ad Aquae Sextiae",
+    "Il re dei Parti che uccise Crasso a Carre",
+    "Il capo della federazione dei pirati"
+   ],
+   "answer": "Il re gallico sconfitto da Cesare ad Alesia nel 52 a.C.",
+   "why": "Dopo sei anni di prigionia sfilò in catene nel trionfo di Cesare nel 46 a.C. e fu ucciso."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Tolomeo XIII",
+   "options": [
+    "Il faraone quattordicenne che fece uccidere Pompeo a tradimento",
+    "Il re del Ponto che si uccise nel 63 a.C.",
+    "Il fratello di Cesarione",
+    "Il re di Armenia sottomesso da Pompeo"
+   ],
+   "answer": "Il faraone quattordicenne che fece uccidere Pompeo a tradimento",
+   "why": "Era in lotta per il trono con la sorella Cleopatra e sperava così di ingraziarsi Cesare. Morì poi nello scontro con le truppe di Cesare."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Marco Emilio Lepido",
+   "options": [
+    "Il terzo triumviro, il meno autorevole, che ebbe l'Africa",
+    "Il generale più fidato di Cesare, console nel 44 a.C.",
+    "Uno dei due cesaricidi",
+    "Il console sconfitto a Modena nel 43 a.C."
+   ],
+   "answer": "Il terzo triumviro, il meno autorevole, che ebbe l'Africa",
+   "why": "Il generale fidato console nel 44 è Marco Antonio, che fu anche lo sconfitto di Modena. I cesaricidi sono Bruto e Cassio."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Cassio Longino e Bruto",
+   "options": [
+    "I due capi della congiura che uccise Cesare alle Idi di marzo",
+    "I due capi della seconda rivolta servile in Sicilia",
+    "I due consoli del 70 a.C.",
+    "I due tribuni che si opposero a Tiberio Gracco"
+   ],
+   "answer": "I due capi della congiura che uccise Cesare alle Idi di marzo",
+   "why": "Sono i cesaricidi. Si suicidarono a Filippi nel 42 a.C. I capi della seconda rivolta servile sono Salvio e Atenione."
+  },
+  {
+   "type": "mc",
+   "area": "Chi è chi",
+   "color": 0,
+   "lab": "Chi è?",
+   "prompt": "Cornelia",
+   "options": [
+    "La madre dei Gracchi, figlia di Scipione l'Africano",
+    "La moglie di Gaio Mario, zia di Cesare",
+    "L'ultima regina d'Egitto",
+    "La sorella di Tolomeo XIII"
+   ],
+   "answer": "La madre dei Gracchi, figlia di Scipione l'Africano",
+   "why": "La zia di Cesare che sposò Mario si chiama Giulia. Cleopatra è insieme l'ultima regina d'Egitto e la sorella di Tolomeo XIII."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Tiberio Gracco è eletto tribuno e fa approvare la legge agraria?",
+   "options": [
+    "133 a.C.",
+    "123 a.C.",
+    "121 a.C.",
+    "107 a.C."
+   ],
+   "answer": "133 a.C.",
+   "why": "133 Tiberio, 123 Gaio: dieci anni esatti fra i due fratelli. Nel 121 muore Gaio, nel 107 Mario diventa console."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Gaio Gracco è eletto tribuno della plebe?",
+   "options": [
+    "123 a.C.",
+    "133 a.C.",
+    "112 a.C.",
+    "101 a.C."
+   ],
+   "answer": "123 a.C.",
+   "why": "Dieci anni dopo il fratello Tiberio, che fu tribuno nel 133."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Gaio Mario è eletto console e riforma l'esercito?",
+   "options": [
+    "107 a.C.",
+    "105 a.C.",
+    "102 a.C.",
+    "101 a.C."
+   ],
+   "answer": "107 a.C.",
+   "why": "Il 107 è il consolato. Il 105 è la disfatta di Arausio, il 102 Aquae Sextiae, il 101 i Campi Raudii."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Due armate romane sono sterminate ad Arausio?",
+   "options": [
+    "105 a.C.",
+    "107 a.C.",
+    "102 a.C.",
+    "101 a.C."
+   ],
+   "answer": "105 a.C.",
+   "why": "Arausio è l'unica sconfitta della serie: è l'odierna Orange, nella Francia meridionale."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Mario stermina i Cimbri ai Campi Raudii, vicino a Vercelli?",
+   "options": [
+    "101 a.C.",
+    "102 a.C.",
+    "105 a.C.",
+    "100 a.C."
+   ],
+   "answer": "101 a.C.",
+   "why": "Prima i Teutoni ad Aquae Sextiae nel 102, poi i Cimbri ai Campi Raudii nel 101."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Silla marcia su Roma con il suo esercito?",
+   "options": [
+    "88 a.C.",
+    "82 a.C.",
+    "91 a.C.",
+    "78 a.C."
+   ],
+   "answer": "88 a.C.",
+   "why": "Nell'88 la marcia, nell'82 Porta Collina e la dittatura, nel 78 la morte di Silla."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Silla vince a Porta Collina e diventa dittatore?",
+   "options": [
+    "82 a.C.",
+    "88 a.C.",
+    "86 a.C.",
+    "79 a.C."
+   ],
+   "answer": "82 a.C.",
+   "why": "Nell'86 muore Mario di malattia. Nel 79 Silla si ritira, nel 78 muore."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Scoppia a Capua la rivolta di Spartaco?",
+   "options": [
+    "73 a.C.",
+    "71 a.C.",
+    "70 a.C.",
+    "67 a.C."
+   ],
+   "answer": "73 a.C.",
+   "why": "Scoppia nel 73, viene repressa nel 71 con le 6000 croci sulla via Appia."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Pompeo e Crasso sono consoli insieme e smantellano le riforme di Silla?",
+   "options": [
+    "70 a.C.",
+    "71 a.C.",
+    "67 a.C.",
+    "63 a.C."
+   ],
+   "answer": "70 a.C.",
+   "why": "Nel 71 le due armate arrivano sotto le mura di Roma; il consolato è l'anno dopo."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Pompeo riceve il comando straordinario e annienta i pirati?",
+   "options": [
+    "67 a.C.",
+    "70 a.C.",
+    "63 a.C.",
+    "60 a.C."
+   ],
+   "answer": "67 a.C.",
+   "why": "Tre mesi per finire il lavoro, con 500 navi e 120 mila fanti."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Cicerone console sventa la congiura di Catilina?",
+   "options": [
+    "63 a.C.",
+    "62 a.C.",
+    "60 a.C.",
+    "59 a.C."
+   ],
+   "answer": "63 a.C.",
+   "why": "Nel 63 la congiura e la Prima Catilinaria. Nel 62 Catilina muore a Pistoia. Nello stesso 63 si uccide Mitridate."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Nasce il primo triumvirato fra Cesare, Pompeo e Crasso?",
+   "options": [
+    "60 a.C.",
+    "63 a.C.",
+    "59 a.C.",
+    "56 a.C."
+   ],
+   "answer": "60 a.C.",
+   "why": "Nel 60 il patto, nel 59 Cesare console, nel 56 i patti di Lucca."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Cesare espugna Alesia e sconfigge Vercingetorige?",
+   "options": [
+    "52 a.C.",
+    "58 a.C.",
+    "56 a.C.",
+    "49 a.C."
+   ],
+   "answer": "52 a.C.",
+   "why": "La conquista della Gallia va dal 58 al 52: Alesia è l'ultimo atto."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Cesare oltrepassa il Rubicone?",
+   "options": [
+    "49 a.C.",
+    "52 a.C.",
+    "48 a.C.",
+    "44 a.C."
+   ],
+   "answer": "49 a.C.",
+   "why": "Gennaio del 49: alea iacta est. L'anno dopo, nel 48, c'è Farsalo."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Cesare sconfigge Pompeo a Farsalo?",
+   "options": [
+    "48 a.C.",
+    "49 a.C.",
+    "46 a.C.",
+    "45 a.C."
+   ],
+   "answer": "48 a.C.",
+   "why": "Nel 48 Farsalo e la morte di Pompeo in Egitto. Poi Tapso nel 46 e Munda nel 45."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Cesare è ucciso alle Idi di marzo?",
+   "options": [
+    "44 a.C.",
+    "45 a.C.",
+    "43 a.C.",
+    "42 a.C."
+   ],
+   "answer": "44 a.C.",
+   "why": "Il 15 marzo del 44. Nel 43 nasce il secondo triumvirato, nel 42 c'è Filippi."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: Bruto e Cassio sono sconfitti a Filippi e si suicidano?",
+   "options": [
+    "42 a.C.",
+    "44 a.C.",
+    "43 a.C.",
+    "31 a.C."
+   ],
+   "answer": "42 a.C.",
+   "why": "Nel 43 le proscrizioni in cui muore Cicerone; nel 42 la vendetta su Bruto e Cassio."
+  },
+  {
+   "type": "mc",
+   "area": "Le date",
+   "color": 1,
+   "lab": "In che anno?",
+   "prompt": "Quando succede: La battaglia navale di Azio?",
+   "options": [
+    "31 a.C.",
+    "42 a.C.",
+    "43 a.C.",
+    "44 a.C."
+   ],
+   "answer": "31 a.C.",
+   "why": "Azio chiude l'età delle guerre civili: Ottaviano resta solo."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Dove scoppia la prima rivolta degli schiavi guidata da Èuno?",
+   "options": [
+    "Enna, in Sicilia",
+    "Capua, in Campania",
+    "Taormina, in Sicilia",
+    "Delo, nell'Egeo"
+   ],
+   "answer": "Enna, in Sicilia",
+   "why": "Scoppia a Enna. I ribelli furono poi sconfitti a Taormina. Capua è la rivolta di Spartaco, Delo è il mercato degli schiavi."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Dove scoppia la rivolta di Spartaco?",
+   "options": [
+    "Capua",
+    "Enna",
+    "Pistoia",
+    "Brindisi"
+   ],
+   "answer": "Capua",
+   "why": "In una scuola per gladiatori a Capua. Da lì parte anche la via Appia, dove furono crocifissi i 6000."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Dov'era il più grande mercato di schiavi del Mediterraneo?",
+   "options": [
+    "Delo, nel Mar Egeo",
+    "Cirta, in Numidia",
+    "Corfinio, in Abruzzo",
+    "Alesia, in Gallia"
+   ],
+   "answer": "Delo, nel Mar Egeo",
+   "why": "A Delo si vendevano fino a 10 mila schiavi al giorno."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Quale città fu la capitale della lega italica durante la guerra sociale?",
+   "options": [
+    "Corfinio",
+    "Capua",
+    "Enna",
+    "Ravenna"
+   ],
+   "answer": "Corfinio",
+   "why": "Gli Italici la ribattezzarono Italica. Guerra sociale: 91-88 a.C."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Dove Silla sconfisse i popolari nel novembre dell'82 a.C.?",
+   "options": [
+    "Porta Collina, alle porte di Roma",
+    "Farsalo, in Tessaglia",
+    "Filippi, in Macedonia",
+    "Munda, in Spagna"
+   ],
+   "answer": "Porta Collina, alle porte di Roma",
+   "why": "Porta Collina è a Roma. Farsalo è Cesare contro Pompeo, Filippi è contro i cesaricidi, Munda è l'ultima vittoria di Cesare."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Dove Cesare sconfisse definitivamente Vercingetorige nel 52 a.C.?",
+   "options": [
+    "Alesia, in Gallia",
+    "Carre, in Mesopotamia",
+    "Modena",
+    "Farsalo, in Tessaglia"
+   ],
+   "answer": "Alesia, in Gallia",
+   "why": "Alesia è nell'attuale Francia nordorientale. Carre è dove morì Crasso."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Dove morì Crasso nel 53 a.C. combattendo contro i Parti?",
+   "options": [
+    "Carre, in Mesopotamia",
+    "Alesia, in Gallia",
+    "Munda, in Spagna",
+    "Zela, in Asia"
+   ],
+   "answer": "Carre, in Mesopotamia",
+   "why": "Con la morte di Crasso il primo triumvirato perse la gamba che teneva insieme le altre due."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Dove Cesare sconfisse Pompeo nel 48 a.C.?",
+   "options": [
+    "Farsalo, in Tessaglia",
+    "Filippi, in Macedonia",
+    "Tapso, in Africa",
+    "Azio, in Grecia"
+   ],
+   "answer": "Farsalo, in Tessaglia",
+   "why": "Farsalo è in Grecia, in Tessaglia. Filippi è del 42, contro Bruto e Cassio."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Dove furono sconfitti Bruto e Cassio nel 42 a.C.?",
+   "options": [
+    "Filippi, in Macedonia",
+    "Farsalo, in Tessaglia",
+    "Modena",
+    "Munda, in Spagna"
+   ],
+   "answer": "Filippi, in Macedonia",
+   "why": "Filippi è la vendetta del secondo triumvirato sui cesaricidi."
+  },
+  {
+   "type": "mc",
+   "area": "I luoghi",
+   "color": 2,
+   "lab": "Dove?",
+   "prompt": "Quale fiume segnava il confine dell'Italia che Cesare non poteva attraversare in armi?",
+   "options": [
+    "Il Rubicone, vicino a Rimini",
+    "Il Po",
+    "Il Tevere",
+    "La Magra"
+   ],
+   "answer": "Il Rubicone, vicino a Rimini",
+   "why": "Piccolo fiume vicino a Rimini. Oltrepassarlo in armi significava dichiarare guerra alla Repubblica."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Ager publicus (agro pubblico)",
+   "options": [
+    "La terra dello Stato romano, tolta ai popoli sconfitti",
+    "La piazza del mercato di una città romana",
+    "Il terreno assegnato in proprietà ai veterani",
+    "La tassa pagata dai proprietari terrieri"
+   ],
+   "answer": "La terra dello Stato romano, tolta ai popoli sconfitti",
+   "why": "Doveva essere affittata, ma i ricchi se ne impadronirono. È la terra su cui intervengono i Gracchi."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Ergastolo",
+   "options": [
+    "La prigione della fattoria dove gli schiavi agricoli erano chiusi di notte",
+    "Il mercato in cui si vendevano gli schiavi",
+    "La casa signorile del padrone della villa",
+    "Il contratto con cui uno schiavo veniva liberato"
+   ],
+   "answer": "La prigione della fattoria dove gli schiavi agricoli erano chiusi di notte",
+   "why": "Oggi la parola indica il carcere a vita. La casa del padrone è la pars urbana."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Iugero",
+   "options": [
+    "Circa 2500 metri quadrati, un quarto di ettaro",
+    "Circa 700 metri quadrati",
+    "Esattamente un ettaro",
+    "Circa 50 ettari"
+   ],
+   "answer": "Circa 2500 metri quadrati, un quarto di ettaro",
+   "why": "Viene da iugum, il giogo: il terreno arabile in una giornata da un paio di buoi. I 50 ettari sono la centuria."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Proscrizione",
+   "options": [
+    "La lista pubblica dei nemici da uccidere, con confisca dei beni",
+    "L'esilio volontario di un politico sconfitto",
+    "Il divieto di ricandidarsi a una magistratura",
+    "La cancellazione dei debiti decisa dallo Stato"
+   ],
+   "answer": "La lista pubblica dei nemici da uccidere, con confisca dei beni",
+   "why": "Usata da Silla e poi dal secondo triumvirato. Crasso si arricchì comprando i beni confiscati."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Senatus consultum ultimum",
+   "options": [
+    "Il decreto d'emergenza che dava ai consoli pieni poteri contro un nemico interno",
+    "Il voto con cui il Senato dichiarava guerra",
+    "La legge che istituiva il triumvirato",
+    "L'atto con cui il Senato nominava un dittatore a vita"
+   ],
+   "answer": "Il decreto d'emergenza che dava ai consoli pieni poteri contro un nemico interno",
+   "why": "Fu usato contro Gaio Gracco nel 121 a.C. Sospendeva le garanzie dei cittadini."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Homo novus",
+   "options": [
+    "Il primo della sua famiglia ad arrivare alle alte cariche",
+    "Un cittadino appena diventato romano",
+    "Uno schiavo liberato di recente",
+    "Un senatore nominato da Cesare"
+   ],
+   "answer": "Il primo della sua famiglia ad arrivare alle alte cariche",
+   "why": "Lo furono Gaio Mario e Marco Tullio Cicerone. Lo schiavo liberato è il liberto."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Imperium",
+   "options": [
+    "Il potere di comandare un esercito",
+    "Il territorio governato da Roma",
+    "Il titolo del capo della religione romana",
+    "Il diritto di proporre leggi alla plebe"
+   ],
+   "answer": "Il potere di comandare un esercito",
+   "why": "Normalmente spettava solo ai magistrati: Crasso e Pompeo lo ebbero senza esserlo, ed è il segnale della crisi."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Alea iacta est",
+   "options": [
+    "Il dado è tratto: la decisione è presa, non si torna indietro",
+    "La sorte è nelle mani degli dèi",
+    "Roma è stata tradita",
+    "Il Senato ha deciso"
+   ],
+   "answer": "Il dado è tratto: la decisione è presa, non si torna indietro",
+   "why": "La frase di Cesare al Rubicone, nel gennaio del 49 a.C."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Anarchia",
+   "options": [
+    "Una fase di disordine in cui il governo è assente",
+    "Il governo di un solo uomo",
+    "Il governo dei più ricchi",
+    "L'accordo fra tre uomini potenti"
+   ],
+   "answer": "Una fase di disordine in cui il governo è assente",
+   "why": "Dal greco an, senza, e archo, io comando. A Roma è la fase delle squadre di Clodio e Milone."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Pubblicani",
+   "options": [
+    "I cavalieri che prendevano in appalto la riscossione dei tributi nelle province",
+    "I magistrati che curavano le opere pubbliche",
+    "I senatori incaricati di giudicare i governatori",
+    "I cittadini che ricevevano il grano gratis"
+   ],
+   "answer": "I cavalieri che prendevano in appalto la riscossione dei tributi nelle province",
+   "why": "Erano l'ordine equestre in affari. Gaio Gracco diede loro i tributi d'Asia per allearsi con i cavalieri."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Triumvirato",
+   "options": [
+    "Un gruppo di tre uomini che detengono insieme il potere",
+    "Il governo dei tre consoli annuali",
+    "La commissione che distribuiva le terre",
+    "L'alleanza fra Senato e cavalieri"
+   ],
+   "answer": "Un gruppo di tre uomini che detengono insieme il potere",
+   "why": "Il primo (60 a.C.) era un accordo privato e segreto. Il secondo (43 a.C.) era invece una vera magistratura votata dalle assemblee."
+  },
+  {
+   "type": "mc",
+   "area": "Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Congiura",
+   "options": [
+    "Un accordo segreto, sancito da un giuramento comune, per rovesciare il potere",
+    "Una rivolta armata degli schiavi",
+    "Il veto posto da un tribuno della plebe",
+    "Il decreto d'emergenza del Senato"
+   ],
+   "answer": "Un accordo segreto, sancito da un giuramento comune, per rovesciare il potere",
+   "why": "Dal latino cum iurare, giurare insieme. Quella di Catilina nel 63 a.C. e quella contro Cesare nel 44."
+  },
+  {
+   "type": "order",
+   "area": "Metti in ordine",
+   "color": 1,
+   "q": "Metti in ordine i quattro uomini che provano a risolvere la crisi.",
+   "steps": [
+    "Tiberio Gracco, tribuno nel 133",
+    "Gaio Gracco, tribuno nel 123",
+    "Gaio Mario, console nel 107",
+    "Silla, dittatore nel 82"
+   ],
+   "why": "I due Gracchi a dieci anni di distanza, poi Mario, poi Silla. Le date scendono, il potere personale sale."
+  },
+  {
+   "type": "order",
+   "area": "Metti in ordine",
+   "color": 1,
+   "q": "Metti in ordine le tappe della rovina del contadino-soldato.",
+   "steps": [
+    "Il contadino parte per una lunga campagna militare",
+    "I campi restano incolti e la famiglia si indebita",
+    "Arriva il grano a basso prezzo dalle province",
+    "Il contadino vende il podere ai ricchi",
+    "Nasce il latifondo e lui va a Roma da proletario"
+   ],
+   "why": "È il circolo vizioso del capitolo 18: parte, si rovina, non regge la concorrenza, vende, emigra."
+  },
+  {
+   "type": "order",
+   "area": "Metti in ordine",
+   "color": 1,
+   "q": "Metti in ordine le vittorie e le sconfitte di Mario contro i popoli del nord.",
+   "steps": [
+    "105: due armate romane sterminate ad Arausio",
+    "102: Mario batte i Teutoni ad Aquae Sextiae",
+    "101: Mario stermina i Cimbri ai Campi Raudii"
+   ],
+   "why": "Prima la disfatta, poi le due vittorie: Teutoni nel 102, Cimbri nel 101."
+  },
+  {
+   "type": "order",
+   "area": "Metti in ordine",
+   "color": 1,
+   "q": "Metti in ordine le tappe che portano Cesare al potere.",
+   "steps": [
+    "60: il patto segreto con Pompeo e Crasso",
+    "59: Cesare console fa approvare la riforma agraria",
+    "58-52: la conquista della Gallia",
+    "49: il passaggio del Rubicone",
+    "48: la vittoria di Farsalo su Pompeo"
+   ],
+   "why": "Accordo, consolato, esercito, guerra civile, vittoria. Ogni passo prepara il successivo."
+  },
+  {
+   "type": "order",
+   "area": "Metti in ordine",
+   "color": 1,
+   "q": "Metti in ordine gli avvenimenti dopo la morte di Cesare.",
+   "steps": [
+    "44: Cesare ucciso alle Idi di marzo",
+    "43: Modena, poi il secondo triumvirato e le proscrizioni",
+    "42: Filippi, Bruto e Cassio si suicidano",
+    "31: la battaglia navale di Azio"
+   ],
+   "why": "Dalla congiura ad Azio passano tredici anni. Cicerone muore nelle proscrizioni del 43."
+  },
+  {
+   "type": "order",
+   "area": "Metti in ordine",
+   "color": 1,
+   "q": "Metti in ordine le quattro campagne militari di Pompeo.",
+   "steps": [
+    "76-72: contro Sertorio, nella Penisola iberica",
+    "71: contro gli schiavi ribelli in fuga",
+    "67: contro i pirati, in tutto il Mediterraneo",
+    "66-63: contro Mitridate, in Oriente"
+   ],
+   "why": "Da ovest verso est: Spagna, Italia, Mediterraneo, Oriente."
+  }
+ ]
+}
