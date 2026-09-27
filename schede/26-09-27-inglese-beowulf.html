@@ -139,13 +139,13 @@ p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
 
 <header>
   <div class="tag">Inglese · Beowulf</div>
-  <h1>Beowulf: la storia, il poema, il capitolo 1</h1>
+  <h1>Beowulf: il contesto storico e culturale</h1>
   <p class="lead">Ogni fatto è scritto in inglese semplice, con la traduzione sotto. <b>Leggi</b> fa sentire l'inglese e poi l'italiano. Le frasi inglesi si ascoltano anche con un tocco. Nel compito le domande saranno in inglese.</p>
 </header>
 
 <div class="chips" id="chips"></div>
 <div id="stage"></div>
-<p class="foot">Contenuto dalle pagine del libro condivise su Didattica: The Historical Background, The Cultural Background, Before you read, Chapter One.</p>
+<p class="foot">Contenuto dalle pagine condivise su Didattica: The Historical Background e The Cultural Background.</p>
 
 </div>
 
@@ -164,7 +164,7 @@ p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
 </div>
 
 <script>
-const PARTI = ["1 · La storia", "2 · Il poema", "3 · Prima di leggere", "4 · Capitolo 1"];
+const PARTI = ["1 · Il contesto storico", "2 · Il contesto culturale"];
 
 /* un fatto: frase inglese + traduzione */
 function F(en, it, g){
@@ -173,201 +173,65 @@ function F(en, it, g){
 
 const CARDS = [
 
-/* ---------- 1 · LA STORIA ---------- */
 {parte:0, t:"La mappa: chi arriva e da dove", init:"bmapInit",
  body:`<p class="s">Tocca i bottoni uno dopo l'altro, in ordine. La mappa mostra chi arriva in Britannia, da dove, e dove va. Sotto trovi la frase da ricordare.</p>
 <div class="bmap"><div class="lay" id="lay"></div><div id="bsvg"></div><div class="mcap" id="mcap"></div></div>`,
  ask:["Da dove venivano gli Anglo-Sassoni?","<b>From north Germany and Denmark.</b> Dalla Germania del nord e dalla Danimarca."]},
 
-{parte:0, t:"La linea del tempo", init:"tlInit",
- body:`<p class="s">Tutte le date, dalla più antica alla più recente. Il colore dice di chi si parla. Tocca una riga per ascoltarla in inglese.</p>
+{parte:0, t:"Le date da sapere", init:"tlInit",
+ body:`<p class="s">Le date da sapere, dalla più antica alla più recente. Il colore dice di chi si parla. Tocca una riga per ascoltarla in inglese.</p>
 <div class="legend"><span style="--lc:var(--rom)">Romani</span><span style="--lc:var(--ang)">Anglo-Sassoni</span><span style="--lc:var(--chr)">cristianesimo</span><span style="--lc:var(--vik)">Vichinghi</span><span style="--lc:var(--nor)">Normanni</span><span style="--lc:var(--gold)">Beowulf</span></div>
 <div class="tl" id="tl"></div>`,
  ask:["Cosa succede nel 1066?","<b>The Battle of Hastings.</b> William, leader of the Normans, defeats Harold, the last Anglo-Saxon king."]},
 
-{parte:0, t:"I Romani se ne vanno", when:"410",
- body:`${F("In the <b>4th century</b> the Roman Empire in western Europe began to break up.","Nel IV secolo l'Impero romano d'Occidente cominciò a crollare.")}
-${F("The Roman army left Britain in <b>410</b>.","L'esercito romano lasciò la Britannia nel 410.")}
-${F("The Romans had conquered the Celts, and the Celts had adapted to Roman life.","I Romani avevano conquistato i Celti, e i Celti si erano abituati alla vita romana.")}
-${F("After the Romans left, the Celts <b>could not govern</b> the country on their own.","Quando i Romani se ne andarono, i Celti non riuscirono a governare da soli.")}`,
- words:[["conquered","conquistato, preso il controllo completo"],["to break up","andare in pezzi, crollare"],["to govern","governare"],["on their own","da soli"]],
- ask:["Vero o falso? «After the Romans left Britain the Celts formed an effective government.»","<b>False.</b> The Celts could not govern the country on their own."]},
+{parte:0, t:"Romani, Anglo-Sassoni e Celti", when:"410 · 5th century",
+ body:`${F("The Roman army left Britain in <b>410</b>. The Celts <b>could not govern</b> the country on their own.","L'esercito romano lasciò la Britannia nel 410. I Celti non riuscirono a governare da soli.")}
+${F("In the <b>5th century</b> the <b>Anglo-Saxons</b> invaded Britain. They came from <b>north Germany</b> and <b>Denmark</b>.","Nel V secolo gli Anglo-Sassoni invasero la Britannia. Venivano dalla Germania del nord e dalla Danimarca.")}
+${F("They were different peoples: the <b>Angles</b>, the <b>Saxons</b> and the <b>Jutes</b>. The word <b>English</b> comes from the Angles.","Erano popoli diversi: Angli, Sassoni e Juti. La parola English viene dagli Angli.")}
+${F("The Celts moved to the north and the west. They kept their language and culture in <b>Wales</b> and <b>Cornwall</b>.","I Celti andarono a nord e a ovest. Conservarono lingua e cultura in Galles e in Cornovaglia.")}`,
+ words:[["to invade","invadere, entrare con i soldati"],["to govern","governare"],["Wales","il Galles"],["Cornwall","la Cornovaglia"]],
+ ask:["True or false? «The Anglo-Saxons were just one people.»","<b>False.</b> They were different peoples: the Angles, the Saxons and the Jutes."]},
 
-{parte:0, t:"Arrivano gli Anglo-Sassoni", when:"5th century",
- body:`${F("In the <b>5th century</b> the Anglo-Saxons began to invade Britain.","Nel V secolo gli Anglo-Sassoni cominciarono a invadere la Britannia.")}
-${F("They came from <b>north Germany</b> and <b>Denmark</b>.","Venivano dalla Germania del nord e dalla Danimarca.")}
-${F("They were different peoples: the <b>Angles</b>, the <b>Saxons</b> and the <b>Jutes</b>.","Erano popoli diversi: gli Angli, i Sassoni e gli Juti.")}
-${F("The word <b>English</b> comes from the name of the Angles.","La parola English viene dal nome degli Angli.")}`,
- words:[["to invade","invadere, entrare con la forza, con i soldati"],["peoples","popoli"]],
- ask:["Vero o falso? «The Anglo-Saxons were just one people.»","<b>False.</b> They were different peoples: the Angles, the Saxons and the Jutes."]},
+{parte:0, t:"Cristianesimo e Vichinghi", when:"597 · 871–899",
+ body:`${F("The Anglo-Saxons were <b>pagans</b>. In <b>597</b> Pope Gregory sent <b>Augustine</b> to convert them.","Gli Anglo-Sassoni erano pagani. Nel 597 papa Gregorio mandò Agostino a convertirli.")}
+${F("Augustine became the first <b>Archbishop of Canterbury</b>. But pagan ideas did <b>not disappear completely</b>.","Agostino diventò il primo arcivescovo di Canterbury. Ma le idee pagane non sparirono del tutto.")}
+${F("At the end of the <b>8th century</b> the <b>Vikings</b> from Norway and Denmark began to attack Britain. The Anglo-Saxons called them <b>the Danes</b>.","Alla fine dell'VIII secolo i Vichinghi della Norvegia e della Danimarca cominciarono ad attaccare la Britannia. Gli Anglo-Sassoni li chiamavano i Danesi.")}
+${F("<b>Alfred the Great</b>, king of Wessex from 871 to 899, was the <b>only king</b> who resisted them. He founded the first English navy.","Alfredo il Grande, re del Wessex dall'871 all'899, fu l'unico re che resistette ai Vichinghi. Fondò la prima flotta inglese.")}
+${F("In <b>1017</b> a Danish king, <b>Cnut</b>, became king of England, but only for a short time.","Nel 1017 un re danese, Cnut, diventò re d'Inghilterra, ma per poco tempo.")}`,
+ words:[["pagan","pagano: crede in molti dèi"],["to convert","convertire, far cambiare religione"],["the Danes","i Danesi: così si chiamavano gli invasori vichinghi"],["navy","flotta, marina militare"]],
+ ask:["True or false? «Alfred the Great was the only king who managed to resist the Danes.»","<b>True.</b>"]},
 
-{parte:0, t:"I Celti vanno a nord e a ovest",
- body:`${F("The Celts were forced to move to the <b>north</b> and the <b>west</b>.","I Celti furono costretti a spostarsi a nord e a ovest.")}
-${F("They kept their language and culture in <b>Wales</b> and <b>Cornwall</b>.","Conservarono la loro lingua e la loro cultura in Galles e in Cornovaglia.")}
-${F("Many examples of Celtic <b>art</b> survive, but none of their <b>literature</b>.","Restano molti esempi di arte celtica, ma niente della loro letteratura.")}`,
- words:[["were forced","furono costretti"],["Wales","il Galles"],["Cornwall","la Cornovaglia"],["to survive","sopravvivere, restare fino a oggi"]],
- ask:["Vero o falso? «Celtic culture survived in some parts of Britain.»","<b>True.</b> In Wales and Cornwall."]},
+{parte:0, t:"1066: arrivano i Normanni", when:"1066",
+ body:`${F("In <b>1066</b>, at the <b>Battle of Hastings</b>, the Anglo-Saxon king <b>Harold</b> was defeated by <b>William</b>, leader of the <b>Normans</b>.","Nel 1066, nella battaglia di Hastings, il re anglosassone Harold fu sconfitto da Guglielmo, capo dei Normanni.")}
+${F("It was the <b>last invasion</b> of England. William became King William I.","Fu l'ultima invasione dell'Inghilterra. Guglielmo diventò re Guglielmo I.")}
+${F("The Normans lived in Normandy, in France, but they were <b>descended from the Vikings</b>. Normans means <b>Northmen</b>.","I Normanni vivevano in Normandia, in Francia, ma discendevano dai Vichinghi. Normanni vuol dire uomini del nord.")}`,
+ words:[["was defeated","fu sconfitto"],["descended from","discendenti da"]],
+ ask:["True or false? «The Normans, who conquered England in 1066, were also Anglo-Saxons.»","<b>False.</b> The Normans were descended from the Vikings."]},
 
-{parte:0, t:"I regni anglosassoni", when:"7th century",
- body:`${F("By the <b>7th century</b> the Anglo-Saxons had their own kingdoms.","Nel VII secolo gli Anglo-Sassoni avevano i loro regni.")}
-${F("The <b>Angles</b>: in the east, the north and the centre of England.","Gli Angli: a est, a nord e al centro dell'Inghilterra.")}
-${F("The <b>Saxons</b>: in the south and south-west. The <b>Jutes</b>: in the south-east.","I Sassoni: a sud e a sud-ovest. Gli Juti: a sud-est.")}
-${F("In the <b>early 9th century</b> the kingdoms were united under <b>Wessex</b>, the kingdom of the West Saxons.","All'inizio del IX secolo i regni furono uniti sotto il Wessex, il regno dei Sassoni dell'ovest.")}`,
- words:[["kingdom","regno"],["united","uniti"],["Wessex","West Saxons: i Sassoni dell'ovest"]],
- ask:["Sotto quale regno si uniscono i regni anglosassoni?","<b>Wessex</b>, the kingdom of the West Saxons, in the early 9th century."]},
-
-{parte:0, t:"Arriva il cristianesimo", when:"597",
- body:`${F("The Anglo-Saxons were <b>pagans</b>: they believed in many gods.","Gli Anglo-Sassoni erano pagani: credevano in molti dèi.")}
-${F("In <b>597</b> Pope Gregory sent a priest called <b>Augustine</b> to Britain to convert them.","Nel 597 papa Gregorio mandò in Britannia un sacerdote di nome Agostino per convertirli.")}
-${F("Augustine became the first <b>Archbishop of Canterbury</b>.","Agostino diventò il primo arcivescovo di Canterbury.")}
-${F("In about a hundred years the Anglo-Saxons became Christian, but pagan ideas <b>did not disappear completely</b>.","In circa cent'anni gli Anglo-Sassoni diventarono cristiani, ma le idee pagane non sparirono del tutto.")}
-${F("The <b>Lindisfarne Gospels</b> (early 8th century) is an illustrated Bible made in a monastery on Lindisfarne island.","I Vangeli di Lindisfarne, dell'inizio dell'VIII secolo, sono una Bibbia illustrata fatta in un monastero sull'isola di Lindisfarne.",1)}`,
- words:[["pagan","pagano: crede in molti dèi, e la natura è importante"],["to convert","convertire, far cambiare religione"],["Archbishop of Canterbury","arcivescovo di Canterbury, il capo della Chiesa anglicana"],["priest","sacerdote, prete"]],
- ask:["Due vero o falso: «Augustine was sent to England by Pope Gregory.» «Pagan ways disappeared immediately.»","Il primo è <b>true</b>. Il secondo è <b>false</b>: pagan ideas did not disappear completely."]},
-
-{parte:0, t:"I Vichinghi", when:"end of the 8th century",
- body:`${F("At the end of the <b>8th century</b> the <b>Vikings</b>, fierce people from <b>Norway</b> and <b>Denmark</b>, began to attack the British coast.","Alla fine dell'VIII secolo i Vichinghi, popolo feroce della Norvegia e della Danimarca, cominciarono ad attaccare le coste britanniche.")}
-${F("First there were <b>raids</b>, then real invasions.","Prima ci furono incursioni, poi vere invasioni.")}
-${F("Then the Vikings began to <b>live permanently</b> in parts of Britain.","Poi i Vichinghi cominciarono a vivere stabilmente in alcune parti della Britannia.")}
-${F("The Anglo-Saxons called the Viking invaders <b>the Danes</b>.","Gli Anglo-Sassoni chiamavano gli invasori vichinghi i Danesi.")}`,
- words:[["fierce","feroce"],["raids","incursioni: attacchi improvvisi e violenti"],["permanently","per sempre, stabilmente"],["the Danes","i Danesi: così si chiamavano gli invasori vichinghi"]],
- ask:["Da dove venivano i Vichinghi?","<b>From Norway and Denmark.</b>"]},
-
-{parte:0, t:"Alfred the Great", when:"871–899",
- body:`${F("<b>Alfred the Great</b> was king of <b>Wessex</b> from 871 to 899.","Alfredo il Grande fu re del Wessex dall'871 all'899.")}
-${F("He was the <b>only king</b> who successfully resisted the Vikings.","Fu l'unico re che riuscì a resistere ai Vichinghi.")}
-${F("He fought many battles against the Danes.","Combatté molte battaglie contro i Danesi.")}
-${F("He founded the first English <b>navy</b>.","Fondò la prima flotta inglese.")}
-${F("He encouraged English culture, and had important Latin works translated into <b>Old English</b>, the language of the Anglo-Saxons.","Aiutò la cultura inglese e fece tradurre importanti opere latine in inglese antico, la lingua degli Anglo-Sassoni.")}`,
- words:[["to resist","resistere"],["founded","fondò, creò per la prima volta"],["navy","marina militare, flotta"],["Old English","inglese antico, la lingua degli Anglo-Sassoni"]],
- ask:["Vero o falso? «Alfred the Great was the only king who managed to resist the Danes.»","<b>True.</b>"]},
-
-{parte:0, t:"Un re danese", when:"1017",
- body:`${F("In spite of Alfred's successes, a Danish king, <b>Cnut</b>, became king of England in <b>1017</b>.","Nonostante i successi di Alfredo, un re danese, Cnut, diventò re d'Inghilterra nel 1017.")}
-${F("Anglo-Saxon rule started again in <b>1042</b>, but it did not last long.","I re anglosassoni tornarono nel 1042, ma non durò a lungo.")}`,
- words:[["in spite of","nonostante"],["rule","governo, dominio"],["to last","durare"]],
- ask:["Vero o falso? «A Dane was king of England for a short time.»","<b>True.</b> Cnut became king in 1017; Anglo-Saxon rule started again in 1042."]},
-
-{parte:0, t:"La battaglia di Hastings", when:"1066",
- body:`${F("In <b>1066</b> the Anglo-Saxon king <b>Harold</b> was defeated by <b>William</b>, leader of the <b>Normans</b>.","Nel 1066 il re anglosassone Harold fu sconfitto da Guglielmo, capo dei Normanni.")}
-${F("This was the <b>Battle of Hastings</b>, and it was the <b>last invasion</b> of England.","Fu la battaglia di Hastings, e fu l'ultima invasione dell'Inghilterra.")}
-${F("William became King <b>William I</b> of England.","Guglielmo diventò re Guglielmo I d'Inghilterra.")}
-${F("The <b>Bayeux Tapestry</b>, made a few years later, shows the battle and the death of Harold.","L'arazzo di Bayeux, fatto pochi anni dopo, mostra la battaglia e la morte di Harold.",1)}`,
- words:[["was defeated","fu sconfitto"],["leader","capo"],["tapestry","arazzo, grande tessuto ricamato"]],
- ask:["Chi era Harold?","<b>The last Anglo-Saxon king of England.</b> He was killed at the Battle of Hastings in 1066."]},
-
-{parte:0, t:"Chi erano i Normanni?", when:"911",
- body:`${F("The word <b>Normans</b> comes from <b>Northmen</b>, the men of the north.","La parola Normanni viene da Northmen, gli uomini del nord.")}
-${F("They were <b>descended from the Vikings</b>. They arrived in <b>Normandy</b>, in north-west France, in <b>911</b>.","Discendevano dai Vichinghi. Arrivarono in Normandia, nel nord-ovest della Francia, nel 911.")}
-${F("They became Christian and adopted the French language, but they remained violent and restless.","Diventarono cristiani e presero la lingua francese, ma rimasero violenti e irrequieti.")}
-${F("After 1066 other Normans founded kingdoms in the <b>south of Italy</b> and in <b>Sicily</b>.","Dopo il 1066 altri Normanni fondarono regni nel sud dell'Italia e in Sicilia.")}`,
- words:[["descended from","discendenti da, parenti di persone vissute molto tempo prima"],["to adopt","prendere, fare proprio"],["restless","irrequieto"]],
- ask:["Vero o falso? «The Normans, who conquered England in 1066, were also Anglo-Saxons.»","<b>False.</b> The Normans were descended from the Vikings."]},
-
-{parte:0, t:"«Anglo-Saxons» oggi",
- body:`${F("Today people often call the English-speaking peoples of the UK, the Commonwealth and the USA <b>Anglo-Saxons</b>.","Oggi si chiamano spesso Anglo-Sassoni i popoli che parlano inglese nel Regno Unito, nel Commonwealth e negli Stati Uniti.")}
-${F("This is <b>not correct</b>.","Non è corretto.")}
-${F("The Irish, the Scots and the Welsh are mostly descended from the <b>Celts</b> and the <b>Vikings</b>.","Irlandesi, Scozzesi e Gallesi discendono soprattutto dai Celti e dai Vichinghi.")}
-${F("In the USA fewer than <b>15%</b> of the people are descended from the British.","Negli Stati Uniti meno del 15% delle persone discende dai Britannici.")}`,
- words:[["inaccurate","non corretto, impreciso"],["the Welsh","i Gallesi"],["the Scots","gli Scozzesi"]]},
-
-{parte:0, t:"Il tesoro di Sutton Hoo",
- body:`${F("At <b>Sutton Hoo</b>, in eastern England, archaeologists found an Anglo-Saxon <b>treasure</b> from the early 7th century.","A Sutton Hoo, nell'Inghilterra dell'est, gli archeologi hanno trovato un tesoro anglosassone dell'inizio del VII secolo.",1)}
-${F("In the book you can see two objects from the treasure: a <b>purse lid</b> and a <b>gold belt buckle</b>.","Nel libro vedi due oggetti del tesoro: il coperchio di una borsa e una fibbia d'oro per la cintura.",1)}
-<div class="trap s" data-say="Queste immagini sono nelle pagine del libro: guardale mentre ripassi. Il coperchio della borsa e la fibbia sono fatti di oro e pietre rosse, con disegni di animali intrecciati."><b>Guarda le foto nel libro.</b> Il coperchio della borsa e la fibbia sono d'oro e pietre rosse, con disegni di animali intrecciati.</div>`,
- words:[["treasure","tesoro"],["purse lid","coperchio di una borsa"],["belt buckle","fibbia della cintura"]]},
-
-/* ---------- 2 · IL POEMA ---------- */
-{parte:1, t:"Beowulf: perché è famoso",
- body:`<p class="s">Nel fact file del libro la prima domanda chiede tre motivi per cui il Beowulf è famoso. Eccoli.</p>
-${F("<b>1.</b> It is a poem of <b>3,182 lines</b>: the <b>longest</b> poem that survives in <b>Old English</b>.","È un poema di tremilacentottantadue versi: il più lungo poema in inglese antico arrivato fino a noi.",1)}
-${F("<b>2.</b> It is the first important poem in a European language that is <b>not Greek or Latin</b>.","È il primo poema importante in una lingua europea che non sia il greco o il latino.",1)}
-${F("<b>3.</b> It is the <b>only complete</b> example of a Germanic folk epic.","È l'unico esempio completo di poema epico popolare germanico.",1)}`,
- words:[["line","verso (di una poesia)"],["longest","il più lungo"],["to survive","arrivare fino a oggi"],["folk epic","poema epico popolare"]],
- ask:["Quanti versi ha il Beowulf?","<b>3,182 lines</b> (three thousand one hundred and eighty-two)."]},
-
-{parte:1, t:"Quando e chi", when:"700–750",
- body:`${F("A few historical references in the poem are from the <b>6th century</b>.","Alcuni riferimenti storici del poema sono del VI secolo.",1)}
-${F("But the version we have was probably composed <b>between 700 and 750</b>.","Ma la versione che abbiamo fu composta probabilmente tra il 700 e il 750.",1)}
-${F("We do <b>not know the name</b> of the poet.","Non sappiamo il nome del poeta.",1)}
-${F("People think it was composed by <b>just one person</b>.","Si pensa che l'abbia composto una sola persona.",1)}`,
- words:[["composed","composto, scritto (una poesia o una musica)"],["historical references","riferimenti a fatti storici veri"]],
+{parte:1, t:"Beowulf: che cos'è e quando", when:"700–750",
+ body:`${F("<b>Beowulf</b> is a poem of <b>3,182 lines</b>: the <b>longest</b> poem in <b>Old English</b>.","Il Beowulf è un poema di tremilacentottantadue versi: il più lungo poema in inglese antico.",1)}
+${F("It is the first important poem in a European language that is <b>not Greek or Latin</b>, and the <b>only complete</b> Germanic folk epic.","È il primo poema importante in una lingua europea che non sia il greco o il latino, e l'unico poema epico germanico completo.",1)}
+${F("It was composed <b>between 700 and 750</b>. We <b>don't know</b> the name of the poet.","Fu composto tra il 700 e il 750. Non sappiamo il nome del poeta.",1)}
+${F("At first it was <b>told orally</b>, from poet to poet. The Anglo-Saxon poet was called a <b>scop</b>.","All'inizio fu raccontato a voce, da un poeta all'altro. Il poeta anglosassone si chiamava scop.",1)}
+${F("It was <b>written down</b> around the year <b>1000</b>. The manuscript is in <b>London</b>, in the British Museum.","Fu scritto intorno all'anno mille. Il manoscritto è a Londra, al British Museum (così dice il libro).",1)}`,
+ words:[["line","verso di una poesia"],["Old English","inglese antico, la lingua degli Anglo-Sassoni"],["orally","a voce"],["manuscript","manoscritto: libro scritto a mano"]],
  ask:["When was Beowulf composed?","<b>Between 700 and 750.</b>"]},
 
-{parte:1, t:"Prima raccontato, poi scritto", when:"c. 1000",
- body:`${F("Like other early poetry, Beowulf was first <b>told orally</b>.","Come altre poesie antiche, il Beowulf all'inizio fu raccontato a voce.",1)}
-${F("It passed from poet to poet for a long time before it was <b>written down</b>.","Passò da un poeta all'altro per molto tempo prima di essere scritto.",1)}
-${F("The Anglo-Saxon poet was called a <b>scop</b>, pronounced 'shop'. He sang poems on special occasions.","Il poeta anglosassone si chiamava scop, e si pronuncia come shop. Cantava le poesie nelle occasioni speciali.",1)}
-${F("The first written version is a <b>manuscript</b> from about the year <b>1000</b>.","La prima versione scritta è un manoscritto di circa l'anno mille.",1)}
-${F("It is in <b>London</b>, in the British Museum.","Si trova a Londra, al British Museum.",1)}
-<div class="trap s" data-say="Il libro dice British Museum, e nel compito scrivi così. In realtà oggi il manoscritto si trova alla British Library, sempre a Londra."><b>Il libro dice British Museum</b>, e nel compito scrivi così. In realtà oggi il manoscritto è alla British Library, sempre a Londra.</div>`,
- words:[["orally","a voce"],["to write down","mettere per iscritto"],["manuscript","manoscritto: libro scritto a mano"],["scop","il poeta-cantore anglosassone: si pronuncia shop"]],
- ask:["Perché all'inizio non fu scritto?","<b>It was oral poetry:</b> it was told orally and passed from poet to poet."]},
-
-{parte:1, t:"Dove si svolge e che cosa racconta",
- body:`${F("The events of the poem are set in <b>southern Scandinavia</b>.","Le vicende del poema si svolgono nella Scandinavia del sud.",1)}
-${F("The story is mostly a mixture of <b>Germanic myth and legend</b>, with a few historical references.","La storia è soprattutto un miscuglio di miti e leggende germaniche, con pochi riferimenti storici.",1)}
+{parte:1, t:"Dove, i valori, lo stile",
+ body:`${F("The story is set in <b>southern Scandinavia</b>. It is a mixture of Germanic <b>myth and legend</b>.","La storia si svolge nella Scandinavia del sud. È un miscuglio di miti e leggende germaniche.",1)}
 ${F("The main values are <b>loyalty</b> to the chief and the tribe, and <b>revenge</b> on enemies.","I valori principali sono la fedeltà al capo e alla tribù, e la vendetta sui nemici.",1)}
-${F("There are also some comments from a <b>Christian</b> point of view.","Ci sono anche alcuni commenti da un punto di vista cristiano.",1)}`,
- words:[["are set","si svolgono, sono ambientati"],["loyalty","fedeltà, lealtà"],["chief","capo"],["tribe","tribù"],["revenge","vendetta: fare del male a chi ti ha fatto del male"]],
+${F("The most important element of style is <b>alliteration</b>: the same consonant sounds at the beginning of words that are near each other.","L'elemento di stile più importante è l'allitterazione: gli stessi suoni di consonante all'inizio di parole vicine.",1)}
+<div class="alli s" data-l="en" data-say="They put his body on the boat and then began to burn it." onclick="hear(this)">They put his <u>b</u>ody on the <u>b</u>oat and then <u>b</u>egan to <u>b</u>urn it.</div>
+<p class="s" data-say="Questo è l'esempio del libro: senti quante volte torna il suono bi.">L'esempio del libro: senti quante volte torna il suono <b>b</b>.</p>`,
+ words:[["are set","si svolgono"],["loyalty","fedeltà"],["revenge","vendetta"],["alliteration","allitterazione"]],
  ask:["What are the main values of the poem?","<b>Loyalty to the chief and the tribe, and revenge on enemies.</b>"]},
 
-{parte:1, t:"L'allitterazione",
- body:`${F("Beowulf, like nearly all Old English poetry, uses <b>alliteration</b>.","Il Beowulf, come quasi tutta la poesia in inglese antico, usa l'allitterazione.",1)}
-${F("The same <b>consonant sounds</b> are repeated at the <b>beginning</b> of words that are near each other.","Gli stessi suoni di consonante si ripetono all'inizio di parole vicine.",1)}
-<div class="alli s" data-l="en" data-say="They put his body on the boat and then began to burn it." onclick="hear(this)">They put his <u>b</u>ody on the <u>b</u>oat and then <u>b</u>egan to <u>b</u>urn it.</div>
-<p class="s" data-say="Questo è l'esempio del libro: senti quante volte torna il suono bi.">L'esempio del libro: senti quante volte torna il suono <b>b</b>.</p>
-${F("English poetry started to use <b>rhyme</b> only after the Norman invasion of <b>1066</b>, with French poetry.","La poesia inglese cominciò a usare la rima solo dopo l'invasione normanna del 1066, con la poesia francese.",1)}`,
- words:[["alliteration","allitterazione: lo stesso suono all'inizio di parole vicine"],["rhyme","rima: le ultime sillabe dei versi suonano uguali"]],
- ask:["What is the most important element of style in Beowulf?","<b>Alliteration.</b>"]},
-
-{parte:1, t:"Il fact file di p. 11, completo", init:"ffInit",
+{parte:1, t:"Il fact file di p. 11", init:"ffInit",
  body:`<p class="s">Queste sono le risposte al fact file del libro. Prima leggile. Poi tocca Nascondi e prova a rispondere a voce, riga per riga.</p>
 <button class="mini" id="ffBtn" onclick="ffToggle()">Nascondi le risposte</button>
 <div class="ff" id="ff"></div>`},
 
 /* ---------- 3 · PRIMA DI LEGGERE ---------- */
-{parte:2, t:"Guerrieri e armi (p. 12)",
- body:`<p class="s">Le armi dei guerrieri anglosassoni. Tocca un disegno per sentire la parola. Hilt è solo una parte della spada: l'impugnatura.</p>
-<div class="wpn" id="wpn"></div>`, init:"wpnInit",
- ask:["Come si dice «elmo»? E «scudo»?","<b>helmet</b> e <b>shield</b>."]},
-
-{parte:2, t:"La corte del re (p. 13)",
- body:`<p class="s">Nel capitolo uno vedi la vita alla corte di un re danese del sesto secolo. Ecco le risposte dell'esercizio tre.</p>
-${F("The place where the king has his court is the <b>Hall</b>.","Il luogo dove il re tiene la sua corte si chiama the Hall, la sala.",1)}
-${F("To show his royal authority the king sits on a <b>throne</b>: a decorated, impressive chair.","Per mostrare la sua autorità il re siede su un trono: una sedia decorata e imponente.",1)}
-${F("When they celebrate, people drink <b>mead</b>: an alcoholic drink made from <b>honey</b> and water.","Quando festeggiano bevono idromele: una bevanda alcolica fatta con miele e acqua.",1)}
-${F("The music at court is usually played on the <b>harp</b>. The musicians are called <b>harpists</b>.","A corte la musica si suona di solito con l'arpa. I musicisti si chiamano arpisti.",1)}`,
- words:[["hall","sala, salone"],["mead hall","la sala dove si beve l'idromele e si fa festa"],["throne","trono"],["mead","idromele"],["honey","miele"],["harp","arpa"]],
- ask:["What do people drink in the Hall?","<b>Mead</b>, made from honey and water."]},
-
-/* ---------- 4 · CAPITOLO 1 ---------- */
-{parte:3, t:"I re danesi",
- body:`<p class="s">Il capitolo uno comincia con la famiglia dei re danesi. Scendi dall'alto verso il basso: ogni re è figlio di quello sopra.</p>
-<div class="tree">
-<div class="nd s" data-l="en" data-say="Shield Sheafson. He was abandoned as a child, but he became a fierce warrior and a good king." onclick="hear(this)"><b>Shield Sheafson</b><i>abbandonato da bambino, diventa un guerriero feroce e un buon re</i></div>
-<div class="vl"></div>
-<div class="nd s" data-l="en" data-say="Beow. He was generous with his people, and loyal friends gathered around him." onclick="hear(this)"><b>Beow</b><i>generoso con il popolo, ha amici leali</i></div>
-<div class="vl"></div>
-<div class="nd s" data-l="en" data-say="Halfdane, the great, Beow's heir." onclick="hear(this)"><b>Halfdane</b><i>il grande, erede di Beow</i></div>
-<div class="vl"></div>
-<div class="kids">
-<div class="nd s" data-l="en" data-say="Heorogar." onclick="hear(this)"><b>Heorogar</b><i>figlio</i></div>
-<div class="nd hi s" data-l="en" data-say="Hrothgar. He is lucky in war and builds Heorot Hall." onclick="hear(this)"><b>Hrothgar</b><i>fortunato in guerra: costruisce Heorot</i></div>
-<div class="nd s" data-l="en" data-say="Halga." onclick="hear(this)"><b>Halga</b><i>figlio</i></div>
-<div class="nd s" data-l="en" data-say="A daughter, who married the Swedish king Onela." onclick="hear(this)"><b>una figlia</b><i>sposa Onela, re di Svezia</i></div>
-</div></div>
-${F("When Shield died, they put his body in a <b>boat</b> with treasure and a golden flag, and pushed it out to sea.","Quando Shield morì, misero il suo corpo in una barca con un tesoro e una bandiera d'oro, e la spinsero in mare.",1)}`,
- words:[["exploits","imprese, avventure"],["subdued","sottomise, conquistò"],["blessed","benedetto, protetto"],["golden standard","bandiera d'oro"],["drifted","andò alla deriva, portato dalle onde"],["heir","erede"]],
- ask:["Chi costruisce la grande sala?","<b>Hrothgar</b>, the son of Halfdane."]},
-
-{parte:3, t:"Heorot e Grendel",
- body:`${F("Hrothgar wanted a great <b>mead hall</b>: a sign of his power, his throne room, a place to share his goods with the people.","Hrothgar voleva una grande sala dell'idromele: il segno del suo potere, la sala del trono, un luogo per dividere i suoi beni con il popolo.",1)}
-${F("Workers came from all over the world. The hall was called <b>Heorot</b>. Its towers were high and its roof was wide.","Vennero operai da tutto il mondo. La sala si chiamò Heorot. Le sue torri erano alte e il tetto era largo.",1)}
-${F("Every day there were feasts and singing. Harpists played, and poets told how God created the earth, the sun and the moon.","Ogni giorno c'erano banchetti e canti. Gli arpisti suonavano e i poeti raccontavano come Dio creò la terra, il sole e la luna.",1)}
-<div class="grendel s" data-say="Ma c'era un demone che odiava la felicità di Heorot. Si chiamava Grendel e viveva in una parte desolata della costa. Una notte trovò i Danesi addormentati dopo aver bevuto, prese trenta uomini e li portò via. Più tardi tornò e lasciò trenta cadaveri insanguinati."><b>Grendel</b> è un demone che odia la felicità di Heorot. Vive in una parte desolata della costa. Prima viveva in esilio con la famiglia di Caino, che aveva ucciso il fratello Abele.<br>Una notte trova i Danesi addormentati dopo aver bevuto: prende <b>trenta uomini</b> e li porta via. Poi torna e lascia trenta cadaveri.</div>`,
- words:[["summoned","chiamò, ordinò di venire"],["feasts","banchetti, feste"],["demon","demone, spirito cattivo"],["bleak","desolato, vuoto e triste"],["exile","esilio"],["seized","afferrò con violenza"],["bloodstained","sporco di sangue"],["corpses","cadaveri"]],
- ask:["How many men does Grendel take the first night?","<b>Thirty men.</b>"]}
 ];
 
 /* ═══════ mappa ═══════ */
@@ -392,9 +256,6 @@ const LAYERS = [
  {k:"cel", b:"Celts", en:"The Celts move to the north and the west. They keep their language in Wales and Cornwall.", it:"I Celti vanno a nord e a ovest. Conservano la loro lingua in Galles e in Cornovaglia.",
   g: arr(145,280,92,305,"cel") + arr(140,330,66,382,"cel",100,345) + arr(130,230,85,140,"cel",115,180)
    + lab(62,300,"Wales","cel",15) + lab(40,420,"Cornwall","cel",14,"start") + lab(66,110,"Scotland","cel",15)},
- {k:"kin", b:"7th century", en:"7th century: Angles in the east, north and centre; Saxons in the south; Jutes in the south-east. Later: all united under Wessex.", it:"VII secolo: Angli a est, nord e centro; Sassoni a sud; Juti a sud-est. Poi tutti uniti sotto il Wessex.",
-  g: lab(128,205,"Northumbria","ang",14) + lab(128,285,"Mercia","ang",14) + lab(222,300,"East Anglia","ang",13,"start") + lab(180,322,"Essex","sax",12)
-   + lab(105,362,"Wessex","sax",15) + lab(158,398,"Sussex","sax",12) + lab(218,372,"Kent","jut",14,"start") + dot(207,320,"chr") + lab(212,312,"Sutton Hoo","chr",11,"start")},
  {k:"chr", b:"597", en:"597: Augustine, sent by Pope Gregory, becomes the first Archbishop of Canterbury.", it:"597: Agostino, mandato da papa Gregorio, diventa il primo arcivescovo di Canterbury.",
   g: arr(265,460,207,362,"chr",250,410) + dot(201,356,"chr") + lab(212,346,"Canterbury","chr",14,"start") + lab(288,445,"Augustine from Rome","chr",13)
    + dot(124,158,"chr") + lab(132,152,"Lindisfarne","chr",13,"start")},
@@ -441,15 +302,11 @@ const TL = [
  ["410","","rom","The Roman army leaves Britain.","L'esercito romano lascia la Britannia."],
  ["5th c.","V secolo","ang","The Anglo-Saxons begin to invade Britain.","Gli Anglo-Sassoni cominciano a invadere la Britannia."],
  ["597","","chr","Pope Gregory sends Augustine to convert the Anglo-Saxons.","Papa Gregorio manda Agostino a convertire gli Anglo-Sassoni."],
- ["7th c.","VII secolo","ang","The Angles, Saxons and Jutes have their kingdoms.","Angli, Sassoni e Juti hanno i loro regni."],
  ["700–750","","gold","Beowulf is composed.","Viene composto il Beowulf."],
  ["end 8th c.","fine VIII secolo","vik","The Vikings begin their raids.","I Vichinghi cominciano le incursioni."],
- ["early 9th c.","inizio IX secolo","ang","The kingdoms are united under Wessex.","I regni vengono uniti sotto il Wessex."],
  ["871–899","","ang","Alfred the Great, king of Wessex, resists the Danes.","Alfredo il Grande, re del Wessex, resiste ai Danesi."],
- ["911","","nor","The Normans arrive in Normandy.","I Normanni arrivano in Normandia."],
  ["c. 1000","circa","gold","The Beowulf manuscript is written.","Viene scritto il manoscritto del Beowulf."],
  ["1017","","vik","Cnut, a Danish king, becomes king of England.","Cnut, un re danese, diventa re d'Inghilterra."],
- ["1042","","ang","Anglo-Saxon rule starts again.","Tornano i re anglosassoni."],
  ["1066","","nor","The Battle of Hastings: William defeats Harold.","La battaglia di Hastings: Guglielmo sconfigge Harold."]
 ];
 const TLC = {rom:"var(--rom)", ang:"var(--ang)", chr:"var(--chr)", vik:"var(--vik)", nor:"var(--nor)", gold:"var(--gold)"};
@@ -484,24 +341,6 @@ function ffDraw(){
 function ffTap(row){
   row.classList.add("show");
   hear(row.querySelector(".an"));
-}
-
-/* ═══════ armi ═══════ */
-const STEEL = "#8C96A3", STEEL2 = "#C9D0D8", WOOD = "#9A6A3A", GOLD = "#C8962E", DARK = "#3C4550";
-const WPN = [
- ["sword","spada",'<polygon points="40,4 44,12 44,50 36,50 36,12" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/><rect x="27" y="50" width="26" height="6" rx="2" fill="'+DARK+'"/><rect x="37.5" y="56" width="5" height="14" fill="'+WOOD+'"/><ellipse cx="40" cy="73" rx="6" ry="4" fill="'+DARK+'"/>'],
- ["spear","lancia",'<line x1="40" y1="20" x2="40" y2="78" stroke="'+WOOD+'" stroke-width="4" stroke-linecap="round"/><polygon points="40,2 47,16 40,26 33,16" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/>'],
- ["knife","coltello",'<path d="M40 14 Q47 26 45 46 L36 46 L36 22 Z" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/><rect x="35" y="46" width="11" height="4" fill="'+DARK+'"/><rect x="36.5" y="50" width="8" height="18" rx="3" fill="'+WOOD+'"/>'],
- ["helmet","elmo",'<path d="M16 46 Q16 12 40 12 Q64 12 64 46 L56 46 L56 62 Q48 66 44 58 L44 40 L36 40 L36 58 Q32 66 24 62 L24 46 Z" fill="'+STEEL+'" stroke="'+DARK+'" stroke-width="1.5"/><path d="M40 12 L40 40" stroke="'+GOLD+'" stroke-width="3"/><path d="M24 34 Q30 30 36 34 M44 34 Q50 30 56 34" stroke="'+GOLD+'" stroke-width="3" fill="none"/>'],
- ["axe","ascia",'<line x1="34" y1="8" x2="34" y2="78" stroke="'+WOOD+'" stroke-width="5" stroke-linecap="round"/><path d="M34 12 Q58 6 64 20 Q60 34 34 32 Z" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/>'],
- ["shield","scudo",'<circle cx="40" cy="40" r="32" fill="'+WOOD+'" stroke="'+DARK+'" stroke-width="3"/><path d="M40 8 V72 M24 12 V68 M56 12 V68" stroke="#7E5429" stroke-width="1.5"/><circle cx="40" cy="40" r="9" fill="'+STEEL+'" stroke="'+DARK+'" stroke-width="1.5"/>'],
- ["armour","armatura",'<path d="M26 14 L54 14 L70 30 L62 38 L56 32 L56 74 L24 74 L24 32 L18 38 L10 30 Z" fill="url(#mail)" stroke="'+DARK+'" stroke-width="1.5"/>'],
- ["hilt","elsa, impugnatura della spada",'<polygon points="40,4 44,12 44,50 36,50 36,12" fill="#E4E8EC" stroke="#B5BDC6" stroke-width="1"/><rect x="27" y="50" width="26" height="6" rx="2" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><rect x="37.5" y="56" width="5" height="14" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><ellipse cx="40" cy="73" rx="6" ry="4" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><path d="M60 50 Q66 62 60 76" stroke="'+GOLD+'" stroke-width="2.5" fill="none"/>']
-];
-function wpnInit(){
-  const el = document.getElementById("wpn"); if(!el) return;
-  const pat = '<defs><pattern id="mail" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="'+STEEL2+'"/><circle cx="3" cy="3" r="2" fill="none" stroke="'+STEEL+'" stroke-width="1"/></pattern></defs>';
-  el.innerHTML = WPN.map(w=>'<div class="wp" onclick="hear({getAttribute:()=>null,textContent:\''+w[0]+'\'})"><svg viewBox="0 0 80 80" aria-hidden="true">'+(w[0]==="armour"?pat:"")+w[2]+'</svg><div class="en">'+w[0]+'</div><div class="it">'+w[1]+'</div></div>').join("");
 }
 
 /* ═══════ carte ═══════ */

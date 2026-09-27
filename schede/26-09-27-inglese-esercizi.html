@@ -92,38 +92,22 @@ button{font:inherit; cursor:pointer}
 <header>
   <div class="tag">Inglese · stile compito</div>
   <h1>Esercizi: Unit 7 e Beowulf</h1>
-  <p class="lead">Prova da solo. Nelle domande a scelta conta il primo tocco: dopo si blocca e compare il perché. Nelle caselle puoi riprovare finché non è giusto. Il tasto 🔊 legge la frase inglese.</p>
+  <p class="lead">Dieci gruppi brevi: fanne due o tre al giorno. Nelle domande a scelta conta il primo tocco. Nelle caselle puoi riprovare finché non è giusto. Il tasto 🔊 legge la frase inglese.</p>
   <div class="chips">
-    <a href="#A">Carattere</a><a href="#B">Forme</a><a href="#C">Mappa</a><a href="#D">Frasi</a><a href="#E">Meno e uguale</a><a href="#F">Espressioni</a><a href="#G">Lettura</a><a href="#H">Beowulf: storia</a><a href="#I">Beowulf: poema</a><a href="#J">Capitolo 1</a>
+    <a href="#A">Le parole</a><a href="#B">La grammatica</a><a href="#C">Beowulf</a>
   </div>
 </header>
 
-<div class="note"><b>Come scrivere.</b> Maiuscole e punto finale non contano. Se una parola ha due forme giuste, puoi scriverne una o tutte e due separate da «/».</div>
+<div class="note"><b>Compiti del libro.</b> Gli esercizi 6, 7, 8 e 11 di pp. 232–233 sono qui dentro: falli qui, con la correzione subito, poi ricopia le risposte sul libro. Maiuscole e punto finale non contano.</div>
 
-<h2 id="A">A · Il carattere</h2>
+<h2 id="A">A · Le parole</h2>
 <div id="secA"></div>
-<h2 id="B">B · Comparativi e superlativi: le forme</h2>
+<h2 id="B">B · La grammatica</h2>
 <div id="secB"></div>
-<h2 id="C">C · La mappa della grammatica</h2>
-<p class="intro">Come l'esercizio 1 di p. 230: scrivi le venti forme. Nel superlativo <i>the</i> puoi anche non scriverlo, come nella mappa.</p>
+<h2 id="C">C · Beowulf</h2>
 <div id="secC"></div>
-<h2 id="D">D · Nelle frasi</h2>
-<div id="secD"></div>
-<h2 id="E">E · Meno di, tanto quanto</h2>
-<div id="secE"></div>
-<h2 id="F">F · Le espressioni di p. 195</h2>
-<div id="secF"></div>
-<h2 id="G">G · Lettura di p. 236</h2>
-<p class="intro">Apri il libro a p. 236, rileggi il testo su Lowri Moore, poi rispondi.</p>
-<div id="secG"></div>
-<h2 id="H">H · Beowulf: la storia</h2>
-<div id="secH"></div>
-<h2 id="I">I · Beowulf: il poema</h2>
-<div id="secI"></div>
-<h2 id="J">J · Prima di leggere e capitolo 1</h2>
-<div id="secJ"></div>
 
-<p class="foot">Dal libro: Phases 1 unità 7, New Grammar Files pp. 188–196, pagine su Beowulf condivise su Didattica.</p>
+<p class="foot">Dal libro: Phases 1 unità 7 (pp. 232–233), New Grammar Files p. 195, pagine su Beowulf condivise su Didattica.</p>
 </div>
 
 <script>
@@ -149,6 +133,9 @@ const FORMS = {
  confident:[5,"more confident","the most confident"], generous:[5,"more generous","the most generous"],
  beautiful:[5,"more beautiful","the most beautiful"], boring:[5,"more boring","the most boring"], active:[5,"more active","the most active"],
  splendid:[5,"more splendid","the most splendid"], slowly:[5,"more slowly","the most slowly"], powerful:[5,"more powerful","the most powerful"],
+ fast:[0,"faster","the fastest"], hungry:[3,"hungrier","the hungriest"], pretty:[3,"prettier","the prettiest"], moody:[3,"moodier","the moodiest"],
+ narrow:[4,"narrower|more narrow","the narrowest|the most narrow"], nervous:[5,"more nervous","the most nervous"], anxious:[5,"more anxious","the most anxious"],
+ strangely:[5,"more strangely","the most strangely"],
  good:[6,"better","the best"], bad:[6,"worse","the worst"], far:[6,"farther|further","the farthest|the furthest"], well:[6,"better","the best"]
 };
 function lev(a,b){
@@ -186,7 +173,8 @@ function diagnose(base, want, a){
   if(rule===5 && (w===base+suf || w===stem+suf || w===stem+"i"+suf)) return "<b>"+base+"</b> è lungo: si usa "+more+" davanti, e l'aggettivo non cambia.";
   if(rule===5 && want==="s" && w==="more "+base) return "Nel superlativo si usa <b>the most</b>, non more.";
   if(rule===5 && want==="c" && (w==="most "+base || w==="the most "+base)) return "the most è il superlativo. Più… di = <b>more</b> "+base+".";
-  if(rule<=3 && (w==="more "+base || w==="most "+base)) return "<b>"+base+"</b> è corto: si aggiunge -"+suf+(rule===3?" e la y diventa i":"")+", niente "+(want==="s"?"most":"more")+".";
+  if(rule===3 && (w==="more "+base || w==="most "+base)) return "<b>"+base+"</b>: due sillabe in -y. La y diventa i e si aggiunge -"+suf+" ("+base.slice(0,-1)+"i"+suf+"), niente "+(want==="s"?"most":"more")+".";
+  if(rule<=2 && (w==="more "+base || w==="most "+base)) return "<b>"+base+"</b> è corto: si aggiunge -"+suf+", niente "+(want==="s"?"most":"more")+".";
   if(rule===1 && w===base+suf) return "Una vocale + una consonante in fondo: raddoppia la "+base.slice(-1)+".";
   if(rule===3 && w===base+suf) return "La y diventa i: "+base.slice(0,-1)+"i"+suf+".";
   if(rule===2 && (w===base+suf || w===base+"e"+suf.slice(1))) return "<b>"+base+"</b> finisce già in -e: aggiungi solo -"+suf.slice(1)+".";
@@ -206,165 +194,26 @@ const W_SEN = "Falso amico: sensible vuol dire giudizioso. Sensibile si dice sen
 const W_SEN2 = "Sensible vuol dire giudizioso, non sensibile.";
 
 const BLK = [
-/* ─── A · carattere ─── */
-{id:"a1", sec:"A", t:"A1 · Che cosa vuol dire?", sub:"Tocca 🔊 per sentire la parola, poi scegli il significato.", en:true, rows:[
- ["reliable",["affidabile","riposante","ricco"],"Reliable: una persona su cui puoi contare."],
- ["sensible",["giudizioso, con buon senso","sensibile","nervoso"],"È il falso amico più pericoloso.",["",W_SEN,""]],
- ["sensitive",["sensibile","giudizioso","sensato"],"Sensitive = sensibile, capisce i sentimenti degli altri.",["","Giudizioso è sensible.","Sensato è sensible."]],
- ["bossy",["prepotente, dà sempre ordini","impegnato","noioso"],"Viene da boss, il capo."],
- ["outgoing",["estroverso","in partenza","pigro"],"Per il carattere, outgoing vuol dire estroverso, che va verso gli altri.",["","Sembra «in uscita», ma per il carattere vuol dire estroverso.",""]],
- ["moody",["lunatico, cambia umore","allegro","timido"],"Moody viene da mood, l'umore."],
- ["easy-going",["tranquillo, accomodante","facile da battere","ansioso"],"Easy-going: prende le cose con calma."],
- ["selfish",["egoista","timido","generoso"],"Self vuol dire sé stesso: pensa solo a sé."],
- ["hard-working",["gran lavoratore","duro, severo","pigro"],"Hard-working: lavora tanto.",["","Hard da solo può voler dire duro, ma hard-working è chi lavora molto.",""]],
- ["talkative",["chiacchierone","pieno di talento","silenzioso"],"Viene da talk, parlare.",["","Talento si dice talent. Talkative viene da talk, parlare.",""]],
- ["insecure",["insicuro","in pericolo","sicuro di sé"],"Insecure = insicuro. Sicuro di sé è confident."],
- ["cheerful",["allegro, di buon umore","pieno di paura","educato"],"Cheerful: sempre di buon umore."],
- ["anxious",["ansioso","arrabbiato","annoiato"],"Anxious: si preoccupa sempre."],
- ["rude",["maleducato","ruvido","rosso"],"Rude è il contrario di polite."]]},
-{id:"a2", sec:"A", t:"A2 · Chi è?", sub:"Leggi la definizione e scegli la parola.", en:true, rows:[
- ["Someone who is always telling people what to do.",["bossy","helpful","honest"],"Bossy: dà sempre ordini."],
- ["Someone who tells the truth and never cheats.",["honest","creative","nervous"],"Honest: dice la verità."],
- ["Someone who is practical and shows good sense.",["sensible","sensitive","lively"],"Good sense = buon senso: sensible.",["","Sensitive vuol dire sensibile. Buon senso = sensible.",""]],
- ["Someone who has a lot of original ideas.",["creative","reliable","rude"],"Original ideas: creative."],
- ["Someone you can trust and count on.",["reliable","moody","talkative"],"Trust = fidarsi: reliable."],
- ["Someone who is worried about an important event.",["nervous","easy-going","brave"],"Per un evento preciso: nervous."],
- ["Someone who understands how other people feel.",["sensitive","sensible","selfish"],"Capisce i sentimenti: sensitive.",["",W_SEN2,""]],
- ["Someone who is not afraid of danger.",["brave","shy","lazy"],"Non ha paura: brave."],
- ["Someone who doesn't like working.",["lazy","hard-working","patient"],"Non ama lavorare: lazy."],
- ["Someone who thinks only about himself.",["selfish","generous","sociable"],"Pensa solo a sé: selfish."]]},
-{id:"a3", sec:"A", t:"A3 · Il contrario", sub:"Scegli la parola di significato opposto.", en:true, rows:[
- ["generous",["selfish","sociable","sensible"],"generous ↔ selfish"],
- ["optimistic",["pessimistic","patient","polite"],"optimistic ↔ pessimistic"],
- ["polite",["rude","reliable","honest"],"polite ↔ rude"],
- ["lazy",["hard-working","easy-going","lively"],"lazy ↔ hard-working"],
- ["confident",["insecure","sensitive","cheerful"],"confident ↔ insecure"],
- ["cheerful",["moody","outgoing","brave"],"cheerful ↔ moody"],
- ["outgoing",["shy","sociable","talkative"],"outgoing ↔ shy",["","Sociable vuol dire quasi la stessa cosa di outgoing.","Talkative è simile, non opposto."]],
- ["easy-going",["anxious","cheerful","generous"],"easy-going ↔ anxious"]]},
-{id:"a4", sec:"A", t:"A4 · Quale parola ci sta?", sub:"Leggi la frase e scegli l'aggettivo giusto.", en:true, rows:[
- ["Tom always helps his friends with their homework. He's very "+GAP+".",["helpful","bossy","moody"],"Aiuta gli amici: helpful."],
- ["Jane isn't afraid of the dark. She's really "+GAP+".",["brave","shy","anxious"],"Non ha paura: brave."],
- ["My grandma can wait for hours and never gets angry. She's "+GAP+".",["patient","lazy","rude"],"Aspetta senza arrabbiarsi: patient."],
- ["Before the match I was "+GAP+": my hands were shaking.",["nervous","anxious","easy-going"],"Per una cosa precisa, la partita: nervous.",["","Anxious è un modo di essere, sempre. Per una cosa precisa si usa nervous.",""]],
- ["My uncle worries about everything, all the time. He's an "+GAP+" person.",["anxious","nervous","cheerful"],"Sempre, in generale: anxious.",["","Nervous è per una cosa precisa. Per un modo di essere si usa anxious.",""]],
- ["Luca never speaks in class. He's very "+GAP+".",["shy","talkative","outgoing"],"Non parla mai: shy."],
+/* ─── A · le parole ─── */
+{id:"a1", sec:"A", t:"A1 · Il carattere", sub:"I contrari e le due trappole: sensible / sensitive, nervous / anxious.", en:true, rows:[
+ ["The opposite of <b>generous</b>",["selfish","sociable","sensible"],"generous ↔ selfish"],
+ ["The opposite of <b>polite</b>",["rude","reliable","honest"],"polite ↔ rude"],
+ ["The opposite of <b>lazy</b>",["hard-working","easy-going","lively"],"lazy ↔ hard-working"],
+ ["The opposite of <b>confident</b>",["insecure","sensitive","cheerful"],"confident ↔ insecure"],
+ ["The opposite of <b>cheerful</b>",["moody","outgoing","brave"],"cheerful ↔ moody"],
  ["Sara never does dangerous things. She's very "+GAP+".",["sensible","sensitive","lively"],"Ha buon senso: sensible.",["","Sensitive vuol dire sensibile. Qui serve buon senso: sensible.",""]],
- ["Lisa cries when she watches a sad film. She's very "+GAP+".",["sensitive","sensible","selfish"],"Si commuove: sensitive, sensibile.",["",W_SEN2,""]]]},
-
-/* ─── B · forme ─── */
-{id:"b1", sec:"B", type:"typed", t:"B1 · Scrivi il comparativo", sub:"Più… di: scrivi solo la forma, senza than.", rows:[
- {q:"cheap", base:"cheap", want:"c"},{q:"big", base:"big", want:"c"},{q:"nice", base:"nice", want:"c"},{q:"lazy", base:"lazy", want:"c"},
- {q:"expensive", base:"expensive", want:"c"},{q:"good", base:"good", want:"c"},{q:"bad", base:"bad", want:"c"},{q:"hot", base:"hot", want:"c"},
- {q:"friendly", base:"friendly", want:"c"},{q:"interesting", base:"interesting", want:"c"},{q:"far", base:"far", want:"c"},{q:"safe", base:"safe", want:"c"},
- {q:"early", base:"early", want:"c"},{q:"slowly", base:"slowly", want:"c"},{q:"clever", base:"clever", want:"c"}]},
-{id:"b2", sec:"B", type:"typed", t:"B2 · Scrivi il superlativo", sub:"Il più…: scrivi anche the.", rows:[
- {q:"tall", base:"tall", want:"s"},{q:"happy", base:"happy", want:"s"},{q:"big", base:"big", want:"s"},{q:"beautiful", base:"beautiful", want:"s"},
- {q:"good", base:"good", want:"s"},{q:"bad", base:"bad", want:"s"},{q:"large", base:"large", want:"s"},{q:"busy", base:"busy", want:"s"},
- {q:"thin", base:"thin", want:"s"},{q:"generous", base:"generous", want:"s"},{q:"simple", base:"simple", want:"s"},{q:"far", base:"far", want:"s"}]},
-{id:"b3", sec:"B", t:"B3 · In quale gruppo va?", sub:"Come l'esercizio 5 di p. 231: scegli come si forma il comparativo.", en:true,
- o:["+ -er","y → -ier","more","+ -r","irregolare","-er oppure more"], cols:2, rows:[
- ["interesting",2,"in-te-res-ting: lungo → more interesting."],["lively",1,"live-ly: due sillabe in -y → livelier."],
- ["clever",5,"cle-ver: due sillabe in -er → cleverer / more clever."],["far",4,"far → farther / further."],
- ["brave",3,"finisce in -e → braver."],["lazy",1,"la-zy → lazier."],["simple",5,"sim-ple: due sillabe in -le → simpler / more simple."],
- ["shy",0,"una sillaba → shyer."],["narrow",5,"nar-row: due sillabe in -ow → narrower / more narrow."],["well",4,"well → better."],
- ["friendly",1,"friend-ly → friendlier."],["close",3,"finisce in -e → closer."],["tall",0,"una sillaba → taller."],
- ["slowly",2,"avverbio in -ly → more slowly."],["bossy",1,"bos-sy → bossier."],["rude",3,"finisce in -e → ruder."]]},
-
-/* ─── C · mappa ─── */
-{id:"c1", sec:"C", type:"typed", t:"C1 · Completa la mappa", sub:"Scrivi la forma che va al numero indicato.", map:true, rows:[
- {g:"One-syllable adjectives / adverbs", q:"small →", n:1, base:"small", want:"c"},{q:"small →", n:2, base:"small", want:"s", optThe:true},
- {g:"One vowel + one consonant", q:"hot →", n:3, base:"hot", want:"c"},{q:"hot →", n:4, base:"hot", want:"s", optThe:true},
- {g:"Ending in -e", q:"safe →", n:5, base:"safe", want:"c"},{q:"safe →", n:6, base:"safe", want:"s", optThe:true},
- {g:"Two syllables ending in -y, and early", q:"busy →", n:7, base:"busy", want:"c"},{q:"busy →", n:8, base:"busy", want:"s", optThe:true},
- {g:"Two syllables in -er, -le, -ow, and common", q:"simple → (con -er)", n:9, base:"simple", want:"c", ans:["simpler"], alt:{"more simple":"Questa è la forma con more: va nella casella 10. Qui serve quella con -er."}},
- {q:"simple → OR", n:10, base:"simple", want:"c", ans:["more simple"], alt:{"simpler":"Simpler va nella casella 9. Qui serve la forma con more."}},
- {q:"simple → (con -est)", n:11, base:"simple", want:"s", ans:["the simplest"], optThe:true, alt:{"the most simple":"Questa va nella casella 12. Qui serve la forma con -est.","most simple":"Questa va nella casella 12. Qui serve la forma con -est."}},
- {q:"simple → OR", n:12, base:"simple", want:"s", ans:["the most simple"], optThe:true, alt:{"the simplest":"Questa va nella casella 11. Qui serve la forma con most.","simplest":"Questa va nella casella 11. Qui serve la forma con most."}},
- {g:"Two or more syllables, adverbs in -ly", q:"generous →", n:13, base:"generous", want:"c"},{q:"generous →", n:14, base:"generous", want:"s", optThe:true},
- {g:"Irregular", q:"good →", n:15, base:"good", want:"c"},{q:"bad →", n:16, base:"bad", want:"c"},{q:"far →", n:17, base:"far", want:"c"},
- {q:"good →", n:18, base:"good", want:"s", optThe:true},{q:"bad →", n:19, base:"bad", want:"s", optThe:true},{q:"far →", n:20, base:"far", want:"s", optThe:true}]},
-
-/* ─── D · frasi ─── */
-{id:"d1", sec:"D", type:"typed", t:"D1 · Completa la frase", sub:"Guarda se dopo c'è than (comparativo) oppure no (superlativo, con the).", en:true, rows:[
- {q:"This hotel is", post:"than the one we stayed at last year.", base:"comfortable", want:"c"},
- {q:"My dog is", post:"than your dog.", base:"big", want:"c"},
- {q:"I think maths is", post:"than English.", base:"difficult", want:"c"},
- {q:"Today is", post:"than yesterday.", base:"hot", want:"c"},
- {q:"Lowri is", post:"than her friends.", base:"confident", want:"c"},
- {q:"My brother is", post:"than me.", base:"lazy", want:"c"},
- {q:"My marks are", post:"than last year.", base:"bad", want:"c"},
- {q:"Mount Everest is", post:"mountain in the world.", base:"high", want:"s"},
- {q:"The Nile is", post:"river in the world.", base:"long", want:"s"},
- {q:"This is", post:"pizza I have ever eaten.", base:"good", want:"s"},
- {q:"Winter is", post:"season of all.", base:"cold", want:"s"},
- {q:"That watch is one of", post:"things in the shop.", base:"expensive", want:"s"},
- {q:"Beowulf is", post:"poem in Old English.", base:"long", want:"s"},
- {q:"Hrothgar was", post:"king in Denmark.", base:"powerful", want:"s"}]},
-{id:"d2", sec:"D", t:"D2 · Quale parolina?", sub:"than, of, in, as, on: scegli quella giusta.", en:true, rows:[
- ["Michael is taller "+GAP+" Bob.",["than","of","that"],"Comparativo → than.",["","","That vuol dire che, quello. Nel confronto si usa than."]],
- ["Mark is the tallest "+GAP+" the three boys.",["of","in","than"],"Un gruppo (the three boys) → of.",["","In si usa con un luogo.","Than va con il comparativo, non con il superlativo."]],
- ["Shanghai is one of the biggest cities "+GAP+" the world.",["in","of","than"],"Un luogo (the world) → in.",["","Con un luogo si usa in: in the world.",""]],
- ["She's the cleverest "+GAP+" all.",["of","in","than"],"of all = di tutti."],
- ["He's the nicest person "+GAP+" town.",["in","of","as"],"Un luogo → in town."],
- ["My hair is as long "+GAP+" yours.",["as","than","like"],"as … as.",["","As va con as: as long as.",""]],
- ["Death Valley is the hottest place "+GAP+" earth.",["on","in","of"],"Si dice on earth.",["","Con earth si usa on: on earth.",""]],
- ["This car is slower "+GAP+" that one.",["than","then","as"],"Comparativo → than.",["","Then vuol dire poi.","As va con as: as slow as."]]]},
-{id:"d3", sec:"D", t:"D3 · Quale frase è giusta?", sub:"Due frasi hanno un errore. Trova quella giusta.", en:true, c1:true, rows:[
- ["",["My brother is taller than me.","My brother is more taller than me.","My brother is taller then me."],"taller … than.",["","Mai more insieme a -er.","Then vuol dire poi. Nel confronto: than."]],
- ["",["She's the best student in the class.","She's best student in the class.","She's the better student in the class."],"the best + in the class.",["","Manca the: the best.","Better è il comparativo. Il migliore = the best."]],
- ["",["Tom is as tall as Jim.","Tom is as tall than Jim.","Tom is tall as Jim."],"as tall as.",["","As va con as, non con than.","Manca il primo as: as tall as."]],
- ["",["My sister is older than me.","My sister is elder than me.","My sister is more old than me."],"older than.",["","Elder non si usa mai con than.","Old è corto: older."]],
- ["",["This is the most expensive shirt in the shop.","This is the expensivest shirt in the shop.","This is the more expensive shirt in the shop."],"expensive è lungo: the most expensive.",["","Expensive è lungo: the most expensive.","More è il comparativo. Il più = the most."]],
- ["",["Cricket is one of the most popular sports in England.","Cricket is one of the most popular sport in England.","Cricket is one of most popular sports in England."],"one of the + superlativo + plurale.",["","Dopo one of the il nome va al plurale: sports.","Manca the: one of the most popular."]],
- ["",["Cats are lazier than dogs.","Cats lazier than dogs.","Cats is lazier than dogs."],"Serve il verbo, al plurale: cats are.",["","Manca il verbo: Cats are lazier.","Cats è plurale: are, non is."]],
- ["",["I have fewer friends than you.","I have less friends than you.","I have fewer friends that you."],"Gli amici si contano: fewer.",["","Friends si contano: fewer, non less.","Nel confronto: than, non that."]],
- ["",["My mark is worse than yours.","My mark is worst than yours.","My mark is badder than yours."],"Peggiore di = worse than.",["","Worst è il superlativo (il peggiore).","Bad è irregolare: worse."]],
- ["",["He doesn't eat as much as me.","He doesn't eat as many as me.","He doesn't eat as much than me."],"Dopo un verbo: as much as.",["","Dopo un verbo si usa as much.","As va con as."]]]},
-{id:"d4", sec:"D", type:"tiles", t:"D4 · Metti in ordine", sub:"Tocca i pezzi nell'ordine giusto. Attenzione: c'è un pezzo in più, che non serve.", rows:[
- {it:"Lowri è più sicura di sé delle sue amiche.", t:["Lowri","is","more","confident","than","her friends."], x:["then"], tr:"Then vuol dire poi. Nel confronto ci vuole than."},
- {it:"I gatti sono più pigri dei cani.", t:["Cats","are","lazier","than","dogs."], x:["is"], tr:"Cats è plurale: are, non is."},
- {it:"Mark è il ragazzo più alto della classe.", t:["Mark","is","the","tallest","boy","in","the class."], x:["of"], tr:"The class è un luogo: in the class."},
- {it:"Questo compito non è difficile come l'ultimo.", t:["This test","isn't","as","difficult","as","the last one."], x:["than"], tr:"As va con as, non con than."},
- {it:"Ho meno libri di mio fratello.", t:["I","have","fewer","books","than","my brother."], x:["less"], tr:"I libri si contano: fewer, non less."}]},
-
-/* ─── E · meno e uguale ─── */
-{id:"e1", sec:"E", t:"E1 · less, fewer, the least, the fewest", sub:"Si conta o non si conta? È un confronto tra due o con tutti?", en:true,
- o:["less","fewer","the least","the fewest"], cols:2, rows:[
- ["George studies "+GAP+" than Paul.",0,"Dopo un verbo: less.",{1:"Fewer va davanti a un nome plurale che si conta.",2:"C'è than: basta less."}],
- ["I read "+GAP+" books than my sister.",1,"I libri si contano: fewer.",{0:"Books si contano: fewer.",3:"C'è than: basta fewer, senza the."}],
- ["Well done, Tom! You've made "+GAP+" mistakes of all.",3,"of all: il meno di tutti. Mistakes si contano: the fewest.",{1:"C'è of all: serve il superlativo, the fewest.",2:"Mistakes si contano: the fewest."}],
- ["This is "+GAP+" expensive phone in the shop.",2,"Davanti a un aggettivo, il meno di tutti: the least.",{0:"C'è in the shop, il meno di tutti: the least.",3:"Davanti a un aggettivo non si usa fewest."}],
- ["There is "+GAP+" water in this bottle than in that one.",0,"L'acqua non si conta: less.",{1:"Water non si conta: less."}],
- ["There were "+GAP+" people at the party than last year.",1,"Le persone si contano: fewer.",{0:"People si contano: fewer."}],
- ["I use my phone "+GAP+" of all my friends.",2,"Dopo un verbo, di tutti: the least.",{0:"C'è of all: serve the least."}],
- ["She has "+GAP+" free time than me.",0,"Il tempo non si conta: less.",{1:"Time non si conta: less."}]]},
-{id:"e2", sec:"E", t:"E2 · as, as much, as many", sub:"Davanti a un aggettivo: as. Davanti a un nome: much se non si conta, many se si conta.", en:true,
- o:["as","as much","as many"], cols:3, rows:[
- ["I didn't write "+GAP+" emails as Steve.",2,"Le email si contano: as many.",{1:"Emails si contano: as many."}],
- ["Beth didn't buy "+GAP+" food as me.",1,"Il cibo non si conta: as much.",{2:"Food non si conta: as much."}],
- ["Frank didn't work "+GAP+" as Ken.",1,"Dopo un verbo: as much as.",{0:"Dopo un verbo si usa as much."}],
- ["Alice doesn't get up "+GAP+" early as Tim.",0,"Davanti a un avverbio (early): as.",{1:"Early non è un nome: basta as."}],
- ["Jill's salary isn't "+GAP+" high as Ted's.",0,"Davanti a un aggettivo (high): as."],
- ["I haven't got "+GAP+" money as you.",1,"I soldi non si contano: as much.",{2:"Money non si conta: as much."}],
- ["There aren't "+GAP+" students as last year.",2,"Gli studenti si contano: as many."],
- ["My brother is "+GAP+" tall as my dad.",0,"Davanti a un aggettivo: as tall as."]]},
-{id:"e3", sec:"E", t:"E3 · Stesso significato, con not as… as", sub:"Scegli la frase che vuol dire la stessa cosa.", en:true, c1:true, rows:[
- ["Lions are less dangerous than tigers.",["Lions aren't as dangerous as tigers.","Lions isn't as dangerous as tigers.","Lions aren't as dangerous than tigers."],"less … than → not as … as.",["","Lions è plurale: aren't.","As va con as."]],
- ["Rugby is less popular in Italy than in New Zealand.",["Rugby isn't as popular in Italy as in New Zealand.","Rugby aren't as popular in Italy as in New Zealand.","Rugby isn't as popular in Italy than in New Zealand."],"Rugby è singolare: isn't.",["","Rugby è singolare: isn't.","As va con as."]],
- ["This sweater is cheaper than those jeans.",["Those jeans aren't as cheap as this sweater.","This sweater isn't as cheap as those jeans.","Those jeans aren't as cheaper as this sweater."],"Si gira la frase: i jeans non sono economici come la maglia.",["","Così vuol dire il contrario: la maglia costerebbe di più.","Dopo as l'aggettivo non cambia: as cheap as."]],
- ["Harry is stronger than Steve.",["Steve isn't as strong as Harry.","Harry isn't as strong as Steve.","Steve isn't as stronger as Harry."],"Il più debole va per primo: Steve isn't as strong as Harry.",["","Così vuol dire il contrario.","Dopo as l'aggettivo non cambia."]],
- ["New York is bigger than Paris.",["Paris isn't as big as New York.","New York isn't as big as Paris.","Paris isn't so big than New York."],"Paris isn't as big as New York.",["","Così vuol dire il contrario.","So va con as: not so big as."]]]},
-{id:"e4", sec:"E", type:"typed", t:"E4 · Il contrario al posto di less", sub:"Riscrivi con il comparativo della parola tra parentesi. Scrivi solo la forma.", en:true, rows:[
- {q:"This documentary is less interesting than I thought. → This documentary is", post:"than I thought.", base:"boring", want:"c"},
- {q:"Tom is less lazy than James. → Tom is", post:"than James.", base:"active", want:"c"},
- {q:"The test was less difficult than I expected. → The test was", post:"than I expected.", base:"easy", want:"c"},
- {q:"This suitcase is less heavy than I thought. → This suitcase is", post:"than I thought.", base:"light", want:"c"},
- {q:"My phone is less expensive than yours. → My phone is", post:"than yours.", base:"cheap", want:"c"},
- {q:"Our street is less noisy than yours. → Our street is", post:"than yours.", base:"quiet", want:"c"}]},
-
-/* ─── F · espressioni ─── */
-{id:"f1", sec:"F", t:"F1 · Quale espressione?", sub:"Leggi la situazione e scegli l'espressione giusta.", en:true, c1:true, rows:[
+ ["Lisa cries when she watches a sad film. She's very "+GAP+".",["sensitive","sensible","selfish"],"Si commuove: sensitive, sensibile.",["",W_SEN2,""]],
+ ["Before the match I was "+GAP+": my hands were shaking.",["nervous","anxious","easy-going"],"Per una cosa precisa, la partita: nervous.",["","Anxious è un modo di essere, sempre. Per una cosa precisa si usa nervous.",""]]]},
+{id:"a2", sec:"A", t:"A2 · Es. 11 p. 233 · Emozioni e preposizioni", sub:"Scegli aggettivo e preposizione insieme. Ogni aggettivo si usa una volta.", en:true, rows:[
+ ["Well done: you won the race! We're all very "+GAP+" you!",["proud of","proud with","delighted of"],"proud of: orgogliosi di te.",["","Proud vuole of.","Delighted vuole with."]],
+ ["I'm "+GAP+" Ted because he didn't invite me to his party.",["cross with","cross of","afraid of"],"cross with: arrabbiato con una persona.",["","Con una persona: cross with.",""]],
+ ["Italy must win the next match to qualify for the European Championship and the fans are very "+GAP+" it.",["hopeful about","hopeful of","proud with"],"hopeful about: fiduciosi.",["","Hopeful vuole about.",""]],
+ ["The shop assistant told Sally that the dress she liked is sold out. She's so "+GAP+" it.",["upset about","upset with","excited about"],"upset about: dispiaciuta, turbata.",["","Upset vuole about.","Excited vuol dire emozionata, contenta: qui non ci sta."]],
+ ["‘Are you "+GAP+" the dark?’ ‘I'm a bit and always leave my bedside lamp on at night.’",["afraid of","afraid about","cross with"],"afraid of: avere paura di.",["","Afraid vuole of.",""]],
+ ["We're really "+GAP+" our school trip; we're going abroad for the first time!",["excited about","excited of","sorry about"],"excited about: emozionati, non vediamo l'ora.",["","Excited vuole about.",""]],
+ ["The Art teacher told the class she was "+GAP+" their excellent results in the test.",["delighted with","delighted of","upset about"],"delighted with: contentissima di.",["","Delighted vuole with.",""]],
+ ["We told Emma we were "+GAP+" her broken ankle.",["sorry about","sorry with","proud of"],"sorry about: dispiaciuti per.",["","Sorry vuole about.",""]]]},
+{id:"a3", sec:"A", t:"A3 · Le espressioni di p. 195", sub:"Leggi la situazione e scegli l'espressione giusta.", en:true, c1:true, rows:[
  ["Tom finished his homework in two minutes. He was…",["as quick as a flash","as busy as a bee","as deaf as a post"],"Velocissimo: as quick as a flash."],
  ["My little sister never behaves badly. She's…",["as good as gold","as light as a feather","as obstinate as a mule"],"Bravissima: as good as gold."],
  ["Grandpa can't hear anything. He's…",["as deaf as a post","as blind as a bat","as clean as a whistle"],"Non sente: deaf.",["","Blind vuol dire cieco: non vede.",""]],
@@ -372,80 +221,64 @@ const BLK = [
  ["My mum works, studies and cooks every day. She's always…",["as busy as a bee","as good as gold","as light as a feather"],"Sempre indaffarata: as busy as a bee."],
  ["This bag weighs almost nothing. It's…",["as light as a feather","as clean as a whistle","as quick as a flash"],"Leggerissima: as light as a feather."],
  ["Frank never changes his mind. He's…",["as obstinate as a mule","as busy as a bee","as good as gold"],"Testardo: as obstinate as a mule."],
- ["We cleaned the kitchen after the party. Now it's…",["as clean as a whistle","as light as a feather","as deaf as a post"],"Pulitissima: as clean as a whistle."],
- ["Before the test everybody was nervous, but Lowri stayed…",["as cool as a cucumber","as blind as a bat","as obstinate as a mule"],"Calmissima: as cool as a cucumber."]]},
-{id:"f2", sec:"F", type:"typed", t:"F2 · Completa l'espressione", sub:"Scrivi la parola che manca. Se sbagli, compare un aiuto.", en:true, rows:[
- {q:"as light as a", post:"", ans:["feather"], hint:"In italiano: piuma."},
- {q:"as quick as a", post:"", ans:["flash"], hint:"In italiano: lampo."},
- {q:"as busy as a", post:"", ans:["bee"], hint:"In italiano: ape."},
- {q:"as clean as a", post:"", ans:["whistle"], hint:"In italiano: fischietto."},
- {q:"as good as", post:"", ans:["gold"], hint:"In italiano: oro."},
- {q:"as deaf as a", post:"", ans:["post"], hint:"In italiano: palo."},
- {q:"as blind as a", post:"", ans:["bat"], hint:"In italiano: pipistrello."},
- {q:"as obstinate as a", post:"", ans:["mule"], hint:"In italiano: mulo."}]},
+ ["We cleaned the kitchen after the party. Now it's…",["as clean as a whistle","as light as a feather","as deaf as a post"],"Pulitissima: as clean as a whistle."]]},
 
-/* ─── G · lettura ─── */
-{id:"g1", sec:"G", t:"G1 · Making emojis more representative", sub:"Le domande del libro. Scegli la risposta giusta.", en:true, c1:true, rows:[
- ["Why did Lowri become famous in 2019?",["She convinced Disney to create a heroine who wears glasses.","She made a film about a girl with glasses.","She won a competition with her emojis."],"Nel 2019 convinse la Disney: è nata Mirabel di Encanto."],
- ["What is she trying to do now?",["She wants tech companies to create emojis with glasses you can add.","She wants people to stop using emojis.","She wants to sell glasses to teenagers."],"Vuole emoji con gli occhiali, come si sceglie il colore della pelle o dei capelli."],
- ["What is the problem with the ‘nerd’ emoji?",["It doesn't express her personality.","It doesn't wear glasses.","It is too small to see."],"Ha gli occhiali, ma non rappresenta chi è lei.",["","Ha gli occhiali: era l'unica. Il problema è che non esprime la sua personalità.",""]],
- ["What are teens doing now?",["They support her and talk about their social difficulties.","They laugh at her idea.","They are buying new glasses."],"Migliaia di ragazzi la sostengono e raccontano le loro difficoltà."],
- ["Which problems do they talk about?",["People judge them only because of their glasses and say bad things.","They can't read the board at school.","Glasses are too expensive for them."],"Parlano di chi li giudica solo per gli occhiali e dei commenti cattivi."],
- ["Which word in the text means «con gli occhiali»?",["bespectacled","cucumber","representative"],"Bespectacled = con gli occhiali."],
- ["«Self-esteem» means…",["autostima","autista","stima dei prezzi"],"Self-esteem = autostima."]]},
+/* ─── B · la grammatica ─── */
+{id:"b1", sec:"B", type:"typed", t:"B1 · Es. 6 p. 232 · Più… di", sub:"Scrivi il comparativo della parola tra parentesi. Attenzione: ci sono anche avverbi.", en:true, rows:[
+ {q:"A: Is it", post:"if we walk or cycle to the station?", base:"good", want:"c"},
+ {q:"B: Let's cycle! It's", post:"than you think.", base:"far", want:"c"},
+ {q:"A: Why are you walking", post:"than usual?", base:"fast", want:"c"},
+ {q:"B: I'm", post:"than usual!", base:"hungry", want:"c"},
+ {q:"A: You look", post:"about your birthday party this year.", base:"nervous", want:"c"},
+ {q:"B: I want everything to be", post:"this time.", base:"nice", want:"c"},
+ {q:"A: I wonder why Alice is acting", post:"these days?", base:"strangely", want:"c"},
+ {q:"B: Yes, she's", post:"than usual, isn't she?", base:"moody", want:"c"},
+ {q:"A: Isn't the historical centre of the town", post:"than the other parts?", base:"pretty", want:"c"},
+ {q:"B: It is! The streets are", post:"and really attractive!", base:"narrow", want:"c"},
+ {q:"A: In class, we're all", post:"about this Maths test than the last one!", base:"anxious", want:"c"},
+ {q:"B: Don't worry! I'm sure the exercises are", post:"than you imagine.", base:"easy", want:"c"}]},
+{id:"b2", sec:"B", t:"B2 · Quale frase è giusta?", sub:"Due frasi hanno un errore. Trova quella giusta: sono gli errori da non fare.", en:true, c1:true, rows:[
+ ["",["My brother is taller than me.","My brother is more taller than me.","My brother is taller then me."],"taller … than.",["","Mai more insieme a -er.","Then vuol dire poi. Nel confronto: than."]],
+ ["",["Cats are lazier than dogs.","Cats lazier than dogs.","Cats is lazier than dogs."],"Serve il verbo, al plurale: cats are.",["","Manca il verbo: Cats are lazier.","Cats è plurale: are, non is."]],
+ ["",["She's the best student in the class.","She's best student in the class.","She's the better student in the class."],"the best + in the class.",["","Manca the: the best.","Better è il comparativo. Il migliore = the best."]],
+ ["",["This is the most expensive shirt in the shop.","This is the expensivest shirt in the shop.","This is the more expensive shirt in the shop."],"expensive è lungo: the most expensive.",["","Expensive è lungo: the most expensive.","More è il comparativo. Il più = the most."]],
+ ["",["My mark is worse than yours.","My mark is worst than yours.","My mark is badder than yours."],"Peggiore di = worse than.",["","Worst è il superlativo (il peggiore).","Bad è irregolare: worse."]],
+ ["",["Tom is as tall as Jim.","Tom is as tall than Jim.","Tom is tall as Jim."],"as tall as.",["","As va con as, non con than.","Manca il primo as: as tall as."]],
+ ["",["I have fewer friends than you.","I have less friends than you.","I have fewer friends that you."],"Gli amici si contano: fewer.",["","Friends si contano: fewer, non less.","Nel confronto: than, non that."]]]},
+{id:"b3", sec:"B", t:"B3 · Es. 7 p. 232 · less o fewer?", sub:"Si conta o non si conta?", en:true, o:["less","fewer"], cols:2, rows:[
+ ["This year there are "+GAP+" Christmas lights in the city centre.",1,"Le luci si contano: fewer.",{0:"Lights si contano: fewer."}],
+ ["The dentist told my brother to eat "+GAP+" sweets.",1,"Le caramelle si contano: fewer.",{0:"Sweets si contano: fewer."}],
+ ["Maybe we can go on holiday to Budapest instead of Paris this year. They say it is "+GAP+" expensive.",0,"Davanti a un aggettivo: less.",{1:"Expensive è un aggettivo: less. Fewer va solo davanti a un nome plurale."}],
+ ["Let's make "+GAP+" food for Mum and Dad's anniversary! Last year there was too much.",0,"Il cibo non si conta: less.",{1:"Food non si conta: less."}],
+ [GAP+" people are coming to the club at the moment because of school exams.",1,"Le persone si contano: fewer.",{0:"People si contano: fewer."}]]},
+{id:"b4", sec:"B", t:"B4 · Es. 8 p. 232 · Stesso significato, con less o fewer", sub:"Scegli la frase giusta. Attenzione anche al verbo.", en:true, c1:true, rows:[
+ ["Badminton is more fun than volleyball.",["Volleyball is less fun than badminton.","Volleyball is fewer fun than badminton.","Badminton is less fun than volleyball."],"Si gira la frase: volleyball per primo, poi less.",["","Fun non si conta: less.","Così vuol dire il contrario."]],
+ ["Becky has more friends than Abby, doesn't she?",["Abby has fewer friends than Becky, doesn't she?","Abby has less friends than Becky, doesn't she?","Abby has fewer friends that Becky, doesn't she?"],"Gli amici si contano: fewer.",["","Friends si contano: fewer.","Nel confronto: than."]],
+ ["We do more outdoor activities in summer than in winter.",["We do fewer outdoor activities in winter than in summer.","We do less outdoor activities in winter than in summer.","We do fewer outdoor activities in summer than in winter."],"Winter per primo, poi fewer.",["","Activities si contano: fewer.","Così vuol dire il contrario."]],
+ ["Adele sings more beautifully than Taylor Swift.",["Taylor Swift sings less beautifully than Adele.","Taylor Swift sings fewer beautifully than Adele.","Taylor Swift sings less beautiful than Adele."],"Davanti a un avverbio: less.",["","Davanti a un avverbio si usa less.","Sings è un verbo: serve l'avverbio beautifully."]],
+ ["Did Tina win more medals than Mia at sports day?",["Did Mia win fewer medals than Tina at sports day?","Did Mia won fewer medals than Tina at sports day?","Did Mia win less medals than Tina at sports day?"],"Did + verbo base (win) + fewer medals.",["","Dopo did il verbo va alla forma base: win, non won.","Le medaglie si contano: fewer."]]]},
 
-/* ─── H · Beowulf: storia ─── */
-{id:"h1", sec:"H", t:"H1 · True or false?", sub:"Come l'esercizio di p. 8. Dopo il tocco leggi la correzione.", en:true, o:["true","false"], cols:2, rows:[
+/* ─── C · Beowulf ─── */
+{id:"c1", sec:"C", t:"C1 · True or false? (p. 8)", sub:"Dopo il tocco leggi la correzione: nel compito va scritta.", en:true, o:["true","false"], cols:2, rows:[
  ["After the Romans left Britain, the Celts formed an effective government.",1,"The Celts could not govern the country on their own."],
  ["The Anglo-Saxons were just one people.",1,"They were different peoples: the Angles, the Saxons and the Jutes."],
  ["Celtic culture survived in some parts of Britain.",0,"Yes, in Wales and Cornwall."],
  ["Augustine, the first Archbishop of Canterbury, was sent to England by Pope Gregory.",0,"Yes, in 597."],
  ["When Christianity arrived in England, pagan ways disappeared immediately.",1,"Pagan ideas did not disappear completely."],
  ["Alfred the Great was the only king who managed to resist the Danes.",0,"Yes, he was king of Wessex from 871 to 899."],
- ["A Dane was king of England for a short time.",0,"Yes: Cnut became king in 1017. Anglo-Saxon rule started again in 1042."],
- ["The Normans, who conquered England in 1066, were also Anglo-Saxons.",1,"The Normans were descended from the Vikings."],
- ["The word ‘English’ comes from the Saxons.",1,"It comes from the Angles."],
- ["Many examples of Celtic literature survive.",1,"Celtic art survives, but none of their literature."],
- ["Alfred the Great founded the first English navy.",0,"Yes."],
- ["Most people in the USA are descended from the British.",1,"Fewer than 15% are descended from the British."],
- ["The Battle of Hastings was the last invasion of England.",0,"Yes, in 1066."]]},
-{id:"h2", sec:"H", t:"H2 · When?", sub:"Scegli la data giusta.", en:true, rows:[
+ ["A Dane was king of England for a short time.",0,"Yes: Cnut became king of England in 1017."],
+ ["The Normans, who conquered England in 1066, were also Anglo-Saxons.",1,"The Normans were descended from the Vikings."]]},
+{id:"c2", sec:"C", t:"C2 · When?", sub:"Scegli la data giusta.", en:true, rows:[
  ["When did the Roman army leave Britain?",["410","597","1066"],"In 410."],
- ["When did the Anglo-Saxons begin to invade Britain?",["in the 5th century","in the 7th century","in the 9th century"],"In the fifth century.",["","Nel VII secolo avevano già i loro regni.",""]],
- ["When did Pope Gregory send Augustine?",["597","410","911"],"In 597."],
- ["When did the Vikings begin their raids?",["at the end of the 8th century","in the 5th century","in 1066"],"At the end of the eighth century."],
- ["When was Alfred the Great king of Wessex?",["871–899","1017–1042","700–750"],"From 871 to 899.",["","1017 è Cnut, 1042 il ritorno dei re anglosassoni.","700–750 è quando fu composto il Beowulf."]],
- ["When did the Normans arrive in Normandy?",["911","1066","597"],"In 911.",["","Nel 1066 conquistano l'Inghilterra.",""]],
- ["When did Cnut become king of England?",["1017","1042","1066"],"In 1017."],
- ["When was the Battle of Hastings?",["1066","1017","911"],"In 1066."]]},
-{id:"h3", sec:"H", t:"H3 · Who? Where?", sub:"Persone, popoli e luoghi.", en:true, rows:[
- ["Who sent Augustine to Britain?",["Pope Gregory","Alfred the Great","William"],"Pope Gregory."],
- ["Who was the first Archbishop of Canterbury?",["Augustine","Pope Gregory","Harold"],"Augustine."],
- ["Who was the last Anglo-Saxon king of England?",["Harold","William","Cnut"],"Harold, killed at Hastings.",["","William era il capo dei Normanni.","Cnut era danese."]],
- ["Who was the leader of the Normans?",["William","Harold","Alfred"],"William, then William I of England."],
- ["What did the Anglo-Saxons call the Viking invaders?",["the Danes","the Jutes","the Normans"],"The Danes."],
- ["Where did the Anglo-Saxons come from?",["north Germany and Denmark","Norway and Sweden","France and Italy"],"From north Germany and Denmark.",["","Dalla Norvegia arrivano i Vichinghi.",""]],
- ["Where did the Celts keep their language and culture?",["in Wales and Cornwall","in Kent and Wessex","in Normandy"],"In Wales and Cornwall."],
- ["Where were the Jutes' kingdoms?",["in the south-east","in the north","in the west"],"In the south-east (Kent)."],
- ["Where is Normandy?",["in north-west France","in Denmark","in the south of Italy"],"In north-west France."],
- ["Where did other Normans found kingdoms?",["in the south of Italy and in Sicily","in Wales and Cornwall","in Norway"],"In the south of Italy and in Sicily."],
- ["Where was the Sutton Hoo treasure found?",["in eastern England","in Scotland","in Normandy"],"In eastern England."]]},
-{id:"h4", sec:"H", t:"H4 · Le parole del testo", sub:"Che cosa vuol dire?", en:true, rows:[
- ["conquered",["conquistato","consigliato","contato"],"Took complete control of."],
- ["to invade",["invadere, entrare con i soldati","invitare","inventare"],"To enter by force, with soldiers."],
- ["pagan",["pagano","pagato","paesano"],"Pagans believe in many gods."],
- ["to convert",["convertire","conversare","convincere a comprare"],"To persuade someone to change their religion."],
- ["raids",["incursioni, attacchi improvvisi","strade","regni"],"Sudden violent attacks."],
- ["founded",["fondò","trovò","finì"],"Started or built for the first time.",["","Trovò si dice found, ma founded (con -ed) vuol dire fondò.",""]],
- ["descended from",["discendente da","sceso da una scala","deciso da"],"Related to people who were born a long time before."],
- ["fierce",["feroce","fiero, orgoglioso","fresco"],"Fierce = feroce.",["","Sembra fiero, ma vuol dire feroce.",""]],
- ["navy",["marina militare, flotta","neve","nave da carico"],"Navy = la flotta militare."]]},
-
-/* ─── I · Beowulf: poema ─── */
-{id:"i1", sec:"I", t:"I1 · Il fact file", sub:"Le domande del fact file di p. 11.", en:true, c1:true, rows:[
+ ["When did the Anglo-Saxons invade Britain?",["in the 5th century","in the 8th century","in 1066"],"In the fifth century.",["","Alla fine dell'VIII secolo arrivano i Vichinghi.","Nel 1066 arrivano i Normanni."]],
+ ["When did Pope Gregory send Augustine?",["597","410","1017"],"In 597."],
+ ["When was Alfred the Great king of Wessex?",["871–899","700–750","1017"],"From 871 to 899.",["","700–750 è quando fu composto il Beowulf.","Nel 1017 diventa re il danese Cnut."]],
+ ["When was the Battle of Hastings?",["1066","1017","597"],"In 1066."],
+ ["When was Beowulf composed?",["between 700 and 750","around 1000","in 1066"],"Between 700 and 750.",["","Intorno al 1000 fu scritto il manoscritto.",""]]]},
+{id:"c3", sec:"C", t:"C3 · Il fact file (p. 11)", sub:"Le domande del fact file del libro.", en:true, c1:true, rows:[
  ["Why is Beowulf famous? (1)",["It is the longest poem that survives in Old English.","It is the shortest poem in Old English.","It is the first poem written in Latin."],"Il più lungo in inglese antico: 3,182 lines."],
  ["Why is Beowulf famous? (2)",["It is the first important poem in a European language that isn't Greek or Latin.","It is the oldest poem in French.","It was written by Alfred the Great."],"Il primo in una lingua europea che non sia greco o latino."],
- ["Why is Beowulf famous? (3)",["It is the only complete Germanic folk epic.","It is the only poem about the Normans.","It is the first English poem with rhyme."],"L'unico poema epico germanico completo.",["","","La rima arriva solo dopo il 1066."]],
+ ["Why is Beowulf famous? (3)",["It is the only complete Germanic folk epic.","It is the only poem about the Normans.","It is the first English poem with rhyme."],"L'unico poema epico germanico completo."],
  ["When was it composed?",["between 700 and 750","in the 6th century","around 1000"],"Between 700 and 750.",["","Del VI secolo sono alcuni fatti storici del poema, non il poema.","Intorno al 1000 fu scritto il manoscritto."]],
  ["Why was it not written down at first?",["It was oral poetry, passed from poet to poet.","The poet didn't want people to read it.","Paper didn't exist."],"Era poesia orale: si raccontava a voce."],
  ["When was it written down?",["around 1000","between 700 and 750","in 1066"],"The manuscript is from about 1000.",["","Tra il 700 e il 750 fu composto, non scritto.",""]],
@@ -453,47 +286,8 @@ const BLK = [
  ["Where are the events set?",["in southern Scandinavia","in England","in Normandy"],"In southern Scandinavia."],
  ["What are the main values of the poem?",["loyalty to the chief and the tribe, and revenge","love and peace","money and power"],"Loyalty and revenge."],
  ["What is the most important element of style?",["alliteration","rhyme","long sentences"],"Alliteration.",["","La rima arriva nella poesia inglese solo dopo il 1066.",""]],
- ["Where is the manuscript kept now?",["in London","in Canterbury","in Copenhagen"],"In London (the book says: in the British Museum)."],
- ["How many lines does the poem have?",["3,182","1,066","750"],"3,182 lines."],
- ["What was a scop?",["an Anglo-Saxon poet who sang poems","a Viking ship","a shop in London"],"A scop (pronounced ‘shop’) was an Anglo-Saxon poet.",["","","Si pronuncia come shop, ma era un poeta."]],
- ["What is alliteration?",["the same consonant sounds at the beginning of words near each other","the same sounds at the end of two lines","a very long poem"],"Alliteration: same consonant sounds at the beginning of near words.",["","Questa è la rima.",""]]]},
-
-/* ─── J · prima di leggere e capitolo 1 ─── */
-{id:"j1", sec:"J", t:"J1 · Che arma è?", sub:"Guarda il disegno e scegli la parola.", pic:true, rows:[
- ["@sword",["sword","spear","knife"],"sword = spada"],["@shield",["shield","helmet","armour"],"shield = scudo"],
- ["@helmet",["helmet","shield","hilt"],"helmet = elmo"],["@axe",["axe","spear","sword"],"axe = ascia"],
- ["@spear",["spear","axe","knife"],"spear = lancia"],["@knife",["knife","sword","hilt"],"knife = coltello"],
- ["@armour",["armour","helmet","shield"],"armour = armatura"],["@hilt",["hilt","knife","shield"],"hilt = l'impugnatura della spada",["","","",""]]]},
-{id:"j2", sec:"J", t:"J2 · La corte del re (p. 13)", sub:"Scegli la parola giusta.", en:true, rows:[
- ["The place where the king has his court is the…",["Hall","Palace","Castle"],"The Hall: Heorot Hall."],
- ["To show his royal authority, the king sits on a…",["throne","cushion","shield"],"A throne: a decorated, impressive chair."],
- ["Mead is an alcoholic drink made from…",["honey and water","apple juice","dark beer"],"Honey and water: miele e acqua."],
- ["The music at court is usually played on the…",["harp","lute","flute"],"The harp. The musicians are harpists."]]},
-{id:"j3", sec:"J", t:"J3 · Chapter One", sub:"Domande sul capitolo 1.", en:true, c1:true, rows:[
- ["Who was abandoned as a child but became a fierce warrior?",["Shield Sheafson","Hrothgar","Grendel"],"Shield Sheafson."],
- ["What did the Danes do with Shield's body?",["They put it in a boat with treasure and pushed it out to sea.","They buried it under Heorot Hall.","They burned it in the mead hall."],"A boat with treasure, pushed out to sea."],
- ["Who was Beow's heir?",["Halfdane","Hrothgar","Onela"],"The great Halfdane.",["","Hrothgar è figlio di Halfdane.",""]],
- ["Which of Halfdane's sons built the great mead hall?",["Hrothgar","Heorogar","Halga"],"Hrothgar."],
- ["What was the name of the mead hall?",["Heorot","Hastings","Wessex"],"Heorot Hall."],
- ["Who did Halfdane's daughter marry?",["Onela, the Swedish king","Beow","Grendel"],"Onela, the Swedish king."],
- ["Who was Grendel?",["a demon who hated the happiness of Heorot","a Danish king","a harpist at the court"],"A demon."],
- ["Grendel had lived in exile with the family of…",["Cain","Abel","Hrothgar"],"Cain, who murdered his brother Abel.",["","Abel è il fratello ucciso da Caino.",""]],
- ["How many men did Grendel take the first night?",["thirty","three","three hundred"],"Thirty men."],
- ["When did Grendel attack?",["at night, when the Danes were asleep","in the morning, during a feast","during a battle"],"At night, after their drinking."]]}
+ ["Where is the manuscript kept now?",["in London, in the British Museum","in Canterbury","in Denmark"],"In London, in the British Museum."]]}
 ];
-
-/* ═══════════ disegni delle armi ═══════════ */
-const STEEL = "#8C96A3", STEEL2 = "#C9D0D8", WOOD = "#9A6A3A", GOLD = "#C8962E", DARK = "#3C4550";
-const PICS = {
- sword:'<polygon points="40,4 44,12 44,50 36,50 36,12" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/><rect x="27" y="50" width="26" height="6" rx="2" fill="'+DARK+'"/><rect x="37.5" y="56" width="5" height="14" fill="'+WOOD+'"/><ellipse cx="40" cy="73" rx="6" ry="4" fill="'+DARK+'"/>',
- spear:'<line x1="40" y1="20" x2="40" y2="78" stroke="'+WOOD+'" stroke-width="4" stroke-linecap="round"/><polygon points="40,2 47,16 40,26 33,16" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/>',
- knife:'<path d="M40 14 Q47 26 45 46 L36 46 L36 22 Z" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/><rect x="35" y="46" width="11" height="4" fill="'+DARK+'"/><rect x="36.5" y="50" width="8" height="18" rx="3" fill="'+WOOD+'"/>',
- helmet:'<path d="M16 46 Q16 12 40 12 Q64 12 64 46 L56 46 L56 62 Q48 66 44 58 L44 40 L36 40 L36 58 Q32 66 24 62 L24 46 Z" fill="'+STEEL+'" stroke="'+DARK+'" stroke-width="1.5"/><path d="M40 12 L40 40" stroke="'+GOLD+'" stroke-width="3"/><path d="M24 34 Q30 30 36 34 M44 34 Q50 30 56 34" stroke="'+GOLD+'" stroke-width="3" fill="none"/>',
- axe:'<line x1="34" y1="8" x2="34" y2="78" stroke="'+WOOD+'" stroke-width="5" stroke-linecap="round"/><path d="M34 12 Q58 6 64 20 Q60 34 34 32 Z" fill="'+STEEL2+'" stroke="'+DARK+'" stroke-width="1.5"/>',
- shield:'<circle cx="40" cy="40" r="32" fill="'+WOOD+'" stroke="'+DARK+'" stroke-width="3"/><path d="M40 8 V72 M24 12 V68 M56 12 V68" stroke="#7E5429" stroke-width="1.5"/><circle cx="40" cy="40" r="9" fill="'+STEEL+'" stroke="'+DARK+'" stroke-width="1.5"/>',
- armour:'<defs><pattern id="mailx" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="'+STEEL2+'"/><circle cx="3" cy="3" r="2" fill="none" stroke="'+STEEL+'" stroke-width="1"/></pattern></defs><path d="M26 14 L54 14 L70 30 L62 38 L56 32 L56 74 L24 74 L24 32 L18 38 L10 30 Z" fill="url(#mailx)" stroke="'+DARK+'" stroke-width="1.5"/>',
- hilt:'<polygon points="40,4 44,12 44,50 36,50 36,12" fill="#E4E8EC" stroke="#B5BDC6" stroke-width="1"/><rect x="27" y="50" width="26" height="6" rx="2" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><rect x="37.5" y="56" width="5" height="14" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><ellipse cx="40" cy="73" rx="6" ry="4" fill="'+GOLD+'" stroke="'+DARK+'" stroke-width="1"/><path d="M60 50 Q66 62 60 76" stroke="'+GOLD+'" stroke-width="2.5" fill="none"/>'
-};
 
 /* ═══════════ costruzione ═══════════ */
 function blkHead(b){
@@ -510,7 +304,6 @@ function mcRow(b,r,ri){
   }
   const lab = k => b.o ? b.o[k] : r[1][k];
   let q = r[0];
-  if(b.pic && q.charAt(0)==="@") q = '<svg class="pic" viewBox="0 0 80 80" role="img" aria-label="disegno">'+PICS[q.slice(1)]+'</svg>';
   const spkTxt = r[0] ? txt(r[0]) : "";
   let h = '<div class="row" data-r="'+ri+'">';
   if(q) h += '<div class="op">'+(b.en && spkTxt && !b.pic ? q+'<button class="spk sm" onclick="leggi(this)" data-l="en" data-say="'+esc(spkTxt)+'" aria-label="Ascolta">🔊</button>' : q)+'</div>';
@@ -527,7 +320,6 @@ function typRow(b,r,ri){
   h += '<div class="row" data-r="'+ri+'"><div class="op">';
   if(r.n) h += '<span class="num">'+r.n+'</span>';
   if(b.map) h += '<span>'+r.q+'</span> <span class="it">'+(r.want==="s"?"superlativo":"comparativo")+'</span>';
-  else if(b.id==="b1" || b.id==="b2") h += '<span class="base">'+r.q+'</span>';
   else h += r.q+(r.base && b.id!=="f2" ? ' <span class="base">('+r.base+')</span>' : '')+' '+GAP+' '+(r.post||"");
   if(b.en) h += '<button class="spk sm" onclick="leggi(this)" data-l="en" data-say="'+esc(txt((r.q||"")+" ... "+(r.post||"")).replace(/→/g,". "))+'" aria-label="Ascolta">🔊</button>';
   h += '</div><div class="typ"><input id="in_'+id+'" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="risposta"><button class="go" onclick="chkT(\''+b.id+'\','+ri+')">Controlla</button></div>'

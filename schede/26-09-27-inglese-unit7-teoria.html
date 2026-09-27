@@ -177,6 +177,16 @@ th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-sp
 .cnt .big{font-size:26px; line-height:1.3}
 .cnt h4{margin:0 0 4px; font-size:16px}
 
+/* emozioni */
+.emo{display:flex; flex-direction:column; gap:8px; margin:12px 0}
+.eg{border:2px solid var(--ec); border-radius:12px; padding:8px 10px; display:grid; grid-template-columns:52px 1fr; gap:8px; align-items:center}
+.eh{font-size:21px; font-weight:800; color:var(--ec); text-align:center}
+.eis{display:flex; flex-wrap:wrap; gap:6px}
+.ei{border:1px solid var(--rule); border-radius:10px; padding:4px 10px 4px 6px; cursor:pointer; background:#fff; display:grid; grid-template-columns:auto auto; column-gap:6px; align-items:center}
+.ei .em{font-size:22px; grid-row:1 / span 2}
+.ei b{font-size:16.5px; line-height:1.25}
+.ei i{font-style:normal; font-size:13px; color:var(--soft); line-height:1.25}
+
 /* lettura */
 .s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
 
@@ -205,7 +215,7 @@ th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-sp
 <div class="wrap">
 
 <header>
-  <div class="tag">Inglese · Unit 7 e Grammar Files 20–21</div>
+  <div class="tag">Inglese · Unit 7</div>
   <h1>Carattere, comparativi e superlativi</h1>
   <p class="lead">Una carta per volta. Tocca <b>Leggi</b>: la voce legge in italiano e le frasi inglesi con la pronuncia inglese. Ogni frase inglese si ascolta anche con un tocco. Gli esercizi sono nell'altra scheda.</p>
 </header>
@@ -232,35 +242,17 @@ th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-sp
 
 <script>
 const PARTI = [
-  "1 · Il carattere",
+  "1 · Le parole",
   "2 · Più… di",
   "3 · Il più…",
-  "4 · Meno… di",
-  "5 · Tanto… quanto",
-  "6 · Le espressioni",
-  "7 · La mappa"
+  "4 · Meno e uguale",
+  "5 · La mappa"
 ];
 
 const CARDS = [
 
-/* ---------- 1 · IL CARATTERE ---------- */
-{parte:0, t:"Parole per il carattere: quelle positive", init:"tilesInit",
- body:`<p class="s">Nell'unità sette impari gli aggettivi per descrivere il carattere di una persona. Tocca una parola: la senti in inglese e vedi cosa vuol dire.</p>
-<div class="tiles" id="tilesP"></div>
-<div class="tout" id="toutP">Tocca una parola.</div>
-<button class="mini" onclick="allTr('P')">Mostrale tutte con la traduzione</button>`,
- ask:["Come si dice «affidabile, una persona su cui puoi contare»?","<b>reliable</b>. E «sicuro di sé» è <b>confident</b>."]},
-
-{parte:0, t:"Parole per il carattere: quelle negative", init:"tilesInit",
- body:`<p class="s">Queste sono le parole negative. Anche qui: tocca, ascolta, leggi il significato.</p>
-<div class="tiles neg" id="tilesN"></div>
-<div class="tout" id="toutN">Tocca una parola.</div>
-<button class="mini" onclick="allTr('N')">Mostrale tutte con la traduzione</button>
-<div class="trap s" data-say="Attenzione: la parola che vuol dire prepotente, uno che dà sempre ordini, è simile a boss, il capo."><b>Un aiuto per ricordare.</b> <button class="e" onclick="hear(this)">bossy</button> viene da <i>boss</i>, il capo: è chi dà sempre ordini.</div>`,
- ask:["Come si dice «egoista»? E «timido»?","<b>selfish</b> (egoista) e <b>shy</b> (timido)."]},
-
-{parte:0, t:"I contrari",
- body:`<p class="s">Molte parole si imparano meglio in coppia, con il loro contrario. A sinistra la parola positiva, a destra quella negativa. Tocca una coppia per ascoltarla.</p>
+{parte:0, t:"Il carattere: le parole in coppia",
+ body:`<p class="s">Queste sono le parole del carattere più usate. Si imparano meglio in coppia, con il contrario: a sinistra la positiva, a destra la negativa. Tocca una coppia per ascoltarla.</p>
 <div class="pairs">
 <div class="pr s" data-l="en" data-say="generous. selfish." onclick="hear(this)"><span class="a">generous</span><span class="x">↔</span><span class="b">selfish</span><span class="it">generoso ↔ egoista</span></div>
 <div class="pr s" data-l="en" data-say="optimistic. pessimistic." onclick="hear(this)"><span class="a">optimistic</span><span class="x">↔</span><span class="b">pessimistic</span><span class="it">ottimista ↔ pessimista</span></div>
@@ -285,19 +277,45 @@ const CARDS = [
 <span class="rx s" data-l="en" onclick="hear(this)">My parents are really anxious: they always worry a lot.</span></div>`,
  ask:["«Mio fratello è molto sensibile»: sensible o sensitive?","<b>sensitive</b>: My brother is very sensitive. <i>Sensible</i> vuol dire giudizioso."]},
 
-{parte:0, t:"Chi è? Le definizioni",
- body:`<p class="s">Nel libro le parole si spiegano con una frase che comincia con Someone who, cioè qualcuno che. Leggi la definizione, pensa alla parola, poi tocca il punto di domanda.</p>
-<div class="def s" data-l="en" data-say="Someone who is always telling people what to do.">Someone who is always telling people what to do. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">bossy</span></div>
-<div class="def s" data-l="en" data-say="Someone who tells the truth and never cheats.">Someone who tells the truth and never cheats. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">honest</span></div>
-<div class="def s" data-l="en" data-say="Someone who is practical and shows good sense.">Someone who is practical and shows good sense. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">sensible</span></div>
-<div class="def s" data-l="en" data-say="Someone who has a lot of original ideas.">Someone who has a lot of original ideas. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">creative</span></div>
-<div class="def s" data-l="en" data-say="Someone you can trust and count on.">Someone you can trust and count on. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">reliable</span></div>
-<div class="def s" data-l="en" data-say="Someone who is worried about an important event.">Someone who is worried about an important event. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">nervous</span></div>
-<div class="def s" data-l="en" data-say="Someone who isn't polite.">Someone who isn't polite. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">rude</span></div>
-<div class="def s" data-l="en" data-say="Someone who talks a lot.">Someone who talks a lot. <button class="rvb" onclick="rv(this)">?</button> <span class="hid">talkative</span></div>`,
- words:[["someone who","qualcuno che"],["to cheat","imbrogliare, copiare"],["to trust","fidarsi"],["to count on","contare su"],["to worry","preoccuparsi"]]},
+{parte:0, t:"Le emozioni: aggettivo + preposizione (es. 10 e 11)",
+ body:`<p class="s">Nel vocabolario due ci sono le emozioni. Ogni aggettivo vuole la sua preposizione e non c'è una regola: si imparano insieme, come una parola sola. Qui sono divise per preposizione, ognuna con il suo colore.</p>
+<div class="emo">
+<div class="eg" style="--ec:var(--r0)"><div class="eh">of</div><div class="eis">
+<div class="ei s" data-l="en" data-say="proud of" onclick="hear(this)"><span class="em">🏅</span><b>proud of</b><i>orgoglioso di</i></div>
+<div class="ei s" data-l="en" data-say="afraid of" onclick="hear(this)"><span class="em">🕷️</span><b>afraid of</b><i>ha paura di</i></div>
+<div class="ei s" data-l="en" data-say="ashamed of" onclick="hear(this)"><span class="em">🙈</span><b>ashamed of</b><i>si vergogna di</i></div></div></div>
+<div class="eg" style="--ec:var(--r5)"><div class="eh">with</div><div class="eis">
+<div class="ei s" data-l="en" data-say="delighted with" onclick="hear(this)"><span class="em">🎁</span><b>delighted with</b><i>felicissimo di</i></div>
+<div class="ei s" data-l="en" data-say="cross with" onclick="hear(this)"><span class="em">😠</span><b>cross with</b><i>arrabbiato con</i></div></div></div>
+<div class="eg" style="--ec:var(--r3)"><div class="eh">about</div><div class="eis">
+<div class="ei s" data-l="en" data-say="excited about" onclick="hear(this)"><span class="em">🎢</span><b>excited about</b><i>emozionato per</i></div>
+<div class="ei s" data-l="en" data-say="hopeful about" onclick="hear(this)"><span class="em">🤞</span><b>hopeful about</b><i>fiducioso per</i></div>
+<div class="ei s" data-l="en" data-say="sorry about" onclick="hear(this)"><span class="em">😔</span><b>sorry about</b><i>dispiaciuto per</i></div>
+<div class="ei s" data-l="en" data-say="upset about" onclick="hear(this)"><span class="em">😢</span><b>upset about</b><i>turbato, triste per</i></div></div></div>
+<div class="eg" style="--ec:var(--r2)"><div class="eh">for</div><div class="eis">
+<div class="ei s" data-l="en" data-say="grateful for" onclick="hear(this)"><span class="em">🙏</span><b>grateful for</b><i>grato per</i></div></div></div>
+</div>
+<div class="trap s" data-say="Due trappole. Excited non vuol dire eccitato: vuol dire emozionato, entusiasta. E cross qui non è la croce: vuol dire arrabbiato."><b>Due trappole.</b> <b>excited</b> = emozionato, entusiasta (non eccitato). <b>cross</b> = arrabbiato.</div>
+<div class="exen"><div class="lbl">Esempi</div>
+<div class="l s" data-l="en" onclick="hear(this)">My little brother is afraid of spiders.</div>
+<div class="l s" data-l="en" onclick="hear(this)">I'm excited about the school trip.</div>
+<div class="l s" data-l="en" onclick="hear(this)">Mum is cross with me.</div></div>`,
+ ask:["«Sono orgoglioso di te.» Come si dice?","<b>I'm proud of you.</b>"]},
 
-/* ---------- 2 · PIÙ… DI ---------- */
+{parte:0, t:"Le espressioni da imparare (p. 195, n. 1)",
+ body:`<p class="s">La prof ha chiesto di imparare queste espressioni. Sono paragoni fissi con as… as. Tocca un riquadro per ascoltarlo. Guarda bene l'animale o l'oggetto: spesso non è lo stesso dell'italiano.</p>
+<div class="sims">
+<div class="sim s" data-l="en" data-say="as light as a feather" onclick="hear(this)"><div class="em">🪶</div><div class="en">as light as a feather</div><div class="it">leggero come una piuma</div></div>
+<div class="sim s" data-l="en" data-say="as quick as a flash" onclick="hear(this)"><div class="em">⚡</div><div class="en">as quick as a flash</div><div class="it">veloce come un lampo</div></div>
+<div class="sim s" data-l="en" data-say="as busy as a bee" onclick="hear(this)"><div class="em">🐝</div><div class="en">as busy as a bee</div><div class="it">indaffarato come un'ape</div></div>
+<div class="sim s" data-l="en" data-say="as clean as a whistle" onclick="hear(this)"><div class="em">✨</div><div class="en">as clean as a whistle</div><div class="it">pulitissimo (whistle = fischietto)</div></div>
+<div class="sim s" data-l="en" data-say="as good as gold" onclick="hear(this)"><div class="em">🥇</div><div class="en">as good as gold</div><div class="it">buono come il pane, bravissimo</div></div>
+<div class="sim s" data-l="en" data-say="as deaf as a post" onclick="hear(this)"><div class="em">🔇</div><div class="en">as deaf as a post</div><div class="it">sordo come una campana (post = palo)</div></div>
+<div class="sim s" data-l="en" data-say="as blind as a bat" onclick="hear(this)"><div class="em">🦇</div><div class="en">as blind as a bat</div><div class="it">cieco come una talpa (bat = pipistrello)</div></div>
+<div class="sim s" data-l="en" data-say="as obstinate as a mule" onclick="hear(this)"><div class="em">🐴</div><div class="en">as obstinate as a mule</div><div class="it">testardo come un mulo</div></div>
+</div>`,
+ ask:["«Senza occhiali non vedo niente.» Quale espressione?","<b>I'm as blind as a bat without my glasses.</b>"]},
+
 {parte:1, t:"Più… di: come si costruisce la frase",
  body:`<p class="s">Quando confronti due persone o due cose usi il comparativo. La frase ha sempre questi pezzi, in questo ordine.</p>
 <div class="strip s" data-l="en" data-say="My brother is taller than me." onclick="hear(this)">
@@ -313,73 +331,29 @@ const CARDS = [
  words:[["than","di / che, nel confronto: taller than me"],["then","poi, allora"],["me, him, her, us, them","dopo than si usano queste forme: older than me, taller than him"]],
  ask:["Traduci: «I gatti sono più pigri dei cani.»","<b>Cats are lazier than dogs.</b> Non dimenticare <b>are</b>."]},
 
+{parte:1, t:"Le regole in una carta",
+ body:`<p class="s">Tutte le regole del comparativo in una carta, ognuna con il suo colore. Il superlativo segue le stesse regole, con the davanti.</p>
+<div class="rbox k0"><span class="rt s" data-say="Una sillaba: si aggiunge e erre.">Una sillaba → + -er</span><span class="rx s" data-l="en" onclick="hear(this)">tall → taller → the tallest</span></div>
+<div class="rbox k1"><span class="rt s" data-say="Una sillaba che finisce con una vocale e una consonante: la consonante si raddoppia.">Vocale + consonante → raddoppia</span><span class="rx s" data-l="en" onclick="hear(this)">hot → hotter → the hottest</span></div>
+<div class="rbox k2"><span class="rt s" data-say="Finisce con la e: si aggiunge solo la erre.">Finisce in -e → + -r</span><span class="rx s" data-l="en" onclick="hear(this)">nice → nicer → the nicest</span></div>
+<div class="rbox k3"><span class="rt s" data-say="Due sillabe che finiscono con la ipsilon: la ipsilon diventa i.">Due sillabe in -y → -ier</span><span class="rx s" data-l="en" onclick="hear(this)">busy → busier → the busiest</span></div>
+<div class="rbox k4"><span class="rt s" data-say="Due sillabe che finiscono in e erre, elle e, o doppia vu: vanno bene tutte e due le forme.">Due sillabe in -er, -le, -ow → -er o more</span><span class="rx s" data-l="en" onclick="hear(this)">simple → simpler / more simple</span></div>
+<div class="rbox k5"><span class="rt s" data-say="Due sillabe o più, e gli avverbi in elle ipsilon: more davanti.">Due sillabe o più, avverbi in -ly → more</span><span class="rx s" data-l="en" onclick="hear(this)">expensive → more expensive → the most expensive</span><span class="rx s" data-l="en" onclick="hear(this)">slowly → more slowly</span></div>
+<div class="rbox k6"><span class="rt s" data-say="Gli irregolari, da imparare a memoria.">Irregolari</span><span class="rx s" data-l="en" onclick="hear(this)">good / well → better → the best</span><span class="rx s" data-l="en" onclick="hear(this)">bad / badly → worse → the worst</span><span class="rx s" data-l="en" onclick="hear(this)">far → farther / further</span></div>`,
+ ask:["Comparativo di <b>big</b>, <b>lazy</b> e <b>good</b>?","<b>bigger</b>, <b>lazier</b>, <b>better</b>."]},
+
 {parte:1, t:"La macchina dei comparativi", init:"machInit",
  body:`<p class="s">Tocca un aggettivo. La macchina accende la regola giusta e ti mostra le due forme: il comparativo, cioè più di, e il superlativo, cioè il più di tutti. I colori sono gli stessi in tutta la scheda.</p>
 <div class="mach" id="mach"></div>`,
  ask:["Con quale regola va <b>lazy</b>?","Due sillabe che finiscono in <b>-y</b>: la y diventa i, quindi <b>lazier</b>, <b>the laziest</b>."]},
 
-{parte:1, t:"Aggettivi corti: una sillaba",
- body:`<p class="s">Gli aggettivi di una sillaba sono i più facili. Ci sono tre casi.</p>
-<div class="rbox k0"><span class="rt s" data-say="Primo caso. Una sillaba: si aggiunge e erre.">Una sillaba → + -er</span>
-<span class="rx s" data-l="en" onclick="hear(this)">small → smaller</span><span class="rx s" data-l="en" onclick="hear(this)">cheap → cheaper</span><span class="rx s" data-l="en" onclick="hear(this)">old → older</span></div>
-<div class="rbox k1"><span class="rt s" data-say="Secondo caso. Una sillaba che finisce con una vocale e una consonante: la consonante si raddoppia.">Una vocale + una consonante → raddoppia</span>
-<span class="rx s" data-l="en" onclick="hear(this)">hot → hotter</span><span class="rx s" data-l="en" onclick="hear(this)">big → bigger</span><span class="rx s" data-l="en" onclick="hear(this)">thin → thinner</span></div>
-<div class="rbox k2"><span class="rt s" data-say="Terzo caso. L'aggettivo finisce già con la e: si aggiunge solo la erre.">Finisce in -e → + -r</span>
-<span class="rx s" data-l="en" onclick="hear(this)">safe → safer</span><span class="rx s" data-l="en" onclick="hear(this)">nice → nicer</span><span class="rx s" data-l="en" onclick="hear(this)">brave → braver</span></div>
-<div class="trap s" data-say="Attenzione: si raddoppia solo se prima della consonante c'è una vocale sola. Cheap ha due vocali, quindi cheaper con una pi. Fast finisce con due consonanti, quindi faster."><b>Si raddoppia solo con una vocale sola.</b> <span class="yes">cheaper</span> (non <span class="no">cheapper</span>): ea sono due vocali. <span class="yes">faster</span>: st sono due consonanti.</div>`,
- ask:["Scrivi il comparativo di <b>hot</b>, <b>cheap</b> e <b>brave</b>.","<b>hotter</b>, <b>cheaper</b>, <b>braver</b>."]},
+{parte:1, t:"Quattro errori da non fare",
+ body:`<p class="s">Questi sono gli errori più frequenti nei compiti. Se li eviti, hai già metà del lavoro fatto.</p>
+<div class="rbox k6"><span class="rt s" data-say="Primo. O si aggiunge e erre, oppure si mette more. Mai tutte e due insieme.">1 · O -er o more, mai insieme</span><span class="s" data-say="Non more taller, ma taller."><span class="no">more taller</span> → <span class="yes">taller</span></span></div>
+<div class="rbox k6"><span class="rt s" data-say="Secondo. Nel confronto si usa than. Then vuol dire poi, that vuol dire che.">2 · Nel confronto: than</span><span class="s" data-say="Non then, non that: than."><span class="no">taller then me</span> <span class="no">taller that me</span> → <span class="yes">taller than me</span></span></div>
+<div class="rbox k6"><span class="rt s" data-say="Terzo. Il verbo non si salta.">3 · Il verbo non si salta</span><span class="rx s" data-l="en" data-say="My brother is taller than me." onclick="hear(this)"><span class="no">My brother taller than me</span> → <span class="yes">My brother is taller than me</span></span></div>
+<div class="rbox k6"><span class="rt s" data-say="Quarto. Il superlativo vuole the davanti.">4 · Il superlativo vuole the</span><span class="rx s" data-l="en" data-say="He is the tallest in the class." onclick="hear(this)"><span class="no">He is tallest</span> → <span class="yes">He is the tallest in the class</span></span></div>`},
 
-{parte:1, t:"Due sillabe in -y: la y diventa i",
- body:`<p class="s" data-say="Gli aggettivi di due sillabe che finiscono con la ipsilon cambiano la ipsilon in i, e poi aggiungono e erre. Fa così anche l'avverbio early, presto.">Gli aggettivi di due sillabe che finiscono in <b>-y</b> cambiano la y in <b>i</b> e aggiungono <b>-er</b>. Fa così anche l'avverbio <button class="e" onclick="hear(this)">early</button>.</p>
-<div class="rbox k3"><span class="rt">-y → -ier</span>
-<span class="rx s" data-l="en" onclick="hear(this)">busy → busier</span><span class="rx s" data-l="en" onclick="hear(this)">happy → happier</span><span class="rx s" data-l="en" onclick="hear(this)">lazy → lazier</span><span class="rx s" data-l="en" onclick="hear(this)">friendly → friendlier</span><span class="rx s" data-l="en" onclick="hear(this)">early → earlier</span></div>
-<div class="trap s" data-say="Attenzione: non si scrive busyer con la ipsilon, e per il libro non si dice more busy. Si scrive busier."><b>Niente y prima di -er.</b> <span class="no">busyer</span> <span class="no">more busy</span> → <span class="yes">busier</span></div>`,
- ask:["Comparativo di <b>bossy</b> e di <b>lively</b>?","<b>bossier</b> e <b>livelier</b>."]},
-
-{parte:1, t:"Due sillabe in -er, -le, -ow: due strade",
- body:`<p class="s" data-say="Gli aggettivi di due sillabe che finiscono in e erre, elle e, o doppia vu, e l'aggettivo common, possono fare il comparativo in due modi: con e erre, oppure con more.">Gli aggettivi di due sillabe che finiscono in <b>-er</b>, <b>-le</b>, <b>-ow</b> (e l'aggettivo <button class="e" onclick="hear(this)">common</button>) possono fare il comparativo in due modi.</p>
-<div class="rbox k4"><span class="rt">+ -er oppure more</span>
-<span class="rx s" data-l="en" onclick="hear(this)">clever → cleverer / more clever</span><span class="rx s" data-l="en" onclick="hear(this)">simple → simpler / more simple</span><span class="rx s" data-l="en" onclick="hear(this)">narrow → narrower / more narrow</span></div>
-<p class="s" data-say="Nella mappa del libro, ai numeri nove e dieci, devi scrivere tutte e due le forme.">Nella mappa del libro (numeri 9 e 10) scrivi <b>tutte e due</b> le forme.</p>`,
- ask:["Scrivi le due forme del comparativo di <b>narrow</b>.","<b>narrower</b> e <b>more narrow</b>."]},
-
-{parte:1, t:"Aggettivi lunghi: more",
- body:`<p class="s" data-say="Gli altri aggettivi di due sillabe o più, e gli avverbi che finiscono in elle ipsilon, usano more davanti.">Gli aggettivi di due sillabe o più, e gli avverbi in <b>-ly</b>, mettono <b>more</b> davanti. L'aggettivo non cambia.</p>
-<div class="rbox k5"><span class="rt">more + aggettivo</span>
-<span class="rx s" data-l="en" onclick="hear(this)">generous → more generous</span><span class="rx s" data-l="en" onclick="hear(this)">expensive → more expensive</span><span class="rx s" data-l="en" onclick="hear(this)">interesting → more interesting</span><span class="rx s" data-l="en" onclick="hear(this)">patient → more patient</span><span class="rx s" data-l="en" onclick="hear(this)">slowly → more slowly</span></div>
-<div class="trap s" data-say="La regola d'oro: o si aggiunge e erre, oppure si mette more. Mai tutte e due insieme. Non si dice more taller, e non si dice more better."><b>Mai tutte e due insieme.</b> O -er, o more.<br><span class="no">more taller</span> → <span class="yes">taller</span> · <span class="no">more better</span> → <span class="yes">better</span> · <span class="no">expensiver</span> → <span class="yes">more expensive</span></div>`,
- ask:["Traduci: «Questa maglia è più costosa di quella.»","<b>This pullover is more expensive than that one.</b>"]},
-
-{parte:1, t:"Anche gli avverbi si confrontano",
- body:`<p class="s">Gli avverbi dicono come si fa una cosa: velocemente, lentamente, bene. Anche loro hanno il comparativo, e stanno dopo il verbo.</p>
-<div class="exen"><div class="lbl">Una sillaba → -er</div>
-<div class="l s" data-l="en" onclick="hear(this)">Mark runs faster than me.<small>corre più veloce di me</small></div>
-<div class="l s" data-l="en" onclick="hear(this)">She works harder than her brother.<small>lavora più duramente di suo fratello</small></div>
-<div class="l s" data-l="en" onclick="hear(this)">We arrived earlier than you.<small>siamo arrivati prima di voi</small></div></div>
-<div class="exen"><div class="lbl">In -ly → more</div>
-<div class="l s" data-l="en" onclick="hear(this)">Please speak more slowly.<small>parla più lentamente, per favore</small></div>
-<div class="l s" data-l="en" onclick="hear(this)">He drives more carefully than his father.<small>guida con più attenzione di suo padre</small></div></div>
-<div class="exen"><div class="lbl">Irregolari</div>
-<div class="l s" data-l="en" onclick="hear(this)">Liam plays football better than Tom.<small>well → better</small></div>
-<div class="l s" data-l="en" onclick="hear(this)">I sing worse than my sister.<small>badly → worse</small></div></div>`,
- ask:["Comparativo di <b>slowly</b>? E di <b>well</b>?","<b>more slowly</b> e <b>better</b>."]},
-
-{parte:1, t:"Gli irregolari",
- body:`<p class="s">Pochi aggettivi non seguono le regole: si imparano a memoria. Ascoltali più volte.</p>
-<div class="rbox k6"><span class="rt s" data-say="I tre irregolari della mappa.">I tre della mappa</span>
-<span class="rx s" data-l="en" onclick="hear(this)">good / well → better → the best</span>
-<span class="rx s" data-l="en" onclick="hear(this)">bad / badly → worse → the worst</span>
-<span class="rx s" data-l="en" onclick="hear(this)">far → farther / further → the farthest / the furthest</span></div>
-<div class="trap s" data-say="Attenzione: worse con la e è il comparativo, peggiore. Worst con la ti è il superlativo, il peggiore. Si dice worse than, e the worst."><b>worse o worst?</b> <span class="yes">worse</span> = peggiore (worse <b>than</b>) · <span class="yes">the worst</span> = il peggiore.<br><span class="no">gooder</span> <span class="no">more good</span> <span class="no">badder</span></div>
-<table>
-<tr><th>parola</th><th>quando si usa</th></tr>
-<tr><td class="s" data-l="en" data-say="further. further information."><b>further</b></td><td>anche «ulteriore»: <i>further information</i> = altre informazioni</td></tr>
-<tr><td class="s" data-l="en" data-say="elder. the eldest."><b>elder, the eldest</b></td><td>solo in famiglia: <i>my elder brother</i>. Mai con than: <span class="no">elder than me</span> → <span class="yes">older than me</span></td></tr>
-</table>`,
- words:[["far","lontano"],["further","più lontano, ma anche ulteriore"],["elder","maggiore di età, tra fratelli"]],
- ask:["«Il mio voto è peggiore del tuo.» Come si dice?","<b>My mark is worse than yours.</b>"]},
-
-/* ---------- 3 · IL PIÙ… ---------- */
 {parte:2, t:"Il superlativo: il più… di tutti",
  body:`<p class="s">Il superlativo confronta una persona con tutto il suo gruppo. Si formano con le stesse regole, ma con the davanti.</p>
 <div class="strip s" data-l="en" data-say="Mark is the tallest of the three boys." onclick="hear(this)">
@@ -397,125 +371,27 @@ const CARDS = [
 <div class="trap s" data-say="Non dimenticare the. E si dice in the world, non of the world."><b>Non dimenticare the.</b> <span class="no">He's tallest</span> → <span class="yes">He's the tallest</span><br><span class="no">of the world</span> → <span class="yes">in the world</span></div>`,
  ask:["«È la ragazza più simpatica della classe.»","<b>She's the nicest girl in the class.</b> Classe è un luogo: <b>in</b>."]},
 
-{parte:2, t:"Tre casi speciali",
- body:`<p class="s">Questi tre casi compaiono spesso negli esercizi del libro.</p>
-<div class="rbox k5"><span class="rt s" data-say="Primo: one of the, più il superlativo, più un nome al plurale.">one of the … + plurale</span>
-<span class="rx s" data-l="en" onclick="hear(this)">Cricket is one of the most popular sports in England.</span>
-<span class="s" data-say="Il nome va al plurale, con la esse.">Il nome va al plurale: <span class="no">sport</span> → <span class="yes">sports</span>.</span></div>
-<div class="rbox k0"><span class="rt s" data-say="Secondo: dopo il superlativo può venire una frase con that. That si può anche togliere.">the … (that) I have ever…</span>
-<span class="rx s" data-l="en" onclick="hear(this)">This is the best book (that) I have ever read.</span>
-<span class="rx s" data-l="en" onclick="hear(this)">Death Valley is the hottest place on earth.</span></div>
-<div class="rbox k3"><span class="rt s" data-say="Terzo: se le cose sono solo due, si usa il comparativo con the davanti.">Tra due soltanto → the + comparativo</span>
-<span class="rx s" data-l="en" onclick="hear(this)">Which is the cheaper of the two pullovers?</span></div>`,
- words:[["ever","mai, in tutta la vita: the best I have ever seen"],["on earth","sulla terra: the hottest place on earth"]],
- ask:["Completa: «Ireland is one of the (wet) … countries in the world.»","<b>the wettest countries</b>: wet raddoppia la t, e countries è plurale."]},
-
-/* ---------- 4 · MENO… DI ---------- */
-{parte:3, t:"Meno… di: less e fewer",
- body:`<p class="s">Per dire meno di si usa less. Ma davanti a un nome, prima devi capire se quella cosa si conta o no.</p>
-<div class="exen"><div class="lbl">less + aggettivo o avverbio + than</div>
-<div class="l s" data-l="en" onclick="hear(this)">This film is less interesting than the book.</div>
-<div class="l s" data-l="en" onclick="hear(this)">He studies less than me.<small>dopo un verbo: verbo + less</small></div></div>
+{parte:3, t:"Meno di, tanto quanto",
+ body:`<p class="s">Meno di si dice less. Davanti a un nome, prima chiediti se quella cosa si conta.</p>
+<div class="exen"><div class="lbl">less + aggettivo + than</div>
+<div class="l s" data-l="en" onclick="hear(this)">This film is less interesting than the book.</div></div>
 <div class="cnt">
-<div class="ca"><h4>si contano → fewer</h4><div class="big">🍎🍎🍎</div><span class="s" data-l="en" data-say="fewer students. fewer friends. fewer mistakes." onclick="hear(this)">fewer <b>students</b>, fewer <b>friends</b>, fewer <b>mistakes</b></span></div>
-<div class="cb"><h4>non si contano → less</h4><div class="big">💧💶⏳</div><span class="s" data-l="en" data-say="less water. less money. less time." onclick="hear(this)">less <b>water</b>, less <b>money</b>, less <b>time</b></span></div>
+<div class="ca"><h4>si contano → fewer</h4><div class="big">🍎🍎🍎</div><span class="s" data-l="en" data-say="fewer friends. fewer sweets." onclick="hear(this)">fewer <b>friends</b>, fewer <b>sweets</b></span></div>
+<div class="cb"><h4>non si contano → less</h4><div class="big">💧💶</div><span class="s" data-l="en" data-say="less water. less money." onclick="hear(this)">less <b>water</b>, less <b>money</b></span></div>
 </div>
-<p class="s" data-say="Il trucco: se puoi dire uno, due, tre, si conta, e ci vuole fewer.">Il trucco: se puoi dire «uno, due, tre…», si conta → <b>fewer</b>.</p>
-<div class="rbox k6"><span class="rt s" data-say="Il superlativo: the least, e the fewest.">Il meno di tutti</span>
-<span class="rx s" data-l="en" onclick="hear(this)">the least expensive shirt in the shop</span>
-<span class="rx s" data-l="en" onclick="hear(this)">Tom made the fewest mistakes of all.</span></div>`,
+<p class="s">Tanto quanto si dice as… as: as prima e dopo l'aggettivo. Al negativo: not as… as.</p>
+<div class="strip s" data-l="en" data-say="Lucy is as old as Paul." onclick="hear(this)">
+<span class="ck"><b>Lucy</b><i>chi</i></span><span class="ck v"><b>is</b><i>verbo</i></span><span class="ck t"><b>as</b><i>tanto</i></span><span class="ck c"><b>old</b><i>d’età</i></span><span class="ck t"><b>as</b><i>quanto</i></span><span class="ck"><b>Paul.</b><i>con chi</i></span>
+</div>
+<div class="exen"><div class="l s" data-l="en" onclick="hear(this)">John isn't as tall as his brother.<small>John non è alto come suo fratello</small></div></div>
+<div class="trap s" data-say="As va con as, mai con than. Non as tall than, ma as tall as."><b>as va con as.</b> <span class="no">as tall than</span> → <span class="yes">as tall as</span></div>`,
  ask:["«Ho meno amici di mia sorella.» fewer o less?","<b>I have fewer friends than my sister.</b> Gli amici si contano."]},
 
-{parte:3, t:"Gli inglesi preferiscono not as… as",
- body:`<p class="s">Less si usa poco. Gli inglesi preferiscono dire la stessa cosa in un altro modo. Ci sono due strade.</p>
-<div class="rbox k6"><span class="rt s" data-say="Frase con less.">Con less</span><span class="rx s" data-l="en" onclick="hear(this)">This car is less fast than that one.</span></div>
-<div class="rbox k2"><span class="rt s" data-say="Prima strada: not as, aggettivo, as.">Strada 1 · not as … as</span><span class="rx s" data-l="en" onclick="hear(this)">This car isn't as fast as that one.</span></div>
-<div class="rbox k0"><span class="rt s" data-say="Seconda strada: il comparativo dell'aggettivo contrario.">Strada 2 · il contrario + -er</span><span class="rx s" data-l="en" onclick="hear(this)">This car is slower than that one.</span></div>
-<p class="s">Per la seconda strada servono i contrari. Eccone alcuni.</p>
-<div class="exen">
-<div class="l s" data-l="en" onclick="hear(this)">expensive ↔ cheap</div>
-<div class="l s" data-l="en" onclick="hear(this)">interesting ↔ boring</div>
-<div class="l s" data-l="en" onclick="hear(this)">difficult ↔ easy</div>
-<div class="l s" data-l="en" onclick="hear(this)">heavy ↔ light</div>
-<div class="l s" data-l="en" onclick="hear(this)">lazy ↔ active</div>
-</div>`,
- ask:["Trasforma: «The test was less difficult than I expected.» con il contrario.","<b>The test was easier than I expected.</b>"]},
-
-/* ---------- 5 · TANTO… QUANTO ---------- */
-{parte:4, t:"Tanto… quanto: as… as",
- body:`<p class="s">Per dire che due cose sono uguali si usa as, prima e dopo l'aggettivo. Al posto di than, qui ci vuole il secondo as.</p>
-<div class="strip s" data-l="en" data-say="Lucy is as old as Paul." onclick="hear(this)">
-<span class="ck"><b>Lucy</b><i>chi</i></span><span class="ck v"><b>is</b><i>verbo</i></span><span class="ck t"><b>as</b><i>tanto</i></span><span class="ck c"><b>old</b><i>vecchio</i></span><span class="ck t"><b>as</b><i>quanto</i></span><span class="ck"><b>Paul.</b><i>con chi</i></span>
-</div>
-<table>
-<tr><th>davanti a</th><th>si usa</th></tr>
-<tr><td>aggettivo o avverbio</td><td class="s" data-l="en" data-say="as tall as. Shirley dances as well as me."><b>as … as</b><br><i>Shirley dances as well as me.</i></td></tr>
-<tr><td>nome che non si conta</td><td class="s" data-l="en" data-say="as much money as."><b>as much … as</b><br><i>as much money as</i></td></tr>
-<tr><td>nome plurale che si conta</td><td class="s" data-l="en" data-say="as many people as."><b>as many … as</b><br><i>as many people as</i></td></tr>
-<tr><td>dopo un verbo</td><td class="s" data-l="en" data-say="He earns as much as me."><b>verbo + as much as</b><br><i>He earns as much as me.</i></td></tr>
-</table>
-<div class="trap s" data-say="Attenzione: as e than non vanno insieme. Non si dice as tall than. E people è plurale, quindi as many people, non as much people."><b>as va con as.</b> <span class="no">as tall than</span> → <span class="yes">as tall as</span><br><span class="no">as much people</span> → <span class="yes">as many people</span> (people è plurale)</div>`,
- ask:["«Ho tanti libri quanto te.» much o many?","<b>I have as many books as you.</b> I libri si contano."]},
-
-{parte:4, t:"Non così… come, il doppio, lo stesso",
- body:`<p class="s">Con as… as si possono dire anche altre cose.</p>
-<div class="rbox k6"><span class="rt s" data-say="Negativo: not as, oppure not so.">Negativo · not as / not so … as</span>
-<span class="rx s" data-l="en" onclick="hear(this)">John isn't as tall as his brother.</span>
-<span class="rx s" data-l="en" onclick="hear(this)">I didn't eat as much meat as Steve.</span></div>
-<div class="rbox k0"><span class="rt s" data-say="Il doppio, il triplo: twice as, three times as.">Il doppio · twice as … as</span>
-<span class="rx s" data-l="en" onclick="hear(this)">Stuart is twice as tall as Alan.</span>
-<span class="rx s" data-l="en" onclick="hear(this)">Ted swims three times as fast as you.</span></div>
-<div class="rbox k2"><span class="rt s" data-say="Lo stesso: the same, un nome, as.">Lo stesso · the same + nome + as</span>
-<span class="rx s" data-l="en" onclick="hear(this)">You are the same height as Alan.</span>
-<span class="rx s" data-l="en" onclick="hear(this)">Ted's birthday is on the same day as Bob's.</span></div>`,
- words:[["twice","due volte"],["three times","tre volte"],["height","altezza"],["age","età"]],
- ask:["«Alice ha la stessa età di Emily.»","<b>Alice is the same age as Emily.</b>"]},
-
-/* ---------- 6 · LE ESPRESSIONI ---------- */
-{parte:5, t:"Le espressioni da imparare (p. 195, n. 1)",
- body:`<p class="s">La prof ha chiesto di imparare queste espressioni. Sono paragoni fissi con as… as. Tocca un riquadro per ascoltarlo. Guarda bene l'animale o l'oggetto: spesso non è lo stesso dell'italiano.</p>
-<div class="sims">
-<div class="sim s" data-l="en" data-say="as light as a feather" onclick="hear(this)"><div class="em">🪶</div><div class="en">as light as a feather</div><div class="it">leggero come una piuma</div></div>
-<div class="sim s" data-l="en" data-say="as quick as a flash" onclick="hear(this)"><div class="em">⚡</div><div class="en">as quick as a flash</div><div class="it">veloce come un lampo</div></div>
-<div class="sim s" data-l="en" data-say="as busy as a bee" onclick="hear(this)"><div class="em">🐝</div><div class="en">as busy as a bee</div><div class="it">indaffarato come un'ape</div></div>
-<div class="sim s" data-l="en" data-say="as clean as a whistle" onclick="hear(this)"><div class="em">✨</div><div class="en">as clean as a whistle</div><div class="it">pulitissimo (whistle = fischietto)</div></div>
-<div class="sim s" data-l="en" data-say="as good as gold" onclick="hear(this)"><div class="em">🥇</div><div class="en">as good as gold</div><div class="it">buono come il pane, bravissimo</div></div>
-<div class="sim s" data-l="en" data-say="as deaf as a post" onclick="hear(this)"><div class="em">🔇</div><div class="en">as deaf as a post</div><div class="it">sordo come una campana (post = palo)</div></div>
-<div class="sim s" data-l="en" data-say="as blind as a bat" onclick="hear(this)"><div class="em">🦇</div><div class="en">as blind as a bat</div><div class="it">cieco come una talpa (bat = pipistrello)</div></div>
-<div class="sim s" data-l="en" data-say="as obstinate as a mule" onclick="hear(this)"><div class="em">🐴</div><div class="en">as obstinate as a mule</div><div class="it">testardo come un mulo</div></div>
-</div>
-<div class="trap s" data-say="In più, dalla lettura di pagina duecentotrentasei: as cool as a cucumber, calmo come un cetriolo, cioè tranquillissimo, sangue freddo." ><b>In più, dalla lettura di p. 236:</b> <button class="e" onclick="hear(this)">as cool as a cucumber</button> 🥒 = calmissimo, con sangue freddo.</div>`,
- words:[["feather","piuma"],["flash","lampo"],["bee","ape"],["whistle","fischietto"],["gold","oro"],["post","palo"],["bat","pipistrello"],["mule","mulo"],["deaf","sordo"],["blind","cieco"],["obstinate","testardo"]],
- ask:["«Senza occhiali non vedo niente.» Quale espressione?","<b>I'm as blind as a bat without my glasses.</b>"]},
-
-{parte:5, t:"Mettiti alla prova: quale espressione?",
- body:`<p class="s">Leggi la situazione e pensa a quale espressione ci sta. Poi tocca il punto di domanda.</p>
-<div class="def s" data-l="en" data-say="Tom finished his homework in two minutes. He was...">Tom finished his homework in two minutes. He was… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as quick as a flash</span></div>
-<div class="def s" data-l="en" data-say="My little sister never behaves badly. She's...">My little sister never behaves badly. She's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as good as gold</span></div>
-<div class="def s" data-l="en" data-say="Grandpa can't hear anything. He's...">Grandpa can't hear anything. He's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as deaf as a post</span></div>
-<div class="def s" data-l="en" data-say="My mum works, studies and cooks every day. She's always...">My mum works, studies and cooks every day. She's always… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as busy as a bee</span></div>
-<div class="def s" data-l="en" data-say="This bag weighs almost nothing. It's...">This bag weighs almost nothing. It's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as light as a feather</span></div>
-<div class="def s" data-l="en" data-say="Mark never changes his mind, even when he's wrong. He's...">Mark never changes his mind, even when he's wrong. He's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as obstinate as a mule</span></div>
-<div class="def s" data-l="en" data-say="We cleaned the kitchen after the party. Now it's...">We cleaned the kitchen after the party. Now it's… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as clean as a whistle</span></div>
-<div class="def s" data-l="en" data-say="I can't see anything without my glasses. I'm...">I can't see anything without my glasses. I'm… <button class="rvb" onclick="rv(this)">?</button> <span class="hid">as blind as a bat</span></div>`},
-
-/* ---------- 7 · LA MAPPA ---------- */
-{parte:6, t:"La mappa della grammatica (p. 230)", init:"mapInit",
+{parte:4, t:"La mappa della grammatica (p. 230)", init:"mapInit",
  body:`<p class="s">Questa è la mappa del libro, già completata, con gli stessi colori della macchina. Prima leggila. Poi tocca Nascondi le risposte e prova a dire ogni numero a voce: tocca il riquadro per controllare.</p>
 <button class="mini" id="mapBtn" onclick="mapToggle()">Nascondi le risposte</button>
 <div class="gmap" id="gmap"></div>`,
- ask:["Numeri 9, 10, 11 e 12: le forme di <b>simple</b>?","<b>simpler</b> oppure <b>more simple</b>; <b>the simplest</b> oppure <b>the most simple</b>."]},
-
-{parte:6, t:"La mappa: meno, uguale, non uguale",
- body:`<p class="s">La parte bassa della mappa ha le formule con un esempio da completare. Eccole con un esempio completo per ognuna.</p>
-<div class="frm k6"><div class="ft">LESS + aggettivo / avverbio / non numerabile + THAN</div><div class="fe s" data-l="en" onclick="hear(this)">She was less nervous than me.</div></div>
-<div class="frm k6"><div class="ft">FEWER + plurale numerabile + THAN</div><div class="fe s" data-l="en" onclick="hear(this)">There were fewer students than last year.</div></div>
-<div class="frm k6"><div class="ft">THE LEAST / THE FEWEST + … + IN / OF</div><div class="fe s" data-l="en" onclick="hear(this)">This is the least expensive shirt in the shop.</div><div class="fe s" data-l="en" onclick="hear(this)">I scored the fewest points of all.</div></div>
-<div class="frm k2"><div class="ft">AS + aggettivo / avverbio + AS</div><div class="fe s" data-l="en" onclick="hear(this)">My mum is as tall as me.</div></div>
-<div class="frm k2"><div class="ft">AS MUCH + non numerabile + AS</div><div class="fe s" data-l="en" onclick="hear(this)">This week I have as much homework as last week.</div></div>
-<div class="frm k2"><div class="ft">AS MANY + plurale numerabile + AS</div><div class="fe s" data-l="en" onclick="hear(this)">I have as many books as you.</div></div>
-<div class="frm k2"><div class="ft">verbo + AS MUCH AS</div><div class="fe s" data-l="en" onclick="hear(this)">Here it snows as much as in Norway.</div></div>
-<div class="frm k3"><div class="ft">NOT AS / SO … AS · NOT AS MUCH / MANY … AS</div><div class="fe s" data-l="en" onclick="hear(this)">My cat is not as lazy as my dog.</div><div class="fe s" data-l="en" onclick="hear(this)">I did not buy as many sweets as you.</div><div class="fe s" data-l="en" onclick="hear(this)">I don't talk as much as my sister.</div></div>`}
+ ask:["Numeri 9, 10, 11 e 12: le forme di <b>simple</b>?","<b>simpler</b> oppure <b>more simple</b>; <b>the simplest</b> oppure <b>the most simple</b>."]}
 ];
 
 /* ═══════ carte ═══════ */
@@ -617,7 +493,6 @@ const RULES = [
 ];
 const ADJ = [
  ["tall",0,"taller","the tallest","tall ha una sola sillaba."],
- ["generous",5,"more generous","the most generous","ge-ne-rous: tre sillabe."],
  ["big",1,"bigger","the biggest","b-i-g: una vocale e una consonante in fondo, quindi la g raddoppia."],
  ["busy",3,"busier","the busiest","bu-sy: due sillabe in -y. La y diventa i."],
  ["nice",2,"nicer","the nicest","finisce già in -e: basta aggiungere -r."],
@@ -626,24 +501,15 @@ const ADJ = [
  ["cheap",0,"cheaper","the cheapest","una sillaba, ma con due vocali (ea): niente raddoppio."],
  ["expensive",5,"more expensive","the most expensive","ex-pen-sive: tre sillabe."],
  ["hot",1,"hotter","the hottest","h-o-t: la t raddoppia."],
+ ["happy",3,"happier","the happiest","hap-py: due sillabe in -y."],
  ["lazy",3,"lazier","the laziest","la-zy: due sillabe in -y."],
  ["safe",2,"safer","the safest","finisce in -e."],
  ["bad",6,"worse","the worst","irregolare. Attenzione: worse è peggiore, worst è il peggiore."],
  ["simple",4,"simpler / more simple","the simplest / the most simple","sim-ple: due sillabe in -le."],
- ["shy",0,"shyer","the shyest","una sola sillaba."],
  ["interesting",5,"more interesting","the most interesting","quattro sillabe."],
- ["friendly",3,"friendlier","the friendliest","friend-ly: due sillabe in -y."],
- ["brave",2,"braver","the bravest","finisce in -e."],
  ["far",6,"farther / further","the farthest / the furthest","irregolare: due forme."],
- ["narrow",4,"narrower / more narrow","the narrowest / the most narrow","nar-row: due sillabe in -ow."],
- ["patient",5,"more patient","the most patient","pa-tient: due sillabe, ma non finisce in -y, -er, -le, -ow."],
- ["fast",0,"faster","the fastest","avverbio di una sillaba: si comporta come tall."],
  ["early",3,"earlier","the earliest","l'avverbio early segue la regola della -y."],
- ["slowly",5,"more slowly","the most slowly","avverbio in -ly: sempre more."],
- ["well",6,"better","the best","avverbio irregolare, come good."],
- ["thin",1,"thinner","the thinnest","t-h-i-n: una vocale e una consonante in fondo."],
- ["rude",2,"ruder","the rudest","finisce in -e."],
- ["lively",3,"livelier","the liveliest","live-ly: due sillabe in -y."]
+ ["slowly",5,"more slowly","the most slowly","avverbio in -ly: sempre more."]
 ];
 let machSel = -1;
 function machInit(){ machSel = -1; machDraw(); }
