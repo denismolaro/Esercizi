@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Storia — Verifica, capitoli 18 e 19</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1F5C4B; --accent-soft:#E6F0EC;
+  --ok:#1F5C4B; --ok-soft:#E6F0EC;
+  --mid:#8A5A00; --mid-soft:#FBF3E2;
+  --no:#9B2C2C; --no-soft:#FBEAEA;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; padding:0 0 calc(104px + env(safe-area-inset-bottom));}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:26px 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.tabs{display:flex; gap:8px; margin:0 0 16px}
+.tabs button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:12px; padding:11px 8px;
+  font:inherit; font-size:16px; font-weight:700; color:var(--soft); cursor:pointer}
+.tabs button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 16px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:6px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.qbig{font-size:23px; line-height:1.35; margin:10px 0 0; letter-spacing:-.01em; font-weight:600}
+.hintline{font-size:15px; color:var(--soft); margin:8px 0 0}
+.ansbox{display:none; margin-top:14px; background:var(--accent-soft); border:1px solid #BFD6CC;
+  border-radius:12px; padding:13px 15px; font-size:18px; line-height:1.6}
+.ansbox.on{display:block}
+.ansbox b{color:var(--accent)}
+.extra{font-size:15.5px; color:var(--soft); margin-top:8px; line-height:1.5}
+
+.cta{display:block; width:100%; border:2px solid var(--ink); background:var(--ink); color:#fff;
+  border-radius:12px; padding:13px; font:inherit; font-size:17px; font-weight:700; cursor:pointer; margin-top:14px}
+.selfrow{display:flex; gap:8px; margin-top:14px}
+.selfrow button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:12px; padding:11px 4px;
+  font:inherit; font-size:15px; font-weight:700; cursor:pointer; line-height:1.3}
+.selfrow .s-ok{border-color:var(--ok); color:var(--ok)}
+.selfrow .s-mid{border-color:var(--mid); color:var(--mid)}
+.selfrow .s-no{border-color:var(--no); color:var(--no)}
+
+.prog{height:7px; background:var(--rule); border-radius:99px; overflow:hidden; margin:0 0 12px}
+.prog i{display:block; height:100%; background:var(--accent); width:0%; transition:width .25s}
+.count{font-size:13px; color:var(--soft); font-weight:600; text-align:center; margin:5px auto 0}
+
+/* riepilogo */
+.tot{display:flex; gap:8px; margin:6px 0 14px}
+.tot div{flex:1; border-radius:12px; padding:12px 8px; text-align:center; border:1px solid var(--rule)}
+.tot .n{font-size:26px; font-weight:800; line-height:1.1}
+.tot .l{font-size:13px; color:var(--soft)}
+.tot .t-ok{background:var(--ok-soft); border-color:#BFD6CC} .tot .t-ok .n{color:var(--ok)}
+.tot .t-mid{background:var(--mid-soft); border-color:#EBD9AE} .tot .t-mid .n{color:var(--mid)}
+.tot .t-no{background:var(--no-soft); border-color:#E7C4C4} .tot .t-no .n{color:var(--no)}
+.rev{border-left:4px solid var(--no); background:#fff; border-radius:10px; padding:10px 12px; margin:8px 0; font-size:16px; line-height:1.5}
+.rev b{display:block; font-size:13px; color:var(--no); text-transform:uppercase; letter-spacing:.07em}
+
+/* domande aperte */
+.open{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:18px 20px; margin:0 0 12px}
+.open h3{font-size:20px; line-height:1.3; margin:8px 0 0; letter-spacing:-.01em}
+.scal{margin:12px 0 0; padding:0; list-style:none}
+.scal li{position:relative; padding-left:26px; margin:7px 0; font-size:16.5px; line-height:1.5}
+.scal li:before{content:"▢"; position:absolute; left:0; color:var(--accent); font-size:15px}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:9px 15px;
+  font:inherit; font-size:15px; font-weight:700; cursor:pointer; margin-top:12px}
+.model{display:none; margin-top:12px; background:var(--accent-soft); border-radius:12px; padding:13px 15px;
+  font-size:17px; line-height:1.6}
+.model.on{display:block}
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Storia · verifica</div>
+  <h1>Ti interrogo io</h1>
+  <p class="lead">Rispondi ad alta voce, poi scopri la risposta e dì onestamente come è andata. Alla fine ti dico cosa ripassare.</p>
+</header>
+
+<div class="tabs">
+  <button id="tabA" class="on" onclick="setTab('lampo')">Domande lampo</button>
+  <button id="tabB" onclick="setTab('aperte')">Domande aperte</button>
+</div>
+
+<div id="filtri" class="chips"></div>
+<div id="stage"></div>
+<p class="foot" id="foot"></p>
+</div>
+
+<div class="bar" id="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Indietro">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Avanti">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button data-r="0.72" onclick="setRate(0.72,this)">lenta</button>
+    <button data-r="0.88" class="on" onclick="setRate(0.88,this)">normale</button>
+    <button data-r="1.05" onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+/* ═══════════ DOMANDE LAMPO ═══════════
+   b = blocco, q = domanda, a = risposta, x = precisazione (facoltativa) */
+const BLOCCHI = [
+  "18 · La crisi",
+  "18 · Schiavi e latifondo",
+  "18 · I Gracchi",
+  "18 · Mario e Silla",
+  "19 · Pompeo e Cicerone",
+  "19 · Cesare",
+  "19 · Dopo Cesare"
+];
+
+const LAMPO = [
+/* --- 0 · La crisi --- */
+{b:0,q:"In che secolo Roma diventa la superpotenza del Mediterraneo?",a:"A metà del II secolo a.C.",x:"I domini vanno dalla Penisola iberica all'Anatolia."},
+{b:0,q:"Perché si parla di crisi di trasformazione e non di crisi economica?",a:"Perché la ricchezza continuava a crescere: a entrare in crisi furono i rapporti fra i gruppi sociali e la politica."},
+{b:0,q:"Chi è il cittadino-soldato?",a:"Il piccolo proprietario terriero che coltiva il suo campo ed è anche soldato nelle legioni."},
+{b:0,q:"Che cos'è il mos maiorum?",a:"Il costume degli antenati: le regole non scritte della tradizione romana."},
+{b:0,q:"Come si chiama l'élite senatoria in latino?",a:"Nobilitas.",x:"Sono patrizi e plebei ricchi che controllano il Senato e le province."},
+{b:0,q:"Chi sono gli equites?",a:"I cavalieri: cittadini ricchissimi ma non senatori, che si occupano di commercio, finanza e appalti."},
+{b:0,q:"Chi sono i pubblicani?",a:"I cavalieri che prendevano in appalto la riscossione delle imposte nelle province."},
+{b:0,q:"I quattro gruppi sociali, dal più ricco al più povero?",a:"Élite senatoria, ordine equestre, piccoli proprietari, proletariato urbano."},
+{b:0,q:"Che cos'è l'agro pubblico?",a:"L'ager publicus: la terra dello Stato romano, tolta ai popoli sconfitti.",x:"Doveva essere affittata, ma i ricchi se ne impadronirono."},
+{b:0,q:"In che anno fu approvata la legge Claudia?",a:"Nel 218 a.C."},
+{b:0,q:"Che cosa vietava la lex Claudia ai senatori?",a:"Possedere grandi navi commerciali, prestare denaro a interesse, entrare negli appalti pubblici."},
+{b:0,q:"Come aggiravano i senatori la legge Claudia?",a:"Usando prestanome o i propri liberti.",x:"I liberti sono gli schiavi liberati."},
+
+/* --- 1 · Schiavi e latifondo --- */
+{b:1,q:"Qual era il più grande mercato di schiavi del Mediterraneo?",a:"L'isola di Delo, nel Mar Egeo.",x:"Fino a 10.000 schiavi venduti in un giorno."},
+{b:1,q:"Dove si vendevano gli schiavi a Roma?",a:"I meno cari nel Foro, quelli più rinomati nel Campo Marzio."},
+{b:1,q:"Come classificava Varrone gli strumenti di lavoro?",a:"Strumenti muti (carri, aratri), semiparlanti (i buoi), dotati di parola (gli schiavi)."},
+{b:1,q:"Che cos'è l'ergastolo?",a:"La prigione della fattoria, dove gli schiavi agricoli erano chiusi di notte."},
+{b:1,q:"Che cos'è la manomissione?",a:"L'atto con cui un padrone libera uno schiavo, che diventa liberto."},
+{b:1,q:"Chi guidò la prima rivolta servile e dove scoppiò?",a:"Èuno, schiavo siriano, a Enna in Sicilia nel 136 a.C.",x:"Si faceva chiamare Antioco, come un re."},
+{b:1,q:"Chi guidò la seconda rivolta servile in Sicilia?",a:"Salvio e Atenione, fra il 104 e il 100 a.C."},
+{b:1,q:"Quanto misura uno iugero?",a:"Circa 2500 metri quadrati, un quarto di ettaro."},
+{b:1,q:"Quanto misura una centuria e in quanti lotti si divide?",a:"Circa 700 metri di lato, 50 ettari, divisa in 100 lotti."},
+{b:1,q:"Come si chiamano i due assi della centuriazione?",a:"Il decumano massimo da est a ovest, il cardo massimo da nord a sud."},
+{b:1,q:"Le tre parti della villa schiavile?",a:"Pars urbana (il padrone), pars rustica (schiavi e stalle), pars fructuaria (magazzini e lavorazione)."},
+{b:1,q:"Qual è l'esempio di villa schiavile che fa il libro?",a:"La villa di Settefinestre, ad Ansedonia: 125 ettari, soprattutto vigneto."},
+
+/* --- 2 · I Gracchi --- */
+{b:2,q:"Chi era la madre dei Gracchi?",a:"Cornelia, figlia di Scipione l'Africano."},
+{b:2,q:"In che anno Tiberio Gracco fu eletto tribuno della plebe?",a:"Nel 133 a.C."},
+{b:2,q:"Perché il tribunato era la carica giusta per Tiberio?",a:"Perché poteva proporre leggi direttamente al concilio della plebe, senza passare dal Senato."},
+{b:2,q:"Che cos'è un plebiscito?",a:"La delibera votata dal concilio della plebe su proposta di un tribuno: valeva come legge per tutti."},
+{b:2,q:"Qual era il tetto massimo di agro pubblico previsto dalla lex Sempronia?",a:"500 iugeri a testa, più 250 per ogni figlio maschio, fino a un massimo di 1000."},
+{b:2,q:"Quanto misuravano i lotti distribuiti ai contadini poveri?",a:"30 iugeri, circa 7 ettari e mezzo."},
+{b:2,q:"Perché i lotti erano dati in possesso precario?",a:"Per impedire ai contadini di rivenderli ai ricchi."},
+{b:2,q:"Chi era Marco Ottavio e cosa fece?",a:"L'altro tribuno del 133: pose il veto alla legge. Tiberio lo fece deporre dal concilio della plebe."},
+{b:2,q:"Con quale tesoro Tiberio voleva finanziare la riforma?",a:"Con il tesoro di Attalo III, re di Pergamo, che aveva lasciato il regno in eredità a Roma."},
+{b:2,q:"Come morì Tiberio Gracco?",a:"Ucciso con bastoni e pietre nel 133 a.C. insieme a 300 sostenitori, durante i tumulti per la sua ricandidatura."},
+{b:2,q:"In che anno Gaio Gracco fu eletto tribuno?",a:"Nel 123 a.C., dieci anni dopo il fratello."},
+{b:2,q:"Che cosa sono le frumentationes?",a:"Le distribuzioni mensili di grano a prezzo ridotto: almeno 5 modii, circa 45 litri, a ogni cittadino di Roma."},
+{b:2,q:"A chi Gaio Gracco affidò i tribunali sui governatori?",a:"Ai cavalieri, togliendoli al Senato.",x:"I governatori erano accusati di concussione."},
+{b:2,q:"Quale proposta fece cadere Gaio Gracco?",a:"La cittadinanza romana ai Latini e quella latina agli Italici: la plebe romana non volle dividere i privilegi."},
+{b:2,q:"Come morì Gaio Gracco?",a:"Nel 121 a.C. si suicidò sull'Aventino; 3000 suoi sostenitori furono massacrati."},
+{b:2,q:"Che cos'è il senatus consultum ultimum?",a:"Il decreto d'emergenza con cui il Senato dava ai consoli pieni poteri contro un nemico interno."},
+{b:2,q:"Chi sono gli ottimati e chi i popolari?",a:"Gli optimates difendono il Senato e i privilegi della nobilitas; i populares vogliono riforme a favore del popolo.",x:"Non sono partiti: sono due orientamenti dentro la stessa aristocrazia."},
+
+/* --- 3 · Mario e Silla --- */
+{b:3,q:"Che cosa vuol dire homo novus?",a:"Uomo nuovo: il primo della sua famiglia ad arrivare alle alte cariche."},
+{b:3,q:"In quale famiglia si sposò Gaio Mario?",a:"Nella gens Iulia: sposò Giulia nel 110 a.C.",x:"È la famiglia di Cesare: per questo Cesare sarà il nipote di Mario."},
+{b:3,q:"In che anno Mario fu eletto console la prima volta?",a:"Nel 107 a.C."},
+{b:3,q:"Chi era Giugurta?",a:"Il re di Numidia. Nel 112 a.C. conquistò Cirta e massacrò i mercanti romani e italici."},
+{b:3,q:"Che fine fece Giugurta?",a:"Nel 105 a.C. sfilò in catene nel trionfo a Roma e subito dopo fu giustiziato."},
+{b:3,q:"I tre punti della riforma dell'esercito di Mario?",a:"Reclutamento di volontari anche nullatenenti con ferma di 16 anni; la coorte al posto del manipolo; un lotto di terra ai veterani."},
+{b:3,q:"Quanti soldati ha una coorte e quante coorti una legione?",a:"La coorte ha 500-600 soldati (tre manipoli); dieci coorti fanno una legione."},
+{b:3,q:"Qual è la conseguenza politica pericolosa della riforma di Mario?",a:"Le legioni dipendono dal generale per la paga e per la terra: diventano eserciti personali."},
+{b:3,q:"Cosa successe ad Arausio nel 105 a.C.?",a:"Due armate romane furono sterminate dai Cimbri e dai Teutoni.",x:"Arausio è l'odierna Orange, in Francia meridionale."},
+{b:3,q:"Dove e quando Mario batté i Teutoni?",a:"Ad Aquae Sextiae, oggi Aix-en-Provence, nel 102 a.C."},
+{b:3,q:"Dove e quando Mario batté i Cimbri?",a:"Ai Campi Raudii, vicino a Vercelli, nel 101 a.C."},
+{b:3,q:"Che cosa costò a Mario l'appoggio dei popolari?",a:"La repressione della rivolta di Saturnino e Galba nel 100 a.C., imposta dal Senato."},
+{b:3,q:"Quando si combatté la guerra sociale e chi erano i ribelli?",a:"Fra il 91 e l'88 a.C. Si ribellarono i socii, gli alleati italici, che volevano la cittadinanza romana."},
+{b:3,q:"Qual era la capitale della lega italica?",a:"Corfinio, ribattezzata Italica."},
+{b:3,q:"Perché il risultato della guerra sociale è paradossale?",a:"Roma vinse militarmente, ma dovette concedere la cittadinanza, cioè proprio quello per cui gli alleati si erano ribellati."},
+{b:3,q:"Chi era Mitridate VI e cosa fece nell'88 a.C.?",a:"Il re del Ponto: invase le province d'Asia e d'Acaia e in un solo giorno furono massacrati 80.000 fra Romani e Italici."},
+{b:3,q:"Perché Silla marciò su Roma nell'88 a.C.?",a:"Perché il tribuno Sulpicio Rufo fece approvare un plebiscito che gli revocava il comando contro Mitridate per darlo a Mario."},
+{b:3,q:"Perché la marcia di Silla era sacrilega?",a:"Perché un esercito poteva entrare in armi a Roma solo nel giorno del trionfo."},
+{b:3,q:"Dove e quando Silla sconfisse i popolari?",a:"A Porta Collina, appena fuori Roma, nel novembre dell'82 a.C."},
+{b:3,q:"Che cosa c'è di inedito nella dittatura di Silla?",a:"Era a tempo indeterminato, non di sei mesi, e gli dava il potere di emanare leggi."},
+{b:3,q:"Che cosa sono le liste di proscrizione?",a:"Gli elenchi pubblici dei nemici da uccidere, con un premio per chi lo faceva e la confisca dei beni."},
+{b:3,q:"Come Silla rafforzò il Senato?",a:"Raddoppiò i senatori da 300 a 600, ridiede loro i tribunali e ridusse quasi a nulla i poteri dei tribuni."},
+{b:3,q:"Quando morì Silla?",a:"Nel 78 a.C., un anno dopo essersi ritirato spontaneamente dalla vita politica."},
+
+/* --- 4 · Pompeo e Cicerone --- */
+{b:4,q:"Come era diventato ricchissimo Crasso?",a:"Comprando a prezzi bassi i beni confiscati alle vittime delle proscrizioni di Silla."},
+{b:4,q:"Chi era Spartaco e dove scoppiò la sua rivolta?",a:"Un gladiatore proveniente dalla Tracia: la rivolta scoppiò in una scuola di gladiatori a Capua nel 73 a.C."},
+{b:4,q:"Come finì la rivolta di Spartaco?",a:"Spartaco morì in battaglia; 6000 compagni furono crocifissi nel 71 a.C. lungo i 200 km della via Appia."},
+{b:4,q:"Chi represse la rivolta di Spartaco?",a:"Crasso, che ricevette l'imperium pur non essendo console. Pompeo intercettò e massacrò i fuggitivi."},
+{b:4,q:"Cosa fecero Pompeo e Crasso da consoli nel 70 a.C.?",a:"Smantellarono le riforme di Silla: poteri ai tribuni, tribunali e appalti d'Asia ai cavalieri, più grano alla plebe."},
+{b:4,q:"Qual era il vero scopo di Pompeo e Crasso nel 70 a.C.?",a:"Diminuire l'autorità del Senato, l'unico organismo che poteva contrastare le loro ambizioni."},
+{b:4,q:"Che poteri ebbe Pompeo nel 67 a.C.?",a:"Un comando straordinario cum imperio su tutto il Mediterraneo per tre anni, pur non essendo magistrato."},
+{b:4,q:"Con quali forze Pompeo partì contro i pirati?",a:"500 navi, 120.000 fanti e migliaia di cavalieri. Li annientò in tre mesi."},
+{b:4,q:"Quale regione occupò Pompeo dopo aver battuto i pirati?",a:"La Cilicia, in Asia Minore, che era la loro base."},
+{b:4,q:"Che fine fece Mitridate?",a:"Sconfitto da Pompeo, si uccise nel 63 a.C."},
+{b:4,q:"Quali territori Pompeo trasformò in province?",a:"Ponto e Bitinia, e poi la Siria. La Giudea divenne Stato cliente dopo l'assedio di Gerusalemme."},
+{b:4,q:"Quando visse Cicerone?",a:"Dal 106 al 43 a.C."},
+{b:4,q:"Con quale processo Cicerone si fece notare?",a:"Come questore della Sicilia denunciò la corruzione dell'ex governatore Gaio Verre."},
+{b:4,q:"Qual era il progetto politico di Cicerone?",a:"Un accordo fra tutti i gruppi sociali sotto la guida restaurata del Senato, con gli uomini onesti, i viri boni."},
+{b:4,q:"In che anno nacque Cesare e a quale famiglia apparteneva?",a:"Nel 100 a.C., alla gens Iulia, che si diceva discendente da Venere ed Enea."},
+{b:4,q:"Perché i popolari vedevano Cesare come capo naturale?",a:"Perché sua zia Giulia era la moglie di Gaio Mario: Cesare era il nipote di Mario."},
+{b:4,q:"Quali cariche ricoprì Cesare grazie ai soldi di Crasso?",a:"Edile nel 65 a.C. e pontefice massimo nel 63 a.C."},
+{b:4,q:"Chi era Catilina e cosa voleva?",a:"Lucio Sergio Catilina, di antica nobilitas, indebitato per le campagne elettorali: ambiva al consolato."},
+{b:4,q:"Come Cicerone sventò la congiura?",a:"La denunciò in Senato con la Prima Catilinaria, nel 63 a.C. Catilina fuggì in Etruria."},
+{b:4,q:"Che cosa fece Cicerone di illegale?",a:"Fece giustiziare i congiurati senza un regolare processo. Per questo sarà esiliato."},
+{b:4,q:"Dove morì Catilina?",a:"Nella battaglia di Pistoia, nel 62 a.C."},
+
+/* --- 5 · Cesare --- */
+{b:5,q:"In che anno nacque il primo triumvirato e chi ne faceva parte?",a:"Nel 60 a.C.: Cesare, Pompeo e Crasso."},
+{b:5,q:"Perché il primo triumvirato non era una magistratura?",a:"Perché era un accordo privato e all'inizio segreto, non una carica istituita da una legge."},
+{b:5,q:"Che cosa metteva ciascuno dei tre nel patto?",a:"Pompeo la gloria e i soldati, Crasso il denaro, Cesare l'abilità politica."},
+{b:5,q:"In che anno Cesare fu console?",a:"Nel 59 a.C."},
+{b:5,q:"A chi andavano le terre della riforma agraria di Cesare?",a:"Ai veterani di Pompeo e ai cittadini poveri con tre o più figli: oltre 20.000 padri di famiglia."},
+{b:5,q:"Perché la riforma di Cesare riuscì dove i Gracchi fallirono?",a:"Perché la terra non veniva confiscata ai ricchi ma comprata con le entrate delle province d'Oriente."},
+{b:5,q:"Chi guidava l'opposizione alla riforma agraria di Cesare?",a:"Marco Porcio Catone, detto Catone l'Uticense."},
+{b:5,q:"Quali province ottenne Cesare come proconsole?",a:"Gallia Cisalpina, Illirico e Gallia Narbonense, per cinque anni."},
+{b:5,q:"Quanto durò la conquista della Gallia?",a:"Dal 58 al 52 a.C."},
+{b:5,q:"Chi era Vercingetorige e dove fu sconfitto?",a:"Il re a capo della confederazione delle tribù galliche: fu sconfitto ad Alesia nel 52 a.C."},
+{b:5,q:"Che fine fece Vercingetorige?",a:"Dopo sei anni di prigionia sfilò in catene nel trionfo di Cesare nel 46 a.C. e fu ucciso."},
+{b:5,q:"Chi erano Clodio e Milone?",a:"Clodio è il popolare con le squadre di picchiatori; Milone è l'ottimate con la milizia di gladiatori."},
+{b:5,q:"Che cosa significa anarchia?",a:"Senza comando: dal greco an, senza, e archo, io comando. Una fase in cui il governo è assente."},
+{b:5,q:"Cosa fu deciso ai patti di Lucca nel 56 a.C.?",a:"Pompeo e Crasso consoli l'anno dopo e cinque anni di comando: Spagna a Pompeo, Siria a Crasso. Cesare altri cinque anni in Gallia."},
+{b:5,q:"Come e dove morì Crasso?",a:"Nel 53 a.C. a Carre, in Mesopotamia, attaccando il regno dei Parti."},
+{b:5,q:"Che carica inedita ebbe Pompeo nel 52 a.C.?",a:"Console senza collega: mai prima di allora la collegialità dei consoli era stata violata."},
+{b:5,q:"Quale fiume segnava il confine dell'Italia?",a:"Il Rubicone, vicino a Rimini."},
+{b:5,q:"Quando Cesare oltrepassò il Rubicone e cosa disse?",a:"Nel gennaio del 49 a.C.: alea iacta est, il dado è tratto."},
+{b:5,q:"Dove e quando Cesare sconfisse Pompeo?",a:"A Farsalo, in Tessaglia, nel 48 a.C."},
+{b:5,q:"Come morì Pompeo?",a:"Fuggito in Egitto, fu ucciso a tradimento per ordine del faraone Tolomeo XIII."},
+{b:5,q:"Chi era Cesarione?",a:"Il figlio di Cesare e Cleopatra: in greco significa piccolo Cesare."},
+{b:5,q:"Le due battaglie che chiudono la guerra civile?",a:"Tapso in Africa nel 46 a.C. e Munda in Spagna nel 45 a.C."},
+{b:5,q:"Chi si suicidò a Utica nel 46 a.C.?",a:"Catone l'Uticense, prima dell'arrivo delle truppe di Cesare."},
+{b:5,q:"Quando Cesare ebbe la dittatura e quando fu confermata a vita?",a:"Assegnata nel 48 a.C. a tempo indeterminato, confermata a vita nel 44 a.C."},
+{b:5,q:"Quali simboli da sovrano orientale ottenne Cesare?",a:"La corona d'alloro permanente, il titolo di imperator, il seggio dorato in Senato, le statue nei templi e la divinizzazione dopo la morte."},
+{b:5,q:"Come cambiò il Senato con Cesare?",a:"Da 600 a 900 membri, scelti anche fra cavalieri, ufficiali e aristocrazie provinciali."},
+{b:5,q:"Qual è l'aspetto più sorprendente della politica di Cesare vincitore?",a:"La clemenza: nessuna proscrizione né strage, anzi richiamò in patria gli avversari fuggiti."},
+{b:5,q:"Quando fu ucciso Cesare?",a:"Alle Idi di marzo, il 15 marzo del 44 a.C., in una seduta del Senato nel teatro di Pompeo."},
+{b:5,q:"Chi guidava la congiura contro Cesare?",a:"Cassio Longino e Bruto."},
+
+/* --- 6 · Dopo Cesare --- */
+{b:6,q:"Perché l'uccisione di Cesare fu un abbaglio politico?",a:"Perché non fu accolta come una liberazione: plebe ed esercito si legarono ancora di più ai generali."},
+{b:6,q:"Quante guerre civili ci sono state e quali?",a:"Tre: Silla contro i seguaci di Mario, Cesare contro Pompeo, e quella aperta dalla morte di Cesare."},
+{b:6,q:"Chi era Marco Antonio al momento della congiura?",a:"Il generale più fidato di Cesare e console in carica. Visse dall'83 al 30 a.C."},
+{b:6,q:"Chi era l'erede di Cesare?",a:"Il pronipote diciannovenne Gaio Ottavio, adottato per testamento: prese il nome di Gaio Giulio Cesare Ottaviano."},
+{b:6,q:"Cosa successe ai funerali di Cesare?",a:"Il 20 marzo, la vista del cadavere e il discorso di Antonio fecero insorgere il popolo. Bruto fuggì in Macedonia, Cassio in Asia."},
+{b:6,q:"Come Ottaviano si conquistò il favore del popolo?",a:"Vendette i beni di famiglia per pagare i 75 denari lasciati da Cesare a ognuno dei 250.000 plebei."},
+{b:6,q:"Dove fu sconfitto Antonio nel 43 a.C.?",a:"A Modena. Si ritirò in Gallia Narbonense e si alleò con Marco Emilio Lepido."},
+{b:6,q:"Chi formava il secondo triumvirato?",a:"Ottaviano, Antonio e Lepido, nel 43 a.C."},
+{b:6,q:"In cosa il secondo triumvirato è diverso dal primo?",a:"Era una vera magistratura straordinaria, istituita per cinque anni con una legge votata dalle assemblee."},
+{b:6,q:"Chi fu la vittima più illustre delle proscrizioni del 43 a.C.?",a:"Cicerone, il nemico più tenace dei cesariani e in particolare di Antonio."},
+{b:6,q:"Dove e quando furono sconfitti Bruto e Cassio?",a:"A Filippi, in Macedonia, nel 42 a.C. Si suicidarono."},
+{b:6,q:"Come si spartirono i domini i tre triumviri?",a:"Antonio la Gallia Narbonense e l'Oriente, Lepido l'Africa, Ottaviano la Spagna più il compito di dare terra a 150.000 veterani."},
+{b:6,q:"Perché Ottaviano ebbe il compito più difficile?",a:"Perché per trovare le terre dei veterani dovette sequestrare proprietà anche a cittadini senza colpa, provocando una ribellione."},
+{b:6,q:"Quale battaglia chiude l'età delle guerre civili?",a:"La battaglia navale di Azio, nel 31 a.C."}
+];
+
+/* ═══════════ DOMANDE APERTE ═══════════ */
+const APERTE = [
+{t:"Spiega perché la crisi della Repubblica è una crisi di trasformazione.",
+ s:["Roma è la superpotenza del Mediterraneo: la ricchezza cresce, non manca",
+    "Le conquiste rompono il patto sociale: bottino e terre non divisi in modo equo",
+    "L'élite senatoria si arricchisce, i cittadini-soldati perdono la terra",
+    "Entrano in crisi i rapporti fra i gruppi sociali, non l'economia",
+    "Conclusione: cambia la società, e la politica non riesce a starci dietro"],
+ m:"A metà del II secolo a.C. Roma domina dalla Penisola iberica all'Anatolia e diventa il centro finanziario del Mediterraneo: di ricchezza ne arriva tantissima. Il problema è come viene distribuita. Il bottino e le terre conquistate finiscono all'élite senatoria, mentre i cittadini-soldati, lontani da casa per anni, si rovinano e perdono i campi. Salta così il vecchio patto fra la nobilitas austera e il cittadino-soldato, e con esso l'equilibrio fondato sul mos maiorum. Per questo si parla di crisi di trasformazione e non di crisi economica: a entrare in crisi sono i rapporti sociali e le istituzioni, non la produzione."},
+
+{t:"Racconta il circolo vizioso del contadino-soldato e le sue conseguenze.",
+ s:["Il contadino è arruolato per campagne lunghe anni, lontano dall'Italia",
+    "I campi restano incolti, la famiglia si indebita",
+    "Il grano delle province costa meno: non regge la concorrenza",
+    "Vende il podere ai ricchi: nasce il latifondo",
+    "Va a Roma come proletario urbano",
+    "Doppia conseguenza: instabilità sociale e crisi del reclutamento"],
+ m:"Il contadino romano viene arruolato per campagne che durano anni oltremare. Nel frattempo i suoi campi restano incolti e la famiglia si indebita. Al ritorno trova una concorrenza imbattibile: il grano che arriva da Sicilia e Africa e il lavoro degli schiavi nei latifondi fanno crollare i prezzi, e lui non ha i capitali per riconvertirsi a vite e olivi. È costretto a vendere il podere ai grandi proprietari, e le terre vendute si uniscono nei latifondi. Lui emigra a Roma e diventa un proletario urbano, iscritto nell'ultima classe di censo, che vende il voto in cambio di cibo. La conseguenza è doppia: Roma si riempie di una massa instabile, e siccome l'esercito si reclutava in base al censo, meno piccoli proprietari significa meno soldati arruolabili. È la crisi del reclutamento, e sarà Mario a risolverla."},
+
+{t:"Illustra la legge agraria di Tiberio Gracco e spiega perché finì male.",
+ s:["Chi era Tiberio: figlio di Cornelia, tribuno della plebe nel 133 a.C.",
+    "Riguardava l'agro pubblico, non la proprietà privata",
+    "Tetto di 500 iugeri (+250 per figlio, max 1000), il resto confiscato",
+    "Lotti di 30 iugeri in possesso precario, triumvirato agrario",
+    "Il veto di Marco Ottavio e la sua deposizione",
+    "Il tesoro di Attalo III: scavalca il Senato sulla politica estera",
+    "La ricandidatura, l'accusa di mirare al potere regio, la morte"],
+ m:"Tiberio Sempronio Gracco, figlio di Cornelia e nipote di Scipione l'Africano, fu eletto tribuno della plebe nel 133 a.C. Scelse quella carica perché gli permetteva di proporre leggi al concilio della plebe senza passare dal Senato. La lex Sempronia non toccava la proprietà privata ma l'agro pubblico occupato dai ricchi: fissava un tetto di 500 iugeri a testa, più 250 per ogni figlio maschio fino a 1000, che diventavano piena proprietà; tutto il resto veniva confiscato e diviso in lotti di 30 iugeri assegnati ai contadini poveri in possesso precario, così da non poterli rivendere. A eseguirla era un triumvirato agrario. Il Senato reagì convincendo l'altro tribuno, Marco Ottavio, a porre il veto, e Tiberio lo fece deporre dal concilio della plebe: formalmente non illegale, ma una rottura gravissima. Poi propose di finanziare la riforma con il tesoro di Attalo III, scavalcando il Senato sulla politica estera. Accusato di mirare al potere regio, quando si ricandidò senza rispettare l'intervallo scoppiarono i tumulti: Tiberio e trecento sostenitori furono uccisi con bastoni e pietre. Da lì comincia l'era della violenza politica fra cittadini."},
+
+{t:"Spiega il programma di Gaio Gracco e perché fallì.",
+ s:["Tribuno nel 123 a.C., dieci anni dopo il fratello",
+    "Strategia più larga: plebe urbana, cavalieri, Latini e Italici contro il Senato",
+    "Le quattro leggi e a chi servivano",
+    "La proposta sulla cittadinanza rompe l'alleanza con la plebe romana",
+    "Non rieletto nel 121, senatus consultum ultimum, morte sull'Aventino"],
+ m:"Gaio Gracco fu eletto tribuno nel 123 a.C. A differenza del fratello non parlò solo ai contadini: costruì una coalizione larga per isolare il Senato. La legge agraria riprendeva la ridistribuzione e fondava colonie a Taranto, Squillace e Cartagine, per i contadini poveri. La legge frumentaria dava grano a prezzo ridotto, circa 5 modii al mese, alla plebe urbana. La legge giudiziaria affidava ai cavalieri i tribunali sui governatori accusati di concussione e la riscossione dei tributi in Asia: così si legava all'ordine equestre. Le grandi opere pubbliche davano lavoro ai nullatenenti. Il punto di rottura fu la questione degli alleati: Gaio propose la cittadinanza romana ai Latini e quella latina agli Italici. Ma i cittadini romani non vollero condividere grano, terre e diritti politici, e la propaganda senatoria fece il resto. Perso l'appoggio della plebe urbana, nel 121 non fu rieletto; il Senato lo dichiarò nemico della patria con il senatus consultum ultimum e lui si suicidò sull'Aventino, mentre tremila sostenitori venivano massacrati."},
+
+{t:"Illustra la riforma dell'esercito di Mario e le sue conseguenze politiche.",
+ s:["Il problema di partenza: crisi del reclutamento legata al censo",
+    "Reclutamento di volontari anche nullatenenti, ferma di 16 anni",
+    "La coorte sostituisce il manipolo: 500-600 uomini, dieci per legione",
+    "Un lotto di terra ai veterani al congedo",
+    "Da milizia di cittadini a esercito di professionisti",
+    "Conseguenza: le legioni si legano al generale, non allo Stato",
+    "Gli effetti si vedranno con Silla nell'88 e con Cesare nel 49"],
+ m:"L'esercito romano si reclutava fra i cittadini proprietari, in base al censo. Con la rovina dei piccoli contadini i soldati arruolabili erano sempre meno: era la crisi del reclutamento. Mario, console dal 107 a.C., la risolse arruolando volontari anche fra i nullatenenti, con una ferma di sedici anni. Cambiò anche la tattica: la coorte, formata da tre manipoli e forte di cinquecento o seicento uomini, sostituì il manipolo, e dieci coorti formarono la legione. Infine promise ai veterani un lotto di terra al congedo. Le legioni diventarono così un esercito di professionisti stipendiato e bene addestrato. Ma c'è il rovescio della medaglia, ed è politico: è il generale che li arruola, li guida, li congeda e li premia. I soldati dipendono da lui, non dallo Stato, e le legioni diventano eserciti personali. Lo si vede nell'88 a.C., quando i soldati seguono Silla nella marcia su Roma mentre gli ufficiali lo abbandonano, e di nuovo nel 49 con Cesare al Rubicone."},
+
+{t:"Racconta la guerra sociale e spiega perché il suo esito è paradossale.",
+ s:["Chi sono i socii e cosa chiedevano",
+    "Il tentativo di riforma di Druso e la sua uccisione nel 91 a.C.",
+    "La lega italica con capitale Corfinio, ribattezzata Italica",
+    "Una guerra micidiale: stessi armamenti e stesso addestramento",
+    "Roma vince ma concede la cittadinanza",
+    "Risultato: l'Italia a sud di Magra e Rubicone diventa un'unica entità politica"],
+ m:"Gli alleati italici, i socii, da secoli fornivano a Roma tributi, truppe e mezzi senza avere la cittadinanza romana, e chiedevano diritti politici, terre pubbliche e grano a prezzo politico. Nel 91 a.C. il tribuno Marco Livio Druso propose un progetto complessivo di riforma, ma il Senato si divise e Druso fu ucciso in casa sua da un assassino mai identificato. Persa ogni speranza, gli Italici si federarono in una lega antiromana con capitale Corfinio, ribattezzata Italica. La guerra fu micidiale proprio perché i due contendenti erano addestrati e armati allo stesso modo: fra il 91 e l'88 i morti furono decine di migliaia. L'esito è paradossale perché Roma vinse militarmente, ma dovette concedere proprio quello per cui gli alleati si erano ribellati: Latini e Italici ottennero la cittadinanza romana, e tutta l'Italia a sud dei fiumi Magra e Rubicone divenne un'unica entità politica."},
+
+{t:"Spiega che cosa fu la dittatura di Silla e perché rappresenta una novità.",
+ s:["Come ci arriva: il comando contro Mitridate, Sulpicio Rufo, la marcia su Roma dell'88",
+    "La guerra civile: sbarco a Brindisi nell'83, Porta Collina nell'82",
+    "La dittatura normale durava sei mesi: la sua è a tempo indeterminato e legifera",
+    "Le liste di proscrizione",
+    "Il rafforzamento del Senato: da 300 a 600, tribunali, tribuni azzerati",
+    "Il ritiro spontaneo nel 79 e la morte nel 78"],
+ m:"Nell'88 a.C. il Senato affidò a Silla la guerra contro Mitridate, ma il tribuno Sulpicio Rufo fece approvare un plebiscito che revocava il comando per darlo a Mario. Silla allora marciò su Roma con oltre trentamila soldati: un atto sacrilego, perché un esercito poteva entrare in armi in città solo nel giorno del trionfo. Dopo anni di guerra civile sbarcò a Brindisi nell'83 e nel novembre dell'82 sconfisse i popolari a Porta Collina. Tornato a Roma ripristinò la dittatura, ma con due novità assolute: non durava sei mesi come da tradizione, bensì a tempo indeterminato, e gli dava il potere di emanare leggi. Scrisse le liste di proscrizione, gli elenchi pubblici dei nemici per la cui uccisione c'era un premio, con confisca dei beni. Poi rafforzò l'élite senatoria: i senatori passarono da trecento a seicento e riebbero il monopolio dei tribunali, mentre i poteri dei tribuni furono ridotti quasi a nulla. Nel 79 abbandonò spontaneamente la politica e l'anno dopo morì, avendo restituito il controllo della Repubblica al Senato."},
+
+{t:"Spiega cos'era il primo triumvirato e perché non era una magistratura.",
+ s:["La situazione di stallo: Pompeo torna nel 62 e gli ottimati temporeggiano",
+    "Il patto del 60 a.C.: cosa chiede e cosa offre ciascuno",
+    "Un accordo privato e all'inizio segreto, non una carica prevista dalle leggi",
+    "Clientele, ricchezze ed eserciti messi insieme",
+    "Cesare console nel 59 e il controllo quasi totale sullo Stato"],
+ m:"Nel 62 a.C. Pompeo tornò dall'Oriente e, invece di imporsi con le armi, congedò i soldati e chiese al Senato solo di ratificare i provvedimenti presi e di dare le terre ai veterani. Gli ottimati però temporeggiavano, per riaffermare la propria autorità. Da quello stallo nacque la mossa di Cesare: nel 60 a.C. propose a Pompeo di sostenerlo alle elezioni consolari in cambio dell'approvazione delle sue richieste, e coinvolse Crasso, interessato a migliori condizioni negli appalti d'Oriente e disposto a finanziare la campagna elettorale. Gli storici la chiamano primo triumvirato, ma non era una magistratura di tre membri: era un accordo privato e all'inizio segreto fra i tre uomini più potenti di Roma, che mettendo insieme clientele, ricchezze ed eserciti erano in grado di imporre la propria volontà. Pompeo metteva la gloria e i soldati, Crasso il denaro, Cesare l'abilità politica. Divenuto console nel 59, Cesare fece approvare le leggi volute dagli alleati, e da quel momento il triumvirato controllò quasi totalmente lo Stato."},
+
+{t:"Confronta la riforma agraria di Cesare con quelle dei Gracchi.",
+ s:["Cosa hanno in comune: distribuire terra dell'agro pubblico ai poveri",
+    "I Gracchi confiscavano ai grandi proprietari: scontro frontale e violenza",
+    "Cesare comprava la terra con le entrate delle province d'Oriente",
+    "Nessun privilegio degli ottimati toccato: la legge passa",
+    "I destinatari: veterani di Pompeo e cittadini con tre o più figli",
+    "Il podere è inalienabile per vent'anni"],
+ m:"Il problema è lo stesso da ottant'anni: dare terra ai cittadini poveri. I Gracchi lo affrontarono confiscando l'agro pubblico occupato dai grandi proprietari oltre il tetto di legge, e il risultato fu lo scontro frontale con il Senato e la morte di entrambi i fratelli. Cesare, console nel 59 a.C., cambiò il meccanismo: le sue due leggi agrarie distribuivano lotti nell'agro pubblico della penisola, ma la terra da distribuire non veniva sequestrata ai grandi proprietari, bensì acquistata con le entrate delle ricche province d'Oriente conquistate da Pompeo. Così non si intaccavano i privilegi degli ottimati, e nonostante l'opposizione di Catone l'Uticense le leggi passarono, anche grazie alla pressione del potere militare di Pompeo. Ne beneficiarono oltre ventimila padri di famiglia con più di tre figli e i veterani di Pompeo, che ricevettero un podere inalienabile per vent'anni. Cesare ottenne quello che i Gracchi non erano riusciti a ottenere, e insieme il consenso dell'elettorato popolare."},
+
+{t:"Illustra la conquista della Gallia e spiega cosa significò per Cesare.",
+ s:["Il proconsolato del 59: Gallia Cisalpina, Illirico, Gallia Narbonense",
+    "Perché scelse province povere: gloria e conquista, non profitto",
+    "58-52 a.C.: la Gallia Comata, Vercingetorige, Alesia",
+    "Lo sterminio e la schiavitù, poi la romanizzazione",
+    "La spedizione in Britannia del 55-54",
+    "Il vero risultato: un esercito personale fedele e un enorme prestigio"],
+ m:"Dopo il consolato Cesare ottenne il proconsolato straordinario di cinque anni su Gallia Cisalpina, Illirico e Gallia Narbonense. La scelta parve strana, perché di solito un console non sceglieva regioni povere e turbolente, ma il suo obiettivo non erano i profitti immediati: era la possibilità di primeggiare in nuove conquiste a settentrione e di mettere fine all'incubo delle invasioni da nord. La conquista della Gallia Comata durò dal 58 al 52 a.C. e culminò con la ribellione guidata dal re Vercingetorige, a capo di una confederazione di tribù galliche, sconfitto nella roccaforte di Alesia. Nei due anni successivi intere popolazioni furono sterminate o ridotte in schiavitù, e la civiltà celtica si avviò a una profonda romanizzazione; Vercingetorige, dopo sei anni di prigionia, sfilò in catene nel trionfo del 46 e fu ucciso. Nel 55 Cesare si spinse fino in Britannia senza occupare l'isola. Il risultato politico è però più importante di quello territoriale: in Gallia Cesare si costruì un esercito di veterani legati personalmente a lui e un prestigio enorme, cioè gli strumenti con cui nel 49 attraverserà il Rubicone."},
+
+{t:"Spiega perché l'uccisione di Cesare non salvò la Repubblica.",
+ s:["Cosa speravano i congiurati: eliminato il dittatore, la Repubblica è salva",
+    "La reazione reale: plebe ed esercito si legano ancora di più ai generali",
+    "I funerali del 20 marzo e la fuga di Bruto e Cassio",
+    "Si apre la terza guerra civile",
+    "Il secondo triumvirato nasce come magistratura legale: il potere personale è ormai istituzionalizzato",
+    "Da Filippi ad Azio: resta un uomo solo"],
+ m:"Gli assassini di Cesare e molti senatori speravano che, eliminato il dittatore, la Repubblica fosse finalmente salva. Fu invece un grave abbaglio politico: la morte di Cesare non fu accolta come una liberazione, anzi la plebe e l'esercito si mostrarono ancora più saldamente legati ai loro generali. Ai funerali del 20 marzo la vista del cadavere e il discorso di Antonio fecero insorgere il popolo, e Bruto e Cassio dovettero fuggire. Si aprì così il terzo conflitto civile della storia romana, dopo quello fra Silla e i seguaci di Mario e quello fra Cesare e Pompeo. Il punto decisivo è che il potere personale, invece di sparire, si istituzionalizzò: il secondo triumvirato del 43 a.C. non fu un patto privato come il primo, ma una vera magistratura straordinaria votata dalle assemblee, con poteri amplissimi, che usò le liste di proscrizione per eliminare gli avversari, fra cui Cicerone. Dopo Filippi nel 42 e Azio nel 31 rimase un uomo solo. La congiura non aveva colpito la causa della crisi, cioè il legame fra generali ed eserciti, ma soltanto una persona."},
+
+{t:"Metti a confronto il primo e il secondo triumvirato.",
+ s:["Chi: Cesare, Pompeo, Crasso nel 60 — Ottaviano, Antonio, Lepido nel 43",
+    "Natura: accordo privato e segreto contro magistratura votata dalle assemblee",
+    "Durata: nessuna formale contro cinque anni stabiliti per legge",
+    "Metodi: pressione politica contro liste di proscrizione",
+    "Come finiscono: la morte di Crasso e la rottura fra Cesare e Pompeo; Filippi e poi lo scontro fra Ottaviano e Antonio",
+    "Il senso: il potere personale passa da fatto a norma"],
+ m:"Il primo triumvirato nasce nel 60 a.C. fra Cesare, Pompeo e Crasso: è un accordo privato e all'inizio segreto, senza alcun valore legale, che funziona perché i tre mettono insieme clientele, ricchezze ed eserciti. Si regge finché regge l'equilibrio personale, e infatti si sfalda con la morte di Crasso a Carre nel 53 e con la rottura fra Cesare e Pompeo. Il secondo nasce nel 43 a.C. fra Ottaviano, Antonio e Lepido ed è una cosa diversa: una vera magistratura straordinaria, istituita per cinque anni con una legge votata dalle assemblee, che conferisce ai triumviri poteri amplissimi. I metodi sono più duri: le liste di proscrizione eliminano centinaia di senatori e migliaia di cavalieri, fra cui Cicerone, e nel 42 a Filippi vengono sconfitti i cesaricidi. Poi i tre si spartiscono i domini. La differenza è il senso stesso della crisi: nel 60 il potere personale è un fatto che aggira le istituzioni, nel 43 diventa una norma scritta dentro le istituzioni. La Repubblica non viene abolita, viene svuotata."}
+];
+
+/* ═══════════ stato ═══════════ */
+let tab="lampo", filtro=-1, lista=[], idx=0, rate=0.88;
+let esito={};           /* indice globale della domanda -> "ok" | "mid" | "no" */
+let reading=false, queue=[], qi=0;
+const stage=document.getElementById("stage");
+const filtri=document.getElementById("filtri");
+const bar=document.getElementById("bar");
+
+function buildFiltri(){
+  filtri.innerHTML="";
+  if(tab!=="lampo"){ filtri.style.display="none"; return; }
+  filtri.style.display="flex";
+  const mk=(testo,val)=>{
+    const b=document.createElement("button");
+    b.textContent=testo;
+    if(filtro===val) b.className="on";
+    b.onclick=()=>{ filtro=val; rebuild(); };
+    filtri.appendChild(b);
+  };
+  mk("Tutte",-1);
+  BLOCCHI.forEach((n,i)=>mk(n,i));
+}
+
+function rebuild(){
+  stop();
+  lista = LAMPO.map((d,i)=>({d:d,i:i})).filter(o=>filtro<0 || o.d.b===filtro);
+  idx=0; esito={};
+  buildFiltri(); render();
+}
+
+function setTab(t){
+  stop(); tab=t; idx=0;
+  document.getElementById("tabA").className = t==="lampo"?"on":"";
+  document.getElementById("tabB").className = t==="aperte"?"on":"";
+  if(t==="lampo") rebuild(); else { buildFiltri(); render(); }
+}
+
+/* ═══════════ disegno ═══════════ */
+function render(){
+  if(tab==="aperte") return renderAperte();
+  if(idx>=lista.length) return renderFine();
+
+  const o=lista[idx], d=o.d;
+  let h='<div class="prog"><i style="width:'+Math.round(idx/lista.length*100)+'%"></i></div>';
+  h+='<div class="card">';
+  h+='<div class="kicker">'+BLOCCHI[d.b]+'</div>';
+  h+='<p class="qbig s">'+d.q+'</p>';
+  h+='<p class="hintline">Rispondi ad alta voce. Poi controlla.</p>';
+  h+='<button class="cta" id="revealBtn" onclick="reveal()">Vedi la risposta</button>';
+  h+='<div class="ansbox" id="ans"><b>Risposta.</b> <span class="s">'+d.a+'</span>'
+    + (d.x?'<div class="extra s">'+d.x+'</div>':'')+'</div>';
+  h+='<div class="selfrow" id="self" style="display:none">'
+    +'<button class="s-ok" onclick="segna(&#39;ok&#39;)">La sapevo</button>'
+    +'<button class="s-mid" onclick="segna(&#39;mid&#39;)">A metà</button>'
+    +'<button class="s-no" onclick="segna(&#39;no&#39;)">No</button></div>';
+  h+='</div>';
+  stage.innerHTML=h;
+  bar.style.display="";
+  document.getElementById("count").textContent="domanda "+(idx+1)+" di "+lista.length;
+  document.getElementById("prev").disabled=(idx===0);
+  document.getElementById("next").disabled=false;
+  document.getElementById("foot").textContent="";
+  window.scrollTo(0,0);
+}
+
+function reveal(){
+  document.getElementById("ans").classList.add("on");
+  document.getElementById("revealBtn").style.display="none";
+  document.getElementById("self").style.display="flex";
+}
+function segna(v){ esito[lista[idx].i]=v; go(1); }
+
+function renderFine(){
+  stop();
+  const vals=Object.keys(esito).map(k=>esito[k]);
+  const n=v=>vals.filter(x=>x===v).length;
+  const daRivedere=lista.filter(o=>esito[o.i]==="no"||esito[o.i]==="mid");
+  let h='<div class="card"><div class="kicker">Come è andata</div>'
+    +'<h2 style="font-size:23px;margin:6px 0 12px">'+n("ok")+' su '+lista.length+' senza esitare</h2>'
+    +'<div class="tot">'
+    +'<div class="t-ok"><div class="n">'+n("ok")+'</div><div class="l">le sapevo</div></div>'
+    +'<div class="t-mid"><div class="n">'+n("mid")+'</div><div class="l">a metà</div></div>'
+    +'<div class="t-no"><div class="n">'+n("no")+'</div><div class="l">no</div></div>'
+    +'</div>';
+  if(daRivedere.length){
+    h+='<p style="margin:14px 0 6px;font-weight:700">Da ripassare prima dell\'interrogazione</p>';
+    daRivedere.forEach(o=>{
+      h+='<div class="rev"><b>'+BLOCCHI[o.d.b]+'</b>'+o.d.q+'<br><span style="color:var(--soft)">'+o.d.a+'</span></div>';
+    });
+    h+='<button class="cta" onclick="soloRivedere()">Rifai solo queste '+daRivedere.length+'</button>';
+  }else{
+    h+='<p style="margin:14px 0 0">Nessuna da ripassare. Prova un altro blocco, oppure passa alle domande aperte.</p>';
+  }
+  h+='<button class="mini" style="width:100%;margin-top:10px" onclick="rebuild()">Ricomincia da capo</button>';
+  h+='</div>';
+  stage.innerHTML=h;
+  bar.style.display="none";
+  document.getElementById("foot").textContent="";
+  window.scrollTo(0,0);
+}
+
+function soloRivedere(){
+  stop();
+  const resta=lista.filter(o=>esito[o.i]==="no"||esito[o.i]==="mid");
+  lista=resta; idx=0; esito={};
+  render();
+}
+
+function renderAperte(){
+  let h='<p style="margin:0 0 14px;color:var(--soft);font-size:16px">'
+    +'Per ognuna: leggi la traccia, prova a esporla ad alta voce seguendo i punti, poi confronta con la risposta modello.</p>';
+  APERTE.forEach((a,i)=>{
+    h+='<div class="open"><div class="kicker">domanda '+(i+1)+'</div>'
+      +'<h3 class="s">'+a.t+'</h3>'
+      +'<ul class="scal">'+a.s.map(p=>'<li>'+p+'</li>').join("")+'</ul>'
+      +'<button class="mini" onclick="apri('+i+',this)">Risposta modello</button>'
+      +'<div class="model" id="m'+i+'"><span class="s">'+a.m+'</span></div></div>';
+  });
+  stage.innerHTML=h;
+  bar.style.display="";
+  document.getElementById("count").textContent=APERTE.length+" domande da esposizione";
+  document.getElementById("prev").disabled=true;
+  document.getElementById("next").disabled=true;
+  document.getElementById("foot").textContent="Contenuto dal libro di testo, capitoli 18 e 19.";
+  window.scrollTo(0,0);
+}
+function apri(i,btn){
+  const m=document.getElementById("m"+i);
+  const on=m.classList.toggle("on");
+  btn.textContent = on ? "Nascondi" : "Risposta modello";
+}
+
+function go(d){
+  stop();
+  if(tab!=="lampo") return;
+  idx=Math.max(0,Math.min(lista.length,idx+d));
+  render();
+}
+
+/* ═══════════ lettura ad alta voce ═══════════ */
+let voce=null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
+
+function say(t){
+  return t.replace(/a\.C\./g,"avanti Cristo").replace(/d\.C\./g,"dopo Cristo")
+          .replace(/ecc\./g,"eccetera").replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari."); return; }
+  queue=Array.prototype.slice.call(stage.querySelectorAll(".s"))
+    .filter(el=>el.offsetParent!==null || el.closest(".model.on") || el.closest(".ansbox.on"));
+  if(!queue.length) return;
+  qi=0; reading=true;
+  const p=document.getElementById("play"); p.textContent="■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi>=queue.length){ stop(); return; }
+  const el=queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r=el.getBoundingClientRect();
+  if(r.top<70 || r.bottom>window.innerHeight-130) el.scrollIntoView({block:"center",behavior:"smooth"});
+  const u=new SpeechSynthesisUtterance(say(el.textContent));
+  u.lang="it-IT"; u.rate=rate; if(voce) u.voice=voce;
+  u.onend=()=>{ qi++; speakNext(); };
+  u.onerror=()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading=false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p=document.getElementById("play");
+  if(p){ p.textContent="▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"),x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate=r;
+  Array.prototype.forEach.call(btn.parentNode.children,b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+rebuild();
+</script>
+</body>
+</html>
