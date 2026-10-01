@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matematica — Polinomi: allenamento per il compito</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#B06A08; --accent-soft:#FBEEDA; --accent-line:#F0D3A8;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:4px 0 8px}
+.chips a{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:6px 12px;
+  font-size:14px; font-weight:600; color:var(--soft); text-decoration:none}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:18px; line-height:1.6; margin:0 0 10px}
+.mx{font-family:"Times New Roman",Georgia,serif; font-size:1.12em}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:22px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:12px 14px; font-size:17px; font-weight:600; margin-top:12px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.step p{margin:6px 0}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:11px 12px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus{outline:none; border-color:var(--accent)}
+.chk .u{align-self:center; font-size:16px; color:var(--soft); font-weight:600; min-width:30px}
+.chk button{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 16px; font-weight:600; font-size:16px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em; line-height:1.5}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.linkish{background:none; border:none; font-size:15px; color:var(--accent); text-decoration:underline; padding:4px 2px}
+.how{display:none; background:#F4F1EA; border-radius:10px; padding:10px 12px; margin-top:8px; font-size:16px; line-height:1.6}
+.how.on{display:block}
+
+/* scelte */
+.opts{display:grid; gap:7px; margin-top:8px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts.one{grid-template-columns:minmax(0,1fr)}
+.opts button{min-width:0; overflow-wrap:break-word; border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 8px;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.35}
+.opts button .mx{font-size:19px; font-weight:400}
+.opts.one button{text-align:left; padding:10px 14px}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+.why{display:none; font-size:15.5px; color:var(--soft); margin:6px 0 2px; line-height:1.5}
+.why.on{display:block}
+.why .mx{font-size:1.08em}
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:18px; font-weight:600; margin-bottom:6px; line-height:1.5}
+.op .mx{font-size:21px; font-weight:400}
+.score{font-size:15px; color:var(--soft); margin-top:12px; font-weight:600}
+.redo{display:none; margin-top:10px}
+
+/* catene: un passaggio alla volta */
+.work{margin:6px 0 4px}
+.wl{font-family:"Times New Roman",Georgia,serif; font-size:20px; line-height:1.45; border-left:4px solid var(--accent-line); padding:3px 0 3px 12px; margin:6px 0}
+.wl .mk{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif; font-size:14px; font-weight:700; margin-left:6px}
+.wl .mk.y{color:var(--ok)} .wl .mk.n{color:var(--no)}
+.cq{font-size:16.5px; font-weight:700; margin:14px 0 4px; line-height:1.5}
+.cq .mx{font-weight:400}
+.cn{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.opts.mo button{font-family:"Times New Roman",Georgia,serif; font-size:19px; font-weight:400}
+.cont{display:block; width:100%; margin-top:10px; border:2px solid var(--accent); background:var(--accent); color:#fff; border-radius:12px; padding:11px 6px; font-size:16px; font-weight:700}
+.endb{background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:12px 14px; margin-top:12px; font-size:16.5px; line-height:1.6}
+.endb .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700}
+.endb .mx{font-size:1.15em}
+
+/* divisione in colonna */
+table.dv{border-collapse:collapse; width:auto; margin:6px auto 4px; font-family:"Times New Roman",Georgia,serif; font-size:19px}
+table.dv.sm{font-size:16.5px}
+table.dv td{border:none; padding:3px 5px; text-align:center; white-space:nowrap; line-height:1.35}
+table.dv.sm td{padding:3px 3px}
+table.dv td.r0{border-bottom:2px solid var(--ink)}
+table.dv tr.dr-s td.t{border-bottom:2px solid var(--ink)}
+table.dv tr.dr-s td.t.h{border-bottom-color:transparent}
+table.dv td.rt{border-left:2px solid var(--ink); text-align:left; padding-left:8px}
+table.dv td.dvs{border-bottom:2px solid var(--ink)}
+table.dv td.h{color:transparent}
+table.dv tr.hi td.t{background:var(--read)}
+table.dv .qn{background:var(--read); border-radius:4px; padding:0 2px}
+table.dv td.dq{color:var(--accent); font-weight:700}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+
+/* Ruffini da riempire */
+table.rx{border-collapse:collapse; width:auto; margin:8px auto; font-family:"Times New Roman",Georgia,serif; font-size:20px}
+table.rx td{border:none; padding:3px; text-align:center; min-width:44px; height:46px}
+table.rx td.cc{border-right:2px solid var(--ink)}
+table.rx td.lr{border-left:2px solid var(--ink)}
+table.rx tr.m td{border-bottom:2px solid var(--ink)}
+table.rx input{width:44px; font:inherit; font-size:18px; text-align:center; padding:6px 2px; border:2px solid var(--rule); border-radius:9px; background:#fff; color:var(--ink)}
+table.rx input:focus{outline:none; border-color:var(--accent)}
+table.rx input.ok{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+table.rx input.no{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.hide{display:none}
+
+table.tb{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+table.tb th, table.tb td{border:1px solid var(--rule); padding:6px 8px; text-align:left}
+table.tb th{background:var(--accent-soft); font-size:14px}
+table.tb td.c{text-align:center}
+svg{display:block; width:100%; height:auto; margin:10px 0}
+
+/* riepilogo */
+.sum table{border-collapse:collapse; width:100%; font-size:16px; margin:8px 0}
+.sum td{border-top:1px solid var(--rule); padding:7px 4px}
+.sum td.n{text-align:right; font-weight:700; white-space:nowrap}
+.sum tr.low td{color:var(--no)}
+.sum tr.tot td{border-top:2px solid var(--ink); font-weight:700}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (max-width:400px){ .opts.three button{font-size:14px; padding:10px 3px} table.dv{font-size:17px} table.dv.sm{font-size:15px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Matematica · verso il compito</div>
+  <h1>Polinomi — allenamento per il compito</h1>
+  <p class="lead">Fai il conto sul quaderno, <b>poi</b> scegli. Ogni risposta si blocca al primo tocco: tirare a indovinare non conviene. Se sbagli, leggi il perché e vai avanti. Il tasto 🔊 legge la consegna.</p>
+  <div class="chips">
+    <a href="#A">Potenze</a><a href="#B">Prodotti notevoli</a><a href="#C">Espressioni</a><a href="#D">Divisione</a><a href="#E">Ruffini e resto</a><a href="#F">Scomposizione</a><a href="#G">Problemi</a><a href="#H">Trova l'errore</a><a href="#R">Riepilogo</a>
+  </div>
+</header>
+
+<div class="note"><b>Come scrivere i numeri.</b> Il meno con il trattino: −3 si scrive <b>-3</b>. Le frazioni con la barra: <b>1/2</b>. Va bene anche 0,5.</div>
+
+<!-- ═══════════ A ═══════════ -->
+<h2 id="A">A · Potenze e segni</h2>
+<div id="cA"></div>
+
+<!-- ═══════════ B ═══════════ -->
+<h2 id="B">B · Prodotti notevoli</h2>
+<div id="cB"></div>
+
+<!-- ═══════════ C ═══════════ -->
+<h2 id="C">C · Espressioni</h2>
+<div id="cC"></div>
+
+<!-- ═══════════ D ═══════════ -->
+<h2 id="D">D · Divisione tra polinomi</h2>
+<div id="cD"></div>
+
+<!-- ═══════════ E ═══════════ -->
+<h2 id="E">E · Teorema del resto e Ruffini</h2>
+<div id="cE1"></div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Teorema del resto · senza fare la divisione</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="P di x è x al cubo meno due x alla seconda più tre x meno quattro. Trova il resto delle tre divisioni con il teorema del resto: metti lo zero del divisore al posto di x e fai il conto. Ricorda le parentesi intorno ai numeri negativi.">🔊</button></div>
+  <p class="qtext">${P(x) = x^3 - 2x^2 + 3x - 4}$ — trova il resto della divisione…</p>
+  <div class="lab">a) per ${(x - 2)}$</div>
+  <div class="chk"><input id="in1" inputmode="decimal" autocomplete="off" placeholder="R = …"><button onclick="chk('n1')">Controlla</button></div>
+  <div class="fb" id="fn1"></div>
+  <button class="linkish" onclick="how('n1')">Come si fa</button><div class="how" id="hn1">Lo zero di ${x - 2}$ è 2. ${P(2) = 8 - 8 + 6 - 4}$</div>
+  <div class="lab">b) per ${(x + 1)}$</div>
+  <div class="chk"><input id="in2" inputmode="decimal" autocomplete="off" placeholder="R = …"><button onclick="chk('n2')">Controlla</button></div>
+  <div class="fb" id="fn2"></div>
+  <button class="linkish" onclick="how('n2')">Come si fa</button><div class="how" id="hn2">Lo zero di ${x + 1}$ è −1. ${P(-1) = (-1)^3 - 2*(-1)^2 + 3*(-1) - 4}$</div>
+  <div class="lab">c) per ${(x - 1)}$</div>
+  <div class="chk"><input id="in3" inputmode="decimal" autocomplete="off" placeholder="R = …"><button onclick="chk('n3')">Controlla</button></div>
+  <div class="fb" id="fn3"></div>
+  <button class="linkish" onclick="how('n3')">Come si fa</button><div class="how" id="hn3">Lo zero di ${x - 1}$ è 1. ${P(1) = 1 - 2 + 3 - 4}$</div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Ruffini 1 · riempi la tabella</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Dividi due x al cubo meno tre x alla seconda più x meno cinque per x meno due, con la regola di Ruffini. I coefficienti sono già scritti. Scrivi tu lo zero del divisore a sinistra, poi abbassa, moltiplica, somma. Poi tocca controlla.">🔊</button></div>
+  <p class="qtext">${(2x^3 - 3x^2 + x - 5) : (x - 2)}$<br><span style="font-size:16px;color:var(--soft)">A sinistra lo zero del divisore. Poi: abbasso, moltiplico, sommo.</span></p>
+  <div id="rxa"></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Ruffini 2 · con una potenza che manca</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Dividi x alla quarta meno due x alla seconda più tre x meno uno per x più due. Questa volta scrivi anche i coefficienti, in alto. Attento: manca x al cubo. E attento al segno dello zero del divisore.">🔊</button></div>
+  <p class="qtext">${(x^4 - 2x^2 + 3x - 1) : (x + 2)}$<br><span style="font-size:16px;color:var(--soft)">Questa volta scrivi anche i coefficienti in alto.</span></p>
+  <div id="rxb"></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio E4 · trova k</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Trova il valore di k perché due x al cubo meno x alla seconda più k x meno sei sia divisibile per x meno due.">🔊</button></div>
+  <p class="qtext">Trova <i>k</i> perché ${P(x) = 2x^3 - x^2 + kx - 6}$ sia divisibile per ${(x - 2)}$.</p>
+  <div class="chk"><input id="ik1" inputmode="decimal" autocomplete="off" placeholder="k = …"><button onclick="chk('k1')">Controlla</button></div>
+  <div class="fb" id="fk1"></div>
+  <button class="btn" onclick="step(this,'k1')">Mostra il passo 1</button>
+  <div class="step" id="sk1_1"><div class="sn">Passo 1 · cosa vuol dire divisibile</div><p>Divisibile per ${(x - 2)}$ vuol dire resto zero: ${P(2) = 0}$.</p></div>
+  <div class="step" id="sk1_2"><div class="sn">Passo 2 · il conto</div><p>${2*8 - 4 + 2k - 6 = 0}$ → ${6 + 2k = 0}$</p></div>
+  <div class="res" id="rk1"><div class="lbl">Risposta</div>${2k = -6}$ → <b>${k = -3}$</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio E5 · trova k</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Trova il valore di k perché x al cubo più k x alla seconda meno x più due sia divisibile per x più uno. Attento: lo zero di x più uno è meno uno.">🔊</button></div>
+  <p class="qtext">Trova <i>k</i> perché ${P(x) = x^3 + kx^2 - x + 2}$ sia divisibile per ${(x + 1)}$.</p>
+  <div class="chk"><input id="ik2" inputmode="decimal" autocomplete="off" placeholder="k = …"><button onclick="chk('k2')">Controlla</button></div>
+  <div class="fb" id="fk2"></div>
+  <button class="btn" onclick="step(this,'k2')">Mostra il passo 1</button>
+  <div class="step" id="sk2_1"><div class="sn">Passo 1 · lo zero</div><p>Lo zero di ${x + 1}$ è −1. Voglio ${P(-1) = 0}$.</p></div>
+  <div class="step" id="sk2_2"><div class="sn">Passo 2 · il conto</div><p>${(-1)^3 + k*(-1)^2 - (-1) + 2 = 0}$<br>${-1 + k + 1 + 2 = 0}$ → ${k + 2 = 0}$</p></div>
+  <div class="res" id="rk2"><div class="lbl">Risposta</div><b>${k = -2}$</b></div>
+</div>
+<div id="cE2"></div>
+
+<!-- ═══════════ F ═══════════ -->
+<h2 id="F">F · Scomposizione</h2>
+<div id="cF"></div>
+
+<!-- ═══════════ G ═══════════ -->
+<h2 id="G">G · Problemi</h2>
+<div id="cG1"></div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio G3 · somma e prodotto</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Sai che x più y fa sette e x per y fa dieci. Quanto fa x alla seconda più y alla seconda? Non serve trovare x e y.">🔊</button></div>
+  <p class="qtext">${x + y = 7}$ e ${xy = 10}$. Quanto fa ${x^2 + y^2}$?</p>
+  <div class="chk"><input id="ip1" inputmode="decimal" autocomplete="off" placeholder="…"><button onclick="chk('p1')">Controlla</button></div>
+  <div class="fb" id="fp1"></div>
+  <button class="btn" onclick="step(this,'p1')">Mostra il passo 1</button>
+  <div class="step" id="sp1_1"><div class="sn">Passo 1 · la formula</div><p>${x^2 + y^2 = (x + y)^2 - 2xy}$</p></div>
+  <div class="step" id="sp1_2"><div class="sn">Passo 2 · il conto</div><p>${7^2 - 2*10 = 49 - 20}$</p></div>
+  <div class="res" id="rp1"><div class="lbl">Risposta</div><b>${x^2 + y^2 = 29}$</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio G4 · la diagonale</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Un rettangolo ha il semiperimetro di sette centimetri e l'area di dodici centimetri quadrati. Quanto è lunga la diagonale?">🔊</button></div>
+  <p class="qtext">Un rettangolo ha semiperimetro 7 cm e area 12 cm². Quanto è lunga la diagonale?</p>
+  <div class="chk"><input id="ip2" inputmode="decimal" autocomplete="off" placeholder="d = …"><span class="u">cm</span><button onclick="chk('p2')">Controlla</button></div>
+  <div class="fb" id="fp2"></div>
+  <button class="btn" onclick="step(this,'p2')">Mostra il passo 1</button>
+  <div class="step" id="sp2_1"><div class="sn">Passo 1 · i dati</div><p>Chiamo ${x}$ e ${y}$ i lati: ${x + y = 7}$ e ${xy = 12}$. Per Pitagora ${d^2 = x^2 + y^2}$.</p></div>
+  <div class="step" id="sp2_2"><div class="sn">Passo 2 · il conto</div><p>${d^2 = (x + y)^2 - 2xy = 49 - 24 = 25}$</p></div>
+  <div class="res" id="rp2"><div class="lbl">Risposta</div>${d = √25}$ → <b>${d = 5}$ cm</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio G5 · due parentesi</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Sai che x più uno, per y più uno, fa cinquanta, e che x più y fa dodici. Quanto fa x per y?">🔊</button></div>
+  <p class="qtext">${(x + 1)(y + 1) = 50}$ e ${x + y = 12}$. Quanto fa ${xy}$?</p>
+  <div class="chk"><input id="ip3" inputmode="decimal" autocomplete="off" placeholder="…"><button onclick="chk('p3')">Controlla</button></div>
+  <div class="fb" id="fp3"></div>
+  <button class="btn" onclick="step(this,'p3')">Mostra il passo 1</button>
+  <div class="step" id="sp3_1"><div class="sn">Passo 1 · sviluppa</div><p>${(x + 1)(y + 1) = xy + x + y + 1}$</p></div>
+  <div class="step" id="sp3_2"><div class="sn">Passo 2 · sostituisci</div><p>${xy + 12 + 1 = 50}$</p></div>
+  <div class="res" id="rp3"><div class="lbl">Risposta</div><b>${xy = 37}$</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio G6 · con i cubi</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Sai che x più y fa quattro, e che x al cubo più y al cubo fa ventotto. Quanto fa x per y?">🔊</button></div>
+  <p class="qtext">${x + y = 4}$ e ${x^3 + y^3 = 28}$. Quanto fa ${xy}$?</p>
+  <div class="chk"><input id="ip4" inputmode="decimal" autocomplete="off" placeholder="…"><button onclick="chk('p4')">Controlla</button></div>
+  <div class="fb" id="fp4"></div>
+  <button class="btn" onclick="step(this,'p4')">Mostra il passo 1</button>
+  <div class="step" id="sp4_1"><div class="sn">Passo 1 · il cubo di binomio</div><p>${(x + y)^3 = x^3 + y^3 + 3xy(x + y)}$</p></div>
+  <div class="step" id="sp4_2"><div class="sn">Passo 2 · sostituisci</div><p>${4^3 = 28 + 3xy * 4}$ → ${64 = 28 + 12xy}$ → ${36 = 12xy}$</p></div>
+  <div class="res" id="rp4"><div class="lbl">Risposta</div><b>${xy = 3}$</b></div>
+</div>
+
+<!-- ═══════════ H ═══════════ -->
+<h2 id="H">H · Trova l'errore</h2>
+<div id="cH"></div>
+
+<!-- ═══════════ RIEPILOGO ═══════════ -->
+<h2 id="R">Riepilogo</h2>
+<div class="card sum">
+  <div class="qnum">Come stai andando</div>
+  <p style="margin:0;font-size:15.5px;color:var(--soft)">Conta le scelte giuste al primo tocco. Dove sei sotto metà, ripassa la parte nella scheda di teoria.</p>
+  <div id="sum"></div>
+</div>
+
+<p class="foot">Esercizi nuovi, costruiti sugli stessi tipi del quaderno e del libro.</p>
+</div>
+
+<script>
+/* ═══════ scrittura della matematica ═══════ */
+function M(s){
+  s = String(s).replace(/-/g,"−").replace(/\*/g,"·");
+  return s.replace(/\^\{([^}]*)\}/g,"<sup>$1</sup>").replace(/\^([0-9]+|[a-zA-Z])/g,"<sup>$1</sup>");
+}
+function X(s){ return '<span class="mx">'+M(s)+'</span>'; }
+function TX(s){ return String(s).replace(/\$([^$]+)\$/g,(m,a)=>X(a)); }
+
+/* ═══════ gli esercizi, nell'ordine in cui compaiono ═══════
+   blk  righe a scelta: per riga [testo, [giusta, sbagliata, …], perché]
+        oppure con o:[…] fisse: [testo, indice giusta, perché]
+   ch   catena: un passaggio per volta, ok = giusta, no = sbagliate */
+const ITEMS = [
+
+/* ---------- A ---------- */
+{type:"blk", id:"a1", sec:"A", c:"cA", t:"Quanto fa?",
+ say:"Quanto fa? Per ogni riga scegli il risultato giusto. Attento alle regole delle potenze e ai segni.",
+ rows:[
+  ["$(x^2)^3$", ["$x^6$","$x^5$","$x^9$"], "Potenza di potenza: moltiplico gli esponenti, 2 · 3 = 6."],
+  ["$x^3 * x^4$", ["$x^7$","$x^{12}$","$2x^7$"], "Prodotto con la stessa base: sommo gli esponenti, 3 + 4 = 7."],
+  ["$x^7 : x^3$", ["$x^4$","$x^3$","$x^{10}$"], "Quoziente: sottraggo gli esponenti, 7 − 3 = 4."],
+  ["$a + a$", ["$2a$","$a^2$","$2a^2$"], "Sono due a: 2a. Invece a · a = a²."],
+  ["$3x^2 + 2x^2$", ["$5x^2$","$5x^4$","$6x^2$"], "Nella somma l'esponente non cambia: sommo solo i numeri, 3 + 2 = 5."],
+  ["$(-2)^4$", ["$16$","$-16$","$-8$"], "Esponente pari: il risultato è positivo."],
+  ["$(-3)^3$", ["$-27$","$27$","$-9$"], "Esponente dispari: il meno resta. 3 · 3 · 3 = 27."],
+  ["$(2a)^3$", ["$8a^3$","$2a^3$","$6a^3$"], "Elevo tutti e due: 2³ = 8 e a³."],
+  ["$-(x - 3)$", ["$-x + 3$","$-x - 3$","$x + 3$"], "Il meno davanti cambia il segno di tutti i termini."],
+  ["$(-3x^2)(-2x^2)$", ["$6x^4$","$-6x^4$","$6x^2$"], "Meno per meno fa più, e x² · x² = x⁴."],
+  ["$a^{x+3} : a^{x+2}$", ["$a$","$a^5$","$a^{2x+5}$"], "(x + 3) − (x + 2) = 1: resta a¹, cioè a."],
+  ["Grado di $x^6y - 4x^4y^3 + 2x^3y^2$", ["7","6","18"], "x⁶y ha grado 6 + 1 = 7, x⁴y³ ha grado 7, x³y² ha grado 5. Il più alto è 7."]
+ ]},
+
+/* ---------- B ---------- */
+{type:"blk", id:"b1", sec:"B", c:"cB", t:"Che prodotto notevole è?",
+ say:"Che prodotto notevole è? Guarda le parentesi e gli esponenti, prima di fare i conti.",
+ o:["quadrato di binomio","somma per differenza","cubo di binomio","quadrato di trinomio"],
+ rows:[
+  ["$(2a + 1)^2$", 0, "Una parentesi con due termini, al quadrato."],
+  ["$(x + 3)(x - 3)$", 1, "Stessi termini, segni opposti: x² − 9."],
+  ["$(x - 2)^3$", 2, "Esponente 3."],
+  ["$(a + b + c)^2$", 3, "Tre termini, al quadrato."],
+  ["$(x - 1)(x - 1)$", 0, "Segni uguali: è (x − 1)², un quadrato. Non è una somma per differenza."],
+  ["$(5 - y)(5 + y)$", 1, "Stessi termini, segni opposti: 25 − y²."]
+ ]},
+{type:"blk", id:"b2", sec:"B", c:"cB", t:"Sviluppa",
+ say:"Sviluppa i prodotti notevoli. Scrivi il risultato sul quaderno, poi cerca quello giusto. Attento al doppio prodotto.",
+ rows:[
+  ["$(x - 3)^2$", ["$x^2 - 6x + 9$","$x^2 - 9$","$x^2 - 3x + 9$"], "Doppio prodotto: 2 · x · 3 = 6x, con il meno."],
+  ["$(2a + 1)^2$", ["$4a^2 + 4a + 1$","$4a^2 + 2a + 1$","$4a^2 + 1$"], "Doppio prodotto: 2 · 2a · 1 = 4a. Non dimenticare il 2."],
+  ["$(3x - 2y)^2$", ["$9x^2 - 12xy + 4y^2$","$9x^2 - 6xy + 4y^2$","$9x^2 - 4y^2$"], "Doppio prodotto: 2 · 3x · 2y = 12xy."],
+  ["$(a^2 + 5)(a^2 - 5)$", ["$a^4 - 25$","$a^4 + 25$","$a^2 - 25$"], "Somma per differenza: (a²)² − 5² = a⁴ − 25."],
+  ["$(x + 1)^2$", ["$x^2 + 2x + 1$","$x^2 - 1$","$x^2 + 1$"], "(x + 1)² è (x + 1)(x + 1), non (x + 1)(x − 1)."],
+  ["$(a^3 + 2)^2$", ["$a^6 + 4a^3 + 4$","$a^9 + 4a^3 + 4$","$a^6 + 2a^3 + 4$"], "(a³)² = a⁶, e il doppio prodotto è 2 · a³ · 2 = 4a³."],
+  ["$(x - 2)^3$", ["$x^3 - 6x^2 + 12x - 8$","$x^3 - 8$","$x^3 - 6x^2 - 12x - 8$"], "Con il meno i segni si alternano: +, −, +, −."],
+  ["$(x^2 + 1)^3$", ["$x^6 + 3x^4 + 3x^2 + 1$","$x^5 + 3x^4 + 3x^2 + 1$","$x^6 + 1$"], "(x²)³ = x⁶, poi 3 · x⁴ · 1 = 3x⁴ e 3 · x² · 1 = 3x²."],
+  ["$(x + y + 1)^2$", ["$x^2 + y^2 + 1 + 2xy + 2x + 2y$","$x^2 + y^2 + 1$","$x^2 + y^2 + 1 + xy + x + y$"], "Tre quadrati più tre doppi prodotti."]
+ ]},
+
+/* ---------- C ---------- */
+{type:"ch", id:"c1", sec:"C", c:"cC", t:"Espressione C1",
+ say:"Calcola l'espressione: x più tre al quadrato, meno x più due per x meno due, meno sei x. Un passaggio alla volta.",
+ start:"(x + 3)^2 - (x + 2)(x - 2) - 6x",
+ steps:[
+  {q:"Sviluppa i prodotti notevoli, tra parentesi", ok:"= (x^2 + 6x + 9) - (x^2 - 4) - 6x", no:["= (x^2 + 9) - (x^2 - 4) - 6x","= (x^2 + 6x + 9) - (x^2 + 4) - 6x"],
+   why:"(x + 3)² = x² + 6x + 9: il doppio prodotto è 2 · x · 3 = 6x. E (x + 2)(x − 2) = x² − 4."},
+  {q:"Togli le parentesi", ok:"= x^2 + 6x + 9 - x^2 + 4 - 6x", no:["= x^2 + 6x + 9 - x^2 - 4 - 6x","= x^2 + 6x + 9 - x^2 + 4 + 6x"],
+   why:"Il meno davanti a (x² − 4) cambia tutti e due i segni: −x² + 4."},
+  {q:"Somma i termini simili", ok:"= 13", no:["= 12x + 13","= 2x^2 + 13"],
+   why:"x² − x² = 0 · 6x − 6x = 0 · 9 + 4 = 13."}
+ ], end:"Risultato: $13$"},
+{type:"ch", id:"c2", sec:"C", c:"cC", t:"Espressione C2",
+ say:"Calcola l'espressione: due a meno uno al quadrato, meno due a per due a meno tre, più a più uno per a meno uno.",
+ start:"(2a - 1)^2 - 2a(2a - 3) + (a + 1)(a - 1)",
+ steps:[
+  {q:"Sviluppa e moltiplica, tenendo le parentesi", ok:"= (4a^2 - 4a + 1) - (4a^2 - 6a) + (a^2 - 1)", no:["= (4a^2 - 2a + 1) - (4a^2 - 6a) + (a^2 - 1)","= (4a^2 + 1) - (4a^2 - 3) + (a^2 - 1)"],
+   why:"In (2a − 1)² il doppio prodotto è 2 · 2a · 1 = 4a. E 2a(2a − 3) = 4a² − 6a: il 2a moltiplica tutti e due i termini."},
+  {q:"Togli le parentesi", ok:"= 4a^2 - 4a + 1 - 4a^2 + 6a + a^2 - 1", no:["= 4a^2 - 4a + 1 - 4a^2 - 6a + a^2 - 1","= 4a^2 - 4a + 1 - 4a^2 + 6a - a^2 + 1"],
+   why:"Davanti a (4a² − 6a) c'è il meno: diventa −4a² + 6a. Davanti a (a² − 1) c'è il più: resta com'è."},
+  {q:"Somma i termini simili", ok:"= a^2 + 2a", no:["= a^2 - 10a","= 9a^2 + 2a"],
+   why:"4a² − 4a² + a² = a² · −4a + 6a = 2a · 1 − 1 = 0."}
+ ], end:"Risultato: $a^2 + 2a$"},
+{type:"ch", id:"c3", sec:"C", c:"cC", t:"Espressione C3",
+ say:"Calcola l'espressione: x alla seconda meno uno, al quadrato, meno x alla seconda più uno per x alla seconda meno uno, più due x alla seconda.",
+ start:"(x^2 - 1)^2 - (x^2 + 1)(x^2 - 1) + 2x^2",
+ steps:[
+  {q:"Sviluppa i prodotti notevoli, tra parentesi", ok:"= (x^4 - 2x^2 + 1) - (x^4 - 1) + 2x^2", no:["= (x^4 + 1) - (x^4 - 1) + 2x^2","= (x^4 - 2x^2 + 1) - (x^4 + 1) + 2x^2"],
+   why:"(x² − 1)² = x⁴ − 2x² + 1: (x²)² = x⁴ e il doppio prodotto è 2 · x² · 1 = 2x². La somma per differenza dà x⁴ − 1."},
+  {q:"Togli le parentesi", ok:"= x^4 - 2x^2 + 1 - x^4 + 1 + 2x^2", no:["= x^4 - 2x^2 + 1 - x^4 - 1 + 2x^2","= x^4 - 2x^2 + 1 + x^4 - 1 + 2x^2"],
+   why:"−(x⁴ − 1) = −x⁴ + 1."},
+  {q:"Somma i termini simili", ok:"= 2", no:["= 0","= 4x^2 + 2"],
+   why:"x⁴ − x⁴ = 0 · −2x² + 2x² = 0 · 1 + 1 = 2."}
+ ], end:"Risultato: $2$"},
+{type:"ch", id:"c4", sec:"C", c:"cC", t:"Espressione C4",
+ say:"Calcola l'espressione: y più uno al cubo, meno y per y più uno per y più tre, più y alla seconda.",
+ start:"(y + 1)^3 - y(y + 1)(y + 3) + y^2",
+ steps:[
+  {q:"Sviluppa il cubo", ok:"(y + 1)^3 = y^3 + 3y^2 + 3y + 1", no:["(y + 1)^3 = y^3 + 1","(y + 1)^3 = y^3 + y^2 + y + 1"],
+   why:"I numeri del cubo sono 1, 3, 3, 1: y³ + 3y² + 3y + 1."},
+  {q:"Calcola y(y + 1)(y + 3): prima le due parentesi", ok:"y(y^2 + 4y + 3) = y^3 + 4y^2 + 3y", no:["y(y^2 + 3) = y^3 + 3y","y(y^2 + 4y + 3) = y^3 + 4y + 3y"],
+   why:"(y + 1)(y + 3) = y² + 3y + y + 3 = y² + 4y + 3. Poi moltiplico tutto per y."},
+  {q:"Metti tutto insieme", ok:"= y^3 + 3y^2 + 3y + 1 - y^3 - 4y^2 - 3y + y^2", no:["= y^3 + 3y^2 + 3y + 1 - y^3 + 4y^2 + 3y + y^2","= y^3 + 3y^2 + 3y + 1 - y^3 - 4y^2 + 3y + y^2"],
+   why:"Il meno davanti cambia tutti i segni di y³ + 4y² + 3y."},
+  {q:"Somma i termini simili", ok:"= 1", no:["= -y^2 + 1","= 6y + 1"],
+   why:"y³ − y³ = 0 · 3y² − 4y² + y² = 0 · 3y − 3y = 0: resta 1."}
+ ], end:"Risultato: $1$"},
+
+/* ---------- D ---------- */
+{type:"blk", id:"d1", sec:"D", c:"cD", t:"Mi fermo o continuo?",
+ say:"Mi fermo o continuo? Confronta il grado del resto con il grado del divisore.",
+ o:["mi fermo","continuo"],
+ rows:[
+  ["Divisore $x^2 + 1$, resto $3x - 2$", 0, "Grado del resto 1, grado del divisore 2: 1 è più piccolo, mi fermo."],
+  ["Divisore $x - 3$, resto $2x + 5$", 1, "Grado 1 e grado 1: si può dividere ancora."],
+  ["Divisore $x^3 + 2$, resto $-2x^2 - 1$", 0, "Grado 2, più piccolo di 3: mi fermo."],
+  ["Divisore $x^2 - x$, resto $x^2 + 4$", 1, "Grado 2 e grado 2: si continua."],
+  ["Divisore $2x - 1$, resto $7$", 0, "Un numero ha grado 0: mi fermo."]
+ ]},
+{type:"ch", id:"d2", sec:"D", c:"cD", t:"Divisione D2",
+ say:"Esegui la divisione: quattro x al cubo meno due x alla seconda più sei x meno uno, diviso due x alla seconda più tre. Un passaggio alla volta: dividi, moltiplica, cambia i segni, somma.",
+ start:"(4x^3 - 2x^2 + 6x - 1) : (2x^2 + 3)",
+ div:{dv:"2x^2 + 3", q:["2x","- 1"], rows:[
+  {k:"d", c:["4x^3","- 2x^2","+ 6x","- 1"]},
+  {k:"s", c:["- 4x^3","","- 6x",""]},
+  {k:"r", c:["//","- 2x^2","+ 0x","- 1"]},
+  {k:"s", c:["","+ 2x^2","","+ 3"]},
+  {k:"r", c:["","//","+ 0x","+ 2"]}]},
+ div0:{r:1,q:0},
+ steps:[
+  {q:"Primo termine del quoziente: 4x³ : 2x² = ?", ok:"2x", no:["2x^2","4x"], after:{r:1,q:1},
+   why:"Divido i numeri (4 : 2 = 2) e sottraggo gli esponenti (3 − 2 = 1)."},
+  {q:"Moltiplico 2x · (2x² + 3) e cambio i segni. Sotto scrivo:", ok:"- 4x^3 - 6x", no:["+ 4x^3 + 6x","- 4x^3 - 6x^2"], after:{r:2,q:1},
+   why:"2x · 2x² = 4x³ e 2x · 3 = 6x (con la x, non x²). Sotto vanno con i segni cambiati."},
+  {q:"Sommo in colonna. Cosa resta?", ok:"- 2x^2 + 0x - 1", no:["- 2x^2 + 12x - 1","+ 2x^2 + 0x - 1"], after:{r:3,q:1},
+   why:"6x − 6x = 0x. Il −2x² e il −1 scendono così come sono."},
+  {q:"Secondo termine del quoziente: −2x² : 2x² = ?", ok:"- 1", no:["+ 1","- x"], after:{r:3,q:2},
+   why:"Meno diviso più fa meno, e x² : x² = 1."},
+  {q:"Moltiplico −1 · (2x² + 3) = −2x² − 3. Con i segni cambiati, sotto scrivo:", ok:"+ 2x^2 + 3", no:["- 2x^2 - 3","+ 2x^2 - 3"], after:{r:4,q:2},
+   why:"Cambio tutti e due i segni: +2x² + 3."},
+  {q:"Sommo. Qual è il resto?", ok:"R = 2", no:["R = -4","R = -2x^2 + 2"], after:{r:5,q:2},
+   why:"−2x² + 2x² = 0 e −1 + 3 = 2. Il resto ha grado 0: mi fermo."}
+ ], end:"$Q = 2x - 1$ · $R = 2$<br>Controllo: $(2x^2 + 3)(2x - 1) + 2 = 4x^3 - 2x^2 + 6x - 1$ ✓"},
+{type:"ch", id:"d3", sec:"D", c:"cD", t:"Divisione D3 · con le potenze che mancano",
+ say:"Esegui la divisione: x alla quarta più cinque, diviso x alla seconda meno due. Prima ordina e completa il dividendo.",
+ start:"(x^4 + 5) : (x^2 - 2)",
+ div:{dv:"x^2 - 2", q:["x^2","+ 2"], sm:true, rows:[
+  {k:"d", c:["x^4","+ 0x^3","+ 0x^2","+ 0x","+ 5"]},
+  {k:"s", c:["- x^4","","+ 2x^2","",""]},
+  {k:"r", c:["//","//","+ 2x^2","+ 0x","+ 5"]},
+  {k:"s", c:["","","- 2x^2","","+ 4"]},
+  {k:"r", c:["","","//","+ 0x","+ 9"]}]},
+ div0:{r:0,q:0},
+ steps:[
+  {q:"Ordina e completa il dividendo:", ok:"x^4 + 0x^3 + 0x^2 + 0x + 5", no:["x^4 + 0x^2 + 5","x^4 + 0x^3 + 5"], after:{r:1,q:0},
+   why:"Servono tutte le potenze da x⁴ in giù: mancano x³, x² e x, e al loro posto metto 0."},
+  {q:"Primo termine del quoziente: x⁴ : x² = ?", ok:"x^2", no:["x^6","2x^2"], after:{r:1,q:1},
+   why:"Sottraggo gli esponenti: 4 − 2 = 2."},
+  {q:"Moltiplico x² · (x² − 2) = x⁴ − 2x². Con i segni cambiati, sotto scrivo:", ok:"- x^4 + 2x^2", no:["- x^4 - 2x^2","+ x^4 - 2x^2"], after:{r:2,q:1},
+   why:"Cambio tutti e due i segni: x⁴ diventa −x⁴ e −2x² diventa +2x². Il 2x² va nella colonna delle x²."},
+  {q:"Sommo in colonna. Cosa resta?", ok:"+ 2x^2 + 0x + 5", no:["- 2x^2 + 0x + 5","+ 2x^2 + 5x"], after:{r:3,q:1},
+   why:"0x² + 2x² = 2x². Lo 0x e il 5 scendono."},
+  {q:"Secondo termine del quoziente: 2x² : x² = ?", ok:"+ 2", no:["- 2","+ 2x"], after:{r:3,q:2},
+   why:"2 : 1 = 2 e x² : x² = 1."},
+  {q:"Moltiplico 2 · (x² − 2) = 2x² − 4, cambio i segni e sommo. Il resto è:", ok:"R = 9", no:["R = 1","R = -9"], after:{r:5,q:2},
+   why:"Sotto scrivo −2x² + 4. Poi 5 + 4 = 9. Grado 0: mi fermo."}
+ ], end:"$Q = x^2 + 2$ · $R = 9$<br>Controllo: $(x^2 - 2)(x^2 + 2) + 9 = x^4 - 4 + 9 = x^4 + 5$ ✓"},
+{type:"blk", id:"d4", sec:"D", c:"cD", t:"Trova il dividendo: A = B · Q + R",
+ say:"Trova il dividendo con la formula: a uguale b per q più r. Fai la moltiplicazione, poi aggiungi il resto.",
+ rows:[
+  ["$B = x - 2$, $Q = x + 3$, $R = 1$", ["$A = x^2 + x - 5$","$A = x^2 + x - 7$","$A = x^2 + x - 6$"], "(x − 2)(x + 3) = x² + 3x − 2x − 6 = x² + x − 6. Poi + 1: x² + x − 5."],
+  ["$B = a^2 - 1$, $Q = a^2 + 1$, $R = -1$", ["$A = a^4 - 2$","$A = a^4$","$A = a^4 - 1$"], "(a² − 1)(a² + 1) = a⁴ − 1. Poi − 1: a⁴ − 2."],
+  ["$B = x + 1$, $Q = x^2 - x + 1$, $R = 0$", ["$A = x^3 + 1$","$A = x^3 - 1$","$A = x^3 + 2x^2 + 1$"], "È la somma di cubi: (x + 1)(x² − x + 1) = x³ + 1."]
+ ]},
+
+/* ---------- E ---------- */
+{type:"blk", id:"e1", sec:"E", c:"cE1", t:"Qual è lo zero del divisore?",
+ say:"Qual è lo zero del divisore? È il numero che, messo al posto di x, fa diventare zero il divisore.",
+ rows:[
+  ["$x - 3$", ["$3$","$-3$","$0$"], "x − 3 = 0 → x = 3."],
+  ["$x + 2$", ["$-2$","$2$","$x - 2$"], "x + 2 = 0 → x = −2. Lo zero è un numero, non «x − 2»."],
+  ["$x + 5$", ["$-5$","$5$","$1/5$"], "x + 5 = 0 → x = −5."],
+  ["$2x - 1$", ["$1/2$","$1$","$-1/2$"], "2x − 1 = 0 → 2x = 1 → x = 1/2."],
+  ["$3x + 6$", ["$-2$","$-6$","$2$"], "3x + 6 = 0 → 3x = −6 → x = −2."],
+  ["$x - 0,25$", ["$1/4$","$-1/4$","$4$"], "x − 0,25 = 0 → x = 0,25, cioè 1/4."]
+ ]},
+{type:"blk", id:"e5", sec:"E", c:"cE2", t:"È divisibile?",
+ say:"È divisibile? Calcola p di c, con c lo zero del divisore. Se fa zero, è divisibile.",
+ o:["sì","no"],
+ rows:[
+  ["$x^3 - 8$ per $(x - 2)$", 0, "P(2) = 8 − 8 = 0."],
+  ["$x^3 + 8$ per $(x - 2)$", 1, "P(2) = 8 + 8 = 16, non 0."],
+  ["$x^3 + 8$ per $(x + 2)$", 0, "P(−2) = −8 + 8 = 0."],
+  ["$x^4 + x + 1$ per $(x + 1)$", 1, "P(−1) = 1 − 1 + 1 = 1."],
+  ["$x^2 - 5x + 6$ per $(x - 3)$", 0, "P(3) = 9 − 15 + 6 = 0."],
+  ["$2x^3 + 13x^2 + 13x - 10$ per $(x - 1)$", 1, "P(1) = 2 + 13 + 13 − 10 = 18."]
+ ]},
+{type:"blk", id:"e6", sec:"E", c:"cE2", t:"Quando k sparisce",
+ say:"Quando k sparisce. Trova k perché il polinomio sia divisibile per x meno uno.",
+ rows:[
+  ["$kx^3 + 2x^2 - kx - 5$ è divisibile per $(x - 1)$ se…", ["per nessun k","k = 3","k = −3"], "P(1) = k + 2 − k − 5 = −3: la k si cancella, e −3 non è mai 0."]
+ ]},
+
+/* ---------- F ---------- */
+{type:"blk", id:"f1", sec:"F", c:"cF", t:"Qual è la prima mossa?",
+ say:"Qual è la prima mossa per scomporre? Ricorda l'ordine: raccoglimento totale, raccoglimento parziale, prodotti notevoli, cubi, trinomio speciale, Ruffini.",
+ rows:[
+  ["$12x^9 - 4x^6$", ["raccoglimento totale","differenza di quadrati","trinomio speciale"], "4x⁶ è in comune a tutti e due i termini."],
+  ["$a^2x - b^2x + a^2y - b^2y$", ["raccoglimento parziale","raccoglimento totale","quadrato di binomio"], "Niente in comune a tutti, ma a due a due sì: x(a² − b²) + y(a² − b²)."],
+  ["$16p^4q^2 - 25$", ["differenza di quadrati","raccoglimento totale","quadrato di binomio"], "(4p²q)² − 5²."],
+  ["$x^2 - 5x + 6$", ["trinomio speciale","quadrato di binomio","differenza di quadrati"], "Due numeri con somma −5 e prodotto 6: −2 e −3."],
+  ["$3x^2 - 6x + 3$", ["raccoglimento totale","trinomio speciale","Ruffini"], "Prima il 3 in comune: 3(x² − 2x + 1). Poi è un quadrato: 3(x − 1)²."],
+  ["$x^3 - 8$", ["differenza di cubi","differenza di quadrati","cubo di binomio"], "x³ − 2³ = (x − 2)(x² + 2x + 4)."],
+  ["$4a^2 - 12ab + 9b^2$", ["quadrato di binomio","differenza di quadrati","trinomio speciale"], "(2a)², (3b)² e il doppio prodotto 2 · 2a · 3b = 12ab ✓ → (2a − 3b)²."],
+  ["$4a^2 - 6ab + 9b^2$", ["non si scompone","quadrato di binomio","differenza di quadrati"], "Il doppio prodotto dovrebbe essere 12ab, qui c'è 6ab: non è un quadrato."],
+  ["$x^2 + 9$", ["non si scompone","differenza di quadrati","quadrato di binomio"], "È una somma di quadrati: non si scompone."],
+  ["$x^3 - 4x^2 + x + 6$", ["Ruffini","raccoglimento totale","cubo di binomio"], "Niente in comune, nessun prodotto notevole: provo i divisori di 6."],
+  ["$a^4 + 8a^2 + 15$", ["trinomio speciale con a² = y","quadrato di binomio","differenza di quadrati"], "Con a² = y diventa y² + 8y + 15 = (y + 3)(y + 5)."]
+ ]},
+{type:"blk", id:"f2", sec:"F", c:"cF", t:"Raccogli il fattore comune",
+ say:"Raccogli il fattore comune. Prendi le lettere con l'esponente più piccolo. E dove raccogli tutto un termine, resta uno.",
+ rows:[
+  ["$a^4 - a^2b^2$", ["$a^2(a^2 - b^2)$","$a^4(1 - b^2)$","$a^4(a + b)(a - b)$"], "Esponente più piccolo: a². Dentro: a⁴ : a² = a² e a²b² : a² = b². Poi si continua: a²(a − b)(a + b)."],
+  ["$6x^3 - 9x^2$", ["$3x^2(2x - 3)$","$x^2(6x - 3)$","$3x^2(2x - 9)$"], "Il numero più grande che divide 6 e 9 è 3; la x con l'esponente più piccolo è x². Dentro: 6x³ : 3x² = 2x e 9x² : 3x² = 3."],
+  ["$x^7 - 81x^3$", ["$x^3(x^4 - 81)$","$x^3(x^3 - 81)$","$x^4(x^3 - 81)$"], "x⁷ : x³ = x⁴, perché 7 − 3 = 4."],
+  ["$x^2(x^3 + 2) - (x^3 + 2)$", ["$(x^3 + 2)(x^2 - 1)$","$(x^3 + 2)(x^2 + 1)$","$(x^3 + 2) * x^2$"], "−(x³ + 2) è −1 · (x³ + 2): nella seconda parentesi resta −1."],
+  ["$3a(a + b) - x(a + b)$", ["$(a + b)(3a - x)$","$(a + b)(3a + x)$","$3a(a + b - x)$"], "Raccolgo la parentesi (a + b): restano 3a e −x."],
+  ["$2a^5 + a^2$", ["$a^2(2a^3 + 1)$","$a^2 * 2a^3$","$a^5(2 + a^2)$"], "Raccolgo a². Al posto di a², che raccolgo tutto, resta 1."],
+  ["$a^{x+2} + a^{x+3}$", ["$a^{x+2}(1 + a)$","$a^{x+2} * a$","$a^{x+2}(a + a^2)$"], "a<sup>x+3</sup> : a<sup>x+2</sup> = a. Dal primo termine, raccolto tutto, resta 1."]
+ ]},
+{type:"blk", id:"f3", sec:"F", c:"cF", t:"Trinomio speciale: i due numeri",
+ say:"Trinomio speciale. Trova i due numeri: sommati danno il numero davanti a x, moltiplicati danno il numero da solo.",
+ rows:[
+  ["$x^2 + 7x + 12$", ["3 e 4","2 e 6","−3 e −4"], "Somma 7, prodotto 12 → 3 e 4: (x + 3)(x + 4)."],
+  ["$x^2 - 7x + 10$", ["−2 e −5","2 e 5","−1 e −10"], "Somma −7, prodotto 10 → −2 e −5: (x − 2)(x − 5)."],
+  ["$x^2 + 2x - 15$", ["5 e −3","−5 e 3","15 e −1"], "Somma 2, prodotto −15 → 5 e −3: (x + 5)(x − 3)."],
+  ["$a^2 - a - 20$", ["−5 e 4","5 e −4","−10 e 2"], "Somma −1, prodotto −20 → −5 e 4: (a − 5)(a + 4)."],
+  ["$y^2 - 13y + 36$", ["−4 e −9","4 e 9","−6 e −6"], "Somma −13, prodotto 36 → −4 e −9: (y − 4)(y − 9)."]
+ ]},
+{type:"blk", id:"f4", sec:"F", c:"cF", t:"È finita la scomposizione?",
+ say:"È finita la scomposizione? Guarda ogni fattore: si scompone ancora?",
+ o:["finita","non finita"],
+ rows:[
+  ["$-3(a^2 - 4ab + 4b^2)$", 1, "La parentesi è un quadrato: −3(a − 2b)²."],
+  ["$(x^3 + 2)(x^2 - 1)$", 1, "x² − 1 = (x − 1)(x + 1)."],
+  ["$(y^2 + 1)(x - 3)(x + 3)$", 0, "y² + 1 è una somma di quadrati: non si scompone."],
+  ["$(2a^5 + a^2)(a + 1)$", 1, "Nella prima parentesi c'è ancora a² in comune: a²(2a³ + 1)(a + 1)."],
+  ["$3(x - 1)^2$", 0, "Il 3 e (x − 1) non si scompongono più."],
+  ["$(a^2 - 100)(b^2 + 1)$", 1, "a² − 100 = (a − 10)(a + 10)."],
+  ["$(x - 2)(x^2 + 2x + 4)$", 0, "x² + 2x + 4 è il falso quadrato della differenza di cubi: non si scompone."]
+ ]},
+{type:"ch", id:"fa", sec:"F", c:"cF", t:"Scomponi F5 · un quadrato nascosto",
+ say:"Scomponi: x alla quarta meno sei x alla seconda più nove, meno venticinque y alla seconda.",
+ start:"x^4 - 6x^2 + 9 - 25y^2",
+ steps:[
+  {q:"Guarda i primi tre termini: che cosa sono?", ok:"x^4 - 6x^2 + 9 = (x^2 - 3)^2", no:["x^4 - 6x^2 + 9 = (x - 3)^2","x^4 - 6x^2 + 9 = (x^2 + 3)^2"],
+   why:"(x²)² = x⁴, 3² = 9 e il doppio prodotto 2 · x² · 3 = 6x², con il meno."},
+  {q:"Allora il polinomio diventa:", ok:"= (x^2 - 3)^2 - (5y)^2", no:["= (x^2 - 3)^2 + (5y)^2","= (x^2 - 3)^2 - (25y)^2"],
+   why:"25y² = (5y)²: è una differenza di quadrati."},
+  {q:"A² − B² = (A − B)(A + B), con A = x² − 3 e B = 5y:", ok:"= (x^2 - 3 - 5y)(x^2 - 3 + 5y)", no:["= (x^2 - 3 - 5y)(x^2 + 3 + 5y)","= (x^2 + 3 - 5y)(x^2 - 3 + 5y)"],
+   why:"Il blocco A = x² − 3 resta uguale in tutte e due le parentesi. Cambia solo il segno davanti a 5y."}
+ ], end:"$(x^2 - 3 - 5y)(x^2 - 3 + 5y)$"},
+{type:"ch", id:"fb", sec:"F", c:"cF", t:"Scomponi F6 · prima il meno",
+ say:"Scomponi: sedici meno a alla seconda meno sei a b meno nove b alla seconda.",
+ start:"16 - a^2 - 6ab - 9b^2",
+ steps:[
+  {q:"Raccogli il meno dagli ultimi tre termini:", ok:"= 16 - (a^2 + 6ab + 9b^2)", no:["= 16 - (a^2 - 6ab - 9b^2)","= 16 - (a^2 + 6ab - 9b^2)"],
+   why:"Mettendo il meno fuori, dentro cambiano tutti i segni: −a² − 6ab − 9b² = −(a² + 6ab + 9b²)."},
+  {q:"La parentesi è un quadrato:", ok:"= 16 - (a + 3b)^2", no:["= 16 - (a - 3b)^2","= 16 - (a + 9b)^2"],
+   why:"a², (3b)² e 2 · a · 3b = 6ab con il più."},
+  {q:"Differenza di quadrati, con A = 4 e B = a + 3b:", ok:"= (4 - a - 3b)(4 + a + 3b)", no:["= (4 - a + 3b)(4 + a + 3b)","= (4 - a - 3b)(4 - a + 3b)"],
+   why:"4 − (a + 3b) = 4 − a − 3b: il meno cambia tutti e due i segni. E 4 + (a + 3b) = 4 + a + 3b."}
+ ], end:"$(4 - a - 3b)(4 + a + 3b)$"},
+{type:"ch", id:"fc", sec:"F", c:"cF", t:"Scomponi F7 · raccoglimento parziale",
+ say:"Scomponi: x alla seconda y alla seconda, più x alla seconda, meno nove y alla seconda, meno nove.",
+ start:"x^2y^2 + x^2 - 9y^2 - 9",
+ steps:[
+  {q:"Raccoglimento parziale:", ok:"= x^2(y^2 + 1) - 9(y^2 + 1)", no:["= x^2(y^2 + 1) + 9(y^2 + 1)","= x^2(y^2 + 1) - 9(y^2 - 1)"],
+   why:"−9y² − 9 = −9(y² + 1): raccolgo tutto il 9, con il meno, così la parentesi è uguale alla prima."},
+  {q:"Raccogli la parentesi:", ok:"= (y^2 + 1)(x^2 - 9)", no:["= (y^2 + 1)(x^2 + 9)","= (y^2 + 1)x^2 - 9"],
+   why:"Raccolgo (y² + 1): restano x² e −9."},
+  {q:"È finita?", ok:"= (y^2 + 1)(x - 3)(x + 3)", no:["sì, è già finita","= (y - 1)(y + 1)(x - 3)(x + 3)"],
+   why:"x² − 9 si scompone ancora. y² + 1 no: è una somma di quadrati."}
+ ], end:"$(y^2 + 1)(x - 3)(x + 3)$"},
+{type:"ch", id:"fe", sec:"F", c:"cF", t:"Scomponi F8 · due raccoglimenti",
+ say:"Scomponi: tre x alla quinta più tre x alla quarta più x alla seconda più x.",
+ start:"3x^5 + 3x^4 + x^2 + x",
+ steps:[
+  {q:"Prima mossa: raccoglimento totale", ok:"= x(3x^4 + 3x^3 + x + 1)", no:["= x^2(3x^3 + 3x^2 + 1)","= 3x(x^4 + x^3 + x + 1)"],
+   why:"x è in comune a tutti, con esponente più piccolo 1. Il 3 no: x² + x non ha il 3."},
+  {q:"Dentro la parentesi, raccoglimento parziale:", ok:"= x[3x^3(x + 1) + (x + 1)]", no:["= x[3x^3(x + 1) + x]","= x[3x^3(x + 1)]"],
+   why:"3x⁴ + 3x³ = 3x³(x + 1), e x + 1 resta (x + 1)."},
+  {q:"Raccogli (x + 1):", ok:"= x(x + 1)(3x^3 + 1)", no:["= x(x + 1)(3x^3)","= x(x + 1) * 3x^3 + 1"],
+   why:"Dal secondo (x + 1), raccolto tutto, resta 1."}
+ ], end:"$x(x + 1)(3x^3 + 1)$"},
+{type:"ch", id:"ff", sec:"F", c:"cF", t:"Scomponi F9 · coefficiente direttivo 6",
+ say:"Scomponi: sei x alla seconda più x meno due. Davanti a x alla seconda c'è sei, non uno.",
+ start:"6x^2 + x - 2",
+ steps:[
+  {q:"Quanto valgono S e P?", ok:"S = 1 · P = 6 * (-2) = -12", no:["S = 1 · P = -2","S = 6 · P = -2"],
+   why:"S è il numero davanti a x (qui 1). P è il primo coefficiente per il termine noto: 6 · (−2) = −12."},
+  {q:"Due numeri con somma 1 e prodotto −12:", ok:"4 e -3", no:["-4 e 3","6 e -2"],
+   why:"4 + (−3) = 1 e 4 · (−3) = −12."},
+  {q:"Spezza il termine in mezzo:", ok:"= 6x^2 + 4x - 3x - 2", no:["= 6x^2 + 4x + 3x - 2","= 6x^2 - 4x + 3x - 2"],
+   why:"x = 4x − 3x."},
+  {q:"Raccoglimento parziale:", ok:"= 2x(3x + 2) - 1(3x + 2)", no:["= 2x(3x + 2) - (3x - 2)","= 2x(3x + 4) - 1(3x + 2)"],
+   why:"6x² + 4x = 2x(3x + 2) e −3x − 2 = −1(3x + 2)."},
+  {q:"Raccogli (3x + 2):", ok:"= (3x + 2)(2x - 1)", no:["= (3x + 2)(2x + 1)","= (3x + 2) * 2x - 1"],
+   why:"Controllo: (3x + 2)(2x − 1) = 6x² − 3x + 4x − 2 = 6x² + x − 2 ✓"}
+ ], end:"$(3x + 2)(2x - 1)$"},
+{type:"ch", id:"fg", sec:"F", c:"cF", t:"Scomponi F10 · con Ruffini",
+ say:"Scomponi: x al cubo meno due x alla seconda meno cinque x più sei. Niente funziona: usa Ruffini.",
+ start:"x^3 - 2x^2 - 5x + 6",
+ steps:[
+  {q:"Provo i divisori di 6. Quale fa P(c) = 0?", ok:"c = 1", no:["c = -1","c = 6"],
+   why:"P(1) = 1 − 2 − 5 + 6 = 0 ✓. Invece P(−1) = −1 − 2 + 5 + 6 = 8."},
+  {q:"Con Ruffini divido per (x − 1). Il quoziente è:", ok:"Q = x^2 - x - 6", no:["Q = x^2 - 3x - 2","Q = x^3 - x^2 - 6x"],
+   why:"Ruffini: 1 −2 −5 6 con c = 1 → 1 −1 −6 | 0. Un grado in meno: x² − x − 6."},
+  {q:"Allora:", ok:"= (x - 1)(x^2 - x - 6)", no:["= (x + 1)(x^2 - x - 6)","= (x - 1) + (x^2 - x - 6)"],
+   why:"P(x) = (x − c) · Q(x), con c = 1."},
+  {q:"Scomponi anche il quoziente (trinomio speciale):", ok:"= (x - 1)(x - 3)(x + 2)", no:["= (x - 1)(x + 3)(x - 2)","sì, è già finita"],
+   why:"x² − x − 6: somma −1, prodotto −6 → −3 e 2."}
+ ], end:"$(x - 1)(x - 3)(x + 2)$"},
+{type:"ch", id:"fh", sec:"F", c:"cF", t:"Scomponi F11 · con a² = y",
+ say:"Scomponi: a alla quarta meno tredici a alla seconda più trentasei. Metti a alla seconda uguale y.",
+ start:"a^4 - 13a^2 + 36",
+ steps:[
+  {q:"Metto a² = y:", ok:"= y^2 - 13y + 36", no:["= y^4 - 13y^2 + 36","= y^2 - 13y^2 + 36"],
+   why:"a⁴ = (a²)² = y²."},
+  {q:"Trinomio speciale:", ok:"= (y - 4)(y - 9)", no:["= (y + 4)(y + 9)","= (y - 6)(y - 6)"],
+   why:"Somma −13, prodotto 36 → −4 e −9."},
+  {q:"Rimetto a² al posto di y:", ok:"= (a^2 - 4)(a^2 - 9)", no:["= (a - 4)(a - 9)","= (a^4 - 4)(a^4 - 9)"],
+   why:"y = a²."},
+  {q:"È finita?", ok:"= (a - 2)(a + 2)(a - 3)(a + 3)", no:["sì, è già finita","= (a - 2)^2(a - 3)^2"],
+   why:"a² − 4 e a² − 9 sono differenze di quadrati."}
+ ], end:"$(a - 2)(a + 2)(a - 3)(a + 3)$"},
+
+/* ---------- G ---------- */
+{type:"blk", id:"g1", sec:"G", c:"cG1", t:"Problema G1 · il rettangolo",
+ say:"Un rettangolo ha la base due x più tre e l'altezza x. Trova il perimetro e l'area.",
+ pre:`<svg viewBox="0 0 320 160" role="img" aria-label="Rettangolo con base 2x più 3 e altezza x">
+<rect x="30" y="14" width="240" height="96" fill="#FBEEDA" stroke="#B06A08" stroke-width="2.5"/>
+<g font-family="Times New Roman,Georgia,serif" font-size="24" fill="#1B2430" text-anchor="middle" font-style="italic">
+<text x="150" y="142">2x + 3</text><text x="292" y="70">x</text></g></svg>`,
+ rows:[
+  ["Perimetro", ["$2p = 6x + 6$","$2p = 3x + 3$","$2p = 4x + 6$"], "2p = 2(2x + 3) + 2x = 4x + 6 + 2x = 6x + 6."],
+  ["Area", ["$A = 2x^2 + 3x$","$A = 2x^2 + 3$","$A = 3x + 3$"], "A = x(2x + 3) = 2x² + 3x."]
+ ]},
+{type:"ch", id:"g2", sec:"G", c:"cG1", t:"Problema G2 · stesso perimetro",
+ say:"Un rettangolo ha i lati x e x più due. Un quadrato ha lo stesso perimetro del rettangolo. Quanto vale l'area del quadrato?",
+ q:"Un rettangolo ha i lati $x$ e $x + 2$. Un quadrato ha lo stesso perimetro. Quanto vale l'area del quadrato?",
+ steps:[
+  {q:"Perimetro del rettangolo:", ok:"2p = 2(x + x + 2) = 4x + 4", no:["2p = x + x + 2 = 2x + 2","2p = 2(x + x + 2) = 4x + 2"],
+   why:"Il perimetro è la somma dei quattro lati: 2 · (x + x + 2)."},
+  {q:"Lato del quadrato (perimetro : 4):", ok:"l = (4x + 4) : 4 = x + 1", no:["l = x + 4","l = 4x + 1"],
+   why:"Divido tutti e due i termini per 4: 4x : 4 = x e 4 : 4 = 1."},
+  {q:"Area del quadrato:", ok:"A = (x + 1)^2 = x^2 + 2x + 1", no:["A = x^2 + 1","A = 4(x + 1) = 4x + 4"],
+   why:"Area = lato al quadrato, con il doppio prodotto 2x."}
+ ], end:"$A = x^2 + 2x + 1$"},
+
+/* ---------- H ---------- */
+{type:"blk", id:"h1", sec:"H", c:"cH", t:"Giusto o sbagliato?",
+ say:"Giusto o sbagliato? Sono passaggi presi da esercizi veri. Trova dove c'è l'errore.",
+ o:["giusto","sbagliato"],
+ rows:[
+  ["$(2a + 1)^2 = 4a^2 + 2a + 1$", 1, "Il doppio prodotto è 2 · 2a · 1 = 4a."],
+  ["$(x^2 + 1)^3 = x^5 + 3x^4 + 3x^2 + 1$", 1, "(x²)³ = x⁶, non x⁵."],
+  ["$12x^9 - 4x^6 = 4x^6(3x^3 - 1)$", 0, "4x⁶ · 3x³ = 12x⁹ e 4x⁶ · 1 = 4x⁶ ✓"],
+  ["$a^4 - a^2b^2 = a^4(a + b)(a - b)$", 1, "Si raccoglie a²: a²(a + b)(a − b)."],
+  ["$(b - 1)[a - 3(b + 2)] = (b - 1) * a - 3b - 6$", 1, "Manca la parentesi: (b − 1)(a − 3b − 6)."],
+  ["$9 - (x + 2y)^2 = (3 - x + 2y)(3 + x + 2y)$", 1, "3 − (x + 2y) = 3 − x − 2y."],
+  ["$(2t + 3)^2 - 5t(2t + 3) = (2t + 3)(3 - 3t)$", 0, "(2t + 3)(2t + 3 − 5t) = (2t + 3)(3 − 3t) ✓"],
+  ["Lo zero di $x + 2$ è $x - 2$", 1, "Lo zero è il numero −2."],
+  ["$P(1) = 18$, quindi $P(x)$ non è divisibile per 1", 1, "Si scrive: non è divisibile per (x − 1)."],
+  ["Ruffini dà 1 0 0 1 | −4, quindi $Q = m^3$", 1, "Q = m³ + 0m² + 0m + 1 = m³ + 1."],
+  ["$x^2(x^3 + 2) - (x^3 + 2) = (x^3 + 2)(x^2 + 1)$", 1, "Dal −(x³ + 2) resta −1: (x³ + 2)(x² − 1)."],
+  ["$4a^2 - 6ab + 9b^2$ non è un quadrato", 0, "Il doppio prodotto dovrebbe essere 12ab ✓"]
+ ]}
+];
+
+const SEZ = {A:"Potenze e segni", B:"Prodotti notevoli", C:"Espressioni", D:"Divisione", E:"Resto e Ruffini", F:"Scomposizione", G:"Problemi", H:"Trova l'errore"};
+
+/* risposte a numero */
+const NUM = {
+ n1:{ans:2,   wr:[[-26,"Hai usato −2: lo zero di x − 2 è +2."]]},
+ n2:{ans:-10, wr:[[-2,"Hai usato +1: lo zero di x + 1 è −1."],[-8,"Attento: (−1)³ = −1, non +1."],[-6,"Attento: (−1)² = +1, non −1."],[10,"Controlla il segno del risultato."]]},
+ n3:{ans:-2,  wr:[[-10,"Hai usato −1: lo zero di x − 1 è +1."],[2,"Controlla il segno: 1 − 2 + 3 − 4."]]},
+ k1:{ans:-3,  wr:[[3,"Controlla il segno: 6 + 2k = 0 → 2k = −6."],[-6,"6 + 2k = 0 → 2k = −6 → k = −6 : 2."]]},
+ k2:{ans:-2,  wr:[[2,"Controlla il segno: k + 2 = 0 → k = −2."]]},
+ p1:{ans:29,  wr:[[39,"Il doppio prodotto è 2xy = 20, non 10."],[69,"È meno 2xy, non più."],[49,"49 è (x + y)²: togli 2xy."]]},
+ p2:{ans:5,   wr:[[25,"25 è d²: fai la radice."],[73,"È meno 2xy: 49 − 24."]]},
+ p3:{ans:37,  wr:[[38,"Togli anche l'1: xy + x + y + 1 = 50."],[63,"Devi sottrarre, non sommare."]]},
+ p4:{ans:3,   wr:[[-3,"Controlla i segni: 64 − 28 = 36 = 12xy."],[12,"36 = 12xy → xy = 36 : 12."]]}
+};
+
+/* Ruffini da riempire */
+const RX = {
+ rxa:{v:"x", cs:[2,-3,1,-5], c:2, topIn:false, dv:"x - 2",
+      after:{t:"Quindi il quoziente è…", o:["$2x^2 + x + 3$","$2x^3 + x^2 + 3x + 1$","$2x^3 + x^2 + 3x$"], why:"Un grado in meno del dividendo: i numeri 2, 1, 3 sono i coefficienti di x², x e del termine noto. L'ultimo, 1, è il resto."}},
+ rxb:{v:"x", cs:[1,0,-2,3,-1], c:-2, topIn:true, dv:"x + 2", miss:"x³",
+      after:{t:"Quindi il quoziente è…", o:["$x^3 - 2x^2 + 2x - 1$","$x^4 - 2x^3 + 2x^2 - x$","$x^3 - 2x^2 + 2x$"], why:"Un grado in meno: 1, −2, 2, −1 sono i coefficienti di x³, x², x e del termine noto. L'ultimo, 1, è il resto."}}
+};
+
+/* ═══════ attrezzi ═══════ */
+function $(id){ return document.getElementById(id); }
+function shuf(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+function fmt(n){ return n<0 ? "−"+(-n) : String(n); }
+function poly(cs,v){
+  const n = cs.length-1; let out = "";
+  cs.forEach((c,i)=>{
+    const e = n-i; if(c===0) return;
+    const a = Math.abs(c), lit = e===0 ? "" : (e===1 ? v : v+"^"+e);
+    const t = (a===1 && e>0) ? lit : a+lit;
+    out += out==="" ? (c<0?"-":"")+t : (c<0?" - ":" + ")+t;
+  });
+  return out || "0";
+}
+function num(s){
+  s = String(s==null?"":s).trim().replace(/[−–—]/g,"-").replace(/\s+/g,"").replace(",",".");
+  s = s.replace(/^(R|k|d|xy|x\^2\+y\^2)=/i,"");
+  if(s==="") return NaN;
+  if(/^[+-]?\d+(\.\d+)?\/\d+(\.\d+)?$/.test(s)){ const p = s.split("/"); return parseFloat(p[0])/parseFloat(p[1]); }
+  if(/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s)) return parseFloat(s);
+  return NaN;
+}
+function qhead(t,say){
+  return '<div class="qhead"><div class="qnum">'+t+'</div><button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+esc(say||"")+'">🔊</button></div>';
+}
+
+/* la matematica scritta direttamente nella pagina: ${...}$ */
+(function(){
+  const W = document.querySelector(".wrap");
+  W.innerHTML = W.innerHTML.replace(/\$\{([^}]*)\}\$/g,(m,a)=>X(a.replace(/&gt;/g,">").replace(/&lt;/g,"<")));
+})();
+
+/* ═══════ righe a scelta ═══════ */
+function optCls(opts){
+  if(opts.length===2) return "two";
+  const L = Math.max.apply(null, opts.map(o=>String(o).replace(/\$|\^\{[^}]*\}|\^/g,"").length));
+  if(opts.length===4) return L>22 ? "one" : "two";
+  return L>11 ? "one" : "three";
+}
+function optHTML(o){ return String(o).indexOf("$")>=0 ? TX(o) : o; }
+function rowHTML(b,r){
+  let opts, ok;
+  if(b.o){ opts = b.o; ok = r[1]; }
+  else { opts = shuf(r[1]); ok = opts.indexOf(r[1][0]); }
+  let h = '<div class="row"><div class="op">'+TX(r[0])+'</div><div class="opts '+optCls(opts)+'" data-ok="'+ok+'">';
+  opts.forEach((o,k)=>{ h += '<button onclick="scegli(this,'+k+')">'+optHTML(o)+'</button>'; });
+  return h + '</div><div class="why">'+r[2]+'</div></div>';
+}
+function buildBlock(b, mescola){
+  const el = $(b.id), rows = mescola ? shuf(b.rows) : b.rows;
+  let h = qhead(b.t, b.say) + (b.pre||"") + '<div class="rows">';
+  rows.forEach(r=>{ h += rowHTML(b,r); });
+  h += '</div><div class="score" id="score'+b.id+'"></div>'
+     + '<button class="btn redo" id="redo'+b.id+'" onclick="rifai(\''+b.id+'\')">Rifai mescolato</button>';
+  el.innerHTML = h;
+  punti(el);
+}
+function scegli(btn,k){
+  const box = btn.parentNode;
+  if(box.getAttribute("data-done")!==null) return;
+  const ok = +box.getAttribute("data-ok"), bs = box.querySelectorAll("button"), giusto = (k===ok);
+  btn.className = giusto ? "right" : "wrong";
+  if(!giusto) bs[ok].className = "right";
+  box.setAttribute("data-done", giusto?"1":"0");
+  box.classList.add("locked");
+  const w = box.nextElementSibling;
+  if(w && w.classList.contains("why")) w.classList.add("on");
+  const blk = box.closest ? box.closest(".blk") : null;
+  if(blk) punti(blk);
+  const pid = box.parentNode.id || "";
+  if(pid.indexOf("arx")===0){ const r = $("r"+pid.slice(1)); if(r) r.classList.add("on"); }
+  updSum();
+}
+function punti(blk){
+  const all = blk.querySelectorAll(".opts"); let n = 0, t = 0;
+  for(let i=0;i<all.length;i++){ const v = all[i].getAttribute("data-done"); if(v!==null){ t++; if(v==="1") n++; } }
+  const sc = $("score"+blk.id);
+  if(sc) sc.textContent = n+" / "+all.length+(t<all.length ? " (ne mancano "+(all.length-t)+")" : (n===all.length ? " — tutto giusto!" : ""));
+  const r = $("redo"+blk.id); if(r) r.style.display = (t===all.length) ? "block" : "none";
+}
+function rifai(id){
+  const b = ITEMS.find(x=>x.id===id); buildBlock(b,true); updSum();
+  const el = $(id); if(el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ═══════ divisione in colonna ═══════ */
+function divTable(D, nr, nq, hiRow, hiQ){
+  let h = '<div class="scroll"><table class="dv'+(D.sm?' sm':'')+'">';
+  D.rows.forEach((r,i)=>{
+    const vis = i<nr;
+    h += '<tr class="dr-'+r.k+(vis && i===hiRow ? ' hi' : '')+'">';
+    r.c.forEach(c=>{ h += '<td class="t'+(i===0?' r0':'')+(vis?'':' h')+'">'+(c ? M(c) : '')+'</td>'; });
+    if(i===0) h += '<td class="rt dvs">'+M(D.dv)+'</td>';
+    else if(i===1){
+      let q = '';
+      for(let j=0;j<nq;j++){ const t = M(D.q[j]); q += (j?' ':'')+(j===hiQ-1 ? '<span class="qn">'+t+'</span>' : t); }
+      h += '<td class="rt dq">'+(q || '&nbsp;')+'</td>';
+    } else h += '<td class="rt"></td>';
+    h += '</tr>';
+  });
+  return h + '</table></div>';
+}
+
+/* ═══════ catene: un passaggio alla volta ═══════ */
+const CH = {}, CST = {};
+ITEMS.forEach(it=>{ if(it.type==="ch") CH[it.id] = it; });
+function chInit(id){
+  const c = CH[id];
+  CST[id] = {ord:c.steps.map(s=>shuf([0].concat(s.no.map((_,i)=>i+1)))), ans:[], pend:false};
+  chDraw(id); updSum();
+}
+function chDraw(id){
+  const c = CH[id], st = CST[id], el = $(id), n = c.steps.length;
+  const done = st.ans.length - (st.pend?1:0), cur = st.pend ? st.ans.length-1 : st.ans.length;
+  let h = qhead(c.t, c.say);
+  if(c.q) h += '<p class="qtext">'+TX(c.q)+'</p>';
+  if(c.start) h += '<span class="f">'+M(c.start)+'</span>';
+  if(c.div){
+    const a = st.ans.length, v = a ? c.steps[a-1].after : c.div0, pv = a>1 ? c.steps[a-2].after : c.div0;
+    if(v.r>0) h += divTable(c.div, v.r, v.q, (a && v.r>pv.r) ? v.r-1 : -1, (a && v.q>pv.q) ? v.q : 0);
+  } else {
+    h += '<div class="work">';
+    for(let i=0;i<done;i++) h += '<div class="wl">'+M(c.steps[i].ok)+'<span class="mk '+(st.ans[i].ok?'y':'n')+'">'+(st.ans[i].ok?'✓':'✗')+'</span></div>';
+    h += '</div>';
+  }
+  if(cur < n){
+    const s = c.steps[cur], all = [s.ok].concat(s.no), ord = st.ord[cur];
+    h += '<div class="cq"><span class="cn">Passaggio '+(cur+1)+' di '+n+'</span><br>'+TX(s.q)+'</div>';
+    h += '<div class="opts '+optCls(all)+' mo'+(st.pend?' locked':'')+'">';
+    ord.forEach(j=>{
+      let cls = '';
+      if(st.pend){ if(j===0) cls = 'right'; else if(j===st.ans[cur].k) cls = 'wrong'; }
+      h += '<button class="'+cls+'" onclick="chPick(\''+id+'\','+j+')">'+M(all[j])+'</button>';
+    });
+    h += '</div>';
+    if(st.pend){
+      h += '<div class="why on">'+(st.ans[cur].ok ? '<b style="color:var(--ok)">✓ Giusto.</b> ' : '<b style="color:var(--no)">✗ No.</b> ')+s.why+'</div>';
+      h += '<button class="cont" onclick="chNext(\''+id+'\')">'+(cur===n-1 ? 'Vedi il risultato' : 'Passaggio successivo')+'</button>';
+    }
+  } else {
+    const r = st.ans.filter(a=>a.ok).length;
+    h += '<div class="endb"><div class="lbl">Risultato</div>'+TX(c.end)+'<br><b>'+r+' su '+n+'</b> passaggi giusti al primo tocco.</div>';
+    h += '<button class="btn" onclick="chInit(\''+id+'\')">Rifai mescolato</button>';
+  }
+  el.innerHTML = h;
+}
+function chPick(id,j){
+  const st = CST[id], n = CH[id].steps.length;
+  if(st.pend || st.ans.length>=n) return;
+  st.ans.push({k:j, ok:(j===0)}); st.pend = true;
+  chDraw(id); updSum();
+}
+function chNext(id){
+  CST[id].pend = false; chDraw(id);
+  const el = $(id), t = el.querySelector(".cq") || el.querySelector(".endb");
+  if(t && t.scrollIntoView) t.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+/* ═══════ risposte a numero ═══════ */
+const helped = {};
+function how(id){ $("h"+id).classList.toggle("on"); helped[id] = true; }
+function good(f,msg){ f.className = "fb y"; f.innerHTML = "✓ "+msg; }
+function bad(f,msg){ f.className = "fb n"; f.innerHTML = "✗ "+msg; }
+function chk(id){
+  const s = NUM[id], f = $("f"+id), v = num($("i"+id).value);
+  if(isNaN(v)){ bad(f,"Scrivi un numero: per esempio -3 oppure 1/2."); return; }
+  if(Math.abs(v-s.ans) < 1e-9){
+    good(f,"Esatto: "+fmt(s.ans)+".");
+    const r = $("r"+id); if(r) r.classList.add("on");
+    return;
+  }
+  const w = s.wr.find(x=>Math.abs(x[0]-v) < 1e-9);
+  bad(f, w ? w[1] : ($("h"+id) ? "Non ancora. Tocca «Come si fa»." : "Non ancora. Apri il passo 1."));
+}
+function step(btn,q){
+  const all = document.querySelectorAll('[id^="s'+q+'_"]'); let n = 0;
+  for(let i=0;i<all.length;i++) if(all[i].classList.contains("on")) n++;
+  const el = all[n];
+  if(el){ el.classList.add("on"); if(el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"center"}); }
+  if(n+1>=all.length){ const r = $("r"+q); if(r) r.classList.add("on"); btn.style.display = "none"; }
+  else { btn.textContent = "Continua"; btn.classList.add("solid"); }
+}
+
+/* ═══════ Ruffini da riempire ═══════ */
+function rxCalc(e){
+  const n = e.cs.length, mid = [], bot = [e.cs[0]];
+  for(let i=1;i<n;i++){ mid[i] = bot[i-1]*e.c; bot[i] = e.cs[i] + mid[i]; }
+  return {mid:mid, bot:bot};
+}
+function rxBuild(id){
+  const e = RX[id], n = e.cs.length, V = rxCalc(e), el = $(id);
+  const inp = k => '<input class="rc" data-k="'+k+'" inputmode="decimal" autocomplete="off" autocorrect="off" aria-label="casella">';
+  const lr = i => (i===n-1 ? ' class="lr"' : '');
+  let h = '<div class="scroll"><table class="rx"><tr class="t"><td class="cc"></td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+(e.topIn ? inp("t"+i) : fmt(e.cs[i]))+'</td>';
+  h += '</tr><tr class="m"><td class="cc">'+inp("c")+'</td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+(i>0 ? inp("m"+i) : '')+'</td>';
+  h += '</tr><tr class="b"><td class="cc"></td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+inp("b"+i)+'</td>';
+  h += '</tr></table></div>';
+  h += '<button class="btn solid" onclick="rxCheck(\''+id+'\')">Controlla la tabella</button><div class="fb" id="f'+id+'"></div>';
+  const opts = shuf(e.after.o), ok = opts.indexOf(e.after.o[0]);
+  h += '<div class="hide" id="a'+id+'"><div class="lab">'+e.after.t+'</div><div class="opts one" data-ok="'+ok+'">';
+  opts.forEach((o,k)=>{ h += '<button onclick="scegli(this,'+k+')">'+optHTML(o)+'</button>'; });
+  h += '</div><div class="why">'+e.after.why+'</div></div>';
+  h += '<div class="res" id="r'+id+'"><div class="lbl">Risultato</div>'+X("Q = "+poly(V.bot.slice(0,n-1),e.v))+' &nbsp;·&nbsp; '+X("R = "+fmt(V.bot[n-1]))+'</div>';
+  el.innerHTML = h;
+}
+function rxCheck(id){
+  const e = RX[id], n = e.cs.length, V = rxCalc(e), el = $(id), f = $("f"+id);
+  const exp = {c:e.c};
+  e.cs.forEach((c,i)=>{ exp["t"+i] = c; exp["b"+i] = V.bot[i]; if(i>0) exp["m"+i] = V.mid[i]; });
+  let empty = 0, wrong = 0; const msgs = [];
+  el.querySelectorAll("input.rc").forEach(inp=>{
+    const k = inp.getAttribute("data-k"), raw = inp.value.trim();
+    inp.classList.remove("ok"); inp.classList.remove("no");
+    if(raw===""){
+      empty++;
+      if(k[0]==="t" && exp[k]===0 && e.miss) msgs.push("Manca "+e.miss+": al suo posto scrivi 0.");
+      return;
+    }
+    const v = num(raw);
+    if(!isNaN(v) && Math.abs(v-exp[k]) < 1e-9){ inp.classList.add("ok"); return; }
+    inp.classList.add("no"); wrong++;
+    if(k==="c" && !isNaN(v) && Math.abs(v+e.c) < 1e-9) msgs.unshift("Lo zero di "+X(e.dv)+" è "+fmt(e.c)+": cambia il segno.");
+    if(k[0]==="t" && exp[k]===0 && e.miss) msgs.push("Manca "+e.miss+": al suo posto scrivi 0.");
+  });
+  if(!empty && !wrong){
+    good(f,"Tabella giusta! Adesso leggi il risultato.");
+    $("a"+id).classList.remove("hide");
+    return;
+  }
+  let m = "";
+  if(wrong) m += wrong+(wrong===1?" casella da correggere":" caselle da correggere")+" (in rosso). ";
+  if(empty) m += empty+(empty===1?" casella ancora vuota. ":" caselle ancora vuote. ");
+  m += msgs[0] || (wrong ? "Ricorda: abbasso, moltiplico per lo zero del divisore, sommo in colonna." : "");
+  bad(f,m);
+}
+
+/* ═══════ riepilogo ═══════ */
+function updSum(){
+  const box = $("sum"); if(!box) return;
+  const S = {}; Object.keys(SEZ).forEach(k=>{ S[k] = {g:0,f:0,t:0}; });
+  ITEMS.forEach(it=>{
+    const s = S[it.sec];
+    if(it.type==="blk"){
+      const el = $(it.id); if(!el) return;
+      el.querySelectorAll(".opts").forEach(o=>{ s.t++; const v = o.getAttribute("data-done"); if(v!==null){ s.f++; if(v==="1") s.g++; } });
+    } else {
+      s.t += it.steps.length;
+      const st = CST[it.id]; if(st) st.ans.forEach(a=>{ s.f++; if(a.ok) s.g++; });
+    }
+  });
+  let h = '<table>', G = 0, Fa = 0, T = 0;
+  Object.keys(SEZ).forEach(k=>{
+    const s = S[k]; G += s.g; Fa += s.f; T += s.t;
+    const low = s.f>=3 && s.g/s.f < 0.5;
+    h += '<tr'+(low?' class="low"':'')+'><td>'+k+' · '+SEZ[k]+(low?' — da ripassare':'')+'</td><td class="n">'+s.g+' / '+s.f+'</td><td class="n" style="color:var(--soft);font-weight:600">di '+s.t+'</td></tr>';
+  });
+  h += '<tr class="tot"><td>Totale</td><td class="n">'+G+' / '+Fa+'</td><td class="n">di '+T+'</td></tr></table>';
+  box.innerHTML = h;
+}
+
+/* ═══════ voce ═══════ */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute("data-say") || "");
+  u.lang = "it-IT"; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on");
+  speechSynthesis.speak(u);
+}
+
+/* ═══════ avvio ═══════ */
+(function(){
+  ITEMS.forEach(it=>{
+    const d = document.createElement("div");
+    d.className = "card"+(it.type==="blk" ? " blk" : "");
+    d.id = it.id;
+    $(it.c).appendChild(d);
+    if(it.type==="blk") buildBlock(it,false); else chInit(it.id);
+  });
+  rxBuild("rxa"); rxBuild("rxb");
+  document.addEventListener("keydown", function(e){
+    if(e.key!=="Enter" || !e.target || e.target.tagName!=="INPUT") return;
+    const t = e.target;
+    if(t.classList.contains("rc")){
+      const tb = t.closest("table"), ins = tb.querySelectorAll("input.rc"), by = {};
+      Array.prototype.forEach.call(ins, x=>{ by[x.getAttribute("data-k")] = x; });
+      const ord = [];                       /* l'ordine di Ruffini: coefficienti, zero, poi abbasso-moltiplico-sommo */
+      for(let i=0; by["t"+i]; i++) ord.push("t"+i);
+      ord.push("c", "b0");
+      for(let i=1; by["b"+i]; i++){ ord.push("m"+i); ord.push("b"+i); }
+      const all = ord.map(k=>by[k]).filter(Boolean);
+      const i = all.indexOf(t);
+      if(i<all.length-1) all[i+1].focus(); else { const b = t.closest(".card").querySelector(".btn.solid"); if(b) b.click(); }
+      e.preventDefault(); return;
+    }
+    const b = t.parentNode.querySelector("button"); if(b){ b.click(); e.preventDefault(); }
+  });
+  updSum();
+})();
+</script>
+</body>
+</html>
