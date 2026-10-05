@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chimica — Simulazione del compito</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --giu:#1D5FA8; --su:#B4531A;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+.vers{display:flex; gap:8px; margin:6px 0 12px}
+.vers button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:12px; padding:9px 8px; font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer; line-height:1.35}
+.vers button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.vers button small{display:block; font-weight:600; font-size:12.5px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+details.form{border:2px solid var(--accent-line); border-radius:12px; background:#fff; margin:12px 0; font-size:16px}
+details.form summary{padding:10px 14px; font-weight:700; color:var(--accent); cursor:pointer}
+details.form .in{padding:0 14px 12px; line-height:1.6}
+details.form table{font-size:15px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:16px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qnum .pt{color:var(--soft); letter-spacing:.04em}
+.qnum .pt.y{color:var(--ok)}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 10px}
+.sub{font-size:16px; color:var(--soft); margin:0 0 6px}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:8px 0; line-height:1.5}
+button{font:inherit; cursor:pointer}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:6px 8px; text-align:center}
+th{background:var(--accent-soft); font-size:14px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:center}
+.chk input, .ns input, .rt input{font:inherit; font-size:18px; padding:10px 12px; border:2px solid var(--rule); border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input{flex:1}
+input:focus{outline:none; border-color:var(--accent)}
+input[readonly]{background:#F6F4EF}
+.chk .u{font-size:16px; color:var(--soft); font-weight:600; min-width:46px}
+.rt{display:flex; gap:8px; align-items:center; margin-top:8px}
+.rt input{width:90px; text-align:center}
+.rt .c{font-size:24px; font-weight:700}
+.opts{display:grid; gap:7px; margin-top:8px; grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 6px; min-width:0;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.3; overflow-wrap:break-word}
+.opts button.sel{border-color:var(--ink); background:#E9ECF1}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.opts.locked button{cursor:default}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+@media (max-width:460px){ .opts.three button{font-size:14px; padding:10px 3px} }
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:20px; font-weight:700; font-family:"Times New Roman",Georgia,serif; margin-bottom:6px}
+.op .to{font-family:-apple-system,Arial,sans-serif; font-size:16px; color:var(--soft); font-weight:600}
+.ns{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+.ns .nm{flex:1 1 auto; width:100%; font-size:19px}
+.ns .x{font-family:"Times New Roman",Georgia,serif; font-size:21px; white-space:nowrap}
+.ns .pw{display:flex; align-items:center; gap:3px; transform:translateY(-11px)}
+.ns .ex{width:58px; font-size:16px; padding:5px 6px; border-radius:9px; text-align:center}
+.ns .pm{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:3px 7px; font-size:15px; font-weight:700; color:var(--ink)}
+.fb{display:none; font-size:16px; line-height:1.55; margin-top:8px; border-radius:10px; padding:8px 12px}
+.fb.on{display:block}
+.fb.y{background:var(--ok-soft); color:var(--ok); font-weight:700}
+.fb.n{background:var(--no-soft); color:var(--no)}
+.fb.n b.t{display:block}
+.fb .giusta{color:var(--ink); font-weight:700; margin-top:4px}
+.fb .how{color:var(--ink); background:#fff; border-radius:8px; padding:8px 10px; margin-top:6px; font-size:15.5px; line-height:1.6}
+.row.y .op::after{content:" ✓"; color:var(--ok)}
+.row.n .op::after{content:" ✗"; color:var(--no)}
+.bottom{margin-top:26px}
+.prog{font-size:15px; color:var(--soft); text-align:center; font-weight:600; margin-bottom:8px}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:700; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.btn.warn{background:var(--warn); border-color:var(--warn); color:#fff}
+.esito{display:none; border:2px solid var(--accent-line); background:var(--accent-soft); border-radius:14px; padding:16px; margin:14px 0}
+.esito.on{display:block}
+.esito .voto{font-size:44px; font-weight:800; line-height:1.1; letter-spacing:-.02em}
+.esito .voto.ok{color:var(--ok)} .esito .voto.ko{color:var(--no)}
+.esito .det{font-size:16px; margin-top:6px}
+.esito table{background:#fff}
+.esito td{text-align:left} .esito td.c{text-align:center}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Chimica · simulazione</div>
+  <h1>Compito in classe — simulazione</h1>
+  <p class="lead">Rispondi a tutto con calma: <b>non c'è tempo limite</b>. Le risposte restano salvate anche se chiudi la pagina. Alla fine tocca <b>Consegna</b>: vedrai la correzione e il voto.</p>
+  <div class="vers" id="vers"></div>
+</header>
+
+<div class="note"><b>Come nel foglio della prof.</b> Negli esercizi 1 e 2 il <b>punto fa da virgola</b>: 36.500 mm vuol dire 36,5 mm.<br>Quando rispondi puoi usare la virgola o il punto. Non usare il punto per le migliaia: scrivi 1545, non 1.545.</div>
+
+<details class="form"><summary>Il foglio delle formule (usalo se in classe è permesso)</summary><div class="in">
+  <table><tr><th>km</th><th>hm</th><th>dam</th><th>m</th><th>dm</th><th>cm</th><th>mm</th><th>μm</th><th>nm</th></tr>
+  <tr><td>10<sup>3</sup></td><td>10<sup>2</sup></td><td>10<sup>1</sup></td><td>1</td><td>10<sup>−1</sup></td><td>10<sup>−2</sup></td><td>10<sup>−3</sup></td><td>10<sup>−6</sup></td><td>10<sup>−9</sup></td></tr></table>
+  <span class="giu" style="color:var(--giu);font-weight:700">Scendo verso l'unità più piccola → moltiplico.</span> <span style="color:var(--su);font-weight:700">Salgo → divido.</span><br>
+  Ogni gradino: × 10 per m, g, L, J · × 100 per m² · × 1000 per m³.<br>
+  Trucco: esponente di partenza − esponente di arrivo.<br>
+  1 L = 1000 mL · 1 mL = 1 cm³<br>
+  <b>Densità</b>: d = m / V · m = d × V · V = m / d<br>
+  <b>Lavoisier</b>: massa dei reagenti = massa dei prodotti<br>
+  <b>Proust</b>: rapporto fisso tra le masse · % = parte / composto × 100<br>
+  <b>Eccesso</b>: calcola quanto serve dell'altro; parti dal reagente che finisce<br>
+  <b>Dalton</b>: grammi del 2° elemento per 1 g del 1°, poi dividi per il più piccolo
+</div></details>
+
+<div class="esito" id="esitoTop"></div>
+<div id="exam"></div>
+
+<div class="bottom">
+  <div class="prog" id="prog"></div>
+  <button class="btn solid" id="consegna" onclick="consegna()">Consegna</button>
+  <div class="esito" id="esito"></div>
+  <button class="btn" id="ricomincia" onclick="ricomincia()" style="display:none">Ricomincia questa versione</button>
+  <button class="btn" id="altra" onclick="altra()" style="display:none"></button>
+</div>
+
+<p class="foot">Palestra · Chimica — simulazione del compito in classe</p>
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+function num(s){
+  s = String(s==null?"":s).trim();
+  if(!s) return NaN;
+  s = s.replace(/\s+/g,"").replace(/[\u2212\u2013]/g,"-");
+  s = s.replace(/(g\/cm3|g\/cm³|g\/ml|g\/mL|cm3|cm³|ml|mL|kg|g|L|l|%|min)$/,"");
+  if(s.indexOf(",")>=0){ if(s.indexOf(".")>=0) s = s.replace(/\./g,""); s = s.replace(/,/g,"."); }
+  if(!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s)) return NaN;
+  return parseFloat(s);
+}
+function expOf(v){
+  const t = String(v||"").trim().replace(/[\u2212\u2013]/g,"-").replace(/^\+/,"");
+  if(!t) return null;
+  if(!/^-?\d+$/.test(t)) return NaN;
+  return parseInt(t,10);
+}
+function near(a,b,rel){ return Math.abs(a-b) <= Math.abs(b)*(rel==null?1e-6:rel) + 1e-15; }
+function sup(n){ return "10<sup>"+String(n).replace("-","−")+"</sup>"; }
+function volte(k){ const s = String(Math.pow(10,k)); return s.length>4 ? "10<sup>"+k+"</sup>" : s; }
+function segno(n){ return String(n).replace("-","−"); }
+
+/* ═══════════ LE DUE VERSIONI ═══════════
+   N: [come appare, mantissa giusta, esponente giusto, esponente che c'era già]
+   Q: [testo, valore di partenza, esponente del fattore, dimensione, spiegazione, trappole extra]
+   P: problemi con le parti; tipo "n" numero, "s" scelta, "r" rapporto              */
+const VER = [
+{ /* ─────────── versione 1 ─────────── */
+ N:[["562.71","5,6271",2,0],["0.000437","4,37",-4,0],["81300","8,13",4,0],["0.36000","3,6",-1,0],
+    ["27.4 × 10<sup>3</sup>","2,74",4,3],["0.0068 × 10<sup>5</sup>","6,8",2,5],["5120 × 10<sup>−6</sup>","5,12",-3,-6],["0.32 × 10<sup>−4</sup>","3,2",-5,-4]],
+ Q:[["36.500 mm <span class='to'>in</span> m",36.5,-3,1,"36.500 vuol dire 36,5. Da mm a m <b class='su'>salgo 3 gradini</b> → ÷ 1000.<br>36,5 ÷ 1000 = <b>0,0365 m</b>",
+      [[36.5,"36,5 è il valore in mm: non l'hai trasformato in metri. Se hai letto 36.500 come 36 500, ricorda che il punto fa da virgola: 36.500 = 36,5 mm."]]],
+    ["0.62 nm <span class='to'>in</span> cm",0.62,-7,1,"Esponenti: (−9) − (−2) = −7 → × 10<sup>−7</sup>.<br>0,62 × 10<sup>−7</sup> = <b>6,2 × 10<sup>−8</sup> cm</b>"],
+    ["51.4 cm <span class='to'>in</span> km",51.4,-5,1,"Da cm a km <b class='su'>salgo 5 gradini</b> → × 10<sup>−5</sup>.<br>51,4 × 10<sup>−5</sup> = <b>5,14 × 10<sup>−4</sup> km</b>"],
+    ["18 kJ <span class='to'>in</span> J",18,3,1,"Da kJ a J <b class='giu'>scendo 3 gradini</b> → × 1000.<br>18 × 1000 = <b>18 000 J</b>"],
+    ["260 mL <span class='to'>in</span> L",260,-3,1,"Da mL a L <b class='su'>salgo 3 gradini</b> → ÷ 1000.<br>260 ÷ 1000 = <b>0,26 L</b>"],
+    ["0.35 × 10<sup>3</sup> mm <span class='to'>in</span> km",350,-6,1,"Prima il numero: 0,35 × 10<sup>3</sup> = 350 mm.<br>Da mm a km <b class='su'>salgo 6 gradini</b> → × 10<sup>−6</sup> → <b>3,5 × 10<sup>−4</sup> km</b>",
+      [[0.35e-6,"Hai dimenticato il × 10<sup>3</sup> che c'era già: 0,35 × 10<sup>3</sup> mm = 350 mm."]]],
+    ["4.5 m² <span class='to'>in</span> cm²",4.5,4,2,"Da m² a cm² <b class='giu'>scendo 2 gradini</b>, e con i m² ogni gradino vale 100 → × 10 000.<br>4,5 × 10 000 = <b>45 000 cm²</b>"],
+    ["27 m³ <span class='to'>in</span> cm³",27,6,3,"Da m³ a cm³ <b class='giu'>scendo 2 gradini</b>, e con i m³ ogni gradino vale 1000 → × 10<sup>6</sup>.<br>27 × 10<sup>6</sup> = <b>2,7 × 10<sup>7</sup> cm³</b>"]],
+ P:[
+  {sez:3, t:"Esercizio 3 · densità (a)",
+   q:"Un cubetto di metallo ha massa 54,0 g e volume 20,0 cm³. <b>a)</b> Calcola la densità. <b>b)</b> Con la tabella, di quale metallo si tratta?",
+   say:"Un cubetto di metallo ha massa 54 virgola 0 grammi e volume 20 virgola 0 centimetri cubi. Domanda a: calcola la densità. Domanda b: con la tabella, di quale metallo si tratta?",
+   tab:'<table style="max-width:300px"><tr><th>metallo</th><th>densità (g/cm³)</th></tr><tr><td>alluminio</td><td>2,70</td></tr><tr><td>ferro</td><td>7,87</td></tr><tr><td>rame</td><td>8,96</td></tr><tr><td>argento</td><td>10,5</td></tr><tr><td>oro</td><td>19,3</td></tr></table>',
+   parti:[{id:"p1a",tipo:"n",lab:"a) Densità",u:"g/cm³",ok:2.70,ans:"2,70 g/cm³",
+           tr:[[0.370,"Hai diviso il volume per la massa: d = m / V, la massa sta sopra."],[1080,"Hai moltiplicato: la densità è massa diviso volume."]]},
+          {id:"p1b",tipo:"s",lab:"b) Il metallo è…",o:["ferro","alluminio","rame","oro"],ok:1,ans:"alluminio"}],
+   how:"d = m / V = 54,0 / 20,0 = <b>2,70 g/cm³</b>: nella tabella è l'<b>alluminio</b>."},
+  {sez:3, t:"Esercizio 3 · densità (b)",
+   q:"Quanti grammi pesano 2,5 L di olio d'oliva? La densità dell'olio è 0,92 g/mL.",
+   say:"Quanti grammi pesano 2 virgola 5 litri di olio d'oliva? La densità dell'olio è 0 virgola 92 grammi al millilitro.",
+   parti:[{id:"p2",tipo:"n",lab:"Massa dell'olio",u:"g",ok:2300,ans:"2300 g",
+           tr:[[2.3,"Hai usato 2,5 L con una densità in g/mL. Prima trasforma: 2,5 L = 2500 mL."],[2717,"Hai diviso: la massa è m = d × V."],[2.717,"Hai diviso e non hai trasformato i litri: m = d × V, con V in mL."]]}],
+   how:"Prima le unità: 2,5 L = 2500 mL.<br>m = d × V = 0,92 × 2500 = <b>2300 g</b>"},
+  {sez:3, t:"Esercizio 3 · densità (c)",
+   q:"Che volume occupano 158 g di ferro? La densità del ferro è 7,9 g/cm³.",
+   say:"Che volume occupano 158 grammi di ferro? La densità del ferro è 7 virgola 9 grammi al centimetro cubo.",
+   parti:[{id:"p3",tipo:"n",lab:"Volume",u:"cm³",ok:20.0,ans:"20,0 cm³",
+           tr:[[1248.2,"Hai moltiplicato: il volume si trova con V = m / d."],[0.05,"Hai diviso al contrario: V = m / d, la massa sta sopra."]]}],
+   how:"V = m / d = 158 / 7,9 = <b>20,0 cm³</b>"},
+  {sez:4, t:"Esercizio 4 · Lavoisier",
+   q:"Il magnesio reagisce con l'acido cloridrico: si formano cloruro di magnesio e idrogeno. 4,86 g di magnesio reagiscono completamente con 14,6 g di acido cloridrico e si formano 0,40 g di idrogeno. Quanto cloruro di magnesio si forma?",
+   say:"Il magnesio reagisce con l'acido cloridrico: si formano cloruro di magnesio e idrogeno. 4 virgola 86 grammi di magnesio reagiscono completamente con 14 virgola 6 grammi di acido cloridrico, e si formano 0 virgola 40 grammi di idrogeno. Quanto cloruro di magnesio si forma?",
+   parti:[{id:"p4",tipo:"n",lab:"Cloruro di magnesio",u:"g",ok:19.06,tol:0.004,ans:"19,1 g",
+           tr:[[19.86,"Anche l'idrogeno è un prodotto: va tolto, non aggiunto. 4,86 + 14,6 − 0,40."],[19.46,"L'idrogeno è un prodotto: si toglie dai reagenti. 4,86 + 14,6 − 0,40."],[9.34,"Il magnesio è un reagente: si somma all'acido. 4,86 + 14,6 − 0,40."]]}],
+   how:"Reagenti = prodotti: 4,86 + 14,6 = <i>x</i> + 0,40<br><i>x</i> = 19,46 − 0,40 = <b>19,1 g</b>"},
+  {sez:4, t:"Esercizio 5 · Proust ed eccesso",
+   q:"Per formare 45,0 g di acqua servono 5,0 g di idrogeno.<br><b>a)</b> Quanti grammi di ossigeno servono? <b>b)</b> Qual è il rapporto di combinazione O/H? <b>c)</b> Qual è la percentuale di idrogeno nell'acqua?<br><b>d)</b> Si fanno reagire 10,0 g di idrogeno con 64,0 g di ossigeno: quanta acqua si forma? <b>e)</b> Quale reagente è in eccesso, e quanto ne avanza?",
+   say:"Per formare 45 virgola 0 grammi di acqua servono 5 virgola 0 grammi di idrogeno. Domanda a: quanti grammi di ossigeno servono? Domanda b: qual è il rapporto di combinazione ossigeno su idrogeno? Domanda c: qual è la percentuale di idrogeno nell'acqua? Domanda d: si fanno reagire 10 virgola 0 grammi di idrogeno con 64 virgola 0 grammi di ossigeno. Quanta acqua si forma? Domanda e: quale reagente è in eccesso, e quanto ne avanza?",
+   parti:[{id:"p5a",tipo:"n",lab:"a) Ossigeno",u:"g",ok:40.0,ans:"40,0 g",tr:[[50,"Hai sommato: l'acqua contiene già l'idrogeno. 45,0 − 5,0."]]},
+          {id:"p5b",tipo:"n",lab:"b) Rapporto O/H",u:"",ok:8.0,ans:"8,0",tr:[[0.125,"Hai fatto H/O. Nel rapporto O/H l'ossigeno sta sopra: 40,0 / 5,0."],[9,"Hai usato l'acqua: il rapporto è tra i due elementi, ossigeno / idrogeno."]]},
+          {id:"p5c",tipo:"n",lab:"c) % di idrogeno",u:"%",ok:11.11,tol:0.012,ans:"11,1%",tr:[[12.5,"Hai diviso per l'ossigeno. La percentuale si calcola sul composto, 45,0 g."],[88.9,"Questa è la percentuale dell'ossigeno."]]},
+          {id:"p5d",tipo:"n",lab:"d) Acqua che si forma",u:"g",ok:72.0,ans:"72,0 g",tr:[[74,"Hai sommato tutto: un reagente non reagisce tutto. Trova prima chi avanza."],[90,"Per 10,0 g di idrogeno servirebbero 80,0 g di ossigeno, ma ne hai 64,0. Parti dall'ossigeno."]]},
+          {id:"p5e",tipo:"s",lab:"e) In eccesso c'è…",o:["ossigeno","idrogeno","nessuno"],ok:1,ans:"idrogeno"},
+          {id:"p5f",tipo:"n",lab:"…e ne avanzano",u:"g",ok:2.0,ans:"2,0 g",tr:[[16,"Hai fatto 80 − 64, ma l'ossigeno non avanza: manca. L'idrogeno che reagisce è 64,0 / 8,0 = 8,0 g."],[8,"Questo è l'idrogeno che reagisce. Avanza 10,0 − 8,0."]]}],
+   how:"a) Lavoisier: 45,0 − 5,0 = <b>40,0 g</b> di ossigeno.<br>b) O/H = 40,0 / 5,0 = <b>8,0</b>.<br>c) % H = 5,0 / 45,0 × 100 = <b>11,1%</b>.<br>d–e) Per 10,0 g di H servirebbero 10,0 × 8,0 = 80,0 g di O: non bastano. Parto dall'ossigeno: H che reagisce = 64,0 / 8,0 = 8,0 g.<br>Acqua = 64,0 + 8,0 = <b>72,0 g</b>. In eccesso l'<b>idrogeno</b>: avanzano 10,0 − 8,0 = <b>2,0 g</b>."},
+  {sez:4, t:"Esercizio 6 · percentuale di acqua",
+   q:"Riscaldando 30,00 g di solfato di rame idrato (azzurro) si ottengono 19,18 g di solfato di rame anidro (bianco) e vapore acqueo. <b>a)</b> Quanta acqua se n'è andata? <b>b)</b> Qual è la percentuale di acqua nel sale idrato?",
+   say:"Riscaldando 30 virgola 00 grammi di solfato di rame idrato, azzurro, si ottengono 19 virgola 18 grammi di solfato di rame anidro, bianco, e vapore acqueo. Domanda a: quanta acqua se n'è andata? Domanda b: qual è la percentuale di acqua nel sale idrato?",
+   parti:[{id:"p6a",tipo:"n",lab:"a) Acqua",u:"g",ok:10.82,tol:0.005,ans:"10,82 g",tr:[[49.18,"Hai sommato: l'acqua è quello che manca, 30,00 − 19,18."]]},
+          {id:"p6b",tipo:"n",lab:"b) % di acqua",u:"%",ok:36.07,tol:0.01,ans:"36,1%",tr:[[56.41,"Hai diviso per il sale anidro: la percentuale si calcola sul sale di partenza, 30,00 g."],[63.93,"Questa è la percentuale del sale anidro. Fai 10,82 / 30,00 × 100."]]}],
+   how:"a) 30,00 − 19,18 = <b>10,82 g</b> di acqua.<br>b) 10,82 / 30,00 × 100 = <b>36,1%</b>"},
+  {sez:4, t:"Esercizio 7 · rapporto di combinazione",
+   q:"Nel monossido di carbonio il rapporto di combinazione tra le masse di carbonio e ossigeno è <b>3 : 4</b>.<br><b>a)</b> Quanto carbonio si combina con 20,0 g di ossigeno? <b>b)</b> Percentuale di carbonio? <b>c)</b> Percentuale di ossigeno? <b>d)</b> Quanto monossido si forma da 9,0 g di carbonio e 16,0 g di ossigeno?",
+   say:"Nel monossido di carbonio il rapporto di combinazione tra le masse di carbonio e ossigeno è 3 a 4. Domanda a: quanto carbonio si combina con 20 virgola 0 grammi di ossigeno? Domanda b: percentuale di carbonio? Domanda c: percentuale di ossigeno? Domanda d: quanto monossido si forma da 9 virgola 0 grammi di carbonio e 16 virgola 0 grammi di ossigeno?",
+   parti:[{id:"p7a",tipo:"n",lab:"a) Carbonio",u:"g",ok:15.0,ans:"15,0 g",tr:[[26.67,"Hai usato 4/3. C/O = 3/4: dall'ossigeno al carbonio moltiplichi per 3 e dividi per 4."]]},
+          {id:"p7b",tipo:"n",lab:"b) % carbonio",u:"%",ok:42.86,tol:0.01,ans:"42,9%",tr:[[75,"Hai fatto 3/4 × 100. Le parti in tutto sono 3 + 4 = 7: % C = 3/7 × 100."],[57.14,"Questa è la percentuale dell'ossigeno."]]},
+          {id:"p7c",tipo:"n",lab:"c) % ossigeno",u:"%",ok:57.14,tol:0.01,ans:"57,1%",tr:[[133.3,"Hai fatto 4/3 × 100. Le parti in tutto sono 7: % O = 4/7 × 100."],[42.86,"Questa è la percentuale del carbonio."]]},
+          {id:"p7d",tipo:"n",lab:"d) Monossido che si forma",u:"g",ok:21.0,ans:"21,0 g",tr:[[25,"Hai sommato tutto: una parte dell'ossigeno avanza."],[28,"Per 16,0 g di ossigeno servirebbero 12,0 g di carbonio, ma ne hai 9,0. Parti dal carbonio."]]}],
+   how:"a) C = 20,0 × 3 / 4 = <b>15,0 g</b>.<br>b–c) Parti in tutto: 3 + 4 = 7. % C = 3/7 × 100 = <b>42,9%</b>, % O = 4/7 × 100 = <b>57,1%</b>.<br>d) Per 9,0 g di C servono 9,0 × 4 / 3 = 12,0 g di O: ce ne sono 16,0, avanzano 4,0 g. Monossido = 9,0 + 12,0 = <b>21,0 g</b>."},
+  {sez:4, t:"Esercizio 8 · Dalton",
+   q:"Il rame forma due ossidi. Nel primo 12,71 g di rame sono combinati con 1,60 g di ossigeno. Nel secondo 6,35 g di rame sono combinati con 1,60 g di ossigeno. Calcola il rapporto di Dalton riferito all'ossigeno.",
+   say:"Il rame forma due ossidi. Nel primo, 12 virgola 71 grammi di rame sono combinati con 1 virgola 60 grammi di ossigeno. Nel secondo, 6 virgola 35 grammi di rame sono combinati con 1 virgola 60 grammi di ossigeno. Calcola il rapporto di Dalton riferito all'ossigeno.",
+   parti:[{id:"p8",tipo:"r",lab:"Rapporto (primo ossido : secondo)",ok:[1,2],ans:"1 : 2"}],
+   how:"Ossigeno per 1 g di rame: 1,60 / 12,71 = 0,126 e 1,60 / 6,35 = 0,252.<br>0,252 / 0,126 = 2 → <b>1 : 2</b>"}
+ ]},
+{ /* ─────────── versione 2 ─────────── */
+ N:[["384.05","3,8405",2,0],["0.00629","6,29",-3,0],["47200","4,72",4,0],["0.05100","5,1",-2,0],
+    ["68.3 × 10<sup>4</sup>","6,83",5,4],["0.0091 × 10<sup>6</sup>","9,1",3,6],["7350 × 10<sup>−5</sup>","7,35",-2,-5],["0.45 × 10<sup>−2</sup>","4,5",-3,-2]],
+ Q:[["48.200 mm <span class='to'>in</span> m",48.2,-3,1,"48.200 vuol dire 48,2. Da mm a m <b class='su'>salgo 3 gradini</b> → ÷ 1000.<br>48,2 ÷ 1000 = <b>0,0482 m</b>",
+      [[48.2,"48,2 è il valore in mm: non l'hai trasformato in metri. Se hai letto 48.200 come 48 200, ricorda che il punto fa da virgola: 48.200 = 48,2 mm."]]],
+    ["0.38 nm <span class='to'>in</span> cm",0.38,-7,1,"Esponenti: (−9) − (−2) = −7 → × 10<sup>−7</sup>.<br>0,38 × 10<sup>−7</sup> = <b>3,8 × 10<sup>−8</sup> cm</b>"],
+    ["73.6 cm <span class='to'>in</span> km",73.6,-5,1,"Da cm a km <b class='su'>salgo 5 gradini</b> → × 10<sup>−5</sup>.<br>73,6 × 10<sup>−5</sup> = <b>7,36 × 10<sup>−4</sup> km</b>"],
+    ["42 kJ <span class='to'>in</span> J",42,3,1,"Da kJ a J <b class='giu'>scendo 3 gradini</b> → × 1000.<br>42 × 1000 = <b>42 000 J</b>"],
+    ["780 mL <span class='to'>in</span> L",780,-3,1,"Da mL a L <b class='su'>salgo 3 gradini</b> → ÷ 1000.<br>780 ÷ 1000 = <b>0,78 L</b>"],
+    ["1500 × 10<sup>4</sup> nm <span class='to'>in</span> mm",1.5e7,-6,1,"Esponenti: (−9) − (−3) = −6 → × 10<sup>−6</sup>.<br>1500 × 10<sup>4</sup> × 10<sup>−6</sup> = 1500 × 10<sup>−2</sup> = <b>15 mm</b>",
+      [[1.5e-3,"Hai dimenticato il × 10<sup>4</sup> che c'era già: 1500 × 10<sup>4</sup> nm = 1,5 × 10<sup>7</sup> nm."]]],
+    ["8 m² <span class='to'>in</span> dm²",8,2,2,"Da m² a dm² <b class='giu'>scendo 1 gradino</b>, che con i m² vale 100.<br>8 × 100 = <b>800 dm²</b>"],
+    ["56 m³ <span class='to'>in</span> cm³",56,6,3,"Da m³ a cm³ <b class='giu'>scendo 2 gradini</b>, e con i m³ ogni gradino vale 1000 → × 10<sup>6</sup>.<br>56 × 10<sup>6</sup> = <b>5,6 × 10<sup>7</sup> cm³</b>"]],
+ P:[
+  {sez:3, t:"Esercizio 3 · densità (a)",
+   q:"Un anello di metallo ha massa 115,8 g e volume 6,00 cm³. <b>a)</b> Calcola la densità. <b>b)</b> Con la tabella, di quale metallo si tratta?",
+   say:"Un anello di metallo ha massa 115 virgola 8 grammi e volume 6 virgola 00 centimetri cubi. Domanda a: calcola la densità. Domanda b: con la tabella, di quale metallo si tratta?",
+   tab:'<table style="max-width:300px"><tr><th>metallo</th><th>densità (g/cm³)</th></tr><tr><td>alluminio</td><td>2,70</td></tr><tr><td>ferro</td><td>7,87</td></tr><tr><td>rame</td><td>8,96</td></tr><tr><td>argento</td><td>10,5</td></tr><tr><td>oro</td><td>19,3</td></tr></table>',
+   parti:[{id:"p1a",tipo:"n",lab:"a) Densità",u:"g/cm³",ok:19.3,ans:"19,3 g/cm³",
+           tr:[[0.0518,"Hai diviso il volume per la massa: d = m / V, la massa sta sopra."],[694.8,"Hai moltiplicato: la densità è massa diviso volume."]]},
+          {id:"p1b",tipo:"s",lab:"b) Il metallo è…",o:["rame","alluminio","oro","ferro"],ok:2,ans:"oro"}],
+   how:"d = m / V = 115,8 / 6,00 = <b>19,3 g/cm³</b>: nella tabella è l'<b>oro</b>."},
+  {sez:3, t:"Esercizio 3 · densità (b)",
+   q:"Quanti grammi pesano 1,5 L di latte? La densità del latte è 1,03 g/mL.",
+   say:"Quanti grammi pesano 1 virgola 5 litri di latte? La densità del latte è 1 virgola 03 grammi al millilitro.",
+   parti:[{id:"p2",tipo:"n",lab:"Massa del latte",u:"g",ok:1545,ans:"1545 g",
+           tr:[[1.545,"Hai usato 1,5 L con una densità in g/mL. Prima trasforma: 1,5 L = 1500 mL."],[1456.3,"Hai diviso: la massa è m = d × V."],[1.456,"Hai diviso e non hai trasformato i litri: m = d × V, con V in mL."]]}],
+   how:"Prima le unità: 1,5 L = 1500 mL.<br>m = d × V = 1,03 × 1500 = <b>1545 g</b>"},
+  {sez:3, t:"Esercizio 3 · densità (c)",
+   q:"Che volume occupano 339 g di piombo? La densità del piombo è 11,3 g/cm³.",
+   say:"Che volume occupano 339 grammi di piombo? La densità del piombo è 11 virgola 3 grammi al centimetro cubo.",
+   parti:[{id:"p3",tipo:"n",lab:"Volume",u:"cm³",ok:30.0,ans:"30,0 cm³",
+           tr:[[3830.7,"Hai moltiplicato: il volume si trova con V = m / d."],[0.0333,"Hai diviso al contrario: V = m / d, la massa sta sopra."]]}],
+   how:"V = m / d = 339 / 11,3 = <b>30,0 cm³</b>"},
+  {sez:4, t:"Esercizio 4 · Lavoisier",
+   q:"Il carbonato di calcio reagisce con l'acido cloridrico: si formano cloruro di calcio, acqua e anidride carbonica. 10,0 g di carbonato di calcio reagiscono completamente con 7,30 g di acido cloridrico. Si formano 11,1 g di cloruro di calcio e 1,80 g di acqua. Quanta anidride carbonica si forma?",
+   say:"Il carbonato di calcio reagisce con l'acido cloridrico: si formano cloruro di calcio, acqua e anidride carbonica. 10 virgola 0 grammi di carbonato di calcio reagiscono completamente con 7 virgola 30 grammi di acido cloridrico. Si formano 11 virgola 1 grammi di cloruro di calcio e 1 virgola 80 grammi di acqua. Quanta anidride carbonica si forma?",
+   parti:[{id:"p4",tipo:"n",lab:"Anidride carbonica",u:"g",ok:4.40,tol:0.01,ans:"4,40 g",
+           tr:[[6.2,"Anche l'acqua è un prodotto: va tolta. 10,0 + 7,30 − 11,1 − 1,80."],[30.2,"Hai sommato tutto. Reagenti = prodotti: 10,0 + 7,30 = 11,1 + 1,80 + x."],[12.9,"Questi sono gli altri due prodotti. L'anidride carbonica è quello che manca: 17,30 − 12,90."]]}],
+   how:"Reagenti = prodotti: 10,0 + 7,30 = 11,1 + 1,80 + <i>x</i><br><i>x</i> = 17,30 − 12,90 = <b>4,40 g</b>"},
+  {sez:4, t:"Esercizio 5 · Proust ed eccesso",
+   q:"Per formare 40,3 g di ossido di magnesio servono 24,3 g di magnesio.<br><b>a)</b> Quanti grammi di ossigeno servono? <b>b)</b> Qual è il rapporto di combinazione Mg/O? <b>c)</b> Qual è la percentuale di magnesio nell'ossido?<br><b>d)</b> Si fanno reagire 12,0 g di magnesio con 10,0 g di ossigeno: quanto ossido si forma? <b>e)</b> Quale reagente è in eccesso, e quanto ne avanza?",
+   say:"Per formare 40 virgola 3 grammi di ossido di magnesio servono 24 virgola 3 grammi di magnesio. Domanda a: quanti grammi di ossigeno servono? Domanda b: qual è il rapporto di combinazione magnesio su ossigeno? Domanda c: qual è la percentuale di magnesio nell'ossido? Domanda d: si fanno reagire 12 virgola 0 grammi di magnesio con 10 virgola 0 grammi di ossigeno. Quanto ossido si forma? Domanda e: quale reagente è in eccesso, e quanto ne avanza?",
+   parti:[{id:"p5a",tipo:"n",lab:"a) Ossigeno",u:"g",ok:16.0,ans:"16,0 g",tr:[[64.6,"Hai sommato: l'ossido contiene già il magnesio. 40,3 − 24,3."]]},
+          {id:"p5b",tipo:"n",lab:"b) Rapporto Mg/O",u:"",ok:1.519,tol:0.01,ans:"1,52",tr:[[0.658,"Hai fatto O/Mg. Nel rapporto Mg/O il magnesio sta sopra: 24,3 / 16,0."],[0.603,"Hai usato l'ossido: il rapporto è tra i due elementi, magnesio / ossigeno."]]},
+          {id:"p5c",tipo:"n",lab:"c) % di magnesio",u:"%",ok:60.30,tol:0.01,ans:"60,3%",tr:[[151.9,"Hai diviso per l'ossigeno. La percentuale si calcola sul composto, 40,3 g."],[39.7,"Questa è la percentuale dell'ossigeno."]]},
+          {id:"p5d",tipo:"n",lab:"d) Ossido che si forma",u:"g",ok:19.90,tol:0.012,ans:"19,9 g",tr:[[22,"Hai sommato tutto: un reagente non reagisce tutto. Trova prima chi avanza."],[25.19,"Per 10,0 g di ossigeno servirebbero 15,2 g di magnesio, ma ne hai 12,0. Parti dal magnesio."]]},
+          {id:"p5e",tipo:"s",lab:"e) In eccesso c'è…",o:["magnesio","ossigeno","nessuno"],ok:1,ans:"ossigeno"},
+          {id:"p5f",tipo:"n",lab:"…e ne avanzano",u:"g",ok:2.10,tol:0.02,ans:"2,1 g",tr:[[3.19,"Hai fatto 15,2 − 12,0, ma il magnesio non avanza: manca. L'ossigeno che reagisce è 12,0 / 1,52 = 7,9 g."],[7.9,"Questo è l'ossigeno che reagisce. Avanza 10,0 − 7,9."]]}],
+   how:"a) Lavoisier: 40,3 − 24,3 = <b>16,0 g</b> di ossigeno.<br>b) Mg/O = 24,3 / 16,0 = <b>1,52</b>.<br>c) % Mg = 24,3 / 40,3 × 100 = <b>60,3%</b>.<br>d–e) Per 10,0 g di O servirebbero 10,0 × 1,52 = 15,2 g di Mg: non bastano. Parto dal magnesio: O che reagisce = 12,0 / 1,52 = 7,9 g.<br>Ossido = 12,0 + 7,9 = <b>19,9 g</b>. In eccesso l'<b>ossigeno</b>: avanzano 10,0 − 7,9 = <b>2,1 g</b>."},
+  {sez:4, t:"Esercizio 6 · percentuale di acqua",
+   q:"Riscaldando 20,00 g di cloruro di bario idrato si ottengono 17,05 g di cloruro di bario anidro e vapore acqueo. <b>a)</b> Quanta acqua se n'è andata? <b>b)</b> Qual è la percentuale di acqua nel sale idrato?",
+   say:"Riscaldando 20 virgola 00 grammi di cloruro di bario idrato si ottengono 17 virgola 05 grammi di cloruro di bario anidro e vapore acqueo. Domanda a: quanta acqua se n'è andata? Domanda b: qual è la percentuale di acqua nel sale idrato?",
+   parti:[{id:"p6a",tipo:"n",lab:"a) Acqua",u:"g",ok:2.95,tol:0.01,ans:"2,95 g",tr:[[37.05,"Hai sommato: l'acqua è quello che manca, 20,00 − 17,05."]]},
+          {id:"p6b",tipo:"n",lab:"b) % di acqua",u:"%",ok:14.75,tol:0.01,ans:"14,8%",tr:[[17.30,"Hai diviso per il sale anidro: la percentuale si calcola sul sale di partenza, 20,00 g."],[85.25,"Questa è la percentuale del sale anidro. Fai 2,95 / 20,00 × 100."]]}],
+   how:"a) 20,00 − 17,05 = <b>2,95 g</b> di acqua.<br>b) 2,95 / 20,00 × 100 = <b>14,8%</b>"},
+  {sez:4, t:"Esercizio 7 · rapporto di combinazione",
+   q:"Nell'anidride carbonica il rapporto di combinazione tra le masse di carbonio e ossigeno è <b>3 : 8</b>.<br><b>a)</b> Quanto carbonio si combina con 24,0 g di ossigeno? <b>b)</b> Percentuale di carbonio? <b>c)</b> Percentuale di ossigeno? <b>d)</b> Quanta anidride carbonica si forma da 6,0 g di carbonio e 20,0 g di ossigeno?",
+   say:"Nell'anidride carbonica il rapporto di combinazione tra le masse di carbonio e ossigeno è 3 a 8. Domanda a: quanto carbonio si combina con 24 virgola 0 grammi di ossigeno? Domanda b: percentuale di carbonio? Domanda c: percentuale di ossigeno? Domanda d: quanta anidride carbonica si forma da 6 virgola 0 grammi di carbonio e 20 virgola 0 grammi di ossigeno?",
+   parti:[{id:"p7a",tipo:"n",lab:"a) Carbonio",u:"g",ok:9.0,ans:"9,0 g",tr:[[64,"Hai usato 8/3. C/O = 3/8: dall'ossigeno al carbonio moltiplichi per 3 e dividi per 8."]]},
+          {id:"p7b",tipo:"n",lab:"b) % carbonio",u:"%",ok:27.27,tol:0.01,ans:"27,3%",tr:[[37.5,"Hai fatto 3/8 × 100. Le parti in tutto sono 3 + 8 = 11: % C = 3/11 × 100."],[72.73,"Questa è la percentuale dell'ossigeno."]]},
+          {id:"p7c",tipo:"n",lab:"c) % ossigeno",u:"%",ok:72.73,tol:0.01,ans:"72,7%",tr:[[266.7,"Hai fatto 8/3 × 100. Le parti in tutto sono 11: % O = 8/11 × 100."],[27.27,"Questa è la percentuale del carbonio."]]},
+          {id:"p7d",tipo:"n",lab:"d) Anidride carbonica che si forma",u:"g",ok:22.0,ans:"22,0 g",tr:[[26,"Hai sommato tutto: una parte dell'ossigeno avanza."],[27.5,"Per 20,0 g di ossigeno servirebbero 7,5 g di carbonio, ma ne hai 6,0. Parti dal carbonio."]]}],
+   how:"a) C = 24,0 × 3 / 8 = <b>9,0 g</b>.<br>b–c) Parti in tutto: 3 + 8 = 11. % C = 3/11 × 100 = <b>27,3%</b>, % O = 8/11 × 100 = <b>72,7%</b>.<br>d) Per 6,0 g di C servono 6,0 × 8 / 3 = 16,0 g di O: ce ne sono 20,0, avanzano 4,0 g. Anidride = 6,0 + 16,0 = <b>22,0 g</b>."},
+  {sez:4, t:"Esercizio 8 · Dalton",
+   q:"Lo stagno forma due ossidi. Il primo contiene l'88,12% di stagno, il secondo il 78,77%. Calcola il rapporto di Dalton riferito all'ossigeno.",
+   say:"Lo stagno forma due ossidi. Il primo contiene l'88 virgola 12 per cento di stagno, il secondo il 78 virgola 77 per cento. Calcola il rapporto di Dalton riferito all'ossigeno.",
+   parti:[{id:"p8",tipo:"r",lab:"Rapporto (primo ossido : secondo)",ok:[1,2],ans:"1 : 2"}],
+   how:"Ossigeno: 100 − 88,12 = 11,88% e 100 − 78,77 = 21,23%.<br>Ossigeno per 1 g di stagno: 11,88 / 88,12 = 0,135 e 21,23 / 78,77 = 0,270.<br>0,270 / 0,135 = 2 → <b>1 : 2</b>"}
+ ]}
+];
+
+/* ═══════════ controllo delle risposte ═══════════ */
+function howN(r){
+  const k = r[2]-r[3], n = Math.abs(k), posti = n+(n===1?" posto":" posti");
+  let h;
+  if(k===0) h = "Il numero è già tra 1 e 10: la virgola resta dov'è.";
+  else h = "Virgola "+posti+" a "+(k>0?"<b style='color:var(--su)'>sinistra</b>: l'esponente sale di "+n:"<b style='color:var(--giu)'>destra</b>: l'esponente scende di "+n)+".";
+  if(r[3]!==0) h += "<br>Esponente: "+segno(r[3])+(k>0?" + ":" − ")+n+" = "+segno(r[2])+".";
+  return h + "<br>→ <b>"+r[1]+" × "+sup(r[2])+"</b>";
+}
+function ansN(r){ return r[2]===0 ? r[1]+" (oppure "+r[1]+" × 10<sup>0</sup>)" : r[1]+" × "+sup(r[2]); }
+function checkN(r, ms, es){
+  const m = num(ms), e0 = expOf(es), M = num(r[1]), E = r[2], G = r[3];
+  if(!String(ms||"").trim() && !String(es||"").trim()) return {vuoto:true};
+  if(!isFinite(m)) return {ok:false, msg:"Il numero grande non è leggibile."};
+  if(e0===null && E===0 && near(m,M)) return {ok:true};
+  if(e0===null) return {ok:false, msg:"Manca l'esponente."};
+  if(isNaN(e0)) return {ok:false, msg:"L'esponente deve essere un numero intero."};
+  const inRange = Math.abs(m)>=1 && Math.abs(m)<10, same = near(m,M);
+  if(same && e0===E) return {ok:true};
+  if(!inRange && near(m*Math.pow(10,e0), M*Math.pow(10,E), 1e-9))
+    return {ok:false, msg:"Il valore è giusto, ma non è notazione scientifica: prima della virgola ci vuole una sola cifra, diversa da zero."};
+  if(same){
+    if(E!==0 && e0===-E) return {ok:false, msg:"Le cifre vanno bene, ma il segno dell'esponente è al contrario."};
+    if(G!==0 && e0===E-G) return {ok:false, msg:"Hai dimenticato la potenza che c'era già ("+sup(G)+")."};
+    if(G!==0 && e0===G-(E-G)) return {ok:false, msg:"Hai aggiustato l'esponente nel verso sbagliato: virgola a sinistra → l'esponente sale."};
+    return {ok:false, msg:"Le cifre vanno bene, ma l'esponente no: riconta di quanti posti si sposta la virgola."};
+  }
+  return {ok:false, msg:"Le cifre devono restare quelle del numero di partenza: cambia solo il posto della virgola."};
+}
+function ansQ(r){
+  const v = r[1]*Math.pow(10,r[2]), e = Math.floor(Math.log10(Math.abs(v))+1e-9), man = v/Math.pow(10,e);
+  const manS = String(+man.toPrecision(6)).replace(".",",");
+  if(e>=-3 && e<=5){
+    let s = String(+v.toPrecision(6));
+    if(Math.abs(v)>=10000) s = s.replace(/\B(?=(\d{3})+(?!\d))/g," ");
+    return s.replace(".",",") + (e<-2||e>4 ? " = "+manS+" × "+sup(e) : "");
+  }
+  return manS+" × "+sup(e);
+}
+function checkQ(r, ms, es){
+  const m = num(ms); let e = expOf(es);
+  if(!String(ms||"").trim() && !String(es||"").trim()) return {vuoto:true};
+  if(!isFinite(m)) return {ok:false, msg:"Il risultato non è leggibile."};
+  if(isNaN(e)) return {ok:false, msg:"Nella casellina va un numero intero."};
+  if(e===null) e = 0;
+  const v = m*Math.pow(10,e), x = r[1], k = r[2], dim = r[3], want = x*Math.pow(10,k);
+  if(near(v,want,1e-6)) return {ok:true};
+  const extra = r[5]||[];
+  for(let i=0;i<extra.length;i++) if(near(v,extra[i][0],1e-6)) return {ok:false, msg:extra[i][1]};
+  if(near(v,x*Math.pow(10,-k),1e-6))
+    return {ok:false, msg: k>0 ? "Hai diviso, ma vai verso un'unità più piccola: il numero deve diventare più grande, quindi moltiplichi."
+                              : "Hai moltiplicato, ma vai verso un'unità più grande: il numero deve diventare più piccolo, quindi dividi."};
+  if(dim>1 && near(v,x*Math.pow(10,k/dim),1e-6))
+    return {ok:false, msg:"Hai contato ogni gradino come 10. Con i "+(dim===2?"m² ogni gradino vale 100":"m³ ogni gradino vale 1000")+"."};
+  if(v>0){
+    const L = Math.log(v/want)/Math.LN10, n = Math.round(L);
+    if(n!==0 && Math.abs(L-n)<0.004) return {ok:false, msg:"Le cifre vanno bene, ma il numero è "+(n>0?"troppo grande":"troppo piccolo")+" di "+volte(Math.abs(n))+" volte. Riconta i gradini."};
+  }
+  return {ok:false, msg:"Non è giusto."};
+}
+function checkNum(p, s){
+  if(!String(s||"").trim()) return {vuoto:true};
+  const v = num(s);
+  if(!isFinite(v)) return {ok:false, msg:"Il numero non è leggibile."};
+  const tol = p.tol!=null ? p.tol : 0.015;
+  if(near(v,p.ok,tol)) return {ok:true};
+  const tr = p.tr||[];
+  for(let i=0;i<tr.length;i++) if(near(v,tr[i][0],0.012)) return {ok:false, msg:tr[i][1]};
+  if(v>0){
+    const L = Math.log(v/p.ok)/Math.LN10, n = Math.round(L);
+    if(n!==0 && Math.abs(L-n)<0.01) return {ok:false, msg:"Le cifre vanno bene, ma il numero è "+(n>0?"troppo grande":"troppo piccolo")+" di "+volte(Math.abs(n))+" volte. Controlla le unità."};
+  }
+  return {ok:false, msg:"Non è giusto."};
+}
+function checkRatio(p, xs, ys){
+  if(!String(xs||"").trim() && !String(ys||"").trim()) return {vuoto:true};
+  const a = num(xs), b = num(ys), w = p.ok;
+  if(!isFinite(a) || !isFinite(b) || a<=0 || b<=0) return {ok:false, msg:"Servono due numeri."};
+  const giusto = near(a/b, w[0]/w[1], 0.01);
+  if(giusto && a===w[0] && b===w[1]) return {ok:true};
+  if(giusto && (a%1!==0 || b%1!==0)) return {ok:false, msg:"Il rapporto è giusto, ma servono numeri interi."};
+  if(giusto) return {ok:false, msg:"Il rapporto è giusto, ma va semplificato: servono i numeri interi più piccoli."};
+  if(near(a/b, w[1]/w[0], 0.01)) return {ok:false, msg:"Hai scritto i numeri al contrario: prima il primo ossido, poi il secondo."};
+  return {ok:false, msg:"Non è giusto."};
+}
+
+/* ═══════════ stato e salvataggio ═══════════ */
+let ver = 0, S = null, armed = false;
+function key(v){ return "chim-sim-"+(v+1); }
+function load(v){
+  try{ const t = localStorage.getItem(key(v)); if(t){ const o = JSON.parse(t); if(o && o.v && o.p) return o; } }catch(e){}
+  return {v:{}, p:{}, done:false, voto:null};
+}
+function save(){ try{ localStorage.setItem(key(ver), JSON.stringify(S)); }catch(e){} }
+function totale(V){ let t = V.N.length + V.Q.length; V.P.forEach(P=>{ t += P.parti.length; }); return t; }
+
+/* ═══════════ disegno del compito ═══════════ */
+function inp(id, cls, ph, mode){
+  return '<input class="'+cls+'" id="'+id+'" inputmode="'+(mode||"decimal")+'" placeholder="'+(ph||"...")+'" autocomplete="off" oninput="tieni(this)">';
+}
+function render(){
+  const V = VER[ver];
+  let h = '';
+  h += '<div class="card" id="c1"><div class="qhead"><div class="qnum">Esercizio 1 · notazione scientifica <span class="pt" id="pt1">· '+V.N.length+' punti</span></div>'
+     + '<button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Esercizio uno. Scrivi i numeri in notazione scientifica. Nella casella grande il numero tra uno e dieci, nella casella piccola l\'esponente. Attenzione: come nel foglio della professoressa, il punto fa da virgola.">🔊</button></div>'
+     + '<p class="sub">Scrivi in notazione scientifica. Casella grande: il numero tra 1 e 10. Casellina: l\'esponente (± mette il meno).</p><div class="rows">';
+  V.N.forEach((r,i)=>{
+    h += '<div class="row" id="rn'+i+'"><div class="op">'+r[0]+'</div><div class="ns">'+inp("n"+i+"m","nm","numero")
+       + '<span class="x">× 10</span><span class="pw"><button class="pm" onclick="pm(\'n'+i+'e\')" aria-label="cambia segno">±</button>'+inp("n"+i+"e","ex","esp","numeric")+'</span></div>'
+       + '<div class="fb" id="fn'+i+'"></div></div>';
+  });
+  h += '</div></div>';
+  h += '<div class="card" id="c2"><div class="qhead"><div class="qnum">Esercizio 2 · equivalenze <span class="pt" id="pt2">· '+V.Q.length+' punti</span></div>'
+     + '<button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Esercizio due. Risolvi le equivalenze. Puoi scrivere il risultato come numero normale, oppure con la potenza di dieci. Il punto fa da virgola, come nel foglio della professoressa.">🔊</button></div>'
+     + '<p class="sub">Scrivi il risultato come vuoi: 0,0365 oppure 3,65 × 10<sup>−2</sup>. Se non usi la potenza, lascia vuota la casellina.</p><div class="rows">';
+  V.Q.forEach((r,i)=>{
+    h += '<div class="row" id="rq'+i+'"><div class="op">'+r[0]+'</div><div class="ns">'+inp("q"+i+"m","nm","risultato")
+       + '<span class="x">× 10</span><span class="pw"><button class="pm" onclick="pm(\'q'+i+'e\')" aria-label="cambia segno">±</button>'+inp("q"+i+"e","ex","","numeric")+'</span></div>'
+       + '<div class="fb" id="fq'+i+'"></div></div>';
+  });
+  h += '</div></div>';
+  V.P.forEach((P,j)=>{
+    h += '<div class="card" id="cp'+j+'"><div class="qhead"><div class="qnum">'+P.t+' <span class="pt" id="ptp'+j+'">· '+P.parti.length+(P.parti.length===1?' punto':' punti')+'</span></div>'
+       + '<button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+P.say.replace(/"/g,"&quot;")+'">🔊</button></div>'
+       + '<p class="qtext">'+P.q+'</p>'+(P.tab||"");
+    P.parti.forEach(p=>{
+      h += '<div class="lab">'+p.lab+'</div>';
+      if(p.tipo==="n") h += '<div class="chk">'+inp(p.id)+'<span class="u">'+p.u+'</span></div>';
+      else if(p.tipo==="s"){
+        h += '<div class="opts'+(p.o.length===3?' three':'')+'" id="o'+p.id+'">';
+        p.o.forEach((o,k)=>{ h += '<button onclick="scegli(\''+p.id+'\','+k+')">'+o+'</button>'; });
+        h += '</div>';
+      } else if(p.tipo==="r") h += '<div class="rt">'+inp(p.id+"x","","...")+'<span class="c">:</span>'+inp(p.id+"y","","...")+'</div>';
+      h += '<div class="fb" id="f'+p.id+'"></div>';
+    });
+    h += '<div class="fb" id="hw'+j+'"></div></div>';
+  });
+  $("exam").innerHTML = h;
+  /* ripristino */
+  Array.prototype.forEach.call(document.querySelectorAll("#exam input"), el=>{ if(S.v[el.id]!=null) el.value = S.v[el.id]; });
+  Object.keys(S.p).forEach(id=>{ const box = $("o"+id); if(box && box.children[S.p[id]]) box.children[S.p[id]].classList.add("sel"); });
+  const ins = document.querySelectorAll("#exam input");
+  for(let i=0;i<ins.length;i++) ins[i].addEventListener("keydown", function(e){ if(e.key==="Enter") this.blur(); });
+  drawVers(); armed = false;
+  $("esito").className = "esito"; $("esitoTop").className = "esito";
+  $("consegna").style.display = ""; $("ricomincia").style.display = "none"; $("altra").style.display = "none";
+  $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna";
+  if(S.done) correggi(false); else prog();
+}
+function drawVers(){
+  let h = "";
+  VER.forEach((v,i)=>{
+    const o = (i===ver) ? S : load(i);
+    h += '<button class="'+(i===ver?'on':'')+'" onclick="vai('+i+')">Versione '+(i+1)
+       + '<small>'+(o.done ? 'consegnata · voto '+votoS(o.voto) : 'da fare')+'</small></button>';
+  });
+  $("vers").innerHTML = h;
+}
+function vai(i){ if(i===ver) return; ver = i; S = load(i); try{ localStorage.setItem("chim-sim-ver", String(i)); }catch(e){} render(); window.scrollTo(0,0); }
+function tieni(el){ if(S.done){ return; } S.v[el.id] = el.value; save(); prog(); if(armed){ armed = false; $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna"; } }
+function pm(id){
+  if(S.done) return;
+  const el = $(id); let v = String(el.value||"").trim().replace(/[\u2212\u2013]/g,"-");
+  el.value = v.charAt(0)==="-" ? v.slice(1) : "-"+v; tieni(el);
+}
+function scegli(id,k){
+  if(S.done) return;
+  const box = $("o"+id); Array.prototype.forEach.call(box.children,(b,i)=>b.classList.toggle("sel", i===k));
+  S.p[id] = k; save(); prog();
+}
+function risposte(){
+  const V = VER[ver]; let n = 0;
+  V.N.forEach((r,i)=>{ if(String(S.v["n"+i+"m"]||"").trim()) n++; });
+  V.Q.forEach((r,i)=>{ if(String(S.v["q"+i+"m"]||"").trim()) n++; });
+  V.P.forEach(P=>P.parti.forEach(p=>{
+    if(p.tipo==="s"){ if(S.p[p.id]!=null) n++; }
+    else if(p.tipo==="r"){ if(String(S.v[p.id+"x"]||"").trim() || String(S.v[p.id+"y"]||"").trim()) n++; }
+    else if(String(S.v[p.id]||"").trim()) n++;
+  }));
+  return n;
+}
+function prog(){ $("prog").textContent = "Risposte date: "+risposte()+" su "+totale(VER[ver]); }
+
+/* ═══════════ consegna e correzione ═══════════ */
+function consegna(){
+  const vuote = totale(VER[ver]) - risposte();
+  if(vuote>0 && !armed){
+    armed = true; $("consegna").className = "btn warn";
+    $("consegna").textContent = (vuote===1 ? "C'è 1 risposta vuota" : "Ci sono "+vuote+" risposte vuote")+": tocca di nuovo per consegnare";
+    return;
+  }
+  S.done = true; correggi(true);
+}
+function fbHTML(res, giusta, how){
+  if(res.ok) return {c:"fb on y", h:"✓ Giusto"};
+  let h = res.vuoto ? '<b class="t">— Non hai risposto.</b>' : '<b class="t">✗ '+res.msg+'</b>';
+  if(giusta) h += '<div class="giusta">Risposta giusta: '+giusta+'</div>';
+  if(how) h += '<div class="how">'+how+'</div>';
+  return {c:"fb on n", h:h};
+}
+function mostra(id, res, giusta, how){ const f = $(id); const o = fbHTML(res, giusta, how); f.className = o.c; f.innerHTML = o.h; }
+function correggi(scorri){
+  const V = VER[ver]; let tot = 0, pun = 0; const sez = {1:[0,0],2:[0,0],3:[0,0],4:[0,0]};
+  V.N.forEach((r,i)=>{
+    const res = checkN(r, S.v["n"+i+"m"], S.v["n"+i+"e"]);
+    mostra("fn"+i, res, ansN(r), res.ok ? null : howN(r));
+    $("rn"+i).classList.add(res.ok?"y":"n"); sez[1][1]++; tot++; if(res.ok){ sez[1][0]++; pun++; }
+  });
+  V.Q.forEach((r,i)=>{
+    const res = checkQ(r, S.v["q"+i+"m"], S.v["q"+i+"e"]);
+    mostra("fq"+i, res, ansQ(r), res.ok ? null : r[4]);
+    $("rq"+i).classList.add(res.ok?"y":"n"); sez[2][1]++; tot++; if(res.ok){ sez[2][0]++; pun++; }
+  });
+  V.P.forEach((P,j)=>{
+    let pj = 0;
+    P.parti.forEach(p=>{
+      let res;
+      if(p.tipo==="s"){
+        const k = S.p[p.id]; res = (k==null) ? {vuoto:true} : (k===p.ok ? {ok:true} : {ok:false, msg:"Non è giusto."});
+        const box = $("o"+p.id); box.classList.add("locked");
+        Array.prototype.forEach.call(box.children,(b,i)=>{ b.classList.remove("sel"); if(i===p.ok) b.classList.add("right"); else if(i===k) b.classList.add("wrong"); });
+      } else if(p.tipo==="r") res = checkRatio(p, S.v[p.id+"x"], S.v[p.id+"y"]);
+      else res = checkNum(p, S.v[p.id]);
+      mostra("f"+p.id, res, p.ans, null);
+      sez[P.sez][1]++; tot++; if(res.ok){ sez[P.sez][0]++; pun++; pj++; }
+    });
+    const pt = $("ptp"+j); pt.textContent = "· "+pj+" su "+P.parti.length; pt.className = "pt"+(pj===P.parti.length?" y":"");
+    if(pj<P.parti.length){ const hw = $("hw"+j); hw.className = "fb on n"; hw.innerHTML = '<b class="t" style="color:var(--ink)">Come si fa</b><div class="how">'+P.how+'</div>'; }
+  });
+  [1,2].forEach(s=>{ const pt = $("pt"+s); pt.textContent = "· "+sez[s][0]+" su "+sez[s][1]; pt.className = "pt"+(sez[s][0]===sez[s][1]?" y":""); });
+  Array.prototype.forEach.call(document.querySelectorAll("#exam input"), el=>{ el.readOnly = true; });
+  Array.prototype.forEach.call(document.querySelectorAll("#exam .pm"), b=>{ b.disabled = true; });
+  const voto = calcVoto(pun, tot); S.voto = voto; save();
+  const nomi = {1:"Notazione scientifica",2:"Equivalenze",3:"Densità",4:"Leggi ponderali"};
+  let righe = ""; [1,2,3,4].forEach(s=>{ righe += '<tr><td>'+nomi[s]+'</td><td class="c">'+sez[s][0]+' su '+sez[s][1]+'</td></tr>'; });
+  const suff = voto>=6;
+  const msg = suff ? "Sufficiente. Guarda le risposte in rosso per sistemare gli ultimi errori."
+                   : "Non ancora sufficiente. Leggi le correzioni in rosso, poi prova l'altra versione.";
+  const h = '<div class="qnum">Voto indicativo</div><div class="voto '+(suff?'ok':'ko')+'">'+votoS(voto)+'</div>'
+          + '<div class="det"><b>'+pun+' punti su '+tot+'</b> · '+msg+'</div>'
+          + '<table>'+righe+'</table><div class="det" style="color:var(--soft);font-size:14px">Voto = punti / '+tot+' × 10, arrotondato al mezzo voto. La prof potrebbe correggere in modo diverso.</div>';
+  $("esito").innerHTML = h; $("esito").className = "esito on";
+  $("esitoTop").innerHTML = '<div class="qnum">Compito consegnato</div><div class="det">Voto indicativo <b>'+votoS(voto)+'</b> · '+pun+' punti su '+tot+'. Le correzioni sono sotto ogni risposta; il riepilogo è in fondo.</div>';
+  $("esitoTop").className = "esito on";
+  $("consegna").style.display = "none"; $("ricomincia").style.display = "";
+  const alt = ver===0 ? 1 : 0; $("altra").style.display = ""; $("altra").textContent = "Vai alla versione "+(alt+1);
+  $("prog").textContent = "";
+  drawVers();
+  if(scorri){ const e = $("esitoTop"); if(e.scrollIntoView) e.scrollIntoView({behavior:"smooth", block:"start"}); }
+}
+function calcVoto(p,t){ const v = Math.round(p/t*10*2)/2; return Math.max(2, v); }
+function votoS(v){ if(v==null) return "–"; const i = Math.floor(v); return v===i ? String(i) : i+"½"; }
+function ricomincia(){ S = {v:{}, p:{}, done:false, voto:null}; save(); render(); window.scrollTo(0,0); }
+function altra(){ vai(ver===0 ? 1 : 0); }
+
+/* ---------- voce ---------- */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute("data-say") || "");
+  u.lang = "it-IT"; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on");
+  speechSynthesis.speak(u);
+}
+
+/* ---------- avvio ---------- */
+(function(){
+  let k = 0; try{ k = parseInt(localStorage.getItem("chim-sim-ver")||"0",10)||0; }catch(e){}
+  ver = Math.max(0, Math.min(VER.length-1, k)); S = load(ver); render();
+})();
+</script>
+</body>
+</html>
