@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inglese — Simulazione della verifica</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#0E7C86; --accent-soft:#E2F2F3; --accent-line:#BFE0E3;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif; font-size:18px; line-height:1.7; letter-spacing:.005em; padding:0 0 env(safe-area-inset-bottom)}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+.vers{display:flex; gap:8px; margin:6px 0 12px}
+.vers button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:12px; padding:9px 8px; font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer; line-height:1.35}
+.vers button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.vers button small{display:block; font-weight:600; font-size:12.5px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:16px 0}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.qnum .pt{color:var(--soft); letter-spacing:.04em}
+.qnum .pt.y{color:var(--ok)}
+.ins{font-size:17px; font-weight:700; line-height:1.45; margin:0}
+.sub{font-size:15px; color:var(--soft); margin:2px 0 8px; line-height:1.45}
+.box{border:2px dashed var(--accent-line); border-radius:12px; padding:7px 12px; margin:8px 0 6px; font-size:17px; font-weight:700; color:var(--accent); line-height:1.6; text-align:center}
+button{font:inherit; cursor:pointer}
+.rows .row{border-top:1px solid var(--rule); padding:13px 0 9px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:18.5px; line-height:2}
+.op .n{color:var(--soft); font-weight:700; margin-right:4px}
+.op .base{color:var(--accent); font-weight:700}
+select, .tin{font:inherit; font-size:17px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink); padding:3px 6px; vertical-align:baseline; max-width:100%}
+select{min-width:118px}
+.tin{width:178px; padding:4px 9px}
+select:focus, .tin:focus{outline:none; border-color:var(--accent)}
+select.sok, .tin.sok{border-color:var(--ok); background:var(--ok-soft)}
+select.sko, .tin.sko{border-color:var(--no); background:var(--no-soft)}
+select:disabled{opacity:1; color:var(--ink)}
+.opts{display:grid; gap:7px; margin-top:6px; grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts.c1{grid-template-columns:1fr}
+.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 8px; min-width:0; font-size:16px; font-weight:600; color:var(--ink); line-height:1.35; overflow-wrap:break-word}
+.opts.c1 button{text-align:left; padding:10px 12px}
+.opts button.sel{border-color:var(--ink); background:#E9ECF1}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.opts.locked button{cursor:default}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+@media (max-width:460px){ .opts button{font-size:14.5px; padding:9px 4px} .opts.c1 button{font-size:15.5px; padding:9px 10px} }
+.fb{display:none; font-size:15.5px; line-height:1.55; margin-top:7px; border-radius:10px; padding:7px 11px}
+.fb.on{display:block}
+.fb.y{background:var(--ok-soft); color:var(--ok); font-weight:700}
+.fb.n{background:var(--no-soft); color:var(--no)}
+.fb.n b.t{display:block}
+.fb .giusta{color:var(--ink); font-weight:700; margin-top:3px}
+.fb .how{color:var(--ink); margin-top:3px}
+.row.y .op::after{content:" ✓"; color:var(--ok); font-weight:700}
+.row.n .op::after{content:" ✗"; color:var(--no); font-weight:700}
+.row.h .op::after{content:" ½"; color:var(--warn); font-weight:700}
+.bottom{margin-top:26px}
+.prog{font-size:15px; color:var(--soft); text-align:center; font-weight:600; margin-bottom:8px}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:13px 14px; font-size:17px; font-weight:700; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.btn.warn{background:var(--warn); border-color:var(--warn); color:#fff}
+.esito{display:none; border:2px solid var(--accent-line); background:var(--accent-soft); border-radius:14px; padding:16px; margin:14px 0}
+.esito.on{display:block}
+.esito .voto{font-size:44px; font-weight:800; line-height:1.1; letter-spacing:-.02em}
+.esito .voto.ok{color:var(--ok)} .esito .voto.ko{color:var(--no)}
+.esito .det{font-size:16px; margin-top:6px}
+.esito table{background:#fff; border-collapse:collapse; width:100%; margin:10px 0; font-size:15px}
+.esito td{border:1px solid var(--rule); padding:6px 8px; text-align:left; vertical-align:top; line-height:1.4}
+.esito td.c{text-align:center; white-space:nowrap}
+.esito td.r{color:var(--no); font-size:14px}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Inglese · simulazione</div>
+  <h1>Verifica Unit 7 e Beowulf — simulazione</h1>
+  <p class="lead">Come domani: tieni accanto la <b>mappa concettuale</b> e rispondi con calma, <b>non c'è tempo limite</b>. Le risposte restano salvate anche se chiudi la pagina. Alla fine tocca <b>Consegna</b>: vedrai la correzione e il voto.</p>
+  <div class="vers" id="vers"></div>
+</header>
+
+<div class="esito" id="esitoTop"></div>
+<div id="exam"></div>
+
+<div class="bottom">
+  <div class="prog" id="prog"></div>
+  <button class="btn solid" id="consegna" onclick="consegna()">Consegna</button>
+  <div class="esito" id="esito"></div>
+  <button class="btn" id="ricomincia" onclick="ricomincia()" style="display:none">Ricomincia questa versione</button>
+  <button class="btn" id="altra" onclick="altra()" style="display:none"></button>
+</div>
+
+<p class="foot">Palestra · Inglese — simulazione della verifica</p>
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* ═══════════ forme degli aggettivi ═══════════
+   regola: 0 una sillaba · 1 raddoppia · 2 in -e · 3 in -y · 4 due forme · 5 more · 6 irregolare */
+const FORMS = {
+ tall:[0,"taller","the tallest"], small:[0,"smaller","the smallest"], cheap:[0,"cheaper","the cheapest"], high:[0,"higher","the highest"],
+ long:[0,"longer","the longest"], cold:[0,"colder","the coldest"], light:[0,"lighter","the lightest"], shy:[0,"shyer","the shyest"],
+ big:[1,"bigger","the biggest"], hot:[1,"hotter","the hottest"], thin:[1,"thinner","the thinnest"], wet:[1,"wetter","the wettest"],
+ nice:[2,"nicer","the nicest"], safe:[2,"safer","the safest"], large:[2,"larger","the largest"], brave:[2,"braver","the bravest"],
+ busy:[3,"busier","the busiest"], lazy:[3,"lazier","the laziest"], happy:[3,"happier","the happiest"], easy:[3,"easier","the easiest"],
+ friendly:[3,"friendlier","the friendliest"], early:[3,"earlier","the earliest"],
+ simple:[4,"simpler|more simple","the simplest|the most simple"], clever:[4,"cleverer|more clever","the cleverest|the most clever"],
+ quiet:[4,"quieter|more quiet","the quietest|the most quiet"],
+ expensive:[5,"more expensive","the most expensive"], interesting:[5,"more interesting","the most interesting"],
+ difficult:[5,"more difficult","the most difficult"], comfortable:[5,"more comfortable","the most comfortable"],
+ confident:[5,"more confident","the most confident"], generous:[5,"more generous","the most generous"],
+ beautiful:[5,"more beautiful","the most beautiful"], boring:[5,"more boring","the most boring"], active:[5,"more active","the most active"],
+ splendid:[5,"more splendid","the most splendid"], slowly:[5,"more slowly","the most slowly"], powerful:[5,"more powerful","the most powerful"],
+ fast:[0,"faster","the fastest"], hungry:[3,"hungrier","the hungriest"], pretty:[3,"prettier","the prettiest"], moody:[3,"moodier","the moodiest"],
+ narrow:[4,"narrower|more narrow","the narrowest|the most narrow"], nervous:[5,"more nervous","the most nervous"], anxious:[5,"more anxious","the most anxious"],
+ strangely:[5,"more strangely","the most strangely"],
+ carefully:[5,"more carefully","the most carefully"], young:[0,"younger","the youngest"], heavy:[3,"heavier","the heaviest"],
+ good:[6,"better","the best"], bad:[6,"worse","the worst"], far:[6,"farther|further","the farthest|the furthest"], well:[6,"better","the best"]
+};
+function lev(a,b){
+  const m = a.length, n = b.length; if(Math.abs(m-n)>2) return 9;
+  let p = []; for(let j=0;j<=n;j++) p[j] = j;
+  for(let i=1;i<=m;i++){ const c = [i]; for(let j=1;j<=n;j++) c[j] = Math.min(p[j]+1, c[j-1]+1, p[j-1]+(a[i-1]===b[j-1]?0:1)); p = c; }
+  return p[n];
+}
+function norm(s){ return String(s).toLowerCase().replace(/[’`]/g,"'").replace(/[.!?]+$/,"").replace(/\s+/g," ").trim(); }
+function parts(a){ return a.split(/\s*(?:\/|,|\bor\b)\s*/).map(x=>x.trim()).filter(Boolean); }
+/* spiegazione mirata per un comparativo / superlativo sbagliato */
+function diagnose(base, want, a){
+  const F = FORMS[base]; if(!F) return null;
+  const rule = F[0], comps = F[1].split("|"), sups = F[2].split("|");
+  const strip = x=>x.replace(/^the /,"");
+  const suf = want==="s" ? "est" : "er", more = want==="s" ? "the most" : "more";
+  if(want==="s"){
+    if(sups.map(strip).indexOf(a)>=0) return "Manca <b>the</b>: il superlativo vuole the davanti.";
+    if(comps.indexOf(a)>=0 || comps.indexOf(a.replace(/^the /,""))>=0) return "Questo è il comparativo (più… di). Qui serve il superlativo, il più…: "+sups[0]+".";
+  }else{
+    if(base==="bad" && a==="worst") return "<b>worst</b> è il superlativo (il peggiore). Peggiore di = <b>worse</b> than.";
+    if(sups.indexOf(a)>=0 || sups.map(strip).indexOf(a)>=0) return "Questo è il superlativo (il più…). Qui c'è <b>than</b>: serve il comparativo.";
+    if(/\bthen\b/.test(a)) return "Then vuol dire poi. Nel confronto si usa than.";
+    if(/^less /.test(a)) return "Qui serve più… di: -er oppure more, non less.";
+  }
+  const w = want==="s" ? strip(a) : a;
+  if(/^(more|most) \S+(er|est)$/.test(w)) return "Mai more (o most) insieme a -er (o -est): o l'uno o l'altro.";
+  if(rule===6){
+    if(base==="bad" && want==="c" && a==="worst") return "<b>worst</b> è il superlativo (il peggiore). Peggiore di = <b>worse</b> than.";
+    if(base==="bad" && want==="s" && w==="worse") return "worse è il comparativo. Il peggiore = the worst.";
+    return "<b>"+base+"</b> è irregolare: "+base+" → "+F[1].replace("|"," / ")+" → "+F[2].replace("|"," / ")+".";
+  }
+  const stem = base.replace(/(y|e)$/,"");
+  if(rule===5 && /ly$/.test(base) && (w===base+suf || w===stem+"i"+suf)) return "<b>"+base+"</b> è un avverbio in -ly: si usa "+more+" davanti.";
+  if(rule===5 && (w===base+suf || w===stem+suf || w===stem+"i"+suf)) return "<b>"+base+"</b> è lungo: si usa "+more+" davanti, e l'aggettivo non cambia.";
+  if(rule===5 && want==="s" && w==="more "+base) return "Nel superlativo si usa <b>the most</b>, non more.";
+  if(rule===5 && want==="c" && (w==="most "+base || w==="the most "+base)) return "the most è il superlativo. Più… di = <b>more</b> "+base+".";
+  if(rule===3 && (w==="more "+base || w==="most "+base)) return "<b>"+base+"</b>: due sillabe in -y. La y diventa i e si aggiunge -"+suf+" ("+base.slice(0,-1)+"i"+suf+"), niente "+(want==="s"?"most":"more")+".";
+  if(rule<=2 && (w==="more "+base || w==="most "+base)) return "<b>"+base+"</b> è corto: si aggiunge -"+suf+", niente "+(want==="s"?"most":"more")+".";
+  if(rule===1 && w===base+suf) return "Una vocale + una consonante in fondo: raddoppia la "+base.slice(-1)+".";
+  if(rule===3 && w===base+suf) return "La y diventa i: "+base.slice(0,-1)+"i"+suf+".";
+  if(rule===2 && (w===base+suf || w===base+"e"+suf.slice(1))) return "<b>"+base+"</b> finisce già in -e: aggiungi solo -"+suf.slice(1)+".";
+  if(rule===0 && w===base+base.slice(-1)+suf) return "Qui non si raddoppia: si raddoppia solo con una vocale sola + una consonante.";
+  const acc = (want==="s" ? sups : comps).map(strip);
+  if(acc.some(z=>lev(strip(w),z)<=1)) return "Quasi: controlla bene le lettere.";
+  if(w.indexOf(stem)<0) return "Usa la parola tra parentesi: <b>"+base+"</b>.";
+  return null;
+}
+
+/* ═══════════ le due versioni ═══════════ */
+const PREP = ["of","with","about","for"];
+const VER = [
+{ /* ─────────── VERSIONE 1 ─────────── */
+ E1:{box:["bossy","creative","generous","honest","lazy","nervous","reliable","sensible","sensitive","shy"], items:[
+  ["Ben always tells his friends what to do. He's very ___.","bossy","Dà sempre ordini: bossy."],
+  ["Anna never tells lies. She's ___.","honest","Non dice bugie: honest."],
+  ["Tom gives his sweets to everybody. He's ___.","generous","Dà le sue cose agli altri: generous."],
+  ["Sophie cries when she reads a sad story. She's very ___.","sensitive","Si commuove: sensitive, sensibile.",{sensible:"Sensible vuol dire giudizioso. Sensibile si dice sensitive."}],
+  ["My dad always thinks before he acts and never does anything dangerous. He's ___.","sensible","Ha buon senso: sensible.",{sensitive:"Sensitive vuol dire sensibile. Con buon senso si dice sensible."}],
+  ["Luca hates speaking in front of the class. He's ___.","shy","Timido: shy."],
+  ["I've got a test tomorrow and I can't sleep. I'm ___.","nervous","Agitato per una cosa precisa: nervous."],
+  ["You can always count on Maria: she's very ___.","reliable","Puoi contare su di lei: reliable."]]},
+ E2:{adj:["afraid","ashamed","cross","excited","grateful","proud","sorry"], items:[
+  ["My sister is ___ ___ spiders: she screams when she sees one.",[["afraid","of"]],"afraid of: avere paura di."],
+  ["We're really ___ ___ the school trip to London!",[["excited","about"]],"excited about: emozionati per."],
+  ["You won the race! We're all very ___ ___ you!",[["proud","of"]],"proud of: orgogliosi di."],
+  ["I'm really ___ ___ your help. Thank you!",[["grateful","for"]],"grateful for: grato per."],
+  ["Mum is ___ ___ me because I came home late.",[["cross","with"]],"cross with: arrabbiata con una persona."]]},
+ E3:[["My brother is","tall","than me.","c"],["This exercise is","easy","than the last one.","c"],["Gold is","expensive","than silver.","c"],
+     ["Today is","hot","than yesterday.","c"],["My marks are","bad","than my sister's.","c"],["Tom drives","carefully","than his father.","c"],
+     ["Russia is","large","country in the world.","s"],["She's","good","student in our class.","s"],["This is","interesting","book of all.","s"],
+     ["Hrothgar's hall was","big","hall in Denmark.","s"]],
+ E4:[["I have ___ friends than my brother.",["fewer","less","the fewest"],0,"Gli amici si contano: fewer.",{1:"Friends si contano: fewer.",2:"C'è than: basta fewer, senza the."}],
+     ["There is ___ milk in the fridge than yesterday.",["fewer","as many","less"],2,"Il latte non si conta: less.",{0:"Milk non si conta: less."}],
+     ["This film is ___ interesting than the book.",["as","less","fewer"],1,"Davanti a un aggettivo + than: less.",{0:"As va con as, non con than.",2:"Fewer va solo davanti a un nome plurale."}],
+     ["Lucy is as old ___ Paul.",["than","that","as"],2,"as … as.",{0:"As va con as, non con than."}],
+     ["I didn't eat ___ chips as you.",["as much","as many","fewer"],1,"Le patatine si contano: as many.",{0:"Chips si contano: as many."}],
+     ["Frank doesn't work ___ as Ken.",["as much","less","as many"],0,"Dopo un verbo: as much as.",{2:"Dopo un verbo si usa as much."}]],
+ E5:[[["My sister is older than me.","My sister is more older than me.","My sister is older then me."],0,"older than.",{1:"Mai more insieme a -er.",2:"Then vuol dire poi. Nel confronto: than."}],
+     [["He is tallest boy in the class.","He is the tallest boy in the class.","He is the tallest boy of the class."],1,"the tallest + in the class.",{0:"Manca the: the tallest.",2:"La classe è un luogo: in the class."}],
+     [["This test isn't as difficult than the last one.","This test isn't as more difficult as the last one.","This test isn't as difficult as the last one."],2,"not as difficult as.",{0:"As va con as, non con than.",1:"Dopo as l'aggettivo non cambia: as difficult as."}],
+     [["Cats lazier than dogs.","Cats are lazier than dogs.","Cats is lazier than dogs."],1,"Serve il verbo, al plurale: cats are.",{0:"Manca il verbo: are.",2:"Cats è plurale: are."}]],
+ E6:{box:["bat","bee","feather","flash","gold","mule","post"], items:[
+  ["Tom finished his homework in two minutes. He was as quick as a ___.","flash","as quick as a flash"],
+  ["I can't see anything without my glasses. I'm as blind as a ___.","bat","as blind as a bat"],
+  ["My little brother never behaves badly. He's as good as ___.","gold","as good as gold"],
+  ["This bag weighs nothing. It's as light as a ___.","feather","as light as a feather"],
+  ["Frank never changes his mind. He's as obstinate as a ___.","mule","as obstinate as a mule"]]},
+ E7:[["After the Romans left Britain, the Celts governed the country on their own.",false,"The Celts could not govern the country on their own."],
+     ["The Anglo-Saxons came from north Germany and Denmark.",true,"Yes."],
+     ["The Celts kept their language and culture in Wales and Cornwall.",true,"Yes."],
+     ["When Augustine arrived, pagan ideas disappeared immediately.",false,"Pagan ideas did not disappear completely."],
+     ["Alfred the Great was the only king who resisted the Vikings.",true,"Yes, he was king of Wessex."],
+     ["The Normans were Anglo-Saxons.",false,"The Normans were descended from the Vikings."]],
+ E8:{box:["1066","alliteration","Angles","Old","oral","rhyme","scop","Vikings"], items:[
+  ["Beowulf is the longest poem in ___ English.","Old","Old English: inglese antico."],
+  ["At first Beowulf was ___ poetry, told from poet to poet.","oral","oral poetry: poesia raccontata a voce."],
+  ["The Anglo-Saxon poet was called a ___.","scop","scop: il poeta che cantava."],
+  ["The most important element of style in Beowulf is ___.","alliteration","alliteration, non rhyme: la rima arriva dopo il 1066."],
+  ["The word 'English' comes from the ___.","Angles","English viene dagli Angles."],
+  ["The Battle of Hastings was in ___.","1066","1066: arrivano i Normanni."]]}
+},
+{ /* ─────────── VERSIONE 2 ─────────── */
+ E1:{box:["bossy","cheerful","confident","generous","honest","lazy","polite","sensible","sensitive","shy"], items:[
+  ["Jack is always happy and smiling. He's ___.","cheerful","Sempre di buon umore: cheerful."],
+  ["My cousin never helps at home: he stays on the sofa all day. He's ___.","lazy","Pigro: lazy."],
+  ["Emma always says 'please' and 'thank you'. She's very ___.","polite","Educata: polite."],
+  ["Paul understands how his friends feel. He's very ___.","sensitive","Capisce i sentimenti: sensitive.",{sensible:"Sensible vuol dire giudizioso. Sensibile si dice sensitive."}],
+  ["Lucy is sure of herself and isn't afraid to speak in public. She's ___.","confident","Sicura di sé: confident."],
+  ["My little brother always tells everybody what to do. He's ___.","bossy","Dà sempre ordini: bossy."],
+  ["Sam is practical and never does silly things. He's ___.","sensible","Ha buon senso: sensible.",{sensitive:"Sensitive vuol dire sensibile. Con buon senso si dice sensible."}],
+  ["Mia doesn't like meeting new people: she goes red and says nothing. She's ___.","shy","Timida: shy."]]},
+ E2:{adj:["afraid","ashamed","cross","delighted","grateful","hopeful","sorry"], items:[
+  ["Grandma loved her birthday present. She was ___ ___ it.",[["delighted","with"],["grateful","for"]],"delighted with: felicissima di."],
+  ["Our team can win the final! The fans are ___ ___ it.",[["hopeful","about"]],"hopeful about: fiduciosi."],
+  ["I broke your phone. I'm really ___ ___ it.",[["sorry","about"]],"sorry about: dispiaciuto per."],
+  ["Tom cheated in the test and now he's ___ ___ himself.",[["ashamed","of"]],"ashamed of: si vergogna di."],
+  ["Thank you for the flowers! I'm very ___ ___ them.",[["grateful","for"],["delighted","with"]],"grateful for: grato per."]]},
+ E3:[["My sister is","young","than me.","c"],["This bag is","heavy","than yours.","c"],["For me, Maths is","difficult","than English.","c"],
+     ["The weather today is","nice","than yesterday.","c"],["My new phone is","good","than the old one.","c"],["Can you speak","slowly","than that, please?","c"],
+     ["The Nile is","long","river in the world.","s"],["This is","bad","film I have ever seen.","s"],["Lowri is","confident","girl in her class.","s"],
+     ["July is","hot","month of the year.","s"]],
+ E4:[["There were ___ people at the party than last year.",["less","fewer","the fewest"],1,"Le persone si contano: fewer.",{0:"People si contano: fewer.",2:"C'è than: basta fewer, senza the."}],
+     ["I've got ___ time than you this week.",["less","fewer","as many"],0,"Il tempo non si conta: less.",{1:"Time non si conta: less."}],
+     ["My bike is ___ expensive than yours.",["fewer","as","less"],2,"Davanti a un aggettivo + than: less.",{0:"Fewer va solo davanti a un nome plurale.",1:"As va con as, non con than."}],
+     ["Your bag is as heavy ___ mine.",["as","than","of"],0,"as … as.",{1:"As va con as, non con than."}],
+     ["I haven't got ___ books as my brother.",["as much","fewer","as many"],2,"I libri si contano: as many.",{0:"Books si contano: as many."}],
+     ["This is ___ expensive phone in the shop.",["the fewest","the least","less"],1,"Il meno di tutti, davanti a un aggettivo: the least.",{0:"Davanti a un aggettivo non si usa fewest.",2:"C'è in the shop, il meno di tutti: the least."}]],
+ E5:[[["Today is more hotter than yesterday.","Today is hotter that yesterday.","Today is hotter than yesterday."],2,"hotter than.",{0:"Mai more insieme a -er.",1:"Nel confronto: than, non that."}],
+     [["This is the most beautiful place in the world.","This is the beautifullest place in the world.","This is the most beautiful place of the world."],0,"beautiful è lungo: the most beautiful, in the world.",{1:"Beautiful è lungo: the most beautiful.",2:"Il mondo è un luogo: in the world."}],
+     [["My dog isn't as big than yours.","My dog isn't as big as yours.","My dog isn't big as yours."],1,"not as big as.",{0:"As va con as, non con than.",2:"Manca il primo as."}],
+     [["My marks are worst than last year.","My marks are more bad than last year.","My marks are worse than last year."],2,"Peggiore di = worse than.",{0:"Worst è il superlativo (il peggiore).",1:"Bad è irregolare: worse."}]],
+ E6:{box:["bee","feather","flash","gold","mule","post","whistle"], items:[
+  ["Grandpa can't hear anything. He's as deaf as a ___.","post","as deaf as a post"],
+  ["Mum works and studies all day. She's as busy as a ___.","bee","as busy as a bee"],
+  ["After we cleaned it, the kitchen was as clean as a ___.","whistle","as clean as a whistle"],
+  ["The cat ran away as quick as a ___.","flash","as quick as a flash"],
+  ["The children were quiet and calm all day. They were as good as ___.","gold","as good as gold"]]},
+ E7:[["The Roman army left Britain in 410.",true,"Yes."],
+     ["The Anglo-Saxons were just one people.",false,"They were three peoples: Angles, Saxons and Jutes."],
+     ["The Vikings came from France.",false,"They came from Norway and Denmark."],
+     ["Augustine became the first Archbishop of Canterbury.",true,"Yes, in 597."],
+     ["Alfred the Great was king of Wessex.",true,"Yes, from 871 to 899."],
+     ["In 1066 the Anglo-Saxons won the Battle of Hastings.",false,"The Normans won: William defeated Harold."]],
+ E8:{box:["alliteration","loyalty","manuscript","Old","rhyme","Rome","Scandinavia","scop"], items:[
+  ["Beowulf is set in southern ___.","Scandinavia","southern Scandinavia."],
+  ["The main values of the poem are ___ and revenge.","loyalty","loyalty and revenge."],
+  ["The ___ of Beowulf was written around the year 1000.","manuscript","manuscript: il libro scritto a mano, c. 1000."],
+  ["Beowulf is written in ___ English.","Old","Old English."],
+  ["The same consonant sounds at the beginning of near words: this is ___.","alliteration","alliteration, non rhyme."],
+  ["The Anglo-Saxon poet who sang poems was called a ___.","scop","scop."]]}
+}
+];
+
+const SEZ = [
+ {k:"E1", t:"Exercise 1 · Personality", ins:"Complete the sentences with the words in the box. There are two extra words.", it:"Completa con le parole del riquadro. Due parole non servono.", nome:"Il carattere", rip:"Unit 7 → Il carattere, Attenzione: parole che ingannano"},
+ {k:"E2", t:"Exercise 2 · Feelings", ins:"Choose the adjective and the preposition. Use each adjective once. There are two extra adjectives.", it:"Scegli aggettivo e preposizione. Due aggettivi non servono. Mezzo punto ciascuno.", nome:"Emozioni + preposizione", rip:"Unit 7 → Le emozioni"},
+ {k:"E3", t:"Exercise 3 · Comparatives and superlatives", ins:"Complete with the comparative or the superlative of the word in brackets.", it:"C'è than? Comparativo. Non c'è? Superlativo, con the.", nome:"Comparativi e superlativi", rip:"Unit 7 → Le regole in una carta, La macchina"},
+ {k:"E4", t:"Exercise 4 · Less, fewer, as … as", ins:"Choose the correct option.", it:"Scegli l'opzione giusta.", nome:"less, fewer, as … as", rip:"Unit 7 → Meno di, tanto quanto"},
+ {k:"E5", t:"Exercise 5 · Correct sentences", ins:"Which sentence is correct?", it:"Due frasi hanno un errore: trova quella giusta.", nome:"Frase giusta", rip:"Unit 7 → Quattro errori da non fare"},
+ {k:"E6", t:"Exercise 6 · Expressions", ins:"Complete the expressions with the words in the box. There are two extra words.", it:"Le espressioni di p. 195. Due parole non servono.", nome:"Espressioni di p. 195", rip:"Unit 7 → Le espressioni"},
+ {k:"E7", t:"Exercise 7 · Beowulf: historical background", ins:"True or false?", it:"Vero o falso?", nome:"Beowulf: storia", rip:"Beowulf → Il contesto storico"},
+ {k:"E8", t:"Exercise 8 · Beowulf: the poem", ins:"Complete with the words in the box. There are two extra words.", it:"Completa con le parole del riquadro. Due parole non servono.", nome:"Beowulf: il poema", rip:"Beowulf → Il contesto culturale"}
+];
+function npt(V,k){ const x = V[k]; return Array.isArray(x) ? x.length : x.items.length; }
+
+/* ═══════════ stato ═══════════ */
+let ver = 0, S = null, armed = false;
+function key(v){ return "ing-sim-u7-"+(v+1); }
+function load(v){
+  try{ const t = localStorage.getItem(key(v)); if(t){ const o = JSON.parse(t); if(o && o.v && o.p) return o; } }catch(e){}
+  return {v:{}, p:{}, done:false, voto:null};
+}
+function save(){ try{ localStorage.setItem(key(ver), JSON.stringify(S)); }catch(e){} }
+
+/* ═══════════ disegno ═══════════ */
+function sel(id, list){
+  return '<select id="'+id+'" onchange="tieni(this)" aria-label="scegli"><option value="">…</option>'+list.map(w=>'<option value="'+esc(w)+'">'+esc(w)+'</option>').join("")+'</select>';
+}
+function tin(id){ return '<input class="tin" id="'+id+'" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" oninput="tieni(this)" aria-label="risposta">'; }
+function gap(q, html){ return q.replace("___", html); }
+function render(){
+  const V = VER[ver]; let h = "";
+  SEZ.forEach((Z,s)=>{
+    const n = npt(V,Z.k);
+    h += '<div class="card" id="c'+Z.k+'"><div class="qnum">'+Z.t+' <span class="pt" id="pt'+Z.k+'">· '+n+' punti</span></div>'
+       + '<p class="ins">'+Z.ins+'</p><p class="sub">'+Z.it+'</p>';
+    const X = V[Z.k];
+    if(X.box) h += '<div class="box">'+X.box.join(" · ")+'</div>';
+    if(Z.k==="E2") h += '<div class="box">'+X.adj.join(" · ")+'<br>'+PREP.join(" · ")+'</div>';
+    h += '<div class="rows">';
+    const items = Array.isArray(X) ? X : X.items;
+    items.forEach((r,i)=>{
+      const id = Z.k+"_"+i;
+      h += '<div class="row" id="r'+id+'"><div class="op"><span class="n">'+(i+1)+'.</span>';
+      if(Z.k==="E1" || Z.k==="E6" || Z.k==="E8") h += gap(r[0], sel(id, X.box));
+      else if(Z.k==="E2") h += r[0].replace("___ ___", sel(id+"a", X.adj)+" "+sel(id+"p", PREP));
+      else if(Z.k==="E3") h += r[0]+' '+tin(id)+' <span class="base">('+r[1]+')</span> '+r[2];
+      else if(Z.k==="E4") h += r[0].replace("___","<b>_____</b>");
+      else if(Z.k==="E7") h += r[0];
+      h += '</div>';
+      if(Z.k==="E4" || Z.k==="E5" || Z.k==="E7"){
+        const opts = Z.k==="E7" ? ["true","false"] : (Z.k==="E4" ? r[1] : r[0]);
+        h += '<div class="opts '+(Z.k==="E5"?"c1":(Z.k==="E7"?"c2":""))+'" id="o'+id+'">';
+        opts.forEach((o,k)=>{ h += '<button onclick="scegli(\''+id+'\','+k+')">'+o+'</button>'; });
+        h += '</div>';
+      }
+      h += '<div class="fb" id="f'+id+'"></div></div>';
+    });
+    h += '</div></div>';
+  });
+  $("exam").innerHTML = h;
+  Array.prototype.forEach.call(document.querySelectorAll("#exam select, #exam input"), el=>{ if(S.v[el.id]!=null) el.value = S.v[el.id]; });
+  Object.keys(S.p).forEach(id=>{ const box = $("o"+id); if(box && box.children[S.p[id]]) box.children[S.p[id]].classList.add("sel"); });
+  Array.prototype.forEach.call(document.querySelectorAll("#exam input"), el=>el.addEventListener("keydown", function(e){ if(e.key==="Enter") this.blur(); }));
+  drawVers(); armed = false;
+  $("esito").className = "esito"; $("esitoTop").className = "esito";
+  $("consegna").style.display = ""; $("ricomincia").style.display = "none"; $("altra").style.display = "none";
+  $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna";
+  if(S.done) correggi(false); else prog();
+}
+function drawVers(){
+  let h = "";
+  VER.forEach((v,i)=>{
+    const o = (i===ver) ? S : load(i);
+    h += '<button class="'+(i===ver?'on':'')+'" onclick="vai('+i+')">Versione '+(i+1)+'<small>'+(o.done ? 'consegnata · voto '+votoS(o.voto) : 'da fare')+'</small></button>';
+  });
+  $("vers").innerHTML = h;
+}
+function vai(i){ if(i===ver) return; ver = i; S = load(i); try{ localStorage.setItem("ing-sim-u7-ver", String(i)); }catch(e){} render(); window.scrollTo(0,0); }
+function tieni(el){ if(S.done) return; S.v[el.id] = el.value; save(); prog(); if(armed){ armed = false; $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna"; } }
+function scegli(id,k){
+  if(S.done) return;
+  const box = $("o"+id); Array.prototype.forEach.call(box.children,(b,i)=>b.classList.toggle("sel", i===k));
+  S.p[id] = k; save(); prog();
+  if(armed){ armed = false; $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna"; }
+}
+function filled(id){ return String(S.v[id]||"").trim()!==""; }
+function risposte(){
+  const V = VER[ver]; let n = 0, t = 0;
+  SEZ.forEach(Z=>{
+    const X = V[Z.k], items = Array.isArray(X) ? X : X.items;
+    items.forEach((r,i)=>{
+      const id = Z.k+"_"+i; t++;
+      if(Z.k==="E2"){ if(filled(id+"a") && filled(id+"p")) n++; }
+      else if(Z.k==="E4" || Z.k==="E5" || Z.k==="E7"){ if(S.p[id]!=null) n++; }
+      else if(filled(id)) n++;
+    });
+  });
+  return [n,t];
+}
+function prog(){ const r = risposte(); $("prog").textContent = "Risposte date: "+r[0]+" su "+r[1]; }
+
+/* ═══════════ consegna e correzione ═══════════ */
+function consegna(){
+  const r = risposte(), vuote = r[1]-r[0];
+  if(vuote>0 && !armed){
+    armed = true; $("consegna").className = "btn warn";
+    $("consegna").textContent = (vuote===1 ? "C'è 1 risposta vuota" : "Ci sono "+vuote+" risposte vuote")+": tocca di nuovo per consegnare";
+    return;
+  }
+  S.done = true; correggi(true);
+}
+function fb(id, res, giusta, how){
+  const f = $("f"+id), row = $("r"+id);
+  row.classList.remove("y","n","h");
+  if(res.ok){ f.className = "fb on y"; f.innerHTML = "✓ Giusto"; row.classList.add("y"); return; }
+  let h = res.vuoto ? '<b class="t">— Non hai risposto.</b>' : '<b class="t">✗ '+(res.msg||"Non è giusto.")+'</b>';
+  if(giusta) h += '<div class="giusta">Risposta giusta: '+giusta+'</div>';
+  if(how) h += '<div class="how">'+how+'</div>';
+  f.className = "fb on n"; f.innerHTML = h; row.classList.add(res.half ? "h" : "n");
+}
+function lockSel(id, ok){ const el = $(id); if(!el) return; el.disabled = true; el.classList.remove("sok","sko"); if(String(el.value||"")!=="" || ok===false) el.classList.add(ok ? "sok" : "sko"); }
+function lockOpts(id, ok, k){
+  const box = $("o"+id); box.classList.add("locked");
+  Array.prototype.forEach.call(box.children,(b,i)=>{ b.classList.remove("sel","right","wrong"); if(i===ok) b.classList.add("right"); else if(i===k) b.classList.add("wrong"); });
+}
+function checkTyped(base, want, val){
+  const a = norm(val||"");
+  if(!a) return {vuoto:true};
+  const acc = (want==="s" ? FORMS[base][2] : FORMS[base][1]).split("|").map(norm);
+  const ps = parts(a);
+  if(ps.length && ps.every(p=>acc.indexOf(p)>=0)) return {ok:true};
+  const p0 = ps.find(p=>acc.indexOf(p)<0) || a;
+  let msg = diagnose(base, want, p0);
+  if(!msg && acc.some(z=>lev(a,z)<=1)) msg = "Quasi: controlla bene le lettere.";
+  return {ok:false, msg:msg||"Non è giusto."};
+}
+function correggi(scorri){
+  const V = VER[ver]; let tot = 0, pun = 0; const per = {};
+  SEZ.forEach(Z=>{
+    const X = V[Z.k], items = Array.isArray(X) ? X : X.items; let ps = 0;
+    items.forEach((r,i)=>{
+      const id = Z.k+"_"+i; let res, giusta = null, how = null, pt = 0;
+      if(Z.k==="E1" || Z.k==="E6" || Z.k==="E8"){
+        const v = S.v[id]||"";
+        res = !v ? {vuoto:true} : (v===r[1] ? {ok:true} : {ok:false, msg:(r[3]&&r[3][v]) || "Non è giusto."});
+        giusta = r[1]; how = r[2]; lockSel(id, !!res.ok); if(res.ok) pt = 1;
+      } else if(Z.k==="E2"){
+        const a = S.v[id+"a"]||"", p = S.v[id+"p"]||"";
+        const acc = r[1], full = acc.some(x=>x[0]===a && x[1]===p);
+        const adjOk = acc.some(x=>x[0]===a), prepOk = acc.some(x=>x[1]===p);
+        if(!a && !p) res = {vuoto:true};
+        else if(full){ res = {ok:true}; pt = 1; }
+        else if(adjOk){ res = {ok:false, half:true, msg:"Aggettivo giusto, ma "+a+" vuole "+acc.find(x=>x[0]===a)[1]+"."}; pt = .5; }
+        else if(prepOk && a){ res = {ok:false, half:true, msg:"Preposizione giusta, ma l'aggettivo no."}; pt = .5; }
+        else res = {ok:false, msg:"Né l'aggettivo né la preposizione."};
+        giusta = acc.map(x=>x[0]+" "+x[1]).join(" (oppure ")+(acc.length>1?")":""); how = r[2];
+        const fa = full || adjOk, fp = full || (adjOk ? acc.find(x=>x[0]===a)[1]===p : prepOk);
+        lockSel(id+"a", fa); lockSel(id+"p", fp);
+      } else if(Z.k==="E3"){
+        res = checkTyped(r[1], r[3], S.v[id]);
+        giusta = (r[3]==="s" ? FORMS[r[1]][2] : FORMS[r[1]][1]).replace(/\|/g," / ");
+        const el = $(id); el.readOnly = true; el.classList.add(res.ok ? "sok" : "sko"); if(res.ok) pt = 1;
+      } else if(Z.k==="E4" || Z.k==="E5"){
+        const opts = Z.k==="E4" ? r[1] : r[0], ok = Z.k==="E4" ? r[2] : r[1], tr = Z.k==="E4" ? r[4] : r[3], why = Z.k==="E4" ? r[3] : r[2];
+        const k = S.p[id];
+        res = (k==null) ? {vuoto:true} : (k===ok ? {ok:true} : {ok:false, msg:(tr&&tr[k]) || "Non è giusto."});
+        giusta = opts[ok]; how = why; lockOpts(id, ok, k); if(res.ok) pt = 1;
+      } else if(Z.k==="E7"){
+        const k = S.p[id], ok = r[1] ? 0 : 1;
+        res = (k==null) ? {vuoto:true} : (k===ok ? {ok:true} : {ok:false, msg:"Non è giusto."});
+        giusta = r[1] ? "true" : "false"; how = r[1] ? null : "Correction: "+r[2]; lockOpts(id, ok, k); if(res.ok) pt = 1;
+      }
+      if(res.ok) fb(id, res); else fb(id, res, giusta, how);
+      ps += pt; tot += 1; pun += pt;
+    });
+    per[Z.k] = [ps, items.length];
+    const pe = $("pt"+Z.k); pe.textContent = "· "+fmt(ps)+" su "+items.length; pe.className = "pt"+(ps===items.length?" y":"");
+  });
+  const voto = calcVoto(pun, tot); S.voto = voto; save();
+  let righe = "";
+  SEZ.forEach(Z=>{ const x = per[Z.k]; const debole = x[0]/x[1] < 0.6;
+    righe += '<tr><td>'+Z.nome+(debole ? '<div class="r">Ripassa: '+Z.rip+'</div>' : '')+'</td><td class="c">'+fmt(x[0])+' su '+x[1]+'</td></tr>'; });
+  const suff = voto>=6;
+  const msg = suff ? "Sufficiente. Guarda le risposte in rosso per sistemare gli ultimi errori."
+                   : "Non ancora sufficiente. Ripassa le carte indicate qui sotto, poi prova l'altra versione.";
+  $("esito").innerHTML = '<div class="qnum">Voto indicativo</div><div class="voto '+(suff?'ok':'ko')+'">'+votoS(voto)+'</div>'
+    + '<div class="det"><b>'+fmt(pun)+' punti su '+tot+'</b> · '+msg+'</div><table>'+righe+'</table>'
+    + '<div class="det" style="color:var(--soft);font-size:14px">Voto = punti / '+tot+' × 10, arrotondato al mezzo voto. La prof potrebbe correggere in modo diverso.</div>';
+  $("esito").className = "esito on";
+  $("esitoTop").innerHTML = '<div class="qnum">Verifica consegnata</div><div class="det">Voto indicativo <b>'+votoS(voto)+'</b> · '+fmt(pun)+' punti su '+tot+'. Le correzioni sono sotto ogni risposta; il riepilogo e cosa ripassare sono in fondo.</div>';
+  $("esitoTop").className = "esito on";
+  $("consegna").style.display = "none"; $("ricomincia").style.display = "";
+  const alt = ver===0 ? 1 : 0; $("altra").style.display = ""; $("altra").textContent = "Vai alla versione "+(alt+1);
+  $("prog").textContent = ""; drawVers();
+  if(scorri){ const e = $("esitoTop"); if(e.scrollIntoView) e.scrollIntoView({behavior:"smooth", block:"start"}); }
+}
+function fmt(x){ const i = Math.floor(x); return x===i ? String(i) : (i ? i+"½" : "½"); }
+function calcVoto(p,t){ const v = Math.round(p/t*10*2)/2; return Math.max(2, v); }
+function votoS(v){ if(v==null) return "–"; const i = Math.floor(v); return v===i ? String(i) : i+"½"; }
+function ricomincia(){ S = {v:{}, p:{}, done:false, voto:null}; save(); render(); window.scrollTo(0,0); }
+function altra(){ vai(ver===0 ? 1 : 0); }
+
+(function(){
+  let k = 0; try{ k = parseInt(localStorage.getItem("ing-sim-u7-ver")||"0",10)||0; }catch(e){}
+  ver = Math.max(0, Math.min(VER.length-1, k)); S = load(ver); render();
+})();
+</script>
+</body>
+</html>
