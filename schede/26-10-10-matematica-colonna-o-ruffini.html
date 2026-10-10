@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matematica — Colonna o Ruffini?</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#B06A08; --accent-soft:#FBEEDA; --accent-line:#F0D3A8;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --blu:#1D5FA8; --blu-soft:#E6EEF9;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif; font-size:18px; line-height:1.7; padding:0 0 env(safe-area-inset-bottom)}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+button{font:inherit; cursor:pointer}
+.mx{font-family:"Times New Roman",Georgia,serif; font-size:1.12em}
+.mx.nw{white-space:nowrap}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qnum{flex:1; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:0 9px; font-size:17px; line-height:1.6}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.card p{margin:8px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:10px 14px; margin:10px 0; font-size:16px; line-height:1.55}
+.trap b{color:var(--warn)}
+
+/* la regola: tre caselle */
+.dec{display:flex; flex-direction:column; gap:10px; margin:10px 0}
+.dbox{border-radius:12px; padding:10px 14px; border-left:6px solid}
+.dbox .dq{font-size:15px; font-weight:700; color:var(--soft)}
+.dbox .da{font-size:21px; font-weight:800; line-height:1.3; margin:2px 0}
+.dbox .de{font-size:16px}
+.dbox.c1{background:var(--blu-soft); border-color:var(--blu)} .dbox.c1 .da{color:var(--blu)}
+.dbox.c2{background:var(--accent-soft); border-color:var(--accent)} .dbox.c2 .da{color:var(--accent)}
+.dbox.c3{background:var(--ok-soft); border-color:var(--ok)} .dbox.c3 .da{color:var(--ok)}
+
+/* tabelle */
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+table.dv, table.rf{border-collapse:collapse; width:auto; margin:6px auto; font-family:"Times New Roman",Georgia,serif; font-size:18px}
+table.dv td{border:none; padding:3px 5px; text-align:center; white-space:nowrap; line-height:1.35}
+table.dv td.r0{border-bottom:2px solid var(--ink)}
+table.dv tr.dr-s td.t{border-bottom:2px solid var(--ink)}
+table.dv td.rt{border-left:2px solid var(--ink); text-align:left; padding-left:8px}
+table.dv td.dvs{border-bottom:2px solid var(--ink)}
+table.dv td.dq{color:var(--accent); font-weight:700}
+table.rf td{border:none; min-width:38px; height:36px; padding:2px 6px; text-align:center}
+table.rf td.cc{border-right:2px solid var(--ink); color:var(--accent); font-weight:700}
+table.rf td.lr{border-left:2px solid var(--ink)}
+table.rf tr.m td{border-bottom:2px solid var(--ink)}
+table.rf tr.b td{font-weight:700}
+.two{display:grid; grid-template-columns:minmax(0,1fr); gap:10px}
+.side{border:2px solid var(--rule); border-radius:12px; padding:8px 8px 10px}
+.side.cb{border-color:#B9CDE8} .side.rb{border-color:var(--accent-line)}
+.side .sl{font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; text-align:center}
+.side.cb .sl{color:var(--blu)} .side.rb .sl{color:var(--accent)}
+.side .res{text-align:center; font-size:16px; margin-top:4px}
+table.cmp{border-collapse:collapse; width:100%; font-size:15px; margin:10px 0}
+table.cmp th, table.cmp td{border:1px solid var(--rule); padding:6px 7px; text-align:left; vertical-align:top; line-height:1.45}
+table.cmp th{font-size:13px; letter-spacing:.06em; text-transform:uppercase}
+table.cmp th.c1{background:var(--blu-soft); color:var(--blu)} table.cmp th.c2{background:var(--accent-soft); color:var(--accent)}
+table.cmp td.k{font-weight:700; color:var(--soft); font-size:14px}
+.qmark{display:inline-block; width:38px; height:36px; line-height:36px; border-radius:8px; background:#FBEAEA; color:var(--no); font-weight:800}
+
+/* scelte */
+.opts{display:grid; gap:7px; margin-top:8px}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{min-width:0; border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 4px; font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.3}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+.why{display:none; font-size:15.5px; color:var(--soft); margin:6px 0 2px; line-height:1.5}
+.why.on{display:block}
+.rows .row{border-top:1px solid var(--rule); padding:12px 0 8px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:17px; font-weight:600; line-height:1.5}
+.op .mx{font-size:20px; font-weight:400}
+.score{font-size:15px; color:var(--soft); margin-top:10px; font-weight:600}
+.btn{display:block; width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:11px; font-size:16px; font-weight:700; margin-top:10px}
+.redo{display:none}
+.sol{display:none; margin-top:8px}
+.sol.on{display:block}
+.okb{background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:10px 14px; margin:10px 0; font-size:16.5px; line-height:1.55}
+.okb .mx{font-size:1.15em}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:34px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (max-width:400px){ .opts.three button{font-size:13px} table.dv{font-size:16.5px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Matematica · come scegliere</div>
+  <h1>Colonna o Ruffini?</h1>
+  <p class="lead">Ci sono due modi per dividere i polinomi. Quale usare lo decide una cosa sola: <b>il divisore</b>.</p>
+</header>
+
+<!-- 1 · la regola -->
+<div class="card">
+  <div class="qhead"><div class="qnum">La regola: guarda il divisore</div>
+  <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="La regola: guarda il divisore. Se il divisore ha la x alla seconda o di più, come due a alla seconda più tre, usi la divisione in colonna: Ruffini non si può usare. Se il divisore è x meno un numero o x più un numero, come m più tre, usi Ruffini, che è più veloce. Se ti chiedono solo il resto, o solo se è divisibile, basta calcolare p di c: niente tabella.">🔊</button></div>
+  <div class="dec">
+    <div class="dbox c1"><div class="dq">Il divisore ha ${x^2}$ o più?</div><div class="da">→ Divisione in colonna</div><div class="de">es. ${(2a^2 + 3)}$, ${(x^2 + 1)}$, ${(x^3 + 2)}$</div></div>
+    <div class="dbox c2"><div class="dq">Il divisore è ${x - c}$ oppure ${x + c}$?</div><div class="da">→ Ruffini</div><div class="de">es. ${(m + 3)}$, ${(x - 2)}$, ${(t - 2)}$</div></div>
+    <div class="dbox c3"><div class="dq">Ti chiedono <b>solo</b> il resto, o se è divisibile?</div><div class="da">→ Basta ${P(c)}$</div><div class="de">niente tabella: metti lo zero del divisore al posto di x</div></div>
+  </div>
+  <p style="font-size:16px">Con ${x - c}$ anche la colonna funziona: è solo più lunga. Con ${x^2}$ nel divisore, invece, Ruffini <b>non si può usare</b>.</p>
+</div>
+
+<!-- 2 · perché -->
+<div class="card">
+  <div class="qhead"><div class="qnum">Perché con x² Ruffini non va</div>
+  <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Ruffini lavora con un solo numero a sinistra della tabella: lo zero del divisore. Con x meno due il numero è due. Con m più tre il numero è meno tre. Ma con due a alla seconda più tre non c'è un numero da mettere a sinistra: Ruffini non sa da dove cominciare. Per questo si usa la colonna.">🔊</button></div>
+  <p>Ruffini lavora con <b>un solo numero</b> a sinistra della tabella: lo zero del divisore.</p>
+  <p style="font-size:17px;line-height:2.1">${x - 2}$ → ${2}$<br>${m + 3}$ → ${-3}$<br>${2a^2 + 3}$ → <span class="qmark">?</span></p>
+  <p>Con ${2a^2 + 3}$ non c'è un numero da mettere a sinistra: Ruffini non sa da dove cominciare. Si usa la colonna.</p>
+</div>
+
+<!-- 3 · stessa divisione due modi -->
+<div class="card">
+  <div class="qhead"><div class="qnum">Stessa divisione, due modi</div>
+  <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="La stessa divisione fatta in due modi: m alla quarta più tre m al cubo più m meno uno, diviso m più tre. In colonna servono cinque righe. Con Ruffini bastano tre righe di soli numeri. Il risultato è lo stesso: quoziente m al cubo più uno, resto meno quattro. Ruffini è la colonna in versione corta.">🔊</button></div>
+  <span class="f">${(m^4 + 3m^3 + m - 1) : (m + 3)}$</span>
+  <div class="two">
+    <div class="side cb"><div class="sl">In colonna · 5 righe</div><div id="t103c"></div></div>
+    <div class="side rb"><div class="sl">Con Ruffini · 3 righe</div><div id="t103r"></div>
+      <div class="res">1 0 0 1 → ${Q = m^3 + 1}$ · ${R = -4}$</div></div>
+  </div>
+  <p style="font-size:16px">Stesso risultato: ${Q = m^3 + 1}$, ${R = -4}$. Ruffini è la colonna <b>in versione corta</b>. Qui il divisore è ${m + 3}$, quindi Ruffini era la scelta più veloce.</p>
+</div>
+
+<!-- 4 · i segni -->
+<div class="card">
+  <div class="qhead"><div class="qnum">Attento: i segni funzionano al contrario</div>
+  <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Attento ai segni. Nella colonna, la riga che scrivi sotto ha i segni cambiati, e poi sommi. In Ruffini non cambi mai i segni: moltiplichi per c e sommi. Il segno l'hai già cambiato una volta, quando hai scritto lo zero del divisore: m più tre diventa meno tre.">🔊</button></div>
+  <div class="scroll"><table class="cmp">
+    <tr><th></th><th class="c1">Colonna</th><th class="c2">Ruffini</th></tr>
+    <tr><td class="k">Il divisore</td><td>a destra, tutto intero</td><td>a sinistra, solo il suo zero ${c}$</td></tr>
+    <tr><td class="k">I passi</td><td>dividi, moltiplichi, <b>cambi i segni</b>, sommi</td><td>abbassi, moltiplichi per ${c}$, sommi</td></tr>
+    <tr><td class="k">I segni</td><td>sotto li <b>cambi</b></td><td><b>non li cambi mai</b></td></tr>
+    <tr><td class="k">Il quoziente</td><td>già con le lettere</td><td>numeri: un grado in meno</td></tr>
+    <tr><td class="k">Il resto</td><td>quello che avanza alla fine</td><td>l'ultimo numero, oltre la riga</td></tr>
+  </table></div>
+  <div class="trap"><b>Errore tipico:</b> in Ruffini cambiare i segni come nella colonna. Il segno l'hai già cambiato una volta sola, quando hai scritto lo zero: ${m + 3}$ → ${-3}$. Poi si moltiplica e si somma, e basta.</div>
+</div>
+
+<!-- 5 · 2x − 1 -->
+<div class="card">
+  <div class="qhead"><div class="qnum">E se il divisore è 2x − 1?</div>
+  <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="E se il divisore è due x meno uno? Quando scomponi un polinomio cercando gli zeri, usi Ruffini con un mezzo, come in classe. Alla fine, due per x meno un mezzo diventa due x meno uno. Se invece è una divisione normale per due x meno uno, la colonna è la strada sicura.">🔊</button></div>
+  <p><b>Quando scomponi</b> (zeri razionali): Ruffini con ${c = 1/2}$, come in classe. Alla fine ${2(x - 1/2) = 2x - 1}$.</p>
+  <p><b>Quando è una divisione normale</b> per ${2x - 1}$: la colonna è la strada sicura.</p>
+</div>
+
+<!-- 6 · esercizio di scelta -->
+<div class="card blk" id="drill"></div>
+
+<!-- 7 · prova sul quaderno -->
+<div class="card" id="pr1">
+  <div class="qhead"><div class="qnum">Prova sul quaderno · 1</div>
+  <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Prova sul quaderno. Dividi x al cubo meno due x alla seconda più quattro x meno tre per x meno uno. Prima scegli il metodo, poi fai il conto, poi guarda la soluzione.">🔊</button></div>
+  <span class="f">${(x^3 - 2x^2 + 4x - 3) : (x - 1)}$</span>
+  <div class="op" style="font-size:16px">Quale metodo?</div>
+  <div class="opts three" data-ok="1"><button onclick="scegli(this,0)">Colonna</button><button onclick="scegli(this,1)">Ruffini</button><button onclick="scegli(this,2)">Basta P(c)</button></div>
+  <div class="why">Divisore ${x - 1}$: primo grado, lo zero è ${1}$. Ruffini.</div>
+  <button class="btn" onclick="sol('s1',this)">Ho fatto il conto: mostra la soluzione</button>
+  <div class="sol" id="s1"><div id="t1"></div><div class="okb">${Q = x^2 - x + 3}$ · ${R = 0}$</div></div>
+</div>
+
+<div class="card" id="pr2">
+  <div class="qhead"><div class="qnum">Prova sul quaderno · 2</div>
+  <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Prova sul quaderno. Dividi x alla quarta più x al cubo meno due per x alla seconda più uno. Prima scegli il metodo, poi fai il conto, poi guarda la soluzione.">🔊</button></div>
+  <span class="f">${(x^4 + x^3 - 2) : (x^2 + 1)}$</span>
+  <div class="op" style="font-size:16px">Quale metodo?</div>
+  <div class="opts three" data-ok="0"><button onclick="scegli(this,0)">Colonna</button><button onclick="scegli(this,1)">Ruffini</button><button onclick="scegli(this,2)">Basta P(c)</button></div>
+  <div class="why">Il divisore ha ${x^2}$: solo la colonna. Attento ai buchi: ${x^4 + x^3 + 0x^2 + 0x - 2}$ e ${x^2 + 0x + 1}$.</div>
+  <button class="btn" onclick="sol('s2',this)">Ho fatto il conto: mostra la soluzione</button>
+  <div class="sol" id="s2"><div id="t2"></div><div class="okb">${Q = x^2 + x - 1}$ · ${R = -x - 1}$</div></div>
+</div>
+
+<!-- 8 · in breve -->
+<div class="card">
+  <div class="qhead"><div class="qnum">In breve</div>
+  <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="In breve. x alla seconda nel divisore: colonna. x più o meno un numero: Ruffini. Solo il resto, o se è divisibile: p di c.">🔊</button></div>
+  <p style="font-size:19px;line-height:1.8;margin:0">${x^2}$ nel divisore → <b style="color:var(--blu)">colonna</b><br>${x ± numero}$ → <b style="color:var(--accent)">Ruffini</b><br>solo il resto o «è divisibile?» → <b style="color:var(--ok)">${P(c)}$</b></p>
+</div>
+
+<p class="foot">Gli esempi vengono dal quaderno: ES 76 (divisore ${2a^2 + 3}$) e ES 103 (divisore ${m + 3}$).</p>
+</div>
+
+<script>
+function M(s){
+  s = String(s).replace(/-/g,"−").replace(/\*/g,"·");
+  return s.replace(/\^\{([^}]*)\}/g,"<sup>$1</sup>").replace(/\^([0-9]+|[a-zA-Z])/g,"<sup>$1</sup>");
+}
+function X(s){ const short = String(s).replace(/\^\{[^}]*\}|\^/g,"").length <= 16; return '<span class="mx'+(short?' nw':'')+'">'+M(s)+'</span>'; }
+function TX(s){ return String(s).replace(/\$([^$]+)\$/g,(m,a)=>X(a)); }
+function $(id){ return document.getElementById(id); }
+function fmt(n){ return n<0 ? "−"+(-n) : String(n); }
+function shuf(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+/* la matematica scritta nella pagina: ${...}$ */
+(function(){ const W = document.querySelector(".wrap"); W.innerHTML = W.innerHTML.replace(/\$\{([^}]*)\}\$/g,(m,a)=>X(a)); })();
+
+function divTable(D){
+  let h = '<div class="scroll"><table class="dv">';
+  D.rows.forEach((r,i)=>{
+    h += '<tr class="dr-'+r.k+'">';
+    r.c.forEach(c=>{ h += '<td class="t'+(i===0?' r0':'')+'">'+(c ? M(c) : '')+'</td>'; });
+    if(i===0) h += '<td class="rt dvs">'+M(D.dv)+'</td>';
+    else if(i===1) h += '<td class="rt dq">'+M(D.q)+'</td>';
+    else h += '<td class="rt"></td>';
+    h += '</tr>';
+  });
+  return h + '</table></div>';
+}
+function rfStatic(cs, c, clab){
+  const n = cs.length, mid = [], bot = [cs[0]];
+  for(let i=1;i<n;i++){ mid[i] = bot[i-1]*c; bot[i] = cs[i] + mid[i]; }
+  const lr = i => (i===n-1 ? ' class="lr"' : '');
+  let h = '<div class="scroll"><table class="rf"><tr><td class="cc"></td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+fmt(cs[i])+'</td>';
+  h += '</tr><tr class="m"><td class="cc">'+(clab || fmt(c))+'</td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+(i>0 ? fmt(mid[i]) : '')+'</td>';
+  h += '</tr><tr class="b"><td class="cc"></td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+fmt(bot[i])+'</td>';
+  return h + '</tr></table></div>';
+}
+
+$("t103c").innerHTML = divTable({dv:"m + 3", q:"m^3 + 1", rows:[
+  {k:"d", c:["m^4","+ 3m^3","+ 0m^2","+ m","- 1"]},
+  {k:"s", c:["- m^4","- 3m^3","","",""]},
+  {k:"r", c:["//","//","+ 0m^2","+ m","- 1"]},
+  {k:"s", c:["","","","- m","- 3"]},
+  {k:"r", c:["","","","//","- 4"]}]});
+$("t103r").innerHTML = rfStatic([1,3,0,1,-1], -3);
+$("t1").innerHTML = rfStatic([1,-2,4,-3], 1);
+$("t2").innerHTML = divTable({dv:"x^2 + 1", q:"x^2 + x - 1", rows:[
+  {k:"d", c:["x^4","+ x^3","+ 0x^2","+ 0x","- 2"]},
+  {k:"s", c:["- x^4","","- x^2","",""]},
+  {k:"r", c:["//","+ x^3","- x^2","+ 0x","- 2"]},
+  {k:"s", c:["","- x^3","","- x",""]},
+  {k:"r", c:["","//","- x^2","- x","- 2"]},
+  {k:"s", c:["","","+ x^2","","+ 1"]},
+  {k:"r", c:["","","//","- x","- 1"]}]});
+
+/* ═══════ esercizio di scelta ═══════ */
+const DRILL = {id:"drill", t:"Che cosa usi?",
+ say:"Che cosa usi? Per ogni riga guarda il divisore, oppure che cosa ti chiedono. Scegli tra divisione in colonna, Ruffini, oppure basta p di c.",
+ o:["Colonna","Ruffini","Basta P(c)"],
+ rows:[
+  ["$(2a^4 - 3a^3 + 3a^2 - 1) : (2a^2 + 3)$", 0, "Il divisore ha $a^2$: Ruffini non si può usare."],
+  ["$(m^4 + 3m^3 + m - 1) : (m + 3)$", 1, "Divisore $m + 3$, lo zero è $-3$. Anche la colonna va bene, ma è più lunga."],
+  ["$(x^5 - 1) : (x^3 + 2)$", 0, "Il divisore ha $x^3$."],
+  ["$(2x^3 - 3x^2 + x - 5) : (x - 2)$", 1, "Divisore $x - 2$: Ruffini con $c = 2$."],
+  ["Il resto di $(x^3 + 2x - 1) : (x + 1)$, senza fare la divisione", 2, "Ti chiedono solo il resto: $R = P(-1) = -1 - 2 - 1 = -4$."],
+  ["$(x^4 + 5) : (x^2 - 2)$", 0, "Il divisore ha $x^2$."],
+  ["$x^3 - 8$ è divisibile per $(x - 2)$?", 2, "Basta vedere se $P(2) = 0$: $8 - 8 = 0$, sì."],
+  ["$(a^3 + 1) : (a + 1)$", 1, "Divisore $a + 1$: Ruffini con $c = -1$."],
+  ["Scomponi $x^3 - 2x^2 - 5x + 6$ (uno zero è $1$)", 1, "Per scomporre: trovi lo zero, poi dividi con Ruffini per $(x - 1)$."],
+  ["$(x^3 - 7x + 5) : (x^2 + 2x - 1)$", 0, "Il divisore ha $x^2$."],
+  ["Trova $k$ perché $x^3 + kx - 6$ sia divisibile per $(x - 1)$", 2, "Divisibile vuol dire $P(1) = 0$: $1 + k - 6 = 0$, quindi $k = 5$. Nessuna tabella."],
+  ["Scomponi $20x^3 - 8x^2 - 5x + 2$ (uno zero è $1/2$)", 1, "Ruffini con $c = 1/2$, come in classe. Alla fine $2(x - 1/2) = 2x - 1$."],
+  ["$(t^4 - t^3 - 2t^2 - 2t + 4) : (t - 2)$", 1, "Divisore $t - 2$: Ruffini con $c = 2$."]
+ ]};
+function buildDrill(mescola){
+  const b = DRILL, rows = mescola ? shuf(b.rows) : b.rows;
+  let h = '<div class="qhead"><div class="qnum">'+b.t+'</div><button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+b.say+'">🔊</button></div><div class="rows">';
+  rows.forEach(r=>{
+    h += '<div class="row"><div class="op">'+TX(r[0])+'</div><div class="opts three" data-ok="'+r[1]+'">';
+    b.o.forEach((o,k)=>{ h += '<button onclick="scegli(this,'+k+')">'+o+'</button>'; });
+    h += '</div><div class="why">'+TX(r[2])+'</div></div>';
+  });
+  h += '</div><div class="score" id="scoredrill"></div><button class="btn redo" id="redodrill" onclick="buildDrill(true)">Rifai mescolato</button>';
+  $("drill").innerHTML = h; punti();
+}
+function scegli(btn,k){
+  const box = btn.parentNode;
+  if(box.getAttribute("data-done")!==null) return;
+  const ok = +box.getAttribute("data-ok"), bs = box.querySelectorAll("button"), giusto = (k===ok);
+  btn.className = giusto ? "right" : "wrong";
+  if(!giusto) bs[ok].className = "right";
+  box.setAttribute("data-done", giusto?"1":"0");
+  box.classList.add("locked");
+  const w = box.nextElementSibling; if(w && w.classList.contains("why")) w.classList.add("on");
+  if(box.closest && box.closest("#drill")) punti();
+}
+function punti(){
+  const all = $("drill").querySelectorAll(".opts"); let n = 0, t = 0;
+  all.forEach(o=>{ const v = o.getAttribute("data-done"); if(v!==null){ t++; if(v==="1") n++; } });
+  $("scoredrill").textContent = n+" / "+all.length+(t<all.length ? " (ne mancano "+(all.length-t)+")" : (n===all.length ? " — tutto giusto!" : ""));
+  $("redodrill").style.display = (t===all.length) ? "block" : "none";
+}
+function sol(id,btn){ $(id).classList.add("on"); btn.style.display = "none"; }
+
+/* ═══════ voce ═══════ */
+let voce = null, parlaBtn = null;
+function pickVoice(){ const vs = window.speechSynthesis ? speechSynthesis.getVoices() : []; voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null; }
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute("data-say") || "");
+  u.lang = "it-IT"; u.rate = 0.85; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on");
+  speechSynthesis.speak(u);
+}
+buildDrill(false);
+</script>
+</body>
+</html>
