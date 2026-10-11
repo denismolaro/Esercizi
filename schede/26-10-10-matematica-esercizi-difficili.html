@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matematica — Polinomi: esercizi difficili</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#B06A08; --accent-soft:#FBEEDA; --accent-line:#F0D3A8;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:4px 0 8px}
+.chips a{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:6px 12px;
+  font-size:14px; font-weight:600; color:var(--soft); text-decoration:none}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:18px; line-height:1.6; margin:0 0 10px}
+.mx{font-family:"Times New Roman",Georgia,serif; font-size:1.12em}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:22px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:12px 14px; font-size:17px; font-weight:600; margin-top:12px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.step p{margin:6px 0}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:11px 12px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus{outline:none; border-color:var(--accent)}
+.chk .u{align-self:center; font-size:16px; color:var(--soft); font-weight:600; min-width:30px}
+.chk button{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 16px; font-weight:600; font-size:16px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em; line-height:1.5}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.linkish{background:none; border:none; font-size:15px; color:var(--accent); text-decoration:underline; padding:4px 2px}
+.how{display:none; background:#F4F1EA; border-radius:10px; padding:10px 12px; margin-top:8px; font-size:16px; line-height:1.6}
+.how.on{display:block}
+
+/* scelte */
+.opts{display:grid; gap:7px; margin-top:8px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts.one{grid-template-columns:minmax(0,1fr)}
+.opts button{min-width:0; overflow-wrap:break-word; border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 8px;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.35}
+.opts button .mx{font-size:19px; font-weight:400}
+.opts.one button{text-align:left; padding:10px 14px}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+.why{display:none; font-size:15.5px; color:var(--soft); margin:6px 0 2px; line-height:1.5}
+.why.on{display:block}
+.why .mx{font-size:1.08em}
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:18px; font-weight:600; margin-bottom:6px; line-height:1.5}
+.op .mx{font-size:21px; font-weight:400}
+.score{font-size:15px; color:var(--soft); margin-top:12px; font-weight:600}
+.redo{display:none; margin-top:10px}
+
+/* catene: un passaggio alla volta */
+.work{margin:6px 0 4px}
+.wl{font-family:"Times New Roman",Georgia,serif; font-size:20px; line-height:1.45; border-left:4px solid var(--accent-line); padding:3px 0 3px 12px; margin:6px 0}
+.wl .mk{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif; font-size:14px; font-weight:700; margin-left:6px}
+.wl .mk.y{color:var(--ok)} .wl .mk.n{color:var(--no)}
+.cq{font-size:16.5px; font-weight:700; margin:14px 0 4px; line-height:1.5}
+.cq .mx{font-weight:400}
+.cn{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.opts.mo button{font-family:"Times New Roman",Georgia,serif; font-size:19px; font-weight:400}
+.cont{display:block; width:100%; margin-top:10px; border:2px solid var(--accent); background:var(--accent); color:#fff; border-radius:12px; padding:11px 6px; font-size:16px; font-weight:700}
+.endb{background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:12px 14px; margin-top:12px; font-size:16.5px; line-height:1.6}
+.endb .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700}
+.endb .mx{font-size:1.15em}
+
+/* divisione in colonna */
+table.dv{border-collapse:collapse; width:auto; margin:6px auto 4px; font-family:"Times New Roman",Georgia,serif; font-size:19px}
+table.dv.sm{font-size:16.5px}
+table.dv td{border:none; padding:3px 5px; text-align:center; white-space:nowrap; line-height:1.35}
+table.dv.sm td{padding:3px 3px}
+table.dv td.r0{border-bottom:2px solid var(--ink)}
+table.dv tr.dr-s td.t{border-bottom:2px solid var(--ink)}
+table.dv tr.dr-s td.t.h{border-bottom-color:transparent}
+table.dv td.rt{border-left:2px solid var(--ink); text-align:left; padding-left:8px}
+table.dv td.dvs{border-bottom:2px solid var(--ink)}
+table.dv td.h{color:transparent}
+table.dv tr.hi td.t{background:var(--read)}
+table.dv .qn{background:var(--read); border-radius:4px; padding:0 2px}
+table.dv td.dq{color:var(--accent); font-weight:700}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+
+/* Ruffini da riempire */
+table.rx{border-collapse:collapse; width:auto; margin:8px auto; font-family:"Times New Roman",Georgia,serif; font-size:20px}
+table.rx td{border:none; padding:3px; text-align:center; min-width:44px; height:46px}
+table.rx td.cc{border-right:2px solid var(--ink)}
+table.rx td.lr{border-left:2px solid var(--ink)}
+table.rx tr.m td{border-bottom:2px solid var(--ink)}
+table.rx input{width:44px; font:inherit; font-size:18px; text-align:center; padding:6px 2px; border:2px solid var(--rule); border-radius:9px; background:#fff; color:var(--ink)}
+table.rx input:focus{outline:none; border-color:var(--accent)}
+table.rx input.ok{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+table.rx input.no{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.hide{display:none}
+
+table.tb{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+table.tb th, table.tb td{border:1px solid var(--rule); padding:6px 8px; text-align:left}
+table.tb th{background:var(--accent-soft); font-size:14px}
+table.tb td.c{text-align:center}
+svg{display:block; width:100%; height:auto; margin:10px 0}
+
+/* riepilogo */
+.sum table{border-collapse:collapse; width:100%; font-size:16px; margin:8px 0}
+.sum td{border-top:1px solid var(--rule); padding:7px 4px}
+.sum td.n{text-align:right; font-weight:700; white-space:nowrap}
+.sum tr.low td{color:var(--no)}
+.sum tr.tot td{border-top:2px solid var(--ink); font-weight:700}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (max-width:400px){ .opts.three button{font-size:14px; padding:10px 3px} table.dv{font-size:17px} table.dv.sm{font-size:15px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Matematica · livello difficile</div>
+  <h1>Polinomi — esercizi difficili</h1>
+  <p class="lead">Gli esercizi più lunghi del programma, un passaggio alla volta. Fai il conto sul quaderno, <b>poi</b> scegli. Se sbagli, leggi il perché e vai avanti. Non serve farli tutti in una volta: una sezione al giorno va benissimo.</p>
+  <div class="chips">
+    <a href="#A">Espressioni</a><a href="#B">Divisione e resto</a><a href="#C">Ruffini</a><a href="#D">Scomposizioni</a><a href="#E">Problemi</a><a href="#R">Riepilogo</a>
+  </div>
+</header>
+
+<div class="note"><b>Il trucco degli esercizi lunghi:</b> non cercare la strada tutta subito. Fai una mossa, guarda cosa resta, poi la mossa dopo.</div>
+
+<h2 id="A">A · Espressioni</h2>
+<div id="cA"></div>
+
+<h2 id="B">B · Divisione e resto</h2>
+<div id="cB"></div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio B2 · un resto che non è zero</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Trova k perché il resto della divisione di x al cubo più k x alla seconda meno due x più uno, per x più due, sia cinque. Attento: il resto deve essere cinque, non zero.">🔊</button></div>
+  <p class="qtext">Trova <i>k</i> perché il resto della divisione di ${P(x) = x^3 + kx^2 - 2x + 1}$ per ${(x + 2)}$ sia <b>5</b>.</p>
+  <div class="chk"><input id="ikr" inputmode="decimal" autocomplete="off" placeholder="k = …"><button onclick="chk('kr')">Controlla</button></div>
+  <div class="fb" id="fkr"></div>
+  <button class="btn" onclick="step(this,'kr')">Mostra il passo 1</button>
+  <div class="step" id="skr_1"><div class="sn">Passo 1 · teorema del resto</div><p>Lo zero di ${x + 2}$ è −2, e il resto è ${P(-2)}$. Voglio ${P(-2) = 5}$.</p></div>
+  <div class="step" id="skr_2"><div class="sn">Passo 2 · il conto</div><p>${-8 + 4k + 4 + 1 = 5}$ → ${4k - 3 = 5}$ → ${4k = 8}$</p></div>
+  <div class="res" id="rkr"><div class="lbl">Risposta</div><b>${k = 2}$</b></div>
+</div>
+
+<h2 id="C">C · Ruffini difficili</h2>
+<div id="cC"></div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Ruffini con un buco · riempi la tabella</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Dividi x al cubo meno sette x meno sei per x più uno, con la regola di Ruffini. Scrivi anche i coefficienti in alto. Attento: manca x alla seconda.">🔊</button></div>
+  <p class="qtext">${(x^3 - 7x - 6) : (x + 1)}$<br><span style="font-size:16px;color:var(--soft)">Scrivi anche i coefficienti in alto: manca una potenza.</span></p>
+  <div id="rxc"></div>
+</div>
+
+<h2 id="D">D · Scomposizioni difficili</h2>
+<div id="cD"></div>
+
+<h2 id="E">E · Problemi</h2>
+<div id="cE"></div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio E2 · con i cubi</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Sai che x più y fa quattro e x per y fa uno. Quanto fa x al cubo più y al cubo?">🔊</button></div>
+  <p class="qtext">${x + y = 4}$ e ${xy = 1}$. Quanto fa ${x^3 + y^3}$?</p>
+  <div class="chk"><input id="iq1" inputmode="decimal" autocomplete="off" placeholder="…"><button onclick="chk('q1')">Controlla</button></div>
+  <div class="fb" id="fq1"></div>
+  <button class="btn" onclick="step(this,'q1')">Mostra il passo 1</button>
+  <div class="step" id="sq1_1"><div class="sn">Passo 1 · la formula</div><p>${(x + y)^3 = x^3 + y^3 + 3xy(x + y)}$</p></div>
+  <div class="step" id="sq1_2"><div class="sn">Passo 2 · il conto</div><p>${x^3 + y^3 = 4^3 - 3 * 1 * 4 = 64 - 12}$</p></div>
+  <div class="res" id="rq1"><div class="lbl">Risposta</div><b>${x^3 + y^3 = 52}$</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio E3 · con la differenza</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Sai che x meno y fa due e x per y fa tre. Quanto fa x alla seconda più y alla seconda?">🔊</button></div>
+  <p class="qtext">${x - y = 2}$ e ${xy = 3}$. Quanto fa ${x^2 + y^2}$?</p>
+  <div class="chk"><input id="iq2" inputmode="decimal" autocomplete="off" placeholder="…"><button onclick="chk('q2')">Controlla</button></div>
+  <div class="fb" id="fq2"></div>
+  <button class="btn" onclick="step(this,'q2')">Mostra il passo 1</button>
+  <div class="step" id="sq2_1"><div class="sn">Passo 1 · la formula</div><p>${(x - y)^2 = x^2 + y^2 - 2xy}$, quindi ${x^2 + y^2 = (x - y)^2 + 2xy}$</p></div>
+  <div class="step" id="sq2_2"><div class="sn">Passo 2 · il conto</div><p>${2^2 + 2 * 3 = 4 + 6}$</p></div>
+  <div class="res" id="rq2"><div class="lbl">Risposta</div><b>${x^2 + y^2 = 10}$</b></div>
+</div>
+
+<h2 id="R">Riepilogo</h2>
+<div class="card sum">
+  <div class="qnum">Come stai andando</div>
+  <p style="margin:0;font-size:15.5px;color:var(--soft)">Conta i passaggi giusti al primo tocco. Dove sei sotto metà, rifai l'esercizio mescolato.</p>
+  <div id="sum"></div>
+</div>
+
+<p class="foot">Esercizi nuovi, sugli stessi tipi fatti in classe, nella versione più lunga.</p>
+</div>
+
+<script>
+/* ═══════ scrittura della matematica ═══════ */
+function M(s){
+  s = String(s).replace(/-/g,"−").replace(/\*/g,"·");
+  return s.replace(/\^\{([^}]*)\}/g,"<sup>$1</sup>").replace(/\^([0-9]+|[a-zA-Z])/g,"<sup>$1</sup>");
+}
+function X(s){ return '<span class="mx">'+M(s)+'</span>'; }
+function TX(s){ return String(s).replace(/\$([^$]+)\$/g,(m,a)=>X(a)); }
+
+const ITEMS = [
+
+/* ---------- A · ESPRESSIONI ---------- */
+{type:"ch", id:"a1", sec:"A", c:"cA", t:"A1 · Un prodotto nascosto",
+ say:"Semplifica: due x meno uno al cubo, meno due x più uno per quattro x alla seconda meno due x più uno, più dodici x alla seconda meno sei x. Guarda bene il secondo prodotto: è un prodotto che conosci.",
+ start:"(2x - 1)^3 - (2x + 1)(4x^2 - 2x + 1) + 12x^2 - 6x",
+ steps:[
+  {q:"Sviluppa il cubo", ok:"(2x - 1)^3 = 8x^3 - 12x^2 + 6x - 1", no:["(2x - 1)^3 = 8x^3 - 1","(2x - 1)^3 = 2x^3 - 6x^2 + 6x - 1"],
+   why:"(2x)³ = 8x³, 3 · (2x)² · 1 = 12x², 3 · 2x · 1 = 6x, e con il meno i segni si alternano."},
+  {q:"Calcola (2x + 1)(4x² − 2x + 1): è un prodotto che conosci", ok:"(2x + 1)(4x^2 - 2x + 1) = 8x^3 + 1", no:["(2x + 1)(4x^2 - 2x + 1) = 8x^3 - 1","(2x + 1)(4x^2 - 2x + 1) = (2x + 1)^3"],
+   why:"È la somma di cubi letta al contrario: (A + B)(A² − AB + B²) = A³ + B³, con A = 2x e B = 1."},
+  {q:"Togli le parentesi", ok:"= 8x^3 - 12x^2 + 6x - 1 - 8x^3 - 1 + 12x^2 - 6x", no:["= 8x^3 - 12x^2 + 6x - 1 - 8x^3 + 1 + 12x^2 - 6x","= 8x^3 - 12x^2 + 6x - 1 + 8x^3 + 1 + 12x^2 - 6x"],
+   why:"Il meno davanti a (8x³ + 1) cambia tutti e due i segni: −8x³ − 1."},
+  {q:"Somma i termini simili", ok:"= -2", no:["= 0","= 16x^3 - 2"],
+   why:"x³, x² e x si cancellano: resta −1 − 1."}
+ ], end:"Risultato: $-2$"},
+{type:"ch", id:"a2", sec:"A", c:"cA", t:"A2 · Vedi il blocco",
+ say:"Semplifica: x più y più uno, per x più y meno uno, meno x più y al quadrato. Trucco: tratta x più y come un blocco unico.",
+ start:"(x + y + 1)(x + y - 1) - (x + y)^2",
+ steps:[
+  {q:"Chiama A il blocco x + y. Il primo prodotto diventa:", ok:"(A + 1)(A - 1) = A^2 - 1", no:["(A + 1)(A - 1) = A^2 + 1","(A + 1)(A - 1) = A^2 - 2A + 1"],
+   why:"È una somma per differenza, con il blocco A = x + y al posto di una lettera sola."},
+  {q:"Rimetti x + y al posto di A:", ok:"= (x + y)^2 - 1 - (x + y)^2", no:["= (x + y)^2 + 1 - (x + y)^2","= x^2 + y^2 - 1 - (x + y)^2"],
+   why:"A² = (x + y)²: non serve nemmeno svilupparlo."},
+  {q:"Risultato:", ok:"= -1", no:["= -2xy - 1","= 2xy - 1"],
+   why:"(x + y)² − (x + y)² = 0: resta −1. Sviluppando tutto viene uguale, ma è molto più lungo."}
+ ], end:"Risultato: $-1$"},
+{type:"ch", id:"a3", sec:"A", c:"cA", t:"A3 · Parentesi quadra e divisione",
+ say:"Semplifica: parentesi quadra, a più b al quadrato meno a meno b al quadrato, tutto al quadrato, diviso quattro a b.",
+ start:"[(a + b)^2 - (a - b)^2]^2 : (4ab)",
+ steps:[
+  {q:"Calcola la parentesi quadra", ok:"(a + b)^2 - (a - b)^2 = a^2 + 2ab + b^2 - a^2 + 2ab - b^2 = 4ab", no:["(a + b)^2 - (a - b)^2 = a^2 + 2ab + b^2 - a^2 - 2ab - b^2 = 0","(a + b)^2 - (a - b)^2 = 2a^2 + 2b^2"],
+   why:"(a − b)² = a² − 2ab + b², e il meno davanti cambia tutti i segni: −a² + 2ab − b²."},
+  {q:"Eleva al quadrato", ok:"(4ab)^2 = 16a^2b^2", no:["(4ab)^2 = 4a^2b^2","(4ab)^2 = 16ab"],
+   why:"Si eleva tutto: 4² = 16, a², b²."},
+  {q:"Dividi per 4ab", ok:"16a^2b^2 : 4ab = 4ab", no:["16a^2b^2 : 4ab = 4a^2b^2","16a^2b^2 : 4ab = 12ab"],
+   why:"16 : 4 = 4, a² : a = a, b² : b = b."}
+ ], end:"Risultato: $4ab$"},
+
+/* ---------- B · DIVISIONE ---------- */
+{type:"ch", id:"b1", sec:"B", c:"cB", t:"B1 · Divisione con tre giri",
+ say:"Esegui la divisione: due x alla quarta più x al cubo meno tre x più uno, diviso x alla seconda meno x più uno. Il quoziente avrà tre termini.",
+ start:"(2x^4 + x^3 - 3x + 1) : (x^2 - x + 1)",
+ div:{dv:"x^2 - x + 1", q:["2x^2","+ 3x","+ 1"], sm:true, rows:[
+  {k:"d", c:["2x^4","+ x^3","+ 0x^2","- 3x","+ 1"]},
+  {k:"s", c:["- 2x^4","+ 2x^3","- 2x^2","",""]},
+  {k:"r", c:["//","+ 3x^3","- 2x^2","- 3x","+ 1"]},
+  {k:"s", c:["","- 3x^3","+ 3x^2","- 3x",""]},
+  {k:"r", c:["","//","+ x^2","- 6x","+ 1"]},
+  {k:"s", c:["","","- x^2","+ x","- 1"]},
+  {k:"r", c:["","","//","- 5x","//"]}]},
+ div0:{r:0,q:0},
+ steps:[
+  {q:"Ordina e completa il dividendo:", ok:"2x^4 + x^3 + 0x^2 - 3x + 1", no:["2x^4 + x^3 - 3x + 1","x^3 + 2x^4 + 0x^2 - 3x + 1"], after:{r:1,q:0},
+   why:"Esponenti in discesa, e lo 0x² al posto della potenza che manca."},
+  {q:"Primo termine del quoziente: 2x⁴ : x² = ?", ok:"2x^2", no:["2x^6","x^2"], after:{r:1,q:1},
+   why:"2 : 1 = 2 e 4 − 2 = 2."},
+  {q:"2x² · (x² − x + 1), con i segni cambiati. Sotto scrivo:", ok:"- 2x^4 + 2x^3 - 2x^2", no:["- 2x^4 - 2x^3 + 2x^2","+ 2x^4 - 2x^3 + 2x^2"], after:{r:2,q:1},
+   why:"2x² · x² = 2x⁴, 2x² · (−x) = −2x³, 2x² · 1 = 2x². Poi cambio tutti i segni."},
+  {q:"Sommo in colonna. Resta:", ok:"+ 3x^3 - 2x^2 - 3x + 1", no:["+ x^3 - 2x^2 - 3x + 1","- x^3 - 2x^2 - 3x + 1"], after:{r:3,q:1},
+   why:"x³ + 2x³ = 3x³ e 0x² − 2x² = −2x². Il −3x e il +1 scendono."},
+  {q:"Secondo termine del quoziente: 3x³ : x² = ?", ok:"+ 3x", no:["+ 3x^2","- 3x"], after:{r:3,q:2},
+   why:"3 − 2 = 1: è 3x, con il più."},
+  {q:"Moltiplico 3x · (x² − x + 1), cambio i segni e sommo. Resta:", ok:"+ x^2 - 6x + 1", no:["+ x^2 + 1","- 5x^2 - 6x + 1"], after:{r:5,q:2},
+   why:"Sotto: −3x³ + 3x² − 3x. Poi −2x² + 3x² = x² e −3x − 3x = −6x."},
+  {q:"Terzo termine del quoziente, e il resto:", ok:"+ 1, resto R = -5x", no:["+ 1, resto R = -7x + 2","+ x, resto R = -5x"], after:{r:7,q:3},
+   why:"x² : x² = 1. Sotto: −x² + x − 1. Poi −6x + x = −5x e 1 − 1 = 0."}
+ ], end:"$Q = 2x^2 + 3x + 1$ · $R = -5x$<br>Controllo: $(x^2 - x + 1)(2x^2 + 3x + 1) - 5x = 2x^4 + x^3 - 3x + 1$ ✓"},
+
+/* ---------- C · RUFFINI ---------- */
+{type:"ch", id:"c1", sec:"C", c:"cC", t:"C1 · Ruffini due volte",
+ say:"Scomponi: x alla quarta meno x al cubo meno sette x alla seconda più x più sei. Servirà Ruffini due volte di seguito.",
+ start:"x^4 - x^3 - 7x^2 + x + 6",
+ steps:[
+  {q:"Provo i divisori di 6, cominciando da 1:", ok:"P(1) = 1 - 1 - 7 + 1 + 6 = 0, quindi c = 1", no:["P(1) = 1 + 1 - 7 + 1 + 6 = 2, non va","P(1) = 1 - 1 - 7 - 1 + 6 = -2, non va"],
+   why:"1 elevato a qualunque potenza fa 1: i segni restano quelli dei coefficienti."},
+  {q:"Ruffini con c = 1 su 1 −1 −7 1 6. Il quoziente è:", ok:"Q = x^3 + 0x^2 - 7x - 6", no:["Q = x^3 - 2x^2 - 5x - 6","Q = x^4 - 7x^2 - 6"],
+   why:"Ruffini: 1, 0, −7, −6 e resto 0. Un grado in meno: x³ + 0x² − 7x − 6."},
+  {q:"Un altro zero del quoziente x³ − 7x − 6:", ok:"c = -1", no:["c = 1","c = 6"],
+   why:"Q(−1) = −1 + 7 − 6 = 0 ✓. Invece Q(1) = 1 − 7 − 6 = −12."},
+  {q:"Ruffini con c = −1 su 1 0 −7 −6. Il nuovo quoziente è:", ok:"x^2 - x - 6", no:["x^2 - 8","x^2 + x - 6"],
+   why:"Ruffini: 1, −1, −6 e resto 0. Attento allo 0 di x²: se lo salti, sbagli tutto."},
+  {q:"Scomponi x² − x − 6 e scrivi il risultato:", ok:"= (x - 1)(x + 1)(x - 3)(x + 2)", no:["= (x - 1)(x + 1)(x + 3)(x - 2)","= (x - 1)(x + 1)(x^2 - x - 6)"],
+   why:"x² − x − 6: somma −1, prodotto −6 → −3 e +2. E non fermarti al trinomio."}
+ ], end:"$(x - 1)(x + 1)(x - 3)(x + 2)$"},
+{type:"ch", id:"c2", sec:"C", c:"cC", t:"C2 · Zeri razionali con due frazioni",
+ say:"Scomponi: dodici x al cubo più sedici x alla seconda meno cinque x meno tre. Nessun intero funziona: servono le frazioni.",
+ start:"12x^3 + 16x^2 - 5x - 3",
+ steps:[
+  {q:"Quali sono i possibili zeri razionali?", ok:"±1, ±3, ±1/2, ±3/2, ±1/3, ±1/4, ±3/4, ±1/6, ±1/12", no:["±1, ±3","±1, ±2, ±3, ±4, ±6, ±12"],
+   why:"Sopra i divisori di −3 (1 e 3), sotto i divisori di 12 (1, 2, 3, 4, 6, 12). Le frazioni che si ripetono, come 3/3 = 1, si scrivono una volta sola."},
+  {q:"P(1) = 20 e P(−1) = 6: non sono zeri. Provo 1/2:", ok:"P(1/2) = 12/8 + 16/4 - 5/2 - 3 = 0 ✓", no:["P(1/2) = 12/2 + 16/2 - 5/2 - 3 = 8","P(1/2) = 12/8 + 16/4 + 5/2 - 3 = 5"],
+   why:"(1/2)³ = 1/8 e (1/2)² = 1/4. Poi 3/2 + 4 − 5/2 − 3 = 0."},
+  {q:"Ruffini con c = 1/2 su 12 16 −5 −3. Il quoziente è:", ok:"12x^2 + 22x + 6", no:["12x^2 + 10x - 10","12x^2 + 22x + 6x"],
+   why:"12; 16 + 6 = 22; −5 + 11 = 6; −3 + 3 = 0."},
+  {q:"Raccogli il 2 e uniscilo a (x − 1/2):", ok:"P(x) = (2x - 1)(6x^2 + 11x + 3)", no:["P(x) = (x - 2)(6x^2 + 11x + 3)","P(x) = (2x - 1)(12x^2 + 22x + 6)"],
+   why:"12x² + 22x + 6 = 2(6x² + 11x + 3), e 2(x − 1/2) = 2x − 1. Il 2 si usa una volta sola."},
+  {q:"Scomponi 6x² + 11x + 3 (coefficiente direttivo 6):", ok:"S = 11, P = 18 → 9 e 2 → (2x + 3)(3x + 1)", no:["S = 11, P = 3 → nessuna coppia: non si scompone","S = 11, P = 18 → 9 e 2 → (x + 9)(x + 2)"],
+   why:"P = 6 · 3 = 18. 6x² + 9x + 2x + 3 = 3x(2x + 3) + 1(2x + 3) = (2x + 3)(3x + 1)."}
+ ], end:"$(2x - 1)(2x + 3)(3x + 1)$"},
+
+/* ---------- D · SCOMPOSIZIONI ---------- */
+{type:"ch", id:"d1", sec:"D", c:"cD", t:"D1 · Quadrati e cubi insieme",
+ say:"Scomponi: x alla sesta meno uno. Prima come differenza di quadrati, poi con i cubi.",
+ start:"x^6 - 1",
+ steps:[
+  {q:"Prima mossa: x⁶ − 1 come differenza di quadrati", ok:"= (x^3 - 1)(x^3 + 1)", no:["= (x^3 - 1)^2","= (x - 1)^6"],
+   why:"x⁶ = (x³)² e 1 = 1²."},
+  {q:"Scomponi x³ − 1 (differenza di cubi):", ok:"x^3 - 1 = (x - 1)(x^2 + x + 1)", no:["x^3 - 1 = (x - 1)(x^2 - x + 1)","x^3 - 1 = (x - 1)^3"],
+   why:"Segni: stesso (−), opposto (+), sempre più."},
+  {q:"Scomponi x³ + 1 (somma di cubi):", ok:"x^3 + 1 = (x + 1)(x^2 - x + 1)", no:["x^3 + 1 = (x + 1)(x^2 + x + 1)","x^3 + 1 = (x + 1)^3"],
+   why:"Segni: stesso (+), opposto (−), sempre più."},
+  {q:"Risultato finale:", ok:"= (x - 1)(x + 1)(x^2 + x + 1)(x^2 - x + 1)", no:["= (x - 1)(x + 1)(x^4 + 1)","= (x^3 - 1)(x^3 + 1)"],
+   why:"Quattro fattori: (x³ − 1)(x³ + 1) non era ancora finita. I due falsi quadrati non si scompongono più."}
+ ], end:"$(x - 1)(x + 1)(x^2 + x + 1)(x^2 - x + 1)$"},
+{type:"ch", id:"d2", sec:"D", c:"cD", t:"D2 · Il meno davanti a tre termini",
+ say:"Scomponi: a alla seconda meno b alla seconda più due b meno uno.",
+ start:"a^2 - b^2 + 2b - 1",
+ steps:[
+  {q:"Raccogli il meno dagli ultimi tre termini:", ok:"= a^2 - (b^2 - 2b + 1)", no:["= a^2 - (b^2 + 2b - 1)","= a^2 - (b^2 + 2b + 1)"],
+   why:"−b² + 2b − 1 = −(b² − 2b + 1): dentro cambiano tutti i segni."},
+  {q:"La parentesi è un quadrato:", ok:"= a^2 - (b - 1)^2", no:["= a^2 - (b + 1)^2","= a^2 - (b - 1)"],
+   why:"b² − 2b + 1 = (b − 1)²."},
+  {q:"Differenza di quadrati con A = a e B = b − 1:", ok:"= (a - b + 1)(a + b - 1)", no:["= (a - b - 1)(a + b - 1)","= (a - b + 1)(a + b + 1)"],
+   why:"a − (b − 1) = a − b + 1, e a + (b − 1) = a + b − 1."}
+ ], end:"$(a - b + 1)(a + b - 1)$"},
+{type:"ch", id:"d3", sec:"D", c:"cD", t:"D3 · Cinque mosse",
+ say:"Scomponi: due x alla quinta meno due x alla quarta meno trentadue x più trentadue. Servono cinque mosse.",
+ start:"2x^5 - 2x^4 - 32x + 32",
+ steps:[
+  {q:"Raccoglimento totale:", ok:"= 2(x^5 - x^4 - 16x + 16)", no:["= 2x(x^4 - x^3 - 16 + 16)","= 2(x^5 - x^4 - 16x - 16)"],
+   why:"Il 2 è comune a tutti; la x no, perché il 32 da solo non ce l'ha."},
+  {q:"Dentro, raccoglimento parziale:", ok:"= 2[x^4(x - 1) - 16(x - 1)]", no:["= 2[x^4(x - 1) + 16(x - 1)]","= 2[x^4(x - 1) - 16(x + 1)]"],
+   why:"−16x + 16 = −16(x − 1): lo stesso blocco (x − 1)."},
+  {q:"Raccogli (x − 1):", ok:"= 2(x - 1)(x^4 - 16)", no:["= 2(x - 1)(x^4 + 16)","= 2(x - 1) * x^4 - 16"],
+   why:"Restano x⁴ e −16."},
+  {q:"x⁴ − 16 si scompone ancora:", ok:"x^4 - 16 = (x^2 - 4)(x^2 + 4)", no:["x^4 - 16 = (x^2 - 4)^2","x^4 - 16 = (x - 2)^4"],
+   why:"Differenza di quadrati: (x²)² − 4²."},
+  {q:"E ancora:", ok:"= 2(x - 1)(x - 2)(x + 2)(x^2 + 4)", no:["= 2(x - 1)(x - 2)(x + 2)(x - 2)(x + 2)","= 2(x - 1)(x^2 - 4)(x^2 + 4)"],
+   why:"x² − 4 = (x − 2)(x + 2): senza questo passo non è finita. x² + 4 è una somma di quadrati: lì ci si ferma."}
+ ], end:"$2(x - 1)(x - 2)(x + 2)(x^2 + 4)$"},
+{type:"ch", id:"d4", sec:"D", c:"cD", t:"D4 · Sostituzione e coefficiente direttivo",
+ say:"Scomponi: quattro x alla quarta meno diciassette x alla seconda più quattro. Metti x alla seconda uguale y.",
+ start:"4x^4 - 17x^2 + 4",
+ steps:[
+  {q:"Metto x² = y:", ok:"= 4y^2 - 17y + 4", no:["= 4y^4 - 17y^2 + 4","= y^2 - 17y + 4"],
+   why:"x⁴ = (x²)² = y²."},
+  {q:"Coefficiente direttivo 4: S e P", ok:"S = -17, P = 16 → -16 e -1", no:["S = -17, P = 4 → nessuna coppia","S = -17, P = 16 → -8 e -2"],
+   why:"P = 4 · 4 = 16. −16 + (−1) = −17 ✓, mentre −8 + (−2) = −10."},
+  {q:"Spezza e raccogli:", ok:"4y^2 - 16y - y + 4 = 4y(y - 4) - 1(y - 4) = (y - 4)(4y - 1)", no:["4y^2 - 16y - y + 4 = 4y(y - 4) - (y + 4)","4y^2 - 16y - y + 4 = (y - 4)(4y + 1)"],
+   why:"−y + 4 = −1(y − 4): il blocco (y − 4) è uguale."},
+  {q:"Rimetti x² al posto di y:", ok:"= (x^2 - 4)(4x^2 - 1)", no:["= (x - 4)(4x - 1)","= (x^4 - 4)(4x^4 - 1)"],
+   why:"y = x²."},
+  {q:"È finita?", ok:"= (x - 2)(x + 2)(2x - 1)(2x + 1)", no:["sì, è già finita","= (x - 2)^2(2x - 1)^2"],
+   why:"x² − 4 e 4x² − 1 sono tutte e due differenze di quadrati: 4x² − 1 = (2x)² − 1²."}
+ ], end:"$(x - 2)(x + 2)(2x - 1)(2x + 1)$"},
+{type:"ch", id:"d5", sec:"D", c:"cD", t:"D5 · Un cubo con un blocco",
+ say:"Scomponi: x più uno al cubo, meno otto.",
+ start:"(x + 1)^3 - 8",
+ steps:[
+  {q:"Che cos'è?", ok:"differenza di cubi, con A = x + 1 e B = 2", no:["differenza di quadrati","un cubo di binomio da sviluppare"],
+   why:"8 = 2³ e (x + 1)³ è già un cubo: A³ − B³."},
+  {q:"A³ − B³ = (A − B)(A² + AB + B²):", ok:"= (x + 1 - 2)[(x + 1)^2 + 2(x + 1) + 4]", no:["= (x + 1 - 2)[(x + 1)^2 - 2(x + 1) + 4]","= (x + 1 + 2)[(x + 1)^2 + 2(x + 1) + 4]"],
+   why:"Segni: stesso (−), poi più, sempre più."},
+  {q:"Semplifica le due parentesi:", ok:"= (x - 1)(x^2 + 4x + 7)", no:["= (x - 1)(x^2 + 2x + 7)","= (x - 1)(x^2 + 4x + 5)"],
+   why:"(x + 1)² + 2(x + 1) + 4 = x² + 2x + 1 + 2x + 2 + 4 = x² + 4x + 7."}
+ ], end:"$(x - 1)(x^2 + 4x + 7)$"},
+{type:"ch", id:"d6", sec:"D", c:"cD", t:"D6 · Esponenti con le lettere",
+ say:"Scomponi: x elevato alla n più due, meno quattro x alla n.",
+ start:"x^{n+2} - 4x^n",
+ steps:[
+  {q:"Raccogli la potenza con l'esponente più piccolo:", ok:"= x^n(x^2 - 4)", no:["= x^{n+2}(1 - 4x^n)","= x^2(x^n - 4)"],
+   why:"x<sup>n+2</sup> : x<sup>n</sup> = x², perché (n + 2) − n = 2."},
+  {q:"È finita?", ok:"= x^n(x - 2)(x + 2)", no:["sì, è già finita","= x^n(x - 2)^2"],
+   why:"x² − 4 è una differenza di quadrati."}
+ ], end:"$x^n(x - 2)(x + 2)$"},
+
+/* ---------- E · PROBLEMI ---------- */
+{type:"ch", id:"e1", sec:"E", c:"cE", t:"E1 · Dal perimetro all'area",
+ say:"Un rettangolo ha il perimetro di quattro x più sei, e un lato di x più uno. Trova l'altro lato e l'area.",
+ q:"Un rettangolo ha perimetro $4x + 6$ e un lato $x + 1$. Trova l'altro lato e l'area.",
+ steps:[
+  {q:"Semiperimetro (base + altezza):", ok:"(4x + 6) : 2 = 2x + 3", no:["4x + 6","(4x + 6) : 4 = x + 3/2"],
+   why:"Il perimetro ha due basi e due altezze: base + altezza è la metà."},
+  {q:"L'altro lato:", ok:"(2x + 3) - (x + 1) = x + 2", no:["(2x + 3) - (x + 1) = x + 4","(2x + 3) + (x + 1) = 3x + 4"],
+   why:"Il meno davanti a (x + 1) cambia tutti e due i segni: 2x + 3 − x − 1."},
+  {q:"L'area:", ok:"A = (x + 1)(x + 2) = x^2 + 3x + 2", no:["A = x^2 + 2","A = 2(x + 1) + 2(x + 2) = 4x + 6"],
+   why:"Area = base · altezza."}
+ ], end:"Altro lato $x + 2$ · area $x^2 + 3x + 2$"}
+];
+
+const SEZ = {A:"Espressioni", B:"Divisione e resto", C:"Ruffini difficili", D:"Scomposizioni difficili", E:"Problemi"};
+
+const NUM = {
+ kr:{ans:2,  wr:[[0,"Hai usato +2: lo zero di x + 2 è −2."],[0.75,"Il resto deve essere 5, non 0: 4k − 3 = 5."],[-2,"Controlla i segni: 4k − 3 = 5 → 4k = 8."]]},
+ q1:{ans:52, wr:[[64,"64 è (x + y)³: togli 3xy(x + y)."],[61,"3xy(x + y) = 3 · 1 · 4 = 12, non 3."],[76,"È meno 3xy(x + y), non più."]]},
+ q2:{ans:10, wr:[[4,"4 è (x − y)²: devi aggiungere 2xy."],[-2,"È più 2xy, non meno."],[7,"Il doppio prodotto è 2 · 3 = 6, non 3."]]}
+};
+
+const RX = {
+ rxc:{v:"x", cs:[1,0,-7,-6], c:-1, topIn:true, dv:"x + 1", miss:"x²",
+      after:{t:"Quindi il quoziente è…", o:["$x^2 - x - 6$","$x^3 - x^2 - 6x$","$x^2 - 6$"], why:"Un grado in meno: 1, −1, −6 sono i coefficienti di x², x e del termine noto. L'ultimo numero, 0, è il resto."}}
+};
+
+/* ═══════ attrezzi ═══════ */
+function $(id){ return document.getElementById(id); }
+function shuf(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+function fmt(n){ return n<0 ? "−"+(-n) : String(n); }
+function poly(cs,v){
+  const n = cs.length-1; let out = "";
+  cs.forEach((c,i)=>{
+    const e = n-i; if(c===0) return;
+    const a = Math.abs(c), lit = e===0 ? "" : (e===1 ? v : v+"^"+e);
+    const t = (a===1 && e>0) ? lit : a+lit;
+    out += out==="" ? (c<0?"-":"")+t : (c<0?" - ":" + ")+t;
+  });
+  return out || "0";
+}
+function num(s){
+  s = String(s==null?"":s).trim().replace(/[−–—]/g,"-").replace(/\s+/g,"").replace(",",".");
+  s = s.replace(/^(R|k|d|xy|x\^2\+y\^2)=/i,"");
+  if(s==="") return NaN;
+  if(/^[+-]?\d+(\.\d+)?\/\d+(\.\d+)?$/.test(s)){ const p = s.split("/"); return parseFloat(p[0])/parseFloat(p[1]); }
+  if(/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s)) return parseFloat(s);
+  return NaN;
+}
+function qhead(t,say){
+  return '<div class="qhead"><div class="qnum">'+t+'</div><button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+esc(say||"")+'">🔊</button></div>';
+}
+
+/* la matematica scritta direttamente nella pagina: ${...}$ */
+(function(){
+  const W = document.querySelector(".wrap");
+  W.innerHTML = W.innerHTML.replace(/\$\{([^}]*)\}\$/g,(m,a)=>X(a.replace(/&gt;/g,">").replace(/&lt;/g,"<")));
+})();
+
+/* ═══════ righe a scelta ═══════ */
+function optCls(opts){
+  if(opts.length===2) return "two";
+  const L = Math.max.apply(null, opts.map(o=>String(o).replace(/\$|\^\{[^}]*\}|\^/g,"").length));
+  if(opts.length===4) return L>22 ? "one" : "two";
+  return L>11 ? "one" : "three";
+}
+function optHTML(o){ return String(o).indexOf("$")>=0 ? TX(o) : o; }
+function rowHTML(b,r){
+  let opts, ok;
+  if(b.o){ opts = b.o; ok = r[1]; }
+  else { opts = shuf(r[1]); ok = opts.indexOf(r[1][0]); }
+  let h = '<div class="row"><div class="op">'+TX(r[0])+'</div><div class="opts '+optCls(opts)+'" data-ok="'+ok+'">';
+  opts.forEach((o,k)=>{ h += '<button onclick="scegli(this,'+k+')">'+optHTML(o)+'</button>'; });
+  return h + '</div><div class="why">'+r[2]+'</div></div>';
+}
+function buildBlock(b, mescola){
+  const el = $(b.id), rows = mescola ? shuf(b.rows) : b.rows;
+  let h = qhead(b.t, b.say) + (b.pre||"") + '<div class="rows">';
+  rows.forEach(r=>{ h += rowHTML(b,r); });
+  h += '</div><div class="score" id="score'+b.id+'"></div>'
+     + '<button class="btn redo" id="redo'+b.id+'" onclick="rifai(\''+b.id+'\')">Rifai mescolato</button>';
+  el.innerHTML = h;
+  punti(el);
+}
+function scegli(btn,k){
+  const box = btn.parentNode;
+  if(box.getAttribute("data-done")!==null) return;
+  const ok = +box.getAttribute("data-ok"), bs = box.querySelectorAll("button"), giusto = (k===ok);
+  btn.className = giusto ? "right" : "wrong";
+  if(!giusto) bs[ok].className = "right";
+  box.setAttribute("data-done", giusto?"1":"0");
+  box.classList.add("locked");
+  const w = box.nextElementSibling;
+  if(w && w.classList.contains("why")) w.classList.add("on");
+  const blk = box.closest ? box.closest(".blk") : null;
+  if(blk) punti(blk);
+  const pid = box.parentNode.id || "";
+  if(pid.indexOf("arx")===0){ const r = $("r"+pid.slice(1)); if(r) r.classList.add("on"); }
+  updSum();
+}
+function punti(blk){
+  const all = blk.querySelectorAll(".opts"); let n = 0, t = 0;
+  for(let i=0;i<all.length;i++){ const v = all[i].getAttribute("data-done"); if(v!==null){ t++; if(v==="1") n++; } }
+  const sc = $("score"+blk.id);
+  if(sc) sc.textContent = n+" / "+all.length+(t<all.length ? " (ne mancano "+(all.length-t)+")" : (n===all.length ? " — tutto giusto!" : ""));
+  const r = $("redo"+blk.id); if(r) r.style.display = (t===all.length) ? "block" : "none";
+}
+function rifai(id){
+  const b = ITEMS.find(x=>x.id===id); buildBlock(b,true); updSum();
+  const el = $(id); if(el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ═══════ divisione in colonna ═══════ */
+function divTable(D, nr, nq, hiRow, hiQ){
+  let h = '<div class="scroll"><table class="dv'+(D.sm?' sm':'')+'">';
+  D.rows.forEach((r,i)=>{
+    const vis = i<nr;
+    h += '<tr class="dr-'+r.k+(vis && i===hiRow ? ' hi' : '')+'">';
+    r.c.forEach(c=>{ h += '<td class="t'+(i===0?' r0':'')+(vis?'':' h')+'">'+(c ? M(c) : '')+'</td>'; });
+    if(i===0) h += '<td class="rt dvs">'+M(D.dv)+'</td>';
+    else if(i===1){
+      let q = '';
+      for(let j=0;j<nq;j++){ const t = M(D.q[j]); q += (j?' ':'')+(j===hiQ-1 ? '<span class="qn">'+t+'</span>' : t); }
+      h += '<td class="rt dq">'+(q || '&nbsp;')+'</td>';
+    } else h += '<td class="rt"></td>';
+    h += '</tr>';
+  });
+  return h + '</table></div>';
+}
+
+/* ═══════ catene: un passaggio alla volta ═══════ */
+const CH = {}, CST = {};
+ITEMS.forEach(it=>{ if(it.type==="ch") CH[it.id] = it; });
+function chInit(id){
+  const c = CH[id];
+  CST[id] = {ord:c.steps.map(s=>shuf([0].concat(s.no.map((_,i)=>i+1)))), ans:[], pend:false};
+  chDraw(id); updSum();
+}
+function chDraw(id){
+  const c = CH[id], st = CST[id], el = $(id), n = c.steps.length;
+  const done = st.ans.length - (st.pend?1:0), cur = st.pend ? st.ans.length-1 : st.ans.length;
+  let h = qhead(c.t, c.say);
+  if(c.q) h += '<p class="qtext">'+TX(c.q)+'</p>';
+  if(c.start) h += '<span class="f">'+M(c.start)+'</span>';
+  if(c.div){
+    const a = st.ans.length, v = a ? c.steps[a-1].after : c.div0, pv = a>1 ? c.steps[a-2].after : c.div0;
+    if(v.r>0) h += divTable(c.div, v.r, v.q, (a && v.r>pv.r) ? v.r-1 : -1, (a && v.q>pv.q) ? v.q : 0);
+  } else {
+    h += '<div class="work">';
+    for(let i=0;i<done;i++) h += '<div class="wl">'+M(c.steps[i].ok)+'<span class="mk '+(st.ans[i].ok?'y':'n')+'">'+(st.ans[i].ok?'✓':'✗')+'</span></div>';
+    h += '</div>';
+  }
+  if(cur < n){
+    const s = c.steps[cur], all = [s.ok].concat(s.no), ord = st.ord[cur];
+    h += '<div class="cq"><span class="cn">Passaggio '+(cur+1)+' di '+n+'</span><br>'+TX(s.q)+'</div>';
+    h += '<div class="opts '+optCls(all)+' mo'+(st.pend?' locked':'')+'">';
+    ord.forEach(j=>{
+      let cls = '';
+      if(st.pend){ if(j===0) cls = 'right'; else if(j===st.ans[cur].k) cls = 'wrong'; }
+      h += '<button class="'+cls+'" onclick="chPick(\''+id+'\','+j+')">'+M(all[j])+'</button>';
+    });
+    h += '</div>';
+    if(st.pend){
+      h += '<div class="why on">'+(st.ans[cur].ok ? '<b style="color:var(--ok)">✓ Giusto.</b> ' : '<b style="color:var(--no)">✗ No.</b> ')+s.why+'</div>';
+      h += '<button class="cont" onclick="chNext(\''+id+'\')">'+(cur===n-1 ? 'Vedi il risultato' : 'Passaggio successivo')+'</button>';
+    }
+  } else {
+    const r = st.ans.filter(a=>a.ok).length;
+    h += '<div class="endb"><div class="lbl">Risultato</div>'+TX(c.end)+'<br><b>'+r+' su '+n+'</b> passaggi giusti al primo tocco.</div>';
+    h += '<button class="btn" onclick="chInit(\''+id+'\')">Rifai mescolato</button>';
+  }
+  el.innerHTML = h;
+}
+function chPick(id,j){
+  const st = CST[id], n = CH[id].steps.length;
+  if(st.pend || st.ans.length>=n) return;
+  st.ans.push({k:j, ok:(j===0)}); st.pend = true;
+  chDraw(id); updSum();
+}
+function chNext(id){
+  CST[id].pend = false; chDraw(id);
+  const el = $(id), t = el.querySelector(".cq") || el.querySelector(".endb");
+  if(t && t.scrollIntoView) t.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+/* ═══════ risposte a numero ═══════ */
+const helped = {};
+function how(id){ $("h"+id).classList.toggle("on"); helped[id] = true; }
+function good(f,msg){ f.className = "fb y"; f.innerHTML = "✓ "+msg; }
+function bad(f,msg){ f.className = "fb n"; f.innerHTML = "✗ "+msg; }
+function chk(id){
+  const s = NUM[id], f = $("f"+id), v = num($("i"+id).value);
+  if(isNaN(v)){ bad(f,"Scrivi un numero: per esempio -3 oppure 1/2."); return; }
+  if(Math.abs(v-s.ans) < 1e-9){
+    good(f,"Esatto: "+fmt(s.ans)+".");
+    const r = $("r"+id); if(r) r.classList.add("on");
+    return;
+  }
+  const w = s.wr.find(x=>Math.abs(x[0]-v) < 1e-9);
+  bad(f, w ? w[1] : ($("h"+id) ? "Non ancora. Tocca «Come si fa»." : "Non ancora. Apri il passo 1."));
+}
+function step(btn,q){
+  const all = document.querySelectorAll('[id^="s'+q+'_"]'); let n = 0;
+  for(let i=0;i<all.length;i++) if(all[i].classList.contains("on")) n++;
+  const el = all[n];
+  if(el){ el.classList.add("on"); if(el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"center"}); }
+  if(n+1>=all.length){ const r = $("r"+q); if(r) r.classList.add("on"); btn.style.display = "none"; }
+  else { btn.textContent = "Continua"; btn.classList.add("solid"); }
+}
+
+/* ═══════ Ruffini da riempire ═══════ */
+function rxCalc(e){
+  const n = e.cs.length, mid = [], bot = [e.cs[0]];
+  for(let i=1;i<n;i++){ mid[i] = bot[i-1]*e.c; bot[i] = e.cs[i] + mid[i]; }
+  return {mid:mid, bot:bot};
+}
+function rxBuild(id){
+  const e = RX[id], n = e.cs.length, V = rxCalc(e), el = $(id);
+  const inp = k => '<input class="rc" data-k="'+k+'" inputmode="decimal" autocomplete="off" autocorrect="off" aria-label="casella">';
+  const lr = i => (i===n-1 ? ' class="lr"' : '');
+  let h = '<div class="scroll"><table class="rx"><tr class="t"><td class="cc"></td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+(e.topIn ? inp("t"+i) : fmt(e.cs[i]))+'</td>';
+  h += '</tr><tr class="m"><td class="cc">'+inp("c")+'</td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+(i>0 ? inp("m"+i) : '')+'</td>';
+  h += '</tr><tr class="b"><td class="cc"></td>';
+  for(let i=0;i<n;i++) h += '<td'+lr(i)+'>'+inp("b"+i)+'</td>';
+  h += '</tr></table></div>';
+  h += '<button class="btn solid" onclick="rxCheck(\''+id+'\')">Controlla la tabella</button><div class="fb" id="f'+id+'"></div>';
+  const opts = shuf(e.after.o), ok = opts.indexOf(e.after.o[0]);
+  h += '<div class="hide" id="a'+id+'"><div class="lab">'+e.after.t+'</div><div class="opts one" data-ok="'+ok+'">';
+  opts.forEach((o,k)=>{ h += '<button onclick="scegli(this,'+k+')">'+optHTML(o)+'</button>'; });
+  h += '</div><div class="why">'+e.after.why+'</div></div>';
+  h += '<div class="res" id="r'+id+'"><div class="lbl">Risultato</div>'+X("Q = "+poly(V.bot.slice(0,n-1),e.v))+' &nbsp;·&nbsp; '+X("R = "+fmt(V.bot[n-1]))+'</div>';
+  el.innerHTML = h;
+}
+function rxCheck(id){
+  const e = RX[id], n = e.cs.length, V = rxCalc(e), el = $(id), f = $("f"+id);
+  const exp = {c:e.c};
+  e.cs.forEach((c,i)=>{ exp["t"+i] = c; exp["b"+i] = V.bot[i]; if(i>0) exp["m"+i] = V.mid[i]; });
+  let empty = 0, wrong = 0; const msgs = [];
+  el.querySelectorAll("input.rc").forEach(inp=>{
+    const k = inp.getAttribute("data-k"), raw = inp.value.trim();
+    inp.classList.remove("ok"); inp.classList.remove("no");
+    if(raw===""){
+      empty++;
+      if(k[0]==="t" && exp[k]===0 && e.miss) msgs.push("Manca "+e.miss+": al suo posto scrivi 0.");
+      return;
+    }
+    const v = num(raw);
+    if(!isNaN(v) && Math.abs(v-exp[k]) < 1e-9){ inp.classList.add("ok"); return; }
+    inp.classList.add("no"); wrong++;
+    if(k==="c" && !isNaN(v) && Math.abs(v+e.c) < 1e-9) msgs.unshift("Lo zero di "+X(e.dv)+" è "+fmt(e.c)+": cambia il segno.");
+    if(k[0]==="t" && exp[k]===0 && e.miss) msgs.push("Manca "+e.miss+": al suo posto scrivi 0.");
+  });
+  if(!empty && !wrong){
+    good(f,"Tabella giusta! Adesso leggi il risultato.");
+    $("a"+id).classList.remove("hide");
+    return;
+  }
+  let m = "";
+  if(wrong) m += wrong+(wrong===1?" casella da correggere":" caselle da correggere")+" (in rosso). ";
+  if(empty) m += empty+(empty===1?" casella ancora vuota. ":" caselle ancora vuote. ");
+  m += msgs[0] || (wrong ? "Ricorda: abbasso, moltiplico per lo zero del divisore, sommo in colonna." : "");
+  bad(f,m);
+}
+
+/* ═══════ riepilogo ═══════ */
+function updSum(){
+  const box = $("sum"); if(!box) return;
+  const S = {}; Object.keys(SEZ).forEach(k=>{ S[k] = {g:0,f:0,t:0}; });
+  ITEMS.forEach(it=>{
+    const s = S[it.sec];
+    if(it.type==="blk"){
+      const el = $(it.id); if(!el) return;
+      el.querySelectorAll(".opts").forEach(o=>{ s.t++; const v = o.getAttribute("data-done"); if(v!==null){ s.f++; if(v==="1") s.g++; } });
+    } else {
+      s.t += it.steps.length;
+      const st = CST[it.id]; if(st) st.ans.forEach(a=>{ s.f++; if(a.ok) s.g++; });
+    }
+  });
+  let h = '<table>', G = 0, Fa = 0, T = 0;
+  Object.keys(SEZ).forEach(k=>{
+    const s = S[k]; G += s.g; Fa += s.f; T += s.t;
+    const low = s.f>=3 && s.g/s.f < 0.5;
+    h += '<tr'+(low?' class="low"':'')+'><td>'+k+' · '+SEZ[k]+(low?' — da ripassare':'')+'</td><td class="n">'+s.g+' / '+s.f+'</td><td class="n" style="color:var(--soft);font-weight:600">di '+s.t+'</td></tr>';
+  });
+  h += '<tr class="tot"><td>Totale</td><td class="n">'+G+' / '+Fa+'</td><td class="n">di '+T+'</td></tr></table>';
+  box.innerHTML = h;
+}
+
+/* ═══════ voce ═══════ */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute("data-say") || "");
+  u.lang = "it-IT"; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on");
+  speechSynthesis.speak(u);
+}
+
+/* ═══════ avvio ═══════ */
+(function(){
+  ITEMS.forEach(it=>{
+    const d = document.createElement("div");
+    d.className = "card"+(it.type==="blk" ? " blk" : "");
+    d.id = it.id;
+    $(it.c).appendChild(d);
+    if(it.type==="blk") buildBlock(it,false); else chInit(it.id);
+  });
+  Object.keys(RX).forEach(rxBuild);
+  document.addEventListener("keydown", function(e){
+    if(e.key!=="Enter" || !e.target || e.target.tagName!=="INPUT") return;
+    const t = e.target;
+    if(t.classList.contains("rc")){
+      const tb = t.closest("table"), ins = tb.querySelectorAll("input.rc"), by = {};
+      Array.prototype.forEach.call(ins, x=>{ by[x.getAttribute("data-k")] = x; });
+      const ord = [];                       /* l'ordine di Ruffini: coefficienti, zero, poi abbasso-moltiplico-sommo */
+      for(let i=0; by["t"+i]; i++) ord.push("t"+i);
+      ord.push("c", "b0");
+      for(let i=1; by["b"+i]; i++){ ord.push("m"+i); ord.push("b"+i); }
+      const all = ord.map(k=>by[k]).filter(Boolean);
+      const i = all.indexOf(t);
+      if(i<all.length-1) all[i+1].focus(); else { const b = t.closest(".card").querySelector(".btn.solid"); if(b) b.click(); }
+      e.preventDefault(); return;
+    }
+    const b = t.parentNode.querySelector("button"); if(b){ b.click(); e.preventDefault(); }
+  });
+  updSum();
+})();
+</script>
+</body>
+</html>
