@@ -258,32 +258,39 @@ const VER = [
  EX:[
   {id:"e1", t:"Esercizio 1", q:"Quanti grammi di Mg servono per produrre 190 g di MgCl<sub>2</sub>?",
    say:"Esercizio 1. Quanti grammi di magnesio servono per produrre 190 grammi di cloruro di magnesio, emme gi ci elle due?",
-   passi:[{id:"e1a",tipo:"n",lab:"a) Massa di MgCl₂ dalla formula",u:"u",ok:95.21,tol:0.003,pt:1,ans:"95,21 u",
+   tav:"Mg, Cl",
+   passi:[{id:"e1a",tipo:"n",lab:"a) Massa della formula MgCl₂ = Mg + 2 × Cl",u:"u",ok:95.21,tol:0.003,pt:1,ans:"95,21 u",
            tr:[[59.76,"Cl₂: il cloro conta due volte. 24,31 + 2 × 35,45."],[70.9,"Questa è solo la parte del cloro: aggiungi il magnesio."]]},
-          {id:"e1b",tipo:"n",lab:"b) Percentuale di Mg nel composto",u:"%",ok:25.53,tol:0.01,pt:1,ans:"25,5%",
-           tr:[[40.68,"Hai contato il cloro una volta sola: 24,31 / 95,21 × 100."],[74.47,"Questa è la percentuale del cloro."]]},
+          {id:"e1b",tipo:"n",lab:"b) Rapporto Mg : MgCl₂ = 24,31 / massa della formula (grammi di Mg in 1 g di composto)",u:"",ok:0.2553,alt:[25.53],tol:0.01,pt:1,ans:"0,255 (cioè 25,5%)",
+           tr:[[0.4068,"Hai contato il cloro una volta sola: 24,31 / 95,21."],[40.68,"Hai contato il cloro una volta sola: 24,31 / 95,21."],[0.3429,"Hai diviso per il solo cloro: il rapporto è con tutto il composto, 24,31 / 95,21."],[3.917,"Hai fatto il rapporto al contrario: Mg sopra, 24,31 / 95,21."],[0.7447,"Questo è il rapporto del cloro: 70,90 / 95,21."],[74.47,"Questa è la percentuale del cloro."]]},
           {id:"e1c",tipo:"n",lab:"c) Grammi di Mg",u:"g",ok:48.51,tol:0.01,pt:2,ans:"48,5 g",
-           tr:[[119.1,"Hai tolto 70,9 dai grammi: masse atomiche e grammi non si sottraggono. Usa la percentuale: 190 × 25,53 / 100."],[77.29,"Hai contato il cloro una volta sola: la massa di MgCl₂ è 95,21."],[141.5,"Questi sono i grammi di cloro."]]}],
-   how:"a) MgCl₂ = 24,31 + 2 × 35,45 = 95,21 u.<br>b) % Mg = 24,31 / 95,21 × 100 = 25,53%.<br>c) Mg = 190 × 25,53 / 100 = <b>48,5 g</b>.<br>Oppure con la proporzione: 24,31 : 95,21 = x : 190."},
+           tr:[[119.1,"Hai tolto 70,9 dai grammi: masse atomiche e grammi non si sottraggono. Usa il rapporto: 190 × 24,31 / 95,21."],[77.29,"Hai contato il cloro una volta sola: la massa di MgCl₂ è 95,21."],[141.5,"Questi sono i grammi di cloro."],[744.1,"Hai invertito la proporzione: 190 × 24,31 / 95,21."]]}],
+   how:"a) Dalla tavola: Mg = 24,31, Cl = 35,45. MgCl₂ = 24,31 + 2 × 35,45 = 95,21 u.<br>b) Rapporto: in 95,21 g di MgCl₂ ci sono 24,31 g di Mg → 24,31 / 95,21 = 0,255 (cioè il 25,5%).<br>c) Mg = 190 × 0,255 = <b>48,5 g</b>.<br>Con la proporzione è lo stesso: 24,31 : 95,21 = x : 190."},
   {id:"e2", t:"Esercizio 2", q:"Quanto composto CaCl<sub>2</sub> è possibile sintetizzare facendo reagire 60,12 g di Ca con 0,1200 kg di Cl?",
    say:"Esercizio 2. Quanto composto, cloruro di calcio, è possibile sintetizzare facendo reagire 60 virgola 12 grammi di calcio con 0 virgola 1200 chilogrammi di cloro?",
+   tav:"Ca, Cl",
    passi:[{id:"e2a",tipo:"n",lab:"a) 0,1200 kg di Cl in grammi",u:"g",ok:120,pt:0.5,ans:"120,0 g",
            tr:[[1200,"Da kg a g: × 1000. 0,1200 × 1000 = 120,0 g."],[0.00012,"Da kg a g si moltiplica per 1000, non si divide."]]},
-          {id:"e2b",tipo:"n",lab:"b) Cloro che si combina con 60,12 g di Ca",u:"g",ok:106.35,tol:0.01,pt:1,ans:"106,4 g",
+          {id:"e2r",tipo:"n",lab:"b) Rapporto di combinazione Cl : Ca dalla tavola = (2 × 35,45) / 40,08",u:"",ok:1.769,tol:0.01,pt:1,ans:"1,77",
+           tr:[[0.5653,"Hai fatto Ca / Cl. Qui serve Cl / Ca: 70,90 / 40,08."],[0.8845,"In CaCl₂ il cloro conta due volte: 2 × 35,45 = 70,90."]]},
+          {id:"e2b",tipo:"n",lab:"c) Cloro che si combina con 60,12 g di Ca",u:"g",ok:106.35,tol:0.01,pt:1,ans:"106,4 g",
            tr:[[53.18,"In CaCl₂ il cloro conta due volte: 60,12 × 70,90 / 40,08."],[33.99,"Hai invertito il rapporto: Cl / Ca = 70,90 / 40,08."]]},
-          {id:"e2c",tipo:"s",lab:"c) Il reagente in eccesso è…",o:["il calcio","il cloro","nessuno"],ok:1,pt:0.5,ans:"il cloro"},
-          {id:"e2d",tipo:"n",lab:"d) CaCl₂ che si forma",u:"g",ok:166.47,tol:0.01,pt:2,ans:"166,5 g",
+          {id:"e2c",tipo:"s",lab:"d) Il reagente in eccesso è…",o:["il calcio","il cloro","nessuno"],ok:1,pt:0.5,ans:"il cloro"},
+          {id:"e2d",tipo:"n",lab:"e) CaCl₂ che si forma",u:"g",ok:166.47,tol:0.01,pt:1,ans:"166,5 g",
            tr:[[180.12,"Hai sommato tutto: il cloro è in eccesso, ne reagiscono solo 106,4 g."]]}],
-   how:"a) 0,1200 kg = 120,0 g.<br>b) In CaCl₂ ci sono 40,08 g di Ca ogni 2 × 35,45 = 70,90 g di Cl. Con 60,12 g di Ca: 60,12 × 70,90 / 40,08 = 106,4 g di Cl.<br>c) Il cloro è 120,0 g: ne avanzano 13,6 g → in eccesso il <b>cloro</b>.<br>d) CaCl₂ = 60,12 + 106,4 = <b>166,5 g</b>."},
+   how:"a) 0,1200 kg = 120,0 g.<br>b) Dalla tavola: Ca = 40,08, Cl = 35,45. In CaCl₂ c'è 1 Ca e ci sono 2 Cl: 40,08 g di Ca si legano a 2 × 35,45 = 70,90 g di Cl. Rapporto Cl : Ca = 70,90 / 40,08 = 1,77.<br>c) Con 60,12 g di Ca: 60,12 × 1,77 = 106,4 g di Cl.<br>d) Il cloro è 120,0 g: ne avanzano 13,6 g → in eccesso il <b>cloro</b>.<br>e) CaCl₂ = 60,12 + 106,4 = <b>166,5 g</b>."},
   {id:"e3", t:"Esercizio 3", q:"Nella reazione: acido solforico + idrossido di calcio = solfato di calcio + acqua<br>si sono ottenuti 68,08 g di solfato di calcio e 18,02 g di acqua. Quanti g di acido solforico (H<sub>2</sub>SO<sub>4</sub>) sono stati utilizzati? L'idrossido di calcio è Ca(OH)<sub>2</sub>.",
    say:"Esercizio 3. Nella reazione: acido solforico più idrossido di calcio uguale solfato di calcio più acqua, si sono ottenuti 68 virgola 08 grammi di solfato di calcio e 18 virgola 02 grammi di acqua. Quanti grammi di acido solforico sono stati utilizzati?",
+   tav:"H, O, S, Ca",
    passi:[{id:"e3a",tipo:"n",lab:"a) Massa totale dei reagenti",u:"g",ok:86.10,tol:0.004,pt:1,ans:"86,10 g",
            tr:[[50.06,"Hai sottratto. Per Lavoisier i reagenti pesano quanto i prodotti: 68,08 + 18,02."]]},
-          {id:"e3b",tipo:"n",lab:"b) Massa di H₂SO₄ dalla formula",u:"u",ok:98.09,tol:0.002,pt:1,ans:"98,09 u",
+          {id:"e3b",tipo:"n",lab:"b) Massa della formula H₂SO₄",u:"u",ok:98.09,tol:0.002,pt:0.5,ans:"98,09 u",
            tr:[[49.08,"H₂ e O₄: l'idrogeno conta 2 volte e l'ossigeno 4. 2 × 1,008 + 32,07 + 4 × 16,00."]]},
-          {id:"e3c",tipo:"n",lab:"c) Acido solforico utilizzato",u:"g",ok:49.05,tol:0.01,pt:2,ans:"49,0 g",
+          {id:"e3r",tipo:"n",lab:"c) Massa della formula Ca(OH)₂",u:"u",ok:74.10,tol:0.002,pt:0.5,ans:"74,10 u",
+           tr:[[57.09,"(OH)₂: sia O sia H contano 2 volte. 40,08 + 2 × (16,00 + 1,008)."],[73.09,"(OH)₂: anche H conta 2 volte. 40,08 + 2 × 16,00 + 2 × 1,008."]]},
+          {id:"e3c",tipo:"n",lab:"d) Acido solforico: 86,10 divisi nel rapporto acido : idrossido",u:"g",ok:49.05,tol:0.01,pt:2,ans:"49,0 g",
            tr:[[86.10,"Questa è la massa dei due reagenti insieme: va divisa tra acido e idrossido."],[37.05,"Questi sono i grammi di idrossido di calcio."],[50.06,"Hai fatto 68,08 − 18,02: i prodotti non si sottraggono."]]}],
-   how:"a) Lavoisier: reagenti = prodotti = 68,08 + 18,02 = 86,10 g.<br>b) H₂SO₄ = 2 × 1,008 + 32,07 + 4 × 16,00 = 98,09 u. Ca(OH)₂ = 40,08 + 2 × (16,00 + 1,008) = 74,10 u.<br>c) Acido e idrossido reagiscono nel rapporto 98,09 : 74,10. Acido = 86,10 × 98,09 / (98,09 + 74,10) = <b>49,0 g</b>.<br>Altro modo: lo zolfo del solfato viene tutto dall'acido. CaSO₄ = 136,15 u → acido = 68,08 × 98,09 / 136,15 = 49,0 g."}
+   how:"a) Lavoisier: reagenti = prodotti = 68,08 + 18,02 = 86,10 g.<br>b) H₂SO₄ = 2 × 1,008 + 32,07 + 4 × 16,00 = 98,09 u.<br>c) Ca(OH)₂ = 40,08 + 2 × (16,00 + 1,008) = 74,10 u.<br>d) Acido e idrossido reagiscono nel rapporto 98,09 : 74,10. Acido = 86,10 × 98,09 / (98,09 + 74,10) = <b>49,0 g</b>.<br>Altro modo: lo zolfo del solfato viene tutto dall'acido. CaSO₄ = 136,15 u → acido = 68,08 × 98,09 / 136,15 = 49,0 g."}
  ]},
 { /* ─────────── versione 2 ─────────── */
  MC:[
@@ -365,32 +372,39 @@ const VER = [
  EX:[
   {id:"e1", t:"Esercizio 1", q:"Quanti grammi di Al servono per produrre 400 g di Al<sub>2</sub>O<sub>3</sub>?",
    say:"Esercizio 1. Quanti grammi di alluminio servono per produrre 400 grammi di ossido di alluminio, a elle due o tre?",
-   passi:[{id:"e1a",tipo:"n",lab:"a) Massa di Al₂O₃ dalla formula",u:"u",ok:101.96,tol:0.002,pt:1,ans:"101,96 u",
+   tav:"Al, O",
+   passi:[{id:"e1a",tipo:"n",lab:"a) Massa della formula Al₂O₃ = 2 × Al + 3 × O",u:"u",ok:101.96,tol:0.002,pt:1,ans:"101,96 u",
            tr:[[42.98,"Hai contato un solo atomo per elemento: Al₂O₃ ha 2 atomi di Al e 3 di O."],[74.98,"Al₂: l'alluminio conta due volte. 2 × 26,98 + 3 × 16,00."],[69.96,"O₃: l'ossigeno conta tre volte. 2 × 26,98 + 3 × 16,00."]]},
-          {id:"e1b",tipo:"n",lab:"b) Percentuale di Al nel composto",u:"%",ok:52.92,tol:0.01,pt:1,ans:"52,9%",
-           tr:[[26.46,"Hai contato un solo atomo di Al: in Al₂O₃ sono 2, quindi 2 × 26,98 = 53,96."],[47.08,"Questa è la percentuale dell'ossigeno."]]},
+          {id:"e1b",tipo:"n",lab:"b) Rapporto Al : Al₂O₃ = (2 × 26,98) / massa della formula (grammi di Al in 1 g di composto)",u:"",ok:0.5292,alt:[52.92],tol:0.01,pt:1,ans:"0,529 (cioè 52,9%)",
+           tr:[[0.2646,"Hai contato un solo atomo di Al: in Al₂O₃ sono 2, quindi 2 × 26,98 = 53,96."],[26.46,"Hai contato un solo atomo di Al: in Al₂O₃ sono 2, quindi 2 × 26,98 = 53,96."],[1.124,"Hai diviso per il solo ossigeno: il rapporto è con tutto il composto, 53,96 / 101,96."],[1.89,"Hai fatto il rapporto al contrario: Al sopra, 53,96 / 101,96."],[0.4708,"Questo è il rapporto dell'ossigeno: 48,00 / 101,96."],[47.08,"Questa è la percentuale dell'ossigeno."]]},
           {id:"e1c",tipo:"n",lab:"c) Grammi di Al",u:"g",ok:211.69,tol:0.01,pt:2,ans:"211,7 g",
-           tr:[[298.04,"Hai tolto 101,96 dai grammi: masse atomiche e grammi non si sottraggono. Usa la percentuale: 400 × 52,92 / 100."],[105.85,"Hai contato un solo atomo di Al: in Al₂O₃ sono 2."],[188.31,"Questi sono i grammi di ossigeno."]]}],
-   how:"a) Al₂O₃ = 2 × 26,98 + 3 × 16,00 = 101,96 u.<br>b) % Al = 53,96 / 101,96 × 100 = 52,92%.<br>c) Al = 400 × 52,92 / 100 = <b>211,7 g</b>.<br>Oppure con la proporzione: 53,96 : 101,96 = x : 400."},
+           tr:[[298.04,"Hai tolto 101,96 dai grammi: masse atomiche e grammi non si sottraggono. Usa il rapporto: 400 × 53,96 / 101,96."],[105.85,"Hai contato un solo atomo di Al: in Al₂O₃ sono 2."],[188.31,"Questi sono i grammi di ossigeno."],[755.8,"Hai invertito la proporzione: 400 × 53,96 / 101,96."]]}],
+   how:"a) Dalla tavola: Al = 26,98, O = 16,00. Al₂O₃ = 2 × 26,98 + 3 × 16,00 = 101,96 u.<br>b) Rapporto: in 101,96 g di Al₂O₃ ci sono 2 × 26,98 = 53,96 g di Al → 53,96 / 101,96 = 0,529 (cioè il 52,9%).<br>c) Al = 400 × 0,529 = <b>211,7 g</b>.<br>Con la proporzione è lo stesso: 53,96 : 101,96 = x : 400."},
   {id:"e2", t:"Esercizio 2", q:"Quanto ossido di magnesio MgO è possibile ottenere facendo reagire 36,47 g di Mg con 0,0300 kg di O?",
    say:"Esercizio 2. Quanto ossido di magnesio è possibile ottenere facendo reagire 36 virgola 47 grammi di magnesio con 0 virgola 0300 chilogrammi di ossigeno?",
+   tav:"Mg, O",
    passi:[{id:"e2a",tipo:"n",lab:"a) 0,0300 kg di O in grammi",u:"g",ok:30,pt:0.5,ans:"30,0 g",
            tr:[[300,"Riconta: 0,0300 × 1000 = 30,0 g."],[0.00003,"Da kg a g si moltiplica per 1000, non si divide."]]},
-          {id:"e2b",tipo:"n",lab:"b) Ossigeno che si combina con 36,47 g di Mg",u:"g",ok:24.00,tol:0.01,pt:1,ans:"24,0 g",
+          {id:"e2r",tipo:"n",lab:"b) Rapporto di combinazione O : Mg dalla tavola = 16,00 / 24,31",u:"",ok:0.6582,tol:0.01,pt:1,ans:"0,658",
+           tr:[[1.519,"Hai fatto Mg / O. Qui serve O / Mg: 16,00 / 24,31."]]},
+          {id:"e2b",tipo:"n",lab:"c) Ossigeno che si combina con 36,47 g di Mg",u:"g",ok:24.00,tol:0.01,pt:1,ans:"24,0 g",
            tr:[[55.41,"Hai invertito il rapporto: O / Mg = 16,00 / 24,31."]]},
-          {id:"e2c",tipo:"s",lab:"c) Il reagente in eccesso è…",o:["il magnesio","l'ossigeno","nessuno"],ok:1,pt:0.5,ans:"l'ossigeno"},
-          {id:"e2d",tipo:"n",lab:"d) MgO che si forma",u:"g",ok:60.47,tol:0.01,pt:2,ans:"60,5 g",
+          {id:"e2c",tipo:"s",lab:"d) Il reagente in eccesso è…",o:["il magnesio","l'ossigeno","nessuno"],ok:1,pt:0.5,ans:"l'ossigeno"},
+          {id:"e2d",tipo:"n",lab:"e) MgO che si forma",u:"g",ok:60.47,tol:0.01,pt:1,ans:"60,5 g",
            tr:[[66.47,"Hai sommato tutto: l'ossigeno è in eccesso, ne reagiscono solo 24,0 g."]]}],
-   how:"a) 0,0300 kg = 30,0 g.<br>b) In MgO ci sono 24,31 g di Mg ogni 16,00 g di O. Con 36,47 g di Mg: 36,47 × 16,00 / 24,31 = 24,0 g di O.<br>c) L'ossigeno è 30,0 g: ne avanzano 6,0 g → in eccesso l'<b>ossigeno</b>.<br>d) MgO = 36,47 + 24,0 = <b>60,5 g</b>."},
+   how:"a) 0,0300 kg = 30,0 g.<br>b) Dalla tavola: Mg = 24,31, O = 16,00. In MgO 24,31 g di Mg si legano a 16,00 g di O. Rapporto O : Mg = 16,00 / 24,31 = 0,658.<br>c) Con 36,47 g di Mg: 36,47 × 0,658 = 24,0 g di O.<br>d) L'ossigeno è 30,0 g: ne avanzano 6,0 g → in eccesso l'<b>ossigeno</b>.<br>e) MgO = 36,47 + 24,0 = <b>60,5 g</b>."},
   {id:"e3", t:"Esercizio 3", q:"Nella reazione: acido nitrico + idrossido di potassio = nitrato di potassio + acqua<br>si sono ottenuti 40,44 g di nitrato di potassio e 7,21 g di acqua. Quanti g di acido nitrico (HNO<sub>3</sub>) sono stati utilizzati? L'idrossido di potassio è KOH.",
    say:"Esercizio 3. Nella reazione: acido nitrico più idrossido di potassio uguale nitrato di potassio più acqua, si sono ottenuti 40 virgola 44 grammi di nitrato di potassio e 7 virgola 21 grammi di acqua. Quanti grammi di acido nitrico sono stati utilizzati?",
+   tav:"H, N, O, K",
    passi:[{id:"e3a",tipo:"n",lab:"a) Massa totale dei reagenti",u:"g",ok:47.65,tol:0.004,pt:1,ans:"47,65 g",
            tr:[[33.23,"Hai sottratto. Per Lavoisier i reagenti pesano quanto i prodotti: 40,44 + 7,21."]]},
-          {id:"e3b",tipo:"n",lab:"b) Massa di HNO₃ dalla formula",u:"u",ok:63.02,tol:0.002,pt:1,ans:"63,02 u",
+          {id:"e3b",tipo:"n",lab:"b) Massa della formula HNO₃",u:"u",ok:63.02,tol:0.002,pt:0.5,ans:"63,02 u",
            tr:[[31.02,"O₃: l'ossigeno conta tre volte. 1,008 + 14,01 + 3 × 16,00."]]},
-          {id:"e3c",tipo:"n",lab:"c) Acido nitrico utilizzato",u:"g",ok:25.21,tol:0.01,pt:2,ans:"25,2 g",
+          {id:"e3r",tipo:"n",lab:"c) Massa della formula KOH",u:"u",ok:56.11,tol:0.002,pt:0.5,ans:"56,11 u",
+           tr:[[39.10,"KOH contiene anche O e H: 39,10 + 16,00 + 1,008."],[55.10,"Manca l'idrogeno: 39,10 + 16,00 + 1,008."]]},
+          {id:"e3c",tipo:"n",lab:"d) Acido nitrico: 47,65 divisi nel rapporto acido : idrossido",u:"g",ok:25.21,tol:0.01,pt:2,ans:"25,2 g",
            tr:[[47.65,"Questa è la massa dei due reagenti insieme: va divisa tra acido e idrossido."],[22.44,"Questi sono i grammi di idrossido di potassio."],[33.23,"Hai fatto 40,44 − 7,21: i prodotti non si sottraggono."]]}],
-   how:"a) Lavoisier: reagenti = prodotti = 40,44 + 7,21 = 47,65 g.<br>b) HNO₃ = 1,008 + 14,01 + 3 × 16,00 = 63,02 u. KOH = 39,10 + 16,00 + 1,008 = 56,11 u.<br>c) Acido e idrossido reagiscono nel rapporto 63,02 : 56,11. Acido = 47,65 × 63,02 / (63,02 + 56,11) = <b>25,2 g</b>.<br>Altro modo: l'azoto del nitrato viene tutto dall'acido. KNO₃ = 101,11 u → acido = 40,44 × 63,02 / 101,11 = 25,2 g."}
+   how:"a) Lavoisier: reagenti = prodotti = 40,44 + 7,21 = 47,65 g.<br>b) HNO₃ = 1,008 + 14,01 + 3 × 16,00 = 63,02 u.<br>c) KOH = 39,10 + 16,00 + 1,008 = 56,11 u.<br>d) Acido e idrossido reagiscono nel rapporto 63,02 : 56,11. Acido = 47,65 × 63,02 / (63,02 + 56,11) = <b>25,2 g</b>.<br>Altro modo: l'azoto del nitrato viene tutto dall'acido. KNO₃ = 101,11 u → acido = 40,44 × 63,02 / 101,11 = 25,2 g."}
  ]}
 ];
 
@@ -418,6 +432,8 @@ function rnd(seed){ /* generatore pseudo-casuale riproducibile */
 }
 function perm(n, r){ const a = []; for(let i=0;i<n;i++) a.push(i); for(let i=n-1;i>0;i--){ const j = Math.floor(r()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
+const TAV = '<div class="tav"><div><i>Z = 1</i><b>H</b><span>1,008</span></div><div><i>Z = 6</i><b>C</b><span>12,01</span></div><div><i>Z = 7</i><b>N</b><span>14,01</span></div><div><i>Z = 8</i><b>O</b><span>16,00</span></div><div><i>Z = 10</i><b>Ne</b><span>20,18</span></div><div><i>Z = 11</i><b>Na</b><span>22,99</span></div><div><i>Z = 12</i><b>Mg</b><span>24,31</span></div><div><i>Z = 13</i><b>Al</b><span>26,98</span></div><div><i>Z = 14</i><b>Si</b><span>28,09</span></div><div><i>Z = 15</i><b>P</b><span>30,97</span></div><div><i>Z = 16</i><b>S</b><span>32,07</span></div><div><i>Z = 17</i><b>Cl</b><span>35,45</span></div><div><i>Z = 18</i><b>Ar</b><span>39,95</span></div><div><i>Z = 19</i><b>K</b><span>39,10</span></div><div><i>Z = 20</i><b>Ca</b><span>40,08</span></div><div><i>Z = 26</i><b>Fe</b><span>55,85</span></div></div>';
+
 /* ═══════════ controllo ═══════════ */
 function checkNum(p, s){
   if(!String(s||"").trim()) return {vuoto:true};
@@ -425,6 +441,7 @@ function checkNum(p, s){
   if(!isFinite(v)) return {ok:false, msg:"Il numero non è leggibile."};
   const tol = p.tol!=null ? p.tol : 0.015;
   if(near(v,p.ok,tol)) return {ok:true};
+  if(p.alt) for(let i=0;i<p.alt.length;i++) if(near(v,p.alt[i],tol)) return {ok:true};
   const tr = p.tr||[];
   for(let i=0;i<tr.length;i++) if(near(v,tr[i][0],0.012)) return {ok:false, msg:tr[i][1]};
   if(v>0){
@@ -464,11 +481,22 @@ function render(){
     });
     h += '</div></div>';
   });
-  h += '<div class="note"><b>Esercizi.</b> Come nel compito: 4 punti per ogni esercizio corretto e completo. Qui scrivi i risultati dei passaggi: valgono punti anche se il risultato finale è sbagliato. Sul foglio, in classe, scrivi tutti i calcoli.</div>';
+  h += '<div class="note"><b>Esercizi.</b> Come nel compito: 4 punti per ogni esercizio corretto e completo. Qui scrivi i risultati dei passaggi: valgono punti anche se il risultato finale è sbagliato. Sul foglio, in classe, scrivi tutti i calcoli.<br>'
+     + '<b>Il rapporto non è mai scritto nel testo: lo ricavi dalla tavola periodica</b>, come in classe.</div>'
+     + '<div class="card"><div class="qnum">Tavola periodica (estratto)</div>'+TAV+'</div>'
+     + '<details class="form"><summary>Non sai da dove prendere il rapporto? Esempio svolto: l\'esercizio 1 del compito</summary><div class="in">'
+     + '<b>Quanti grammi di Ca servono per produrre 255 g di CaCl<sub>2</sub>?</b><br>'
+     + '1. Dalla tavola: Ca = 40,08 · Cl = 35,45.<br>'
+     + '2. Nella formula CaCl<sub>2</sub> c\'è 1 Ca e ci sono 2 Cl: Ca = 40,08, Cl<sub>2</sub> = 2 × 35,45 = 70,90.<br>'
+     + '3. Massa della formula: 40,08 + 70,90 = 110,98. Quindi il <b>rapporto</b> è: in 110,98 g di CaCl<sub>2</sub> ci sono 40,08 g di Ca.<br>'
+     + '4. Proporzione: 40,08 : 110,98 = <i>x</i> : 255 → <i>x</i> = 255 × 40,08 / 110,98 = <b>92,1 g di Ca</b>.<br>'
+     + '<span style="color:var(--no)">Non si fa 255 − 70,9: le masse atomiche (u) e i grammi non si sottraggono.</span>'
+     + '</div></details>';
   V.EX.forEach((E,j)=>{
     h += '<div class="card" id="c'+E.id+'"><div class="qhead"><div class="qnum">'+E.t+' <span class="pt" id="pt'+E.id+'">· 4 punti</span></div>'
        + '<button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+E.say.replace(/"/g,"&quot;")+'">🔊</button></div>'
-       + '<p class="qtext">'+E.q+'</p>';
+       + '<p class="qtext">'+E.q+'</p>'
+       + (E.tav ? '<p class="sub">Dalla tavola periodica ti servono: <b>'+E.tav+'</b>.</p>' : '');
     E.passi.forEach(p=>{
       h += '<div class="lab">'+p.lab+'</div>';
       if(p.tipo==="n") h += '<div class="chk"><input id="'+p.id+'" inputmode="decimal" placeholder="..." autocomplete="off" oninput="tieni(this)"><span class="u">'+p.u+'</span></div>';
