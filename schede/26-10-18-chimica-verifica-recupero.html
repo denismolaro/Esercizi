@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chimica — Verifica di recupero, simulazione</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --giu:#1D5FA8; --su:#B4531A;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+.vers{display:flex; gap:8px; margin:6px 0 12px}
+.vers button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:12px; padding:9px 8px; font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer; line-height:1.35}
+.vers button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.vers button small{display:block; font-weight:600; font-size:12.5px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+details.form{border:2px solid var(--accent-line); border-radius:12px; background:#fff; margin:12px 0; font-size:16px}
+details.form summary{padding:10px 14px; font-weight:700; color:var(--accent); cursor:pointer}
+details.form .in{padding:0 14px 12px; line-height:1.6}
+details.form table{font-size:15px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:16px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qnum .pt{color:var(--soft); letter-spacing:.04em}
+.qnum .pt.y{color:var(--ok)}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 10px}
+.sub{font-size:16px; color:var(--soft); margin:0 0 6px}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:8px 0; line-height:1.5}
+button{font:inherit; cursor:pointer}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:6px 8px; text-align:center}
+th{background:var(--accent-soft); font-size:14px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:center}
+.chk input, .ns input, .rt input{font:inherit; font-size:18px; padding:10px 12px; border:2px solid var(--rule); border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input{flex:1}
+input:focus{outline:none; border-color:var(--accent)}
+input[readonly]{background:#F6F4EF}
+.chk .u{font-size:16px; color:var(--soft); font-weight:600; min-width:46px}
+.rt{display:flex; gap:8px; align-items:center; margin-top:8px}
+.rt input{width:90px; text-align:center}
+.rt .c{font-size:24px; font-weight:700}
+.opts{display:grid; gap:7px; margin-top:8px; grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 6px; min-width:0;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.3; overflow-wrap:break-word}
+.opts button.sel{border-color:var(--ink); background:#E9ECF1}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.opts.locked button{cursor:default}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+@media (max-width:460px){ .opts.three button{font-size:14px; padding:10px 3px} }
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:20px; font-weight:700; font-family:"Times New Roman",Georgia,serif; margin-bottom:6px}
+.op .to{font-family:-apple-system,Arial,sans-serif; font-size:16px; color:var(--soft); font-weight:600}
+.ns{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+.ns .nm{flex:1 1 auto; width:100%; font-size:19px}
+.ns .x{font-family:"Times New Roman",Georgia,serif; font-size:21px; white-space:nowrap}
+.ns .pw{display:flex; align-items:center; gap:3px; transform:translateY(-11px)}
+.ns .ex{width:58px; font-size:16px; padding:5px 6px; border-radius:9px; text-align:center}
+.ns .pm{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:3px 7px; font-size:15px; font-weight:700; color:var(--ink)}
+.fb{display:none; font-size:16px; line-height:1.55; margin-top:8px; border-radius:10px; padding:8px 12px}
+.fb.on{display:block}
+.fb.y{background:var(--ok-soft); color:var(--ok); font-weight:700}
+.fb.n{background:var(--no-soft); color:var(--no)}
+.fb.n b.t{display:block}
+.fb .giusta{color:var(--ink); font-weight:700; margin-top:4px}
+.fb .how{color:var(--ink); background:#fff; border-radius:8px; padding:8px 10px; margin-top:6px; font-size:15.5px; line-height:1.6}
+.row.y .op::after{content:" ✓"; color:var(--ok)}
+.row.n .op::after{content:" ✗"; color:var(--no)}
+.bottom{margin-top:26px}
+.prog{font-size:15px; color:var(--soft); text-align:center; font-weight:600; margin-bottom:8px}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:700; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.btn.warn{background:var(--warn); border-color:var(--warn); color:#fff}
+.esito{display:none; border:2px solid var(--accent-line); background:var(--accent-soft); border-radius:14px; padding:16px; margin:14px 0}
+.esito.on{display:block}
+.esito .voto{font-size:44px; font-weight:800; line-height:1.1; letter-spacing:-.02em}
+.esito .voto.ok{color:var(--ok)} .esito .voto.ko{color:var(--no)}
+.esito .det{font-size:16px; margin-top:6px}
+.esito table{background:#fff}
+.esito td{text-align:left} .esito td.c{text-align:center}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+.qq{font-size:18px; line-height:1.55; font-weight:600; margin-bottom:6px}
+.qq .qn{color:var(--accent); font-weight:800}
+.qq .pti{color:var(--soft); font-weight:600; font-size:15px}
+.spk.mini{font-size:14px; padding:0 7px; vertical-align:middle; margin-left:2px}
+.mc{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.mc button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left;
+  font-size:17px; color:var(--ink); line-height:1.35; min-height:44px}
+.mc button.sel{border-color:var(--ink); background:#E9ECF1; font-weight:700}
+.mc button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok); font-weight:700}
+.mc button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.mc.locked button{cursor:default}
+.mc.locked button:not(.right):not(.wrong){opacity:.45}
+.mc.row3{flex-direction:row; flex-wrap:wrap} .mc.row3 button{flex:1 1 30%; text-align:center}
+.row.y .qq::after{content:" ✓"; color:var(--ok)}
+.row.n .qq::after{content:" ✗"; color:var(--no)}
+.esito .voto small{font-size:20px; color:var(--soft); font-weight:700}
+details.form table td, details.form table th{padding:4px 6px}
+.tav{display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:5px; margin:8px 0 2px}
+.tav div{border:1px solid var(--rule); border-radius:8px; text-align:center; padding:3px 2px; line-height:1.25; background:#fff}
+.tav b{display:block; font-size:18px} .tav i{font-style:normal; font-size:11.5px; color:var(--soft)} .tav span{font-size:13px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Chimica · recupero</div>
+  <h1>Verifica di scienze — simulazione</h1>
+  <p class="lead">Come la verifica del 6 ottobre: domande a scelta multipla e tre esercizi. <b>Non c'è tempo limite.</b> Le risposte restano salvate. Alla fine tocca <b>Consegna</b> per la correzione.</p>
+  <div class="vers" id="vers"></div>
+</header>
+
+<div class="note"><b>Punteggio come nel compito.</b> C'è una sola risposta giusta per domanda. +1 giusta, 0 vuota, −0,25 sbagliata.<br>
+Conviene rispondere se riesci a scartare almeno una risposta. Per togliere una scelta, toccala di nuovo.<br>
+Come nel compito, alcuni numeri usano il <b>punto come virgola</b>: 0.6 mg = 0,6 mg.</div>
+
+<details class="form" open><summary>Tavola periodica (estratto): Z e massa atomica</summary><div class="in">
+  <div class="tav"><div><i>Z = 1</i><b>H</b><span>1,008</span></div><div><i>Z = 6</i><b>C</b><span>12,01</span></div><div><i>Z = 7</i><b>N</b><span>14,01</span></div><div><i>Z = 8</i><b>O</b><span>16,00</span></div><div><i>Z = 10</i><b>Ne</b><span>20,18</span></div><div><i>Z = 11</i><b>Na</b><span>22,99</span></div><div><i>Z = 12</i><b>Mg</b><span>24,31</span></div><div><i>Z = 13</i><b>Al</b><span>26,98</span></div><div><i>Z = 14</i><b>Si</b><span>28,09</span></div><div><i>Z = 15</i><b>P</b><span>30,97</span></div><div><i>Z = 16</i><b>S</b><span>32,07</span></div><div><i>Z = 17</i><b>Cl</b><span>35,45</span></div><div><i>Z = 18</i><b>Ar</b><span>39,95</span></div><div><i>Z = 19</i><b>K</b><span>39,10</span></div><div><i>Z = 20</i><b>Ca</b><span>40,08</span></div><div><i>Z = 26</i><b>Fe</b><span>55,85</span></div></div>
+</div></details>
+
+<details class="form"><summary>Il foglio delle formule (usalo se in classe è permesso)</summary><div class="in">
+  K = °C + 273,15 · una <b>differenza</b> di 1 °C = 1 K<br>
+  1 cal = 4,186 J · 1 kcal = 1000 cal · 1 kJ = 1000 J<br>
+  mg → g: ÷ 1000 · g → kg: ÷ 1000 · kg → g: × 1000<br>
+  Sconto: prezzo − prezzo × % / 100<br>
+  <b>Protoni</b> = Z (non cambiano mai) · ione <b>−</b>: elettroni in più · ione <b>+</b>: elettroni in meno<br>
+  <b>Massa di una formula</b>: somma delle masse atomiche × gli indici<br>
+  <b>% di un elemento</b> = massa dell'elemento nella formula / massa della formula × 100<br>
+  <b>Grammi di un elemento</b> = grammi di composto × % / 100<br>
+  <b>Lavoisier</b>: massa dei reagenti = massa dei prodotti<br>
+  <b>Eccesso</b>: calcola quanto serve dell'altro; parti dal reagente che finisce
+</div></details>
+
+<div class="esito" id="esitoTop"></div>
+<div id="exam"></div>
+
+<div class="bottom">
+  <div class="prog" id="prog"></div>
+  <button class="btn solid" id="consegna" onclick="consegna()">Consegna</button>
+  <div class="esito" id="esito"></div>
+  <button class="btn" id="ricomincia" onclick="ricomincia()" style="display:none">Ricomincia questa versione</button>
+  <button class="btn" id="altra" onclick="altra()" style="display:none"></button>
+</div>
+
+<p class="foot">Palestra · Chimica — simulazione della verifica di recupero</p>
+</div>
+
+<script>
+/* ═══════════ LE DUE VERSIONI ═══════════
+   Ogni parte: domande a scelta multipla {id, q, o:[opzioni], ok:indice giusto, why, pt}
+   Esercizi: {id, t, q, say, passi:[{id, tipo:"n"|"s", lab, u, ok, tol, tr, pt, ans}], how}      */
+const PARTI = ["Parte 1 · misure", "Parte 2 · atomi, formule, trasformazioni", "Parte 3 · bolle ed esercizi"];
+const VER = [
+{ /* ─────────── versione 1 ─────────── */
+ MC:[
+ [ /* parte 1 */
+  {id:"a1", q:"La densità di 1 g di rame a 20 °C rispetto a quella di 1 kg di rame alla stessa temperatura è:",
+   o:["maggiore","minore","uguale","non si può dire con i dati a disposizione"], ok:2,
+   why:"La densità è una proprietà intensiva: non dipende da quanta sostanza c'è. Stessa sostanza e stessa temperatura → stessa densità."},
+  {id:"a2", q:"La densità dell'alcol a 50 °C rispetto alla densità dell'alcol a 10 °C è:",
+   o:["maggiore","minore","uguale","non si può dire con i dati a disposizione"], ok:1,
+   why:"Scaldando, l'alcol si dilata: la massa resta uguale ma il volume aumenta. d = m / V, quindi la densità diminuisce."},
+  {id:"a3", q:"Un granello di sale ha una massa di 0.6 mg. La sua massa espressa in grammi vale:",
+   o:["0.00006g","0.06g","0.006g","0.0006g"], ok:3,
+   why:"Da mg a g salgo 3 gradini: ÷ 1000. 0,6 ÷ 1000 = 0,0006 g. La virgola si sposta di 3 posti, non di 4."},
+  {id:"a4", q:"Un diamante pesa 12.5 carati. Se un carato pesa 200 mg, qual è la sua massa espressa in grammi?",
+   o:["2.5g","2500g","62.5g","0.0625g"], ok:0,
+   why:"12,5 × 200 mg = 2500 mg. Poi da mg a g: 2500 ÷ 1000 = 2,5 g."},
+  {id:"a5", q:"Quale delle seguenti coppie di valori rappresenta uguali temperature?",
+   o:["0°C, 0K","25°C, 298.15K","−273°C, 273K","50°C, 223.15K"], ok:1,
+   why:"K = °C + 273,15. 25 + 273,15 = 298,15 K. Lo 0 °C corrisponde a 273,15 K, non a 0 K."},
+  {id:"a6", q:"Una felpa costa 80 euro. Durante i saldi il negozio fa uno sconto del 25% sul prezzo iniziale. Quanto la paghi?",
+   o:["20 euro","60 euro","55 euro","105 euro"], ok:1,
+   why:"Sconto: 80 × 25 / 100 = 20 euro. Paghi 80 − 20 = 60 euro. Il 20 è lo sconto, non il prezzo."},
+  {id:"a7", q:"Quale delle seguenti affermazioni è corretta?",
+   o:["La scala Kelvin non presenta valori negativi","Lo zero kelvin corrisponde a 0 °C","La scala Celsius non presenta valori negativi","In kelvin non si possono misurare temperature molto alte"], ok:0,
+   why:"0 K è lo zero assoluto, −273,15 °C: più freddo non si può. Per questo in kelvin non ci sono valori negativi."},
+  {id:"a8", q:"Quale delle seguenti affermazioni è <b>ERRATA</b>?",
+   o:["Il grammo non è l'unità di massa del SI","1 kcal corrisponde a 1000 cal","Una caloria equivale a 4,186 J","Una differenza di temperatura di 20 °C equivale a 293 K"], ok:3,
+   why:"Qui si cerca quella <b>sbagliata</b>. Una differenza di 20 °C è una differenza di 20 K: il + 273 vale per le temperature, non per le differenze. Le altre tre sono vere (l'unità SI della massa è il kg)."},
+  {id:"a9", q:"Una persona si pesa su una bilancia che fornisce come misura 63,4 kg. Risale sulla bilancia tenendo in mano uno zaino di 2470 g. Quanto segna ora la bilancia, supponendo che si tratti di uno strumento preciso?",
+   o:["65,87 kg","65,9 kg","65,870 kg","2533,4 kg"], ok:1,
+   why:"63,4 + 2,47 = 65,87 kg, ma la bilancia legge al decimo di kg (lo vedi da 63,4): mostra 65,9 kg. 2533,4 viene dal sommare kg e g senza trasformare."},
+  {id:"a10", q:"Quale coppia rappresenta quantità uguali di energia?",
+   o:["300 cal e 1255,8 kJ","300 cal e 1255,8 J","2000 J e 8372 cal","5 kcal e 5000 J"], ok:1,
+   why:"1 cal = 4,186 J: 300 × 4,186 = 1255,8 J. Occhio all'unità: J, non kJ. 2000 J sono 478 cal (8372 viene dal moltiplicare invece di dividere). 5 kcal sono 20 930 J."}
+ ],
+ [ /* parte 2 */
+  {id:"d1", pt:3, q:"Nella sintesi di FeS il rapporto di combinazione in massa fra Fe e S è di circa 7/4. Se si fanno reagire 14 g di Fe con 10 g di S: <span class='pti'>(3 punti)</span>",
+   o:["si formano 24 g di FeS","rimane un eccesso di Fe","rimane un eccesso di S","rimangono in eccesso 7 g di Fe e 4 g di S"], ok:2,
+   why:"14 g di Fe si combinano con 14 × 4 / 7 = 8 g di S. Lo zolfo è 10 g: ne avanzano 2 g. Si formano 14 + 8 = 22 g di FeS, non 24. Una sola risposta: non cerchiarne due."},
+  {id:"b1", q:"La formula del glucosio è C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>; essa indica che il glucosio è:",
+   o:["un miscuglio formato da tre elementi","un composto formato da tre atomi","una sostanza che contiene sei molecole di ossigeno","una sostanza formata da tre tipi diversi di atomi"], ok:3,
+   why:"C, H e O: tre tipi diversi di atomi, uniti in un composto. Gli indici dicono quanti atomi ci sono in una molecola: 6 + 12 + 6 = 24, non 3. E sono 6 atomi di ossigeno, non 6 molecole."},
+  {id:"b2", q:"Il simbolo dell'isotopo con 6 protoni e 8 neutroni è:",
+   o:["<sup>14</sup>C","<sup>8</sup>C","<sup>14</sup>Si","<sup>6</sup>O"], ok:0,
+   why:"6 protoni → carbonio (Z = 6). Il numero in alto è il numero di massa: protoni + neutroni = 6 + 8 = 14."},
+  {id:"b3", q:"Quanti protoni (p) e quanti elettroni (e⁻) sono presenti nello ione NO<sub>3</sub><sup>−</sup>?",
+   o:["31p; 30e⁻","31p; 32e⁻","22p; 23e⁻","62p; 63e⁻"], ok:1,
+   why:"Protoni: N = 7, O = 3 × 8 = 24 → 31. Carica −1 = un elettrone in più: 32 elettroni."},
+  {id:"b4", q:"La scrittura P<sub>4</sub> rappresenta:",
+   o:["quattro atomi di fosforo separati","quattro molecole di fosforo","una molecola formata da quattro atomi di fosforo","un composto del fosforo con un altro elemento"], ok:2,
+   why:"L'indice in basso dice quanti atomi ci sono nella molecola: P₄ è una molecola di 4 atomi di fosforo. Quattro atomi separati si scrivono 4 P."},
+  {id:"b5", q:"Lo ione S<sup>2−</sup> ha:",
+   o:["16 elettroni","16 protoni","18 protoni","14 elettroni","14 protoni"], ok:1,
+   why:"Lo zolfo ha Z = 16: 16 protoni, sempre. La carica 2− vuol dire 2 elettroni in più: 18 elettroni. Negli ioni cambiano gli elettroni, mai i protoni."},
+  {id:"c1", q:"Quando un solido fonde:",
+   o:["riceve calore e la sua temperatura aumenta","riceve calore e la sua temperatura non varia","riceve temperatura e il suo calore aumenta","cede calore e la sua temperatura non varia"], ok:1,
+   why:"La fusione è una sosta termica: il calore entra ma serve ad allontanare le particelle. La temperatura resta ferma finché tutto il solido è fuso."},
+  {id:"c2", q:"La temperatura alla quale una sostanza passa dallo stato liquido a quello solido è:",
+   o:["maggiore di quella di condensazione","maggiore di quella di fusione","uguale a quella di fusione","sempre minore di 0 °C","talvolta maggiore di quella di ebollizione"], ok:2,
+   why:"Da liquido a solido è la solidificazione: avviene alla stessa temperatura della fusione. Non sempre sotto 0 °C: il ferro solidifica a 1538 °C."},
+  {id:"b6", q:"Lo ione con simbolo O<sub>2</sub><sup>2−</sup> è formato da:",
+   o:["un atomo di ossigeno con carica 2−","due atomi di ossigeno legati, con carica totale 2−","due atomi di ossigeno, di cui uno con carica 2−","due ioni separati, ognuno con carica 2−"], ok:1,
+   why:"L'indice 2 in basso: due atomi di ossigeno legati in un'unica particella. La carica scritta in alto vale per tutta la particella."},
+  {id:"c5", q:"Quale dei seguenti fenomeni <b>non</b> comporta reazioni chimiche?",
+   o:["la cottura di un uovo","la formazione della brina","la formazione della ruggine","la digestione del cibo"], ok:1,
+   why:"La brina è vapore acqueo che diventa ghiaccio: un passaggio di stato, quindi una trasformazione fisica. Le altre formano sostanze nuove."},
+  {id:"c6", q:"Una soluzione è un sistema:",
+   o:["fisicamente omogeneo e chimicamente omogeneo","fisicamente omogeneo e chimicamente eterogeneo","fisicamente eterogeneo e chimicamente omogeneo","fisicamente eterogeneo e chimicamente eterogeneo"], ok:1,
+   why:"Una soluzione sembra uniforme (una sola fase: fisicamente omogenea) ma contiene più sostanze (chimicamente eterogenea). È un miscuglio omogeneo."},
+  {id:"c3", q:"L'azoto fonde a −210 °C e bolle a −196 °C. Se togliamo dal freezer (−20 °C) un contenitore di azoto e lo lasciamo a temperatura ambiente (25 °C), quale o quali cambiamenti di stato subirà l'azoto?",
+   o:["sublimazione","fusione ed ebollizione","nessuno","ebollizione","fusione"], ok:2,
+   why:"A −20 °C l'azoto è già aeriforme: −20 è più caldo di −196, la sua temperatura di ebollizione. Scaldandolo resta aeriforme: nessun cambiamento di stato."}
+ ],
+ [ /* parte 3 */
+  {id:"c4", q:"Durante l'ebollizione dell'acqua si distinguono bolle che si formano sul fondo e risalgono verso la superficie. Da cosa sono costituite le bolle?",
+   o:["di aria","di vapore d'acqua","di H<sub>2</sub> e O<sub>2</sub>","di vuoto","di ossigeno"], ok:1,
+   why:"Nell'ebollizione l'acqua diventa vapore in tutto il liquido: le bolle sono vapore acqueo. Non si formano idrogeno e ossigeno: è una trasformazione fisica, le molecole H₂O restano intere."}
+ ]],
+ EX:[
+  {id:"e1", t:"Esercizio 1", q:"Quanti grammi di Mg servono per produrre 190 g di MgCl<sub>2</sub>?",
+   say:"Esercizio 1. Quanti grammi di magnesio servono per produrre 190 grammi di cloruro di magnesio, emme gi ci elle due?",
+   passi:[{id:"e1a",tipo:"n",lab:"a) Massa di MgCl₂ dalla formula",u:"u",ok:95.21,tol:0.003,pt:1,ans:"95,21 u",
+           tr:[[59.76,"Cl₂: il cloro conta due volte. 24,31 + 2 × 35,45."],[70.9,"Questa è solo la parte del cloro: aggiungi il magnesio."]]},
+          {id:"e1b",tipo:"n",lab:"b) Percentuale di Mg nel composto",u:"%",ok:25.53,tol:0.01,pt:1,ans:"25,5%",
+           tr:[[40.68,"Hai contato il cloro una volta sola: 24,31 / 95,21 × 100."],[74.47,"Questa è la percentuale del cloro."]]},
+          {id:"e1c",tipo:"n",lab:"c) Grammi di Mg",u:"g",ok:48.51,tol:0.01,pt:2,ans:"48,5 g",
+           tr:[[119.1,"Hai tolto 70,9 dai grammi: masse atomiche e grammi non si sottraggono. Usa la percentuale: 190 × 25,53 / 100."],[77.29,"Hai contato il cloro una volta sola: la massa di MgCl₂ è 95,21."],[141.5,"Questi sono i grammi di cloro."]]}],
+   how:"a) MgCl₂ = 24,31 + 2 × 35,45 = 95,21 u.<br>b) % Mg = 24,31 / 95,21 × 100 = 25,53%.<br>c) Mg = 190 × 25,53 / 100 = <b>48,5 g</b>.<br>Oppure con la proporzione: 24,31 : 95,21 = x : 190."},
+  {id:"e2", t:"Esercizio 2", q:"Quanto composto CaCl<sub>2</sub> è possibile sintetizzare facendo reagire 60,12 g di Ca con 0,1200 kg di Cl?",
+   say:"Esercizio 2. Quanto composto, cloruro di calcio, è possibile sintetizzare facendo reagire 60 virgola 12 grammi di calcio con 0 virgola 1200 chilogrammi di cloro?",
+   passi:[{id:"e2a",tipo:"n",lab:"a) 0,1200 kg di Cl in grammi",u:"g",ok:120,pt:0.5,ans:"120,0 g",
+           tr:[[1200,"Da kg a g: × 1000. 0,1200 × 1000 = 120,0 g."],[0.00012,"Da kg a g si moltiplica per 1000, non si divide."]]},
+          {id:"e2b",tipo:"n",lab:"b) Cloro che si combina con 60,12 g di Ca",u:"g",ok:106.35,tol:0.01,pt:1,ans:"106,4 g",
+           tr:[[53.18,"In CaCl₂ il cloro conta due volte: 60,12 × 70,90 / 40,08."],[33.99,"Hai invertito il rapporto: Cl / Ca = 70,90 / 40,08."]]},
+          {id:"e2c",tipo:"s",lab:"c) Il reagente in eccesso è…",o:["il calcio","il cloro","nessuno"],ok:1,pt:0.5,ans:"il cloro"},
+          {id:"e2d",tipo:"n",lab:"d) CaCl₂ che si forma",u:"g",ok:166.47,tol:0.01,pt:2,ans:"166,5 g",
+           tr:[[180.12,"Hai sommato tutto: il cloro è in eccesso, ne reagiscono solo 106,4 g."]]}],
+   how:"a) 0,1200 kg = 120,0 g.<br>b) In CaCl₂ ci sono 40,08 g di Ca ogni 2 × 35,45 = 70,90 g di Cl. Con 60,12 g di Ca: 60,12 × 70,90 / 40,08 = 106,4 g di Cl.<br>c) Il cloro è 120,0 g: ne avanzano 13,6 g → in eccesso il <b>cloro</b>.<br>d) CaCl₂ = 60,12 + 106,4 = <b>166,5 g</b>."},
+  {id:"e3", t:"Esercizio 3", q:"Nella reazione: acido solforico + idrossido di calcio = solfato di calcio + acqua<br>si sono ottenuti 68,08 g di solfato di calcio e 18,02 g di acqua. Quanti g di acido solforico (H<sub>2</sub>SO<sub>4</sub>) sono stati utilizzati? L'idrossido di calcio è Ca(OH)<sub>2</sub>.",
+   say:"Esercizio 3. Nella reazione: acido solforico più idrossido di calcio uguale solfato di calcio più acqua, si sono ottenuti 68 virgola 08 grammi di solfato di calcio e 18 virgola 02 grammi di acqua. Quanti grammi di acido solforico sono stati utilizzati?",
+   passi:[{id:"e3a",tipo:"n",lab:"a) Massa totale dei reagenti",u:"g",ok:86.10,tol:0.004,pt:1,ans:"86,10 g",
+           tr:[[50.06,"Hai sottratto. Per Lavoisier i reagenti pesano quanto i prodotti: 68,08 + 18,02."]]},
+          {id:"e3b",tipo:"n",lab:"b) Massa di H₂SO₄ dalla formula",u:"u",ok:98.09,tol:0.002,pt:1,ans:"98,09 u",
+           tr:[[49.08,"H₂ e O₄: l'idrogeno conta 2 volte e l'ossigeno 4. 2 × 1,008 + 32,07 + 4 × 16,00."]]},
+          {id:"e3c",tipo:"n",lab:"c) Acido solforico utilizzato",u:"g",ok:49.05,tol:0.01,pt:2,ans:"49,0 g",
+           tr:[[86.10,"Questa è la massa dei due reagenti insieme: va divisa tra acido e idrossido."],[37.05,"Questi sono i grammi di idrossido di calcio."],[50.06,"Hai fatto 68,08 − 18,02: i prodotti non si sottraggono."]]}],
+   how:"a) Lavoisier: reagenti = prodotti = 68,08 + 18,02 = 86,10 g.<br>b) H₂SO₄ = 2 × 1,008 + 32,07 + 4 × 16,00 = 98,09 u. Ca(OH)₂ = 40,08 + 2 × (16,00 + 1,008) = 74,10 u.<br>c) Acido e idrossido reagiscono nel rapporto 98,09 : 74,10. Acido = 86,10 × 98,09 / (98,09 + 74,10) = <b>49,0 g</b>.<br>Altro modo: lo zolfo del solfato viene tutto dall'acido. CaSO₄ = 136,15 u → acido = 68,08 × 98,09 / 136,15 = 49,0 g."}
+ ]},
+{ /* ─────────── versione 2 ─────────── */
+ MC:[
+ [ /* parte 1 */
+  {id:"a1", q:"La densità di 5 mL di olio a 20 °C rispetto a quella di 2 L dello stesso olio alla stessa temperatura è:",
+   o:["maggiore","minore","uguale","non si può dire con i dati a disposizione"], ok:2,
+   why:"La densità è una proprietà intensiva: non dipende dalla quantità. Stesso olio e stessa temperatura → stessa densità."},
+  {id:"a2", q:"La densità del mercurio a 0 °C rispetto alla densità del mercurio a 80 °C è:",
+   o:["maggiore","minore","uguale","non si può dire con i dati a disposizione"], ok:0,
+   why:"A 0 °C il mercurio è più freddo e occupa meno volume: stessa massa, volume minore → densità maggiore."},
+  {id:"a3", q:"Una zanzara ha una massa di 2.5 mg. La sua massa espressa in grammi vale:",
+   o:["0.25g","0.0025g","0.025g","0.00025g"], ok:1,
+   why:"Da mg a g salgo 3 gradini: ÷ 1000. 2,5 ÷ 1000 = 0,0025 g."},
+  {id:"a4", q:"Uno smeraldo pesa 3.6 carati. Se un carato pesa 200 mg, qual è la sua massa espressa in grammi?",
+   o:["720g","0.72g","18g","0.018g"], ok:1,
+   why:"3,6 × 200 mg = 720 mg. Poi da mg a g: 720 ÷ 1000 = 0,72 g."},
+  {id:"a5", q:"Quale delle seguenti coppie di valori rappresenta uguali temperature?",
+   o:["100K, 100°C","0°C, 273.15K","0K, 273.15°C","20°C, 253.15K"], ok:1,
+   why:"K = °C + 273,15: 0 °C = 273,15 K. Il 253,15 viene dal sottrarre: è il verso sbagliato."},
+  {id:"a6", q:"Un paio di scarpe costa 116 euro. Calcola quanto le paghi (arrotondando la cifra all'euro) durante le svendite, se il negozio fa uno sconto del 30% sul prezzo iniziale.",
+   o:["35 euro","81 euro","151 euro","82 euro","86 euro"], ok:1,
+   why:"Sconto: 116 × 30 / 100 = 34,8 euro. Paghi 116 − 34,8 = 81,2 → 81 euro."},
+  {id:"a7", q:"Quale delle seguenti affermazioni è corretta?",
+   o:["Per passare da °C a K si sottrae 273,15","Una variazione di 10 °C corrisponde a una variazione di 10 K","Lo zero assoluto corrisponde a 0 °C","La scala Kelvin presenta anche valori negativi"], ok:1,
+   why:"Un grado Celsius e un kelvin hanno la stessa ampiezza: una variazione di 10 °C è una variazione di 10 K. Per passare da °C a K si somma 273,15."},
+  {id:"a8", q:"Quale delle seguenti affermazioni è <b>ERRATA</b>?",
+   o:["Il litro è una unità di misura che non fa parte del SI","Il joule è l'unità di energia del SI","La caloria è una unità di misura più piccola del joule","1 kJ corrisponde a 1000 J"], ok:2,
+   why:"Qui si cerca quella <b>sbagliata</b>. 1 cal = 4,186 J: la caloria è più grande del joule. Le altre tre sono vere."},
+  {id:"a9", q:"Un pacco pesato su una bilancia dà come misura 12,6 kg. Ci appoggi sopra un libro di 840 g. Quanto segna ora la bilancia, supponendo che si tratti di uno strumento preciso?",
+   o:["13,44 kg","852,6 kg","13,4 kg","13,40 kg"], ok:2,
+   why:"12,6 + 0,84 = 13,44 kg, ma la bilancia legge al decimo di kg (lo vedi da 12,6): mostra 13,4 kg."},
+  {id:"a10", q:"Quale coppia rappresenta quantità uguali di energia?",
+   o:["120 cal e 502,3 kJ","2 kcal e 2000 J","1,500 × 10<sup>4</sup> J e 3583 cal","837 kJ e 3505 kcal"], ok:2,
+   why:"15 000 J ÷ 4,186 = 3583 cal. 120 cal sono 502,3 J, non kJ. 2 kcal sono 8372 J. 837 kJ sono 200 kcal (sono 3505 kJ che fanno 837 kcal)."}
+ ],
+ [ /* parte 2 */
+  {id:"d1", pt:3, q:"Nella sintesi di NaCl il rapporto di combinazione in massa fra Na e Cl è di circa 2/3. Se si fanno reagire 12 g di Na con 15 g di Cl: <span class='pti'>(3 punti)</span>",
+   o:["si formano 27 g di NaCl","rimane un eccesso di Cl","rimane un eccesso di Na","rimangono in eccesso 2 g di Na e 3 g di Cl"], ok:2,
+   why:"12 g di Na vorrebbero 12 × 3 / 2 = 18 g di Cl, ma ce ne sono 15: finisce il cloro. 15 g di Cl si combinano con 15 × 2 / 3 = 10 g di Na: avanzano 2 g di Na. Si formano 25 g di NaCl. Una sola risposta."},
+  {id:"b1", q:"La formula dell'acido solforico è H<sub>2</sub>SO<sub>4</sub>; essa indica che l'acido solforico è:",
+   o:["un composto formato da tre atomi","un miscuglio di idrogeno, zolfo e ossigeno","una sostanza formata da tre tipi diversi di atomi","una sostanza che contiene quattro molecole di ossigeno"], ok:2,
+   why:"H, S e O: tre tipi diversi di atomi in un composto. In una molecola ci sono 2 + 1 + 4 = 7 atomi. Gli atomi di ossigeno sono 4, non 4 molecole."},
+  {id:"b2", q:"Il simbolo dell'isotopo con 8 protoni e 10 neutroni è:",
+   o:["<sup>10</sup>O","<sup>18</sup>Ar","<sup>18</sup>O","<sup>8</sup>Ne"], ok:2,
+   why:"8 protoni → ossigeno (Z = 8). Numero di massa = 8 + 10 = 18. L'argon ha 18 protoni: non è lui."},
+  {id:"b3", q:"Quanti protoni (p) e quanti elettroni (e⁻) sono presenti nello ione NH<sub>4</sub><sup>+</sup>?",
+   o:["11p; 12e⁻","5p; 4e⁻","11p; 10e⁻","22p; 21e⁻"], ok:2,
+   why:"Protoni: N = 7, H = 4 × 1 = 4 → 11. Carica +1 = un elettrone in meno: 10 elettroni."},
+  {id:"b4", q:"La scrittura 3 O<sub>2</sub> rappresenta:",
+   o:["tre atomi di ossigeno","una molecola con sei atomi di ossigeno","tre molecole di ossigeno, ognuna di due atomi","due molecole di ossigeno, ognuna di tre atomi"], ok:2,
+   why:"Il numero davanti (coefficiente) conta le molecole: 3. L'indice in basso conta gli atomi in ogni molecola: 2."},
+  {id:"b5", q:"Lo ione Mg<sup>2+</sup> ha:",
+   o:["12 elettroni","14 protoni","10 protoni","12 protoni","14 elettroni"], ok:3,
+   why:"Il magnesio ha Z = 12: 12 protoni, sempre. La carica 2+ vuol dire 2 elettroni in meno: 10 elettroni."},
+  {id:"c1", q:"Quando un liquido bolle:",
+   o:["riceve calore e la sua temperatura aumenta","cede calore e la sua temperatura diminuisce","riceve calore e la sua temperatura non varia","non riceve calore e la sua temperatura non varia"], ok:2,
+   why:"Anche l'ebollizione è una sosta termica: il calore entra, ma la temperatura resta ferma finché c'è liquido."},
+  {id:"c2", q:"La temperatura alla quale una sostanza passa dallo stato aeriforme a quello liquido è:",
+   o:["uguale a quella di ebollizione","minore di quella di fusione","sempre 100 °C","uguale a quella di fusione"], ok:0,
+   why:"Da aeriforme a liquido è la condensazione: avviene alla stessa temperatura dell'ebollizione, se la pressione non cambia. 100 °C vale solo per l'acqua."},
+  {id:"b6", q:"Nello ione SO<sub>4</sub><sup>2−</sup> la carica 2− appartiene:",
+   o:["all'atomo di zolfo","a ciascun atomo di ossigeno","a tutto il gruppo di cinque atomi","solo a due atomi di ossigeno"], ok:2,
+   why:"La carica scritta in alto vale per tutto lo ione: 1 atomo di S e 4 atomi di O, uniti."},
+  {id:"c5", q:"Quale dei seguenti fenomeni comporta una reazione chimica?",
+   o:["l'evaporazione di una pozzanghera","la fusione del burro","la combustione della legna","lo zucchero che si scioglie nel tè"], ok:2,
+   why:"Bruciando, la legna diventa cenere, fumo e gas: si formano sostanze nuove. Le altre sono trasformazioni fisiche."},
+  {id:"c6", q:"L'acqua distillata è un sistema:",
+   o:["fisicamente omogeneo e chimicamente omogeneo","fisicamente omogeneo e chimicamente eterogeneo","fisicamente eterogeneo e chimicamente omogeneo","fisicamente eterogeneo e chimicamente eterogeneo"], ok:0,
+   why:"Una sola fase e una sola sostanza: fisicamente e chimicamente omogenea. È una sostanza pura."},
+  {id:"c3", q:"Il bromo fonde a −7 °C e bolle a 59 °C. Se togliamo dal freezer (−20 °C) una fiala di bromo e la lasciamo a temperatura ambiente (25 °C), quale o quali cambiamenti di stato subirà il bromo?",
+   o:["nessuno","ebollizione","fusione ed ebollizione","fusione","sublimazione"], ok:3,
+   why:"A −20 °C è sotto −7: il bromo è solido. A 25 °C è tra −7 e 59: liquido. Quindi solo fusione: per bollire servono 59 °C."}
+ ],
+ [ /* parte 3 */
+  {id:"c4", q:"Quando l'alcol bolle, si formano bolle in tutto il liquido. Da cosa sono costituite le bolle?",
+   o:["di aria","di ossigeno","di vuoto","di vapore di alcol","di acqua"], ok:3,
+   why:"L'ebollizione è un passaggio di stato: l'alcol liquido diventa alcol aeriforme. Le bolle sono vapore di alcol."}
+ ]],
+ EX:[
+  {id:"e1", t:"Esercizio 1", q:"Quanti grammi di Al servono per produrre 400 g di Al<sub>2</sub>O<sub>3</sub>?",
+   say:"Esercizio 1. Quanti grammi di alluminio servono per produrre 400 grammi di ossido di alluminio, a elle due o tre?",
+   passi:[{id:"e1a",tipo:"n",lab:"a) Massa di Al₂O₃ dalla formula",u:"u",ok:101.96,tol:0.002,pt:1,ans:"101,96 u",
+           tr:[[42.98,"Hai contato un solo atomo per elemento: Al₂O₃ ha 2 atomi di Al e 3 di O."],[74.98,"Al₂: l'alluminio conta due volte. 2 × 26,98 + 3 × 16,00."],[69.96,"O₃: l'ossigeno conta tre volte. 2 × 26,98 + 3 × 16,00."]]},
+          {id:"e1b",tipo:"n",lab:"b) Percentuale di Al nel composto",u:"%",ok:52.92,tol:0.01,pt:1,ans:"52,9%",
+           tr:[[26.46,"Hai contato un solo atomo di Al: in Al₂O₃ sono 2, quindi 2 × 26,98 = 53,96."],[47.08,"Questa è la percentuale dell'ossigeno."]]},
+          {id:"e1c",tipo:"n",lab:"c) Grammi di Al",u:"g",ok:211.69,tol:0.01,pt:2,ans:"211,7 g",
+           tr:[[298.04,"Hai tolto 101,96 dai grammi: masse atomiche e grammi non si sottraggono. Usa la percentuale: 400 × 52,92 / 100."],[105.85,"Hai contato un solo atomo di Al: in Al₂O₃ sono 2."],[188.31,"Questi sono i grammi di ossigeno."]]}],
+   how:"a) Al₂O₃ = 2 × 26,98 + 3 × 16,00 = 101,96 u.<br>b) % Al = 53,96 / 101,96 × 100 = 52,92%.<br>c) Al = 400 × 52,92 / 100 = <b>211,7 g</b>.<br>Oppure con la proporzione: 53,96 : 101,96 = x : 400."},
+  {id:"e2", t:"Esercizio 2", q:"Quanto ossido di magnesio MgO è possibile ottenere facendo reagire 36,47 g di Mg con 0,0300 kg di O?",
+   say:"Esercizio 2. Quanto ossido di magnesio è possibile ottenere facendo reagire 36 virgola 47 grammi di magnesio con 0 virgola 0300 chilogrammi di ossigeno?",
+   passi:[{id:"e2a",tipo:"n",lab:"a) 0,0300 kg di O in grammi",u:"g",ok:30,pt:0.5,ans:"30,0 g",
+           tr:[[300,"Riconta: 0,0300 × 1000 = 30,0 g."],[0.00003,"Da kg a g si moltiplica per 1000, non si divide."]]},
+          {id:"e2b",tipo:"n",lab:"b) Ossigeno che si combina con 36,47 g di Mg",u:"g",ok:24.00,tol:0.01,pt:1,ans:"24,0 g",
+           tr:[[55.41,"Hai invertito il rapporto: O / Mg = 16,00 / 24,31."]]},
+          {id:"e2c",tipo:"s",lab:"c) Il reagente in eccesso è…",o:["il magnesio","l'ossigeno","nessuno"],ok:1,pt:0.5,ans:"l'ossigeno"},
+          {id:"e2d",tipo:"n",lab:"d) MgO che si forma",u:"g",ok:60.47,tol:0.01,pt:2,ans:"60,5 g",
+           tr:[[66.47,"Hai sommato tutto: l'ossigeno è in eccesso, ne reagiscono solo 24,0 g."]]}],
+   how:"a) 0,0300 kg = 30,0 g.<br>b) In MgO ci sono 24,31 g di Mg ogni 16,00 g di O. Con 36,47 g di Mg: 36,47 × 16,00 / 24,31 = 24,0 g di O.<br>c) L'ossigeno è 30,0 g: ne avanzano 6,0 g → in eccesso l'<b>ossigeno</b>.<br>d) MgO = 36,47 + 24,0 = <b>60,5 g</b>."},
+  {id:"e3", t:"Esercizio 3", q:"Nella reazione: acido nitrico + idrossido di potassio = nitrato di potassio + acqua<br>si sono ottenuti 40,44 g di nitrato di potassio e 7,21 g di acqua. Quanti g di acido nitrico (HNO<sub>3</sub>) sono stati utilizzati? L'idrossido di potassio è KOH.",
+   say:"Esercizio 3. Nella reazione: acido nitrico più idrossido di potassio uguale nitrato di potassio più acqua, si sono ottenuti 40 virgola 44 grammi di nitrato di potassio e 7 virgola 21 grammi di acqua. Quanti grammi di acido nitrico sono stati utilizzati?",
+   passi:[{id:"e3a",tipo:"n",lab:"a) Massa totale dei reagenti",u:"g",ok:47.65,tol:0.004,pt:1,ans:"47,65 g",
+           tr:[[33.23,"Hai sottratto. Per Lavoisier i reagenti pesano quanto i prodotti: 40,44 + 7,21."]]},
+          {id:"e3b",tipo:"n",lab:"b) Massa di HNO₃ dalla formula",u:"u",ok:63.02,tol:0.002,pt:1,ans:"63,02 u",
+           tr:[[31.02,"O₃: l'ossigeno conta tre volte. 1,008 + 14,01 + 3 × 16,00."]]},
+          {id:"e3c",tipo:"n",lab:"c) Acido nitrico utilizzato",u:"g",ok:25.21,tol:0.01,pt:2,ans:"25,2 g",
+           tr:[[47.65,"Questa è la massa dei due reagenti insieme: va divisa tra acido e idrossido."],[22.44,"Questi sono i grammi di idrossido di potassio."],[33.23,"Hai fatto 40,44 − 7,21: i prodotti non si sottraggono."]]}],
+   how:"a) Lavoisier: reagenti = prodotti = 40,44 + 7,21 = 47,65 g.<br>b) HNO₃ = 1,008 + 14,01 + 3 × 16,00 = 63,02 u. KOH = 39,10 + 16,00 + 1,008 = 56,11 u.<br>c) Acido e idrossido reagiscono nel rapporto 63,02 : 56,11. Acido = 47,65 × 63,02 / (63,02 + 56,11) = <b>25,2 g</b>.<br>Altro modo: l'azoto del nitrato viene tutto dall'acido. KNO₃ = 101,11 u → acido = 40,44 × 63,02 / 101,11 = 25,2 g."}
+ ]}
+];
+
+
+/* ═══════════ strumenti ═══════════ */
+function $(id){ return document.getElementById(id); }
+function num(s){
+  s = String(s==null?"":s).trim();
+  if(!s) return NaN;
+  s = s.replace(/\s+/g,"").replace(/[\u2212\u2013]/g,"-");
+  s = s.replace(/(g|u|%)$/,"");
+  if(s.indexOf(",")>=0){ if(s.indexOf(".")>=0) s = s.replace(/\./g,""); s = s.replace(/,/g,"."); }
+  if(!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s)) return NaN;
+  return parseFloat(s);
+}
+function near(a,b,rel){ return Math.abs(a-b) <= Math.abs(b)*(rel==null?1e-6:rel) + 1e-15; }
+function volte(k){ const s = String(Math.pow(10,k)); return s.length>4 ? "10<sup>"+k+"</sup>" : s; }
+function pS(x){ /* punti in formato italiano */
+  const r = Math.round(x*100)/100;
+  return String(r).replace("-","−").replace(".",",");
+}
+function rnd(seed){ /* generatore pseudo-casuale riproducibile */
+  return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed>>>15, 1 | seed);
+    t = t + Math.imul(t ^ t>>>7, 61 | t) ^ t; return ((t ^ t>>>14) >>> 0) / 4294967296; };
+}
+function perm(n, r){ const a = []; for(let i=0;i<n;i++) a.push(i); for(let i=n-1;i>0;i--){ const j = Math.floor(r()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+/* ═══════════ controllo ═══════════ */
+function checkNum(p, s){
+  if(!String(s||"").trim()) return {vuoto:true};
+  const v = num(s);
+  if(!isFinite(v)) return {ok:false, msg:"Il numero non è leggibile."};
+  const tol = p.tol!=null ? p.tol : 0.015;
+  if(near(v,p.ok,tol)) return {ok:true};
+  const tr = p.tr||[];
+  for(let i=0;i<tr.length;i++) if(near(v,tr[i][0],0.012)) return {ok:false, msg:tr[i][1]};
+  if(v>0){
+    const L = Math.log(v/p.ok)/Math.LN10, n = Math.round(L);
+    if(n!==0 && Math.abs(L-n)<0.01) return {ok:false, msg:"Le cifre vanno bene, ma il numero è "+(n>0?"troppo grande":"troppo piccolo")+" di "+volte(Math.abs(n))+" volte. Controlla le unità."};
+  }
+  return {ok:false, msg:"Non è giusto."};
+}
+
+/* ═══════════ stato ═══════════ */
+let ver = 0, S = null, armed = false;
+function key(v){ return "chim-rec-"+(v+1); }
+function nuovo(){ return {v:{}, p:{}, done:false, punti:null, seed:Math.floor(Math.random()*1e9)}; }
+function load(v){
+  try{ const t = localStorage.getItem(key(v)); if(t){ const o = JSON.parse(t); if(o && o.v && o.p && o.seed!=null) return o; } }catch(e){}
+  return nuovo();
+}
+function save(){ try{ localStorage.setItem(key(ver), JSON.stringify(S)); }catch(e){} }
+function tuttiMC(V){ let a = []; V.MC.forEach(p=>{ a = a.concat(p); }); return a; }
+function massimo(V){ let t = 0; tuttiMC(V).forEach(q=>{ t += q.pt||1; }); V.EX.forEach(E=>E.passi.forEach(p=>{ t += p.pt; })); return t; }
+function quante(V){ let n = tuttiMC(V).length; V.EX.forEach(E=>{ n += E.passi.length; }); return n; }
+
+/* ═══════════ disegno ═══════════ */
+let ORD = {};
+function render(){
+  const V = VER[ver], r = rnd(S.seed); ORD = {};
+  let h = "";
+  V.MC.forEach((parte,pi)=>{
+    h += '<div class="card"><div class="qhead"><div class="qnum">'+PARTI[pi]+'</div></div><div class="rows">';
+    parte.forEach((q,qi)=>{
+      const o = perm(q.o.length, r); ORD[q.id] = o;
+      h += '<div class="row" id="r'+q.id+'"><div class="qq"><span class="qn">'+(numDomanda(V,q.id))+'.</span> '+q.q
+         + ' <button class="spk mini" onclick="leggi(this)" aria-label="Ascolta" data-say="'+parla(q)+'">🔊</button></div>'
+         + '<div class="mc" id="o'+q.id+'">';
+      o.forEach((k,i)=>{ h += '<button onclick="scegli(\''+q.id+'\','+k+')" data-k="'+k+'">'+q.o[k]+'</button>'; });
+      h += '</div><div class="fb" id="f'+q.id+'"></div></div>';
+    });
+    h += '</div></div>';
+  });
+  h += '<div class="note"><b>Esercizi.</b> Come nel compito: 4 punti per ogni esercizio corretto e completo. Qui scrivi i risultati dei passaggi: valgono punti anche se il risultato finale è sbagliato. Sul foglio, in classe, scrivi tutti i calcoli.</div>';
+  V.EX.forEach((E,j)=>{
+    h += '<div class="card" id="c'+E.id+'"><div class="qhead"><div class="qnum">'+E.t+' <span class="pt" id="pt'+E.id+'">· 4 punti</span></div>'
+       + '<button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+E.say.replace(/"/g,"&quot;")+'">🔊</button></div>'
+       + '<p class="qtext">'+E.q+'</p>';
+    E.passi.forEach(p=>{
+      h += '<div class="lab">'+p.lab+'</div>';
+      if(p.tipo==="n") h += '<div class="chk"><input id="'+p.id+'" inputmode="decimal" placeholder="..." autocomplete="off" oninput="tieni(this)"><span class="u">'+p.u+'</span></div>';
+      else { h += '<div class="mc row3" id="o'+p.id+'">'; p.o.forEach((o,k)=>{ h += '<button onclick="scegli(\''+p.id+'\','+k+')" data-k="'+k+'">'+o+'</button>'; }); h += '</div>'; }
+      h += '<div class="fb" id="f'+p.id+'"></div>';
+    });
+    h += '<div class="fb" id="hw'+E.id+'"></div></div>';
+  });
+  $("exam").innerHTML = h;
+  Array.prototype.forEach.call(document.querySelectorAll("#exam input"), el=>{
+    if(S.v[el.id]!=null) el.value = S.v[el.id];
+    el.addEventListener("keydown", function(e){ if(e.key==="Enter") this.blur(); });
+  });
+  Object.keys(S.p).forEach(id=>segna(id));
+  drawVers(); armed = false;
+  $("esito").className = "esito"; $("esitoTop").className = "esito";
+  $("consegna").style.display = ""; $("ricomincia").style.display = "none"; $("altra").style.display = "none";
+  $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna";
+  if(S.done) correggi(false); else prog();
+}
+function numDomanda(V,id){ const a = tuttiMC(V); for(let i=0;i<a.length;i++) if(a[i].id===id) return i+1; return ""; }
+function parla(q){
+  const t = (q.q+". Le risposte sono: "+ORD[q.id].map(k=>q.o[k]).join("; "))
+    .replace(/<sub>(\d+)<\/sub>/g," $1 ").replace(/<sup>([^<]*)<\/sup>/g," $1 ").replace(/<[^>]+>/g,"")
+    .replace(/(\d+)p;\s*(\d+)e⁻/g,"$1 protoni e $2 elettroni").replace(/\((p|e⁻)\)/g,"").replace(/e⁻/g,"elettroni")
+    .replace(/(\d+)[.,](\d+)/g,(m,a,b)=>a+" virgola "+(/^0/.test(b) ? b.split("").join(" ") : b))
+    .replace(/−/g,"meno ").replace(/°C/g," gradi").replace(/"/g,"");
+  return t;
+}
+function segna(id){
+  const box = $("o"+id); if(!box) return;
+  Array.prototype.forEach.call(box.children, b=>b.classList.toggle("sel", +b.getAttribute("data-k")===S.p[id]));
+}
+function drawVers(){
+  let h = "";
+  VER.forEach((v,i)=>{
+    const o = (i===ver) ? S : load(i);
+    h += '<button class="'+(i===ver?'on':'')+'" onclick="vai('+i+')">Versione '+(i+1)
+       + '<small>'+(o.done ? 'consegnata · '+pS(o.punti)+' punti' : 'da fare')+'</small></button>';
+  });
+  $("vers").innerHTML = h;
+}
+function vai(i){ if(i===ver) return; ver = i; S = load(i); try{ localStorage.setItem("chim-rec-ver", String(i)); }catch(e){} render(); window.scrollTo(0,0); }
+function disarma(){ if(armed){ armed = false; $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna"; } }
+function tieni(el){ if(S.done) return; S.v[el.id] = el.value; save(); prog(); disarma(); }
+function scegli(id,k){
+  if(S.done) return;
+  if(S.p[id]===k) delete S.p[id]; else S.p[id] = k;   /* secondo tocco: toglie la risposta */
+  segna(id); save(); prog(); disarma();
+}
+function risposte(){
+  const V = VER[ver]; let n = 0;
+  tuttiMC(V).forEach(q=>{ if(S.p[q.id]!=null) n++; });
+  V.EX.forEach(E=>E.passi.forEach(p=>{ if(p.tipo==="s" ? S.p[p.id]!=null : String(S.v[p.id]||"").trim()) n++; }));
+  return n;
+}
+function prog(){ $("prog").textContent = "Risposte date: "+risposte()+" su "+quante(VER[ver]); }
+
+/* ═══════════ consegna e correzione ═══════════ */
+function consegna(){
+  const vuote = quante(VER[ver]) - risposte();
+  if(vuote>0 && !armed){
+    armed = true; $("consegna").className = "btn warn";
+    $("consegna").textContent = (vuote===1 ? "C'è 1 risposta vuota" : "Ci sono "+vuote+" risposte vuote")+": tocca di nuovo per consegnare";
+    return;
+  }
+  S.done = true; correggi(true);
+}
+function correggi(scorri){
+  const V = VER[ver]; let pun = 0; const parti = [];
+  V.MC.forEach((parte,pi)=>{
+    let pp = 0, giuste = 0, sbagliate = 0, vuote = 0;
+    parte.forEach(q=>{
+      const k = S.p[q.id], val = q.pt||1, box = $("o"+q.id), f = $("f"+q.id);
+      box.classList.add("locked");
+      Array.prototype.forEach.call(box.children, b=>{
+        const bk = +b.getAttribute("data-k"); b.classList.remove("sel");
+        if(bk===q.ok) b.classList.add("right"); else if(bk===k) b.classList.add("wrong");
+      });
+      let p, h;
+      if(k==null){ p = 0; vuote++; h = '<b class="t">— Non hai risposto · 0 punti</b>'; f.className = "fb on n"; }
+      else if(k===q.ok){ p = val; giuste++; h = '✓ Giusto · +'+pS(val)+(val===1?' punto':' punti'); f.className = "fb on y"; }
+      else { p = -0.25; sbagliate++; h = '<b class="t">✗ Sbagliato · −0,25</b>'; f.className = "fb on n"; }
+      if(k!==q.ok) h += '<div class="how">'+q.why+'</div>';
+      f.innerHTML = h; pp += p;
+      $("r"+q.id).classList.add(k===q.ok?"y":"n");
+    });
+    parti.push({nome:["misure","atomi, formule, trasformazioni","domanda sulle bolle"][pi], p:pp, max:parte.reduce((s,q)=>s+(q.pt||1),0), extra:giuste+" giuste, "+sbagliate+" sbagliate, "+vuote+" vuote"});
+    pun += pp;
+  });
+  let pe = 0;
+  V.EX.forEach(E=>{
+    let pj = 0;
+    E.passi.forEach(p=>{
+      let res;
+      if(p.tipo==="s"){
+        const k = S.p[p.id], box = $("o"+p.id); box.classList.add("locked");
+        Array.prototype.forEach.call(box.children, b=>{ const bk = +b.getAttribute("data-k"); b.classList.remove("sel"); if(bk===p.ok) b.classList.add("right"); else if(bk===k) b.classList.add("wrong"); });
+        res = (k==null) ? {vuoto:true} : (k===p.ok ? {ok:true} : {ok:false, msg:"Non è giusto."});
+      } else res = checkNum(p, S.v[p.id]);
+      const f = $("f"+p.id);
+      if(res.ok){ f.className = "fb on y"; f.innerHTML = "✓ Giusto · +"+pS(p.pt); pj += p.pt; }
+      else { f.className = "fb on n"; f.innerHTML = (res.vuoto ? '<b class="t">— Non hai risposto.</b>' : '<b class="t">✗ '+res.msg+'</b>')+'<div class="giusta">Risposta giusta: '+p.ans+'</div>'; }
+    });
+    const pt = $("pt"+E.id); pt.textContent = "· "+pS(pj)+" su 4"; pt.className = "pt"+(pj===4?" y":"");
+    if(pj<4){ const hw = $("hw"+E.id); hw.className = "fb on n"; hw.innerHTML = '<b class="t" style="color:var(--ink)">Come si fa</b><div class="how">'+E.how+'</div>'; }
+    pe += pj;
+  });
+  parti.push({nome:"esercizi", p:pe, max:12, extra:""});
+  pun += pe;
+  Array.prototype.forEach.call(document.querySelectorAll("#exam input"), el=>{ el.readOnly = true; });
+  S.punti = pun; save();
+  const max = massimo(V), perc = Math.round(Math.max(0,pun)/max*100);
+  let righe = ""; parti.forEach(x=>{ righe += '<tr><td>'+x.nome+(x.extra?'<br><small>'+x.extra+'</small>':'')+'</td><td class="c">'+pS(x.p)+' su '+pS(x.max)+'</td></tr>'; });
+  const ok = perc>=60;
+  $("esito").innerHTML = '<div class="qnum">Risultato</div><div class="voto '+(ok?'ok':'ko')+'">'+pS(pun)+' <small>su '+max+'</small></div>'
+    + '<div class="det"><b>'+perc+'% dei punti.</b> '+(ok ? "Buon lavoro: guarda le correzioni in rosso per gli ultimi errori." : "Leggi le spiegazioni in rosso, poi prova l'altra versione.")+'</div>'
+    + '<table>'+righe+'</table><div class="det" style="color:var(--soft);font-size:14px">Punteggio come nel compito: +1 giusta, 0 vuota, −0,25 sbagliata; esercizi 4 punti, divisi tra i passaggi. Non so come la prof trasforma i punti in voto.</div>';
+  $("esito").className = "esito on";
+  $("esitoTop").innerHTML = '<div class="qnum">Compito consegnato</div><div class="det"><b>'+pS(pun)+' punti su '+max+'</b> ('+perc+'%). Sotto ogni domanda trovi la correzione; il riepilogo è in fondo.</div>';
+  $("esitoTop").className = "esito on";
+  $("consegna").style.display = "none"; $("ricomincia").style.display = "";
+  const alt = ver===0 ? 1 : 0; $("altra").style.display = ""; $("altra").textContent = "Vai alla versione "+(alt+1);
+  $("prog").textContent = "";
+  drawVers();
+  if(scorri){ const e = $("esitoTop"); if(e.scrollIntoView) e.scrollIntoView({behavior:"smooth", block:"start"}); }
+}
+function ricomincia(){ S = nuovo(); save(); render(); window.scrollTo(0,0); }
+function altra(){ vai(ver===0 ? 1 : 0); }
+
+/* ---------- voce ---------- */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute("data-say") || "");
+  u.lang = "it-IT"; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on");
+  speechSynthesis.speak(u);
+}
+
+/* ---------- avvio ---------- */
+(function(){
+  let k = 0; try{ k = parseInt(localStorage.getItem("chim-rec-ver")||"0",10)||0; }catch(e){}
+  ver = Math.max(0, Math.min(VER.length-1, k)); S = load(ver); render();
+})();
+
+</script>
+</body>
+</html>
