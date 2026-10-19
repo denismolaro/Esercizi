@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matematica — Geometria: le parole del capitolo 1</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#B06A08; --accent-soft:#FBEEDA; --accent-line:#F0D3A8;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --mid:#7A5A00; --mid-soft:#FFF4D6;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.hl{display:block; font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:var(--accent); margin-bottom:2px}
+
+/* il trucco per ricordare */
+.hook{background:#FFF7E8; border:1px solid var(--accent-line); border-radius:12px; padding:10px 14px; margin:14px 0; font-size:17px; line-height:1.6}
+.hook b{color:var(--accent)}
+
+/* figure sì / no */
+.figs{display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:10px; margin:12px 0}
+.figs.n1{grid-template-columns:1fr}
+.fg{margin:0; border:1px solid var(--rule); border-radius:12px; padding:8px 8px 6px; background:#fff; text-align:center}
+.fg svg{display:block; width:100%; height:auto; max-height:150px}
+.figs.n1 .fg svg{max-width:340px; max-height:230px; margin:0 auto}
+.fg figcaption{font-size:14px; line-height:1.35; color:var(--soft); margin-top:4px}
+.yn{display:inline-block; border-radius:999px; padding:0 8px; font-weight:800; font-size:12.5px; color:#fff; line-height:1.6}
+.yn.si{background:var(--ok)} .yn.no{background:var(--no)}
+
+/* la definizione del libro */
+.defs{border-left:5px solid var(--accent); padding:4px 0 4px 14px; margin:16px 0}
+.dh{display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:2px}
+.dh .hl{margin:0}
+.dl{margin:6px 0; font-size:17.5px; line-height:1.6}
+.dl b.k{color:var(--accent)}
+.defs.cover b.k{color:transparent; background:#F4F1EA; border-bottom:2px solid var(--accent); border-radius:4px; cursor:pointer; padding:0 3px}
+.defs.cover b.k.shown{color:var(--ok); background:var(--ok-soft); border-bottom-color:var(--ok)}
+.cvh{display:none; font-size:14.5px; color:var(--soft); line-height:1.45; margin:2px 0 6px}
+.defs.cover .cvh{display:block}
+
+.vita{background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:10px 14px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.vita .hl{color:var(--ok)}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:10px 14px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap > b:first-child{color:var(--warn)}
+
+/* blocchi extra */
+.lad{display:flex; flex-direction:column; gap:6px; margin:12px 0}
+.ld{border-left:6px solid var(--ink); border-radius:10px; padding:7px 12px; font-size:16px; line-height:1.45; background:#F4F1EA}
+.ld b{display:block; font-size:17px}
+.ld.c0{border-color:#5A6473} .ld.c1{border-color:#2A6FB0; background:#E6EEF9} .ld.c2{border-color:#2F8A5B; background:#E4F2EA} .ld.c3{border-color:#B06A08; background:#FBEEDA}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+table.nm{border-collapse:collapse; width:100%; margin:12px 0; font-size:15.5px}
+table.nm td, table.nm th{border:1px solid var(--rule); padding:6px 8px; text-align:left; vertical-align:top; line-height:1.4}
+table.nm th{background:var(--accent-soft); color:var(--accent); font-size:13px}
+table.nm td.c{text-align:center; font-weight:700}
+.ex{border:1px solid var(--rule); border-radius:12px; padding:10px 14px; margin:12px 0; font-size:16.5px; line-height:1.6; background:#fff}
+.ex .r{display:block}
+
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:7px 13px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+.mini.acc{border-color:var(--accent); color:var(--accent)}
+
+/* tutte le parole */
+.gmodes{display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 4px}
+.gmodes button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:5px 12px; font:inherit; font-size:14px; font-weight:700; color:var(--soft); cursor:pointer}
+.gmodes button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.gh{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin:16px 0 4px}
+.gi{display:block; width:100%; text-align:left; border:1px solid var(--rule); border-radius:12px; background:#fff; padding:8px 12px; margin:6px 0; font:inherit; cursor:pointer; color:var(--ink)}
+.gi .gn{display:block; font-weight:700; color:var(--accent); font-size:17px; line-height:1.4}
+.gi .gd{display:block; font-size:15.5px; line-height:1.5}
+.gi .hide{color:transparent; background:#F4F1EA; border-radius:6px}
+.gi.open .hide{color:inherit; background:none}
+
+/* allenamento */
+.prog{display:flex; flex-wrap:wrap; gap:5px; margin:10px 0}
+.pc{border-radius:999px; padding:2px 9px; font-size:13px; font-weight:700; border:2px solid var(--rule); color:var(--soft); background:#fff; cursor:pointer; font-family:inherit}
+.pc.l0{border-color:#E8C4C4; background:var(--no-soft); color:var(--no)}
+.pc.l1{border-color:#E2C36B; background:var(--mid-soft); color:var(--mid)}
+.pc.l2{border-color:#BFD6CC; background:var(--ok-soft); color:var(--ok)}
+.legend{font-size:13.5px; color:var(--soft); line-height:1.5}
+.big{display:block; width:100%; border:2px solid var(--accent); background:var(--accent); color:#fff; border-radius:13px; padding:13px; font:inherit; font-size:17px; font-weight:700; margin:14px 0 6px; cursor:pointer}
+.big.ghost{background:#fff; color:var(--accent)}
+.qtop{display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:13.5px; color:var(--soft); font-weight:600}
+.kind{border-radius:999px; padding:1px 10px; background:var(--accent-soft); color:var(--accent); font-weight:700; font-size:13px}
+.tq{font-size:18.5px; line-height:1.55; font-weight:600; margin:10px 0}
+.tfig{max-width:300px; margin:6px auto}
+.tfig svg{display:block; width:100%; height:auto; max-height:170px}
+.opts{display:flex; flex-direction:column; gap:7px; margin:10px 0}
+.opt{border:2px solid var(--rule); background:#fff; border-radius:12px; padding:10px 13px; font:inherit; font-size:16.5px; line-height:1.4; text-align:left; cursor:pointer; color:var(--ink)}
+.opt.ok{border-color:var(--ok); background:var(--ok-soft); color:var(--ok); font-weight:700}
+.opt.no{border-color:var(--no); background:var(--no-soft); color:var(--no); text-decoration:line-through}
+.opt:disabled{cursor:default}
+.vfr{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.vfr .opt{text-align:center; font-weight:700}
+.built{min-height:3.2em; background:#F4F1EA; border-radius:12px; padding:9px 12px; font-size:16.5px; line-height:1.55; margin:8px 0}
+.built span{color:var(--ok); font-weight:600}
+.built .ph{color:var(--soft); font-style:italic; font-weight:400}
+.chunks{display:flex; flex-wrap:wrap; gap:7px; margin:8px 0}
+.chunk{border:2px solid var(--accent-line); background:#fff; border-radius:10px; padding:7px 11px; font:inherit; font-size:15.5px; line-height:1.35; text-align:left; cursor:pointer; color:var(--ink)}
+.chunk.bad{border-color:var(--no); background:var(--no-soft)}
+.fb{border-radius:12px; padding:10px 13px; margin:10px 0; font-size:16px; line-height:1.55}
+.fb.ok{background:var(--ok-soft); border:1px solid #BFD6CC}
+.fb.no{background:var(--no-soft); border:1px solid #E8C4C4}
+.fb b{display:block}
+.sum{font-size:16.5px; line-height:1.6}
+.sum .vt{font-size:40px; font-weight:800; text-align:center; line-height:1.1; margin:6px 0 0}
+.sum .vs{text-align:center; color:var(--soft); font-size:15px; margin-bottom:8px}
+.rv{display:flex; justify-content:space-between; align-items:center; gap:8px; border-top:1px solid var(--rule); padding:7px 0; font-size:16px}
+
+.reading{background:var(--read) !important; border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Matematica · geometria</div>
+  <h1>Le parole del capitolo 1</h1>
+  <p class="lead">Una carta per ogni gruppo di parole: il trucco per ricordarle, la figura, la definizione del libro, un esempio dalla vita e l'errore da evitare. Tocca <b>Leggi</b> per ascoltare. In fondo trovi tutte le parole e l'allenamento.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<p class="foot">Dal libro: Tema A, Unità 1 «Piano euclideo, congruenza e misura», paragrafi 1–6 e Percorso delle idee.</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.02,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+/* ═══════ figure ═══════ */
+const INK="#1B2430", RED="#C2412D", BLUE="#2A6FB0", GREEN="#2F8A5B", GREY="#9AA3AE", GOLD="#B08A00";
+const LR="#F6D3CB", LB="#D2E2F3", LG="#D8EEDF", LY="#FBF0C9", LN="#F4F1EA";
+function Pt(cx,cy,r,a){ const t=a*Math.PI/180; return [+(cx+r*Math.cos(t)).toFixed(2), +(cy-r*Math.sin(t)).toFixed(2)]; }
+function S(vb,body,lab){ return '<svg viewBox="'+vb+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+(lab||"figura")+'">'+body+'</svg>'; }
+function L(x1,y1,x2,y2,c,o){ o=o||{}; return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(c||INK)+'" stroke-width="'+(o.w||3)+'" stroke-linecap="round"'+(o.d?' stroke-dasharray="5 5"':'')+'/>'; }
+function Dt(x,y,c){ return '<circle cx="'+x+'" cy="'+y+'" r="3.6" fill="'+(c||INK)+'"/>'; }
+function T(x,y,t,o){ o=o||{}; return '<text x="'+x+'" y="'+y+'" font-size="'+(o.fs||16)+'" '+(o.up?'':'font-style="italic" ')
+  +'font-family="Times New Roman,Georgia,serif" fill="'+(o.c||INK)+'" text-anchor="'+(o.a||"middle")+'"'+(o.b?' font-weight="700"':'')+'>'+t+'</text>'; }
+function ray(cx,cy,a,len,c,o){ const p=Pt(cx,cy,len,a); return L(cx,cy,p[0],p[1],c,o); }
+function W(cx,cy,r,a1,a2,fill,stroke){ const p1=Pt(cx,cy,r,a1), p2=Pt(cx,cy,r,a2), lg=(a2-a1)>180?1:0;
+  return '<path d="M'+cx+','+cy+' L'+p1+' A'+r+','+r+' 0 '+lg+' 0 '+p2+' Z" fill="'+fill+'"'+(stroke?' stroke="'+stroke+'" stroke-width="1.5"':'')+'/>'; }
+function PG(pts,fill){ return '<polygon points="'+pts.map(p=>p.join(",")).join(" ")+'" fill="'+fill+'" stroke="none"/>'; }
+function PL(pts,c,closed){ let h=''; for(let i=0;i<pts.length-1;i++) h+=L(pts[i][0],pts[i][1],pts[i+1][0],pts[i+1][1],c);
+  if(closed) h+=L(pts[pts.length-1][0],pts[pts.length-1][1],pts[0][0],pts[0][1],c);
+  pts.forEach(p=>h+=Dt(p[0],p[1])); return h; }
+function mid(a,b){ return [(a[0]+b[0])/2,(a[1]+b[1])/2]; }
+const LSH=[[0,0],[12,0],[12,30],[28,30],[28,42],[0,42]];
+function Lat(dx,dy,fill,f){ const p=LSH.map(q=>f?f(q):q).map(q=>[q[0]+dx,q[1]+dy]);
+  return '<polygon points="'+p.map(q=>q.join(",")).join(" ")+'" fill="'+fill+'" stroke="'+INK+'" stroke-width="2" stroke-linejoin="round"/>'; }
+const P5=[[30,90],[120,90],[145,45],[80,10],[15,48]];
+const SQ='<path d="M34,75 L34,61 L20,61" fill="none" stroke="'+INK+'" stroke-width="1.6"/>';
+
+const FG = {
+ allineati: S("0 0 160 90", L(8,50,152,50,GREY,{w:2})+Dt(35,50)+Dt(80,50)+Dt(125,50)+T(35,74,"A")+T(80,74,"B")+T(125,74,"C"), "tre punti sulla stessa retta"),
+ nonall: S("0 0 160 90", L(8,62,152,62,GREY,{w:2,d:1})+Dt(30,62)+Dt(80,24)+Dt(130,62)+T(30,84,"A")+T(80,16,"B")+T(130,84,"C"), "tre punti non allineati"),
+ fascio: S("0 0 160 110", [0,30,60,90,120,150].map(a=>{ const p=Pt(80,55,52,a), q=Pt(80,55,52,a+180); return L(p[0],p[1],q[0],q[1],INK,{w:2}); }).join("")
+   +Dt(80,55,RED)+T(97,64,"O",{fs:14,c:RED}), "fascio di rette con centro O"),
+ semiretta: S("0 0 160 70", L(6,36,50,36,GREY,{w:2,d:1})+L(50,36,138,36,RED)+L(138,36,154,36,RED,{d:1})+Dt(50,36)+T(50,60,"O")+T(100,24,"semiretta",{fs:13,up:1,c:RED}), "semiretta di origine O"),
+ opposte: S("0 0 160 70", L(80,36,22,36,BLUE)+L(22,36,6,36,BLUE,{d:1})+L(80,36,138,36,RED)+L(138,36,154,36,RED,{d:1})+Dt(80,36)+T(80,60,"O"), "due semirette opposte"),
+ segmento: S("0 0 160 70", L(6,36,154,36,GREY,{w:2,d:1})+L(35,36,125,36,RED)+Dt(35,36)+Dt(125,36)+T(35,60,"A")+T(125,60,"B")+T(80,24,"segmento AB",{fs:13,up:1,c:RED}), "segmento AB"),
+ prolung: S("0 0 160 70", L(15,36,85,36)+L(85,36,138,36,RED)+L(138,36,154,36,RED,{d:1})+Dt(15,36)+Dt(85,36)+T(15,60,"A")+T(85,60,"B")+T(118,24,"prolungamento",{fs:12,up:1,c:RED}), "prolungamento di AB dalla parte di B"),
+ cons: S("0 0 160 100", L(18,32,72,80,RED)+L(72,80,140,24,BLUE)+Dt(18,32)+Dt(72,80)+Dt(140,24)+T(14,24,"A")+T(72,98,"B")+T(148,20,"C"), "segmenti consecutivi"),
+ adiac: S("0 0 160 70", L(15,36,80,36,RED)+L(80,36,145,36,BLUE)+Dt(15,36)+Dt(80,36)+Dt(145,36)+T(15,60,"A")+T(80,60,"B")+T(145,60,"C"), "segmenti adiacenti"),
+ sep: S("0 0 160 70", L(6,36,154,36,GREY,{w:2,d:1})+L(14,36,62,36,RED)+L(96,36,146,36,BLUE)+Dt(14,36)+Dt(62,36)+Dt(96,36)+Dt(146,36)
+   +T(14,60,"A")+T(62,60,"B")+T(96,60,"C")+T(146,60,"D"), "segmenti staccati"),
+ polOk: S("0 0 160 100", PL([[15,85],[45,25],[78,78],[110,20],[145,60]]), "poligonale"),
+ polA: S("0 0 160 100", PL([[15,85],[45,25],[80,25],[115,25],[145,85]])+Dt(80,25,RED), "due segmenti adiacenti"),
+ polB: S("0 0 160 100", L(15,85,65,55)+L(65,55,65,12)+L(65,55,115,85)+L(115,85,148,45)+Dt(15,85)+Dt(65,12)+Dt(115,85)+Dt(148,45)+Dt(65,55,RED), "estremo comune a tre segmenti"),
+ chiusa: S("0 0 160 100", PL([[20,75],[40,20],[100,12],[140,50],[90,90]],INK,true), "poligonale chiusa"),
+ aperta: S("0 0 160 100", PL([[15,30],[50,85],[85,30],[120,85],[148,40]]), "poligonale aperta"),
+ intrecciata: S("0 0 160 100", PL([[20,15],[140,85],[140,15],[20,85]],INK,true), "poligonale chiusa intrecciata"),
+ poligono: S("0 0 160 100", PG([[20,75],[40,20],[100,12],[140,50],[90,90]],LY)+PL([[20,75],[40,20],[100,12],[140,50],[90,90]],INK,true), "poligono"),
+ diag: S("0 0 160 100", PG(P5,LN)+PL(P5,INK,true)+L(P5[0][0],P5[0][1],P5[2][0],P5[2][1],RED), "diagonale"),
+ corda: S("0 0 160 100", PG(P5,LN)+PL(P5,INK,true)+(()=>{ const a=mid(P5[3],P5[4]), b=mid(P5[1],P5[2]); return L(a[0],a[1],b[0],b[1],BLUE)+Dt(a[0],a[1],BLUE)+Dt(b[0],b[1],BLUE); })(), "corda"),
+ diagcorda: (()=>{ const V=[[40,105],[130,105],[155,55],[90,15],[22,58]], a=mid(V[3],V[4]), b=mid(V[1],V[2]);
+   return S("0 0 190 120", PG(V,LN)+L(130,105,184,105,GREY,{w:2,d:1})+W(130,105,18,63.43,180,LY,GOLD)+W(130,105,18,0,63.43,LG,GREEN)
+     +PL(V,INK,true)+L(V[0][0],V[0][1],V[2][0],V[2][1],RED)+L(a[0],a[1],b[0],b[1],BLUE)+Dt(a[0],a[1],BLUE)+Dt(b[0],b[1],BLUE), "diagonale, corda, angolo interno ed esterno"); })(),
+ convessa: S("0 0 160 110", PG([[25,45],[70,15],[135,30],[145,80],[90,100],[30,85]],LB)+PL([[25,45],[70,15],[135,30],[145,80],[90,100],[30,85]],INK,true)
+   +L(45,55,120,80,RED)+Dt(45,55,RED)+Dt(120,80,RED)+T(42,74,"A",{c:RED})+T(124,70,"B",{c:RED}), "figura convessa"),
+ concava: S("0 0 160 110", PG([[15,15],[145,15],[145,100],[80,48],[15,100]],LR)+PL([[15,15],[145,15],[145,100],[80,48],[15,100]],INK,true)
+   +L(30,80,130,80,RED)+Dt(30,80,RED)+Dt(130,80,RED)+T(30,72,"A",{c:RED})+T(130,72,"B",{c:RED}), "figura concava"),
+ semipiano: S("0 0 160 100", PG([[0,80],[160,32],[160,0],[0,0]],LB)+L(0,80,160,32)+T(45,32,"α",{fs:20})+T(118,74,"origine",{fs:12,up:1}), "semipiano"),
+ semipiani: S("0 0 160 100", PG([[0,80],[160,32],[160,0],[0,0]],LB)+PG([[0,80],[160,32],[160,100],[0,100]],LR)+L(0,80,160,32)
+   +T(45,32,"α",{fs:20})+T(118,82,"β",{fs:20})+T(150,22,"r",{fs:16}), "due semipiani opposti"),
+ angolo: S("0 0 170 110", W(30,90,34,0,38,LB,BLUE)+ray(30,90,0,130)+ray(30,90,38,128)+Dt(30,90)+T(24,107,"O")+T(156,82,"a")+T(143,16,"b"), "angolo di vertice O e lati a, b"),
+ piatto: S("0 0 150 64", W(75,40,20,0,180,LY,GOLD)+L(10,40,140,40)+Dt(75,40)+T(75,60,"O",{fs:14}), "angolo piatto"),
+ giro: S("0 0 150 64", '<circle cx="75" cy="36" r="20" fill="'+LY+'" stroke="'+GOLD+'" stroke-width="1.5"/>'+L(75,36,140,36)+Dt(75,36)+T(66,62,"O",{fs:14}), "angolo giro"),
+ nullo: S("0 0 150 64", L(75,36,140,36)+Dt(75,36)+T(75,58,"O",{fs:14})+T(118,28,"a ≡ b",{fs:13}), "angolo nullo"),
+ angCons: S("0 0 160 110", W(25,95,40,0,35,LB,BLUE)+W(25,95,30,35,80,LR,RED)+ray(25,95,0,130)+ray(25,95,35,130)+ray(25,95,80,95)+Dt(25,95)+T(78,86,"α",{fs:18})+T(52,62,"β",{fs:18}), "angoli consecutivi"),
+ angAdiac: S("0 0 170 100", W(85,85,34,0,50,LB,BLUE)+W(85,85,26,50,180,LR,RED)+L(8,85,162,85)+ray(85,85,50,90)+Dt(85,85)+T(132,70,"α",{fs:18})+T(64,52,"β",{fs:18}), "angoli adiacenti"),
+ opposti: S("0 0 170 100", (()=>{ const a=Pt(85,50,80,22), b=Pt(85,50,80,202), c=Pt(85,50,80,-22), d=Pt(85,50,80,158);
+   return W(85,50,24,158,202,LB,BLUE)+W(85,50,24,-22,22,LR,RED)+L(a[0],a[1],b[0],b[1])+L(c[0],c[1],d[0],d[1])+Dt(85,50)+T(44,56,"α",{fs:18})+T(126,56,"β",{fs:18}); })(), "angoli opposti al vertice"),
+ cross3: S("0 0 170 110", (()=>{ const a=Pt(85,58,80,25), b=Pt(85,58,80,205), c=Pt(85,58,80,155), d=Pt(85,58,80,-25);
+   return W(85,58,30,25,155,LB,BLUE)+W(85,58,24,155,205,LR,RED)+W(85,58,24,-25,25,LR,RED)+L(a[0],a[1],b[0],b[1])+L(c[0],c[1],d[0],d[1])+Dt(85,58)
+     +T(44,64,"α",{fs:18})+T(126,64,"β",{fs:18})+T(85,34,"γ",{fs:18}); })(), "alfa e beta opposti al vertice, gamma in mezzo"),
+ trasl: S("0 0 160 100", Lat(18,18,LY)+Lat(95,32,LG)+L(18,18,95,32,RED,{w:2,d:1})+L(46,60,123,74,RED,{w:2,d:1}), "traslazione"),
+ rotaz: S("0 0 160 100", Lat(30,20,LY)+Lat(30,62,LG,q=>[42-q[1],q[0]])
+   +'<path d="M39,10.8 A52,52 0 0 1 81.2,53" fill="none" stroke="'+RED+'" stroke-width="2" stroke-dasharray="5 5"/>'+Dt(30,62,RED)+T(22,78,"O",{fs:14}), "rotazione intorno a O"),
+ rifl: S("0 0 160 100", Lat(30,25,LY)+Lat(0,25,LG,q=>[130-q[0],q[1]])+L(80,8,80,94,GREY,{w:2,d:1})+T(88,16,"r",{fs:15}), "riflessione rispetto alla retta r"),
+ puntoMedio: S("0 0 160 64", L(15,32,145,32,GREEN)+L(47.5,25,47.5,39,INK,{w:2})+L(112.5,25,112.5,39,INK,{w:2})+Dt(15,32)+Dt(80,32,RED)+Dt(145,32)
+   +T(15,56,"A")+T(80,56,"M",{c:RED})+T(145,56,"B"), "punto medio M"),
+ bisettrice: S("0 0 170 110", W(20,95,34,0,30,LB,BLUE)+W(20,95,34,30,60,LB,BLUE)+ray(20,95,0,140)+ray(20,95,60,105)+ray(20,95,30,140,RED,{d:1})
+   +Dt(20,95)+'<circle cx="'+Pt(20,95,22,15)[0]+'" cy="'+Pt(20,95,22,15)[1]+'" r="2.5" fill="'+RED+'"/><circle cx="'+Pt(20,95,22,45)[0]+'" cy="'+Pt(20,95,22,45)[1]+'" r="2.5" fill="'+RED+'"/>'
+   +T(150,88,"a")+T(82,14,"b")+T(150,24,"r",{c:RED}), "bisettrice r"),
+ multiplo: S("0 0 170 72", L(15,22,45,22,RED)+Dt(15,22)+Dt(45,22)+T(15,14,"A",{fs:14})+T(45,14,"B",{fs:14})
+   +L(60,46,150,46,BLUE)+L(90,39,90,53,INK,{w:2})+L(120,39,120,53,INK,{w:2})+Dt(60,46)+Dt(150,46)+T(60,68,"C",{fs:14})+T(150,68,"D",{fs:14}), "CD triplo di AB"),
+ acuto: S("0 0 120 90", W(20,75,26,0,40,LB,BLUE)+ray(20,75,0,95)+ray(20,75,40,90)+Dt(20,75), "angolo acuto"),
+ retto: S("0 0 120 90", '<path d="M20,75 L34,75 L34,61 L20,61 Z" fill="'+LB+'"/>'+SQ+ray(20,75,0,95)+ray(20,75,90,68)+Dt(20,75), "angolo retto"),
+ ottuso: S("0 0 120 90", W(60,75,22,0,130,LB,BLUE)+ray(60,75,0,55)+ray(60,75,130,62)+Dt(60,75), "angolo ottuso"),
+ compl: S("0 0 120 95", W(20,80,30,0,35,LB,BLUE)+W(20,80,24,35,90,LR,RED)+ray(20,80,0,92)+ray(20,80,90,72)+ray(20,80,35,88)+Dt(20,80), "angoli complementari"),
+ suppl: S("0 0 140 80", W(70,65,26,0,60,LB,BLUE)+W(70,65,20,60,180,LR,RED)+L(8,65,132,65)+ray(70,65,60,58)+Dt(70,65), "angoli supplementari"),
+ espl: S("0 0 120 100", W(60,52,24,0,120,LB,BLUE)+W(60,52,17,120,360,LR,RED)+ray(60,52,0,52)+ray(60,52,120,50)+Dt(60,52), "angoli esplementari")
+};
+
+/* ═══════ le carte ═══════
+   hook = il trucco · figs = [figura, didascalia, "si"/"no"] · def = definizione del libro, [parole chiave]
+   vita = esempio dalla vita · trap = non confondere · ask = domanda di controllo */
+const PARTI = ["1 · Le basi","2 · Retta e segmenti","3 · Poligoni","4 · Angoli","5 · Congruenza e misura","6 · Teoremi","7 · Ripasso"];
+
+const CARDS = [
+{parte:0, t:"Assioma, definizione, teorema",
+ hook:"<b>A</b>ssioma = <b>A</b>ccetto. <b>D</b>efinizione = <b>D</b>o un nome. <b>T</b>eorema = <b>T</b>occa dimostrarlo.",
+ extra:'<div class="lad"><div class="ld c0 s"><b>Enti primitivi</b>punto, retta e piano: non si definiscono, si parte da loro.</div>'
+  +'<div class="ld c1 s"><b>Assiomi</b>si accettano come veri, senza dimostrarli.</div>'
+  +'<div class="ld c2 s"><b>Definizioni</b>danno il nome a una figura nuova.</div>'
+  +'<div class="ld c3 s"><b>Teoremi</b>si dimostrano, usando assiomi e definizioni.</div></div>',
+ def:["Gli [enti primitivi] sono il [punto], la [retta] e il [piano]: non si definiscono.",
+      "Gli [assiomi] sono enunciati che si accettano come [veri] senza [dimostrazione].",
+      "Un [teorema] è un enunciato che si [dimostra] a partire da assiomi e definizioni."],
+ vita:"Pensa al calcio. Le regole del gioco non si discutono: sono gli <b>assiomi</b>. «Si chiama calcio d'angolo quando…» è una <b>definizione</b>. Un ragionamento che, usando solo le regole, arriva a una conclusione sicura è un <b>teorema</b>.",
+ trap:"Il teorema si dimostra, l'assioma no.",
+ ask:["Punto, retta e piano hanno una definizione?","No: sono enti primitivi. Si usano senza definirli."]},
+
+{parte:0, t:"Punti e rette: le prime regole",
+ hook:"Con due chiodi, una corda tesa ha una sola posizione: per due punti passa <b>una sola</b> retta.",
+ figs:[["allineati","allineati","si"],["nonall","non allineati","no"],["fascio","fascio di rette, centro O",""]],
+ def:["Per due punti distinti passa [una e una sola] retta.",
+      "Due rette distinte hanno in comune [al massimo un punto].",
+      "Tre o più punti che stanno sulla stessa retta si dicono [allineati].",
+      "Tutte le rette che passano per un punto formano un [fascio proprio]; il punto è il [centro] del fascio."],
+ vita:"Le palline infilate su uno spiedino dritto sono <b>allineate</b>. I raggi di una ruota di bicicletta escono tutti dal mozzo: sono come un <b>fascio</b>, e il mozzo è il <b>centro</b>.",
+ trap:"Retta orientata vuol dire retta con un verso scelto, come una strada a senso unico: così si può dire se A viene prima o dopo B.",
+ ask:["Due rette diverse possono avere due punti in comune?","No. Se ne avessero due, per l'assioma 2b sarebbero la stessa retta."]},
+
+{parte:1, t:"Semiretta",
+ hook:"<b>Semi</b> vuol dire metà: la semiretta è mezza retta. Un <b>punto</b> taglia la retta in due.",
+ figs:[["semiretta","semiretta di origine O",""],["opposte","due semirette opposte",""]],
+ def:["Data una retta e un suo punto, si chiama [semiretta] la figura formata dal [punto] e da [una delle due parti] in cui la retta è divisa dal punto.",
+      "Il punto si dice [origine] della semiretta.",
+      "Due semirette con la stessa origine, che insieme formano tutta la retta, si dicono [opposte]."],
+ vita:"La luce di un puntatore laser parte dalla penna, l'origine, e va dritta in una sola direzione, senza fine.",
+ trap:"Nella scrittura «semiretta OP» l'origine si scrive per prima: OP e PO sono due semirette diverse.",
+ ask:["Un punto su una retta quante semirette individua?","Due, una per parte: sono opposte."]},
+
+{parte:1, t:"Segmento e prolungamento",
+ hook:"Il segmento è un pezzo di retta chiuso tra due punti, come una matita tra la punta e il fondo.",
+ figs:[["segmento","A e B sono gli estremi",""],["prolung","prolungamento dalla parte di B",""]],
+ def:["Il [segmento] AB è formato dai due punti A e B e da [tutti i punti compresi] tra A e B.",
+      "A e B si dicono [estremi]; gli altri punti si dicono [interni].",
+      "Se A e B coincidono, il segmento si dice [nullo].",
+      "La semiretta di origine B, sulla retta AB, che [non contiene A] è il [prolungamento] di AB dalla parte di B."],
+ vita:"Una matita ha due estremi, la punta e il fondo. Se la immagini allungata oltre la punta, senza fine, quello è il prolungamento.",
+ trap:"Retta: niente inizio, niente fine. Semiretta: un inizio, nessuna fine. Segmento: un inizio e una fine.",
+ ask:["Il prolungamento di AB dalla parte di A contiene B?","No: parte da A e va dalla parte opposta a B."]},
+
+{parte:1, t:"Segmenti consecutivi e adiacenti",
+ hook:"<b>Consecutivi</b>: si danno la mano, cioè hanno un estremo in comune. <b>Adiacenti</b>: si danno la mano <i>e</i> guardano dritti nella stessa direzione, sulla stessa retta.",
+ figs:[["cons","consecutivi","si"],["adiac","adiacenti","si"],["sep","né l'uno né l'altro","no"]],
+ def:["Due segmenti che hanno in comune [uno e un solo estremo] si dicono [consecutivi].",
+      "Due segmenti consecutivi che appartengono alla [stessa retta] si dicono [adiacenti]."],
+ vita:"Un metro pieghevole da falegname. Piegato a zigzag, i pezzi sono <b>consecutivi</b>. Aperto tutto dritto, i pezzi sono <b>adiacenti</b>.",
+ trap:"Adiacenti è «di più»: tutti gli adiacenti sono consecutivi, ma non tutti i consecutivi sono adiacenti.",
+ ask:["Due segmenti sulla stessa retta, staccati tra loro, sono adiacenti?","No: non hanno un estremo in comune, quindi non sono nemmeno consecutivi."]},
+
+{parte:2, t:"Poligonale",
+ hook:"<b>Poli</b> vuol dire tanti: tanti segmenti attaccati in fila, come il metro pieghevole piegato a zigzag.",
+ figs:[["polOk","poligonale","si"],["polA","due pezzi di fila adiacenti","no"],["polB","un estremo di tre segmenti","no"]],
+ def:["Una [poligonale] è formata da un insieme [ordinato] di segmenti, tali che:",
+      "a) ciascun segmento e il successivo siano [consecutivi ma non adiacenti];",
+      "b) ciascun estremo sia in comune [al massimo a due] segmenti.",
+      "I segmenti si dicono [lati], i loro estremi [vertici]."],
+ vita:"Il disegno di un fulmine a zigzag. Il percorso di uno sciatore tra i paletti dello slalom.",
+ trap:"Condizione a: mai due pezzi di fila sulla stessa retta. Condizione b: mai un incrocio a tre strade in un vertice.",
+ ask:["Se due lati di fila stanno sulla stessa retta, quale condizione cade?","La a: sarebbero adiacenti."]},
+
+{parte:2, t:"Chiusa, aperta, intrecciata",
+ hook:"<b>Chiusa</b>: torni al punto di partenza. <b>Aperta</b>: non ci torni. <b>Intrecciata</b>: due lati si incrociano.",
+ figs:[["chiusa","chiusa",""],["aperta","aperta",""],["intrecciata","chiusa e intrecciata",""]],
+ def:["Se il [primo e l'ultimo estremo] coincidono, la poligonale si dice [chiusa], altrimenti si dice [aperta].",
+      "Se due lati [non consecutivi] hanno un punto in comune, la poligonale si dice [intrecciata]."],
+ vita:"Il recinto di un giardino, che parte dal cancello e torna al cancello: chiusa. Una collana slacciata: aperta. Il simbolo dell'infinito ∞: intrecciata.",
+ trap:"Una poligonale può essere chiusa e intrecciata insieme, come la figura a farfalla. Anche una aperta può essere intrecciata.",
+ ask:["Due lati consecutivi che si toccano nel vertice rendono la poligonale intrecciata?","No: i lati consecutivi si toccano sempre nel vertice. Conta solo l'incrocio di lati non consecutivi."]},
+
+{parte:2, t:"Poligono e i suoi nomi",
+ hook:"Un trancio di pizza al taglio: il bordo è la poligonale, cioè il contorno. Il trancio intero, bordo e farcitura, è il poligono.",
+ figs:[["poligono","poligono","si"],["intrecciata","contorno intrecciato","no"]],
+ def:["Un [poligono] è la figura formata da una poligonale [chiusa e non intrecciata] e dai suoi [punti interni].",
+      "La poligonale si dice anche [contorno] o frontiera del poligono.",
+      "Un poligono con tutti i [lati congruenti] e tutti gli [angoli congruenti] si dice [regolare]."],
+ extra:'<div class="scroll"><table class="nm"><tr><th>lati</th><th>nome</th><th>per ricordare</th></tr>'
+  +'<tr><td class="c">3</td><td>triangolo</td><td>tri = tre, come triciclo</td></tr>'
+  +'<tr><td class="c">4</td><td>quadrilatero</td><td>quadri = quattro</td></tr>'
+  +'<tr><td class="c">5</td><td>pentagono</td><td>penta = cinque, come il pentathlon</td></tr>'
+  +'<tr><td class="c">6</td><td>esagono</td><td>le celle delle api</td></tr>'
+  +'<tr><td class="c">7</td><td>ettagono</td><td>etta… come sette</td></tr>'
+  +'<tr><td class="c">8</td><td>ottagono</td><td>otto: il cartello STOP</td></tr>'
+  +'<tr><td class="c">9</td><td>ennagono</td><td>ennea = nove</td></tr>'
+  +'<tr><td class="c">10</td><td>decagono</td><td>deca = dieci, come decina</td></tr></table></div>',
+ vita:"Il cartello STOP è un ottagono regolare: 8 lati uguali e 8 angoli uguali.",
+ trap:"Regolare vuole due cose insieme: lati tutti congruenti <i>e</i> angoli tutti congruenti. Il rettangolo ha gli angoli uguali ma i lati no: non è regolare.",
+ ask:["Come si chiama un poligono con 9 lati?","Ennagono."]},
+
+{parte:2, t:"Diagonale, corda, angoli interni ed esterni",
+ hook:"<b>Diagonale</b>: da vertice a vertice, saltando quelli vicini. <b>Corda</b>: da un lato a un altro lato, tesa come la corda di una chitarra.",
+ figs:[["diagcorda","rosso: diagonale · blu: corda · giallo: angolo interno · verde: angolo esterno",""]],
+ def:["[Diagonale]: segmento che congiunge due [vertici non consecutivi].",
+      "[Corda]: segmento che congiunge due punti del contorno che stanno su [due lati distinti].",
+      "[Angolo interno]: angolo convesso formato da [due lati consecutivi] e dal vertice che hanno in comune.",
+      "[Angolo esterno]: angolo [adiacente] a un angolo interno. In ogni vertice ce ne sono [due], opposti al vertice."],
+ vita:"In una stanza, l'angolo che vedi da dentro è l'angolo interno. Se esci e giri l'angolo, quello tra il muro e il suo prolungamento è l'angolo esterno.",
+ trap:"Il segmento tra due vertici vicini non è una diagonale: è un lato.",
+ ask:["Un triangolo ha diagonali?","No: ogni vertice è consecutivo agli altri due."]},
+
+{parte:3, t:"Figura convessa e concava",
+ hook:"Con<b>cava</b> ha una <b>cava</b>, una rientranza: lì un segmento esce fuori dalla figura.",
+ figs:[["convessa","convessa: AB resta dentro",""],["concava","concava: AB esce",""]],
+ def:["Una figura si dice [convessa] se, comunque scelti [due suoi punti] A e B, il [segmento AB] è tutto contenuto nella figura.",
+      "Una figura [non convessa] si dice [concava]."],
+ vita:"Una pizza intera è convessa. Pac-Man con la bocca aperta è concavo: unisci un punto del labbro di sopra con uno del labbro di sotto, e il segmento passa nella bocca, fuori dalla figura.",
+ trap:"Per dire «concava» basta un solo segmento che esce. Anche la retta, la semiretta, il segmento e il punto sono figure convesse.",
+ ask:["Una stella a cinque punte è convessa o concava?","Concava: tra una punta e l'altra c'è una rientranza."]},
+
+{parte:3, t:"Semipiano",
+ hook:"Come la semiretta, ma un gradino più su. Nella semiretta un <b>punto</b> taglia la <b>retta</b>; nel semipiano una <b>retta</b> taglia il <b>piano</b>.",
+ figs:[["semipiani","α e β: semipiani opposti, origine r",""]],
+ def:["Data una retta in un piano, si chiama [semipiano] la figura formata dalla [retta] e da [una delle due parti] in cui il piano è diviso dalla retta stessa.",
+      "La retta si dice [origine] (o [frontiera]) del semipiano.",
+      "I due semipiani che una retta forma si dicono [opposti]."],
+ vita:"La linea di metà campo divide il campo di calcio in due metà campo. Per passare da una metà all'altra devi per forza attraversare la linea: è l'assioma 4.",
+ trap:"Semi<b>retta</b> = un punto e mezza retta. Semi<b>piano</b> = una retta e mezzo piano.",
+ ask:["Se A e B stanno in semipiani opposti, cosa fa il segmento AB?","Taglia la retta di origine in un punto."]},
+
+{parte:3, t:"Angolo; piatto, giro, nullo",
+ hook:"Pensa alle forbici aperte: il perno è il <b>vertice</b>, le lame sono i <b>lati</b>, lo spazio tra le lame è l'<b>angolo</b>.",
+ figs:[["angolo","vertice O, lati a e b",""],["piatto","piatto: 180°",""],["giro","giro: 360°",""],["nullo","nullo: 0°",""]],
+ def:["Si chiama [angolo] la figura formata da [due semirette con la stessa origine] e da una delle due parti in cui il piano è diviso dalle semirette.",
+      "L'origine è il [vertice], le semirette sono i [lati].",
+      "Due semirette formano due angoli: uno [convesso] e uno [concavo]. Se non si dice altro, «angolo» vuol dire angolo convesso.",
+      "Angolo [piatto]: i lati sono semirette [opposte]. Angolo [giro]: lati [coincidenti] e tutto il piano. Angolo [nullo]: lati coincidenti e [nessun altro punto]."],
+ vita:"Le lancette dell'orologio: alle 6 in punto formano un angolo piatto; a mezzogiorno sono una sopra l'altra.",
+ trap:"Giro e nullo hanno gli stessi lati, coincidenti. Cambia la parte di piano: tutto il piano nel giro, niente nel nullo.",
+ ask:["Quanto misurano un angolo piatto e un angolo giro?","180° e 360°."]},
+
+{parte:3, t:"Angoli consecutivi, adiacenti, opposti al vertice",
+ hook:"Come per i segmenti. <b>Consecutivi</b>: un lato in comune. <b>Adiacenti</b>: in più gli altri due lati sulla stessa retta. <b>Opposti al vertice</b>: una X, uno di fronte all'altro.",
+ figs:[["angCons","consecutivi",""],["angAdiac","adiacenti",""],["opposti","opposti al vertice",""]],
+ def:["Due angoli si dicono [consecutivi] se hanno lo [stesso vertice] e in comune soltanto i punti di [un lato].",
+      "Due angoli si dicono [adiacenti] se sono consecutivi e i [lati non comuni] appartengono alla [stessa retta].",
+      "Due angoli si dicono [opposti al vertice] se sono convessi e i lati dell'uno sono i [prolungamenti] dei lati dell'altro."],
+ vita:"Le forbici aperte: l'angolo tra le lame e quello tra i manici sono opposti al vertice. Per questo si aprono sempre della stessa misura.",
+ trap:"Due adiacenti fanno sempre 180°. Due opposti al vertice sono sempre congruenti (teorema 3).",
+ ask:["Un angolo misura 40°. Quanto misurano il suo adiacente e il suo opposto al vertice?","140° e 40°."]},
+
+{parte:4, t:"Congruenza e movimenti rigidi",
+ hook:"Nel Tetris i pezzi si spostano e si girano, ma non cambiano mai forma né misura: sono <b>movimenti rigidi</b>.",
+ figs:[["trasl","traslazione: striscia",""],["rotaz","rotazione: gira intorno a O",""],["rifl","riflessione: si ribalta",""]],
+ def:["Due figure sono [uguali] se sono formate dagli [stessi punti].",
+      "Due figure sono [congruenti], simbolo [≅], se si possono [sovrapporre] con un movimento rigido.",
+      "[Traslazione]: la figura [striscia] nel piano. [Rotazione]: la figura [gira] intorno a un punto. [Riflessione]: la figura si [ribalta], come allo specchio; bisogna staccarla dal foglio, è un movimento [nello spazio]."],
+ vita:"Nel Tetris: traslazione quando il pezzo scende o va di lato, rotazione quando lo giri. La riflessione nel Tetris non c'è: per questo una L non diventa mai una J.",
+ trap:"Congruenti non vuol dire uguali: due quadretti dello stesso foglio sono congruenti, ma stanno in posti diversi.",
+ ask:["Quale movimento rigido non si può fare facendo strisciare la figura nel piano?","La riflessione."]},
+
+{parte:4, t:"Le tre proprietà della congruenza",
+ hook:"<b>Riflessiva</b>: allo specchio vedi te stesso. <b>Simmetrica</b>: si può scambiare. <b>Transitiva</b>: si transita, cioè si passa attraverso una figura di mezzo.",
+ extra:'<div class="lad"><div class="ld c1 s"><b>Riflessiva</b>F ≅ F</div>'
+  +'<div class="ld c2 s"><b>Simmetrica</b>se F₁ ≅ F₂, allora F₂ ≅ F₁</div>'
+  +'<div class="ld c3 s"><b>Transitiva</b>se F₁ ≅ F₂ e F₂ ≅ F₃, allora F₁ ≅ F₃</div></div>',
+ def:["[Riflessiva]: ogni figura è congruente a [sé stessa].",
+      "[Simmetrica]: se la figura F₁ è congruente a F₂, allora [F₂ è congruente a F₁].",
+      "[Transitiva]: se F₁ è congruente a F₂ e F₂ è congruente a F₃, allora [F₁ e F₃ sono congruenti]."],
+ vita:"Simmetrica: se Anna è compagna di banco di Bea, Bea è compagna di banco di Anna. Transitiva: se io sono alto come Marco e Marco è alto come Luca, io sono alto come Luca.",
+ trap:"Lo scambio è la simmetrica, non la transitiva. La transitiva ha sempre tre figure.",
+ ask:["Quante figure servono per la proprietà transitiva?","Tre: F₁, F₂ e F₃."]},
+
+{parte:4, t:"Punto medio, bisettrice, multipli",
+ hook:"<b>Bi</b>settrice: taglia in <b>due</b>, come bi di bicicletta. Il punto medio fa lo stesso con un segmento.",
+ figs:[["puntoMedio","M punto medio di AB",""],["bisettrice","r bisettrice dell'angolo",""],["multiplo","CD ≅ 3AB",""]],
+ def:["Il [punto medio] di un segmento è il punto che lo divide in [due segmenti congruenti].",
+      "La [bisettrice] di un angolo è la [semiretta], con origine nel [vertice], che lo divide in due [angoli congruenti].",
+      "Se CD è la somma di n segmenti congruenti ad AB, CD è [multiplo] di AB e AB è [sottomultiplo] di CD."],
+ vita:"Pieghi un nastro esattamente a metà: la piega è il punto medio. Tagli una fetta di torta in due fette uguali partendo dalla punta: il taglio è la bisettrice.",
+ trap:"Il punto medio è un punto. La bisettrice è una semiretta, non un segmento.",
+ ask:["M è il punto medio di AB e AB misura 10 cm. Quanto misura AM?","5 cm."]},
+
+{parte:4, t:"Retto, acuto, ottuso",
+ hook:"<b>Retto</b>: dritto, come l'angolo del quaderno. <b>Acuto</b>: appuntito, punge come un dolore acuto. <b>Ottuso</b>: spuntato, non punge.",
+ figs:[["acuto","acuto: meno di 90°",""],["retto","retto: 90°",""],["ottuso","ottuso: tra 90° e 180°",""]],
+ def:["Si dice angolo [retto] la [metà di un angolo piatto].",
+      "Si dice angolo [acuto] ogni angolo maggiore dell'angolo nullo e [minore di un angolo retto].",
+      "Si dice angolo [ottuso] ogni angolo maggiore di un angolo retto e [minore di un angolo piatto]."],
+ vita:"L'angolo di un foglio è retto. La punta di una matita appena temperata è acuta. Lo schienale di una sdraio inclinato all'indietro forma un angolo ottuso.",
+ trap:"180° non è ottuso: è piatto. L'ottuso sta tra 90° e 180°, esclusi.",
+ ask:["Un angolo di 90° è acuto?","No, è retto. Acuto vuol dire meno di 90°."]},
+
+{parte:4, t:"Complementari, supplementari, esplementari",
+ hook:"<b>Com</b>plementari: <b>com</b>pletano l'angolo retto, 90°. <b>Su</b>pplementari: stanno <b>su</b> una retta, 180°. <b>Es</b>plementari: <b>es</b>plorano tutto il giro, 360°.",
+ figs:[["compl","complementari: 90°",""],["suppl","supplementari: 180°",""],["espl","esplementari: 360°",""]],
+ def:["Due angoli la cui somma è un angolo [retto] si dicono [complementari].",
+      "Due angoli la cui somma è un angolo [piatto] si dicono [supplementari].",
+      "Due angoli la cui somma è un angolo [giro] si dicono [esplementari]."],
+ vita:"Le lancette alle 3 in punto formano un angolo retto. Se una terza lancetta lo divide in 30° e 60°, i due pezzi sono complementari.",
+ trap:"Due adiacenti sono sempre supplementari, ma due supplementari non sono per forza adiacenti: possono stare anche lontani.",
+ ask:["Quanto misura il supplementare di 70°?","110°."]},
+
+{parte:4, t:"Misura: gradi, primi, secondi",
+ hook:"Come l'orologio: un'ora ha 60 minuti, un minuto ha 60 secondi. Per gli angoli: un grado ha 60 primi, un primo ha 60 secondi.",
+ extra:'<div class="scroll"><table class="nm"><tr><th>angolo</th><th>misura</th></tr>'
+  +'<tr><td>retto</td><td>90°</td></tr><tr><td>piatto</td><td>180°</td></tr><tr><td>giro</td><td>360°</td></tr>'
+  +'<tr><td>1 grado</td><td>60′ (primi)</td></tr><tr><td>1 primo</td><td>60″ (secondi)</td></tr><tr><td>1 grado</td><td>3600″</td></tr></table></div>',
+ def:["La misura di un angolo si chiama [ampiezza].",
+      "Il [grado] è la [trecentosessantesima] parte dell'angolo giro.",
+      "Il sistema con gradi, primi e secondi si chiama [sessagesimale].",
+      "Due segmenti sono [commensurabili] se la misura di uno rispetto all'altro è un numero [razionale]; se è un numero [irrazionale] sono [incommensurabili]."],
+ vita:"Il lato e la diagonale di un quadrato sono incommensurabili: la diagonale misura √2 volte il lato, e √2 non è una frazione.",
+ trap:"I gradi con la virgola e i gradi-primi-secondi sono due scritture diverse: 48,5° vuol dire 48°30′, non 48°50′.",
+ ask:["Quanti secondi ci sono in un grado?","3600, cioè 60 · 60."]},
+
+{parte:5, t:"Ipotesi, tesi, dimostrazione",
+ hook:"<b>Ipotesi</b>: quello che hai in mano, i dati. <b>Tesi</b>: dove devi arrivare. <b>Dimostrazione</b>: la strada, con un perché a ogni passo.",
+ figs:[["cross3","α e β opposti al vertice",""]],
+ def:["Un teorema si può scrivere nella forma «se [ipotesi], allora [tesi]».",
+      "L'[ipotesi] viene prima di «allora»: è il [punto di partenza].",
+      "La [tesi] viene dopo «allora»: è quello che si vuole [dimostrare].",
+      "La [dimostrazione] è il ragionamento che porta dall'ipotesi alla tesi."],
+ extra:'<div class="ex s"><span class="hl">Esempio: teorema 3</span><span class="r"><b>Ipotesi:</b> α e β sono opposti al vertice.</span><span class="r"><b>Tesi:</b> α ≅ β.</span></div>',
+ vita:"«Se piove, allora la strada è bagnata.» Ipotesi: piove. Tesi: la strada è bagnata.",
+ trap:"Ogni passaggio della dimostrazione vuole il suo perché: «per ipotesi», «per definizione», «per l'assioma 10», «per il teorema 2».",
+ ask:["Nel teorema «due angoli opposti al vertice sono congruenti», qual è la tesi?","α ≅ β: i due angoli sono congruenti."]},
+
+{parte:6, t:"Tutte le parole", html:'<div id="gloss"></div>', init:"glossInit"},
+{parte:6, t:"Allenamento", html:'<div id="train"></div>', init:"trainInit"}
+];
+
+/* ═══════ le parole (per il ripasso e l'allenamento) ═══════
+   c = carta dove si ripassa */
+const TERMS = [
+ {id:"primitivi", n:"enti primitivi", d:"punto, retta e piano: non si definiscono", c:0},
+ {id:"assioma", n:"assioma", d:"enunciato che si accetta come vero senza dimostrazione", c:0},
+ {id:"teorema", n:"teorema", d:"enunciato che si dimostra a partire da assiomi e definizioni", c:0},
+ {id:"allineati", n:"punti allineati", d:"punti che stanno sulla stessa retta", c:1},
+ {id:"fascio", n:"fascio proprio di rette", d:"tutte le rette che passano per un punto, il centro del fascio", c:1},
+ {id:"semiretta", n:"semiretta", d:"un punto di una retta (l'origine) e una delle due parti in cui divide la retta", c:2},
+ {id:"segmento", n:"segmento", d:"due punti A e B (gli estremi) e tutti i punti della retta compresi tra loro", c:3},
+ {id:"segconsecutivi", n:"segmenti consecutivi", d:"hanno in comune uno e un solo estremo", c:4},
+ {id:"segadiacenti", n:"segmenti adiacenti", d:"consecutivi e sulla stessa retta", c:4},
+ {id:"poligonale", n:"poligonale", d:"segmenti in fila: ciascuno consecutivo al successivo ma non adiacente; ogni estremo in comune al massimo a due segmenti", c:5},
+ {id:"chiusa", n:"chiusa, aperta, intrecciata", d:"chiusa se primo e ultimo estremo coincidono, se no aperta; intrecciata se due lati non consecutivi si incontrano", c:6},
+ {id:"poligono", n:"poligono", d:"poligonale chiusa e non intrecciata, insieme ai suoi punti interni", c:7},
+ {id:"regolare", n:"poligono regolare", d:"tutti i lati congruenti e tutti gli angoli congruenti", c:7},
+ {id:"diagonale", n:"diagonale", d:"segmento che unisce due vertici non consecutivi", c:8},
+ {id:"corda", n:"corda", d:"segmento che unisce due punti del contorno su due lati diversi", c:8},
+ {id:"angint", n:"angolo interno, angolo esterno", d:"interno: tra due lati consecutivi; esterno: adiacente a un angolo interno", c:8},
+ {id:"convessa", n:"figura convessa, concava", d:"convessa: il segmento tra due suoi punti qualsiasi resta tutto dentro; se no è concava", c:9},
+ {id:"semipiano", n:"semipiano", d:"una retta (l'origine) e una delle due parti in cui divide il piano", c:10},
+ {id:"angolo", n:"angolo", d:"due semirette con la stessa origine (vertice) e una delle due parti di piano che formano", c:11},
+ {id:"speciali", n:"angolo piatto, giro, nullo", d:"piatto: lati opposti; giro: lati coincidenti e tutto il piano; nullo: lati coincidenti e nient'altro", c:11},
+ {id:"angconsecutivi", n:"angoli consecutivi", d:"stesso vertice e in comune solo un lato", c:12},
+ {id:"angadiacenti", n:"angoli adiacenti", d:"consecutivi, con i lati non comuni sulla stessa retta", c:12},
+ {id:"opposti", n:"angoli opposti al vertice", d:"i lati dell'uno sono i prolungamenti dei lati dell'altro; sono congruenti", c:12},
+ {id:"congruenza", n:"figure congruenti", d:"si possono sovrapporre con un movimento rigido (simbolo ≅)", c:13},
+ {id:"movimenti", n:"movimenti rigidi", d:"traslazione (striscia), rotazione (gira intorno a un punto), riflessione (si ribalta, nello spazio)", c:13},
+ {id:"proprieta", n:"riflessiva, simmetrica, transitiva", d:"F ≅ F · se F₁ ≅ F₂ allora F₂ ≅ F₁ · se F₁ ≅ F₂ e F₂ ≅ F₃ allora F₁ ≅ F₃", c:14},
+ {id:"puntomedio", n:"punto medio", d:"il punto che divide il segmento in due segmenti congruenti", c:15},
+ {id:"bisettrice", n:"bisettrice", d:"la semiretta dal vertice che divide l'angolo in due angoli congruenti", c:15},
+ {id:"multipli", n:"multiplo, sottomultiplo", d:"CD ≅ nAB: CD multiplo di AB, AB sottomultiplo di CD", c:15},
+ {id:"tipiangolo", n:"retto, acuto, ottuso", d:"retto: metà del piatto (90°); acuto: meno del retto; ottuso: tra retto e piatto", c:16},
+ {id:"somme", n:"complementari, supplementari, esplementari", d:"la somma è un retto (90°), un piatto (180°), un giro (360°)", c:17},
+ {id:"misura", n:"grado, primo, secondo", d:"1° = 1/360 del giro; 1° = 60′; 1′ = 60″; sistema sessagesimale; la misura si chiama ampiezza", c:18},
+ {id:"commens", n:"commensurabili, incommensurabili", d:"misura razionale (una frazione) oppure irrazionale, come √2 per diagonale e lato del quadrato", c:18},
+ {id:"ipotesi", n:"ipotesi, tesi, dimostrazione", d:"ipotesi: prima di «allora»; tesi: dopo «allora», da dimostrare; dimostrazione: i passaggi dall'una all'altra", c:19}
+];
+
+/* ═══════ le domande, ogni parola in contesti diversi ═══════
+   k: fig = dalla figura · def = dalla definizione · nome = dal nome · vita = nella vita · vf = vero o falso · ord = in ordine
+   o: la prima opzione è quella giusta (sullo schermo vengono mescolate) */
+const Q = [
+ {t:"primitivi",k:"def",q:"Punto, retta e piano non hanno una definizione. Si chiamano…",o:["enti primitivi","assiomi","teoremi","figure convesse"],w:"Sono il punto di partenza: si usano senza definirli."},
+ {t:"primitivi",k:"vf",q:"La retta ha una definizione precisa, come il segmento.",a:false,w:"La retta è un ente primitivo: non si definisce. Il segmento invece ha una definizione."},
+ {t:"assioma",k:"def",q:"Un enunciato che si accetta come vero, senza dimostrarlo, si chiama…",o:["assioma","teorema","definizione","tesi"],w:"Assioma = Accetto. Il teorema invece si dimostra."},
+ {t:"assioma",k:"vita",q:"Nel calcio la regola «il pallone non si tocca con le mani» non si discute: si accetta e basta. In geometria sarebbe…",o:["un assioma","un teorema","una dimostrazione"],w:"Le regole di partenza, accettate senza dimostrarle, sono gli assiomi."},
+ {t:"assioma",k:"vf",q:"Gli assiomi si dimostrano usando i teoremi.",a:false,w:"Al contrario: gli assiomi si accettano senza dimostrazione e servono per dimostrare i teoremi."},
+ {t:"teorema",k:"def",q:"Un enunciato che si dimostra partendo da assiomi e definizioni si chiama…",o:["teorema","assioma","ente primitivo","ipotesi"],w:"Teorema = Tocca dimostrarlo."},
+ {t:"teorema",k:"vf",q:"«Due angoli opposti al vertice sono congruenti» è un teorema.",a:true,w:"È il teorema 3: si dimostra."},
+ {t:"allineati",k:"fig",f:"allineati",q:"Come si dicono i punti A, B e C?",o:["allineati","consecutivi","adiacenti","opposti"],w:"Stanno tutti sulla stessa retta."},
+ {t:"allineati",k:"vita",q:"Tre palline infilate sullo stesso spiedino dritto sono come tre punti…",o:["allineati","non allineati","opposti al vertice"],w:"Lo spiedino è la retta: tutte e tre ci stanno sopra."},
+ {t:"allineati",k:"vf",q:"Per due punti distinti passano due rette diverse.",a:false,w:"Ne passa una e una sola: è l'assioma 2b."},
+ {t:"allineati",k:"vf",q:"Due rette distinte hanno in comune al massimo un punto.",a:true,w:"Se ne avessero due, per l'assioma 2b sarebbero la stessa retta."},
+ {t:"fascio",k:"fig",f:"fascio",q:"Tutte queste rette passano per il punto O. Come si chiama l'insieme di queste rette?",o:["fascio proprio di rette","poligonale","semipiano","angolo giro"],w:"Il punto O in cui passano tutte è il centro del fascio."},
+ {t:"fascio",k:"vita",q:"I raggi di una ruota di bicicletta partono tutti dal mozzo. In un fascio di rette, il mozzo sarebbe…",o:["il centro","l'origine","un estremo","un lato"],w:"Il punto per cui passano tutte le rette del fascio si chiama centro."},
+ {t:"semiretta",k:"fig",f:"semiretta",q:"La parte rossa, cioè il punto O con la parte di retta a destra, è…",o:["una semiretta","un segmento","un semipiano","una retta"],w:"Un punto e una delle due parti della retta: ha un inizio, O, e nessuna fine."},
+ {t:"semiretta",k:"nome",q:"Che cos'è una semiretta?",o:["un punto di una retta e una delle due parti in cui la retta è divisa dal punto","una retta e una delle due parti in cui il piano è diviso dalla retta","due punti di una retta e tutti i punti compresi tra loro","la metà di un segmento"],w:"La seconda è il semipiano, la terza il segmento."},
+ {t:"semiretta",k:"vita",q:"La luce di un puntatore laser parte dalla penna e va dritta, senza fine, in una sola direzione. È come…",o:["una semiretta","un segmento","una retta"],w:"Ha un'origine, la penna, e non ha fine."},
+ {t:"semiretta",k:"fig",f:"opposte",q:"La semiretta rossa e quella blu hanno la stessa origine O e insieme formano tutta la retta. Si dicono…",o:["opposte","consecutive","congruenti","allineate"],w:"Ogni punto divide la retta in due semirette opposte."},
+ {t:"semiretta",k:"vf",q:"Nella scrittura «semiretta OP», O è l'origine.",a:true,w:"L'origine si scrive per prima."},
+ {t:"segmento",k:"nome",q:"Che cos'è il segmento AB?",o:["i punti A e B e tutti i punti della retta compresi tra A e B","solo i punti compresi tra A e B, senza A e B","la retta che passa per A e B","la semiretta che parte da A e passa per B"],w:"A e B fanno parte del segmento: sono gli estremi."},
+ {t:"segmento",k:"def",q:"Un segmento AB in cui A e B coincidono si chiama…",o:["segmento nullo","punto medio","angolo nullo","semiretta"],w:"È un segmento «lungo zero»."},
+ {t:"segmento",k:"vita",q:"Una matita ha due estremi: la punta e il fondo. È come…",o:["un segmento","una semiretta","una retta"],w:"Un inizio e una fine: segmento."},
+ {t:"segmento",k:"fig",f:"prolung",q:"La parte rossa, che parte da B e va dalla parte opposta ad A, si chiama…",o:["prolungamento di AB dalla parte di B","prolungamento di AB dalla parte di A","segmento nullo","punto medio di AB"],w:"È la semiretta di origine B che non contiene A."},
+ {t:"segmento",k:"ord",q:"Metti in ordine la definizione di segmento.",c:["Dati due punti A e B su una retta,","il segmento AB","è l'insieme costituito","dai due punti A e B","e da tutti i punti compresi tra A e B."],w:"A e B si chiamano estremi del segmento."},
+ {t:"segconsecutivi",k:"fig",f:"cons",q:"AB e BC sono…",o:["consecutivi, ma non adiacenti","adiacenti","né consecutivi né adiacenti"],w:"Hanno in comune solo B, ma non stanno sulla stessa retta."},
+ {t:"segconsecutivi",k:"def",q:"Due segmenti che hanno in comune uno e un solo estremo si dicono…",o:["consecutivi","adiacenti","congruenti","allineati"],w:"Basta un estremo in comune. La stessa retta serve per gli adiacenti."},
+ {t:"segconsecutivi",k:"vita",q:"Un metro pieghevole da falegname piegato a zigzag: i pezzi, a due a due, sono…",o:["consecutivi","adiacenti","opposti"],w:"Ogni pezzo tocca il successivo in un estremo, ma non stanno sulla stessa retta."},
+ {t:"segconsecutivi",k:"vf",q:"Due segmenti consecutivi sono sempre anche adiacenti.",a:false,w:"Serve anche la stessa retta. È vero il contrario: gli adiacenti sono sempre consecutivi."},
+ {t:"segadiacenti",k:"fig",f:"adiac",q:"AB e BC sono…",o:["adiacenti, e quindi anche consecutivi","consecutivi, ma non adiacenti","né consecutivi né adiacenti"],w:"Hanno in comune solo B e stanno sulla stessa retta."},
+ {t:"segadiacenti",k:"fig",f:"sep",q:"AB e CD stanno sulla stessa retta. Sono…",o:["né consecutivi né adiacenti","adiacenti","consecutivi"],w:"Non hanno nessun estremo in comune: la stessa retta non basta."},
+ {t:"segadiacenti",k:"vita",q:"Lo stesso metro pieghevole, aperto tutto dritto: i pezzi, a due a due, sono…",o:["adiacenti","consecutivi ma non adiacenti","né l'uno né l'altro"],w:"Un estremo in comune e la stessa retta."},
+ {t:"segadiacenti",k:"vf",q:"Due segmenti adiacenti sono sempre anche consecutivi.",a:true,w:"Adiacenti = consecutivi + stessa retta."},
+ {t:"segadiacenti",k:"ord",q:"Metti in ordine la definizione di segmenti adiacenti.",c:["Due segmenti","consecutivi","che appartengono","alla stessa retta","si dicono adiacenti."],w:"Prima consecutivi, poi la stessa retta."},
+ {t:"poligonale",k:"fig",f:"polOk",q:"Questa figura è una poligonale?",o:["sì","no: due segmenti di fila sono adiacenti","no: un estremo è in comune a tre segmenti"],w:"Ogni segmento è consecutivo al successivo ma non adiacente, e ogni estremo è di due segmenti al massimo."},
+ {t:"poligonale",k:"fig",f:"polA",q:"Questa figura è una poligonale?",o:["no: due segmenti di fila sono adiacenti","sì","no: un estremo è in comune a tre segmenti"],w:"In alto due segmenti di fila stanno sulla stessa retta: cade la condizione a."},
+ {t:"poligonale",k:"fig",f:"polB",q:"Questa figura è una poligonale?",o:["no: un estremo è in comune a tre segmenti","sì","no: due segmenti di fila sono adiacenti"],w:"Nel punto rosso si incontrano tre segmenti: cade la condizione b."},
+ {t:"poligonale",k:"ord",q:"Metti in ordine la condizione b della poligonale.",c:["Ciascun estremo","dei segmenti","sia in comune","al massimo","a due di essi."],w:"Mai un incrocio a tre strade nei vertici."},
+ {t:"poligonale",k:"vita",q:"Il disegno di un fulmine a zigzag, fatto di segmenti dritti attaccati in fila, è…",o:["una poligonale","un poligono","un angolo"],w:"Segmenti in fila, consecutivi ma non adiacenti."},
+ {t:"poligonale",k:"def",q:"In una poligonale, i segmenti si chiamano… e i loro estremi…",o:["lati; vertici","vertici; lati","diagonali; centri","lati; origini"],w:"Come nei poligoni: lati e vertici."},
+ {t:"chiusa",k:"fig",f:"chiusa",q:"Questa poligonale è…",o:["chiusa e non intrecciata","aperta","chiusa e intrecciata"],w:"Il primo e l'ultimo estremo coincidono e nessun lato ne incrocia un altro."},
+ {t:"chiusa",k:"fig",f:"intrecciata",q:"Questa poligonale è…",o:["chiusa e intrecciata","chiusa e non intrecciata","aperta"],w:"Si torna al punto di partenza, ma due lati non consecutivi si incrociano."},
+ {t:"chiusa",k:"fig",f:"aperta",q:"Questa poligonale è…",o:["aperta","chiusa","chiusa e intrecciata"],w:"Il primo e l'ultimo estremo sono diversi."},
+ {t:"chiusa",k:"def",q:"Se il primo e l'ultimo estremo di una poligonale coincidono, la poligonale si dice…",o:["chiusa","aperta","intrecciata","regolare"],w:"Si torna al punto di partenza."},
+ {t:"chiusa",k:"def",q:"Se due lati non consecutivi di una poligonale hanno un punto in comune, la poligonale si dice…",o:["intrecciata","chiusa","concava","aperta"],w:"Due lati si incrociano."},
+ {t:"chiusa",k:"vita",q:"Il recinto di un giardino, che parte dal cancello e torna al cancello, è come una poligonale…",o:["chiusa","aperta","intrecciata"],w:"Si torna al punto di partenza."},
+ {t:"poligono",k:"nome",q:"Che cos'è un poligono?",o:["una poligonale chiusa e non intrecciata, insieme ai suoi punti interni","una qualsiasi poligonale chiusa","una poligonale aperta con tanti lati","una figura con tutti i lati congruenti"],w:"Serve chiusa, non intrecciata, e con dentro i punti interni."},
+ {t:"poligono",k:"vita",q:"In un trancio di pizza al taglio, il bordo è il contorno. Il trancio intero, bordo e farcitura, è come…",o:["il poligono","la poligonale","una corda"],w:"Il poligono comprende il contorno e i punti interni."},
+ {t:"poligono",k:"vf",q:"Ogni poligonale chiusa è il contorno di un poligono.",a:false,w:"Deve essere anche non intrecciata: la poligonale a farfalla non è il contorno di un poligono."},
+ {t:"poligono",k:"def",q:"Un poligono con 8 lati si chiama…",o:["ottagono","esagono","ettagono","ennagono"],w:"Otto: ottagono, come il cartello STOP."},
+ {t:"poligono",k:"def",q:"Un poligono con 7 lati si chiama…",o:["ettagono","esagono","ottagono","ennagono"],w:"Etta… come sette."},
+ {t:"poligono",k:"def",q:"Quanti lati ha un ennagono?",o:["9","7","10","11"],w:"Ennea = nove."},
+ {t:"poligono",k:"def",q:"Quanti lati ha un esagono?",o:["6","5","7","8"],w:"Come le celle delle api."},
+ {t:"regolare",k:"def",q:"Un poligono con tutti i lati congruenti e tutti gli angoli congruenti si dice…",o:["regolare","convesso","congruente","chiuso"],w:"Regolare vuole tutte e due le cose insieme."},
+ {t:"regolare",k:"vita",q:"Il cartello STOP ha 8 lati tutti uguali e 8 angoli tutti uguali. È…",o:["un ottagono regolare","un esagono regolare","un ottagono non regolare"],w:"8 lati: ottagono. Lati e angoli congruenti: regolare."},
+ {t:"regolare",k:"vf",q:"Un rettangolo che non è un quadrato è un poligono regolare.",a:false,w:"Ha gli angoli tutti congruenti, ma i lati no."},
+ {t:"diagonale",k:"fig",f:"diag",q:"Il segmento rosso unisce due vertici non consecutivi. È…",o:["una diagonale","un lato","una bisettrice","un prolungamento"],w:"Da vertice a vertice, saltando quelli vicini."},
+ {t:"diagonale",k:"def",q:"Un segmento che unisce due vertici non consecutivi di un poligono si chiama…",o:["diagonale","lato","bisettrice","prolungamento"],w:"Il segmento tra due vertici consecutivi invece è un lato."},
+ {t:"diagonale",k:"vf",q:"Un triangolo ha tre diagonali.",a:false,w:"Nessuna: in un triangolo ogni vertice è consecutivo agli altri due."},
+ {t:"corda",k:"fig",f:"corda",q:"Il segmento blu unisce due punti del contorno che stanno su due lati diversi. È…",o:["una corda","una diagonale","un lato","una bisettrice"],w:"Non parte da due vertici, quindi non è una diagonale: è una corda."},
+ {t:"corda",k:"vita",q:"Una corda di chitarra è tesa tra due bordi diversi dello strumento. In un poligono, il segmento tra due punti di due lati diversi si chiama…",o:["corda","diagonale","lato"],w:"Da un lato a un altro lato: corda."},
+ {t:"angint",k:"def",q:"L'angolo convesso formato da due lati consecutivi di un poligono si chiama…",o:["angolo interno","angolo esterno","angolo giro","angolo piatto"],w:"È l'angolo «dentro» il poligono."},
+ {t:"angint",k:"def",q:"Un angolo adiacente a un angolo interno del poligono si chiama…",o:["angolo esterno","angolo interno","angolo nullo","angolo giro"],w:"Si ottiene prolungando un lato."},
+ {t:"angint",k:"vf",q:"In ogni vertice di un poligono ci sono due angoli esterni, opposti al vertice tra loro.",a:true,w:"Uno per ogni lato che prolunghi. Essendo opposti al vertice, sono congruenti."},
+ {t:"convessa",k:"fig",f:"convessa",q:"Comunque scegli due punti A e B nella figura, il segmento AB resta dentro. La figura è…",o:["convessa","concava"],w:"Nessun segmento esce: convessa."},
+ {t:"convessa",k:"fig",f:"concava",q:"Il segmento AB passa fuori dalla figura. La figura è…",o:["concava","convessa"],w:"Basta un segmento che esce: concava. Con-cava ha una cava, una rientranza."},
+ {t:"convessa",k:"nome",q:"Quando una figura si dice convessa?",o:["quando, comunque scelti due suoi punti, il segmento che li unisce è tutto nella figura","quando ha tutti i lati congruenti","quando è chiusa","quando almeno un segmento tra due suoi punti esce dalla figura"],w:"L'ultima risposta descrive una figura concava."},
+ {t:"convessa",k:"vita",q:"Pac-Man con la bocca aperta è una figura…",o:["concava","convessa"],w:"Unisci un punto del labbro di sopra con uno del labbro di sotto: il segmento passa nella bocca, fuori dalla figura."},
+ {t:"convessa",k:"vf",q:"La retta è una figura convessa.",a:true,w:"Il segmento tra due punti della retta sta tutto sulla retta. Anche semiretta, segmento e punto sono convessi."},
+ {t:"convessa",k:"vf",q:"Una stella a cinque punte è una figura convessa.",a:false,w:"Tra una punta e l'altra c'è una rientranza: il segmento tra due punte esce."},
+ {t:"semipiano",k:"fig",f:"semipiano",q:"La retta insieme a tutta la parte colorata è…",o:["un semipiano","una semiretta","un angolo piatto","un poligono"],w:"Una retta e una delle due parti in cui divide il piano."},
+ {t:"semipiano",k:"def",q:"La retta che fa da bordo a un semipiano si chiama…",o:["origine, o frontiera","vertice","lato","centro"],w:"La semiretta ha un'origine che è un punto; il semipiano ha un'origine che è una retta."},
+ {t:"semipiano",k:"vita",q:"La linea di metà campo divide il campo di calcio in due. Ogni metà campo, con la linea, è come…",o:["un semipiano","una semiretta","un segmento"],w:"Una retta taglia il piano in due semipiani."},
+ {t:"semipiano",k:"vf",q:"Se A sta in un semipiano e B nel semipiano opposto, il segmento AB taglia la retta di origine in un punto.",a:true,w:"È l'assioma 4: per passare da una metà campo all'altra devi attraversare la linea."},
+ {t:"semipiano",k:"ord",q:"Metti in ordine la definizione di semipiano.",c:["Data una retta in un piano,","si chiama semipiano la figura","costituita dalla retta","e da una delle due parti","in cui il piano è diviso dalla retta stessa."],w:"Semiretta: un punto taglia la retta. Semipiano: una retta taglia il piano."},
+ {t:"angolo",k:"fig",f:"angolo",q:"In questo angolo, il punto O si chiama… e le semirette a e b si chiamano…",o:["vertice; lati","origine; estremi","centro; raggi","vertice; diagonali"],w:"Vertice e lati."},
+ {t:"angolo",k:"vita",q:"Nelle forbici aperte, il perno corrisponde al… dell'angolo",o:["vertice","lato","centro","estremo"],w:"Il perno è il vertice, le lame sono i lati."},
+ {t:"angolo",k:"vf",q:"Due semirette con la stessa origine, non opposte e non coincidenti, dividono il piano in due angoli: uno convesso e uno concavo.",a:true,w:"Se non si dice altro, «angolo» vuol dire quello convesso."},
+ {t:"angolo",k:"ord",q:"Metti in ordine la definizione di angolo.",c:["Date in un piano due semirette","aventi la stessa origine,","si chiama angolo la figura costituita dalle due semirette","e da una delle due parti","in cui il piano è diviso dalle semirette stesse."],w:"L'origine è il vertice, le semirette sono i lati."},
+ {t:"speciali",k:"fig",f:"piatto",q:"I lati sono due semirette opposte. L'angolo è…",o:["piatto","giro","nullo","retto"],w:"Piatto: steso piatto su una retta, 180°."},
+ {t:"speciali",k:"def",q:"Un angolo con i lati coincidenti, che contiene tutto il piano, si chiama…",o:["giro","nullo","piatto","concavo"],w:"Tutto il giro: 360°."},
+ {t:"speciali",k:"def",q:"Un angolo con i lati coincidenti, che non contiene altri punti oltre ai lati, si chiama…",o:["nullo","giro","piatto","acuto"],w:"Niente parte di piano: 0°."},
+ {t:"speciali",k:"vita",q:"Alle 6 in punto le lancette dell'orologio formano un angolo…",o:["piatto","retto","giro","nullo"],w:"Una lancetta in su e una in giù: semirette opposte."},
+ {t:"angconsecutivi",k:"fig",f:"angCons",q:"α e β sono…",o:["consecutivi, ma non adiacenti","adiacenti","opposti al vertice"],w:"Stesso vertice e un lato in comune, ma gli altri due lati non stanno sulla stessa retta."},
+ {t:"angconsecutivi",k:"def",q:"Due angoli con lo stesso vertice e in comune soltanto i punti di un lato si dicono…",o:["consecutivi","adiacenti","opposti al vertice","complementari"],w:"Come i segmenti consecutivi: si toccano in un pezzo solo."},
+ {t:"angadiacenti",k:"fig",f:"angAdiac",q:"α e β sono…",o:["adiacenti, e quindi anche consecutivi","consecutivi, ma non adiacenti","opposti al vertice"],w:"Un lato in comune e gli altri due lati sulla stessa retta."},
+ {t:"angadiacenti",k:"vf",q:"Due angoli adiacenti sono sempre supplementari.",a:true,w:"I lati non comuni formano una retta: insieme fanno un angolo piatto, 180°."},
+ {t:"angadiacenti",k:"ord",q:"Metti in ordine la definizione di angoli adiacenti.",c:["Due angoli","si dicono adiacenti","se sono consecutivi","e se i lati non comuni","appartengono alla stessa retta."],w:"Come per i segmenti: prima consecutivi, poi la stessa retta."},
+ {t:"opposti",k:"fig",f:"opposti",q:"α e β sono…",o:["opposti al vertice","adiacenti","consecutivi"],w:"I lati dell'uno sono i prolungamenti dei lati dell'altro."},
+ {t:"opposti",k:"vf",q:"Due angoli opposti al vertice sono congruenti.",a:true,w:"È il teorema 3."},
+ {t:"opposti",k:"vita",q:"Nelle forbici aperte, l'angolo tra le lame e quello tra i manici sono…",o:["opposti al vertice","adiacenti","complementari"],w:"Lame e manici si prolungano a vicenda: per questo si aprono sempre della stessa misura."},
+ {t:"opposti",k:"ord",q:"Metti in ordine la definizione di angoli opposti al vertice.",c:["Due angoli","si dicono opposti al vertice","se sono convessi","e i lati dell'uno","sono i prolungamenti dei lati dell'altro."],w:"Disegnati, formano una X."},
+ {t:"congruenza",k:"nome",q:"Quando due figure sono congruenti?",o:["quando si possono sovrapporre con un movimento rigido","quando sono formate dagli stessi punti","quando hanno lo stesso numero di lati","quando sono tutte e due convesse"],w:"La seconda risposta è la definizione di figure uguali."},
+ {t:"congruenza",k:"vf",q:"Due figure congruenti sono sempre uguali.",a:false,w:"Uguali vuol dire stessi punti; congruenti vuol dire sovrapponibili spostandole. Due quadretti dello stesso foglio sono congruenti ma non uguali."},
+ {t:"congruenza",k:"def",q:"Il simbolo ≅ si legge…",o:["è congruente a","è uguale a","è parallelo a","è maggiore di"],w:"F₁ ≅ F₂ si legge: F₁ è congruente a F₂."},
+ {t:"movimenti",k:"vita",q:"Nel Tetris il pezzo scende e si sposta di lato senza girare. È una…",o:["traslazione","rotazione","riflessione"],w:"La figura striscia nel piano senza girare."},
+ {t:"movimenti",k:"vita",q:"Nel Tetris premi il tasto per girare il pezzo. È una…",o:["rotazione","traslazione","riflessione"],w:"La figura gira intorno a un punto."},
+ {t:"movimenti",k:"fig",f:"rifl",q:"Le due L si sovrappongono ribaltandone una rispetto alla retta r. È una…",o:["riflessione","traslazione","rotazione"],w:"Si ribalta come allo specchio: serve lo spazio."},
+ {t:"movimenti",k:"vf",q:"La riflessione si può fare facendo strisciare la figura nel piano.",a:false,w:"Bisogna staccare la figura e rovesciarla: è un movimento nello spazio. Per questo nel Tetris una L non diventa mai una J."},
+ {t:"proprieta",k:"def",q:"Ogni figura è congruente a sé stessa: F ≅ F. È la proprietà…",o:["riflessiva","simmetrica","transitiva"],w:"Allo specchio vedi te stesso: riflessiva."},
+ {t:"proprieta",k:"def",q:"Se F₁ ≅ F₂, allora F₂ ≅ F₁. È la proprietà…",o:["simmetrica","riflessiva","transitiva"],w:"Si possono scambiare: simmetrica."},
+ {t:"proprieta",k:"def",q:"Se F₁ ≅ F₂ e F₂ ≅ F₃, allora F₁ ≅ F₃. È la proprietà…",o:["transitiva","simmetrica","riflessiva"],w:"Si passa attraverso F₂: transitiva."},
+ {t:"proprieta",k:"vita",q:"«Io sono alto come Marco e Marco è alto come Luca: allora io sono alto come Luca.» È la proprietà…",o:["transitiva","simmetrica","riflessiva"],w:"Tre persone: si passa attraverso quella di mezzo."},
+ {t:"proprieta",k:"vita",q:"«Se Anna è compagna di banco di Bea, Bea è compagna di banco di Anna.» È come la proprietà…",o:["simmetrica","transitiva","riflessiva"],w:"Si scambiano i due nomi."},
+ {t:"puntomedio",k:"fig",f:"puntoMedio",q:"M divide AB in due segmenti congruenti. M è…",o:["il punto medio di AB","un estremo di AB","l'origine di AB","il vertice di AB"],w:"AM ≅ MB ≅ ½ AB."},
+ {t:"puntomedio",k:"vita",q:"Pieghi un nastro esattamente a metà. La piega cade nel…",o:["punto medio","prolungamento","vertice"],w:"Divide il nastro in due parti congruenti."},
+ {t:"puntomedio",k:"ord",q:"Metti in ordine la definizione di punto medio.",c:["Dato un segmento,","si dice punto medio","il punto","che lo divide","in due segmenti congruenti."],w:"Se M è il punto medio di AB: AM ≅ MB."},
+ {t:"bisettrice",k:"fig",f:"bisettrice",q:"La semiretta rossa r divide l'angolo in due angoli congruenti. Si chiama…",o:["bisettrice","diagonale","lato","prolungamento"],w:"Bi = due: la bisettrice taglia l'angolo in due."},
+ {t:"bisettrice",k:"nome",q:"Che cos'è la bisettrice di un angolo?",o:["la semiretta con origine nel vertice che divide l'angolo in due angoli congruenti","il segmento che divide l'angolo a metà","il punto che divide l'angolo in due parti","il lato più lungo dell'angolo"],w:"È una semiretta, non un segmento, e parte dal vertice."},
+ {t:"bisettrice",k:"ord",q:"Metti in ordine la definizione di bisettrice.",c:["Si dice bisettrice di un angolo","la semiretta,","avente origine nel vertice dell'angolo,","che lo divide","in due angoli congruenti."],w:"Punto medio per i segmenti, bisettrice per gli angoli."},
+ {t:"multipli",k:"fig",f:"multiplo",q:"CD contiene 3 volte AB: si scrive CD ≅ 3AB. CD è… di AB",o:["multiplo","sottomultiplo","punto medio","prolungamento"],w:"E al contrario AB è sottomultiplo di CD: AB ≅ ⅓ CD."},
+ {t:"multipli",k:"def",q:"Se AB ≅ ⅓ CD, si dice che AB è… di CD",o:["sottomultiplo","multiplo","prolungamento","complementare"],w:"Il pezzo piccolo è il sottomultiplo."},
+ {t:"tipiangolo",k:"def",q:"La metà di un angolo piatto si chiama angolo…",o:["retto","acuto","ottuso","nullo"],w:"180° : 2 = 90°."},
+ {t:"tipiangolo",k:"def",q:"Un angolo di 35° è…",o:["acuto","ottuso","retto","piatto"],w:"Meno di 90°: acuto, appuntito."},
+ {t:"tipiangolo",k:"def",q:"Un angolo di 120° è…",o:["ottuso","acuto","piatto","retto"],w:"Tra 90° e 180°: ottuso."},
+ {t:"tipiangolo",k:"vf",q:"Un angolo di 180° è ottuso.",a:false,w:"È piatto. L'ottuso sta tra 90° e 180°, esclusi."},
+ {t:"tipiangolo",k:"vita",q:"L'angolo di un foglio del quaderno è…",o:["retto","acuto","ottuso"],w:"90°, come quello della squadra."},
+ {t:"somme",k:"def",q:"Due angoli la cui somma è un angolo retto si dicono…",o:["complementari","supplementari","esplementari","adiacenti"],w:"Completano il retto: 90°."},
+ {t:"somme",k:"def",q:"Due angoli la cui somma è un angolo piatto si dicono…",o:["supplementari","complementari","esplementari","opposti al vertice"],w:"Stanno su una retta: 180°."},
+ {t:"somme",k:"def",q:"Due angoli la cui somma è un angolo giro si dicono…",o:["esplementari","supplementari","complementari","consecutivi"],w:"Tutto il giro: 360°."},
+ {t:"somme",k:"def",q:"30° e 60° sono…",o:["complementari","supplementari","esplementari"],w:"30° + 60° = 90°."},
+ {t:"somme",k:"def",q:"100° e 80° sono…",o:["supplementari","complementari","esplementari"],w:"100° + 80° = 180°."},
+ {t:"somme",k:"def",q:"300° e 60° sono…",o:["esplementari","supplementari","complementari"],w:"300° + 60° = 360°."},
+ {t:"somme",k:"vf",q:"Due angoli supplementari sono sempre adiacenti.",a:false,w:"100° e 80° disegnati in due posti diversi sono supplementari ma non adiacenti. È vero il contrario: gli adiacenti sono supplementari."},
+ {t:"somme",k:"fig",f:"compl",q:"I due angoli colorati, insieme, formano un angolo retto. Sono…",o:["complementari","supplementari","esplementari"],w:"La somma è 90°."},
+ {t:"misura",k:"def",q:"Un grado equivale a…",o:["60 primi","100 primi","360 primi","3600 primi"],w:"Come un'ora ha 60 minuti."},
+ {t:"misura",k:"def",q:"Il sistema con gradi, primi e secondi si chiama…",o:["sessagesimale","decimale","sessadecimale"],w:"Ogni unità vale 60 della successiva. Sessadecimale è quello dei gradi con la virgola."},
+ {t:"misura",k:"def",q:"La misura di un angolo si chiama anche…",o:["ampiezza","lunghezza","superficie"],w:"Ampiezza dell'angolo."},
+ {t:"misura",k:"vf",q:"48,5° è uguale a 48°50′.",a:false,w:"0,5° = 0,5 · 60 = 30′. Quindi 48,5° = 48°30′."},
+ {t:"misura",k:"vf",q:"In un grado ci sono 3600 secondi.",a:true,w:"60 primi per 60 secondi: 3600."},
+ {t:"commens",k:"def",q:"Il lato e la diagonale di un quadrato sono…",o:["incommensurabili","commensurabili","congruenti","adiacenti"],w:"La diagonale misura √2 volte il lato, e √2 è irrazionale."},
+ {t:"commens",k:"nome",q:"Due segmenti sono commensurabili quando…",o:["la misura di uno rispetto all'altro è un numero razionale, cioè una frazione","sono congruenti","la misura di uno rispetto all'altro è un numero irrazionale, come √2","sono adiacenti"],w:"La terza risposta descrive gli incommensurabili."},
+ {t:"ipotesi",k:"vita",q:"«Se piove, allora la strada è bagnata.» L'ipotesi è…",o:["piove","la strada è bagnata"],w:"L'ipotesi viene prima di «allora»."},
+ {t:"ipotesi",k:"vita",q:"«Se studio, allora prendo la sufficienza.» La tesi è…",o:["prendo la sufficienza","studio"],w:"La tesi viene dopo «allora»."},
+ {t:"ipotesi",k:"def",q:"La parte di un teorema che si deve dimostrare si chiama…",o:["tesi","ipotesi","assioma","definizione"],w:"Tesi: dove devo arrivare."},
+ {t:"ipotesi",k:"def",q:"Il ragionamento che, passo dopo passo, porta dall'ipotesi alla tesi si chiama…",o:["dimostrazione","definizione","assioma","teorema"],w:"Ogni passaggio con il suo perché."},
+ {t:"ipotesi",k:"fig",f:"cross3",q:"Teorema: «Due angoli opposti al vertice sono congruenti». La tesi è…",o:["α ≅ β","α e β sono opposti al vertice","α e γ sono adiacenti"],w:"Riscritto con «se… allora…»: se α e β sono opposti al vertice, allora α ≅ β."}
+];
+
+/* ═══════ stato salvato ═══════ */
+const KEY = "geo-parole-261019";
+let ST = (function(){ try{ const s = JSON.parse(localStorage.getItem(KEY)||"null"); if(s && s.lv) return s; }catch(e){} return {idx:0, lv:{}, lk:{}, gm:0}; })();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
+function $(id){ return document.getElementById(id); }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function D(s){ return String(s).replace(/\[([^\]]+)\]/g,'<b class="k">$1</b>'); }
+
+/* ═══════ carte ═══════ */
+let idx = 0, reading = false, queue = [], qi = 0, rate = 0.88;
+const stage = $("stage"), chips = $("chips");
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card"><div class="kicker">'+PARTI[c.parte]+'</div><h2 class="s">'+c.t+'</h2>';
+  if(c.hook) h += '<div class="hook s"><span class="hl">Il trucco per ricordare</span>'+c.hook+'</div>';
+  if(c.figs) h += '<div class="figs n'+c.figs.length+'">'+c.figs.map(f=>'<figure class="fg">'+FG[f[0]]+'<figcaption>'
+      +(f[2] ? '<span class="yn '+f[2]+'">'+(f[2]==="si"?"sì":"no")+'</span> ' : '')+f[1]+'</figcaption></figure>').join('')+'</div>';
+  if(c.def) h += '<div class="defs" id="defs"><div class="dh"><span class="hl">La definizione del libro</span>'
+      + '<button class="mini acc" id="cvb" onclick="cover()">Mettiti alla prova</button></div>'
+      + '<div class="cvh">Di\' ad alta voce le parole che mancano, poi tocca i riquadri per controllare.</div>'
+      + c.def.map(d=>'<p class="dl s">'+D(d)+'</p>').join('')+'</div>';
+  if(c.extra) h += c.extra;
+  if(c.vita) h += '<div class="vita s"><span class="hl">Nella vita</span>'+c.vita+'</div>';
+  if(c.trap) h += '<div class="trap s"><b>Non confondere.</b> '+c.trap+'</div>';
+  if(c.html) h += c.html;
+  if(c.ask) h += '<div class="ask"><div class="q s">'+c.ask[0]+'</div>'
+      + '<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button><div class="a">'+c.ask[1]+'</div></div>';
+  h += '</article>';
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  $("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  $("prev").disabled = (idx===0);
+  $("next").disabled = (idx===CARDS.length-1);
+  ST.idx = idx; save();
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function reveal(btn){ const a = btn.parentNode.querySelector(".a"); a.classList.add("on"); btn.style.display = "none"; hear(a.textContent); }
+function cover(){
+  const d = $("defs"); if(!d) return; stop();
+  const on = d.classList.toggle("cover");
+  Array.prototype.forEach.call(d.querySelectorAll("b.k"), b=>b.classList.remove("shown"));
+  $("cvb").textContent = on ? "Mostra tutto" : "Mettiti alla prova";
+}
+stage.addEventListener("click", e=>{
+  const b = e.target.closest ? e.target.closest("b.k") : null;
+  if(b && b.closest(".cover") && !b.classList.contains("shown")){ b.classList.add("shown"); hear(b.textContent); }
+});
+
+/* ═══════ tutte le parole ═══════
+   gm 0: tutto visibile · 1: copri le definizioni · 2: copri le parole */
+function glossInit(){ glossDraw(); }
+function glossMode(m){ stop(); ST.gm = m; save(); glossDraw(); }
+function glossDraw(){
+  const el = $("gloss"); if(!el) return;
+  const m = ST.gm || 0;
+  let h = '<p class="s" style="margin:8px 0 0;font-size:16px">'+["Tutte le parole del capitolo, con la definizione in breve.",
+      "Leggi la parola e prova a dire la definizione. Poi tocca per controllare.",
+      "Leggi la definizione e prova a dire la parola. Poi tocca per controllare."][m]+'</p>';
+  h += '<div class="gmodes">'+["Leggi tutto","Copri le definizioni","Copri le parole"].map((t,i)=>'<button class="'+(i===m?'on':'')+'" onclick="glossMode('+i+')">'+t+'</button>').join('')+'</div>';
+  let last = -1;
+  TERMS.forEach((t,i)=>{
+    const p = CARDS[t.c].parte;
+    if(p!==last){ h += '<div class="gh">'+PARTI[p]+'</div>'; last = p; }
+    h += '<button class="gi'+(m?'':' open')+'" onclick="glossOpen(this)">'
+       + '<span class="gn'+(m===2?' hide':'')+(m===0?' s':'')+'">'+t.n+'</span>'
+       + '<span class="gd'+(m===1?' hide':'')+(m===0?' s':'')+'">'+t.d+'</span></button>';
+  });
+  el.innerHTML = h;
+}
+function glossOpen(btn){
+  if(!(ST.gm||0) || btn.classList.contains("open")) return;
+  btn.classList.add("open");
+  hear(btn.querySelector(ST.gm===1 ? ".gd" : ".gn").textContent);
+}
+
+/* ═══════ allenamento ═══════
+   ogni parola ha un livello: nessuno = mai vista · 0 = sbagliata · 1 = una volta giusta · 2+ = sicura.
+   Le parole sbagliate tornano subito, con una domanda di un tipo diverso. */
+const KIND = {fig:"Guarda la figura", def:"Dalla definizione alla parola", nome:"Dalla parola alla definizione", vita:"Nella vita", vf:"Vero o falso", ord:"Metti in ordine"};
+const QI = {}; Q.forEach((q,i)=>{ (QI[q.t] = QI[q.t] || []).push(i); });
+const GIRO = 12;
+let R = null;
+
+function lvOf(id){ return ST.lv[id]; }
+function chooseQ(id, avoid){
+  const qs = QI[id] || [];
+  let c = qs.filter(i=>i!==avoid && Q[i].k!==ST.lk[id]);
+  if(!c.length) c = qs.filter(i=>i!==avoid);
+  if(!c.length) c = qs;
+  return c[Math.floor(Math.random()*c.length)];
+}
+function newRound(){
+  stop();
+  const pr = id => { const v = lvOf(id); return v===undefined ? 1 : (v===0 ? 0 : v+1); };
+  const ids = shuffle(TERMS.map(t=>t.id)).sort((a,b)=>pr(a)-pr(b)).slice(0,GIRO);
+  R = {list: shuffle(ids).map(id=>chooseQ(id,null)), pos:0, ok:0, done:0, wrong:[], retry:{}, st:null};
+  prepQ(); trainDraw();
+}
+function prepQ(){
+  const q = Q[R.list[R.pos]];
+  R.st = {answered:false, bad:false, pick:-1};
+  if(q.k==="ord"){ R.st.order = shuffle(q.c.map((x,i)=>i)); R.st.built = 0; R.st.badTap = -1; }
+  else if(q.k!=="vf"){ R.st.order = shuffle(q.o.map((x,i)=>i)); }
+}
+function trainInit(){ trainDraw(); }
+function progHTML(){
+  let safe = 0;
+  const chipsH = TERMS.map(t=>{ const v = lvOf(t.id); if(v>=2) safe++;
+    const cl = v===undefined ? '' : (v===0 ? ' l0' : (v===1 ? ' l1' : ' l2'));
+    return '<button class="pc'+cl+'" onclick="show('+t.c+')">'+t.n+'</button>'; }).join('');
+  return '<div class="qtop"><span>Parole sicure: <b style="color:var(--ok)">'+safe+'</b> su '+TERMS.length+'</span></div>'
+    + '<div class="prog">'+chipsH+'</div>'
+    + '<div class="legend">Grigio: mai vista · rosso: sbagliata · giallo: giusta una volta · verde: sicura. Tocca una parola per aprire la sua carta.</div>';
+}
+function trainDraw(){
+  const el = $("train"); if(!el) return;
+  if(!R){
+    el.innerHTML = '<p class="s" style="font-size:16.5px;margin:8px 0">Un giro sono '+GIRO+' domande. Ogni parola torna in modi diversi: dalla figura, dalla definizione, da un esempio della vita, vero o falso, definizione da mettere in ordine. Se sbagli, la parola torna poco dopo con un\'altra domanda.</p>'
+      + '<button class="big" onclick="newRound()">Inizia un giro</button>' + progHTML()
+      + '<button class="mini" style="margin-top:12px" onclick="resetLv()">Azzera i progressi</button>';
+    return;
+  }
+  if(R.pos >= R.list.length){ drawEnd(el); return; }
+  const q = Q[R.list[R.pos]], s = R.st;
+  let h = '<div class="qtop"><span class="kind">'+KIND[q.k]+'</span><span>domanda '+(R.pos+1)+' di '+R.list.length+'</span></div>';
+  if(q.f) h += '<div class="tfig">'+FG[q.f]+'</div>';
+  h += '<div class="tq s">'+q.q+'</div>';
+  if(q.k==="vf"){
+    h += '<div class="opts vfr">'+[true,false].map(v=>{
+      let cl = '';
+      if(s.answered){ if(v===q.a) cl = ' ok'; else if(s.pick===v) cl = ' no'; }
+      return '<button class="opt s'+cl+'" '+(s.answered?'disabled':'')+' onclick="ansVF('+v+')">'+(v?'Vero':'Falso')+'</button>'; }).join('')+'</div>';
+  }else if(q.k==="ord"){
+    h += '<div class="built">'+(s.built ? q.c.slice(0,s.built).map(x=>'<span>'+x+'</span>').join(' ') : '<span class="ph">Tocca i pezzi nell\'ordine giusto.</span>')+'</div>';
+    if(!s.answered) h += '<div class="chunks">'+s.order.filter(i=>i>=s.built).map(i=>'<button class="chunk'+(s.badTap===i?' bad':'')+'" onclick="ansOrd('+i+')">'+q.c[i]+'</button>').join('')+'</div>';
+  }else{
+    h += '<div class="opts">'+s.order.map(i=>{
+      let cl = '';
+      if(s.answered){ if(i===0) cl = ' ok'; else if(s.pick===i) cl = ' no'; }
+      return '<button class="opt s'+cl+'" '+(s.answered?'disabled':'')+' onclick="ansOpt('+i+')">'+q.o[i]+'</button>'; }).join('')+'</div>';
+  }
+  if(s.answered){
+    const okFirst = !s.bad;
+    h += '<div class="fb '+(okFirst?'ok':'no')+' s"><b>'+(okFirst ? 'Giusto!' : (q.k==="ord" ? 'Completata, ma con un errore.' : 'Non è così.'))+'</b>'+q.w+'</div>';
+    if(!okFirst) h += '<button class="mini" onclick="show('+cardOf(q.t)+')">Rivedi la carta «'+termOf(q.t).n+'»</button>';
+    h += '<button class="big" onclick="nextQ()">'+(R.pos+1<R.list.length ? 'Avanti' : 'Vedi il risultato')+'</button>';
+  }
+  el.innerHTML = h;
+}
+function termOf(id){ return TERMS.find(t=>t.id===id); }
+function cardOf(id){ return termOf(id).c; }
+function settle(){
+  const q = Q[R.list[R.pos]], id = q.t, s = R.st;
+  s.answered = true; R.done++;
+  ST.lk[id] = q.k;
+  if(!s.bad){ R.ok++; ST.lv[id] = Math.min(3, (lvOf(id)||0)+1); }
+  else{
+    ST.lv[id] = 0;
+    if(R.wrong.indexOf(id)<0) R.wrong.push(id);
+    R.retry[id] = (R.retry[id]||0)+1;
+    if(R.retry[id]<=2) R.list.splice(Math.min(R.list.length, R.pos+4), 0, chooseQ(id, R.list[R.pos]));
+  }
+  save(); stop(); trainDraw();
+  const fb = document.querySelector(".fb"); if(fb && fb.scrollIntoView) fb.scrollIntoView({block:"nearest", behavior:"smooth"});
+}
+function ansOpt(i){ if(R.st.answered) return; R.st.pick = i; R.st.bad = (i!==0); settle(); }
+function ansVF(v){ if(R.st.answered) return; R.st.pick = v; R.st.bad = (v!==Q[R.list[R.pos]].a); settle(); }
+function ansOrd(i){
+  const s = R.st, q = Q[R.list[R.pos]]; if(s.answered) return;
+  if(i===s.built){ s.built++; s.badTap = -1; if(s.built===q.c.length){ settle(); return; } }
+  else{ s.bad = true; s.badTap = i; }
+  trainDraw();
+}
+function nextQ(){ stop(); R.pos++; if(R.pos<R.list.length) prepQ(); trainDraw(); window.scrollTo(0,0); }
+function drawEnd(el){
+  const tot = R.done;
+  let h = '<div class="sum"><div class="vt">'+R.ok+' / '+tot+'</div><div class="vs">giuste al primo colpo</div>';
+  if(R.wrong.length){
+    h += '<p class="s">Da ripassare: tocca per aprire la carta.</p>';
+    R.wrong.forEach(id=>{ const t = termOf(id); h += '<div class="rv"><span>'+t.n+'</span><button class="mini" onclick="show('+t.c+')">Apri la carta</button></div>'; });
+  }else h += '<p class="s" style="color:var(--ok);font-weight:700">Nessun errore in questo giro.</p>';
+  h += '</div><button class="big" onclick="newRound()">Un altro giro</button><button class="big ghost" onclick="R=null;trainDraw()">Torna ai progressi</button>';
+  el.innerHTML = h;
+}
+function resetLv(){ if(!confirm("Cancello i progressi di tutte le parole?")) return; ST.lv = {}; ST.lk = {}; save(); R = null; trainDraw(); }
+
+/* ═══════ voce ═══════ */
+let voIt = null, warmed = false;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voIt = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function warmUp(){
+  if(warmed || !window.speechSynthesis) return; warmed = true;
+  try{ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }catch(e){}
+}
+document.addEventListener("touchstart", warmUp, {once:true, passive:true});
+function clean(t){
+  return String(t)
+    .replace(/≅/g," congruente a ").replace(/≡/g," coincide con ")
+    .replace(/α/g," alfa ").replace(/β/g," beta ").replace(/γ/g," gamma ").replace(/δ/g," delta ")
+    .replace(/F₁/g,"F uno").replace(/F₂/g,"F due").replace(/F₃/g,"F tre")
+    .replace(/√2/g,"radice di due").replace(/½/g," un mezzo ").replace(/⅓/g," un terzo ")
+    .replace(/(\d)°/g,"$1 gradi").replace(/(\d)′/g,"$1 primi").replace(/(\d)″/g,"$1 secondi")
+    .replace(/\b([A-Z])([A-Z])\b/g,"$1 $2")
+    .replace(/[«»]/g,"").replace(/…/g,", ").replace(/→/g,", ")
+    .replace(/[·()]/g,", ").replace(/\s+/g," ").trim();
+}
+function mk(t){
+  const u = new SpeechSynthesisUtterance(clean(t));
+  u.lang = "it-IT"; u.rate = rate; if(voIt) u.voice = voIt;
+  return u;
+}
+function hear(t){
+  if(!window.speechSynthesis) return;
+  if(reading) stop();
+  try{ speechSynthesis.cancel(); }catch(e){}
+  speechSynthesis.speak(mk(t));
+}
+function sayOf(el){
+  if(!el.closest(".cover")) return el.textContent;
+  const c = el.cloneNode(true);
+  Array.prototype.forEach.call(c.querySelectorAll("b.k:not(.shown)"), b=>{ b.textContent = " … "; });
+  return c.textContent;
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = $("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = mk(sayOf(el));
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ if(window.speechSynthesis) speechSynthesis.cancel(); }catch(e){}
+  const p = $("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+idx = Math.max(0, Math.min(CARDS.length-1, ST.idx||0));
+render();
+</script>
+</body>
+</html>
