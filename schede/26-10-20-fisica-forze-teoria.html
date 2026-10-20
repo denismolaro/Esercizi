@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Le forze e la somma di vettori</title>
+<style>
+
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7; --accent-line:#CBDAEC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --mod:#1D4E89; --dir:#1F7A4D; --ver:#B3261E;        /* modulo, direzione, verso */
+  --va:#1D4E89; --vb:#B06A00; --vr:#A8327A;            /* vettore A, vettore B, risultante R */
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:23px; text-align:center; display:block; margin:14px 0; line-height:1.5}
+.f i{font-style:italic}
+.f.big{font-size:30px}
+.ex{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px; line-height:1.6}
+.ex .lbl, .box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.ex .fx{font-family:"Times New Roman",Georgia,serif; font-size:20px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.giu{color:var(--giu); font-weight:700} .su{color:var(--su); font-weight:700}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+td.c, th.c{text-align:center}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+
+/* passi numerati del metodo */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16.5px; line-height:1.55}
+.flow .st b.n{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.flow .st.av{border-left-color:var(--warn); background:var(--warn-soft)}
+.flow .st.av b.n{color:var(--warn)}
+
+/* mappa della materia */
+.tree{margin:14px 0; font-size:16px}
+.tree .n0{background:var(--ink); color:#fff; border-radius:10px; padding:8px 12px; text-align:center; font-weight:700}
+.tree .lv{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+.tree .n1{border:2px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 10px; text-align:center; font-weight:700; color:var(--accent)}
+.tree .n2{border:1px solid var(--rule); background:#fff; border-radius:10px; padding:7px 9px; font-size:15px; line-height:1.4; margin-top:6px}
+.tree .n2 b{display:block}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+
+/* widget */
+.wid{border:2px solid var(--accent-line); border-radius:14px; padding:10px 12px 12px; margin:14px 0; background:#fff}
+.wid svg{margin:4px 0}
+.wmsg{font-size:16px; line-height:1.55; min-height:3.1em; margin:6px 0 8px; font-weight:600; color:var(--ink)}
+.wbtns{display:flex; gap:8px} .wbtns .mini{flex:1}
+.kbtns{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:6px 0}
+.kbtns .mini{min-width:46px; padding:7px 8px; font-family:"Times New Roman",Georgia,serif; font-size:18px}
+.mini.on{background:var(--ink); color:#fff}
+.mini:disabled{opacity:.35}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Fisica · capitolo 3</div>
+  <h1>Le forze e la somma di vettori</h1>
+  <p class="lead">Una carta per volta. Tocca <b>Leggi</b> e la voce legge la carta mentre la frase si illumina. Le parole difficili si aprono con un tocco. Gli esercizi sono nell'altra scheda.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<p class="foot" id="foot">Dal libro (pagine 88-90 e 99-100) e dagli appunti di classe: forze, punta-coda, parallelogramma, scalare per vettore, densità.</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+/* ═══════ disegno ═══════ */
+const C = {ink:'#1B2430', soft:'#5A6473', rule:'#DCD7CC', grid:'#E6E1D6', acc:'#1D4E89', accs:'#E7EEF7',
+           mod:'#1D4E89', dir:'#1F7A4D', ver:'#B3261E', va:'#1D4E89', vb:'#B06A00', vr:'#A8327A', no:'#9B2C2C', ok:'#1F5C4B'};
+function fx(n){ return (Math.round(n*10)/10).toString(); }
+function arrow(x1,y1,x2,y2,c,hc,w,dash,extra){
+  w = w||4;
+  const dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy)||1, ux=dx/L, uy=dy/L;
+  const h=Math.max(13,w*3.4), hw=h*0.55, bx=x2-ux*h, by=y2-uy*h;
+  return '<path d="M'+fx(x1)+' '+fx(y1)+' L'+fx(bx)+' '+fx(by)+'" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round" fill="none"'+(dash?' stroke-dasharray="7 6"':'')+(extra||'')+'/>'+
+         '<polygon points="'+fx(x2)+','+fx(y2)+' '+fx(bx-uy*hw)+','+fx(by+ux*hw)+' '+fx(bx+uy*hw)+','+fx(by-ux*hw)+'" fill="'+(hc||c)+'"'+(dash?' fill-opacity=".5"':'')+(extra||'')+'/>';
+}
+function txt(x,y,t,o){
+  o = o||{};
+  return '<text x="'+fx(x)+'" y="'+fx(y)+'" font-size="'+(o.s||16)+'" fill="'+(o.c||C.ink)+'" font-family="-apple-system,Arial,sans-serif"'+
+         (o.a?' text-anchor="'+o.a+'"':'')+(o.w?' font-weight="'+o.w+'"':'')+(o.i?' font-style="italic"':'')+'>'+t+'</text>';
+}
+function put(id,h){ const e = document.getElementById(id); if(e) e.innerHTML = h; }
+const lento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* che cosa fa una forza */
+function effInit(){
+  let h = '<path d="M10 92 H215" stroke="'+C.ink+'" stroke-width="2"/>';
+  h += '<circle cx="45" cy="72" r="19" fill="'+C.accs+'" stroke="'+C.ink+'" stroke-width="2"/>';
+  h += txt(45,118,'fermo: v = 0',{a:'middle',s:14,c:C.soft});
+  h += arrow(78,72,110,72,C.soft,C.soft,3);
+  h += '<circle cx="150" cy="72" r="19" fill="'+C.accs+'" stroke="'+C.ink+'" stroke-width="2"/>';
+  h += arrow(150,72,212,72,C.dir,C.dir,4.5);
+  h += txt(160,118,'si muove: v ≠ 0',{a:'middle',s:14,c:C.soft});
+  h += txt(110,22,'cambia la velocità',{a:'middle',s:16,w:700,c:C.acc});
+  h += '<rect x="262" y="62" width="120" height="20" rx="9" fill="#F4F1EA" stroke="'+C.ink+'" stroke-width="2"/>';
+  h += arrow(262,72,236,72,C.ink,C.ink,3.5); h += arrow(382,72,408,72,C.ink,C.ink,3.5);
+  h += '<g transform="rotate(-12 300 150)"><rect x="252" y="140" width="56" height="20" rx="9" fill="#F4F1EA" stroke="'+C.ink+'" stroke-width="2"/></g>';
+  h += '<g transform="rotate(12 360 150)"><rect x="336" y="140" width="56" height="20" rx="9" fill="#F4F1EA" stroke="'+C.ink+'" stroke-width="2"/></g>';
+  h += txt(322,118,'↓',{a:'middle',s:18,c:C.soft});
+  h += txt(322,22,'deforma (il gesso si spezza)',{a:'middle',s:16,w:700,c:C.acc});
+  put('effetti',h);
+}
+
+/* anatomia del vettore */
+function anatInit(){
+  const y = x => 178-(130/432)*(x-14);
+  let h = '<path d="M14 '+fx(y(14))+' L446 '+fx(y(446))+'" stroke="'+C.dir+'" stroke-width="2.5" stroke-dasharray="8 7"/>';
+  h += arrow(100,y(100),335,y(335),C.mod,C.ver,7);
+  h += '<circle cx="100" cy="'+fx(y(100))+'" r="7" fill="'+C.mod+'"/>';
+  h += txt(254,192,'modulo = lunghezza',{c:C.mod,w:700,a:'middle',s:19});
+  h += txt(446,y(420)-18,'direzione = la retta',{c:C.dir,w:700,a:'end',s:19});
+  h += txt(378,y(378)+48,'verso = la punta',{c:C.ver,w:700,a:'middle',s:19});
+  h += txt(12,196,'punto di applicazione',{c:C.soft,a:'start',s:13});
+  put('anat',h);
+}
+
+/* stessa direzione */
+function stessaInit(){
+  let h = txt(14,24,'stesso verso → si sommano',{s:16,w:700,c:C.acc});
+  h += arrow(20,50,140,50,C.va,C.va,5); h += arrow(140,50,312,50,C.vb,C.vb,5);
+  h += txt(80,40,'4,6 N',{a:'middle',s:15,w:700,c:C.va}); h += txt(226,40,'6,6 N',{a:'middle',s:15,w:700,c:C.vb});
+  h += arrow(20,88,312,88,C.vr,C.vr,5);
+  h += txt(322,93,'R = 11,2 N',{s:16,w:700,c:C.vr});
+  h += txt(14,142,'verso opposto → si sottraggono',{s:16,w:700,c:C.acc});
+  h += arrow(20,168,292,168,C.va,C.va,5); h += txt(156,160,'68 N (Mario)',{a:'middle',s:15,w:700,c:C.va});
+  h += arrow(292,192,68,192,C.vb,C.vb,5); h += txt(180,212,'56 N (Gigi)',{a:'middle',s:15,w:700,c:C.vb});
+  h += arrow(20,236,68,236,C.vr,C.vr,5); h += txt(80,241,'R = 12 N verso Mario',{s:16,w:700,c:C.vr});
+  put('stessa',h);
+}
+
+/* punta-coda passo per passo */
+let pcN = 0;
+function pcDraw(){
+  let h = '';
+  h += '<g id="pcGhost" style="opacity:'+(pcN>=1?1:0)+';transition:opacity .4s">'+arrow(260,220,340,120,C.vb,C.vb,3,true)+'</g>';
+  h += arrow(40,190,200,130,C.va,C.va,5);
+  h += '<circle cx="40" cy="190" r="6" fill="'+C.va+'"/>';
+  h += txt(110,182,'A',{s:20,w:700,c:C.va,i:true});
+  const t = pcN>=1 ? 'translate(-60px,-90px)' : 'translate(0px,0px)';
+  h += '<g id="pcB" style="transform:'+t+';transition:transform '+(lento?'0s':'.9s')+' ease">'+arrow(260,220,340,120,C.vb,C.vb,5)+txt(312,182,'B',{s:20,w:700,c:C.vb,i:true})+'</g>';
+  h += '<g style="opacity:'+(pcN>=2?1:0)+';transition:opacity .5s">'+arrow(40,190,280,30,C.vr,C.vr,5.5)+txt(130,90,'R',{s:22,w:700,c:C.vr,i:true})+'</g>';
+  put('pc',h);
+  const M = ['Ecco A e B. Sono in posti diversi.',
+             'Sposto B senza girarlo né allungarlo: la sua coda va sulla punta di A. La freccia tratteggiata è dove era prima.',
+             'La risultante R va dalla coda di A alla punta di B.'];
+  document.getElementById('pcmsg').textContent = M[pcN];
+  const g = document.getElementById('pcgo'); if(g) g.disabled = (pcN>=2);
+}
+function pcInit(){ pcN = 0; pcDraw(); }
+function pcStep(){ if(pcN<2){ pcN++; pcDraw(); } }
+function pcReset(){ pcN = 0; pcDraw(); }
+
+/* parallelogramma passo per passo */
+let parN = 0;
+function parDraw(){
+  let h = '';
+  const vis = n => 'style="opacity:'+(parN>=n?1:0)+';transition:opacity .5s"';
+  h += '<g '+vis(1)+'><path d="M260 200 L340 70 M150 70 L340 70" stroke="'+C.soft+'" stroke-width="2" stroke-dasharray="7 6" fill="none"/>'+
+       '<circle cx="340" cy="70" r="5" fill="'+C.ink+'"/>'+txt(350,64,'C',{s:18,w:700})+'</g>';
+  h += '<g '+vis(3)+'><path d="M260 200 L150 70" stroke="'+C.no+'" stroke-width="3" stroke-dasharray="6 6"/>'+txt(232,176,'✗',{s:22,w:700,c:C.no,a:'middle'})+
+       txt(270,206,'punta a punta: no',{s:14,w:700,c:C.no})+'</g>';
+  h += arrow(70,200,260,200,C.va,C.va,5); h += txt(160,224,'A',{s:20,w:700,c:C.va,i:true,a:'middle'});
+  h += arrow(70,200,150,70,C.vb,C.vb,5); h += txt(92,124,'B',{s:20,w:700,c:C.vb,i:true});
+  h += '<g '+vis(2)+'>'+arrow(70,200,340,70,C.vr,C.vr,5.5)+txt(196,106,'R',{s:22,w:700,c:C.vr,i:true})+'</g>';
+  h += '<circle cx="70" cy="200" r="6" fill="'+C.ink+'"/>'+txt(52,222,'O',{s:18,w:700});
+  put('par',h);
+  const M = ['A e B partono dallo stesso punto O: le code coincidono.',
+             'Dalla punta di A traccio la parallela a B, dalla punta di B la parallela ad A. Si incontrano in C.',
+             'La risultante R è la diagonale da O a C.',
+             'Errore tipico: la freccia da punta a punta è l\u2019altra diagonale, la differenza. Non è la somma.'];
+  document.getElementById('parmsg').textContent = M[parN];
+  const g = document.getElementById('pargo'); if(g) g.disabled = (parN>=3);
+}
+function parInit(){ parN = 0; parDraw(); }
+function parStep(){ if(parN<3){ parN++; parDraw(); } }
+function parReset(){ parN = 0; parDraw(); }
+
+/* Pitagora */
+function pitInit(){
+  let h = '<path d="M181 205 V191 H195" stroke="'+C.ink+'" stroke-width="1.5" fill="none"/>';
+  h += arrow(60,205,195,205,C.va,C.va,5); h += txt(128,226,'A = 3',{a:'middle',s:17,w:700,c:C.va});
+  h += arrow(195,205,195,25,C.vb,C.vb,5); h += txt(205,118,'B = 4',{s:17,w:700,c:C.vb});
+  h += arrow(60,205,195,25,C.vr,C.vr,5.5); h += txt(92,110,'R = 5',{s:17,w:700,c:C.vr});
+  h += txt(262,96,'R = √(3² + 4²)',{s:19,c:C.ink}); h += txt(262,126,'= √25 = 5',{s:19,c:C.ink});
+  h += txt(262,166,'angolo retto →',{s:15,c:C.soft}); h += txt(262,186,'triangolo rettangolo',{s:15,c:C.soft});
+  put('pit',h);
+}
+
+/* regata in scala: 1 cm = 40 px */
+function regInit(){
+  const O=[30,190], P=[190,190], Q=[132,89.5];
+  let h = '<path d="M262 22 H302" stroke="'+C.acc+'" stroke-width="4"/><path d="M262 16 V28 M302 16 V28" stroke="'+C.acc+'" stroke-width="2"/>';
+  h += txt(308,27,'1 cm = 100 m',{s:13,c:C.acc,w:700});
+  h += '<path d="M168 190 A22 22 0 0 1 179 171" stroke="'+C.soft+'" stroke-width="1.5" fill="none"/>'+txt(150,176,'60°',{s:13,c:C.soft});
+  h += arrow(O[0],O[1],P[0],P[1],C.va,C.va,5); h += txt(110,212,'A: 400 m → 4,0 cm',{a:'middle',s:14,w:700,c:C.va});
+  h += arrow(P[0],P[1],Q[0],Q[1],C.vb,C.vb,5); h += txt(176,118,'B: 290 m → 2,9 cm',{s:14,w:700,c:C.vb});
+  h += arrow(O[0],O[1],Q[0],Q[1],C.vr,C.vr,5.5); h += txt(18,118,'R: 3,6 cm',{s:14,w:700,c:C.vr});
+  h += txt(18,136,'→ 360 m',{s:14,w:700,c:C.vr});
+  put('reg',h);
+}
+
+/* scalare per vettore */
+const KS = [[-2,'−2'],[-1,'−1'],[-0.5,'−½'],[0.5,'½'],[1,'1'],[2,'2'],[3,'3']];
+let kSel = 5;
+function kDraw(){
+  const T=[210,95], d=[55,-25], k=KS[kSel][0];
+  let h = '<path d="M'+fx(T[0]-3.6*d[0])+' '+fx(T[1]-3.6*d[1])+' L'+fx(T[0]+3.6*d[0])+' '+fx(T[1]+3.6*d[1])+'" stroke="'+C.dir+'" stroke-width="1.5" stroke-dasharray="6 6" opacity=".6"/>';
+  h += arrow(T[0],T[1],T[0]+k*d[0],T[1]+k*d[1],C.vr,C.vr,6);
+  h += arrow(T[0],T[1],T[0]+d[0],T[1]+d[1],'#7C8794','#7C8794',3);
+  h += txt(T[0]+d[0]-6,T[1]+d[1]-12,'A',{s:17,w:700,c:'#7C8794',i:true});
+  h += txt(T[0]+k*d[0]+(k>0?8:-8),T[1]+k*d[1]+(k>0?-4:22),KS[kSel][1]+'A',{s:18,w:700,c:C.vr,a:k>0?'start':'end'});
+  h += '<circle cx="'+T[0]+'" cy="'+T[1]+'" r="5" fill="'+C.ink+'"/>';
+  put('kv',h);
+  const a = Math.abs(k), m = a===0.5 ? 'diviso 2' : '× '+a;
+  document.getElementById('kmsg').innerHTML = 'Numero <b>'+KS[kSel][1]+'</b>: modulo '+m+', stessa direzione, '+(k>0?'<b>stesso verso</b>.':'<b style="color:var(--ver)">verso opposto</b>.');
+  Array.prototype.forEach.call(document.getElementById('kbtns').children,(b,i)=>{ b.className = 'mini'+(i===kSel?' on':''); });
+}
+function kInit(){
+  const box = document.getElementById('kbtns'); box.innerHTML = '';
+  KS.forEach((x,i)=>{ const b = document.createElement('button'); b.className='mini'; b.textContent = x[1]; b.onclick = ()=>{ kSel = i; kDraw(); }; box.appendChild(b); });
+  kSel = 5; kDraw();
+}
+
+/* il segno meno */
+function menoInit(){
+  let h = '<path d="M120 10 V140 M300 10 V140" stroke="'+C.dir+'" stroke-width="1.5" stroke-dasharray="6 6" opacity=".6"/>';
+  h += arrow(120,130,120,28,C.vr,C.vr,6); h += txt(136,84,'v',{s:20,w:700,c:C.vr,i:true}); h += txt(136,106,'4 m/s',{s:14,c:C.soft});
+  h += arrow(300,28,300,130,C.vr,C.vr,6); h += txt(316,84,'−v',{s:20,w:700,c:C.vr,i:true}); h += txt(316,106,'4 m/s',{s:14,c:C.soft});
+  put('meno',h);
+}
+
+/* triangolo della densità */
+function triInit(){
+  let h = '<path d="M160 12 L302 158 H18 Z" fill="'+C.accs+'" stroke="'+C.acc+'" stroke-width="2.5" stroke-linejoin="round"/>';
+  h += '<path d="M90 92 H230" stroke="'+C.acc+'" stroke-width="2.5"/><path d="M160 92 V158" stroke="'+C.acc+'" stroke-width="2.5"/>';
+  h += txt(160,74,'m',{a:'middle',w:700,s:30,i:true});
+  h += txt(115,140,'d',{a:'middle',w:700,s:28,i:true});
+  h += txt(205,140,'V',{a:'middle',w:700,s:28,i:true});
+  put('tri',h);
+}
+
+const PARTI = [
+  "1 · Le forze",
+  "2 · Sommare vettori",
+  "3 · Scalare per vettore",
+  "4 · La densità"
+];
+
+const CARDS = [
+
+/* ---------- PARTE 1 · LE FORZE ---------- */
+{parte:0, t:"Una forza è un'interazione",
+ body:`<p class="s">Quando spingi, sollevi o lanci un oggetto, eserciti una forza. Ma ci sono anche altre forze: il vento che spinge una vela, la corrente di un fiume, la Terra che attira tutto verso il basso.</p>
+<p class="s">Una forza c'è sempre tra due corpi: chi la fa e chi la riceve. Per questo si dice che una forza è un'interazione.</p>
+<div class="scroll"><table>
+<tr><th>Di contatto</th><th>A distanza</th></tr>
+<tr><td>agisce solo se i due corpi si toccano</td><td>agisce anche se i corpi non si toccano</td></tr>
+<tr><td>la mano che solleva un libro<br>il vento sulla pala eolica<br>la racchetta sulla pallina</td><td>la Terra che attira il paracadutista<br>la calamita che attira un chiodo</td></tr>
+</table></div>`,
+ words:[["interazione","un'azione tra due corpi: tutti e due sono coinvolti."],
+        ["forza di contatto","una forza che c'è solo se i corpi si toccano."],
+        ["forza a distanza","una forza che c'è anche senza contatto, come la gravità o la forza magnetica."]],
+ ask:["La forza di gravità che fa cadere una mela è di contatto o a distanza?","<b>A distanza.</b> La Terra attira la mela senza toccarla."]},
+
+{parte:0, t:"Che cosa fa una forza",
+ body:`<p class="s">Questa è la definizione operativa di forza: si chiamano forze tutte le cause che possono fare due cose.</p>
+<div class="flow">
+<div class="st s"><b class="n">Prima cosa</b>cambiano la velocità dei corpi liberi: li mettono in moto, li frenano, li fanno curvare.</div>
+<div class="st s"><b class="n">Seconda cosa</b>deformano i corpi vincolati, cioè ne cambiano la forma.</div>
+</div>
+<svg id="effetti" viewBox="0 0 460 200" role="img" aria-label="Un rullo fermo che parte e un gesso che si spezza"></svg>
+<p class="s">Il rullo è fermo, la sua velocità è zero. Una spinta lo mette in moto: la velocità cambia.</p>
+<p class="s">Il portiere ferma il pallone: le sue mani spingono nel verso opposto a quello in cui arriva la palla.</p>
+<p class="s">Se tiri le due estremità di un gesso, il gesso si spezza in due pezzi: la forza l'ha deformato.</p>`,
+ init:"effInit",
+ words:[["corpo libero","un corpo che si può muovere: un pallone, un carrello."],
+        ["corpo vincolato","un corpo bloccato, che non può spostarsi: allora la forza lo deforma."],
+        ["definizione operativa","una definizione che dice come si riconosce o come si misura la grandezza."]],
+ ask:["Il freno della bici: che effetto della forza è?","<b>Cambia la velocità</b>: la bici rallenta."]},
+
+{parte:0, t:"La forza è un vettore",
+ body:`<p class="s">La forza è una grandezza vettoriale, perché per descriverla servono tre cose: il modulo, la direzione e il verso.</p>
+<svg id="anat" viewBox="0 0 460 200" role="img" aria-label="Una freccia con modulo, direzione e verso"></svg>
+<div class="scroll"><table>
+<tr><td style="color:var(--mod);font-weight:700">modulo</td><td>l'intensità: quanto è lunga la freccia</td></tr>
+<tr><td style="color:var(--dir);font-weight:700">direzione</td><td>la retta su cui sta la freccia</td></tr>
+<tr><td style="color:var(--ver);font-weight:700">verso</td><td>da che parte punta (la punta)</td></tr>
+</table></div>
+<p class="s">In più, il punto in cui la forza agisce si chiama punto di applicazione: la freccia parte da lì.</p>
+<p class="s">La freccia si disegna in scala: la sua lunghezza è proporzionale al modulo.</p>
+<div class="ex"><div class="lbl">Come si scrive</div><span class="fx"><i>F</i></span> con la freccia sopra = il vettore. &nbsp;<span class="fx"><i>F</i></span> senza freccia = solo il modulo, un numero.</div>`,
+ init:"anatInit",
+ words:[["punto di applicazione","il punto del corpo su cui agisce la forza: da lì parte la freccia."],
+        ["in scala","ogni centimetro (o quadretto) del disegno vale una quantità fissa, per esempio 1 cm = 2 N."]],
+ ask:["Una forza di 6 N, con la scala 1 quadretto = 2 N: quanti quadretti è lunga la freccia?","<b>3 quadretti.</b> 6 : 2 = 3."]},
+
+{parte:0, t:"Dinamometro e newton",
+ body:`<p class="s">L'intensità di una forza si misura con il dinamometro: una molla dentro un cilindro con una scala graduata.</p>
+<p class="s">Due forze hanno la stessa intensità se, attaccate al dinamometro, lo allungano allo stesso modo.</p>
+<p class="s" data-say="L'unità di misura della forza nel Sistema Internazionale è il newton. Un newton è la forza con cui la Terra attira un corpo di massa centodue grammi.">L'unità di misura della forza nel Sistema Internazionale è il <b>newton (N)</b>. Un newton è la forza con cui la Terra attira un corpo di massa <b>102 g</b>.</p>
+<p class="s">La forza è una grandezza derivata: si ottiene da massa e accelerazione.</p>
+<span class="f big"><i>F</i> = <i>m</i> · <i>a</i></span>
+<span class="f">N = kg · m/s²</span>
+<p class="s">Qui la massa è uno scalare, l'accelerazione e la forza sono vettori, con la stessa direzione e lo stesso verso.</p>`,
+ words:[["dinamometro","lo strumento che misura le forze: una molla che si allunga, con una scala."],
+        ["grandezza derivata","una grandezza che si ottiene da altre con una formula: la forza da massa e accelerazione."]],
+ ask:["Un newton è la forza con cui la Terra attira una massa di…?","<b>102 grammi.</b>"]},
+
+/* ---------- PARTE 2 · SOMMARE VETTORI ---------- */
+{parte:1, t:"La forza risultante",
+ body:`<p class="s">Se su un corpo agiscono più forze, l'effetto è lo stesso di una forza sola: la forza risultante, o forza totale.</p>
+<span class="f"><i>F</i><sub>tot</sub> = <i>F</i><sub>1</sub> + <i>F</i><sub>2</sub> + … + <i>F</i><sub><i>n</i></sub></span>
+<p class="s">Questa regola si chiama principio di sovrapposizione delle forze.</p>
+<p class="s">Attenzione: è una somma di vettori, non di numeri. Due forze di 6 newton danno 12 newton solo se tirano nella stessa direzione e nello stesso verso. Se tirano ad angolo, la risultante è più piccola.</p>
+<div class="trap s" data-say="Trappola. I moduli si sommano come numeri solo quando i vettori hanno stessa direzione e stesso verso.">I moduli si sommano come numeri <b>solo</b> con stessa direzione e stesso verso.</div>`,
+ words:[["risultante","il vettore somma: fa da solo l'effetto di tutte le forze insieme."]],
+ ask:["Due forze di 6 N ad angolo retto: la risultante è 12 N?","<b>No.</b> È più piccola: √(36 + 36) ≈ 8,5 N. 12 N solo se tirano nello stesso verso."]},
+
+{parte:1, t:"Stessa direzione: si sommano o si sottraggono",
+ body:`<p class="s">Se i due vettori stanno sulla stessa retta, è facile.</p>
+<svg id="stessa" viewBox="0 0 460 250" role="img" aria-label="Forze nello stesso verso e in verso opposto"></svg>
+<div class="flow">
+<div class="st s"><b class="n">Stesso verso</b>la risultante ha la stessa direzione e lo stesso verso, e il modulo è la somma: A più B.</div>
+<div class="st s"><b class="n">Verso opposto</b>il modulo è la differenza: il più grande meno il più piccolo. Il verso è quello del vettore più grande.</div>
+</div>
+<div class="trap s" data-say="Nel verso opposto scrivi sempre anche il verso: dodici newton verso Mario, non solo dodici newton.">Nel verso opposto scrivi <b>sempre</b> anche il verso: «12 N <b>verso Mario</b>», non solo «12 N».</div>
+<div class="ex"><div class="lbl">Con le incertezze</div>
+<p class="s" data-say="Anche nella differenza gli errori assoluti si sommano. Due virgola due più o meno zero virgola uno, meno uno virgola quattro più o meno zero virgola uno, fa zero virgola otto più o meno zero virgola due newton." style="margin:4px 0">Anche nella differenza gli errori assoluti si <b>sommano</b>:</p>
+<span class="fx">(2,2 ± 0,1) N − (1,4 ± 0,1) N = (0,8 ± 0,2) N</span></div>`,
+ init:"stessaInit",
+ ask:["Gigi tira la corda con 56 N verso sinistra, Mario con 68 N verso destra. Risultante?","<b>12 N verso destra</b>, cioè verso Mario. 68 − 56 = 12, e vince il più forte."]},
+
+{parte:1, t:"Il metodo punta-coda",
+ body:`<p class="s">Quando i vettori hanno direzioni diverse si usa il metodo punta-coda. Tocca il bottone e guarda un passo alla volta.</p>
+<div class="wid"><svg id="pc" viewBox="0 0 420 250" role="img" aria-label="Costruzione punta-coda"></svg>
+<p class="wmsg" id="pcmsg"></p>
+<div class="wbtns"><button class="mini" id="pcgo" onclick="pcStep()">Passo successivo</button><button class="mini" onclick="pcReset()">Ricomincia</button></div></div>
+<div class="flow">
+<div class="st s"><b class="n">Passo 1</b>disegna il primo vettore in scala.</div>
+<div class="st s"><b class="n">Passo 2</b>sposta il secondo vettore, senza girarlo né allungarlo, finché la sua coda tocca la punta del primo.</div>
+<div class="st s"><b class="n">Passo 3</b>la risultante va dalla coda del primo alla punta dell'ultimo.</div>
+</div>
+<p class="s">Con tre o più vettori si continua allo stesso modo: ognuno parte dalla punta del precedente. Per questo, con più di due vettori, il punta-coda è il metodo più comodo.</p>`,
+ init:"pcInit",
+ words:[["coda","il punto da cui parte la freccia."],["punta","la fine della freccia, dove c'è il triangolino."],
+        ["traslare","spostare una freccia senza girarla e senza cambiarne la lunghezza: resta lo stesso vettore."]],
+ ask:["Con il punta-coda, da dove a dove va la risultante?","Dalla <b>coda del primo</b> vettore alla <b>punta dell'ultimo</b>."]},
+
+{parte:1, t:"La regola del parallelogramma",
+ body:`<p class="s">La somma di due vettori si può trovare anche con la regola del parallelogramma. Guarda la costruzione.</p>
+<div class="wid"><svg id="par" viewBox="0 0 420 250" role="img" aria-label="Costruzione del parallelogramma"></svg>
+<p class="wmsg" id="parmsg"></p>
+<div class="wbtns"><button class="mini" id="pargo" onclick="parStep()">Passo successivo</button><button class="mini" onclick="parReset()">Ricomincia</button></div></div>
+<div class="flow">
+<div class="st s"><b class="n">Passo 1</b>disegna i due vettori con le code nello stesso punto O.</div>
+<div class="st s"><b class="n">Passo 2</b>dalla punta di ognuno traccia la parallela all'altro. Le due rette si incontrano in un punto C.</div>
+<div class="st s"><b class="n">Passo 3</b>la risultante è la diagonale che parte da O e arriva in C.</div>
+</div>
+<div class="trap s" data-say="Errore tipico: la risultante non va dalla punta di un vettore alla punta dell'altro. Quella è l'altra diagonale, ed è la differenza. La risultante parte sempre dalle code.">Errore tipico: la risultante <b>non</b> va da punta a punta. Quella è l'altra diagonale, cioè la differenza. La risultante parte sempre dalle <b>code</b>.</div>
+<p class="s">Il parallelogramma lavora con due vettori per volta. Con tre o più vettori conviene il punta-coda.</p>`,
+ init:"parInit",
+ words:[["parallelogramma","un quadrilatero con i lati opposti paralleli e uguali."],
+        ["diagonale","il segmento che unisce due vertici opposti."]],
+ ask:["Punta-coda e parallelogramma danno la stessa risultante?","<b>Sì.</b> Il parallelogramma è fatto di due triangoli punta-coda: la diagonale è la stessa freccia."]},
+
+{parte:1, t:"Vettori perpendicolari: Pitagora",
+ body:`<p class="s">Se i due vettori formano un angolo retto, la risultante è l'ipotenusa di un triangolo rettangolo. Si calcola con il teorema di Pitagora.</p>
+<svg id="pit" viewBox="0 0 420 230" role="img" aria-label="Triangolo rettangolo con cateti A e B e ipotenusa R"></svg>
+<span class="f big"><i>R</i> = √(<i>A</i>² + <i>B</i>²)</span>
+<div class="ex"><div class="lbl">Esempio · esercizio 61</div><span class="fx">√(144² + 162²) = √46 980 ≈ 217 N</span></div>
+<div class="trap s" data-say="Le unità: anche l'unità va al quadrato. Sei newton al quadrato fa trentasei newton quadrati, e sotto radice torna newton. Radice di settantadue fa otto virgola quarantanove, cioè otto virgola cinque newton.">Anche l'<b>unità</b> va al quadrato: (6,0 N)² = 36 N². Sotto radice torna N.<br>√72 = 8,49 → <b>8,5 N</b>, non 8,45.</div>
+<div class="ex"><div class="lbl">Al contrario: due forze uguali · esercizio 63</div>
+<p class="s" data-say="Se le due forze perpendicolari sono uguali, la risultante è F per radice di due. Quindi F è uguale a R diviso radice di due." style="margin:4px 0">Se le due forze perpendicolari sono uguali, <i>R</i> = <i>F</i> · √2. Quindi:</p>
+<span class="fx"><i>F</i> = <i>R</i> : √2 = 3,8·10⁴ N : 1,41 ≈ 2,7·10⁴ N</span></div>
+<p class="s">Se i vettori non sono perpendicolari, Pitagora non vale: la risultante si trova col disegno, e si misura.</p>`,
+ init:"pitInit",
+ words:[["ipotenusa","il lato più lungo del triangolo rettangolo, quello opposto all'angolo retto."],
+        ["cateti","i due lati che formano l'angolo retto."]],
+ ask:["Due forze perpendicolari di 3,0 N e 4,0 N. Risultante?","<b>5,0 N.</b> √(9 + 16) = √25 = 5."]},
+
+{parte:1, t:"Misurare sul disegno",
+ body:`<p class="s">Quando l'angolo non è retto, la risultante si trova con un disegno preciso. È l'esempio della regata nel libro.</p>
+<svg id="reg" viewBox="0 0 400 220" role="img" aria-label="Spostamenti di 400 m e 290 m disegnati in scala"></svg>
+<div class="flow">
+<div class="st s"><b class="n">Passo 1 · la scala</b>scegli quanto vale un centimetro. Qui: 1 cm = 100 metri.</div>
+<div class="st s"><b class="n">Passo 2 · il disegno</b>A diventa 4,0 cm, B diventa 2,9 cm. Gli angoli si disegnano con il goniometro.</div>
+<div class="st s"><b class="n">Passo 3 · la misura</b>col righello misuri R: 3,6 cm. Poi moltiplichi per la scala.</div>
+</div>
+<span class="f"><i>R</i> = 3,6 cm × 100 m/cm = 360 m</span>
+<p class="s">La direzione si misura con il goniometro: l'angolo tra R e A.</p>
+<div class="trap s" data-say="Non fermarti ai centimetri: il risultato si moltiplica per la scala e si scrive con l'unità giusta.">Non fermarti ai centimetri: <b>moltiplica per la scala</b> e scrivi l'unità giusta.</div>`,
+ init:"regInit",
+ words:[["goniometro","lo strumento per misurare gli angoli."],["scala","quanto vale nella realtà un centimetro del disegno."]],
+ ask:["Sul disegno R è lunga 5,5 cm e la scala è 1 cm = 2 N. Quanto vale R?","<b>11 N.</b> 5,5 × 2 = 11."]},
+
+{parte:1, t:"Le proprietà della somma",
+ body:`<p class="s">Proprietà commutativa: cambiando l'ordine degli addendi la somma non cambia.</p>
+<span class="f"><i>A</i> + <i>B</i> = <i>B</i> + <i>A</i></span>
+<p class="s">Proprietà associativa: con tre vettori puoi sommare prima due di loro, poi aggiungere il terzo. Il risultato non cambia.</p>
+<span class="f">(<i>A</i> + <i>B</i>) + <i>C</i> = <i>A</i> + (<i>B</i> + <i>C</i>)</span>
+<p class="s">Per questo, nel punta-coda, puoi partire da qualsiasi vettore: la risultante è sempre la stessa.</p>`,
+ words:[["commutativa","si può scambiare l'ordine."],["associativa","si possono raggruppare in modi diversi."]],
+ ask:["Nel punta-coda parto da B invece che da A. La risultante cambia?","<b>No.</b> Proprietà commutativa."]},
+
+/* ---------- PARTE 3 · SCALARE PER VETTORE ---------- */
+{parte:2, t:"Scalare per vettore",
+ body:`<p class="s">Se moltiplichi un vettore per un numero, cioè per uno scalare, ottieni ancora un vettore.</p>
+<div class="wid"><svg id="kv" viewBox="0 0 420 170" role="img" aria-label="Il vettore A e il vettore k per A"></svg>
+<div class="kbtns" id="kbtns"></div>
+<p class="wmsg" id="kmsg"></p></div>
+<div class="flow">
+<div class="st s"><b class="n">Modulo</b>si moltiplica per il numero, senza segno.</div>
+<div class="st s"><b class="n">Direzione</b>resta la stessa.</div>
+<div class="st s"><b class="n">Verso</b>uguale se il numero è positivo, opposto se è negativo.</div>
+</div>
+<div class="ex"><div class="lbl">Due esempi dagli appunti</div>
+<span class="fx"><i>F</i> = <i>m</i> · <i>a</i></span>: con <i>m</i> = 4 kg e <i>a</i> = 0,3 m/s² → <i>F</i> = 1,2 N, stesso verso di <i>a</i>.<br>
+<span class="fx"><i>a</i> = <i>v</i> / Δ<i>t</i></span>: con <i>v</i> = 4 m/s e Δ<i>t</i> = 10 s → <i>a</i> = 0,4 m/s², stessa direzione e verso di <i>v</i>.</div>
+<p class="s">Dividere per uno scalare positivo è come moltiplicare per il suo inverso: direzione e verso non cambiano.</p>`,
+ init:"kInit",
+ words:[["scalare","un numero con l'unità, senza direzione: massa, tempo, carica."]],
+ ask:["A vale 5 N verso nord. Quanto vale 3A?","<b>15 N verso nord.</b> Il numero è positivo: il verso non cambia."]},
+
+{parte:2, t:"Il segno meno",
+ body:`<p class="s">Nell'algebra dei vettori il segno meno vuol dire: verso opposto.</p>
+<span class="f big">−<i>v</i></span>
+<p class="s">Meno v ha lo stesso modulo e la stessa direzione di v, ma il verso contrario. Il modulo resta positivo.</p>
+<svg id="meno" viewBox="0 0 420 150" role="img" aria-label="Il vettore v verso l'alto e meno v verso il basso"></svg>
+<div class="ex"><div class="lbl">Esempio dagli appunti · carica negativa</div>
+<p class="s" data-say="Il campo elettrico E vale cinquanta newton al coulomb verso sinistra. Una carica negativa q, di meno due nanocoulomb, sente la forza F uguale a q per E. Il modulo è due per dieci alla meno nove, per cinquanta: uno per dieci alla meno sette newton. Il verso è opposto a E, perché q è negativa: verso destra." style="margin:4px 0">Campo <i>E</i> = 50 N/C verso sinistra, carica <i>q</i> = −2 nC. La forza è <i>F</i> = <i>q</i> · <i>E</i>:</p>
+<span class="fx">modulo: 2·10⁻⁹ × 50 = 1,0·10⁻⁷ N</span><br>verso: <b>opposto</b> a <i>E</i>, cioè verso destra, perché <i>q</i> è negativa.</div>`,
+ init:"menoInit",
+ ask:["v vale 4 m/s verso l'alto. Com'è −v?","<b>4 m/s verso il basso.</b> Stesso modulo, stessa direzione, verso opposto."]},
+
+/* ---------- PARTE 4 · LA DENSITÀ ---------- */
+{parte:3, t:"La densità",
+ body:`<p class="s">La densità dice quanta massa c'è in ogni unità di volume. È una grandezza derivata del Sistema Internazionale.</p>
+<span class="f big"><i>d</i> = <i>m</i> / <i>V</i></span>
+<svg id="tri" viewBox="0 0 320 170" role="img" aria-label="Triangolo: m sopra, d e V sotto" style="max-width:280px;margin:0 auto"></svg>
+<p class="s">Copri quello che cerchi: la massa è d per V, il volume è m diviso d.</p>
+<div class="scroll"><table>
+<tr><th>Unità</th><th>Acqua</th></tr>
+<tr><td>kg/m³ (S.I.)</td><td>1000 kg/m³</td></tr>
+<tr><td>g/cm³</td><td>1 g/cm³</td></tr>
+<tr><td>kg/L = kg/dm³</td><td>1 kg/L</td></tr>
+</table></div>
+<p class="s">La densità non dipende da quanto materiale c'è: un chiodo di ferro e una trave di ferro hanno la stessa densità. Per questo serve a riconoscere un materiale.</p>`,
+ init:"triInit",
+ words:[["volume","lo spazio che occupa un corpo: m³, dm³ = litri, cm³ = millilitri."]],
+ ask:["Una pietra ha massa 60 g e volume 20 cm³. Densità?","<b>3 g/cm³.</b> 60 : 20 = 3."]},
+
+{parte:3, t:"Da g/cm³ a kg/m³",
+ body:`<p class="s">Per cambiare unità si trasformano separatamente la massa e il volume.</p>
+<span class="f">1 g/cm³ = 10⁻³ kg / (10⁻² m)³ = 10⁻³ kg / 10⁻⁶ m³ = 10³ kg/m³</span>
+<div class="trap s" data-say="Attenzione: dieci alla meno due, tutto al cubo, fa dieci alla meno sei. L'esponente si moltiplica per tre. Non fa dieci alla meno cinque.">Attenzione: (10⁻²)³ = 10<sup>−2·3</sup> = <b>10⁻⁶</b>. L'esponente si <b>moltiplica</b> per 3. Non fa 10⁻⁵.</div>
+<div class="ex"><div class="lbl">La regola veloce</div>
+da g/cm³ a kg/m³ → <b>× 1000</b> &nbsp;&nbsp; da kg/m³ a g/cm³ → <b>: 1000</b><br>
+<span class="fx">0,1 g/cm³ = 100 kg/m³ &nbsp;&nbsp; 7900 kg/m³ = 7,9 g/cm³</span></div>`,
+ ask:["Il ghiaccio ha densità 0,92 g/cm³. Quanto fa in kg/m³?","<b>920 kg/m³.</b> 0,92 × 1000."]},
+
+{parte:3, t:"Come trovare il volume",
+ body:`<p class="s">Per la densità serve il volume. Dipende dalla forma del corpo.</p>
+<div class="scroll"><table>
+<tr><th>Forma</th><th>Volume</th></tr>
+<tr><td>cubo di lato <i>l</i></td><td><i>V</i> = <i>l</i>³</td></tr>
+<tr><td>sfera di raggio <i>r</i></td><td><i>V</i> = 4/3 · π · <i>r</i>³</td></tr>
+<tr><td>forma qualsiasi</td><td>il volume dell'acqua spostata</td></tr>
+</table></div>
+<div class="ex"><div class="lbl">La corona · esercizio 96</div>
+<p class="s" data-say="La corona ha massa millesessanta grammi e sposta cinquantaquattro virgola nove grammi di acqua. L'acqua ha densità uno, quindi il volume è cinquantaquattro virgola nove centimetri cubi. La densità della corona è millesessanta diviso cinquantaquattro virgola nove, circa diciannove virgola tre grammi al centimetro cubo: è oro." style="margin:4px 0">Corona: 1060 g. Sposta 54,9 g d'acqua → <i>V</i> = 54,9 cm³ (l'acqua ha <i>d</i> = 1 g/cm³).</p>
+<span class="fx"><i>d</i> = 1060 / 54,9 ≈ 19,3 g/cm³ → oro</span></div>
+<div class="trap s" data-say="Se raddoppi il lato di un cubo, il volume non raddoppia: diventa otto volte più grande, perché due al cubo fa otto. E con lo stesso materiale anche la massa diventa otto volte più grande.">Se <b>raddoppi il lato</b> di un cubo, il volume diventa <b>8 volte</b> più grande (2³ = 8), non il doppio. Stesso materiale → anche la massa × 8.</div>`,
+ ask:["Un cubo di lato 2 cm ha volume…?","<b>8 cm³.</b> 2 × 2 × 2."]}
+
+];
+
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += '</article>';
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("fis-forze-teoria-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+
+
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){
+  return t.replace(/kg\/m³/g," chilogrammi al metro cubo").replace(/g\/cm³/g," grammi al centimetro cubo")
+          .replace(/m\/s²/g," metri al secondo quadrato").replace(/m\/s/g," metri al secondo")
+          .replace(/(\d)\s?N\b/g,"$1 newton").replace(/√/g," radice di ").replace(/π/g," pi greco ")
+          .replace(/²/g," al quadrato").replace(/³/g," al cubo").replace(/°/g," gradi")
+          .replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = new SpeechSynthesisUtterance(say(el.getAttribute("data-say") || el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("fis-forze-teoria-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+
+</script>
+</body>
+</html>
