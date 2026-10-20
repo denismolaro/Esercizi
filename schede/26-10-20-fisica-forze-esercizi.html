@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Forze e vettori: esercizi</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7; --accent-line:#CBDAEC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --va:#1D4E89; --vb:#B06A00; --vc:#1F7A4D; --vr:#A8327A;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:4px 0 8px}
+.chips a{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:6px 12px;
+  font-size:14px; font-weight:600; color:var(--soft); text-decoration:none}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 12px}
+.dati{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:10px 16px; margin:12px 0; font-size:17px}
+.dati .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:12px 14px; font-size:17px; font-weight:600; margin-top:12px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.step p{margin:6px 0}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:11px 12px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus, .ns input:focus{outline:none; border-color:var(--accent)}
+.chk .u{align-self:center; font-size:16px; color:var(--soft); font-weight:600; min-width:34px}
+.chk button, .go{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 16px; font-weight:600; font-size:16px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em; line-height:1.5}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.opts{display:grid; gap:7px; margin-top:8px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{min-width:0; overflow-wrap:break-word}
+@media (max-width:460px){ .opts.three button{font-size:14px; padding:10px 3px} }
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 6px;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.3}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+.why{display:none; font-size:15.5px; color:var(--soft); margin:6px 0 2px; line-height:1.5}
+.why.on{display:block}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:6px 8px; text-align:center}
+th{background:var(--accent-soft); font-size:14px}
+
+/* righe veloci: notazione ed equivalenze */
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:20px; font-weight:700; font-family:"Times New Roman",Georgia,serif; margin-bottom:6px}
+.op .to{font-family:-apple-system,Arial,sans-serif; font-size:16px; color:var(--soft); font-weight:600}
+.ns{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+.ns .nm{flex:1 1 auto; min-width:0; width:100%; font:inherit; font-size:19px; padding:10px 12px; border:2px solid var(--rule); border-radius:12px; background:#fff; color:var(--ink)}
+.ns .x{font-family:"Times New Roman",Georgia,serif; font-size:21px; white-space:nowrap}
+.ns .pw{display:flex; align-items:center; gap:3px; transform:translateY(-11px)}
+.ns .ex{width:58px; font:inherit; font-size:16px; padding:5px 6px; border:2px solid var(--rule); border-radius:9px; background:#fff; color:var(--ink); text-align:center}
+.ns .pm{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:3px 7px; font-size:15px; font-weight:700; color:var(--ink)}
+.acts{display:flex; gap:8px; margin-top:6px}
+.acts .go{padding:9px 16px}
+.linkish{background:none; border:none; font-size:15px; color:var(--accent); text-decoration:underline; padding:4px 2px}
+.how{display:none; background:#F4F1EA; border-radius:10px; padding:10px 12px; margin-top:8px; font-size:16px; line-height:1.6}
+.how.on{display:block}
+.score{font-size:15px; color:var(--soft); margin-top:12px; font-weight:600}
+.row.done .op::after{content:" ✓"; color:var(--ok)}
+.redo{display:none; margin-top:10px}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+
+.op.t{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif; font-size:17.5px; font-weight:600; line-height:1.45}
+.opts.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.opts.arw button{font-size:26px; line-height:1; padding:10px 4px}
+.btns3{display:flex; gap:8px; margin-top:6px}
+.btns3 .go{flex:1.2; padding:11px 8px}
+.mini{flex:1; border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:12px; padding:9px 10px; font-size:15px; font-weight:600}
+.quad{font-family:"Times New Roman",Georgia,serif; font-size:19px; line-height:1.6; padding:12px 14px; margin:8px 0 4px;
+  border-left:4px solid var(--warn); border-radius:6px;
+  background-color:#fff; background-image:linear-gradient(#ECE7DC 1px, transparent 1px), linear-gradient(90deg, #ECE7DC 1px, transparent 1px);
+  background-size:14px 14px; overflow-wrap:anywhere}
+.vec{position:relative; display:inline-block; font-family:"Times New Roman",Georgia,serif; font-style:italic; padding-top:.28em; line-height:1}
+.vec::after{content:"\2192"; position:absolute; left:0; right:0; top:-.22em; text-align:center; font-style:normal; font-size:.72em}
+svg{display:block; width:100%; height:auto; margin:10px 0}
+.cp{cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Fisica · capitolo 3 · stile compito</div>
+  <h1>Forze e vettori: esercizi</h1>
+  <p class="lead">Prova da solo, poi tocca <b>Controlla</b>. Se non torna, apri i passi uno per volta. Il tasto 🔊 legge il testo dell'esercizio. La teoria è nell'altra scheda.</p>
+  <div class="chips">
+    <a href="#A">Forze</a><a href="#B">Stessa retta</a><a href="#C">Perpendicolari</a><a href="#D">Disegna</a><a href="#E">Scalare × vettore</a><a href="#F">Densità</a><a href="#G">Trova l'errore</a>
+  </div>
+</header>
+
+<div class="note"><b>Come scrivere i numeri.</b> Virgola o punto vanno bene tutti e due. Le potenze di dieci scrivile così: <b>2,7·10^4</b> oppure <b>2,7e4</b>. L'unità è già scritta accanto alla casella.</div>
+
+<!-- ═══════════ A · FORZE ═══════════ -->
+<h2 id="A">A · Le forze: teoria veloce</h2>
+<div class="card blk" id="A1">
+  <div class="qhead"><div class="qnum">Una risposta per riga, poi si blocca</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Rispondi a ogni riga. Pensa prima di toccare: la risposta non si cambia. Forza di contatto se i corpi si toccano, a distanza se non si toccano. Poi: la forza cambia la velocità oppure deforma.">🔊</button></div>
+  <div class="rows">
+    <div class="row"><div class="op t">La mano che spinge un carrello</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">di contatto</button><button onclick="scegli(this,1)">a distanza</button></div>
+      <div class="why">La mano tocca il carrello.</div></div>
+    <div class="row"><div class="op t">La Terra che attira un paracadutista</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">di contatto</button><button onclick="scegli(this,1)">a distanza</button></div>
+      <div class="why">La gravità agisce senza contatto.</div></div>
+    <div class="row"><div class="op t">Il vento sulla vela</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">di contatto</button><button onclick="scegli(this,1)">a distanza</button></div>
+      <div class="why">L'aria tocca la vela e la spinge.</div></div>
+    <div class="row"><div class="op t">Una calamita che attira un chiodo senza toccarlo</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">di contatto</button><button onclick="scegli(this,1)">a distanza</button></div>
+      <div class="why">La forza magnetica agisce a distanza.</div></div>
+    <div class="row"><div class="op t">Il portiere blocca il pallone</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">cambia la velocità</button><button onclick="scegli(this,1)">deforma</button></div>
+      <div class="why">Il pallone si ferma: la velocità cambia. Le mani spingono nel verso opposto a quello della palla.</div></div>
+    <div class="row"><div class="op t">Tiri le due estremità di un gesso finché si spezza</div>
+      <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">cambia la velocità</button><button onclick="scegli(this,1)">deforma</button></div>
+      <div class="why">Il gesso non si muove: cambia forma, si rompe.</div></div>
+    <div class="row"><div class="op t">Il freno rallenta la bicicletta</div>
+      <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">cambia la velocità</button><button onclick="scegli(this,1)">deforma</button></div>
+      <div class="why">Rallentare è cambiare la velocità.</div></div>
+    <div class="row"><div class="op t">Due forze allungano il dinamometro allo stesso modo. Hanno la stessa…</div>
+      <div class="opts three" data-ok="1"><button onclick="scegli(this,0)">direzione</button><button onclick="scegli(this,1)">intensità</button><button onclick="scegli(this,2)">massa</button></div>
+      <div class="why">Stesso allungamento = stessa intensità (stesso modulo).</div></div>
+    <div class="row"><div class="op t">1 N è la forza con cui la Terra attira una massa di…</div>
+      <div class="opts three" data-ok="2"><button onclick="scegli(this,0)">1 kg</button><button onclick="scegli(this,1)">9,81 g</button><button onclick="scegli(this,2)">102 g</button></div>
+      <div class="why">Un newton è il peso di 102 grammi.</div></div>
+    <div class="row"><div class="op t">L'unità N, scritta con le unità di base, è…</div>
+      <div class="opts three" data-ok="0"><button onclick="scegli(this,0)">kg·m/s²</button><button onclick="scegli(this,1)">kg·m/s</button><button onclick="scegli(this,2)">kg/m³</button></div>
+      <div class="why">F = m · a, quindi N = kg · m/s².</div></div>
+  </div>
+  <div class="score" id="scoreA1"></div>
+  <button class="btn redo" id="redoA1" onclick="rifai('A1')">Rifai in un altro ordine</button>
+</div>
+
+<!-- ═══════════ B · STESSA RETTA ═══════════ -->
+<h2 id="B">B · Forze sulla stessa retta</h2>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio B1 · stesso verso</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Due bambini tirano un carrellino nello stesso verso. La forza totale è tredici virgola cinque newton. Il primo bambino tira con sei virgola due newton. Con che forza tira il secondo?">🔊</button></div>
+  <p class="qtext">Due bambini tirano un carrellino nello stesso verso. La forza totale è 13,5 N. Il primo tira con 6,2 N. Con che forza tira il secondo?</p>
+  <div class="chk"><input id="ib1" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('b1')">Controlla</button></div>
+  <div class="fb" id="fb1"></div>
+  <button class="btn" onclick="step(this,'b1')">Mostra il passo 1</button>
+  <div class="step" id="sb1_1"><div class="sn">Passo 1 · stesso verso</div><p>Stesso verso: i moduli si sommano. <i>F</i><sub>1</sub> + <i>F</i><sub>2</sub> = 13,5 N.</p></div>
+  <div class="step" id="sb1_2"><div class="sn">Passo 2 · il conto</div><span class="f"><i>F</i><sub>2</sub> = 13,5 − 6,2 = 7,3 N</span></div>
+  <div class="res" id="rb1"><div class="lbl">Risposta</div><b>F₂ = 7,3 N</b>, nello stesso verso.</div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio B2 · tiro alla fune</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Tiro alla fune. Gigi tira verso sinistra con settantaquattro newton, Mario tira verso destra con sessantuno newton. Quanto vale la risultante, e da che parte va?">🔊</button></div>
+  <p class="qtext">Gigi tira la fune verso <b>sinistra</b> con 74 N, Mario verso <b>destra</b> con 61 N. Quanto vale la risultante, e che verso ha?</p>
+  <div class="lab">Modulo</div>
+  <div class="chk"><input id="ib2" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('b2')">Controlla</button></div>
+  <div class="fb" id="fb2"></div>
+  <div class="lab">Verso</div>
+  <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">← verso Gigi</button><button onclick="scegli(this,1)">→ verso Mario</button></div>
+  <div class="why">Vince il più forte: Gigi tira con 74 N, quindi la risultante va verso sinistra.</div>
+  <button class="btn" onclick="step(this,'b2')">Mostra il passo 1</button>
+  <div class="step" id="sb2_1"><div class="sn">Passo 1 · versi opposti</div><p>Stessa direzione, versi opposti: il più grande meno il più piccolo.</p><span class="f">74 − 61 = 13 N</span></div>
+  <div class="step" id="sb2_2"><div class="sn">Passo 2 · il verso</div><p>Il verso è quello della forza più grande: verso Gigi, a sinistra. Va scritto nella risposta.</p></div>
+  <div class="res" id="rb2"><div class="lbl">Risposta</div><b>R = 13 N verso sinistra</b> (verso Gigi)</div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio B3 · con le incertezze</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Enrica tira con tre virgola sei più o meno zero virgola uno newton, Giulia nel verso opposto con due virgola uno più o meno zero virgola uno newton. Scrivi la risultante con il suo errore.">🔊</button></div>
+  <p class="qtext">Enrica tira con (3,6 ± 0,1) N, Giulia nel verso opposto con (2,1 ± 0,1) N. Scrivi la risultante con il suo errore.</p>
+  <div class="lab">Valore</div>
+  <div class="chk"><input id="ib3v" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('b3v')">Controlla</button></div>
+  <div class="fb" id="fb3v"></div>
+  <div class="lab">Errore assoluto</div>
+  <div class="chk"><input id="ib3e" inputmode="decimal" placeholder="±..." autocomplete="off"><span class="u">N</span><button onclick="chk('b3e')">Controlla</button></div>
+  <div class="fb" id="fb3e"></div>
+  <button class="btn" onclick="step(this,'b3')">Mostra il passo 1</button>
+  <div class="step" id="sb3_1"><div class="sn">Passo 1 · il valore</div><span class="f">3,6 − 2,1 = 1,5 N</span></div>
+  <div class="step" id="sb3_2"><div class="sn">Passo 2 · l'errore</div><p>Anche nella differenza gli errori assoluti si <b>sommano</b>:</p><span class="f">0,1 + 0,1 = 0,2 N</span></div>
+  <div class="res" id="rb3"><div class="lbl">Risposta</div><b>R = (1,5 ± 0,2) N</b>, verso Enrica</div>
+</div>
+
+<!-- ═══════════ C · PERPENDICOLARI ═══════════ -->
+<h2 id="C">C · Forze perpendicolari</h2>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C1 · tre calcoli con Pitagora</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Due forze perpendicolari agiscono sullo stesso punto. Trova la risultante. Primo: tre newton e quattro newton. Secondo: sei virgola zero newton e sei virgola zero newton. Terzo: novanta newton e centoventi newton.">🔊</button></div>
+  <p class="qtext">Due forze <b>perpendicolari</b> agiscono sullo stesso punto. Trova la risultante.</p>
+  <div class="lab">a) 3,0 N e 4,0 N</div>
+  <div class="chk"><input id="ic1a" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('c1a')">Controlla</button></div>
+  <div class="fb" id="fc1a"></div>
+  <div class="lab">b) 6,0 N e 6,0 N</div>
+  <div class="chk"><input id="ic1b" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('c1b')">Controlla</button></div>
+  <div class="fb" id="fc1b"></div>
+  <div class="lab">c) 90 N e 120 N</div>
+  <div class="chk"><input id="ic1c" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('c1c')">Controlla</button></div>
+  <div class="fb" id="fc1c"></div>
+  <button class="btn" onclick="step(this,'c1')">Mostra il passo 1</button>
+  <div class="step" id="sc1_1"><div class="sn">Passo 1 · la formula</div><span class="f"><i>R</i> = √(<i>A</i>² + <i>B</i>²)</span><p>Prima i quadrati, poi la somma, <b>poi</b> la radice.</p></div>
+  <div class="step" id="sc1_2"><div class="sn">Passo 2 · i conti</div>
+    <p>a) √(9 + 16) = √25 = <b>5,0 N</b><br>b) √(36 + 36) = √72 = 8,49 → <b>8,5 N</b><br>c) √(8100 + 14 400) = √22 500 = <b>150 N</b></p></div>
+  <div class="res" id="rc1"><div class="lbl">Risposta</div><b>a) 5,0 N &nbsp; b) 8,5 N &nbsp; c) 150 N</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C2 · al contrario</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Due forze uguali e perpendicolari hanno una risultante di tre virgola otto per dieci alla quarta newton. Quanto vale ciascuna delle due forze?">🔊</button></div>
+  <p class="qtext">Due forze <b>uguali</b> e perpendicolari hanno risultante <i>R</i> = 3,8·10⁴ N. Quanto vale ciascuna forza?</p>
+  <div class="chk"><input id="ic2" inputmode="decimal" placeholder="es. 2,5·10^4" autocomplete="off"><span class="u">N</span><button onclick="chk('c2')">Controlla</button></div>
+  <div class="fb" id="fc2"></div>
+  <button class="btn" onclick="step(this,'c2')">Mostra il passo 1</button>
+  <div class="step" id="sc2_1"><div class="sn">Passo 1 · le forze sono uguali</div><span class="f"><i>R</i> = √(<i>F</i>² + <i>F</i>²) = √(2<i>F</i>²) = <i>F</i> · √2</span></div>
+  <div class="step" id="sc2_2"><div class="sn">Passo 2 · inverti</div><span class="f"><i>F</i> = <i>R</i> : √2 = 3,8·10⁴ : 1,414 ≈ 2,7·10⁴ N</span></div>
+  <div class="res" id="rc2"><div class="lbl">Risposta</div><b>F ≈ 2,7·10⁴ N</b> ciascuna</div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio C3 · Giochi di Anacleto</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Due forze di sette newton ciascuna agiscono su un oggetto. Una punta verso nord, l'altra verso est. Qual è la risultante?">🔊</button></div>
+  <p class="qtext">Due forze di 7 N ciascuna agiscono su un oggetto: una verso <b>Nord</b>, l'altra verso <b>Est</b>. La risultante è:</p>
+  <div class="opts" data-ok="0" style="grid-template-columns:1fr">
+    <button onclick="scegli(this,0)">9,9 N, orientata a 45° da Nord</button><button onclick="scegli(this,1)">9,9 N, orientata a 135° da Nord</button>
+    <button onclick="scegli(this,2)">14 N, orientata a 45° da Nord</button><button onclick="scegli(this,3)">14 N, orientata a 135° da Nord</button></div>
+  <div class="why">Perpendicolari: √(49 + 49) = √98 ≈ 9,9 N. Le due forze sono uguali, quindi la risultante sta a metà tra Nord ed Est: 45° da Nord (Nord-Est). 135° sarebbe Sud-Est. 14 N è la somma dei moduli: vale solo con lo stesso verso.</div>
+</div>
+
+<!-- ═══════════ D · DISEGNA ═══════════ -->
+<h2 id="D">D · Disegna la risultante</h2>
+<div class="card">
+  <div class="qhead"><div class="qnum">Tocca dove finisce la risultante</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Il pallino rosa è il punto da cui parte la risultante. Tocca il punto della griglia dove finisce la risultante, poi controlla. Se non sai come fare, tocca Aiuto: vedrai i vettori spostati.">🔊</button></div>
+  <p class="qtext" style="font-size:17px">Il pallino <b style="color:var(--vr)">rosa</b> è dove parte la risultante. <b>Tocca il punto della griglia dove finisce</b>, poi controlla.</p>
+  <p class="qtext" style="font-size:18px" id="dq">…</p>
+  <svg id="dg" viewBox="0 0 356 244" role="img" aria-label="Griglia con i vettori da sommare"></svg>
+  <div class="btns3"><button class="go" id="dchk" onclick="dCheck()">Controlla</button><button class="mini" id="dhelp" onclick="dHelp()">Aiuto</button><button class="mini" id="dclr" onclick="dClear()">Cancella</button></div>
+  <div class="fb" id="dfb"></div>
+  <div id="dmod" style="display:none">
+    <div class="lab" id="dmodq">Quanto vale il modulo di R?</div>
+    <div class="chk"><input id="idm" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u" id="dmu">N</span><button onclick="dModCheck()">Controlla</button></div>
+    <div class="fb" id="fdm"></div>
+    <button class="linkish" onclick="document.getElementById('dhow').classList.toggle('on')">Come si calcola?</button>
+    <div class="how" id="dhow"></div>
+  </div>
+  <button class="btn solid" id="dnext" style="display:none" onclick="dNext()">Prossimo</button>
+</div>
+
+<!-- ═══════════ E · SCALARE × VETTORE ═══════════ -->
+<h2 id="E">E · Scalare per vettore</h2>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio E1 · forza e accelerazione</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Un carrello di massa quattro virgola zero chilogrammi ha un'accelerazione di zero virgola trenta metri al secondo quadrato verso destra. Quanto vale la forza, e che verso ha?">🔊</button></div>
+  <p class="qtext">Un carrello di massa 4,0 kg ha accelerazione 0,30 m/s² verso destra. Quanto vale la forza <i>F</i> = <i>m</i> · <i>a</i>?</p>
+  <div class="chk"><input id="ie1" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('e1')">Controlla</button></div>
+  <div class="fb" id="fe1"></div>
+  <div class="lab">Che verso ha la forza?</div>
+  <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">stesso verso di a</button><button onclick="scegli(this,1)">verso opposto ad a</button></div>
+  <div class="why">La massa è uno scalare positivo: la forza ha la stessa direzione e lo stesso verso dell'accelerazione, cioè verso destra.</div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio E2 · accelerazione e velocità</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Una moto passa da ferma a sei virgola zero metri al secondo verso est in tre virgola zero secondi. Quanto vale l'accelerazione, e che verso ha?">🔊</button></div>
+  <p class="qtext">Una moto passa da ferma a 6,0 m/s verso <b>est</b> in Δ<i>t</i> = 3,0 s. Quanto vale l'accelerazione <i>a</i> = <i>v</i> / Δ<i>t</i>?</p>
+  <div class="chk"><input id="ie2" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">m/s²</span><button onclick="chk('e2')">Controlla</button></div>
+  <div class="fb" id="fe2"></div>
+  <div class="lab">Che verso ha?</div>
+  <div class="opts two" data-ok="0"><button onclick="scegli(this,0)">verso est</button><button onclick="scegli(this,1)">verso ovest</button></div>
+  <div class="why">Si divide per un tempo, che è positivo: il verso resta quello della velocità.</div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio E3 · il segno meno</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Il vettore A vale cinque newton verso nord. Quanto vale meno due A, e che verso ha?">🔊</button></div>
+  <p class="qtext"><span class="vec">A</span> vale 5 N verso <b>nord</b>. Com'è il vettore −2<span class="vec">A</span>?</p>
+  <div class="lab">Modulo</div>
+  <div class="chk"><input id="ie3" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('e3')">Controlla</button></div>
+  <div class="fb" id="fe3"></div>
+  <div class="lab">Verso</div>
+  <div class="opts four arw" data-ok="2"><button onclick="scegli(this,0)" aria-label="nord">↑</button><button onclick="scegli(this,1)" aria-label="est">→</button><button onclick="scegli(this,2)" aria-label="sud">↓</button><button onclick="scegli(this,3)" aria-label="ovest">←</button></div>
+  <div class="why">Il meno inverte il verso: da nord a sud. Il 2 raddoppia il modulo: 10 N.</div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio E4 · carica negativa</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Il campo elettrico E vale quaranta newton al coulomb verso sinistra. Una carica q di meno tre nanocoulomb sente la forza F uguale a q per E. Quanto vale il modulo della forza, e che verso ha? Ricorda: un nanocoulomb è dieci alla meno nove coulomb.">🔊</button></div>
+  <p class="qtext">Campo <i>E</i> = 40 N/C verso <b>sinistra</b>. Una carica <i>q</i> = −3,0 nC sente la forza <i>F</i> = <i>q</i> · <i>E</i>. Quanto vale il modulo di <i>F</i>? (1 nC = 10⁻⁹ C)</p>
+  <div class="chk"><input id="ie4" inputmode="decimal" placeholder="es. 1,5·10^-7" autocomplete="off"><span class="u">N</span><button onclick="chk('e4')">Controlla</button></div>
+  <div class="fb" id="fe4"></div>
+  <div class="lab">Che verso ha la forza?</div>
+  <div class="opts two" data-ok="1"><button onclick="scegli(this,0)">← come E</button><button onclick="scegli(this,1)">→ opposto a E</button></div>
+  <div class="why">La carica è negativa: il segno meno inverte il verso. La forza va verso destra.</div>
+  <button class="btn" onclick="step(this,'e4')">Mostra il passo 1</button>
+  <div class="step" id="se4_1"><div class="sn">Passo 1 · il modulo</div><p>Il modulo usa la carica senza segno:</p><span class="f">3,0·10⁻⁹ × 40 = 1,2·10⁻⁷ N</span></div>
+  <div class="step" id="se4_2"><div class="sn">Passo 2 · il verso</div><p>Il segno meno della carica non va nel modulo: dice solo che il verso è opposto a quello di <i>E</i>.</p></div>
+  <div class="res" id="re4"><div class="lbl">Risposta</div><b>F = 1,2·10⁻⁷ N verso destra</b></div>
+</div>
+
+<!-- ═══════════ F · DENSITÀ ═══════════ -->
+<h2 id="F">F · Densità</h2>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio F1 · il cubo</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Un cubo ha il lato di cinque virgola zero centimetri e una massa di duecentocinquanta grammi. Domanda a: la densità in grammi al centimetro cubo. Domanda b: la stessa densità in chilogrammi al metro cubo. Domanda c: un altro cubo dello stesso materiale ha il lato doppio, dieci centimetri. Qual è la sua massa in chilogrammi?">🔊</button></div>
+  <p class="qtext">Un cubo ha lato 5,0 cm e massa 250 g.</p>
+  <div class="lab">a) Densità</div>
+  <div class="chk"><input id="if1a" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">g/cm³</span><button onclick="chk('f1a')">Controlla</button></div>
+  <div class="fb" id="ff1a"></div>
+  <div class="lab">b) La stessa densità in kg/m³</div>
+  <div class="chk"><input id="if1b" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">kg/m³</span><button onclick="chk('f1b')">Controlla</button></div>
+  <div class="fb" id="ff1b"></div>
+  <div class="lab">c) Un cubo dello <b>stesso materiale</b> ha lato doppio, 10 cm. Che massa ha?</div>
+  <div class="chk"><input id="if1c" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">kg</span><button onclick="chk('f1c')">Controlla</button></div>
+  <div class="fb" id="ff1c"></div>
+  <button class="btn" onclick="step(this,'f1')">Mostra il passo 1</button>
+  <div class="step" id="sf1_1"><div class="sn">Passo 1 · il volume</div><span class="f"><i>V</i> = <i>l</i>³ = 5,0³ = 125 cm³</span></div>
+  <div class="step" id="sf1_2"><div class="sn">Passo 2 · la densità</div><span class="f"><i>d</i> = 250 / 125 = 2,0 g/cm³ = 2,0·10³ kg/m³</span><p>Da g/cm³ a kg/m³: × 1000.</p></div>
+  <div class="step" id="sf1_3"><div class="sn">Passo 3 · il cubo grande</div><p>Stesso materiale → stessa densità. Lato doppio → volume 2³ = <b>8 volte</b>: 1000 cm³.</p><span class="f"><i>m</i> = <i>d</i> · <i>V</i> = 2,0 × 1000 = 2000 g = 2,0 kg</span></div>
+  <div class="res" id="rf1"><div class="lbl">Risposta</div><b>a) 2,0 g/cm³ &nbsp; b) 2,0·10³ kg/m³ &nbsp; c) 2,0 kg</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio F2 · l'anello e l'acqua</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Un anello ha massa cinquantadue virgola cinque grammi. Immerso in un recipiente pieno d'acqua, fa uscire cinque virgola zero grammi d'acqua. Calcola la densità dell'anello e scopri di che metallo è.">🔊</button></div>
+  <p class="qtext">Un anello ha massa 52,5 g. Immerso in un recipiente pieno, fa uscire 5,0 g d'acqua (<i>d</i> = 1,0 g/cm³).</p>
+  <div class="lab">a) Densità dell'anello</div>
+  <div class="chk"><input id="if2" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">g/cm³</span><button onclick="chk('f2')">Controlla</button></div>
+  <div class="fb" id="ff2"></div>
+  <div class="lab">b) Di che metallo è?</div>
+  <div class="opts two" data-ok="2"><button onclick="scegli(this,0)">ferro (7,9)</button><button onclick="scegli(this,1)">rame (8,9)</button><button onclick="scegli(this,2)">argento (10,5)</button><button onclick="scegli(this,3)">oro (19,3)</button></div>
+  <div class="why">10,5 g/cm³ è l'argento. La densità riconosce il materiale.</div>
+  <button class="btn" onclick="step(this,'f2')">Mostra il passo 1</button>
+  <div class="step" id="sf2_1"><div class="sn">Passo 1 · il volume dall'acqua</div><p>L'acqua uscita occupa lo stesso volume dell'anello: 5,0 g d'acqua = <b>5,0 cm³</b>.</p></div>
+  <div class="step" id="sf2_2"><div class="sn">Passo 2 · la densità</div><span class="f"><i>d</i> = 52,5 / 5,0 = 10,5 g/cm³</span></div>
+  <div class="res" id="rf2"><div class="lbl">Risposta</div><b>d = 10,5 g/cm³ → argento</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio F3 · la densità di Marte</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Marte ha massa sei virgola quattro per dieci alla ventitreesima chilogrammi e raggio tre virgola quattro per dieci alla sesta metri. Domanda a: il volume, con la formula quattro terzi pi greco erre al cubo. Domanda b: la densità.">🔊</button></div>
+  <p class="qtext">Marte: <i>m</i> = 6,4·10²³ kg, raggio <i>r</i> = 3,4·10⁶ m. Usa <i>V</i> = 4/3 · π · <i>r</i>³.</p>
+  <div class="lab">a) Volume</div>
+  <div class="chk"><input id="if3a" inputmode="decimal" placeholder="es. 1,2·10^20" autocomplete="off"><span class="u">m³</span><button onclick="chk('f3a')">Controlla</button></div>
+  <div class="fb" id="ff3a"></div>
+  <div class="lab">b) Densità</div>
+  <div class="chk"><input id="if3b" inputmode="decimal" placeholder="es. 4,5·10^3" autocomplete="off"><span class="u">kg/m³</span><button onclick="chk('f3b')">Controlla</button></div>
+  <div class="fb" id="ff3b"></div>
+  <button class="btn" onclick="step(this,'f3')">Mostra il passo 1</button>
+  <div class="step" id="sf3_1"><div class="sn">Passo 1 · il raggio al cubo</div><p>Al cubo vanno <b>tutti e due</b> i pezzi: il numero e la potenza.</p><span class="f">(3,4·10⁶)³ = 3,4³ · 10¹⁸ = 39,3·10¹⁸ m³</span></div>
+  <div class="step" id="sf3_2"><div class="sn">Passo 2 · il volume</div><span class="f"><i>V</i> = 4/3 · 3,14 · 39,3·10¹⁸ ≈ 1,6·10²⁰ m³</span></div>
+  <div class="step" id="sf3_3"><div class="sn">Passo 3 · la densità</div><span class="f"><i>d</i> = 6,4·10²³ / 1,65·10²⁰ ≈ 3,9·10³ kg/m³</span><p>Con le potenze: 10²³ : 10²⁰ = 10³.</p></div>
+  <div class="res" id="rf3"><div class="lbl">Risposta</div><b>V ≈ 1,6·10²⁰ m³ &nbsp; d ≈ 3,9·10³ kg/m³</b></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Esercizio F4 · cambia unità</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Domanda a: zero virgola novantadue grammi al centimetro cubo, quanti chilogrammi al metro cubo? Domanda b: settemilanovecento chilogrammi al metro cubo, quanti grammi al centimetro cubo?">🔊</button></div>
+  <div class="lab" style="margin-top:4px">a) Ghiaccio: 0,92 g/cm³ = … kg/m³</div>
+  <div class="chk"><input id="if4a" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">kg/m³</span><button onclick="chk('f4a')">Controlla</button></div>
+  <div class="fb" id="ff4a"></div>
+  <div class="lab">b) Ferro: 7900 kg/m³ = … g/cm³</div>
+  <div class="chk"><input id="if4b" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">g/cm³</span><button onclick="chk('f4b')">Controlla</button></div>
+  <div class="fb" id="ff4b"></div>
+  <button class="btn" onclick="step(this,'f4')">Mostra il passo 1</button>
+  <div class="step" id="sf4_1"><div class="sn">Passo 1 · la regola</div><p>1 g/cm³ = 1000 kg/m³. Da g/cm³ a kg/m³ <b>× 1000</b>, al contrario <b>: 1000</b>.</p></div>
+  <div class="res" id="rf4"><div class="lbl">Risposta</div><b>a) 920 kg/m³ &nbsp; b) 7,9 g/cm³</b></div>
+</div>
+
+<!-- ═══════════ G · TROVA L'ERRORE ═══════════ -->
+<h2 id="G">G · Trova l'errore (dal quaderno)</h2>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Errore 1 · esercizio 62</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Due forze perpendicolari di sei virgola zero newton. Nel quaderno c'è scritto: radice di trentasei newton più trentasei newton, uguale radice di settantadue newton, uguale otto virgola quarantacinque newton. Dov'è l'errore?">🔊</button></div>
+  <p class="qtext" style="font-size:17px">Due forze perpendicolari di 6,0 N. Nel quaderno c'è scritto:</p>
+  <div class="quad">F<sub>tot</sub> = √(36 N + 36 N) = √(72 N) = 8,45 N</div>
+  <div class="lab">Dov'è l'errore?</div>
+  <div class="opts" data-ok="0" style="grid-template-columns:1fr">
+    <button onclick="scegli(this,0)">√72 fa 8,49 → 8,5 N; e sotto radice l'unità è N², non N</button>
+    <button onclick="scegli(this,1)">Doveva sommare: 6,0 + 6,0 = 12 N</button>
+    <button onclick="scegli(this,2)">Doveva dividere per 2: 3,0 N</button></div>
+  <div class="why">Pitagora è giusto. Ma (6,0 N)² = 36 N², e √72 = 8,485 → 8,5 N. Usa la calcolatrice e controlla l'ultima cifra.</div>
+  <div class="lab">Il risultato giusto</div>
+  <div class="chk"><input id="ig1" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">N</span><button onclick="chk('g1')">Controlla</button></div>
+  <div class="fb" id="fg1"></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Errore 2 · esercizio 63</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="La risultante di due forze uguali e perpendicolari è tre virgola otto per dieci alla quarta newton. Nel quaderno c'è scritto: F totale uguale radice di F uno al quadrato più F due al quadrato, uguale radice di tre virgola otto per dieci alla quarta, circa due virgola sette per dieci alla quarta. Il risultato è giusto, ma un passaggio è sbagliato. Quale?">🔊</button></div>
+  <p class="qtext" style="font-size:17px">R = 3,8·10⁴ N, due forze uguali e perpendicolari. Nel quaderno:</p>
+  <div class="quad">F<sub>tot</sub> = √(F₁² + F₂²) = √(3,8·10⁴ N) ≈ 2,7·10⁴ N</div>
+  <div class="lab">Il risultato finale è giusto. Che cosa è sbagliato?</div>
+  <div class="opts" data-ok="1" style="grid-template-columns:1fr">
+    <button onclick="scegli(this,0)">Il risultato doveva essere 1,9·10⁴ N, cioè R : 2</button>
+    <button onclick="scegli(this,1)">Il passaggio √(3,8·10⁴): quella radice fa 195. Si scrive R = F·√2, quindi F = R : √2</button>
+    <button onclick="scegli(this,2)">Doveva moltiplicare: F = R · √2</button></div>
+  <div class="why">In verifica conta il procedimento: √(3,8·10⁴) vale circa 195, non 2,7·10⁴. Il passaggio giusto è F = R : √2.</div>
+  <div class="lab">Scrivi F</div>
+  <div class="chk"><input id="ig2" inputmode="decimal" placeholder="es. 2,5·10^4" autocomplete="off"><span class="u">N</span><button onclick="chk('g2')">Controlla</button></div>
+  <div class="fb" id="fg2"></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Errore 3 · le tre coppie per casa</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="B uno vale cinque tesla, a trenta gradi sopra l'orizzontale. B due vale undici tesla, a sessanta gradi sotto l'orizzontale. Partono dallo stesso punto. Nel quaderno la risultante è disegnata dalla punta di B uno alla punta di B due, e vale dieci virgola cinque tesla. Dov'è l'errore?">🔊</button></div>
+  <p class="qtext" style="font-size:17px"><i>B</i>₁ = 5 T a 30° <b>sopra</b> l'orizzontale, <i>B</i>₂ = 11 T a 60° <b>sotto</b>, con le code nello stesso punto. Nel quaderno la risultante va dalla punta di <i>B</i>₁ alla punta di <i>B</i>₂: 10,5 T.</p>
+  <svg id="g3svg" viewBox="0 0 300 260" role="img" aria-label="B1 e B2 dallo stesso punto, freccia sbagliata da punta a punta" style="max-width:300px;margin:6px auto"></svg>
+  <div class="lab">Dov'è l'errore?</div>
+  <div class="opts" data-ok="2" style="grid-template-columns:1fr">
+    <button onclick="scegli(this,0)">Doveva sommare i moduli: 5 + 11 = 16 T</button>
+    <button onclick="scegli(this,1)">Doveva sottrarre: 11 − 5 = 6 T</button>
+    <button onclick="scegli(this,2)">La risultante parte dalle code, non va da punta a punta. E 30° + 60° = 90°: si usa Pitagora</button></div>
+  <div class="why">Da punta a punta è l'altra diagonale (la differenza). Qui l'angolo tra B₁ e B₂ è 30° + 60° = 90°: R = √(5² + 11²) = √146 ≈ 12,1 T. Il 10,5 era anche una misura imprecisa.</div>
+  <div class="lab">Quanto vale la risultante?</div>
+  <div class="chk"><input id="ig3" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">T</span><button onclick="chk('g3')">Controlla</button></div>
+  <div class="fb" id="fg3"></div>
+</div>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Errore 4 · cambiare unità alla densità</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Nel quaderno: un grammo al centimetro cubo uguale dieci alla meno tre chilogrammi, diviso dieci alla meno due metri tutto al cubo, uguale dieci alla meno tre diviso dieci alla meno cinque, uguale dieci alla seconda chilogrammi al metro cubo. Dov'è l'errore?">🔊</button></div>
+  <div class="quad">1 g/cm³ = 10⁻³ kg / (10⁻² m)³ = 10⁻³ kg / 10⁻⁵ m³ = 10² kg/m³</div>
+  <div class="lab">Dov'è l'errore?</div>
+  <div class="opts" data-ok="1" style="grid-template-columns:1fr">
+    <button onclick="scegli(this,0)">1 g non è 10⁻³ kg</button>
+    <button onclick="scegli(this,1)">(10⁻²)³ fa 10⁻⁶: l'esponente si moltiplica per 3</button>
+    <button onclick="scegli(this,2)">Non si possono dividere le potenze di dieci</button></div>
+  <div class="why">(10⁻²)³ = 10<sup>−2·3</sup> = 10⁻⁶. Poi 10⁻³ : 10⁻⁶ = 10<sup>−3+6</sup> = 10³.</div>
+  <div class="lab">Quindi 1 g/cm³ = … kg/m³</div>
+  <div class="chk"><input id="ig4" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">kg/m³</span><button onclick="chk('g4')">Controlla</button></div>
+  <div class="fb" id="fg4"></div>
+</div>
+
+<p class="foot">Palestra · Fisica — forze, somma di vettori, densità</p>
+
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+function fx(n){ return (Math.round(n*10)/10).toString(); }
+const C = {ink:'#1B2430', soft:'#5A6473', rule:'#DCD7CC', grid:'#E6E1D6', acc:'#1D4E89',
+           va:'#1D4E89', vb:'#B06A00', vc:'#1F7A4D', vr:'#A8327A', no:'#9B2C2C', ok:'#1F5C4B'};
+function arrow(x1,y1,x2,y2,c,hc,w,dash){
+  w = w||4;
+  const dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy)||1, ux=dx/L, uy=dy/L;
+  const h=Math.max(13,w*3.4), hw=h*0.55, bx=x2-ux*h, by=y2-uy*h;
+  return '<path d="M'+fx(x1)+' '+fx(y1)+' L'+fx(bx)+' '+fx(by)+'" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round" fill="none"'+(dash?' stroke-dasharray="7 6"':'')+'/>'+
+         '<polygon points="'+fx(x2)+','+fx(y2)+' '+fx(bx-uy*hw)+','+fx(by+ux*hw)+' '+fx(bx+uy*hw)+','+fx(by-ux*hw)+'" fill="'+(hc||c)+'"'+(dash?' fill-opacity=".5"':'')+'/>';
+}
+function txt(x,y,t,o){
+  o = o||{};
+  return '<text x="'+fx(x)+'" y="'+fx(y)+'" font-size="'+(o.s||16)+'" fill="'+(o.c||C.ink)+'" font-family="-apple-system,Arial,sans-serif"'+
+         (o.a?' text-anchor="'+o.a+'"':'')+(o.w?' font-weight="'+o.w+'"':'')+(o.i?' font-style="italic"':'')+'>'+t+'</text>';
+}
+function grid(cols,rows,s,ox,oy){
+  let h='<g stroke="'+C.grid+'" stroke-width="1">';
+  for(let i=0;i<=cols;i++) h+='<path d="M'+(ox+i*s)+' '+oy+' V'+(oy+rows*s)+'"/>';
+  for(let i=0;i<=rows;i++) h+='<path d="M'+ox+' '+(oy+i*s)+' H'+(ox+cols*s)+'"/>';
+  return h+'</g>';
+}
+
+/* ---------- numeri: virgola, punto delle migliaia, 2,7·10^4, 2,7e4, apici ---------- */
+function nums(s){
+  s = String(s==null?'':s).trim(); if(!s) return [];
+  const sup = {'\u2070':'0','\u00b9':'1','\u00b2':'2','\u00b3':'3','\u2074':'4','\u2075':'5','\u2076':'6','\u2077':'7','\u2078':'8','\u2079':'9','\u207b':'-','\u207a':'+'};
+  s = s.replace(/(kg\/m³|kg\/m3|g\/cm³|g\/cm3|m\/s²|m\/s2|km\/h|m³|m3|kgp|kg|N|T|g|m)\s*$/,'');
+  s = s.replace(/[\u2070\u00b9\u00b2\u00b3\u2074-\u2079\u207b\u207a]+/g, m=>{ let o='^'; for(const c of m) o+=sup[c]; return o; });
+  s = s.replace(/\s+/g,'').replace(/[\u2212\u2013]/g,'-').replace(/[\u00d7xX\u00b7\u22c5*]/g,'*');
+  const vars = [];
+  if(s.indexOf(',')>=0) vars.push(s.replace(/\./g,'').replace(/,/g,'.'));
+  else { vars.push(s); if(/^[+-]?[1-9]\d{0,2}(\.\d{3})+(\*|$)/.test(s)) vars.push(s.replace(/\.(?=\d{3})/g,'')); }
+  const out = [];
+  vars.forEach(t=>{
+    let m = t.match(/^([+-]?\d*\.?\d+)\*10\^([+-]?\d+)$/);
+    if(m){ out.push(parseFloat(m[1])*Math.pow(10,parseInt(m[2],10))); return; }
+    m = t.match(/^10\^([+-]?\d+)$/);
+    if(m){ out.push(Math.pow(10,parseInt(m[1],10))); return; }
+    if(/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(t)) out.push(parseFloat(t));
+  });
+  return out;
+}
+function volte(k){ const s = String(Math.pow(10,k)); return s.length>4 ? s.replace(/\B(?=(\d{3})+(?!\d))/g,' ') : s; }
+function near(v,a,sp){ if(sp.rel!=null) return Math.abs(v-a) <= Math.abs(a)*sp.rel; return Math.abs(v-a) <= (sp.tol!=null ? sp.tol : Math.abs(a)*1e-6+1e-12); }
+
+const SPEC = {
+  b1:{ok:7.3, traps:[{v:19.7,m:'Stesso verso: 13,5 N è già la somma. Il secondo bambino tira con 13,5 − 6,2.'}]},
+  b2:{ok:13, traps:[{v:135,m:'Versi opposti: si sottrae, 74 − 61.'},{v:-13,m:'Il modulo è sempre positivo. Il verso lo scegli sotto.'}]},
+  b3v:{ok:1.5, traps:[{v:5.7,m:'Versi opposti: si sottrae, 3,6 − 2,1.'}]},
+  b3e:{ok:0.2, traps:[{v:0,m:'Gli errori non si sottraggono mai: si sommano, 0,1 + 0,1.'},{v:0.1,m:'Anche nella differenza gli errori si sommano: 0,1 + 0,1.'}]},
+  c1a:{ok:5, traps:[{v:7,m:'Hai sommato i moduli: si fa solo con stessa direzione e verso. Qui serve Pitagora.'},{v:25,m:'25 è R². Manca la radice.'}]},
+  c1b:{ok:8.485, tol:0.02, traps:[{v:12,m:'Hai sommato i moduli: si fa solo con stessa direzione e verso. Qui serve Pitagora.'},{v:72,m:'72 è R². Manca la radice.'},{v:8.45,tol:0.004,m:'√72 = 8,49: ricontrolla la radice. Arrotondato: 8,5 N.'}]},
+  c1c:{ok:150, traps:[{v:210,m:'Hai sommato i moduli: qui serve Pitagora.'},{v:22500,m:'22 500 è R². Manca la radice.'}]},
+  c2:{ok:26870, rel:0.012, traps:[{v:194.9,tol:1,m:'Hai fatto la radice di R. Ma R = F · √2, quindi F = R : √2.'},{v:19000,tol:100,m:'Hai diviso per 2: si divide per √2 ≈ 1,41.'},{v:53740,tol:300,m:'Hai moltiplicato per √2: per trovare F si divide.'}]},
+  e1:{ok:1.2, traps:[{v:13.33,tol:0.05,m:'Hai diviso: F = m per a.'},{v:0.075,tol:0.001,m:'Hai diviso a per m: F = m per a.'}]},
+  e2:{ok:2, traps:[{v:18,m:'Hai moltiplicato: a = v diviso Δt.'},{v:0.5,m:'Al contrario: v diviso Δt, cioè 6,0 : 3,0.'}]},
+  e3:{ok:10, traps:[{v:-10,m:'Il modulo è sempre positivo: il meno cambia solo il verso.'},{v:5,m:'Il 2 raddoppia il modulo: 2 × 5.'},{v:2.5,m:'Il 2 moltiplica, non divide.'}]},
+  e4:{ok:1.2e-7, rel:0.01, traps:[{v:120,tol:0.5,m:'Hai usato 3 al posto di 3,0·10⁻⁹ C: nano vuol dire 10⁻⁹.'},{v:-1.2e-7,rel:0.01,m:'Il modulo è positivo: il meno dice solo che il verso è opposto.'}]},
+  f1a:{ok:2, traps:[{v:0.5,m:'Al contrario: d = m : V.'},{v:10,m:'Il volume del cubo è l³ = 125 cm³, non l² = 25.'},{v:50,m:'Il volume del cubo è l³ = 5,0 × 5,0 × 5,0.'}]},
+  f1b:{ok:2000, mag:true},
+  f1c:{ok:2, traps:[{v:0.5,m:'Lato doppio non vuol dire massa doppia: il volume diventa 2³ = 8 volte.'},{v:1,m:'Il volume va con il cubo: 2³ = 8, non 2² = 4.'},{v:2000,m:'Questi sono grammi: in kg fa 2,0.'}]},
+  f2:{ok:10.5, traps:[{v:0.0952,tol:0.001,m:'Al contrario: d = m : V = 52,5 : 5,0.'},{v:262.5,m:'Hai moltiplicato: d = m : V.'}]},
+  f3a:{ok:1.646e20, rel:0.035, traps:[{v:1.424e7,rel:0.02,m:'Hai dimenticato il cubo del raggio: r³.'},{v:4.842e13,rel:0.02,m:'Hai fatto r²: serve r³.'},{v:1.235e20,rel:0.02,m:'Manca il 4/3.'},{v:5.24e19,rel:0.02,m:'Manca π.'},{v:4.94e20,rel:0.02,m:'Hai moltiplicato per 4 ma non diviso per 3.'}]},
+  f3b:{ok:3887, rel:0.03, traps:[{v:2.573e-4,rel:0.03,m:'Al contrario: d = m : V.'}]},
+  f4a:{ok:920, mag:true},
+  f4b:{ok:7.9, mag:true},
+  g1:{ok:8.485, tol:0.02, traps:[{v:8.45,tol:0.004,m:'È il valore del quaderno: √72 = 8,49 → 8,5 N.'},{v:12,m:'Qui serve Pitagora, non la somma dei moduli.'}]},
+  g2:{ok:26870, rel:0.012, traps:[{v:194.9,tol:1,m:'Questa è la radice di R, il passaggio sbagliato. F = R : √2.'},{v:19000,tol:100,m:'Si divide per √2 ≈ 1,41, non per 2.'}]},
+  g3:{ok:12.083, tol:0.06, traps:[{v:16,m:'I moduli si sommano solo con stessa direzione e stesso verso.'},{v:10.5,tol:0.01,m:'Questa è la misura sbagliata del quaderno. Calcola con Pitagora.'},{v:6,m:'Si sottrae solo con versi opposti sulla stessa retta.'},{v:146,m:'146 è R². Manca la radice.'}]},
+  g4:{ok:1000, mag:true, traps:[{v:100,m:'Questo è il risultato sbagliato del quaderno: (10⁻²)³ = 10⁻⁶.'}]}
+};
+function chk(id){
+  const sp = SPEC[id], vs = nums($('i'+id).value), f = $('f'+id);
+  if(!vs.length){ f.className='fb n'; f.textContent='Scrivi un numero (puoi usare la virgola).'; return; }
+  if(vs.some(v=>near(v,sp.ok,sp))){ f.className='fb y'; f.textContent='\u2713 Esatto.'; return; }
+  let msg = null;
+  vs.forEach(v=>(sp.traps||[]).forEach(t=>{
+    const tt = {tol:t.tol, rel:t.rel}; if(t.tol==null && t.rel==null) tt.rel = 0.004;
+    if(msg===null && near(v,t.v,tt)) msg = t.m;
+  }));
+  const v = vs[0];
+  if(msg===null && sp.mag && v>0){
+    const L = Math.log(v/sp.ok)/Math.LN10, k = Math.round(L);
+    if(k!==0 && Math.abs(L-k)<0.005) msg = 'Le cifre vanno bene, ma il numero è '+(k>0?'troppo grande':'troppo piccolo')+' di '+volte(Math.abs(k))+' volte. Controlla la conversione.';
+  }
+  f.className='fb n'; f.textContent='\u2717 '+(msg||'Non ancora. Apri il passo 1.');
+}
+function step(btn,q){
+  const all = document.querySelectorAll('[id^="s'+q+'_"]'); let n = 0;
+  for(let i=0;i<all.length;i++) if(all[i].classList.contains('on')) n++;
+  const el = all[n];
+  if(el){ el.classList.add('on'); if(el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'center'}); }
+  if(n+1>=all.length){ const r = $('r'+q); if(r) r.classList.add('on'); btn.style.display='none'; }
+  else { btn.textContent='Continua'; btn.classList.add('solid'); }
+}
+
+/* ---------- scelte: una sola risposta, poi si blocca ---------- */
+function scegli(btn,k){
+  const box = btn.parentNode;
+  if(box.getAttribute('data-done')!==null) return;
+  const ok = +box.getAttribute('data-ok'), bs = box.querySelectorAll('button'), giusto = (k===ok);
+  btn.className = giusto ? 'right' : 'wrong';
+  if(!giusto) bs[ok].className = 'right';
+  box.setAttribute('data-done', giusto?'1':'0');
+  box.classList.add('locked');
+  const w = box.nextElementSibling;
+  if(w && w.classList.contains('why')) w.classList.add('on');
+  const blk = box.closest ? box.closest('.blk') : null;
+  if(blk) punti(blk);
+}
+function punti(blk){
+  const all = blk.querySelectorAll('.opts'); let n = 0, t = 0;
+  for(let i=0;i<all.length;i++){ const v = all[i].getAttribute('data-done'); if(v!==null){ t++; if(v==='1') n++; } }
+  const sc = $('score'+blk.id);
+  if(sc) sc.textContent = 'Giuste: '+n+' su '+all.length+(t<all.length ? ' (ne mancano '+(all.length-t)+')' : (n===all.length ? ' — tutto giusto!' : ''));
+  const r = $('redo'+blk.id); if(r) r.style.display = (t===all.length) ? 'block' : 'none';
+}
+function rifai(id){
+  const blk = $(id), cont = blk.querySelector('.rows'), rows = Array.prototype.slice.call(cont.querySelectorAll('.row'));
+  for(let i=rows.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t = rows[i]; rows[i] = rows[j]; rows[j] = t; }
+  rows.forEach(r=>{
+    const box = r.querySelector('.opts'); box.removeAttribute('data-done'); box.classList.remove('locked');
+    box.querySelectorAll('button').forEach(b=>b.className='');
+    const w = r.querySelector('.why'); if(w) w.classList.remove('on');
+    cont.appendChild(r);
+  });
+  punti(blk);
+  if(blk.scrollIntoView) blk.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ---------- D · disegna la risultante ---------- */
+const DQ = [
+  {t:'<b>1 di 4 · punta-coda.</b> Somma <b style="color:var(--va)">A</b> e <b style="color:var(--vb)">B</b>. Scala: 1 quadretto = 2 N.',
+   vs:[['A','va',[1,5],[4,0]],['B','vb',[7,6],[0,-3]]], s:[1,5], par:false, sc:2, u:'N', mod:10, tol:0.3,
+   how:'R va 4 quadretti a destra e 3 in su: è l\u2019ipotenusa di un triangolo 4 e 3. √(16 + 9) = 5 quadretti → 5 × 2 N = <b>10 N</b>.'},
+  {t:'<b>2 di 4 · parallelogramma.</b> <b style="color:var(--va)">A</b> e <b style="color:var(--vb)">B</b> partono dallo stesso punto O. Scala: 1 quadretto = 1 m/s².',
+   vs:[['A','va',[7,6],[3,-3]],['B','vb',[7,6],[-5,0]]], s:[7,6], par:true, sc:1, u:'m/s²', mod:3.606, tol:0.15,
+   how:'R va 2 quadretti a sinistra e 3 in su: √(4 + 9) = √13 ≈ 3,6 quadretti → <b>3,6 m/s²</b>.'},
+  {t:'<b>3 di 4 · tre vettori.</b> Somma <b style="color:var(--va)">A</b>, <b style="color:var(--vb)">B</b> e <b style="color:var(--vc)">C</b> con il punta-coda. Scala: 1 quadretto = 10 km/h.',
+   vs:[['A','va',[1,7],[3,0]],['B','vb',[7,7],[0,-2]],['C','vc',[10,6],[-1,-2]]], s:[1,7], par:false, sc:10, u:'km/h', mod:44.72, tol:1,
+   how:'R va 2 quadretti a destra e 4 in su: √(4 + 16) = √20 ≈ 4,5 quadretti → <b>45 km/h</b>.'},
+  {t:'<b>4 di 4 · stessa retta.</b> <b style="color:var(--va)">A</b> e <b style="color:var(--vb)">B</b> hanno versi opposti. Scala: 1 quadretto = 5 N.',
+   vs:[['A','va',[2,3],[6,0]],['B','vb',[7,5],[-4,0]]], s:[2,3], par:false, sc:5, u:'N', mod:10, tol:0.2,
+   how:'Versi opposti: 6 − 4 = 2 quadretti verso destra → 2 × 5 N = <b>10 N</b>, nel verso di A.'}
+];
+const DG = {cols:12, rows:8, S:28, O:10};
+let di = 0, dtip = null, dstate = '', dhelp = false;
+function gx(i){ return DG.O+i*DG.S; } function gy(j){ return DG.O+j*DG.S; }
+function dSum(q,n){ let x=0,y=0; for(let k=0;k<(n==null?q.vs.length:n);k++){ x+=q.vs[k][3][0]; y+=q.vs[k][3][1]; } return [x,y]; }
+function dDraw(){
+  const q = DQ[di]; let h = grid(DG.cols,DG.rows,DG.S,DG.O,DG.O), i, j;
+  for(i=0;i<=DG.cols;i++) for(j=0;j<=DG.rows;j++) h += '<circle cx="'+gx(i)+'" cy="'+gy(j)+'" r="2" fill="#C9C2B3"/>';
+  const show = dhelp || dstate==='y';
+  if(show){
+    if(q.par){
+      const a=q.vs[0][3], b=q.vs[1][3], O=q.s;
+      h += '<path d="M'+gx(O[0]+a[0])+' '+gy(O[1]+a[1])+' L'+gx(O[0]+a[0]+b[0])+' '+gy(O[1]+a[1]+b[1])+' M'+gx(O[0]+b[0])+' '+gy(O[1]+b[1])+' L'+gx(O[0]+a[0]+b[0])+' '+gy(O[1]+a[1]+b[1])+'" stroke="'+C.soft+'" stroke-width="2" stroke-dasharray="7 6" fill="none"/>';
+    } else {
+      let p = q.s.slice();
+      q.vs.forEach(v=>{
+        const sameTail = (v[2][0]===p[0] && v[2][1]===p[1]);
+        if(!sameTail) h += arrow(gx(p[0]),gy(p[1]),gx(p[0]+v[3][0]),gy(p[1]+v[3][1]),C[v[1]],C[v[1]],3,true);
+        p = [p[0]+v[3][0], p[1]+v[3][1]];
+      });
+    }
+  }
+  q.vs.forEach(v=>{
+    const t=v[2], d=v[3];
+    h += arrow(gx(t[0]),gy(t[1]),gx(t[0]+d[0]),gy(t[1]+d[1]),C[v[1]],C[v[1]],4.5);
+    const mx = gx(t[0]+d[0]/2), my = gy(t[1]+d[1]/2);
+    h += txt(mx+(d[1]!==0?-14:0), my+(d[1]===0?-9:5), v[0], {w:700,s:17,c:C[v[1]],i:true,a:'middle'});
+  });
+  if(q.par) h += txt(gx(q.s[0])+8, gy(q.s[1])+20, 'O', {w:700,s:16});
+  if(dtip){
+    const col = dstate==='y' ? C.vr : dstate==='n' ? C.no : C.vr;
+    h += arrow(gx(q.s[0]),gy(q.s[1]),gx(dtip[0]),gy(dtip[1]),col,col,5);
+    if(dstate==='y') h += txt(gx((q.s[0]+dtip[0])/2)+10, gy((q.s[1]+dtip[1])/2)-8, 'R', {w:700,s:19,c:C.vr,i:true});
+  }
+  h += '<circle cx="'+gx(q.s[0])+'" cy="'+gy(q.s[1])+'" r="7" fill="'+C.vr+'"/>';
+  for(i=0;i<=DG.cols;i++) for(j=0;j<=DG.rows;j++)
+    h += '<circle class="cp" data-x="'+i+'" data-y="'+j+'" cx="'+gx(i)+'" cy="'+gy(j)+'" r="13" fill="#000" fill-opacity="0"/>';
+  $('dg').innerHTML = h;
+}
+function dShow(){
+  const q = DQ[di];
+  $('dq').innerHTML = q.t;
+  dtip = null; dstate = ''; dhelp = false;
+  $('dfb').className='fb'; $('dfb').textContent='';
+  $('dmod').style.display='none'; $('idm').value=''; $('fdm').className='fb'; $('fdm').textContent='';
+  $('dhow').classList.remove('on'); $('dhow').innerHTML = q.how;
+  $('dmu').textContent = q.u; $('dmodq').textContent = 'Quanto vale il modulo di R? (1 quadretto = '+q.sc+' '+q.u+')';
+  $('dnext').style.display='none'; ['dchk','dhelp','dclr'].forEach(id=>$(id).style.display='');
+  dDraw();
+}
+function dTap(i,j){
+  if(dstate==='y') return;
+  const q = DQ[di];
+  if(i===q.s[0] && j===q.s[1]) return;
+  dtip = [i,j]; dstate=''; $('dfb').className='fb'; $('dfb').textContent=''; dDraw();
+}
+function dClear(){ if(dstate==='y') return; dtip=null; dstate=''; $('dfb').className='fb'; $('dfb').textContent=''; dDraw(); }
+function dHelp(){ dhelp = true; dDraw(); $('dfb').className='fb'; $('dfb').textContent = DQ[di].par ? 'Le parallele tratteggiate si incontrano dove finisce R.' : 'I vettori tratteggiati sono messi in coda: R finisce sulla punta dell\u2019ultimo.'; }
+function dCheck(){
+  const q = DQ[di], f = $('dfb');
+  if(dstate==='y') return;
+  if(!dtip){ f.className='fb n'; f.textContent='Tocca prima il punto dove finisce R.'; return; }
+  const S = dSum(q), dx = dtip[0]-q.s[0], dy = dtip[1]-q.s[1];
+  if(dx===S[0] && dy===S[1]){
+    dstate='y'; dDraw(); f.className='fb y'; f.textContent='\u2713 Esatto. Ora il modulo.';
+    ['dchk','dhelp','dclr'].forEach(id=>$(id).style.display='none');
+    $('dmod').style.display='block';
+    $('dnext').style.display='block'; $('dnext').textContent = (di===DQ.length-1) ? 'Finito: ricomincia' : 'Prossimo';
+    return;
+  }
+  dstate='n'; dDraw();
+  const is = v=>dx===v[0] && dy===v[1];
+  const A = q.vs[0][3], B = q.vs[1][3];
+  let m;
+  if(is(A)) m = 'Quella è la punta di A: manca B. Metti la coda di B sulla punta di A.';
+  else if(q.vs.length===3 && is(dSum(q,2))) m = 'Manca C: anche C va messo in coda, sulla punta di B.';
+  else if(q.vs.some(v=>is(v[3]))) m = 'Hai disegnato un vettore solo. R è la somma di tutti.';
+  else if(q.vs.length===2 && is([A[0]-B[0],A[1]-B[1]])) m = 'Hai sottratto B: va messo con il suo verso, non al contrario.';
+  else m = 'Non ancora. Tocca «Aiuto» per vedere i vettori spostati.';
+  f.className='fb n'; f.textContent='\u2717 '+m;
+}
+function dModCheck(){
+  const q = DQ[di], vs = nums($('idm').value), f = $('fdm');
+  if(!vs.length){ f.className='fb n'; f.textContent='Scrivi un numero.'; return; }
+  if(vs.some(v=>Math.abs(v-q.mod)<=q.tol)){ f.className='fb y'; f.textContent='\u2713 Esatto.'; return; }
+  const quad = q.mod/q.sc;
+  if(q.sc!==1 && Math.abs(vs[0]-quad)<=q.tol/q.sc+0.05) { f.className='fb n'; f.textContent='\u2717 Questi sono quadretti: moltiplica per la scala (× '+q.sc+').'; return; }
+  f.className='fb n'; f.textContent='\u2717 Non ancora. Tocca «Come si calcola?».';
+}
+function dNext(){ di = (di===DQ.length-1) ? 0 : di+1; dShow(); }
+$('dg').addEventListener('click', e=>{
+  const t = e.target; if(t && t.getAttribute && t.getAttribute('data-x')!==null) dTap(+t.getAttribute('data-x'), +t.getAttribute('data-y'));
+});
+
+/* ---------- G3 · il disegno del quaderno ---------- */
+(function(){
+  const O=[40,110], k=14, r30=Math.PI/6, r60=Math.PI/3;
+  const B1=[O[0]+5*k*Math.cos(r30), O[1]-5*k*Math.sin(r30)], B2=[O[0]+11*k*Math.cos(r60), O[1]+11*k*Math.sin(r60)];
+  let h = '<path d="M10 110 H290" stroke="'+C.soft+'" stroke-width="1.5" stroke-dasharray="5 5"/>';
+  h += '<path d="M70 110 A30 30 0 0 0 66 95" stroke="'+C.soft+'" stroke-width="1.5" fill="none"/>'+txt(74,106,'30°',{s:12,c:C.soft});
+  h += '<path d="M74 110 A34 34 0 0 1 57 139" stroke="'+C.soft+'" stroke-width="1.5" fill="none"/>'+txt(76,136,'60°',{s:12,c:C.soft});
+  h += arrow(B1[0],B1[1],B2[0],B2[1],C.no,C.no,3.5,true);
+  h += txt(150,170,'✗ quaderno',{s:15,w:700,c:C.no});
+  h += arrow(O[0],O[1],B1[0],B1[1],C.va,C.va,4.5); h += txt(B1[0]+8,B1[1]-4,'B₁ = 5 T',{s:15,w:700,c:C.va});
+  h += arrow(O[0],O[1],B2[0],B2[1],C.vb,C.vb,4.5); h += txt(8,204,'B₂ = 11 T',{s:15,w:700,c:C.vb});
+  h += '<circle cx="'+O[0]+'" cy="'+O[1]+'" r="5" fill="'+C.ink+'"/>';
+  $('g3svg').innerHTML = h;
+})();
+
+/* ---------- voce ---------- */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==='it-IT') || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert('Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome.'); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove('on'); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
+  u.lang = 'it-IT'; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove('on'); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add('on');
+  speechSynthesis.speak(u);
+}
+
+/* ---------- avvio ---------- */
+(function(){
+  punti($('A1'));
+  dShow();
+  const ins = document.querySelectorAll('.chk input');
+  for(let i=0;i<ins.length;i++) ins[i].addEventListener('keydown', function(e){
+    if(e.key!=='Enter') return;
+    const b = this.parentNode.querySelector('button'); if(b) b.click();
+  });
+})();
+
+</script>
+</body>
+</html>
