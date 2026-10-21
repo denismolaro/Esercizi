@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chimica — Prova più difficile</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --giu:#1D5FA8; --su:#B4531A;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+.vers{display:flex; gap:8px; margin:6px 0 12px}
+.vers button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:12px; padding:9px 8px; font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer; line-height:1.35}
+.vers button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.vers button small{display:block; font-weight:600; font-size:12.5px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+details.form{border:2px solid var(--accent-line); border-radius:12px; background:#fff; margin:12px 0; font-size:16px}
+details.form summary{padding:10px 14px; font-weight:700; color:var(--accent); cursor:pointer}
+details.form .in{padding:0 14px 12px; line-height:1.6}
+details.form table{font-size:15px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:16px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qnum .pt{color:var(--soft); letter-spacing:.04em}
+.qnum .pt.y{color:var(--ok)}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 10px}
+.sub{font-size:16px; color:var(--soft); margin:0 0 6px}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:8px 0; line-height:1.5}
+button{font:inherit; cursor:pointer}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:6px 8px; text-align:center}
+th{background:var(--accent-soft); font-size:14px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:center}
+.chk input, .ns input, .rt input{font:inherit; font-size:18px; padding:10px 12px; border:2px solid var(--rule); border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input{flex:1}
+input:focus{outline:none; border-color:var(--accent)}
+input[readonly]{background:#F6F4EF}
+.chk .u{font-size:16px; color:var(--soft); font-weight:600; min-width:46px}
+.rt{display:flex; gap:8px; align-items:center; margin-top:8px}
+.rt input{width:90px; text-align:center}
+.rt .c{font-size:24px; font-weight:700}
+.opts{display:grid; gap:7px; margin-top:8px; grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 6px; min-width:0;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.3; overflow-wrap:break-word}
+.opts button.sel{border-color:var(--ink); background:#E9ECF1}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.opts.locked button{cursor:default}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+@media (max-width:460px){ .opts.three button{font-size:14px; padding:10px 3px} }
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:20px; font-weight:700; font-family:"Times New Roman",Georgia,serif; margin-bottom:6px}
+.op .to{font-family:-apple-system,Arial,sans-serif; font-size:16px; color:var(--soft); font-weight:600}
+.ns{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+.ns .nm{flex:1 1 auto; width:100%; font-size:19px}
+.ns .x{font-family:"Times New Roman",Georgia,serif; font-size:21px; white-space:nowrap}
+.ns .pw{display:flex; align-items:center; gap:3px; transform:translateY(-11px)}
+.ns .ex{width:58px; font-size:16px; padding:5px 6px; border-radius:9px; text-align:center}
+.ns .pm{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:3px 7px; font-size:15px; font-weight:700; color:var(--ink)}
+.fb{display:none; font-size:16px; line-height:1.55; margin-top:8px; border-radius:10px; padding:8px 12px}
+.fb.on{display:block}
+.fb.y{background:var(--ok-soft); color:var(--ok); font-weight:700}
+.fb.n{background:var(--no-soft); color:var(--no)}
+.fb.n b.t{display:block}
+.fb .giusta{color:var(--ink); font-weight:700; margin-top:4px}
+.fb .how{color:var(--ink); background:#fff; border-radius:8px; padding:8px 10px; margin-top:6px; font-size:15.5px; line-height:1.6}
+.row.y .op::after{content:" ✓"; color:var(--ok)}
+.row.n .op::after{content:" ✗"; color:var(--no)}
+.bottom{margin-top:26px}
+.prog{font-size:15px; color:var(--soft); text-align:center; font-weight:600; margin-bottom:8px}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:700; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.btn.warn{background:var(--warn); border-color:var(--warn); color:#fff}
+.esito{display:none; border:2px solid var(--accent-line); background:var(--accent-soft); border-radius:14px; padding:16px; margin:14px 0}
+.esito.on{display:block}
+.esito .voto{font-size:44px; font-weight:800; line-height:1.1; letter-spacing:-.02em}
+.esito .voto.ok{color:var(--ok)} .esito .voto.ko{color:var(--no)}
+.esito .det{font-size:16px; margin-top:6px}
+.esito table{background:#fff}
+.esito td{text-align:left} .esito td.c{text-align:center}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+.qq{font-size:18px; line-height:1.55; font-weight:600; margin-bottom:6px}
+.qq .qn{color:var(--accent); font-weight:800}
+.qq .pti{color:var(--soft); font-weight:600; font-size:15px}
+.spk.mini{font-size:14px; padding:0 7px; vertical-align:middle; margin-left:2px}
+.mc{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.mc button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left;
+  font-size:17px; color:var(--ink); line-height:1.35; min-height:44px}
+.mc button.sel{border-color:var(--ink); background:#E9ECF1; font-weight:700}
+.mc button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok); font-weight:700}
+.mc button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.mc.locked button{cursor:default}
+.mc.locked button:not(.right):not(.wrong){opacity:.45}
+.mc.row3{flex-direction:row; flex-wrap:wrap} .mc.row3 button{flex:1 1 30%; text-align:center}
+.row.y .qq::after{content:" ✓"; color:var(--ok)}
+.row.n .qq::after{content:" ✗"; color:var(--no)}
+.esito .voto small{font-size:20px; color:var(--soft); font-weight:700}
+details.form table td, details.form table th{padding:4px 6px}
+.tav{display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:5px; margin:8px 0 2px}
+.tav div{border:1px solid var(--rule); border-radius:8px; text-align:center; padding:3px 2px; line-height:1.25; background:#fff}
+.tav b{display:block; font-size:18px} .tav i{font-style:normal; font-size:11.5px; color:var(--soft)} .tav span{font-size:13px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Chimica · prova 2</div>
+  <h1>Verifica di scienze — prova più difficile</h1>
+  <p class="lead">Stesso formato della verifica del 6 ottobre, ma con domande di teoria più difficili: servono ragionamento e calcoli, non solo memoria. <b>Non c'è tempo limite.</b> Le risposte restano salvate. Alla fine tocca <b>Consegna</b> per la correzione.</p>
+  <div class="vers" id="vers"></div>
+</header>
+
+<div class="note"><b>Punteggio come nel compito.</b> C'è una sola risposta giusta per domanda. +1 giusta, 0 vuota, −0,25 sbagliata.<br>
+Conviene rispondere se riesci a scartare almeno una risposta. Per togliere una scelta, toccala di nuovo.<br>
+Come nel compito, alcuni numeri usano il <b>punto come virgola</b>: 1.5 carati = 1,5 carati.</div>
+
+<details class="form" open><summary>Tavola periodica (estratto): Z e massa atomica</summary><div class="in">
+  <div class="tav"><div><i>Z = 1</i><b>H</b><span>1,008</span></div><div><i>Z = 6</i><b>C</b><span>12,01</span></div><div><i>Z = 7</i><b>N</b><span>14,01</span></div><div><i>Z = 8</i><b>O</b><span>16,00</span></div><div><i>Z = 10</i><b>Ne</b><span>20,18</span></div><div><i>Z = 11</i><b>Na</b><span>22,99</span></div><div><i>Z = 12</i><b>Mg</b><span>24,31</span></div><div><i>Z = 13</i><b>Al</b><span>26,98</span></div><div><i>Z = 14</i><b>Si</b><span>28,09</span></div><div><i>Z = 15</i><b>P</b><span>30,97</span></div><div><i>Z = 16</i><b>S</b><span>32,07</span></div><div><i>Z = 17</i><b>Cl</b><span>35,45</span></div><div><i>Z = 18</i><b>Ar</b><span>39,95</span></div><div><i>Z = 19</i><b>K</b><span>39,10</span></div><div><i>Z = 20</i><b>Ca</b><span>40,08</span></div><div><i>Z = 26</i><b>Fe</b><span>55,85</span></div><div><i>Z = 30</i><b>Zn</b><span>65,38</span></div></div>
+</div></details>
+
+<details class="form"><summary>Il foglio delle formule (usalo se in classe è permesso)</summary><div class="in">
+  K = °C + 273,15 · una <b>differenza</b> di 1 °C = 1 K<br>
+  1 cal = 4,186 J · 1 kcal = 1000 cal · 1 kJ = 1000 J<br>
+  mg → g: ÷ 1000 · g → kg: ÷ 1000 · kg → g: × 1000<br>
+  Sconto: prezzo − prezzo × % / 100<br>
+  <b>Protoni</b> = Z (non cambiano mai) · ione <b>−</b>: elettroni in più · ione <b>+</b>: elettroni in meno<br>
+  <b>Massa di una formula</b>: somma delle masse atomiche × gli indici<br>
+  <b>% di un elemento</b> = massa dell'elemento nella formula / massa della formula × 100<br>
+  <b>Grammi di un elemento</b> = grammi di composto × % / 100<br>
+  <b>Lavoisier</b>: massa dei reagenti = massa dei prodotti<br>
+  <b>Eccesso</b>: calcola quanto serve dell'altro; parti dal reagente che finisce
+</div></details>
+
+<div class="esito" id="esitoTop"></div>
+<div id="exam"></div>
+
+<div class="bottom">
+  <div class="prog" id="prog"></div>
+  <button class="btn solid" id="consegna" onclick="consegna()">Consegna</button>
+  <div class="esito" id="esito"></div>
+  <button class="btn" id="ricomincia" onclick="ricomincia()" style="display:none">Ricomincia (risposte rimescolate)</button>
+  <button class="btn" id="altra" onclick="altra()" style="display:none"></button>
+</div>
+
+<p class="foot">Palestra · Chimica — prova più difficile</p>
+</div>
+
+<script>
+/* ═══════════ LE DUE VERSIONI ═══════════
+   Ogni parte: domande a scelta multipla {id, q, o:[opzioni], ok:indice giusto, why, pt}
+   Esercizi: {id, t, q, say, passi:[{id, tipo:"n"|"s", lab, u, ok, tol, tr, pt, ans}], how}      */
+const PARTI = ["Parte 1 · misure ed energia", "Parte 2 · atomi, ioni, formule, reazioni", "Parte 3 · materia e passaggi di stato"];
+const VER = [
+{ /* ─────────── versione unica, domande più difficili ─────────── */
+ MC:[
+ [ /* parte 1 · misure ed energia */
+  {id:"a1", q:"Un cubo di alluminio con lato 2,0 cm ha massa 21,6 g. Un secondo cubo dello stesso alluminio ha lato 4,0 cm. Quali sono la sua massa e la sua densità?",
+   o:["43,2 g e 2,7 g/cm³","172,8 g e 2,7 g/cm³","172,8 g e 21,6 g/cm³","86,4 g e 5,4 g/cm³"], ok:1,
+   why:"Lato doppio → volume 2 × 2 × 2 = 8 volte più grande: da 8 cm³ a 64 cm³. Anche la massa diventa 8 volte: 21,6 × 8 = 172,8 g. La densità non cambia: 21,6 / 8 = 2,7 g/cm³, perché è una proprietà intensiva."},
+  {id:"a2", q:"Un gas è chiuso in una bombola rigida e sigillata. Se lo scaldiamo, la sua densità:",
+   o:["aumenta","diminuisce","resta uguale","non si può dire con i dati a disposizione"], ok:2,
+   why:"Nella bombola chiusa la massa del gas non cambia, e il volume è quello della bombola, che è rigida. d = m / V: resta uguale. Aumenta invece la pressione. Il gas si dilaterebbe solo se avesse spazio per farlo."},
+  {id:"a3", q:"Una gemma di 1.5 carati (1 carato = 200 mg) ha densità 3.5 g/cm³. Il suo volume è circa:",
+   o:["0.086 cm³","86 cm³","1.05 cm³","0.0086 cm³"], ok:0,
+   why:"Massa: 1,5 × 200 = 300 mg = 0,3 g. V = m / d = 0,3 / 3,5 ≈ 0,086 cm³. (1,05 viene da 0,3 × 3,5: hai moltiplicato invece di dividere. 86 viene dall'aver lasciato la massa in mg.)"},
+  {id:"a4", q:"Un liquido passa da 20 °C a 80 °C. Di quanti kelvin è aumentata la sua temperatura?",
+   o:["60 K","333,15 K","353,15 K","273,15 K"], ok:0,
+   why:"Una differenza di temperatura è la stessa in °C e in K: 80 − 20 = 60 °C = 60 K. 353,15 K è la temperatura finale, non l'aumento. Il +273,15 si aggiunge alle temperature, non alle differenze."},
+  {id:"a5", q:"Il prezzo di una bici aumenta del 20% e poi, durante i saldi, diminuisce del 20%. Rispetto al prezzo iniziale, ora la bici costa:",
+   o:["lo stesso","il 4% in più","il 4% in meno","il 20% in meno"], ok:2,
+   why:"Prova con 100 euro: +20% → 120 euro. Il 20% di 120 è 24 → 120 − 24 = 96 euro. È il 4% in meno: lo sconto si calcola sul prezzo già aumentato, che è più alto."},
+  {id:"a6", q:"Quale delle seguenti affermazioni è corretta?",
+   o:["Da 10 °C a 20 °C la temperatura assoluta raddoppia","Il valore di una temperatura in kelvin è sempre più grande del suo valore in °C","−300 °C è una temperatura che si può raggiungere","Un aumento di 1 K è più grande di un aumento di 1 °C"], ok:1,
+   why:"T(K) = T(°C) + 273,15: il numero in kelvin è sempre più grande. Da 10 °C a 20 °C si passa da 283,15 K a 293,15 K: non raddoppia. Sotto −273,15 °C (0 K) non si scende. I gradini delle due scale sono uguali."},
+  {id:"a7", q:"Quale delle seguenti affermazioni è ERRATA?",
+   o:["1 kcal equivale a 4186 J","Il joule è l'unità di misura dell'energia nel SI","Per scaldare di 1 °C un grammo d'acqua serve circa 1 caloria","1 J equivale a 4,186 cal"], ok:3,
+   why:"È al contrario: 1 cal = 4,186 J. Il joule è più piccolo della caloria: 1 J è circa 0,24 cal."},
+  {id:"a8", q:"In un cilindro graduato con sensibilità 1 mL ci sono 46 mL d'acqua. Immergendo un sasso, il livello sale a 58 mL. Come si scrive correttamente il volume del sasso?",
+   o:["12 mL","12,0 mL","58 mL","104 mL"], ok:0,
+   why:"Volume del sasso = 58 − 46 = 12 mL. Il cilindro legge solo i mL interi: scrivere 12,0 mL vorrebbe dire conoscere anche i decimi, che lo strumento non misura."},
+  {id:"a9", q:"Una merendina fornisce 200 kcal. In kilojoule sono circa:",
+   o:["837 kJ","48 kJ","837 000 kJ","0,837 kJ"], ok:0,
+   why:"1 kcal = 4,186 kJ, quindi 200 × 4,186 = 837 kJ. 48 viene da 200 ÷ 4,186: hai diviso invece di moltiplicare."}
+ ],
+ [ /* parte 2 · atomi, ioni, formule, reazioni */
+  {id:"b1", pt:3, q:"Nell'acqua il rapporto di combinazione in massa fra ossigeno e idrogeno è 8 : 1. Si fanno reagire 10 g di idrogeno con 72 g di ossigeno. Quale affermazione è corretta? <span class='pti'>(3 punti)</span>",
+   o:["si formano 82 g di acqua","avanzano 8 g di ossigeno","si formano 81 g di acqua e avanza 1 g di idrogeno","si formano 80 g di acqua e avanzano 2 g di idrogeno","non avanza nulla"], ok:2,
+   why:"Per 72 g di ossigeno servono 72 / 8 = 9 g di idrogeno. Ce ne sono 10: avanza 1 g di idrogeno. Acqua = 72 + 9 = 81 g. (82 g: hai sommato anche l'idrogeno che avanza.)"},
+  {id:"b2", q:"Nella formula Ca(NO<sub>3</sub>)<sub>2</sub> ci sono in tutto:",
+   o:["3 elementi e 9 atomi","3 elementi e 5 atomi","4 elementi e 9 atomi","9 elementi e 3 atomi"], ok:0,
+   why:"Elementi: Ca, N, O → 3. Atomi: 1 Ca + 2 N + 2 × 3 = 6 O → 9. Il 2 fuori dalla parentesi moltiplica tutto quello che c'è dentro."},
+  {id:"b3", q:"Un atomo neutro ha numero di massa 27 e contiene 14 neutroni. Usando la tavola periodica, di quale elemento si tratta?",
+   o:["silicio (Z = 14)","alluminio (Z = 13)","cobalto (Z = 27)","azoto (Z = 7)"], ok:1,
+   why:"Protoni = numero di massa − neutroni = 27 − 14 = 13. Z = 13 è l'alluminio. (14 sono i neutroni, non i protoni; 27 è il numero di massa, non Z.)"},
+  {id:"b4", q:"Gli atomi <sup>35</sup>Cl e <sup>37</sup>Cl hanno:",
+   o:["lo stesso numero di neutroni e diverso numero di protoni","lo stesso numero di protoni e diverso numero di neutroni","lo stesso numero di massa","diverso numero di elettroni, anche se sono neutri"], ok:1,
+   why:"Sono isotopi: stesso elemento, quindi stessi protoni (17). Cambiano i neutroni: 35 − 17 = 18 e 37 − 17 = 20. Da neutri hanno anche gli stessi elettroni (17)."},
+  {id:"b5", q:"Quanti protoni (p) e quanti elettroni (e⁻) ci sono nello ione PO<sub>4</sub><sup>3−</sup>?",
+   o:["47p; 50e⁻","47p; 44e⁻","31p; 34e⁻","47p; 47e⁻"], ok:0,
+   why:"Protoni: P ha Z = 15, O ha Z = 8 → 15 + 4 × 8 = 47. La carica 3− vuol dire 3 elettroni in più: 50. (31 è la massa atomica del fosforo, non il numero di protoni.)"},
+  {id:"b6", q:"Quanti atomi ci sono in tutto in 3 H<sub>2</sub>SO<sub>4</sub>?",
+   o:["21 atomi, di cui 12 di ossigeno","7 atomi, di cui 4 di ossigeno","21 atomi, di cui 4 di ossigeno","12 atomi, di cui 3 di zolfo"], ok:0,
+   why:"Una molecola ha 2 + 1 + 4 = 7 atomi. Il 3 davanti vale per tutta la molecola: 3 × 7 = 21 atomi, di cui 3 × 4 = 12 di ossigeno."},
+  {id:"b7", q:"Uno ione ha 16 protoni e 18 elettroni. Quale scrittura lo rappresenta?",
+   o:["S<sup>2−</sup>","Ar","S<sup>2+</sup>","Cl<sup>−</sup>"], ok:0,
+   why:"16 protoni → zolfo (Z = 16). Ha 2 elettroni in più dei protoni → carica 2−: S²⁻. Cl⁻ ha 17 protoni; Ar ha 18 protoni ed è neutro."},
+  {id:"b8", q:"Quale scrittura rappresenta una sola particella formata da due atomi di ossigeno legati, con in tutto due cariche negative?",
+   o:["2 O<sup>2−</sup>","O<sup>2−</sup>","O<sub>2</sub><sup>2−</sup>","2 O<sub>2</sub>"], ok:2,
+   why:"Il pedice 2 dice che i due atomi sono legati nella stessa particella; la carica 2− scritta in alto vale per tutta la particella. 2 O²⁻ sono due ioni separati, ognuno con carica 2−."},
+  {id:"b9", q:"Quale delle seguenti è una trasformazione chimica?",
+   o:["la sublimazione della naftalina","lo scioglimento del sale in acqua","l'elettrolisi dell'acqua, che produce idrogeno e ossigeno","la condensazione del vapore su un vetro freddo"], ok:2,
+   why:"Nell'elettrolisi le molecole d'acqua si rompono e si formano sostanze nuove, idrogeno e ossigeno. Gli altri sono cambiamenti fisici: le sostanze restano le stesse."}
+ ],
+ [ /* parte 3 · materia e passaggi di stato */
+  {id:"c1", q:"Il bronzo è una lega di rame e stagno, uguale in ogni punto. È:",
+   o:["un composto","un miscuglio eterogeneo","un miscuglio omogeneo (una soluzione solida)","un elemento"], ok:2,
+   why:"Contiene due sostanze, rame e stagno, mescolate senza formarne una nuova, e ha un solo aspetto: è un miscuglio omogeneo, cioè una soluzione solida. Non è un composto: le proporzioni possono cambiare."},
+  {id:"c2", q:"Durante la fusione del ghiaccio a 0 °C, il calore fornito serve soprattutto a:",
+   o:["aumentare l'energia cinetica media delle molecole","aumentare l'energia potenziale delle molecole, allontanandole","rompere le molecole d'acqua in idrogeno e ossigeno","far salire la temperatura"], ok:1,
+   why:"Nella sosta termica la temperatura non cambia, quindi l'energia cinetica media resta uguale. Il calore serve a vincere le forze tra le molecole: aumenta l'energia potenziale."},
+  {id:"c3", q:"Il mercurio fonde a −39 °C e bolle a 357 °C. A −50 °C e a 400 °C si trova rispettivamente allo stato:",
+   o:["solido e aeriforme","liquido e aeriforme","solido e liquido","liquido e liquido"], ok:0,
+   why:"−50 °C è più freddo di −39 °C: è sotto la fusione → solido. 400 °C è sopra 357 °C → aeriforme."},
+  {id:"c4", q:"L'etere etilico fonde a −116 °C e bolle a 35 °C. Un campione di etere viene scaldato da 4 °C a 50 °C e poi raffreddato fino a −20 °C, sempre alla pressione di 1 atm. Quali passaggi di stato subisce in tutto?",
+   o:["ebollizione e poi condensazione","fusione e poi solidificazione","ebollizione e poi solidificazione","nessuno"], ok:0,
+   why:"A 4 °C è liquido (tra −116 e 35). Scaldandolo sopra 35 °C bolle e diventa aeriforme. Raffreddandolo sotto 35 °C condensa e torna liquido. Non solidifica: −20 °C è molto più caldo di −116 °C."},
+  {id:"c5", q:"A 3000 m di quota l'acqua bolle a circa 90 °C. Perché?",
+   o:["perché in montagna l'aria è più fredda","perché la pressione esterna è più bassa, e la tensione di vapore la eguaglia a una temperatura più bassa","perché l'acqua di montagna contiene meno sali","perché in quota c'è meno ossigeno"], ok:1,
+   why:"L'acqua bolle quando la tensione di vapore eguaglia la pressione esterna. In quota la pressione è più bassa, quindi basta una temperatura più bassa. La temperatura dell'aria non c'entra: l'acqua bolle a 90 °C anche in una cucina calda."}
+ ]],
+ EX:[
+  {id:"e1", t:"Esercizio 1", q:"Quanti grammi di Fe servono per produrre 500 g di Fe<sub>2</sub>O<sub>3</sub>?",
+   say:"Esercizio 1. Quanti grammi di ferro servono per produrre 500 grammi di ossido di ferro, effe e due o tre?",
+   tav:"Fe, O",
+   passi:[{id:"e1a",tipo:"n",lab:"a) Massa della formula Fe₂O₃ = 2 × Fe + 3 × O",u:"u",ok:159.70,tol:0.002,pt:1,ans:"159,70 u",
+           tr:[[71.85,"Hai contato un solo atomo per elemento: Fe₂O₃ ha 2 atomi di Fe e 3 di O."],[103.85,"Fe₂: il ferro conta due volte. 2 × 55,85 + 3 × 16,00."],[143.70,"O₃: l'ossigeno conta tre volte. 2 × 55,85 + 3 × 16,00."]]},
+          {id:"e1b",tipo:"n",lab:"b) Rapporto Fe : Fe₂O₃ = massa del ferro nella formula / massa della formula (grammi di Fe in 1 g di composto)",u:"",ok:0.6994,alt:[69.94],tol:0.01,pt:1,ans:"0,699 (cioè 69,9%)",
+           tr:[[0.3497,"Hai contato un solo atomo di Fe: in Fe₂O₃ sono 2, quindi 2 × 55,85 = 111,70."],[34.97,"Hai contato un solo atomo di Fe: in Fe₂O₃ sono 2, quindi 2 × 55,85 = 111,70."],[2.327,"Hai diviso per il solo ossigeno: il rapporto è con tutto il composto, 111,70 / 159,70."],[1.43,"Hai fatto il rapporto al contrario: Fe sopra, 111,70 / 159,70."],[0.3006,"Questo è il rapporto dell'ossigeno: 48,00 / 159,70."],[30.06,"Questa è la percentuale dell'ossigeno."]]},
+          {id:"e1c",tipo:"n",lab:"c) Grammi di Fe",u:"g",ok:349.72,tol:0.01,pt:2,ans:"349,7 g",
+           tr:[[340.3,"Hai tolto 159,70 dai grammi: masse atomiche e grammi non si sottraggono. Usa il rapporto: 500 × 111,70 / 159,70."],[174.86,"Hai contato un solo atomo di Fe: in Fe₂O₃ sono 2."],[150.28,"Questi sono i grammi di ossigeno."],[714.86,"Hai invertito la proporzione: 500 × 111,70 / 159,70."]]}],
+   how:"a) Dalla tavola: Fe = 55,85, O = 16,00. Fe₂O₃ = 2 × 55,85 + 3 × 16,00 = 159,70 u.<br>b) Rapporto: in 159,70 g di Fe₂O₃ ci sono 2 × 55,85 = 111,70 g di Fe → 111,70 / 159,70 = 0,699 (cioè il 69,9%).<br>c) Fe = 500 × 0,699 = <b>349,7 g</b>.<br>Con la proporzione è lo stesso: 111,70 : 159,70 = x : 500."},
+  {id:"e2", t:"Esercizio 2", q:"Quanto solfuro di zinco ZnS è possibile ottenere facendo reagire 0,0981 kg di Zn con 40,0 g di S?",
+   say:"Esercizio 2. Quanto solfuro di zinco è possibile ottenere facendo reagire 0 virgola 0 9 8 1 chilogrammi di zinco con 40 virgola 0 grammi di zolfo?",
+   tav:"Zn, S",
+   passi:[{id:"e2a",tipo:"n",lab:"a) 0,0981 kg di Zn in grammi",u:"g",ok:98.1,tol:0.002,pt:0.5,ans:"98,1 g",
+           tr:[[9.81,"Da kg a g si moltiplica per 1000, non per 100."],[0.0000981,"Da kg a g si moltiplica per 1000, non si divide."]]},
+          {id:"e2r",tipo:"n",lab:"b) Rapporto di combinazione S : Zn dalla tavola",u:"",ok:0.4905,tol:0.01,pt:1,ans:"0,491",
+           tr:[[2.039,"Hai fatto Zn / S. Qui serve S / Zn: 32,07 / 65,38."]]},
+          {id:"e2b",tipo:"n",lab:"c) Zolfo che servirebbe per tutto lo zinco",u:"g",ok:48.12,tol:0.01,pt:1,ans:"48,1 g",
+           tr:[[200.0,"Hai invertito il rapporto: S / Zn = 32,07 / 65,38."],[0.0481,"Hai usato lo zinco in kg: prima trasformalo in grammi."]]},
+          {id:"e2c",tipo:"s",lab:"d) Il reagente in eccesso è…",o:["lo zinco","lo zolfo","nessuno"],ok:0,pt:0.5,ans:"lo zinco"},
+          {id:"e2d",tipo:"n",lab:"e) ZnS che si forma",u:"g",ok:121.55,tol:0.01,pt:1,ans:"121,5 g",
+           tr:[[138.1,"Hai sommato tutto: lo zinco è in eccesso, non reagisce tutto."],[146.22,"Hai usato 48,1 g di zolfo, ma ne hai solo 40,0. Lo zolfo finisce: parti dallo zolfo."]]}],
+   how:"a) 0,0981 kg = 98,1 g.<br>b) Dalla tavola: Zn = 65,38, S = 32,07. In ZnS 65,38 g di Zn si legano a 32,07 g di S. Rapporto S : Zn = 32,07 / 65,38 = 0,491.<br>c) Per tutto lo zinco servirebbero 98,1 × 0,491 = 48,1 g di S.<br>d) Ma lo zolfo è solo 40,0 g: finisce lo zolfo, quindi in eccesso c'è lo <b>zinco</b>.<br>e) Parto dallo zolfo: Zn che reagisce = 40,0 / 0,491 = 81,5 g (avanzano 98,1 − 81,5 = 16,6 g di Zn). ZnS = 81,5 + 40,0 = <b>121,5 g</b>."},
+  {id:"e3", t:"Esercizio 3", q:"Nella reazione: acido cloridrico + idrossido di sodio = cloruro di sodio + acqua<br>si sono ottenuti 29,22 g di cloruro di sodio e 9,01 g di acqua. Quanti g di acido cloridrico (HCl) sono stati utilizzati? L'idrossido di sodio è NaOH.",
+   say:"Esercizio 3. Nella reazione: acido cloridrico più idrossido di sodio uguale cloruro di sodio più acqua, si sono ottenuti 29 virgola 22 grammi di cloruro di sodio e 9 virgola 0 1 grammi di acqua. Quanti grammi di acido cloridrico sono stati utilizzati?",
+   tav:"H, O, Na, Cl",
+   passi:[{id:"e3a",tipo:"n",lab:"a) Massa totale dei reagenti",u:"g",ok:38.23,tol:0.004,pt:1,ans:"38,23 g",
+           tr:[[20.21,"Hai sottratto. Per Lavoisier i reagenti pesano quanto i prodotti: 29,22 + 9,01."]]},
+          {id:"e3b",tipo:"n",lab:"b) Massa della formula HCl",u:"u",ok:36.46,tol:0.002,pt:0.5,ans:"36,46 u",
+           tr:[[35.45,"Manca l'idrogeno: 1,008 + 35,45."]]},
+          {id:"e3r",tipo:"n",lab:"c) Massa della formula NaOH",u:"u",ok:40.00,tol:0.002,pt:0.5,ans:"40,00 u",
+           tr:[[38.99,"Manca l'idrogeno: 22,99 + 16,00 + 1,008."],[22.99,"NaOH contiene anche O e H: 22,99 + 16,00 + 1,008."]]},
+          {id:"e3c",tipo:"n",lab:"d) Acido cloridrico: 38,23 divisi nel rapporto acido : idrossido",u:"g",ok:18.23,tol:0.01,pt:2,ans:"18,2 g",
+           tr:[[38.23,"Questa è la massa dei due reagenti insieme: va divisa tra acido e idrossido."],[20.0,"Questi sono i grammi di idrossido di sodio."],[20.21,"Hai fatto 29,22 − 9,01: i prodotti non si sottraggono."]]}],
+   how:"a) Lavoisier: reagenti = prodotti = 29,22 + 9,01 = 38,23 g.<br>b) HCl = 1,008 + 35,45 = 36,46 u.<br>c) NaOH = 22,99 + 16,00 + 1,008 = 40,00 u.<br>d) Acido e idrossido reagiscono nel rapporto 36,46 : 40,00. Acido = 38,23 × 36,46 / (36,46 + 40,00) = <b>18,2 g</b>.<br>Altro modo: il cloro del sale viene tutto dall'acido. NaCl = 22,99 + 35,45 = 58,44 u → acido = 29,22 × 36,46 / 58,44 = 18,2 g."}
+ ]}
+];
+
+
+/* ═══════════ strumenti ═══════════ */
+function $(id){ return document.getElementById(id); }
+function num(s){
+  s = String(s==null?"":s).trim();
+  if(!s) return NaN;
+  s = s.replace(/\s+/g,"").replace(/[\u2212\u2013]/g,"-");
+  s = s.replace(/(g|u|%)$/,"");
+  if(s.indexOf(",")>=0){ if(s.indexOf(".")>=0) s = s.replace(/\./g,""); s = s.replace(/,/g,"."); }
+  if(!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s)) return NaN;
+  return parseFloat(s);
+}
+function near(a,b,rel){ return Math.abs(a-b) <= Math.abs(b)*(rel==null?1e-6:rel) + 1e-15; }
+function volte(k){ const s = String(Math.pow(10,k)); return s.length>4 ? "10<sup>"+k+"</sup>" : s; }
+function pS(x){ /* punti in formato italiano */
+  const r = Math.round(x*100)/100;
+  return String(r).replace("-","−").replace(".",",");
+}
+function rnd(seed){ /* generatore pseudo-casuale riproducibile */
+  return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed>>>15, 1 | seed);
+    t = t + Math.imul(t ^ t>>>7, 61 | t) ^ t; return ((t ^ t>>>14) >>> 0) / 4294967296; };
+}
+function perm(n, r){ const a = []; for(let i=0;i<n;i++) a.push(i); for(let i=n-1;i>0;i--){ const j = Math.floor(r()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+const TAV = '<div class="tav"><div><i>Z = 1</i><b>H</b><span>1,008</span></div><div><i>Z = 6</i><b>C</b><span>12,01</span></div><div><i>Z = 7</i><b>N</b><span>14,01</span></div><div><i>Z = 8</i><b>O</b><span>16,00</span></div><div><i>Z = 10</i><b>Ne</b><span>20,18</span></div><div><i>Z = 11</i><b>Na</b><span>22,99</span></div><div><i>Z = 12</i><b>Mg</b><span>24,31</span></div><div><i>Z = 13</i><b>Al</b><span>26,98</span></div><div><i>Z = 14</i><b>Si</b><span>28,09</span></div><div><i>Z = 15</i><b>P</b><span>30,97</span></div><div><i>Z = 16</i><b>S</b><span>32,07</span></div><div><i>Z = 17</i><b>Cl</b><span>35,45</span></div><div><i>Z = 18</i><b>Ar</b><span>39,95</span></div><div><i>Z = 19</i><b>K</b><span>39,10</span></div><div><i>Z = 20</i><b>Ca</b><span>40,08</span></div><div><i>Z = 26</i><b>Fe</b><span>55,85</span></div><div><i>Z = 30</i><b>Zn</b><span>65,38</span></div></div>';
+
+/* ═══════════ controllo ═══════════ */
+function checkNum(p, s){
+  if(!String(s||"").trim()) return {vuoto:true};
+  const v = num(s);
+  if(!isFinite(v)) return {ok:false, msg:"Il numero non è leggibile."};
+  const tol = p.tol!=null ? p.tol : 0.015;
+  if(near(v,p.ok,tol)) return {ok:true};
+  if(p.alt) for(let i=0;i<p.alt.length;i++) if(near(v,p.alt[i],tol)) return {ok:true};
+  const tr = p.tr||[];
+  for(let i=0;i<tr.length;i++) if(near(v,tr[i][0],0.012)) return {ok:false, msg:tr[i][1]};
+  if(v>0){
+    const L = Math.log(v/p.ok)/Math.LN10, n = Math.round(L);
+    if(n!==0 && Math.abs(L-n)<0.01) return {ok:false, msg:"Le cifre vanno bene, ma il numero è "+(n>0?"troppo grande":"troppo piccolo")+" di "+volte(Math.abs(n))+" volte. Controlla le unità."};
+  }
+  return {ok:false, msg:"Non è giusto."};
+}
+
+/* ═══════════ stato ═══════════ */
+let ver = 0, S = null, armed = false;
+function key(v){ return "chim-dif-"+(v+1); }
+function nuovo(){ return {v:{}, p:{}, done:false, punti:null, seed:Math.floor(Math.random()*1e9)}; }
+function load(v){
+  try{ const t = localStorage.getItem(key(v)); if(t){ const o = JSON.parse(t); if(o && o.v && o.p && o.seed!=null) return o; } }catch(e){}
+  return nuovo();
+}
+function save(){ try{ localStorage.setItem(key(ver), JSON.stringify(S)); }catch(e){} }
+function tuttiMC(V){ let a = []; V.MC.forEach(p=>{ a = a.concat(p); }); return a; }
+function massimo(V){ let t = 0; tuttiMC(V).forEach(q=>{ t += q.pt||1; }); V.EX.forEach(E=>E.passi.forEach(p=>{ t += p.pt; })); return t; }
+function quante(V){ let n = tuttiMC(V).length; V.EX.forEach(E=>{ n += E.passi.length; }); return n; }
+
+/* ═══════════ disegno ═══════════ */
+let ORD = {};
+function render(){
+  const V = VER[ver], r = rnd(S.seed); ORD = {};
+  let h = "";
+  V.MC.forEach((parte,pi)=>{
+    h += '<div class="card"><div class="qhead"><div class="qnum">'+PARTI[pi]+'</div></div><div class="rows">';
+    parte.forEach((q,qi)=>{
+      const o = perm(q.o.length, r); ORD[q.id] = o;
+      h += '<div class="row" id="r'+q.id+'"><div class="qq"><span class="qn">'+(numDomanda(V,q.id))+'.</span> '+q.q
+         + ' <button class="spk mini" onclick="leggi(this)" aria-label="Ascolta" data-say="'+parla(q)+'">🔊</button></div>'
+         + '<div class="mc" id="o'+q.id+'">';
+      o.forEach((k,i)=>{ h += '<button onclick="scegli(\''+q.id+'\','+k+')" data-k="'+k+'">'+q.o[k]+'</button>'; });
+      h += '</div><div class="fb" id="f'+q.id+'"></div></div>';
+    });
+    h += '</div></div>';
+  });
+  h += '<div class="note"><b>Esercizi.</b> Come nel compito: 4 punti per ogni esercizio corretto e completo. Qui scrivi i risultati dei passaggi: valgono punti anche se il risultato finale è sbagliato. Sul foglio, in classe, scrivi tutti i calcoli.<br>'
+     + '<b>Il rapporto non è mai scritto nel testo: lo ricavi dalla tavola periodica</b>, come in classe.</div>'
+     + '<div class="card"><div class="qnum">Tavola periodica (estratto)</div>'+TAV+'</div>'
+     + '<details class="form"><summary>Non sai da dove prendere il rapporto? Esempio svolto: l\'esercizio 1 del compito</summary><div class="in">'
+     + '<b>Quanti grammi di Ca servono per produrre 255 g di CaCl<sub>2</sub>?</b><br>'
+     + '1. Dalla tavola: Ca = 40,08 · Cl = 35,45.<br>'
+     + '2. Nella formula CaCl<sub>2</sub> c\'è 1 Ca e ci sono 2 Cl: Ca = 40,08, Cl<sub>2</sub> = 2 × 35,45 = 70,90.<br>'
+     + '3. Massa della formula: 40,08 + 70,90 = 110,98. Quindi il <b>rapporto</b> è: in 110,98 g di CaCl<sub>2</sub> ci sono 40,08 g di Ca.<br>'
+     + '4. Proporzione: 40,08 : 110,98 = <i>x</i> : 255 → <i>x</i> = 255 × 40,08 / 110,98 = <b>92,1 g di Ca</b>.<br>'
+     + '<span style="color:var(--no)">Non si fa 255 − 70,9: le masse atomiche (u) e i grammi non si sottraggono.</span>'
+     + '</div></details>';
+  V.EX.forEach((E,j)=>{
+    h += '<div class="card" id="c'+E.id+'"><div class="qhead"><div class="qnum">'+E.t+' <span class="pt" id="pt'+E.id+'">· 4 punti</span></div>'
+       + '<button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+E.say.replace(/"/g,"&quot;")+'">🔊</button></div>'
+       + '<p class="qtext">'+E.q+'</p>'
+       + (E.tav ? '<p class="sub">Dalla tavola periodica ti servono: <b>'+E.tav+'</b>.</p>' : '');
+    E.passi.forEach(p=>{
+      h += '<div class="lab">'+p.lab+'</div>';
+      if(p.tipo==="n") h += '<div class="chk"><input id="'+p.id+'" inputmode="decimal" placeholder="..." autocomplete="off" oninput="tieni(this)"><span class="u">'+p.u+'</span></div>';
+      else { h += '<div class="mc row3" id="o'+p.id+'">'; p.o.forEach((o,k)=>{ h += '<button onclick="scegli(\''+p.id+'\','+k+')" data-k="'+k+'">'+o+'</button>'; }); h += '</div>'; }
+      h += '<div class="fb" id="f'+p.id+'"></div>';
+    });
+    h += '<div class="fb" id="hw'+E.id+'"></div></div>';
+  });
+  $("exam").innerHTML = h;
+  Array.prototype.forEach.call(document.querySelectorAll("#exam input"), el=>{
+    if(S.v[el.id]!=null) el.value = S.v[el.id];
+    el.addEventListener("keydown", function(e){ if(e.key==="Enter") this.blur(); });
+  });
+  Object.keys(S.p).forEach(id=>segna(id));
+  drawVers(); armed = false;
+  $("esito").className = "esito"; $("esitoTop").className = "esito";
+  $("consegna").style.display = ""; $("ricomincia").style.display = "none"; $("altra").style.display = "none";
+  $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna";
+  if(S.done) correggi(false); else prog();
+}
+function numDomanda(V,id){ const a = tuttiMC(V); for(let i=0;i<a.length;i++) if(a[i].id===id) return i+1; return ""; }
+function parla(q){
+  const t = (q.q+". Le risposte sono: "+ORD[q.id].map(k=>q.o[k]).join("; "))
+    .replace(/<sub>(\d+)<\/sub>/g," $1 ").replace(/<sup>([^<]*)<\/sup>/g," $1 ").replace(/<[^>]+>/g,"")
+    .replace(/(\d+)p;\s*(\d+)e⁻/g,"$1 protoni e $2 elettroni").replace(/\((p|e⁻)\)/g,"").replace(/e⁻/g,"elettroni")
+    .replace(/(\d+)[.,](\d+)/g,(m,a,b)=>a+" virgola "+(/^0/.test(b) ? b.split("").join(" ") : b))
+    .replace(/(\d)\s*−/g,"$1 meno ").replace(/−/g,"meno ").replace(/°C/g," gradi").replace(/"/g,"");
+  return t;
+}
+function segna(id){
+  const box = $("o"+id); if(!box) return;
+  Array.prototype.forEach.call(box.children, b=>b.classList.toggle("sel", +b.getAttribute("data-k")===S.p[id]));
+}
+function drawVers(){
+  if(VER.length<2){ $("vers").style.display = "none"; return; }
+  let h = "";
+  VER.forEach((v,i)=>{
+    const o = (i===ver) ? S : load(i);
+    h += '<button class="'+(i===ver?'on':'')+'" onclick="vai('+i+')">Versione '+(i+1)
+       + '<small>'+(o.done ? 'consegnata · '+pS(o.punti)+' punti' : 'da fare')+'</small></button>';
+  });
+  $("vers").innerHTML = h;
+}
+function vai(i){ if(i===ver) return; ver = i; S = load(i); try{ localStorage.setItem("chim-dif-ver", String(i)); }catch(e){} render(); window.scrollTo(0,0); }
+function disarma(){ if(armed){ armed = false; $("consegna").className = "btn solid"; $("consegna").textContent = "Consegna"; } }
+function tieni(el){ if(S.done) return; S.v[el.id] = el.value; save(); prog(); disarma(); }
+function scegli(id,k){
+  if(S.done) return;
+  if(S.p[id]===k) delete S.p[id]; else S.p[id] = k;   /* secondo tocco: toglie la risposta */
+  segna(id); save(); prog(); disarma();
+}
+function risposte(){
+  const V = VER[ver]; let n = 0;
+  tuttiMC(V).forEach(q=>{ if(S.p[q.id]!=null) n++; });
+  V.EX.forEach(E=>E.passi.forEach(p=>{ if(p.tipo==="s" ? S.p[p.id]!=null : String(S.v[p.id]||"").trim()) n++; }));
+  return n;
+}
+function prog(){ $("prog").textContent = "Risposte date: "+risposte()+" su "+quante(VER[ver]); }
+
+/* ═══════════ consegna e correzione ═══════════ */
+function consegna(){
+  const vuote = quante(VER[ver]) - risposte();
+  if(vuote>0 && !armed){
+    armed = true; $("consegna").className = "btn warn";
+    $("consegna").textContent = (vuote===1 ? "C'è 1 risposta vuota" : "Ci sono "+vuote+" risposte vuote")+": tocca di nuovo per consegnare";
+    return;
+  }
+  S.done = true; correggi(true);
+}
+function correggi(scorri){
+  const V = VER[ver]; let pun = 0; const parti = [];
+  V.MC.forEach((parte,pi)=>{
+    let pp = 0, giuste = 0, sbagliate = 0, vuote = 0;
+    parte.forEach(q=>{
+      const k = S.p[q.id], val = q.pt||1, box = $("o"+q.id), f = $("f"+q.id);
+      box.classList.add("locked");
+      Array.prototype.forEach.call(box.children, b=>{
+        const bk = +b.getAttribute("data-k"); b.classList.remove("sel");
+        if(bk===q.ok) b.classList.add("right"); else if(bk===k) b.classList.add("wrong");
+      });
+      let p, h;
+      if(k==null){ p = 0; vuote++; h = '<b class="t">— Non hai risposto · 0 punti</b>'; f.className = "fb on n"; }
+      else if(k===q.ok){ p = val; giuste++; h = '✓ Giusto · +'+pS(val)+(val===1?' punto':' punti'); f.className = "fb on y"; }
+      else { p = -0.25; sbagliate++; h = '<b class="t">✗ Sbagliato · −0,25</b>'; f.className = "fb on n"; }
+      if(k!==q.ok) h += '<div class="how">'+q.why+'</div>';
+      f.innerHTML = h; pp += p;
+      $("r"+q.id).classList.add(k===q.ok?"y":"n");
+    });
+    parti.push({nome:PARTI[pi].replace(/^Parte \d+ · /,""), p:pp, max:parte.reduce((s,q)=>s+(q.pt||1),0), extra:giuste+" giuste, "+sbagliate+" sbagliate, "+vuote+" vuote"});
+    pun += pp;
+  });
+  let pe = 0;
+  V.EX.forEach(E=>{
+    let pj = 0;
+    E.passi.forEach(p=>{
+      let res;
+      if(p.tipo==="s"){
+        const k = S.p[p.id], box = $("o"+p.id); box.classList.add("locked");
+        Array.prototype.forEach.call(box.children, b=>{ const bk = +b.getAttribute("data-k"); b.classList.remove("sel"); if(bk===p.ok) b.classList.add("right"); else if(bk===k) b.classList.add("wrong"); });
+        res = (k==null) ? {vuoto:true} : (k===p.ok ? {ok:true} : {ok:false, msg:"Non è giusto."});
+      } else res = checkNum(p, S.v[p.id]);
+      const f = $("f"+p.id);
+      if(res.ok){ f.className = "fb on y"; f.innerHTML = "✓ Giusto · +"+pS(p.pt); pj += p.pt; }
+      else { f.className = "fb on n"; f.innerHTML = (res.vuoto ? '<b class="t">— Non hai risposto.</b>' : '<b class="t">✗ '+res.msg+'</b>')+'<div class="giusta">Risposta giusta: '+p.ans+'</div>'; }
+    });
+    const pt = $("pt"+E.id); pt.textContent = "· "+pS(pj)+" su 4"; pt.className = "pt"+(pj===4?" y":"");
+    if(pj<4){ const hw = $("hw"+E.id); hw.className = "fb on n"; hw.innerHTML = '<b class="t" style="color:var(--ink)">Come si fa</b><div class="how">'+E.how+'</div>'; }
+    pe += pj;
+  });
+  parti.push({nome:"esercizi", p:pe, max:12, extra:""});
+  pun += pe;
+  Array.prototype.forEach.call(document.querySelectorAll("#exam input"), el=>{ el.readOnly = true; });
+  S.punti = pun; save();
+  const max = massimo(V), perc = Math.round(Math.max(0,pun)/max*100);
+  let righe = ""; parti.forEach(x=>{ righe += '<tr><td>'+x.nome+(x.extra?'<br><small>'+x.extra+'</small>':'')+'</td><td class="c">'+pS(x.p)+' su '+pS(x.max)+'</td></tr>'; });
+  const ok = perc>=60;
+  $("esito").innerHTML = '<div class="qnum">Risultato</div><div class="voto '+(ok?'ok':'ko')+'">'+pS(pun)+' <small>su '+max+'</small></div>'
+    + '<div class="det"><b>'+perc+'% dei punti.</b> '+(ok ? "Buon lavoro: guarda le correzioni in rosso per gli ultimi errori." : (VER.length>1 ? "Leggi le spiegazioni in rosso, poi prova l'altra versione." : "Leggi le spiegazioni in rosso, poi tocca Ricomincia: le risposte vengono rimescolate."))+'</div>'
+    + '<table>'+righe+'</table><div class="det" style="color:var(--soft);font-size:14px">Punteggio come nel compito: +1 giusta, 0 vuota, −0,25 sbagliata; esercizi 4 punti, divisi tra i passaggi. Non so come la prof trasforma i punti in voto.</div>';
+  $("esito").className = "esito on";
+  $("esitoTop").innerHTML = '<div class="qnum">Compito consegnato</div><div class="det"><b>'+pS(pun)+' punti su '+max+'</b> ('+perc+'%). Sotto ogni domanda trovi la correzione; il riepilogo è in fondo.</div>';
+  $("esitoTop").className = "esito on";
+  $("consegna").style.display = "none"; $("ricomincia").style.display = "";
+  if(VER.length>1){ const alt = ver===0 ? 1 : 0; $("altra").style.display = ""; $("altra").textContent = "Vai alla versione "+(alt+1); }
+  $("prog").textContent = "";
+  drawVers();
+  if(scorri){ const e = $("esitoTop"); if(e.scrollIntoView) e.scrollIntoView({behavior:"smooth", block:"start"}); }
+}
+function ricomincia(){ S = nuovo(); save(); render(); window.scrollTo(0,0); }
+function altra(){ vai(ver===0 ? 1 : 0); }
+
+/* ---------- voce ---------- */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute("data-say") || "");
+  u.lang = "it-IT"; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on");
+  speechSynthesis.speak(u);
+}
+
+/* ---------- avvio ---------- */
+(function(){
+  let k = 0; try{ k = parseInt(localStorage.getItem("chim-dif-ver")||"0",10)||0; }catch(e){}
+  ver = Math.max(0, Math.min(VER.length-1, k)); S = load(ver); render();
+})();
+
+</script>
+</body>
+</html>
