@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matematica — Geometria: compito simulato 2, più difficile (cap. 1)</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#B06A08; --accent-soft:#FBEEDA; --accent-line:#F0D3A8;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --half:#7A5A00; --half-soft:#FFF4D6;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(104px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 40px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:34px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+button{font:inherit; cursor:pointer}
+.mx{font-family:"Times New Roman",Georgia,serif; font-size:1.12em}
+.mx.nw{white-space:nowrap}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+.note ul{margin:6px 0 0; padding-left:20px}
+.okb{background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+
+/* il foglio del compito */
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qhead{display:flex; align-items:flex-start; gap:8px}
+.qnum{flex:1; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.pts{flex:0 0 auto; font-size:13.5px; font-weight:700; color:var(--soft); border:2px solid var(--rule); border-radius:999px; padding:1px 10px; white-space:nowrap}
+body.mr .pts{color:var(--ok); border-color:#BFD6CC; background:var(--ok-soft)}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:0 9px; font-size:17px; line-height:1.6}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:18px; line-height:1.6; margin:2px 0 8px}
+.it{border-top:1px solid var(--rule); padding:12px 0 8px}
+.it:first-of-type{border-top:none}
+.iq{font-size:18px; line-height:1.6}
+.iq .il{display:inline-block; min-width:28px; font-weight:700; color:var(--accent)}
+.iq .mx{font-size:21px}
+.iq .ip{font-size:13px; color:var(--soft); font-weight:600; margin-left:6px; white-space:nowrap}
+.tmin{font-size:14px; color:var(--soft); margin-top:6px}
+body.mr .tmin{display:none}
+
+/* correzione */
+.corr{display:none; margin-top:8px}
+body.mr .corr{display:block}
+.ln{display:none; font-size:16.5px; line-height:1.55; border-left:4px solid var(--accent-line); padding:4px 0 4px 12px; margin:8px 0}
+.ln.on{display:block}
+.ln .mx{font-size:1.18em}
+.ln.fin{border-left-color:var(--ok); background:var(--ok-soft); border-radius:0 10px 10px 0; font-weight:600}
+.ln.fin .mx{font-weight:400}
+.trap{display:none; background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:10px 14px; margin:8px 0; font-size:15.5px; line-height:1.55}
+.trap.on{display:block}
+.trap b{color:var(--warn)}
+.mini{border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:11px; padding:8px 14px; font-size:15.5px; font-weight:700}
+.mini.solid{background:var(--accent); color:#fff}
+.self{display:none; margin-top:8px}
+.self.on{display:block}
+.self .lb{font-size:14.5px; font-weight:700; color:var(--soft); margin-bottom:4px}
+.sbt{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px}
+.sbt button{border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 4px; font-size:14.5px; font-weight:700; color:var(--ink); line-height:1.3}
+.sbt button.s1.on{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.sbt button.s5.on{border-color:#E2C36B; background:var(--half-soft); color:var(--half)}
+.sbt button.s0.on{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+
+/* formulario */
+details.form{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:10px 16px; margin:14px 0}
+details.form summary{font-weight:700; font-size:16px; cursor:pointer; color:var(--accent)}
+table.ff{border-collapse:collapse; width:100%; margin:10px 0 4px; font-size:14.5px}
+table.ff td{border:1px solid var(--rule); padding:5px 7px; vertical-align:middle}
+table.ff td .mx{font-size:16px}
+table.ff tr.sec td{background:var(--accent-soft); color:var(--accent); font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+
+/* passaggio alla correzione e risultato */
+.big{display:block; width:100%; border:2px solid var(--accent); background:var(--accent); color:#fff; border-radius:13px; padding:14px; font-size:17px; font-weight:700; margin:18px 0 6px}
+.big.ghost{background:#fff; color:var(--accent)}
+.cmode, .ris{display:none}
+body.mr .cmode, body.mr .ris{display:block}
+body.mr .cgo{display:none}
+.ris .vt{font-size:44px; font-weight:800; text-align:center; line-height:1.1; margin:6px 0 0}
+.ris .vs{text-align:center; color:var(--soft); font-size:15px; margin-bottom:8px}
+.ris table{border-collapse:collapse; width:100%; font-size:16px; margin:8px 0}
+.ris td{border-top:1px solid var(--rule); padding:6px 4px}
+.ris td.n{text-align:right; font-weight:700; white-space:nowrap}
+.ris ul{margin:6px 0; padding-left:20px; font-size:16px}
+
+/* barra del tempo */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:10px; align-items:center}
+.bar .clk{flex:1 1 auto; font-variant-numeric:tabular-nums; font-size:15px; color:var(--soft); line-height:1.3}
+.bar .clk b{font-size:22px; color:var(--ink)}
+.bar button{flex:0 0 auto; border-radius:12px; border:2px solid var(--ink); background:var(--ink); color:#fff; font-weight:700; padding:10px 16px; font-size:16px}
+.bar button.run{background:#fff; color:var(--ink)}
+.bar .msg{max-width:660px; margin:3px auto 0; font-size:13.5px; color:var(--accent); font-weight:600; min-height:1.2em; text-align:center}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:34px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (max-width:400px){ .sbt button{font-size:13px} .iq .mx{font-size:19px} }
+
+/* figure e riquadro parole */
+.fig{max-width:340px; margin:8px auto 4px}
+.fig svg{display:block; width:100%; height:auto}
+.box{display:flex; flex-wrap:wrap; gap:6px; border:2px dashed var(--accent-line); border-radius:12px; padding:9px 10px; margin:4px 0 10px}
+.box span{background:var(--accent-soft); border-radius:8px; padding:1px 10px; font-size:16px; font-weight:600}
+.blank{display:inline-block; min-width:88px; border-bottom:2px solid var(--ink); margin:0 3px; vertical-align:-3px; height:1em}
+.sbt.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Matematica · geometria</div>
+  <h1>Compito simulato 2 — più difficile</h1>
+  <p class="lead">Capitolo 1, piano euclideo, congruenza e misura. Più ragionamento che memoria: problemi con le equazioni, conti con gradi e primi, due dimostrazioni. 90 minuti sul quaderno, poi la correzione un passo alla volta e il voto stimato.</p>
+</header>
+
+<div class="note cgo"><b>Prima di cominciare</b>
+<ul>
+<li>Quaderno, penna, matita e righello. Fai partire il tempo con il tasto in basso.</li>
+<li>Leggi tutto il compito. Comincia dagli esercizi che ti vengono meglio.</li>
+<li>Vero o falso: scrivi sempre il perché, in una riga.</li>
+<li>Nei problemi fai sempre la figura e chiama x la cosa che non sai.</li><li>Nelle dimostrazioni scrivi prima ipotesi e tesi, poi un passaggio per riga, ognuno con il suo perché.</li>
+<li>Tieni gli ultimi 5 minuti per ricontrollare.</li>
+</ul>
+Il tempo serve solo a te, per capire come ti organizzi. Non è una gara.</div>
+
+<div class="okb cmode"><b>Correzione.</b> Per ogni punto apri la soluzione e confrontala con il tuo quaderno. Poi scegli com'è andata. Sii onesto: serve a capire cosa ripassare.</div>
+
+<div id="exs"></div>
+
+<details class="form cgo"><summary>Schema (solo se il prof lo permette)</summary><div id="ff"></div></details>
+
+<button class="big cgo" onclick="toCorr()">Ho finito: passo alla correzione</button>
+
+<div class="card ris" id="ris"></div>
+<button class="big ghost cmode" onclick="reset()">Ricomincia da capo</button>
+
+<p class="foot">Esercizi nuovi e più difficili sul capitolo 1 (Unità 1, paragrafi 1–6). Le parole si ripassano nella scheda «Le parole del capitolo 1».</p>
+</div>
+
+<div class="bar">
+  <div class="in">
+    <div class="clk" id="clk"></div>
+    <button id="tbtn" onclick="tToggle()">▶ Avvia</button>
+  </div>
+  <div class="msg" id="tmsg"></div>
+</div>
+
+<script>
+/* ═══════ scrittura ═══════ */
+function M(s){ return String(s).replace(/-/g,"−").replace(/\*/g,"·"); }
+function X(s){ return '<span class="mx'+(String(s).length<=16?' nw':'')+'">'+M(s)+'</span>'; }
+function TX(s){ return String(s).replace(/\$([^$]+)\$/g,(m,a)=>X(a)); }
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+function num1(n){ return String(n).replace(".",","); }
+const BL = '<span class="blank"></span>';
+
+/* ═══════ figure ═══════ */
+const INK="#1B2430", RED="#C2412D", BLUE="#2A6FB0", GREEN="#2F8A5B";
+function svg(vb, body, lab){ return '<div class="fig"><svg viewBox="'+vb+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+(lab||'figura')+'">'+body+'</svg></div>'; }
+function ln(x1,y1,x2,y2,c,dash){ return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(c||INK)+'" stroke-width="3" stroke-linecap="round"'+(dash?' stroke-dasharray="6 6"':'')+'/>'; }
+function tx(x,y,t,o){ o=o||{}; return '<text x="'+x+'" y="'+y+'" font-size="'+(o.fs||17)+'" '+(o.up?'':'font-style="italic" ')+'font-family="Times New Roman,Georgia,serif" fill="'+(o.c||INK)+'" text-anchor="middle"'+(o.b?' font-weight="700"':'')+'>'+t+'</text>'; }
+function dot(x,y){ return '<circle cx="'+x+'" cy="'+y+'" r="3.6" fill="'+INK+'"/>'; }
+function poly(P,c,closed){ let h=''; for(let i=0;i<P.length-1;i++) h+=ln(P[i][0],P[i][1],P[i+1][0],P[i+1][1],c);
+  if(closed) h+=ln(P[P.length-1][0],P[P.length-1][1],P[0][0],P[0][1],c); P.forEach(p=>h+=dot(p[0],p[1])); return h; }
+const NUM = (x,y,n)=>tx(x,y,n,{up:1,b:1,fs:16,c:"#5A6473"});
+
+/* ═══════ altri attrezzi per le figure ═══════ */
+function Pt(cx,cy,r,a){ const t=a*Math.PI/180; return [+(cx+r*Math.cos(t)).toFixed(2), +(cy-r*Math.sin(t)).toFixed(2)]; }
+function W(cx,cy,r,a1,a2,fill,stroke){ const p1=Pt(cx,cy,r,a1), p2=Pt(cx,cy,r,a2), lg=(a2-a1)>180?1:0;
+  return '<path d="M'+cx+','+cy+' L'+p1+' A'+r+','+r+' 0 '+lg+' 0 '+p2+' Z" fill="'+fill+'"'+(stroke?' stroke="'+stroke+'" stroke-width="1.5"':'')+'/>'; }
+function rayL(cx,cy,a,len,c,dash){ const p=Pt(cx,cy,len,a); return ln(cx,cy,p[0],p[1],c,dash); }
+function PG(pts,fill){ return '<polygon points="'+pts.map(p=>p.join(",")).join(" ")+'" fill="'+fill+'"/>'; }
+const LR="#F6D3CB", LB="#D2E2F3", LY="#FBF0C9", LG="#D8EEDF", GOLD="#B08A00";
+
+/* due rette che si incrociano in O: L = scritte {t,r,b,l}, F = colori dei settori, X = disegno in più */
+function cross(L,F,X){
+  const col = c => c==="r" ? [LR,RED] : [LB,BLUE];
+  const A = {t:"M162.27,84.83 A28,28 0 0 0 137.73,84.83", b:"M162.27,135.17 A28,28 0 0 1 137.73,135.17",
+             r:"M162.27,84.83 A28,28 0 0 1 162.27,135.17", l:"M137.73,84.83 A28,28 0 0 0 137.73,135.17"};
+  let h = '';
+  ["t","b","r","l"].forEach(k=>{ if(!F[k]) return; const c = col(F[k]);
+    h += '<path d="M150,110 L'+A[k].slice(1)+' Z" fill="'+c[0]+'"/><path d="'+A[k]+'" fill="none" stroke="'+c[1]+'" stroke-width="2"/>'; });
+  h += ln(106.2,199.9,193.8,20.1) + ln(106.2,20.1,193.8,199.9) + (X||'') + dot(150,110);
+  h += tx(206,26,"r") + tx(94,26,"s") + tx(182,108,"O",{fs:14});
+  if(L.t) h+=tx(150,62,L.t,{fs:20}); if(L.b) h+=tx(150,172,L.b,{fs:20});
+  if(L.r) h+=tx(207,117,L.r,{fs:20}); if(L.l) h+=tx(93,117,L.l,{fs:20});
+  return svg("0 0 300 220", h, "due rette che si incontrano in O");
+}
+/* quattro semirette intorno a O: α 50°, β 100°, γ 150°, δ 60° */
+function rays4(bis){
+  const O=[150,108], R=[0,50,150,300];
+  let h = W(O[0],O[1],30,0,50,LR,RED)+W(O[0],O[1],24,50,150,LB,BLUE)+W(O[0],O[1],30,150,300,LY,GOLD)+W(O[0],O[1],24,300,360,LG,GREEN);
+  if(bis) h += rayL(O[0],O[1],25,96,GREEN,1)+rayL(O[0],O[1],100,96,GREEN,1)
+     +'<path d="'+(()=>{ const p=Pt(O[0],O[1],54,25), q=Pt(O[0],O[1],54,100); return 'M'+p+' A54,54 0 0 0 '+q; })()+'" fill="none" stroke="'+GREEN+'" stroke-width="2"/>'
+     +tx(Pt(O[0],O[1],74,74)[0],Pt(O[0],O[1],74,74)[1],"75°",{fs:15,up:1,c:GREEN,b:1});
+  R.forEach(a=>{ h += rayL(O[0],O[1],a,100); });
+  h += dot(O[0],O[1]) + tx(O[0]-14,O[1]+20,"O",{fs:14});
+  [["α",bis?10:25],["β",bis?130:100],["γ",225],["δ",330]].forEach(x=>{ const p=Pt(O[0],O[1],bis?44:46,x[1]); h += tx(p[0],p[1]+7,x[0],{fs:19}); });
+  return svg("0 0 300 215", h, "quattro angoli consecutivi intorno a O");
+}
+const FIG_ES5 = svg("0 0 320 92",
+  ln(20,46,144.4,46,RED)+ln(144.4,46,206.7,46,BLUE)+ln(206.7,46,300,46,GREEN)
+  +dot(20,46)+dot(144.4,46)+dot(206.7,46)+dot(300,46)+'<circle cx="160" cy="46" r="4" fill="'+GOLD+'"/><circle cx="175.6" cy="46" r="4" fill="'+GOLD+'"/>'
+  +tx(20,32,"A")+tx(144.4,32,"B")+tx(206.7,32,"C")+tx(300,32,"D")+tx(158,74,"M",{c:GOLD})+tx(180,74,"N",{c:GOLD})
+  +tx(82,74,"16 cm",{fs:13,up:1})+tx(253,74,"12 cm",{fs:13,up:1}), "punti A, B, M, N, C, D");
+const FIG_FARF = svg("0 0 200 110", poly([[40,15],[160,95],[160,15],[40,95]],INK,true), "poligonale chiusa intrecciata con 4 lati");
+const FIG_DART = svg("0 0 200 110", PG([[40,95],[100,12],[160,95],[100,62]],LY)+poly([[40,95],[100,12],[160,95],[100,62]],INK,true)
+  +ln(60,80,140,80,RED)+'<circle cx="60" cy="80" r="3.6" fill="'+RED+'"/><circle cx="140" cy="80" r="3.6" fill="'+RED+'"/>'+tx(100,107,"il segmento esce dalla figura",{fs:12,up:1,c:RED}), "quadrilatero concavo");
+const FIG_ES7 = svg("0 0 300 170", (()=>{ const O=[150,145];
+  const sq = [O, Pt(O[0],O[1],13,30), Pt(O[0],O[1],18.4,75), Pt(O[0],O[1],13,120)];
+  return W(O[0],O[1],34,0,60,LB,BLUE)+W(O[0],O[1],26,60,180,LR,RED)
+    +'<path d="M'+sq[1]+' L'+sq[2]+' L'+sq[3]+'" fill="none" stroke="'+GREEN+'" stroke-width="2"/>'
+    +ln(15,145,285,145)+rayL(O[0],O[1],60,125)+rayL(O[0],O[1],30,125,GREEN,1)+rayL(O[0],O[1],120,125,GREEN,1)+dot(O[0],O[1])
+    +tx(Pt(O[0],O[1],70,12)[0],Pt(O[0],O[1],70,12)[1]+6,"β",{fs:19})+tx(Pt(O[0],O[1],64,155)[0],Pt(O[0],O[1],64,155)[1]+6,"α",{fs:19})
+    +tx(Pt(O[0],O[1],136,30)[0],Pt(O[0],O[1],136,30)[1]+4,"s",{c:GREEN})+tx(Pt(O[0],O[1],136,120)[0]-6,Pt(O[0],O[1],136,120)[1]+4,"r",{c:GREEN}); })(),
+  "angoli adiacenti con le bisettrici r e s");
+const FIG_ES8 = svg("0 0 320 80",
+  ln(20,40,195,40,RED)+ln(195,40,300,40,BLUE)+dot(20,40)+dot(107.5,40)+dot(195,40)+dot(247.5,40)+dot(300,40)
+  +ln(63.75,33,63.75,47,INK)+ln(151.25,33,151.25,47,INK)
+  +ln(219,33,219,47,INK)+ln(224,33,224,47,INK)+ln(271,33,271,47,INK)+ln(276,33,276,47,INK)
+  +tx(20,26,"A")+tx(107.5,26,"M")+tx(195,26,"B")+tx(247.5,26,"N")+tx(300,26,"C")
+  +tx(151.25,68,"MB = ½ AB",{fs:12,up:1})+tx(221.5,68,"BN = ½ BC",{fs:12,up:1}), "segmenti adiacenti AB e BC con i punti medi M e N");
+
+/* ═══════ il compito ═══════
+   q = testo, p = punti, bin = solo giusto/sbagliato, sol = passi, fin = risultato,
+   trap = l'errore da evitare o il perché, rip = il paragrafo da ripassare */
+const EX = [
+ {n:1, t:"Vero o falso, con il perché", min:10, cons:"Scrivi V o F e, accanto, il perché in una riga. Il perché conta quanto la lettera.",
+  say:"Esercizio uno, cinque punti. Vero o falso, con il perché. a: due angoli consecutivi sono sempre adiacenti. b: due angoli consecutivi la cui somma è un angolo piatto sono adiacenti. c: se due angoli sono supplementari e congruenti, sono tutti e due retti. d: il complementare di un angolo acuto è sempre acuto. e: il supplementare di un angolo ottuso è ottuso. f: tre punti distinti individuano sempre una retta. g: se due figure sono congruenti a una stessa figura, sono congruenti tra loro. h: l'intersezione di due semipiani opposti è la loro origine. i: ogni segmento ha uno e un solo punto medio. l: il lato di un quadrato e la sua metà sono incommensurabili.",
+  items:[
+   {id:"1a", q:"Due angoli consecutivi sono sempre adiacenti.", p:0.5, bin:1, rip:"§3 Angoli consecutivi e adiacenti", sol:[], fin:"Falso",
+    trap:"<b>Perché:</b> per essere adiacenti serve anche che i lati non comuni stiano sulla stessa retta."},
+   {id:"1b", q:"Due angoli consecutivi la cui somma è un angolo piatto sono adiacenti.", p:0.5, bin:1, rip:"§3 Angoli consecutivi e adiacenti", sol:[], fin:"Vero",
+    trap:"<b>Perché:</b> la somma di due angoli consecutivi è l'angolo formato dai lati non comuni. Se è piatto, quei lati sono semirette opposte, cioè sulla stessa retta."},
+   {id:"1c", q:"Se due angoli sono supplementari e congruenti, sono tutti e due retti.", p:0.5, bin:1, rip:"§6 Supplementari", sol:[], fin:"Vero",
+    trap:"<b>Perché:</b> α + α = 180°, quindi α = 90°."},
+   {id:"1d", q:"Il complementare di un angolo acuto è sempre acuto.", p:0.5, bin:1, rip:"§6 Angoli acuti e complementari", sol:[], fin:"Vero",
+    trap:"<b>Perché:</b> se α sta tra 0° e 90°, anche 90° − α sta tra 0° e 90°."},
+   {id:"1e", q:"Il supplementare di un angolo ottuso è ottuso.", p:0.5, bin:1, rip:"§6 Angoli ottusi e supplementari", sol:[], fin:"Falso",
+    trap:"<b>Perché:</b> se α sta tra 90° e 180°, 180° − α sta tra 0° e 90°: è acuto."},
+   {id:"1f", q:"Tre punti distinti individuano sempre una retta.", p:0.5, bin:1, rip:"§1 Assiomi di appartenenza", sol:[], fin:"Falso",
+    trap:"<b>Perché:</b> solo se sono allineati. Se non lo sono, nessuna retta passa per tutti e tre."},
+   {id:"1g", q:"Se due figure sono congruenti a una stessa figura, sono congruenti tra loro.", p:0.5, bin:1, rip:"§4 Assiomi di congruenza", sol:[], fin:"Vero",
+    trap:"<b>Perché:</b> $F₁ ≅ F₃$ e $F₂ ≅ F₃$. Per la simmetrica $F₃ ≅ F₂$; poi per la transitiva $F₁ ≅ F₂$."},
+   {id:"1h", q:"L'intersezione di due semipiani opposti è la loro origine.", p:0.5, bin:1, rip:"§3 Semipiano", sol:[], fin:"Vero",
+    trap:"<b>Perché:</b> l'unica parte che hanno in comune è la retta che li separa."},
+   {id:"1i", q:"Ogni segmento ha uno e un solo punto medio.", p:0.5, bin:1, rip:"§5 Punto medio", sol:[], fin:"Vero",
+    trap:"<b>Perché:</b> il libro lo dice: si può dimostrare che il punto medio di un segmento è unico."},
+   {id:"1l", q:"Il lato di un quadrato e la sua metà sono incommensurabili.", p:0.5, bin:1, rip:"§5 Misura dei segmenti", sol:[], fin:"Falso",
+    trap:"<b>Perché:</b> la metà sta nel lato esattamente 2 volte: la misura è 2, un numero razionale. Incommensurabili sono il lato e la diagonale."}
+  ]},
+ {n:2, t:"Gradi, primi e secondi", min:16, cons:"Scrivi tutti i passaggi e fai sempre il controllo.",
+  say:"Esercizio due, quattro punti. a: calcola il supplementare di settantadue gradi, trentotto primi, quarantacinque secondi. b: due angoli sono complementari e uno supera l'altro di ventitré gradi e quarantasette primi. Calcola le loro ampiezze. c: dividi l'angolo di centoventicinque gradi e diciassette primi in tre parti congruenti. d: trasforma cinquantadue virgola quattromilaseicentoventicinque gradi in gradi, primi e secondi, poi calcola il suo esplementare.",
+  items:[
+   {id:"2a", q:"Calcola il supplementare di 72°38′45″.", p:1, rip:"§6 Gradi, primi e secondi",
+    sol:["Supplementare: 180° − 72°38′45″.",
+         "Non posso togliere 45″ e 38′ da zero: scrivo 180° = 179°59′60″.",
+         "179° − 72° = 107° · 59′ − 38′ = 21′ · 60″ − 45″ = 15″",
+         "Controllo: 72°38′45″ + 107°21′15″ = 179°59′60″ = 180° ✓"],
+    fin:"107°21′15″",
+    trap:"<b>Il prestito</b> si fa una volta sola, per tutte e due le colonne: 180° = 179°59′60″."},
+   {id:"2b", q:"Due angoli sono complementari e uno supera l'altro di 23°47′. Calcola le loro ampiezze.", p:1, rip:"§6 Complementari · gradi e primi",
+    sol:["α + β = 90° e α = β + 23°47′.",
+         "Tolgo la parte in più: 90° − 23°47′ = 89°60′ − 23°47′ = 66°13′. Questo è il doppio di β.",
+         "66°13′ : 2 → 66° : 2 = 33°; 13′ : 2 = 6′ con resto 1′; 1′ = 60″ e 60″ : 2 = 30″. Quindi β = 33°6′30″.",
+         "α = 33°6′30″ + 23°47′ = 56°53′30″",
+         "Controllo: 56°53′30″ + 33°6′30″ = 89°59′60″ = 90° ✓"],
+    fin:"α = 56°53′30″ · β = 33°6′30″",
+    trap:"<b>Nella divisione, il resto dei primi</b> si trasforma in secondi (1′ = 60″) e si continua a dividere."},
+   {id:"2c", q:"Dividi l'angolo di 125°17′ in tre parti congruenti.", p:1, rip:"§6 Gradi, primi e secondi",
+    sol:["125° : 3 = 41° con resto 2°. 2° = 120′, che si aggiungono ai primi: 120′ + 17′ = 137′.",
+         "137′ : 3 = 45′ con resto 2′. 2′ = 120″.",
+         "120″ : 3 = 40″",
+         "Controllo: 41°45′40″ · 3 = 123°135′120″ = 123°137′ = 125°17′ ✓"],
+    fin:"41°45′40″",
+    trap:"<b>Il resto non si butta:</b> i gradi avanzati diventano primi, i primi avanzati diventano secondi."},
+   {id:"2d", q:"Trasforma 52,4625° in gradi, primi e secondi, poi calcola il suo esplementare.", p:1, rip:"§6 Gradi, primi e secondi · esplementari",
+    sol:["0,4625 · 60 = 27,75′: tengo 27′. Resta 0,75′.",
+         "0,75 · 60 = 45″. Quindi 52,4625° = 52°27′45″.",
+         "Esplementare: 360° − 52°27′45″ = 359°59′60″ − 52°27′45″"],
+    fin:"52°27′45″ · esplementare 307°32′15″",
+    trap:"<b>Esplementare</b> vuol dire che la somma è 360°, non 180°."}
+  ]},
+ {n:3, t:"Angoli intorno a un punto", min:10,
+  cons:"Quattro semirette con la stessa origine O formano quattro angoli consecutivi α, β, γ, δ, che insieme coprono tutto il piano. β è il doppio di α, γ è il triplo di α e δ supera α di 10°. La figura è solo indicativa.",
+  fig:rays4(false),
+  say:"Esercizio tre, tre punti. Quattro semirette con la stessa origine O formano quattro angoli consecutivi alfa, beta, gamma, delta, che insieme coprono tutto il piano. Beta è il doppio di alfa, gamma è il triplo di alfa, e delta supera alfa di dieci gradi. a: calcola alfa, beta, gamma e delta. b: calcola l'angolo formato dalle bisettrici di alfa e beta.",
+  items:[
+   {id:"3a", q:"Calcola α, β, γ e δ.", p:2, rip:"§3 Angolo giro · §6 Somma di angoli",
+    sol:["Insieme coprono tutto il piano: α + β + γ + δ = 360°, l'angolo giro.",
+         "Scrivo tutto con α: α + 2α + 3α + (α + 10°) = 360°",
+         "7α + 10° = 360° → 7α = 350° → α = 50°",
+         "β = 2 · 50° = 100° · γ = 3 · 50° = 150° · δ = 50° + 10° = 60°",
+         "Controllo: 50° + 100° + 150° + 60° = 360° ✓"],
+    fin:"α = 50° · β = 100° · γ = 150° · δ = 60°",
+    trap:"<b>«δ supera α di 10°»</b> vuol dire α + 10°, non 10α. E gli α sono 7, non 6: c'è anche quello dentro δ."},
+   {id:"3b", q:"Calcola l'angolo formato dalle bisettrici di α e β.", p:1, rip:"§6 Bisettrice",
+    sol:["α e β sono consecutivi. La bisettrice di α lo taglia in due da 25°, quella di β in due da 50°.",
+         rays4(true),
+         "Tra le due bisettrici ci sono la metà di α vicina a β e la metà di β vicina ad α: 25° + 50° = 75°."],
+    fin:"75°",
+    trap:"<b>Non è sempre 90°.</b> Le bisettrici formano un angolo retto solo se i due angoli sono adiacenti, cioè se insieme fanno 180°. Qui α + β = 150°."}
+  ]},
+ {n:4, t:"Rette incidenti con un'equazione", min:10,
+  cons:"Le rette r e s si incontrano in O. Gli angoli α e γ sono opposti al vertice: α = 3x + 10° e γ = 5x − 30°. La figura è solo indicativa.",
+  fig:cross({t:"α",r:"β",b:"γ",l:"δ"},{t:"r",b:"r",r:"b",l:"b"}),
+  say:"Esercizio quattro, tre punti. Le rette r e s si incontrano in O. Gli angoli alfa e gamma sono opposti al vertice: alfa è uguale a tre x più dieci gradi, gamma è uguale a cinque x meno trenta gradi. a: trova x e l'ampiezza di tutti e quattro gli angoli. b: calcola l'angolo formato dalle bisettrici di alfa e gamma.",
+  items:[
+   {id:"4a", q:"Trova x e l'ampiezza di tutti e quattro gli angoli.", p:2, rip:"§6 Teorema degli angoli opposti al vertice",
+    sol:["α e γ sono opposti al vertice, quindi congruenti: 3x + 10° = 5x − 30°.",
+         "Porto le x da una parte: 10° + 30° = 5x − 3x → 40° = 2x → x = 20°.",
+         "α = 3 · 20° + 10° = 70° · γ = 5 · 20° − 30° = 70° ✓ (uguali, come deve essere)",
+         "β è adiacente ad α: β = 180° − 70° = 110°. δ è opposto a β: δ = 110°."],
+    fin:"x = 20° · α = γ = 70° · β = δ = 110°",
+    trap:"<b>L'equazione nasce dalla geometria:</b> si possono mettere uguali α e γ solo perché sono opposti al vertice."},
+   {id:"4b", q:"Calcola l'angolo formato dalle bisettrici di α e γ.", p:1, rip:"§6 Bisettrice · opposti al vertice",
+    sol:["Ogni bisettrice taglia il suo angolo in due parti da 35°.",
+         "Partendo dalla bisettrice di α e girando verso quella di γ incontro: metà di α, tutto β, metà di γ.",
+         cross({r:"β",l:"δ"},{t:"r",b:"r"}, ln(150,14,150,206,GREEN,1)+tx(167,64,"α",{fs:20})+tx(167,170,"γ",{fs:20})),
+         "35° + 110° + 35° = 180°: un angolo piatto. Le due bisettrici sono semirette opposte, sulla stessa retta."],
+    fin:"180°, un angolo piatto",
+    trap:"<b>Vale sempre:</b> le bisettrici di due angoli opposti al vertice stanno sulla stessa retta."}
+  ]},
+ {n:5, t:"Problema sui segmenti", min:12,
+  cons:"Su una retta ci sono, in quest'ordine, i punti A, B, C, D. AB è il doppio di BC, CD supera BC di 4 cm e AD misura 36 cm.",
+  say:"Esercizio cinque, tre punti. Su una retta ci sono, in quest'ordine, i punti A, B, C, D. A B è il doppio di B C, C D supera B C di quattro centimetri, e A D misura trentasei centimetri. a: calcola A B, B C e C D. b: M è il punto medio di A D e N è il punto medio di B C. Calcola M N.",
+  items:[
+   {id:"5a", q:"Calcola AB, BC e CD.", p:2, rip:"§5 Somma e multipli di segmenti",
+    sol:["I tre segmenti stanno uno dopo l'altro: AD = AB + BC + CD.",
+         "Chiamo BC = x. Allora AB = 2x e CD = x + 4.",
+         "2x + x + (x + 4) = 36 → 4x + 4 = 36 → 4x = 32 → x = 8",
+         "BC = 8 cm · AB = 16 cm · CD = 12 cm",
+         "Controllo: 16 + 8 + 12 = 36 ✓"],
+    fin:"AB = 16 cm · BC = 8 cm · CD = 12 cm",
+    trap:"<b>«CD supera BC di 4 cm»</b> vuol dire CD = BC + 4, non 4BC."},
+   {id:"5b", q:"M è il punto medio di AD e N è il punto medio di BC. Calcola MN.", p:1, rip:"§5 Punto medio",
+    sol:["Misuro tutto partendo da A. AM = 36 : 2 = 18 cm.",
+         "AN = AB + metà di BC = 16 + 4 = 20 cm.",
+         FIG_ES5,
+         "M è a 18 cm da A, N a 20 cm: MN = 20 − 18 = 2 cm."],
+    fin:"MN = 2 cm",
+    trap:"<b>Misura sempre le distanze da A:</b> così vedi subito quale punto viene prima. Qui M e N cadono tutti e due dentro BC, e M viene prima di N."}
+  ]},
+ {n:6, t:"Disegna, se è possibile", min:8, cons:"Se è possibile, disegna la figura. Se non è possibile, spiega perché.",
+  say:"Esercizio sei, tre punti. Disegna, se è possibile. Se non è possibile, spiega perché. a: una poligonale chiusa e intrecciata con quattro lati. b: un poligono concavo con quattro lati. c: un triangolo con una diagonale.",
+  items:[
+   {id:"6a", q:"una poligonale chiusa e intrecciata con 4 lati", p:1, rip:"§2 Poligonale chiusa, aperta, intrecciata",
+    sol:["Basta incrociare due lati non consecutivi: la figura «a farfalla».", FIG_FARF],
+    fin:"Possibile",
+    trap:"<b>Controlla le condizioni:</b> lati di fila consecutivi ma non adiacenti, ogni vertice di due lati soli, e il primo estremo coincide con l'ultimo."},
+   {id:"6b", q:"un poligono concavo con 4 lati", p:1, rip:"§3 Figure convesse e concave · poligoni",
+    sol:["Un quadrilatero «a punta di freccia»: un vertice rientra verso l'interno.", FIG_DART],
+    fin:"Possibile",
+    trap:"<b>Concavo</b> vuol dire che almeno un segmento tra due suoi punti esce dalla figura."},
+   {id:"6c", q:"un triangolo con una diagonale", p:1, rip:"§3 Diagonale",
+    sol:["La diagonale unisce due vertici non consecutivi.",
+         "In un triangolo ogni vertice è consecutivo agli altri due: non ci sono vertici non consecutivi."],
+    fin:"Impossibile",
+    trap:"<b>La spiegazione vale il punto:</b> scrivi perché, non solo «impossibile»."}
+  ]},
+ {n:7, t:"Dimostrazione con gli angoli", min:12, cons:"Dimostra il teorema: <b>le bisettrici di due angoli adiacenti formano un angolo retto</b>.",
+  say:"Esercizio sette, tre punti. Dimostra il teorema: le bisettrici di due angoli adiacenti formano un angolo retto. a: disegna la figura e scrivi ipotesi e tesi. b: scrivi la dimostrazione.",
+  items:[
+   {id:"7a", q:"Disegna la figura e scrivi ipotesi e tesi.", p:1, rip:"§6 Teoremi: ipotesi e tesi",
+    sol:[FIG_ES7,
+         "Ipotesi: tutto quello che il teorema dà per vero (gli angoli e le due bisettrici).",
+         "Tesi: quello che va dimostrato."],
+    fin:"Ipotesi: α e β adiacenti; r bisettrice di α; s bisettrice di β · Tesi: l'angolo tra r e s è retto",
+    trap:"<b>Nell'ipotesi vanno tutte e due le bisettrici,</b> non solo «α e β adiacenti»."},
+   {id:"7b", q:"Scrivi la dimostrazione.", p:2, rip:"§6 Teoremi · bisettrice · assioma 10",
+    sol:["α e β sono adiacenti, quindi α + β ≅ π (angolo piatto).",
+         "r divide α in due angoli congruenti a ½α; s divide β in due angoli congruenti a ½β (definizione di bisettrice).",
+         "L'angolo tra r e s è formato dalla metà di α e dalla metà di β vicine al lato comune: sono consecutivi, quindi è la loro somma, ½α + ½β.",
+         "½α + ½β ≅ ½(α + β) ≅ ½π, cioè un angolo retto (assioma 10: somme e sottomultipli di angoli congruenti sono congruenti)."],
+    fin:"L'angolo tra r e s ≅ π/2, come volevo dimostrare",
+    trap:"<b>Il passaggio chiave</b> è «metà più metà è la metà della somma». Scrivi da dove viene ogni uguaglianza."}
+  ]},
+ {n:8, t:"Dimostrazione con i segmenti", min:12,
+  cons:"AB e BC sono segmenti adiacenti. M è il punto medio di AB e N è il punto medio di BC. Dimostra che $MN ≅ ½ AC$.",
+  say:"Esercizio otto, tre punti. A B e B C sono segmenti adiacenti. M è il punto medio di A B e N è il punto medio di B C. Dimostra che M N è congruente a metà di A C. a: disegna la figura e scrivi ipotesi e tesi. b: scrivi la dimostrazione.",
+  items:[
+   {id:"8a", q:"Disegna la figura e scrivi ipotesi e tesi.", p:1, rip:"§6 Teoremi: ipotesi e tesi",
+    sol:[FIG_ES8,
+         "Segna con un trattino le due metà di AB e con due trattini le due metà di BC: si vede subito cosa è congruente."],
+    fin:"Ipotesi: AB e BC adiacenti; $AM ≅ MB$; $BN ≅ NC$ · Tesi: $MN ≅ ½ AC$",
+    trap:"<b>«M punto medio» si scrive in simboli:</b> $AM ≅ MB$, cioè $MB ≅ ½ AB$."},
+   {id:"8b", q:"Scrivi la dimostrazione.", p:2, rip:"§5 Punto medio · assioma 8",
+    sol:["M sta su AB e N su BC, quindi MB e BN sono adiacenti: $MN ≅ MB + BN$.",
+         "M è il punto medio di AB: $MB ≅ ½ AB$. N è il punto medio di BC: $BN ≅ ½ BC$.",
+         "Quindi $MN ≅ ½ AB + ½ BC ≅ ½ (AB + BC)$.",
+         "AB e BC sono adiacenti: $AB + BC ≅ AC$. Allora $MN ≅ ½ AC$ (assioma 8: somme e sottomultipli di segmenti congruenti sono congruenti)."],
+    fin:"$MN ≅ ½ AC$, come volevo dimostrare",
+    trap:"<b>È la stessa idea dell'esercizio 7</b>, con i segmenti al posto degli angoli: metà più metà fa metà del tutto."}
+  ]}
+];
+const ITEMS = []; EX.forEach(e=>e.items.forEach(it=>{ it.ex = e.n; ITEMS.push(it); }));
+const TOT = ITEMS.reduce((s,it)=>s+it.p, 0);
+const MINUTI = 90;
+
+/* ═══════ stato (resta salvato anche se l'iPad si spegne) ═══════ */
+const KEY = "geo-sim2-261021";
+let ST;
+function fresh(){ return {mode:"c", t0:null, acc:0, sc:{}, rv:{}}; }
+function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)||"null"); if(s && s.sc && s.rv) return s; }catch(e){} return fresh(); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
+ST = load();
+
+/* ═══════ disegno ═══════ */
+function ptxt(p){ return num1(p)+(p===1?' punto':' punti'); }
+function build(){
+  let h = '';
+  EX.forEach(e=>{
+    const pts = e.items.reduce((s,it)=>s+it.p,0);
+    h += '<div class="card" id="e'+e.n+'"><div class="qhead"><div class="qnum">Esercizio '+e.n+' · '+e.t+'</div>'
+       + '<span class="pts" id="pt'+e.n+'">'+ptxt(pts)+'</span>'
+       + '<button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+esc(e.say)+'">🔊</button></div>';
+    if(e.cons) h += '<p class="qtext">'+TX(e.cons)+'</p>';
+    if(e.box) h += '<div class="box">'+e.box.map(w=>'<span>'+w+'</span>').join('')+'</div>';
+    if(e.fig) h += e.fig;
+    const many = e.items.length>1;
+    e.items.forEach((it,k)=>{
+      h += '<div class="it"><div class="iq">'+(many?'<span class="il">'+"abcdefghilm"[k]+')</span>':'')
+         + TX(it.q)+(many?'<span class="ip">'+ptxt(it.p)+'</span>':'')+'</div>'
+         + (it.fig||'')
+         + '<div class="corr" id="c'+it.id+'"></div></div>';
+    });
+    h += '<div class="tmin">⏱ circa '+e.min+' minuti</div></div>';
+  });
+  $("exs").innerHTML = h;
+  ITEMS.forEach(drawItem);
+}
+function drawItem(it){
+  const box = $("c"+it.id); if(!box) return;
+  const n = it.sol.length + 1, r = ST.rv[it.id] || 0, sc = ST.sc[it.id];
+  let h = '';
+  it.sol.forEach((s,i)=>{ h += '<div class="ln'+(i<r?' on':'')+'">'+(s.indexOf('<div')===0 ? s : TX(s))+'</div>'; });
+  h += '<div class="ln fin'+(r>=n?' on':'')+'">'+(it.bin?'':'Risultato: ')+TX(it.fin)+'</div>';
+  if(r<n) h += '<button class="mini'+(r?' solid':'')+'" onclick="more(\''+it.id+'\')">'+(r ? 'Passo successivo' : 'Mostra la soluzione')+'</button>';
+  h += '<div class="trap'+(r>=n?' on':'')+'">'+TX(it.trap)+'</div>';
+  h += '<div class="self'+(r>=n?' on':'')+'"><div class="lb">Com\'è andata sul quaderno?</div><div class="sbt'+(it.bin?' two':'')+'">'
+     + '<button class="s1'+(sc===1?' on':'')+'" onclick="score(\''+it.id+'\',1)">✓ Giusto</button>'
+     + (it.bin ? '' : '<button class="s5'+(sc===0.5?' on':'')+'" onclick="score(\''+it.id+'\',0.5)">½ Un errore</button>')
+     + '<button class="s0'+(sc===0?' on':'')+'" onclick="score(\''+it.id+'\',0)">✗ '+(it.bin?'Sbagliato / non fatto':'No / non fatto')+'</button>'
+     + '</div></div>';
+  box.innerHTML = h;
+}
+function more(id){
+  const it = ITEMS.find(x=>x.id===id); ST.rv[id] = Math.min(it.sol.length+1, (ST.rv[id]||0)+1); save(); drawItem(it);
+}
+function score(id,v){ ST.sc[id] = v; save(); drawItem(ITEMS.find(x=>x.id===id)); drawRis(); }
+function drawRis(){
+  const box = $("ris"); if(!box) return;
+  let got = 0, done = 0;
+  ITEMS.forEach(it=>{ const s = ST.sc[it.id]; if(s!==undefined){ done++; got += s*it.p; } });
+  got = Math.round(got*100)/100;
+  EX.forEach(e=>{
+    const pts = e.items.reduce((s,it)=>s+it.p,0);
+    const g = e.items.reduce((s,it)=>s+(ST.sc[it.id]!==undefined ? ST.sc[it.id]*it.p : 0),0);
+    const el = $("pt"+e.n); if(el) el.textContent = ST.mode==="r" ? num1(Math.round(g*100)/100)+" / "+num1(pts) : ptxt(pts);
+  });
+  const voto = Math.max(1, Math.round(got/TOT*10*2)/2);
+  let h = '<div class="qnum">Risultato</div>';
+  if(done<ITEMS.length) h += '<p style="margin:0 0 6px;font-size:15.5px;color:var(--soft)">Mancano '+(ITEMS.length-done)+' risposte da valutare.</p>';
+  h += '<div class="vt">'+num1(voto)+'</div><div class="vs">voto stimato · '+num1(got)+' punti su '+TOT+'</div><table>';
+  EX.forEach(e=>{
+    const pts = e.items.reduce((s,it)=>s+it.p,0);
+    const g = e.items.reduce((s,it)=>s+(ST.sc[it.id]!==undefined ? ST.sc[it.id]*it.p : 0),0);
+    h += '<tr><td>'+e.n+' · '+e.t+'</td><td class="n">'+num1(Math.round(g*100)/100)+' / '+num1(pts)+'</td></tr>';
+  });
+  h += '</table>';
+  const rip = [];
+  ITEMS.forEach(it=>{ const s = ST.sc[it.id]; if(s!==undefined && s<1 && rip.indexOf(it.rip)<0) rip.push(it.rip); });
+  if(rip.length) h += '<div class="qnum" style="margin-top:12px">Da ripassare sul libro (Unità 1)</div><ul>'+rip.map(r=>'<li>'+r+'</li>').join('')+'</ul>';
+  else if(done===ITEMS.length) h += '<p style="font-size:16px;color:var(--ok);font-weight:700">Tutto giusto: sei pronto.</p>';
+  const el = elapsed();
+  h += '<p style="font-size:15px;color:var(--soft);margin:10px 0 0">Tempo usato: '+mmss(el)+(el>MINUTI*60000?' (oltre i '+MINUTI+' minuti: in classe allenati a tenere il ritmo dei minuti suggeriti)':'')+'.</p>';
+  box.innerHTML = h;
+}
+function setMode(){
+  document.body.classList.toggle("mr", ST.mode==="r");
+  drawRis(); drawBar();
+}
+function toCorr(){
+  if(!confirm("Hai scritto tutto sul quaderno? Dopo vedi le soluzioni.")) return;
+  if(ST.t0){ ST.acc += Date.now()-ST.t0; ST.t0 = null; }
+  ST.mode = "r"; save(); setMode(); window.scrollTo(0,0);
+}
+function reset(){
+  if(!confirm("Cancello tempo, soluzioni aperte e punteggi?")) return;
+  ST = fresh(); save(); build(); setMode(); window.scrollTo(0,0);
+}
+
+/* ═══════ il tempo ═══════ */
+function elapsed(){ return ST.acc + (ST.t0 ? Date.now()-ST.t0 : 0); }
+function mmss(ms){ const s = Math.floor(ms/1000), m = Math.floor(s/60); return m+":"+String(s%60).padStart(2,"0"); }
+function tToggle(){
+  if(ST.mode==="r"){ const r = $("ris"); if(r && r.scrollIntoView) r.scrollIntoView({behavior:"smooth", block:"start"}); return; }
+  if(ST.t0){ ST.acc += Date.now()-ST.t0; ST.t0 = null; } else ST.t0 = Date.now();
+  save(); drawBar();
+}
+function drawBar(){
+  const el = elapsed(), left = MINUTI*60000 - el, b = $("tbtn"), c = $("clk"), m = $("tmsg");
+  if(!b) return;
+  if(ST.mode==="r"){
+    c.innerHTML = 'Tempo usato <b>'+mmss(el)+'</b>';
+    b.textContent = "↓ Voto"; b.className = ""; m.textContent = "";
+    return;
+  }
+  c.innerHTML = '<b>'+mmss(el)+'</b> &nbsp;'+(left>=0 ? 'mancano '+mmss(left) : 'oltre di '+mmss(-left));
+  b.textContent = ST.t0 ? "⏸ Pausa" : (el ? "▶ Riprendi" : "▶ Avvia");
+  b.className = ST.t0 ? "run" : "";
+  const min = el/60000;
+  m.textContent = !ST.t0 && !el ? "Quando sei pronto, fai partire il tempo." :
+    !ST.t0 ? "In pausa." :
+    min>=MINUTI ? "Tempo finito: passa alla correzione quando vuoi." :
+    min>=MINUTI-5 ? "Ultimi 5 minuti: ricontrolla." :
+    min>=MINUTI/2 && min<MINUTI/2+5 ? "Metà tempo: a che esercizio sei?" : "";
+}
+setInterval(drawBar, 1000);
+
+/* ═══════ schema ═══════ */
+$("ff").innerHTML = '<table class="ff">'
+ + '<tr class="sec"><td colspan="2">Segmenti e poligonali</td></tr>'
+ + '<tr><td>consecutivi</td><td>un solo estremo in comune</td></tr>'
+ + '<tr><td>adiacenti</td><td>consecutivi + sulla stessa retta</td></tr>'
+ + '<tr><td>poligonale</td><td>a) consecutivi ma non adiacenti · b) ogni estremo in al massimo due segmenti</td></tr>'
+ + '<tr><td>poligono</td><td>poligonale chiusa, non intrecciata + punti interni</td></tr>'
+ + '<tr class="sec"><td colspan="2">Angoli</td></tr>'
+ + '<tr><td>consecutivi</td><td>stesso vertice, un lato in comune</td></tr>'
+ + '<tr><td>adiacenti</td><td>consecutivi + lati non comuni sulla stessa retta → somma 180°</td></tr>'
+ + '<tr><td>opposti al vertice</td><td>lati dell\'uno = prolungamenti dell\'altro → congruenti</td></tr>'
+ + '<tr><td>somme</td><td>complementari 90° · supplementari 180° · esplementari 360°</td></tr>'
+ + '<tr><td>tipi</td><td>acuto &lt; 90° · retto 90° · ottuso tra 90° e 180° · piatto 180° · giro 360°</td></tr>'
+ + '<tr class="sec"><td colspan="2">Misura</td></tr>'
+ + '<tr><td>sessagesimale</td><td>1° = 60′ · 1′ = 60″ · 1° = 3600″</td></tr>'
+ + '<tr><td>punto medio · bisettrice</td><td>dividono a metà il segmento · l\'angolo</td></tr>'
+ + '<tr class="sec"><td colspan="2">Utili per i problemi</td></tr>'
+ + '<tr><td>opposti al vertice</td><td>sono congruenti: si possono mettere uguali in un\'equazione</td></tr>'
+ + '<tr><td>metà + metà</td><td>½α + ½β ≅ ½(α + β) · ½AB + ½BC ≅ ½(AB + BC)</td></tr>'
+ + '<tr><td>prestito</td><td>90° = 89°59′60″ · 180° = 179°59′60″ · 360° = 359°59′60″</td></tr>'
+ + '<tr class="sec"><td colspan="2">Congruenza (assioma 5)</td></tr>'
+ + '<tr><td>riflessiva</td><td>F ≅ F</td></tr>'
+ + '<tr><td>simmetrica</td><td>F₁ ≅ F₂ → F₂ ≅ F₁</td></tr>'
+ + '<tr><td>transitiva</td><td>F₁ ≅ F₂ e F₂ ≅ F₃ → F₁ ≅ F₃</td></tr>'
+ + '</table>';
+
+/* ═══════ voce ═══════ */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute("data-say") || "");
+  u.lang = "it-IT"; u.rate = 0.85; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on");
+  speechSynthesis.speak(u);
+}
+
+build(); setMode();
+</script>
+</body>
+</html>
