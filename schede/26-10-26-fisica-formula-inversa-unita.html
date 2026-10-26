@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Formula inversa con le unità</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7; --accent-line:#CBDAEC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --su:#B4531A;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:4px 0 8px}
+.chips a{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:6px 12px;
+  font-size:14px; font-weight:600; color:var(--soft); text-decoration:none}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 12px}
+.dati{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:10px 16px; margin:12px 0; font-size:17px}
+.dati .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:12px 14px; font-size:17px; font-weight:600; margin-top:12px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.step p{margin:6px 0}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:11px 12px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus, .ns input:focus{outline:none; border-color:var(--accent)}
+.chk .u{align-self:center; font-size:16px; color:var(--soft); font-weight:600; min-width:34px}
+.chk button, .go{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 16px; font-weight:600; font-size:16px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em; line-height:1.5}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.opts{display:grid; gap:7px; margin-top:8px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{min-width:0; overflow-wrap:break-word}
+@media (max-width:460px){ .opts.three button{font-size:14px; padding:10px 3px} }
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 6px;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.3}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+.why{display:none; font-size:15.5px; color:var(--soft); margin:6px 0 2px; line-height:1.5}
+.why.on{display:block}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:6px 8px; text-align:center}
+th{background:var(--accent-soft); font-size:14px}
+
+/* righe veloci: notazione ed equivalenze */
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:20px; font-weight:700; font-family:"Times New Roman",Georgia,serif; margin-bottom:6px}
+.op .to{font-family:-apple-system,Arial,sans-serif; font-size:16px; color:var(--soft); font-weight:600}
+.ns{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+.ns .nm{flex:1 1 auto; min-width:0; width:100%; font:inherit; font-size:19px; padding:10px 12px; border:2px solid var(--rule); border-radius:12px; background:#fff; color:var(--ink)}
+.ns .x{font-family:"Times New Roman",Georgia,serif; font-size:21px; white-space:nowrap}
+.ns .pw{display:flex; align-items:center; gap:3px; transform:translateY(-11px)}
+.ns .ex{width:58px; font:inherit; font-size:16px; padding:5px 6px; border:2px solid var(--rule); border-radius:9px; background:#fff; color:var(--ink); text-align:center}
+.ns .pm{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:3px 7px; font-size:15px; font-weight:700; color:var(--ink)}
+.acts{display:flex; gap:8px; margin-top:6px}
+.acts .go{padding:9px 16px}
+.linkish{background:none; border:none; font-size:15px; color:var(--accent); text-decoration:underline; padding:4px 2px}
+.how{display:none; background:#F4F1EA; border-radius:10px; padding:10px 12px; margin-top:8px; font-size:16px; line-height:1.6}
+.how.on{display:block}
+.score{font-size:15px; color:var(--soft); margin-top:12px; font-weight:600}
+.row.done .op::after{content:" ✓"; color:var(--ok)}
+.redo{display:none; margin-top:10px}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+
+.flow{display:flex; flex-direction:column; gap:7px; margin:12px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.5}
+.flow .st b.n{display:block; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.box{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:10px 14px; margin:12px 0}
+.box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.fx{font-family:"Times New Roman",Georgia,serif; font-size:19px}
+table td{font-size:14.5px; padding:6px 4px}
+.part{display:flex; align-items:center; gap:8px; margin:20px 0 4px; font-size:15px; font-weight:700; color:var(--accent); border-top:1px dashed var(--rule); padding-top:14px}
+.part .pn{display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; font-size:14px}
+.lab2{font-size:17px; margin:6px 0 2px}
+.lab2.fx{font-size:20px}
+.tb{display:flex; align-items:baseline; gap:8px; border:2px solid var(--rule); border-radius:12px; padding:8px 12px; margin:8px 0; background:#fff;
+  font-family:"Times New Roman",Georgia,serif; font-size:24px; min-height:52px}
+.tb.ok{border-color:var(--ok); background:var(--ok-soft)}
+.tb .fl{white-space:nowrap} .tb .fr{flex:1} .tb .ph{font-family:-apple-system,Arial,sans-serif; font-size:15px; color:var(--soft)}
+.toks{display:flex; gap:6px; flex-wrap:wrap}
+.tk{flex:1 1 0; min-width:44px; border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:11px; padding:8px 0;
+  font-family:"Times New Roman",Georgia,serif; font-size:22px; font-weight:700}
+.tk.op{background:#F4F1EA}
+.tk.del{border-color:var(--rule); color:var(--soft); font-family:-apple-system,Arial,sans-serif; font-size:18px}
+.go.wide{width:100%; margin-top:8px; padding:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Fisica · come l'esercizio 4 del 25 settembre</div>
+  <h1>Formula inversa con le unità</h1>
+  <p class="lead">Otto esercizi come il 4 della verifica: equivalenze, formula inversa, unità semplificate, risultato. Ogni esercizio ha quattro parti: falle in ordine. Il tasto 🔊 legge il testo.</p>
+</header>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">Come si scrive la risposta</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="Come si scrive la risposta. Uno: i dati, con le equivalenze. Tutto nel Sistema Internazionale: chilogrammi, metri cubi, secondi. Oppure tutto in grammi e centimetri cubi, se la densità è in grammi al centimetro cubo. Due: la formula inversa, con i passaggi. Tre: i numeri con le loro unità, e le unità si semplificano. Quattro: il risultato, con l'unità. Ricorda: l'esponente meno uno vuol dire diviso. Chilogrammi per metri alla meno tre vuol dire chilogrammi diviso metri cubi.">🔊</button></div>
+  <div class="flow">
+    <div class="st"><b class="n">1 · Dati ed equivalenze</b>tutto nel S.I. (kg, m³, s), oppure tutto in g e cm³ se la densità è in g·cm⁻³.</div>
+    <div class="st"><b class="n">2 · Formula inversa</b>i passaggi, come su una bilancia: quello che fai a sinistra lo fai a destra.</div>
+    <div class="st"><b class="n">3 · Numeri e unità</b>scrivi i numeri <b>con</b> le unità e semplificale.</div>
+    <div class="st"><b class="n">4 · Risultato</b>con l'unità giusta.</div>
+  </div>
+  <div class="box"><div class="lbl">L'esponente meno uno</div>
+    <span class="fx">kg·m⁻³ = kg / m³ &nbsp;&nbsp; <i>m</i>·<i>V</i>⁻¹ = <i>m</i> / <i>V</i> &nbsp;&nbsp; 1 / m⁻³ = m³</span></div>
+  <table>
+    <tr><th>massa</th><th>volume</th><th>altro</th></tr>
+    <tr><td>1 hg = 0,1 kg</td><td>1 L = 1 dm³ = 10⁻³ m³</td><td>1 min = 60 s</td></tr>
+    <tr><td>1 g = 10⁻³ kg</td><td>1 cm³ = 1 mL = 10⁻⁶ m³</td><td>1 km = 10³ m</td></tr>
+    <tr><td>1 mg = 10⁻⁶ kg</td><td>1 m³ = 1000 L</td><td>1 N = 1 kg·m·s⁻²</td></tr>
+  </table>
+  <div class="note" style="margin-bottom:0"><b>Come scrivere i numeri.</b> Virgola o punto vanno bene. Le potenze: <b>5·10^-4</b> oppure <b>5e-4</b>.</div>
+</div>
+
+<div id="exs"></div>
+
+<p class="foot">Palestra · Fisica — formula inversa con le unità</p>
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+function fx(n){ return (Math.round(n*10)/10).toString(); }
+/* ---------- numeri: virgola, punto delle migliaia, 2,7·10^4, 2,7e4, apici ---------- */
+function nums(s){
+  s = String(s==null?'':s).trim(); if(!s) return [];
+  const sup = {'\u2070':'0','\u00b9':'1','\u00b2':'2','\u00b3':'3','\u2074':'4','\u2075':'5','\u2076':'6','\u2077':'7','\u2078':'8','\u2079':'9','\u207b':'-','\u207a':'+'};
+  s = s.replace(/(kg·m⁻³|kg\/m³|kg\/m3|g·cm⁻³|g\/cm³|g\/cm3|m\/s²|m\/s2|km\/h|cm³|cm3|dm³|m³|m3|kgp|kg|hg|km|mg|N|T|g|m|L|l|s)\s*$/,'');
+  s = s.replace(/[\u2070\u00b9\u00b2\u00b3\u2074-\u2079\u207b\u207a]+/g, m=>{ let o='^'; for(const c of m) o+=sup[c]; return o; });
+  s = s.replace(/\s+/g,'').replace(/[\u2212\u2013]/g,'-').replace(/[\u00d7xX\u00b7\u22c5*]/g,'*');
+  const vars = [];
+  if(s.indexOf(',')>=0) vars.push(s.replace(/\./g,'').replace(/,/g,'.'));
+  else { vars.push(s); if(/^[+-]?[1-9]\d{0,2}(\.\d{3})+(\*|$)/.test(s)) vars.push(s.replace(/\.(?=\d{3})/g,'')); }
+  const out = [];
+  vars.forEach(t=>{
+    let m = t.match(/^([+-]?\d*\.?\d+)\*10\^([+-]?\d+)$/);
+    if(m){ out.push(parseFloat(m[1])*Math.pow(10,parseInt(m[2],10))); return; }
+    m = t.match(/^10\^([+-]?\d+)$/);
+    if(m){ out.push(Math.pow(10,parseInt(m[1],10))); return; }
+    if(/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(t)) out.push(parseFloat(t));
+  });
+  return out;
+}
+function volte(k){ const s = String(Math.pow(10,k)); return s.length>4 ? s.replace(/\B(?=(\d{3})+(?!\d))/g,' ') : s; }
+function near(v,a,sp){ if(sp.rel!=null) return Math.abs(v-a) <= Math.abs(a)*sp.rel; return Math.abs(v-a) <= (sp.tol!=null ? sp.tol : Math.abs(a)*1e-6+1e-12); }
+
+function chk(id){
+  const sp = SPEC[id], vs = nums($('i'+id).value), f = $('f'+id);
+  if(!vs.length){ f.className='fb n'; f.textContent='Scrivi un numero (puoi usare la virgola).'; return; }
+  if(vs.some(v=>near(v,sp.ok,sp))){ f.className='fb y'; f.textContent='\u2713 Esatto.'; return; }
+  let msg = null;
+  vs.forEach(v=>(sp.traps||[]).forEach(t=>{
+    const tt = {tol:t.tol, rel:t.rel}; if(t.tol==null && t.rel==null) tt.rel = 0.004;
+    if(msg===null && near(v,t.v,tt)) msg = t.m;
+  }));
+  const v = vs[0];
+  if(msg===null && sp.mag && v>0){
+    const L = Math.log(v/sp.ok)/Math.LN10, k = Math.round(L);
+    if(k!==0 && Math.abs(L-k)<0.005) msg = 'Le cifre vanno bene, ma il numero è '+(k>0?'troppo grande':'troppo piccolo')+' di '+volte(Math.abs(k))+' volte. Controlla la conversione.';
+  }
+  f.className='fb n'; f.textContent='\u2717 '+(msg||'Non ancora. Apri il passo 1.');
+}
+function step(btn,q){
+  const all = document.querySelectorAll('[id^="s'+q+'_"]'); let n = 0;
+  for(let i=0;i<all.length;i++) if(all[i].classList.contains('on')) n++;
+  const el = all[n];
+  if(el){ el.classList.add('on'); if(el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'center'}); }
+  if(n+1>=all.length){ const r = $('r'+q); if(r) r.classList.add('on'); btn.style.display='none'; }
+  else { btn.textContent='Continua'; btn.classList.add('solid'); }
+}
+
+/* ---------- scelte: una sola risposta, poi si blocca ---------- */
+function scegli(btn,k){
+  const box = btn.parentNode;
+  if(box.getAttribute('data-done')!==null) return;
+  const ok = +box.getAttribute('data-ok'), bs = box.querySelectorAll('button'), giusto = (k===ok);
+  btn.className = giusto ? 'right' : 'wrong';
+  if(!giusto) bs[ok].className = 'right';
+  box.setAttribute('data-done', giusto?'1':'0');
+  box.classList.add('locked');
+  const w = box.nextElementSibling;
+  if(w && w.classList.contains('why')) w.classList.add('on');
+  const blk = box.closest ? box.closest('.blk') : null;
+  if(blk) punti(blk);
+}
+function punti(blk){
+  const all = blk.querySelectorAll('.opts'); let n = 0, t = 0;
+  for(let i=0;i<all.length;i++){ const v = all[i].getAttribute('data-done'); if(v!==null){ t++; if(v==='1') n++; } }
+  const sc = $('score'+blk.id);
+  if(sc) sc.textContent = 'Giuste: '+n+' su '+all.length+(t<all.length ? ' (ne mancano '+(all.length-t)+')' : (n===all.length ? ' — tutto giusto!' : ''));
+  const r = $('redo'+blk.id); if(r) r.style.display = (t===all.length) ? 'block' : 'none';
+}
+function rifai(id){
+  const blk = $(id), cont = blk.querySelector('.rows'), rows = Array.prototype.slice.call(cont.querySelectorAll('.row'));
+  for(let i=rows.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const t = rows[i]; rows[i] = rows[j]; rows[j] = t; }
+  rows.forEach(r=>{
+    const box = r.querySelector('.opts'); box.removeAttribute('data-done'); box.classList.remove('locked');
+    box.querySelectorAll('button').forEach(b=>b.className='');
+    const w = r.querySelector('.why'); if(w) w.classList.remove('on');
+    cont.appendChild(r);
+  });
+  punti(blk);
+  if(blk.scrollIntoView) blk.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ---------- voce ---------- */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==='it-IT') || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert('Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome.'); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove('on'); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
+  u.lang = 'it-IT'; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove('on'); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add('on');
+  speechSynthesis.speak(u);
+}
+
+
+/* ═══════════ gli esercizi ═══════════
+   conv = equivalenza da fare prima · toks/form = formula inversa da costruire · uq = semplificazione delle unità
+   res = risultato · extra = lo stesso risultato in un'altra unità */
+const EX = [
+{id:'e1', tit:'Esercizio 1 · quello della verifica',
+ txt:'Un materiale ha densità <i>d</i> = 50 kg·m⁻³ e massa <i>m</i> = 5 hg. Trova il volume <i>V</i>, sapendo che <i>d</i> = <i>m</i>·<i>V</i>⁻¹.',
+ say:'Un materiale ha densità cinquanta chilogrammi al metro cubo e massa cinque ettogrammi. Trova il volume, sapendo che la densità è massa per volume alla meno uno, cioè massa diviso volume.',
+ dati:'<i>d</i> = 50 kg·m⁻³ &nbsp;·&nbsp; <i>m</i> = 5 hg &nbsp;·&nbsp; <i>V</i> = ?',
+ conv:{lab:'<i>m</i> = 5 hg = … kg', u:'kg', ok:0.5, mag:true, traps:[[5,'5 sono gli ettogrammi. 1 hg = 0,1 kg, quindi 5 hg = 0,5 kg.']]},
+ cerca:'V', toks:['m','d','V','×',':'], form:['m:d'],
+ fw:{'d:m':'Al contrario: la massa sta sopra. V = m : d.','m×d':'Si divide: da d · V = m viene V = m : d.','d×m':'Si divide: da d · V = m viene V = m : d.'},
+ uq:{q:'kg : (kg·m⁻³) = ?', o:['m³','kg²·m⁻³','m⁻³'], ok:0, why:'kg si semplifica con kg. Resta 1 : m⁻³ = m³: l\u2019esponente negativo sotto la frazione diventa positivo.'},
+ res:{lab:'<i>V</i> = … m³', u:'m³', ok:0.01, traps:[[25,'Hai moltiplicato: V = m : d.'],[0.1,'Hai usato 5 hg come se fossero 5 kg. Prima l\u2019equivalenza: 0,5 kg.'],[100,'Al contrario: V = m : d = 0,5 : 50.'],[250,'Hai moltiplicato e senza convertire: V = m : d = 0,5 : 50.']]},
+ extra:{lab:'Lo stesso volume in litri', u:'L', ok:10, mag:true, traps:[[0.01,'Questi sono ancora m³. 1 m³ = 1000 L.']]},
+ passi:[['Equivalenze','<span class="f"><i>m</i> = 5 hg = 5 · 10⁻¹ kg = 0,5 kg</span><p>La densità è già nel S.I.: kg·m⁻³ vuol dire kg/m³.</p>'],
+        ['Inversione','<span class="f"><i>d</i> = <i>m</i>·<i>V</i>⁻¹ = <i>m</i> / <i>V</i> &nbsp;→&nbsp; <i>d</i> · <i>V</i> = <i>m</i> &nbsp;→&nbsp; <i>V</i> = <i>m</i> / <i>d</i></span>'],
+        ['Numeri e unità','<span class="f"><i>V</i> = 0,5 kg / (50 kg·m⁻³) = 0,01 m³ = 1,0·10⁻² m³</span><p>kg con kg si semplifica; 1 / m⁻³ = m³. E 1 m³ = 1000 L, quindi 0,01 m³ = 10 L.</p>']],
+ risp:'<b>V = 1,0·10⁻² m³ = 10 L</b>'},
+
+{id:'e2', tit:'Esercizio 2 · l\u2019alcol',
+ txt:'L\u2019alcol ha densità <i>d</i> = 800 kg·m⁻³. Che volume occupano <i>m</i> = 400 g di alcol? (<i>d</i> = <i>m</i>·<i>V</i>⁻¹)',
+ say:'L\u2019alcol ha densità ottocento chilogrammi al metro cubo. Che volume occupano quattrocento grammi di alcol?',
+ dati:'<i>d</i> = 800 kg·m⁻³ &nbsp;·&nbsp; <i>m</i> = 400 g &nbsp;·&nbsp; <i>V</i> = ?',
+ conv:{lab:'<i>m</i> = 400 g = … kg', u:'kg', ok:0.4, mag:true},
+ cerca:'V', toks:['V','d','m',':','×'], form:['m:d'],
+ fw:{'d:m':'Al contrario: la massa sta sopra. V = m : d.','m×d':'Si divide: V = m : d.','d×m':'Si divide: V = m : d.'},
+ uq:{q:'kg : (kg·m⁻³) = ?', o:['kg·m³','m⁻³','m³'], ok:2, why:'kg con kg si semplifica, e 1 : m⁻³ = m³.'},
+ res:{lab:'<i>V</i> = … m³', u:'m³', ok:5e-4, traps:[[0.5,'Hai usato i grammi con una densità in kg/m³. Prima: 400 g = 0,4 kg.'],[320,'Hai moltiplicato: V = m : d.'],[2000,'Al contrario: V = m : d = 0,4 : 800.']]},
+ extra:{lab:'Lo stesso volume in litri', u:'L', ok:0.5, mag:true},
+ passi:[['Equivalenze','<span class="f"><i>m</i> = 400 g = 400 · 10⁻³ kg = 0,4 kg</span>'],
+        ['Inversione','<span class="f"><i>V</i> = <i>m</i> / <i>d</i></span>'],
+        ['Numeri e unità','<span class="f"><i>V</i> = 0,4 kg / (800 kg·m⁻³) = 5,0·10⁻⁴ m³</span><p>In litri: 5,0·10⁻⁴ × 1000 = 0,5 L.</p>']],
+ risp:'<b>V = 5,0·10⁻⁴ m³ = 0,5 L</b>'},
+
+{id:'e3', tit:'Esercizio 3 · l\u2019alluminio, in g e cm³',
+ txt:'L\u2019alluminio ha densità <i>d</i> = 2,7 g·cm⁻³. Che volume ha un blocchetto di <i>m</i> = 0,54 kg? Dai il risultato in cm³.',
+ say:'L\u2019alluminio ha densità due virgola sette grammi al centimetro cubo. Che volume ha un blocchetto di zero virgola cinquantaquattro chilogrammi? Il risultato va in centimetri cubi.',
+ dati:'<i>d</i> = 2,7 g·cm⁻³ &nbsp;·&nbsp; <i>m</i> = 0,54 kg &nbsp;·&nbsp; <i>V</i> = ? cm³',
+ conv:{lab:'Qui conviene lavorare in g e cm³: <i>m</i> = 0,54 kg = … g', u:'g', ok:540, mag:true},
+ cerca:'V', toks:['d','m','V',':','×'], form:['m:d'],
+ fw:{'d:m':'Al contrario: la massa sta sopra. V = m : d.','m×d':'Si divide: V = m : d.','d×m':'Si divide: V = m : d.'},
+ uq:{q:'g : (g·cm⁻³) = ?', o:['cm⁻³','cm³','g²'], ok:1, why:'g con g si semplifica, e 1 : cm⁻³ = cm³.'},
+ res:{lab:'<i>V</i> = … cm³', u:'cm³', ok:200, traps:[[0.2,'Hai usato i kg con una densità in g/cm³. Prima: 0,54 kg = 540 g.'],[1458,'Hai moltiplicato: V = m : d.'],[0.005,'Al contrario: V = m : d = 540 : 2,7.']]},
+ extra:{lab:'Lo stesso volume in m³', u:'m³', ok:2e-4, mag:true},
+ passi:[['Equivalenze','<span class="f"><i>m</i> = 0,54 kg = 540 g</span><p>La densità è in g/cm³: anche la massa va in grammi.</p>'],
+        ['Inversione','<span class="f"><i>V</i> = <i>m</i> / <i>d</i></span>'],
+        ['Numeri e unità','<span class="f"><i>V</i> = 540 g / (2,7 g·cm⁻³) = 200 cm³</span><p>1 cm³ = 10⁻⁶ m³, quindi 200 cm³ = 2,0·10⁻⁴ m³.</p>']],
+ risp:'<b>V = 200 cm³ = 2,0·10⁻⁴ m³</b>'},
+
+{id:'e4', tit:'Esercizio 4 · la massa dell\u2019acqua',
+ txt:'Una bottiglia contiene <i>V</i> = 2,5 L d\u2019acqua (<i>d</i> = 1,0·10³ kg·m⁻³). Quanto vale la massa dell\u2019acqua?',
+ say:'Una bottiglia contiene due litri e mezzo d\u2019acqua. L\u2019acqua ha densità mille chilogrammi al metro cubo. Quanto vale la massa dell\u2019acqua?',
+ dati:'<i>d</i> = 1,0·10³ kg·m⁻³ &nbsp;·&nbsp; <i>V</i> = 2,5 L &nbsp;·&nbsp; <i>m</i> = ?',
+ conv:{lab:'<i>V</i> = 2,5 L = … m³', u:'m³', ok:2.5e-3, mag:true, traps:[[2.5,'2,5 sono litri, cioè dm³. In m³: 1 L = 10⁻³ m³.']]},
+ cerca:'m', toks:['d','V','m','×',':'], form:['d×V','V×d'],
+ fw:{'d:V':'Si moltiplica: da d = m : V viene m = d · V.','V:d':'Si moltiplica: m = d · V.'},
+ uq:{q:'kg·m⁻³ · m³ = ?', o:['kg','kg·m⁶','m³'], ok:0, why:'m⁻³ · m³ = m⁰ = 1: resta kg.'},
+ res:{lab:'<i>m</i> = … kg', u:'kg', ok:2.5, traps:[[2500,'Hai lasciato i litri. Prima: 2,5 L = 2,5·10⁻³ m³.'],[4e5,'Si moltiplica: m = d · V.'],[400,'Hai diviso: m = d · V.']]},
+ extra:null,
+ passi:[['Equivalenze','<span class="f"><i>V</i> = 2,5 L = 2,5 dm³ = 2,5·10⁻³ m³</span>'],
+        ['Inversione','<span class="f"><i>d</i> = <i>m</i> / <i>V</i> &nbsp;→&nbsp; <i>m</i> = <i>d</i> · <i>V</i></span>'],
+        ['Numeri e unità','<span class="f"><i>m</i> = 1,0·10³ kg·m⁻³ · 2,5·10⁻³ m³ = 2,5 kg</span><p>10³ · 10⁻³ = 10⁰ = 1, e m⁻³ · m³ = 1.</p>']],
+ risp:'<b>m = 2,5 kg</b>'},
+
+{id:'e5', tit:'Esercizio 5 · il chiodo di ferro',
+ txt:'Un pezzo di ferro ha volume <i>V</i> = 20 cm³. Il ferro ha densità <i>d</i> = 7,9·10³ kg·m⁻³. Quanto vale la massa?',
+ say:'Un pezzo di ferro ha volume venti centimetri cubi. Il ferro ha densità sette virgola nove per dieci alla terza chilogrammi al metro cubo. Quanto vale la massa?',
+ dati:'<i>d</i> = 7,9·10³ kg·m⁻³ &nbsp;·&nbsp; <i>V</i> = 20 cm³ &nbsp;·&nbsp; <i>m</i> = ?',
+ conv:{lab:'<i>V</i> = 20 cm³ = … m³', u:'m³', ok:2e-5, mag:true, traps:[[0.02,'0,020 sono dm³. Per i m³ manca un gradino: 1 cm³ = 10⁻⁶ m³.']]},
+ cerca:'m', toks:['m','V','d',':','×'], form:['d×V','V×d'],
+ fw:{'d:V':'Si moltiplica: m = d · V.','V:d':'Si moltiplica: m = d · V.'},
+ uq:{q:'kg·m⁻³ · m³ = ?', o:['m⁻⁹','kg','kg·m³'], ok:1, why:'m⁻³ · m³ = 1: resta kg.'},
+ res:{lab:'<i>m</i> = … kg', u:'kg', ok:0.158, rel:0.015, traps:[[158000,'Hai lasciato i cm³. Prima: 20 cm³ = 2,0·10⁻⁵ m³.'],[395,'Si moltiplica: m = d · V.']]},
+ extra:{lab:'La stessa massa in grammi', u:'g', ok:158, rel:0.015, mag:true},
+ passi:[['Equivalenze','<span class="f"><i>V</i> = 20 cm³ = 20 · 10⁻⁶ m³ = 2,0·10⁻⁵ m³</span><p>1 cm = 10⁻² m, quindi 1 cm³ = (10⁻²)³ m³ = 10⁻⁶ m³.</p>'],
+        ['Inversione','<span class="f"><i>m</i> = <i>d</i> · <i>V</i></span>'],
+        ['Numeri e unità','<span class="f"><i>m</i> = 7,9·10³ · 2,0·10⁻⁵ = 15,8·10⁻² kg = 0,158 kg</span><p>10³ · 10⁻⁵ = 10⁻². In grammi: 158 g.</p>']],
+ risp:'<b>m ≈ 0,16 kg = 158 g</b>'},
+
+{id:'e6', tit:'Esercizio 6 · la formula è già girata',
+ txt:'Questa volta la formula è scritta così: <i>V</i> = <i>m</i>·<i>d</i>⁻¹. Un sasso ha <i>m</i> = 3 hg e <i>V</i> = 150 cm³. Trova la densità in kg·m⁻³.',
+ say:'Questa volta la formula è scritta così: volume uguale massa per densità alla meno uno. Un sasso ha massa tre ettogrammi e volume centocinquanta centimetri cubi. Trova la densità in chilogrammi al metro cubo.',
+ dati:'<i>m</i> = 3 hg &nbsp;·&nbsp; <i>V</i> = 150 cm³ &nbsp;·&nbsp; <i>d</i> = ? kg·m⁻³',
+ conv:{lab:'<i>V</i> = 150 cm³ = … m³', u:'m³', ok:1.5e-4, mag:true},
+ cerca:'d', toks:['V','m','d','×',':'], form:['m:V'],
+ fw:{'V:m':'Al contrario: la massa sta sopra. d = m : V.','m×V':'Si divide: da V · d = m viene d = m : V.','V×m':'Si divide: d = m : V.'},
+ uq:{q:'kg : m³ = ?', o:['kg·m³','kg·m⁻³','m³·kg⁻¹'], ok:1, why:'Dividere per m³ è come moltiplicare per m⁻³: kg/m³ = kg·m⁻³.'},
+ res:{lab:'<i>d</i> = … kg·m⁻³', u:'kg·m⁻³', ok:2000, mag:true, traps:[[2,'Questa è la densità in g/cm³ (300 g : 150 cm³). In kg·m⁻³: × 1000.'],[0.02,'Hai lasciato 3 hg e 150 cm³. Prima le equivalenze: 0,3 kg e 1,5·10⁻⁴ m³.']]},
+ extra:null,
+ passi:[['Equivalenze','<span class="f"><i>m</i> = 3 hg = 0,3 kg &nbsp;&nbsp; <i>V</i> = 150 cm³ = 1,5·10⁻⁴ m³</span>'],
+        ['Inversione','<span class="f"><i>V</i> = <i>m</i>·<i>d</i>⁻¹ = <i>m</i> / <i>d</i> &nbsp;→&nbsp; <i>V</i> · <i>d</i> = <i>m</i> &nbsp;→&nbsp; <i>d</i> = <i>m</i> / <i>V</i></span>'],
+        ['Numeri e unità','<span class="f"><i>d</i> = 0,3 kg / 1,5·10⁻⁴ m³ = 0,2·10⁴ kg·m⁻³ = 2,0·10³ kg·m⁻³</span><p>Controllo veloce: 300 g : 150 cm³ = 2 g/cm³ = 2000 kg/m³.</p>']],
+ risp:'<b>d = 2,0·10³ kg·m⁻³</b>'},
+
+{id:'e7', tit:'Esercizio 7 · stessa idea, con il peso',
+ txt:'Il peso è <i>P</i> = <i>m</i>·<i>g</i>. Uno zaino pesa <i>P</i> = 49 N, con <i>g</i> = 9,8 m·s⁻². Trova la massa e scrivila in hg.',
+ say:'Il peso è massa per g. Uno zaino pesa quarantanove newton, con g uguale nove virgola otto metri al secondo quadrato. Trova la massa e scrivila in ettogrammi.',
+ dati:'<i>P</i> = 49 N &nbsp;·&nbsp; <i>g</i> = 9,8 m·s⁻² &nbsp;·&nbsp; <i>m</i> = ? hg',
+ conv:{lab:'Il risultato va in ettogrammi: 1 kg = … hg', u:'hg', ok:10, traps:[[0.1,'Al contrario: l\u2019ettogrammo è più piccolo del kg, quindi in 1 kg ce ne sono 10.'],[100,'100 sono i decagrammi. 1 kg = 10 hg.']]},
+ cerca:'m', toks:['P','g','m','×',':'], form:['P:g'],
+ fw:{'g:P':'Al contrario: P sta sopra. m = P : g.','P×g':'Si divide: da P = m · g viene m = P : g.','g×P':'Si divide: m = P : g.'},
+ uq:{q:'(kg·m·s⁻²) : (m·s⁻²) = ?', o:['kg','m·s⁻²','kg·m²·s⁻⁴'], ok:0, why:'m con m e s⁻² con s⁻² si semplificano: resta kg.'},
+ res:{lab:'<i>m</i> = … kg', u:'kg', ok:5, traps:[[480.2,'Hai moltiplicato: m = P : g.'],[0.2,'Al contrario: m = P : g = 49 : 9,8.']]},
+ extra:{lab:'La stessa massa in hg', u:'hg', ok:50, mag:true, traps:[[0.5,'Al contrario: 1 kg = 10 hg, quindi 5 kg = 50 hg.']]},
+ passi:[['Equivalenze','<p>I dati sono già nel S.I. Serve solo sapere che 1 kg = 10 hg, e che il newton in unità di base è:</p><span class="f">1 N = 1 kg·m·s⁻²</span>'],
+        ['Inversione','<span class="f"><i>P</i> = <i>m</i> · <i>g</i> &nbsp;→&nbsp; <i>m</i> = <i>P</i> / <i>g</i></span>'],
+        ['Numeri e unità','<span class="f"><i>m</i> = 49 kg·m·s⁻² / 9,8 m·s⁻² = 5,0 kg = 50 hg</span><p>1 kg = 10 hg.</p>']],
+ risp:'<b>m = 5,0 kg = 50 hg</b>'},
+
+{id:'e8', tit:'Esercizio 8 · stessa idea, con la velocità',
+ txt:'La velocità è <i>v</i> = <i>s</i>·<i>t</i>⁻¹. Un ciclista va a <i>v</i> = 15 m·s⁻¹ per <i>t</i> = 2 min. Quanta strada fa? Scrivila in km.',
+ say:'La velocità è spazio per tempo alla meno uno, cioè spazio diviso tempo. Un ciclista va a quindici metri al secondo per due minuti. Quanta strada fa? Scrivila in chilometri.',
+ dati:'<i>v</i> = 15 m·s⁻¹ &nbsp;·&nbsp; <i>t</i> = 2 min &nbsp;·&nbsp; <i>s</i> = ? km',
+ conv:{lab:'<i>t</i> = 2 min = … s', u:'s', ok:120, traps:[[2,'Questi sono minuti. 1 min = 60 s.'],[200,'Un minuto ha 60 secondi, non 100.']]},
+ cerca:'s', toks:['v','t','s','×',':'], form:['v×t','t×v'],
+ fw:{'v:t':'Si moltiplica: da v = s : t viene s = v · t.','t:v':'Si moltiplica: s = v · t.'},
+ uq:{q:'m·s⁻¹ · s = ?', o:['m·s⁻²','m','s'], ok:1, why:'s⁻¹ · s = 1: resta m.'},
+ res:{lab:'<i>s</i> = … m', u:'m', ok:1800, traps:[[30,'Hai lasciato i minuti. Prima: 2 min = 120 s.'],[0.125,'Si moltiplica: s = v · t.'],[8,'Si moltiplica: s = v · t.']]},
+ extra:{lab:'La stessa strada in km', u:'km', ok:1.8, mag:true},
+ passi:[['Equivalenze','<span class="f"><i>t</i> = 2 min = 2 · 60 s = 120 s</span>'],
+        ['Inversione','<span class="f"><i>v</i> = <i>s</i> / <i>t</i> &nbsp;→&nbsp; <i>s</i> = <i>v</i> · <i>t</i></span>'],
+        ['Numeri e unità','<span class="f"><i>s</i> = 15 m·s⁻¹ · 120 s = 1800 m = 1,8 km</span><p>s⁻¹ · s = 1: resta m.</p>']],
+ risp:'<b>s = 1800 m = 1,8 km</b>'}
+];
+
+/* ═══════════ costruzione delle carte ═══════════ */
+const TOKSHOW = {'×':'×', ':':'÷'};
+function cardHTML(e){
+  const i = e.id;
+  let h = '<div class="card" id="'+i+'">';
+  h += '<div class="qhead"><div class="qnum">'+e.tit+'</div><button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+e.say.replace(/"/g,'&quot;')+'">🔊</button></div>';
+  h += '<p class="qtext">'+e.txt+'</p>';
+  h += '<div class="dati"><div class="lbl">Dati</div>'+e.dati+'</div>';
+  h += '<div class="part"><span class="pn">1</span> Equivalenze</div>';
+  h += '<div class="lab2">'+e.conv.lab+'</div>';
+  h += '<div class="chk"><input id="i'+i+'c" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">'+e.conv.u+'</span><button onclick="chk(\''+i+'c\')">Controlla</button></div><div class="fb" id="f'+i+'c"></div>';
+  h += '<div class="part"><span class="pn">2</span> Formula inversa: costruiscila con i tasti</div>';
+  h += '<div class="tb"><span class="fl"><i>'+e.cerca+'</i> =</span><span class="fr" id="tb'+i+'"></span></div>';
+  h += '<div class="toks">'+e.toks.map(t=>'<button class="tk'+(TOKSHOW[t]?' op':'')+'" onclick="tokAdd(\''+i+'\',\''+t+'\')">'+(TOKSHOW[t]||'<i>'+t+'</i>')+'</button>').join('')+
+       '<button class="tk del" onclick="tokDel(\''+i+'\')" aria-label="Cancella">⌫</button></div>';
+  h += '<button class="go wide" onclick="tokChk(\''+i+'\')">Controlla la formula</button><div class="fb" id="ft'+i+'"></div>';
+  h += '<div class="part"><span class="pn">3</span> Le unità: semplifica</div>';
+  h += '<div class="lab2 fx">'+e.uq.q+'</div>';
+  h += '<div class="opts three" data-ok="'+e.uq.ok+'">'+e.uq.o.map((o,k)=>'<button onclick="scegli(this,'+k+')">'+o+'</button>').join('')+'</div>';
+  h += '<div class="why">'+e.uq.why+'</div>';
+  h += '<div class="part"><span class="pn">4</span> Risultato</div>';
+  h += '<div class="lab2">'+e.res.lab+'</div>';
+  h += '<div class="chk"><input id="i'+i+'r" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">'+e.res.u+'</span><button onclick="chk(\''+i+'r\')">Controlla</button></div><div class="fb" id="f'+i+'r"></div>';
+  if(e.extra){
+    h += '<div class="lab2">'+e.extra.lab+'</div>';
+    h += '<div class="chk"><input id="i'+i+'x" inputmode="decimal" placeholder="..." autocomplete="off"><span class="u">'+e.extra.u+'</span><button onclick="chk(\''+i+'x\')">Controlla</button></div><div class="fb" id="f'+i+'x"></div>';
+  }
+  h += '<button class="btn" onclick="step(this,\''+i+'\')">Mostra il passo 1</button>';
+  e.passi.forEach((p,k)=>{ h += '<div class="step" id="s'+i+'_'+(k+1)+'"><div class="sn">Passo '+(k+1)+' · '+p[0]+'</div>'+p[1]+'</div>'; });
+  h += '<div class="res" id="r'+i+'"><div class="lbl">Risposta</div>'+e.risp+'</div>';
+  return h+'</div>';
+}
+const SPEC = {};
+function toSpec(o){ return {ok:o.ok, rel:o.rel, tol:o.tol, mag:o.mag, traps:(o.traps||[]).map(t=>({v:t[0], m:t[1]}))}; }
+EX.forEach(e=>{ SPEC[e.id+'c'] = toSpec(e.conv); SPEC[e.id+'r'] = toSpec(e.res); if(e.extra) SPEC[e.id+'x'] = toSpec(e.extra); });
+
+/* ---------- formula a tasti ---------- */
+const TB = {};
+function tokDraw(i){
+  const el = $('tb'+i), seq = TB[i]||[];
+  el.innerHTML = seq.length ? seq.map(t=>TOKSHOW[t] ? ' '+TOKSHOW[t]+' ' : '<i>'+t+'</i>').join('') : '<span class="ph">tocca i tasti</span>';
+  $('ft'+i).className='fb'; $('ft'+i).textContent='';
+}
+function tokAdd(i,t){ if($('tb'+i).getAttribute('data-done')) return; (TB[i] = TB[i]||[]); if(TB[i].length<5) TB[i].push(t); tokDraw(i); }
+function tokDel(i){ if($('tb'+i).getAttribute('data-done')) return; (TB[i]||[]).pop(); tokDraw(i); }
+function tokChk(i){
+  const e = EX.find(x=>x.id===i), s = (TB[i]||[]).join(''), f = $('ft'+i);
+  if(!s){ f.className='fb n'; f.textContent='Costruisci la formula con i tasti.'; return; }
+  if(e.form.indexOf(s)>=0){
+    f.className='fb y'; f.textContent='\u2713 Esatto: '+e.cerca+' = '+(TB[i].map(t=>TOKSHOW[t]?' '+TOKSHOW[t]+' ':t).join(''))+'.';
+    $('tb'+i).setAttribute('data-done','1'); $('tb'+i).parentNode.classList.add('ok'); return;
+  }
+  let m = e.fw[s];
+  if(!m && s.indexOf(e.cerca)>=0) m = 'La '+e.cerca+' è quella che cerchi: non può stare anche a destra dell\u2019uguale.';
+  if(!m && !/[×:]/.test(s)) m = 'Serve un\u2019operazione tra due grandezze: × oppure ÷.';
+  f.className='fb n'; f.textContent='\u2717 '+(m||'Non ancora. Parti dalla formula del testo e porta dall\u2019altra parte quello che non ti serve.');
+}
+
+(function(){
+  $('exs').innerHTML = EX.map(cardHTML).join('');
+  EX.forEach(e=>tokDraw(e.id));
+  const ins = document.querySelectorAll('.chk input');
+  for(let i=0;i<ins.length;i++) ins[i].addEventListener('keydown', function(ev){
+    if(ev.key!=='Enter') return; const b = this.parentNode.querySelector('button'); if(b) b.click();
+  });
+})();
+</script>
+</body>
+</html>
