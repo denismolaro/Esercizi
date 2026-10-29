@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Le conversioni dei problemi</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7; --accent-line:#CBDAEC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --su:#B4531A;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700;
+   margin:38px 0 10px; border-top:1px solid var(--rule); padding-top:18px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:4px 0 8px}
+.chips a{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:6px 12px;
+  font-size:14px; font-weight:600; color:var(--soft); text-decoration:none}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 12px}
+.dati{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:10px 16px; margin:12px 0; font-size:17px}
+.dati .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:10px 0; line-height:1.5}
+.f i{font-style:italic}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+button{font:inherit; cursor:pointer}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:12px 14px; font-size:17px; font-weight:600; margin-top:12px}
+.btn.solid{background:var(--accent); color:#fff}
+.step{display:none; border-left:4px solid var(--accent); padding:2px 0 2px 14px; margin:14px 0}
+.step.on{display:block}
+.step .sn{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700}
+.step p{margin:6px 0}
+.res{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:14px 16px; margin:14px 0}
+.res.on{display:block}
+.res .lbl{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ok); font-weight:700; margin-bottom:4px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:stretch}
+.chk input{flex:1; font:inherit; font-size:18px; padding:11px 12px; border:2px solid var(--rule);
+  border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input:focus, .ns input:focus{outline:none; border-color:var(--accent)}
+.chk .u{align-self:center; font-size:16px; color:var(--soft); font-weight:600; min-width:34px}
+.chk button, .go{border:2px solid var(--ink); background:var(--ink); color:#fff; border-radius:12px; padding:0 16px; font-weight:600; font-size:16px}
+.fb{font-size:16px; font-weight:700; margin-top:8px; min-height:1.2em; line-height:1.5}
+.fb.y{color:var(--ok)} .fb.n{color:var(--no)}
+.opts{display:grid; gap:7px; margin-top:8px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{min-width:0; overflow-wrap:break-word}
+@media (max-width:460px){ .opts.three button{font-size:14px; padding:10px 3px} }
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 6px;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.3}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:#FBEAEA; color:var(--no)}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+.why{display:none; font-size:15.5px; color:var(--soft); margin:6px 0 2px; line-height:1.5}
+.why.on{display:block}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:6px 8px; text-align:center}
+th{background:var(--accent-soft); font-size:14px}
+
+/* righe veloci: notazione ed equivalenze */
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:20px; font-weight:700; font-family:"Times New Roman",Georgia,serif; margin-bottom:6px}
+.op .to{font-family:-apple-system,Arial,sans-serif; font-size:16px; color:var(--soft); font-weight:600}
+.ns{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+.ns .nm{flex:1 1 auto; min-width:0; width:100%; font:inherit; font-size:19px; padding:10px 12px; border:2px solid var(--rule); border-radius:12px; background:#fff; color:var(--ink)}
+.ns .x{font-family:"Times New Roman",Georgia,serif; font-size:21px; white-space:nowrap}
+.ns .pw{display:flex; align-items:center; gap:3px; transform:translateY(-11px)}
+.ns .ex{width:58px; font:inherit; font-size:16px; padding:5px 6px; border:2px solid var(--rule); border-radius:9px; background:#fff; color:var(--ink); text-align:center}
+.ns .pm{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:3px 7px; font-size:15px; font-weight:700; color:var(--ink)}
+.acts{display:flex; gap:8px; margin-top:6px}
+.acts .go{padding:9px 16px}
+.linkish{background:none; border:none; font-size:15px; color:var(--accent); text-decoration:underline; padding:4px 2px}
+.how{display:none; background:#F4F1EA; border-radius:10px; padding:10px 12px; margin-top:8px; font-size:16px; line-height:1.6}
+.how.on{display:block}
+.score{font-size:15px; color:var(--soft); margin-top:12px; font-weight:600}
+.row.done .op::after{content:" ✓"; color:var(--ok)}
+.redo{display:none; margin-top:10px}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+
+.chips a.ok{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.chips a.ok::after{content:" ✓"}
+.regola{display:flex; flex-direction:column; gap:6px; margin:6px 0}
+.regola span{border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.45}
+.regola .dx{background:#E7EEF7; border-left:5px solid #1D4E89}
+.regola .sx{background:#FBEDE3; border-left:5px solid #B4531A}
+.tabs{display:flex; gap:6px; flex-wrap:wrap; margin:6px 0}
+.tab{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px; padding:5px 12px; font:inherit; font-size:14px; font-weight:700; cursor:pointer}
+.tab.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.ladbox{display:none; margin:10px 0 4px}
+.ladbox.on{display:block}
+.lad{display:flex; flex-wrap:wrap; align-items:center; row-gap:8px}
+.lad .st{border:2px solid var(--rule); background:#fff; border-radius:10px; padding:5px 7px; font-family:"Times New Roman",Georgia,serif; font-size:18px; font-weight:700; color:var(--ink); line-height:1.15; text-align:center; min-width:34px; cursor:default}
+.lad button.st{cursor:pointer; font-family:"Times New Roman",Georgia,serif}
+.lad .st small{display:block; font-family:-apple-system,Arial,sans-serif; font-size:11px; color:var(--soft); font-weight:600}
+.lad .st.da{border-color:#1D4E89; background:#1D4E89; color:#fff}
+.lad .st.a{border-color:#A8327A; background:#A8327A; color:#fff}
+.lad .st.da small,.lad .st.a small{color:#fff}
+.lad .st.via{border-color:var(--accent-line); background:var(--accent-soft)}
+.lad .fr{font-size:11px; color:#A8A090; font-weight:700; padding:0 3px; text-align:center; line-height:1.1}
+.lad .fr i{display:block; font-style:normal; font-size:13px}
+.lad .fr.on{color:var(--accent); font-size:12px}
+.emsg{font-size:16px; line-height:1.55; min-height:3em; margin:6px 0 10px}
+.dots{display:flex; align-items:center; gap:5px}
+.dot{width:14px; height:14px; border-radius:50%; border:2px solid var(--rule); background:#fff}
+.dot.on{border-color:var(--ok); background:var(--ok)}
+.dl{font-size:14px; color:var(--soft); font-weight:600; margin-left:6px}
+.qbig{font-family:"Times New Roman",Georgia,serif; font-size:28px; margin:8px 0 2px; line-height:1.3}
+.qbig .blank{display:inline-block; min-width:60px; border-bottom:2px solid var(--ink); text-align:center; color:var(--soft)}
+.chk .go{flex:0 0 auto}
+.how{display:none; margin-top:8px; background:var(--accent-soft); border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.6}
+.how.on{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Fisica · allenamento</div>
+  <h1>Le conversioni dei problemi</h1>
+  <p class="lead">Lunghezze, masse, volumi e litri, tempo, densità e velocità, e il risultato nel S.I. con le potenze di dieci. Ogni sezione genera esercizi nuovi senza fine. Per superarla servono <b>5 giuste di fila</b> al primo colpo.</p>
+  <div class="chips" id="chips"></div>
+</header>
+
+<div class="card">
+  <div class="qhead"><div class="qnum">La regola della scala</div>
+    <button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="La regola della scala. Se vai verso un'unità più piccola, a destra sulla scala, il numero diventa più grande: si moltiplica. Se vai verso un'unità più grande, a sinistra, il numero diventa più piccolo: si divide. Nelle lunghezze e nelle masse ogni gradino vale dieci. Nei volumi ogni gradino vale mille. Un litro è un decimetro cubo, un millilitro è un centimetro cubo. Una tonnellata è mille chilogrammi. Un'ora è sessanta minuti, un minuto è sessanta secondi.">🔊</button></div>
+  <div class="regola"><span class="dx">unità più piccola → il numero diventa più grande: <b>moltiplica</b></span><span class="sx">unità più grande → il numero diventa più piccolo: <b>dividi</b></span></div>
+  <p style="margin:12px 0 4px; font-size:16px">Prova tu: scegli la scala, poi tocca l'unità di partenza e quella di arrivo.</p>
+  <div class="tabs" id="etabs"></div>
+  <div class="ladbox on" id="elad"></div>
+  <p class="emsg" id="emsg"></p>
+  <table>
+    <tr><th>da ricordare</th><th></th></tr>
+    <tr><td>lunghezze e masse</td><td>ogni gradino × 10</td></tr>
+    <tr><td>volumi (m³, dm³, cm³)</td><td>ogni gradino <b>× 1000</b></td></tr>
+    <tr><td>litri</td><td>1 L = 1 dm³ &nbsp;·&nbsp; 1 mL = 1 cm³</td></tr>
+    <tr><td>tonnellata</td><td>1 t = 1000 kg</td></tr>
+    <tr><td>tempo</td><td>1 h = 60 min &nbsp;·&nbsp; 1 min = 60 s &nbsp;·&nbsp; 1 h = 3600 s</td></tr>
+    <tr><td>densità</td><td>1 g/cm³ = 1000 kg/m³</td></tr>
+    <tr><td>velocità</td><td>1 m/s = 3,6 km/h</td></tr>
+  </table>
+  <div class="note" style="margin-bottom:0"><b>Come scrivere i numeri.</b> Virgola o punto vanno bene. Numeri molto piccoli o grandi: <b>4·10^-5</b> oppure <b>4e-5</b>.</div>
+</div>
+
+<div id="sezioni"></div>
+
+<p class="foot">Palestra · Fisica — conversioni di unità di misura</p>
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+
+/* ═══════════ le scale ═══════════ */
+const LAD = {
+  len:  {nome:'Lunghezze', u:['km','hm','dam','m','dm','cm','mm'], f:[10,10,10,10,10,10]},
+  mass: {nome:'Masse',     u:['t','kg','hg','dag','g','dg','cg','mg'], f:[1000,10,10,10,10,10,10]},
+  vol:  {nome:'Volumi',    u:['m³','dm³','cm³','mm³'], f:[1000,1000,1000], alias:{'dm³':'L','cm³':'mL'}},
+  time: {nome:'Tempo',     u:['h','min','s'], f:[60,60]}
+};
+/* unità → [scala, posizione] (L e mL stanno sulla scala dei volumi) */
+function where(u){
+  if(u==='L') return ['vol',1]; if(u==='mL') return ['vol',2];
+  for(const k in LAD){ const i = LAD[k].u.indexOf(u); if(i>=0) return [k,i]; }
+  return null;
+}
+function catena(k,i,j){ const f = LAD[k].f, a = []; for(let s=Math.min(i,j); s<Math.max(i,j); s++) a.push(f[s]); return a; }
+function descrivi(k,i,j){
+  const a = catena(k,i,j), n = a.length;
+  if(!n) return '';
+  if(a.every(x=>x===a[0])) return n+(n===1?' gradino':' gradini')+' da '+fmtIt(a[0]);
+  return n+' gradini: '+a.map(x=>fmtIt(x)).join(' × ');
+}
+function fattore(k,i,j){ let F = 1; const f = LAD[k].f; if(j>i) for(let s=i;s<j;s++) F *= f[s]; else for(let s=j;s<i;s++) F /= f[s]; return F; }
+
+/* ═══════════ numeri ═══════════ */
+const SUP = {'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+function supE(n){ return String(n).split('').map(c=>SUP[c]).join(''); }
+function pulisci(x){ return parseFloat(x.toPrecision(12)); }
+function fmtIt(x){
+  x = pulisci(x);
+  if(x===0) return '0';
+  const a = Math.abs(x);
+  if(a>=1e-4 && a<1e7){
+    let s = String(x);
+    if(/e/.test(s)) s = x.toFixed(10).replace(/0+$/,'').replace(/\.$/,'');
+    let [i,d] = s.split('.');
+    if(i.replace('-','').length>4) i = i.replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return i + (d ? ','+d : '');
+  }
+  const e = Math.floor(Math.log10(a)); const m = pulisci(x/Math.pow(10,e));
+  return String(m).replace('.',',')+'·10'+supE(e);
+}
+function nums(s){
+  s = String(s==null?'':s).trim(); if(!s) return [];
+  const sup = {'\u2070':'0','\u00b9':'1','\u00b2':'2','\u00b3':'3','\u2074':'4','\u2075':'5','\u2076':'6','\u2077':'7','\u2078':'8','\u2079':'9','\u207b':'-','\u207a':'+'};
+  s = s.replace(/\s*(kg\/m³|g\/cm³|km\/h|m\/s|mm³|cm³|dm³|m³|mL|L|km|hm|dam|dm|cm|mm|m|t|kg|hg|dag|dg|cg|mg|g|min|h|s)\s*$/,'');
+  s = s.replace(/[\u2070\u00b9\u00b2\u00b3\u2074-\u2079\u207b\u207a]+/g, m=>{ let o='^'; for(const c of m) o+=sup[c]; return o; });
+  s = s.replace(/\s+/g,'').replace(/[\u2212\u2013]/g,'-').replace(/[\u00d7xX\u00b7\u22c5*]/g,'*');
+  const vars = [];
+  if(s.indexOf(',')>=0) vars.push(s.replace(/\./g,'').replace(/,/g,'.'));
+  else { vars.push(s); if(/^[+-]?[1-9]\d{0,2}(\.\d{3})+(\*|$)/.test(s)) vars.push(s.replace(/\.(?=\d{3})/g,'')); }
+  const out = [];
+  vars.forEach(t=>{
+    let m = t.match(/^([+-]?\d*\.?\d+)\*10\^([+-]?\d+)$/);
+    if(m){ out.push(parseFloat(m[1])*Math.pow(10,parseInt(m[2],10))); return; }
+    m = t.match(/^10\^([+-]?\d+)$/);
+    if(m){ out.push(Math.pow(10,parseInt(m[1],10))); return; }
+    if(/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(t)) out.push(parseFloat(t));
+  });
+  return out;
+}
+function uguale(a,b){ return Math.abs(a-b) <= Math.abs(b)*1e-6 + 1e-15; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+
+/* ═══════════ generatori ═══════════ */
+const VALORI = [2,3,4,5,6,7,8,9,12,15,25,35,40,45,60,75,120,150,250,350,0.5,0.25,1.5,2.5,3.5,0.8,0.04,0.6,4.5,7.2];
+function genScala(k, maxSalti, lim){
+  const L = LAD[k];
+  for(let t=0;t<400;t++){
+    const i = Math.floor(Math.random()*L.u.length), j = Math.floor(Math.random()*L.u.length);
+    if(i===j || Math.abs(i-j)>maxSalti) continue;
+    const v = pick(VALORI), F = fattore(k,i,j), r = pulisci(v*F);
+    if(r<lim[0] || r>lim[1]) continue;
+    return {k, v, da:L.u[i], a:L.u[j], ans:r, F, tipo:'scala'};
+  }
+}
+function genVol(){
+  const U = [['m³',0],['dm³',1],['L',1],['cm³',2],['mL',2],['mm³',3]];
+  for(let t=0;t<400;t++){
+    const x = pick(U), y = pick(U);
+    if(x[0]===y[0] || (x[1]===y[1] && Math.random()<0.7)) continue;
+    if(x[0]==='mm³' && Math.random()<0.6) continue;
+    const v = pick(VALORI), F = fattore('vol',x[1],y[1]), r = pulisci(v*F);
+    if(r<1e-4 || r>1e7) continue;
+    return {k:'vol', v, da:x[0], a:y[0], ans:r, F, tipo:'scala'};
+  }
+}
+function genTempo(){
+  const C = [['h','min',[2,1.5,0.5,3,0.25,2.5]],['min','s',[2,1.5,5,0.5,10,3]],['h','s',[1,2,0.5,1.5]],
+             ['min','h',[90,30,150,45,120,15]],['s','min',[90,120,300,30,600,150]],['s','h',[3600,7200,1800,5400]]];
+  const c = pick(C), v = pick(c[2]), i = LAD.time.u.indexOf(c[0]), j = LAD.time.u.indexOf(c[1]), F = fattore('time',i,j);
+  return {k:'time', v, da:c[0], a:c[1], ans:pulisci(v*F), F, tipo:'scala'};
+}
+function genComp(){
+  const r = Math.random();
+  if(r<0.25){ const v = pick([0.8,0.92,1.2,2.7,7.9,11.3,13.6,19.3,1.5,0.7]); return {tipo:'dens', v, da:'g/cm³', a:'kg/m³', ans:pulisci(v*1000), F:1000}; }
+  if(r<0.5){ const v = pick([800,920,1200,2700,7900,1000,13600,19300,1500,700]); return {tipo:'dens', v, da:'kg/m³', a:'g/cm³', ans:pulisci(v/1000), F:0.001}; }
+  if(r<0.75){ const v = pick([18,36,54,72,90,108,126,144]); return {tipo:'vel', v, da:'km/h', a:'m/s', ans:pulisci(v/3.6), F:1/3.6}; }
+  const v = pick([5,10,15,20,25,30,2,40]); return {tipo:'vel', v, da:'m/s', a:'km/h', ans:pulisci(v*3.6), F:3.6};
+}
+function genSI(){
+  const C = [['cm³','m³',[40,250,8,20,150,500]],['mL','m³',[250,500,20,330]],['L','m³',[2.5,0.25,1.5,0.5,12]],['dm³','m³',[0.5,4,25]],
+             ['mg','kg',[350,500,25,965,40]],['g','kg',[5,0.5,20,2.5]],['mm','m',[2,0.5,45,8]],['cm','m',[0.4,3,25]],['km','m',[3.8,0.25,12]],['t','kg',[2.5,0.4,1.2]],['hg','kg',[5,3,0.5]]];
+  const c = pick(C), v = pick(c[2]), A = where(c[0]), B = where(c[1]), F = fattore(A[0],A[1],B[1]);
+  return {k:A[0], v, da:c[0], a:c[1], ans:pulisci(v*F), F, tipo:'scala', si:true};
+}
+const SEZ = {
+  A:{t:'Lunghezze', gen:()=>genScala('len',4,[1e-4,1e6]), scala:'len'},
+  B:{t:'Masse', gen:()=>genScala('mass',4,[1e-4,1e6]), scala:'mass'},
+  C:{t:'Volumi e litri', gen:genVol, scala:'vol'},
+  D:{t:'Tempo', gen:genTempo, scala:'time'},
+  E:{t:'Densità e velocità', gen:genComp, scala:null},
+  F:{t:'Nel S.I., con le potenze', gen:genSI, scala:null},
+  G:{t:'Misto, come nei problemi', gen:()=>pick([()=>genScala('len',5,[1e-5,1e7]),()=>genScala('mass',5,[1e-5,1e7]),genVol,genTempo,genComp,genSI])(), scala:null}
+};
+const META = 5;
+
+/* ═══════════ spiegazioni ═══════════ */
+function passiScala(q){
+  const A = where(q.da), B = where(q.a), L = LAD[A[0]], n = Math.abs(B[1]-A[1]);
+  const giu = B[1]>A[1];
+  let alias = '';
+  if(q.da==='L'||q.a==='L') alias += ' (1 L = 1 dm³)';
+  if(q.da==='mL'||q.a==='mL') alias += ' (1 mL = 1 cm³)';
+  if(n===0) return 'Sono la stessa unità'+alias+': il numero non cambia. <b>'+fmtIt(q.v)+' '+q.da+' = '+fmtIt(q.ans)+' '+q.a+'</b>';
+  const Fabs = giu ? q.F : 1/q.F;
+  const salti = descrivi(A[0], A[1], B[1]);
+  return 'Da <b>'+q.da+'</b> a <b>'+q.a+'</b>'+alias+': '+salti+' verso '+(giu?'<b>destra</b> (unità più piccola)':'<b>sinistra</b> (unità più grande)')+
+         ' → '+(giu?'<b>× ':'<b>: ')+fmtIt(Fabs)+'</b>.<br>'+fmtIt(q.v)+' '+(giu?'× ':': ')+fmtIt(Fabs)+' = <b>'+fmtIt(q.ans)+' '+q.a+'</b>';
+}
+function passi(q){
+  if(q.tipo==='scala') return passiScala(q);
+  if(q.tipo==='dens') return (q.F>1 ? 'Da g/cm³ a kg/m³ si moltiplica per 1000 (1 g/cm³ = 10⁻³ kg / 10⁻⁶ m³ = 10³ kg/m³).<br>'+fmtIt(q.v)+' × 1000 = ' : 'Da kg/m³ a g/cm³ si divide per 1000.<br>'+fmtIt(q.v)+' : 1000 = ')+'<b>'+fmtIt(q.ans)+' '+q.a+'</b>';
+  return (q.da==='km/h' ? 'Da km/h a m/s si divide per 3,6 (1 km/h = 1000 m / 3600 s).<br>'+fmtIt(q.v)+' : 3,6 = ' : 'Da m/s a km/h si moltiplica per 3,6.<br>'+fmtIt(q.v)+' × 3,6 = ')+'<b>'+fmtIt(q.ans)+' '+q.a+'</b>';
+}
+function diagnosi(u,q){
+  if(uguale(u,q.ans)) return null;
+  if(u<0) return 'Una misura così non è negativa: il meno qui non va.';
+  if(q.F!==1 && uguale(u,q.v/q.F)) return 'Al contrario: verso un\u2019unità più piccola il numero diventa più grande (si moltiplica), verso una più grande diventa più piccolo (si divide).';
+  if(uguale(u,q.v) && q.F!==1) return 'Il numero deve cambiare: le unità sono diverse.';
+  if(q.k==='vol'){
+    const A = where(q.da), B = where(q.a), n = B[1]-A[1];
+    if(n!==0 && (uguale(u,q.v*Math.pow(10,n)) || uguale(u,q.v*Math.pow(100,n)))) return 'Nei volumi ogni gradino vale × 1000, non × 10: perché è un cubo (10 × 10 × 10).';
+    if(n!==0 && (uguale(u,q.v*Math.pow(10,-n)) || uguale(u,q.v*Math.pow(100,-n)))) return 'Due errori: il verso è al contrario, e nei volumi ogni gradino vale × 1000.';
+  }
+  if(q.k==='time'){
+    if([10,100,1000,0.1,0.01,0.001].some(f=>uguale(u,q.v*f))) return 'Il tempo non va a 10 o a 100: 1 h = 60 min, 1 min = 60 s.';
+  }
+  if(q.k==='mass' && (q.da==='t'||q.a==='t')){
+    const A = where(q.da), B = where(q.a), n = B[1]-A[1], lin = Math.pow(10, n>0 ? n : n);
+    if(uguale(u,q.v*lin)) return 'Attenzione alla tonnellata: 1 t = 1000 kg, cioè tre gradini in un colpo solo.';
+  }
+  if(q.tipo==='vel'){
+    if(uguale(u,q.v*1000) || uguale(u,q.v/1000)) return 'Non basta ×/: 1000: conta anche le ore. 1 km/h = 1000 m : 3600 s, quindi si usa 3,6.';
+    if(uguale(u,q.v*60) || uguale(u,q.v/60)) return 'Si usa 3,6, non 60: 1 km/h = 1000 m : 3600 s.';
+  }
+  const L = Math.log(u/q.ans)/Math.LN10, k = Math.round(L);
+  if(k!==0 && Math.abs(L-k)<0.005){
+    const g = (q.k==='len'||q.k==='mass') && Math.abs(k)<=2 ? ' Probabilmente hai contato '+(Math.abs(k)===1?'un gradino':'due gradini')+' di '+(k>0?'troppo':'meno')+'.' : '';
+    return 'Le cifre vanno bene, ma il numero è '+(k>0?'troppo grande':'troppo piccolo')+' di '+fmtIt(Math.pow(10,Math.abs(k)))+' volte.'+g;
+  }
+  return 'Non è giusto. Tocca «Mostra la scala».';
+}
+
+/* ═══════════ la scala disegnata ═══════════ */
+function scalaHTML(k, da, a, mostraPercorso){
+  const L = LAD[k];
+  const A = da ? where(da) : null, B = a ? where(a) : null;
+  const i0 = A && A[0]===k ? A[1] : -1, j0 = B && B[0]===k ? B[1] : -1;
+  const lo = Math.min(i0,j0), hi = Math.max(i0,j0);
+  let h = '<div class="lad">';
+  L.u.forEach((u,i)=>{
+    const al = L.alias && L.alias[u] ? '<small>= '+L.alias[u]+'</small>' : '';
+    let cls = 'st';
+    if(i===i0) cls += ' da'; if(i===j0) cls += ' a';
+    if(mostraPercorso && i0>=0 && j0>=0 && i>lo && i<hi) cls += ' via';
+    h += '<span class="'+cls+'">'+u+al+'</span>';
+    if(i<L.u.length-1){
+      const on = mostraPercorso && i0>=0 && j0>=0 && i>=lo && i<hi;
+      const giu = j0>i0;
+      h += '<span class="fr'+(on?' on':'')+'">'+(on ? (giu?'×':':') : '')+L.f[i]+'<i>'+(on ? (giu?'→':'←') : '›')+'</i></span>';
+    }
+  });
+  return h+'</div>';
+}
+
+/* ═══════════ esploratore (teoria) ═══════════ */
+let EK = 'len', Esel = [];
+function esploraTab(k){ EK = k; Esel = []; esploraDraw(); }
+function esploraTap(u){ if(Esel.length>=2) Esel = []; Esel.push(u); esploraDraw(); }
+function esploraDraw(){
+  const tabs = Object.keys(LAD).map(k=>'<button class="tab'+(k===EK?' on':'')+'" onclick="esploraTab(\''+k+'\')">'+LAD[k].nome+'</button>').join('');
+  $('etabs').innerHTML = tabs;
+  const L = LAD[EK];
+  let h = scalaHTML(EK, Esel[0], Esel[1], Esel.length===2);
+  h = h.replace(/<span class="(st[^"]*)">([^<]+)(<small>[^<]*<\/small>)?<\/span>/g, (m,c,u,s)=>'<button class="'+c+'" onclick="esploraTap(\''+u+'\')">'+u+(s||'')+'</button>');
+  $('elad').innerHTML = h;
+  let msg;
+  if(Esel.length===0) msg = 'Tocca l\u2019unità di partenza.';
+  else if(Esel.length===1) msg = 'Partenza: <b>'+Esel[0]+'</b>. Ora tocca l\u2019unità di arrivo.';
+  else if(Esel[0]===Esel[1]) msg = 'Stessa unità: il numero non cambia.';
+  else {
+    const i = L.u.indexOf(Esel[0]), j = L.u.indexOf(Esel[1]), F = fattore(EK,i,j), n = Math.abs(j-i);
+    msg = 'Da <b>'+Esel[0]+'</b> a <b>'+Esel[1]+'</b>: '+descrivi(EK,i,j)+' verso '+(j>i?'destra → il numero si <b>moltiplica</b>':'sinistra → il numero si <b>divide</b>')+
+          ' per <b>'+fmtIt(j>i?F:1/F)+'</b>.<br>Esempio: 1 '+Esel[0]+' = '+fmtIt(F)+' '+Esel[1];
+  }
+  $('emsg').innerHTML = msg;
+}
+
+/* ═══════════ esercizi ═══════════ */
+const ST = {};
+let FATTE = {};
+try{ FATTE = JSON.parse(localStorage.getItem('fis-conv-fatte')||'{}')||{}; }catch(e){ FATTE = {}; }
+function salvaFatte(){ try{ localStorage.setItem('fis-conv-fatte', JSON.stringify(FATTE)); }catch(e){} }
+function nuova(s){
+  const q = SEZ[s].gen();
+  ST[s] = Object.assign(ST[s]||{serie:0, giuste:0}, {q, tent:0, chiusa:false, aiutato:false});
+  $('q'+s).innerHTML = fmtIt(q.v)+' '+q.da+' = <span class="blank">…</span> '+q.a;
+  $('i'+s).value = ''; $('i'+s).readOnly = false;
+  $('f'+s).className = 'fb'; $('f'+s).innerHTML = '';
+  $('h'+s).className = 'how'; $('h'+s).innerHTML = '';
+  const k = q.k || null;
+  $('l'+s).innerHTML = k ? scalaHTML(k, q.da, q.a, false) : '';
+  $('l'+s).className = 'ladbox';
+  $('n'+s).style.display = 'none'; $('c'+s).style.display = '';
+  $('spk'+s).setAttribute('data-say', parlaQ(q));
+  serieDraw(s);
+}
+function parlaQ(q){
+  const u = x=>x.replace('km/h','chilometri all\'ora').replace('m/s','metri al secondo').replace('kg/m³','chilogrammi al metro cubo').replace('g/cm³','grammi al centimetro cubo')
+    .replace(/^m³$/,'metri cubi').replace(/^dm³$/,'decimetri cubi').replace(/^cm³$/,'centimetri cubi').replace(/^mm³$/,'millimetri cubi')
+    .replace(/^km$/,'chilometri').replace(/^hm$/,'ettometri').replace(/^dam$/,'decametri').replace(/^m$/,'metri').replace(/^dm$/,'decimetri').replace(/^cm$/,'centimetri').replace(/^mm$/,'millimetri')
+    .replace(/^t$/,'tonnellate').replace(/^kg$/,'chilogrammi').replace(/^hg$/,'ettogrammi').replace(/^dag$/,'decagrammi').replace(/^g$/,'grammi').replace(/^dg$/,'decigrammi').replace(/^cg$/,'centigrammi').replace(/^mg$/,'milligrammi')
+    .replace(/^L$/,'litri').replace(/^mL$/,'millilitri').replace(/^h$/,'ore').replace(/^min$/,'minuti').replace(/^s$/,'secondi');
+  return String(q.v).replace('.',' virgola ')+' '+u(q.da)+': quanti '+u(q.a)+'?';
+}
+function serieDraw(s){
+  const st = ST[s]; let h = '';
+  for(let i=0;i<META;i++) h += '<span class="dot'+(i<st.serie?' on':'')+'"></span>';
+  $('d'+s).innerHTML = h + '<span class="dl">'+(FATTE[s] ? '✓ sezione superata' : st.serie+' di fila su '+META)+'</span>';
+  const chip = $('chip'+s); if(chip) chip.classList.toggle('ok', !!FATTE[s]);
+}
+function controlla(s){
+  const st = ST[s], q = st.q, f = $('f'+s);
+  if(st.chiusa) return;
+  const vs = nums($('i'+s).value);
+  if(!vs.length){ f.className='fb n'; f.textContent='Scrivi un numero (puoi usare la virgola).'; return; }
+  if(vs.some(v=>uguale(v,q.ans))){
+    st.chiusa = true; st.giuste++;
+    const pulito = (st.tent===0 && !st.aiutato);
+    if(pulito){ st.serie++; if(st.serie>=META && !FATTE[s]){ FATTE[s] = true; salvaFatte(); } }
+    else st.serie = 0;
+    f.className='fb y'; f.innerHTML = '✓ Esatto: '+fmtIt(q.v)+' '+q.da+' = '+fmtIt(q.ans)+' '+q.a+'.'+(pulito ? '' : ' (Con un aiuto o al secondo tentativo la serie riparte.)');
+    $('h'+s).className='how on'; $('h'+s).innerHTML = passi(q);
+    if(q.k) $('l'+s).innerHTML = scalaHTML(q.k, q.da, q.a, true);
+    $('n'+s).style.display = ''; $('c'+s).style.display = 'none'; $('i'+s).readOnly = true;
+    serieDraw(s); return;
+  }
+  st.tent++;
+  const m = diagnosi(vs[0], q);
+  if(st.tent>=2){
+    st.chiusa = true; st.serie = 0;
+    f.className='fb n'; f.innerHTML = '✗ '+m+'<br><b>Risposta giusta: '+fmtIt(q.ans)+' '+q.a+'</b>';
+    $('h'+s).className='how on'; $('h'+s).innerHTML = passi(q);
+    if(q.k) $('l'+s).innerHTML = scalaHTML(q.k, q.da, q.a, true);
+    $('n'+s).style.display = ''; $('c'+s).style.display = 'none'; $('i'+s).readOnly = true;
+    serieDraw(s); return;
+  }
+  f.className='fb n'; f.innerHTML = '✗ '+m+' Riprova.';
+}
+function aiuto(s){
+  const q = ST[s].q;
+  if(q.k){ $('l'+s).innerHTML = scalaHTML(q.k, q.da, q.a, true); $('l'+s).className = 'ladbox on'; }
+  else { $('h'+s).className = 'how on'; $('h'+s).innerHTML = q.tipo==='dens' ? 'Ricorda: 1 g/cm³ = 1000 kg/m³.' : 'Ricorda: 1 m/s = 3,6 km/h.'; }
+  if(!ST[s].chiusa && !ST[s].aiutato){ ST[s].aiutato = true; $('f'+s).className='fb'; $('f'+s).innerHTML = '<span style="color:var(--soft)">Con l\u2019aiuto questa non conta per la serie.</span>'; }
+}
+
+/* ═══════════ costruzione ═══════════ */
+function cardHTML(s){
+  const S = SEZ[s];
+  return '<h2 id="sez'+s+'">'+s+' · '+S.t+'</h2><div class="card">'
+    + '<div class="qhead"><div class="dots" id="d'+s+'"></div><button class="spk" id="spk'+s+'" onclick="leggi(this)" aria-label="Ascolta" data-say="">🔊</button></div>'
+    + '<div class="qbig" id="q'+s+'"></div>'
+    + '<div class="ladbox" id="l'+s+'"></div>'
+    + '<div class="chk"><input id="i'+s+'" inputmode="decimal" placeholder="..." autocomplete="off"><button id="c'+s+'" onclick="controlla(\''+s+'\')">Controlla</button><button id="n'+s+'" class="go" onclick="nuova(\''+s+'\')" style="display:none">Nuovo</button></div>'
+    + '<div class="fb" id="f'+s+'"></div>'
+    + '<div class="how" id="h'+s+'"></div>'
+    + '<button class="linkish" onclick="aiuto(\''+s+'\')">Mostra la scala</button>'
+    + '</div>';
+}
+
+/* ---------- voce ---------- */
+let voce = null, parlaBtn = null;
+function pickVoice(){ const vs = window.speechSynthesis ? speechSynthesis.getVoices() : []; voce = vs.find(v=>v.lang==='it-IT') || vs.find(v=>/^it/i.test(v.lang)) || null; }
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert('Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome.'); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove('on'); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
+  u.lang = 'it-IT'; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove('on'); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add('on');
+  speechSynthesis.speak(u);
+}
+
+/* ---------- avvio ---------- */
+(function(){
+  $('chips').innerHTML = Object.keys(SEZ).map(s=>'<a href="#sez'+s+'" id="chip'+s+'">'+s+' · '+SEZ[s].t+'</a>').join('');
+  $('sezioni').innerHTML = Object.keys(SEZ).map(cardHTML).join('');
+  Object.keys(SEZ).forEach(s=>{
+    nuova(s);
+    $('i'+s).addEventListener('keydown', function(e){ if(e.key!=='Enter') return; if($('c'+s).style.display!=='none') controlla(s); else nuova(s); });
+  });
+  esploraDraw();
+})();
+
+</script>
+</body>
+</html>
