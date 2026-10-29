@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisica — Verifica: simulazione (vettori, massa, densità, forze)</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#1D4E89; --accent-soft:#E7EEF7; --accent-line:#CBDAEC;
+  --va:#1D4E89; --vb:#B06A00; --vc:#1F7A4D; --vr:#A8327A;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --giu:#1D5FA8; --su:#B4531A;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 env(safe-area-inset-bottom);
+}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+.vers{display:flex; gap:8px; margin:6px 0 12px}
+.vers button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:12px; padding:9px 8px; font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer; line-height:1.35}
+.vers button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.vers button small{display:block; font-weight:600; font-size:12.5px}
+.note{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16px; line-height:1.6}
+.note b{color:var(--warn)}
+details.form{border:2px solid var(--accent-line); border-radius:12px; background:#fff; margin:12px 0; font-size:16px}
+details.form summary{padding:10px 14px; font-weight:700; color:var(--accent); cursor:pointer}
+details.form .in{padding:0 14px 12px; line-height:1.6}
+details.form table{font-size:15px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:16px 0}
+.qhead{display:flex; align-items:flex-start; gap:10px}
+.qhead .qnum{flex:1}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.qnum .pt{color:var(--soft); letter-spacing:.04em}
+.qnum .pt.y{color:var(--ok)}
+.spk{flex:0 0 auto; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:2px 10px; font-size:18px; line-height:1.5; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+.qtext{font-size:19px; line-height:1.6; margin:0 0 10px}
+.sub{font-size:16px; color:var(--soft); margin:0 0 6px}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:21px; text-align:center; display:block; margin:8px 0; line-height:1.5}
+button{font:inherit; cursor:pointer}
+table{border-collapse:collapse; width:100%; margin:10px 0; font-size:16px}
+th,td{border:1px solid var(--rule); padding:6px 8px; text-align:center}
+th{background:var(--accent-soft); font-size:14px}
+.lab{font-size:17px; margin-top:16px; font-weight:600}
+.chk{display:flex; gap:8px; margin:8px 0 0; align-items:center}
+.chk input, .ns input, .rt input{font:inherit; font-size:18px; padding:10px 12px; border:2px solid var(--rule); border-radius:12px; background:#fff; color:var(--ink); min-width:0}
+.chk input{flex:1}
+input:focus{outline:none; border-color:var(--accent)}
+input[readonly]{background:#F6F4EF}
+.chk .u{font-size:16px; color:var(--soft); font-weight:600; min-width:46px}
+.rt{display:flex; gap:8px; align-items:center; margin-top:8px}
+.rt input{width:90px; text-align:center}
+.rt .c{font-size:24px; font-weight:700}
+.opts{display:grid; gap:7px; margin-top:8px; grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 6px; min-width:0;
+  font-size:16px; font-weight:600; color:var(--ink); line-height:1.3; overflow-wrap:break-word}
+.opts button.sel{border-color:var(--ink); background:#E9ECF1}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.opts.locked button{cursor:default}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+@media (max-width:460px){ .opts.three button{font-size:14px; padding:10px 3px} }
+.rows .row{border-top:1px solid var(--rule); padding:14px 0 10px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:20px; font-weight:700; font-family:"Times New Roman",Georgia,serif; margin-bottom:6px}
+.op .to{font-family:-apple-system,Arial,sans-serif; font-size:16px; color:var(--soft); font-weight:600}
+.ns{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+.ns .nm{flex:1 1 auto; width:100%; font-size:19px}
+.ns .x{font-family:"Times New Roman",Georgia,serif; font-size:21px; white-space:nowrap}
+.ns .pw{display:flex; align-items:center; gap:3px; transform:translateY(-11px)}
+.ns .ex{width:58px; font-size:16px; padding:5px 6px; border-radius:9px; text-align:center}
+.ns .pm{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:3px 7px; font-size:15px; font-weight:700; color:var(--ink)}
+.fb{display:none; font-size:16px; line-height:1.55; margin-top:8px; border-radius:10px; padding:8px 12px}
+.fb.on{display:block}
+.fb.y{background:var(--ok-soft); color:var(--ok); font-weight:700}
+.fb.n{background:var(--no-soft); color:var(--no)}
+.fb.n b.t{display:block}
+.fb .giusta{color:var(--ink); font-weight:700; margin-top:4px}
+.fb .how{color:var(--ink); background:#fff; border-radius:8px; padding:8px 10px; margin-top:6px; font-size:15.5px; line-height:1.6}
+.row.y .op::after{content:" ✓"; color:var(--ok)}
+.row.n .op::after{content:" ✗"; color:var(--no)}
+.bottom{margin-top:26px}
+.prog{font-size:15px; color:var(--soft); text-align:center; font-weight:600; margin-bottom:8px}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px;
+  padding:13px 14px; font-size:17px; font-weight:700; margin-top:10px}
+.btn.solid{background:var(--accent); color:#fff}
+.btn.warn{background:var(--warn); border-color:var(--warn); color:#fff}
+.esito{display:none; border:2px solid var(--accent-line); background:var(--accent-soft); border-radius:14px; padding:16px; margin:14px 0}
+.esito.on{display:block}
+.esito .voto{font-size:44px; font-weight:800; line-height:1.1; letter-spacing:-.02em}
+.esito .voto.ok{color:var(--ok)} .esito .voto.ko{color:var(--no)}
+.esito .det{font-size:16px; margin-top:6px}
+.esito table{background:#fff}
+.esito td{text-align:left} .esito td.c{text-align:center}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+.qq{font-size:18px; line-height:1.55; font-weight:600; margin-bottom:6px}
+.qq .qn{color:var(--accent); font-weight:800}
+.qq .pti{color:var(--soft); font-weight:600; font-size:15px}
+.spk.mini{font-size:14px; padding:0 7px; vertical-align:middle; margin-left:2px}
+.mc{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.mc button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left;
+  font-size:17px; color:var(--ink); line-height:1.35; min-height:44px}
+.mc button.sel{border-color:var(--ink); background:#E9ECF1; font-weight:700}
+.mc button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok); font-weight:700}
+.mc button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.mc.locked button{cursor:default}
+.mc.locked button:not(.right):not(.wrong){opacity:.45}
+.mc.row3{flex-direction:row; flex-wrap:wrap} .mc.row3 button{flex:1 1 30%; text-align:center}
+.row.y .qq::after{content:" ✓"; color:var(--ok)}
+.row.n .qq::after{content:" ✗"; color:var(--no)}
+.esito .voto small{font-size:20px; color:var(--soft); font-weight:700}
+details.form table td, details.form table th{padding:4px 6px}
+.tav{display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:5px; margin:8px 0 2px}
+.tav div{border:1px solid var(--rule); border-radius:8px; text-align:center; padding:3px 2px; line-height:1.25; background:#fff}
+.tav b{display:block; font-size:18px} .tav i{font-style:normal; font-size:11.5px; color:var(--soft)} .tav span{font-size:13px}
+
+
+.item{border-top:1px dashed var(--rule); margin-top:12px; padding-top:2px}
+.item:first-of-type{border-top:none}
+.mc.two{flex-direction:row} .mc.two button{flex:1; text-align:center}
+svg{display:block; width:100%; height:auto; margin:8px 0}
+.cp{cursor:pointer}
+.mini{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:10px; padding:6px 12px; font:inherit; font-size:14px; font-weight:600; cursor:pointer}
+.open{margin-top:16px; border:2px dashed var(--accent-line); border-radius:12px; padding:10px 14px; font-size:17px; line-height:1.55}
+.open .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.open .model{display:none; margin-top:8px; background:var(--ok-soft); border-radius:10px; padding:8px 12px; font-size:16px}
+.open .model.on{display:block}
+.vec{position:relative; display:inline-block; font-family:"Times New Roman",Georgia,serif; font-style:italic; padding-top:.28em; line-height:1}
+.vec::after{content:"\2192"; position:absolute; left:0; right:0; top:-.22em; text-align:center; font-style:normal; font-size:.72em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Fisica · simulazione di verifica</div>
+  <h1>Verifica di Fisica — simulazione</h1>
+  <p class="lead">Algebra vettoriale (vettore per scalare, punta-coda, parallelogramma), massa, densità e densità relativa, forze, problemi con inversione di formula ed equivalenze. <b>Non c'è tempo limite.</b> Le risposte restano salvate. Alla fine tocca <b>Consegna</b> per la correzione.</p>
+</header>
+
+<div class="note"><b>Come funziona.</b> Ogni esercizio vale 4 punti, divisi tra i passaggi; i Giochi di Anacleto valgono 1 punto ciascuno. Risposta sbagliata o vuota: 0 punti. Per togliere una scelta, toccala di nuovo.<br>
+<b>Le domande aperte</b> si scrivono sul quaderno: dopo la consegna compare la risposta modello per confrontare.<br>
+<b>Numeri:</b> virgola o punto vanno bene; le potenze scrivile come <b>2,5·10^3</b> oppure <b>2,5e3</b>.</div>
+
+<details class="form"><summary>Il foglio delle formule (usalo solo se in classe è permesso)</summary><div class="in">
+  <b>Vettore per scalare</b>: modulo × |numero|; numero negativo → verso opposto<br>
+  <b>Punta-coda</b>: coda del secondo sulla punta del primo; R dalla prima coda all'ultima punta<br>
+  <b>Parallelogramma</b>: code insieme; R = diagonale dalle code<br>
+  <b>Perpendicolari</b>: R = √(A² + B²)<br>
+  <b>Densità</b>: d = m / V = m · V⁻¹ &nbsp;·&nbsp; d(H₂O) = 1 kg/dm³ = 1·10³ kg/m³<br>
+  <b>Densità relativa</b>: d<sub>r</sub> = d / d(H₂O) &nbsp;·&nbsp; d = d(H₂O) · d<sub>r</sub><br>
+  1 hg = 0,1 kg · 1 g = 10⁻³ kg · 1 L = 1 dm³ = 10⁻³ m³ · 1 cm³ = 10⁻⁶ m³
+</div></details>
+
+<div class="esito" id="esitoTop"></div>
+<div id="exam"></div>
+
+<div class="bottom">
+  <div class="prog" id="prog"></div>
+  <button class="btn solid" id="consegna" onclick="consegna()">Consegna</button>
+  <div class="esito" id="esito"></div>
+  <button class="btn" id="ricomincia" onclick="ricomincia()" style="display:none">Ricomincia (risposte rimescolate)</button>
+</div>
+
+<p class="foot">Palestra · Fisica — simulazione di verifica: vettori, massa, densità, forze</p>
+</div>
+
+<script>
+/* ═══════════ la verifica ═══════════
+   tipo n = numero · s = scelta (shuffle:true = risposte rimescolate) · g = disegno su griglia
+   pt = punti del passaggio · ans = risposta giusta mostrata dopo la consegna · tr = errori tipici */
+const EXS = [
+{id:"x1", t:"Esercizio 1 · vettore per uno scalare",
+ q:"È dato il vettore velocità <span class=\"vec\">v</span> = 12 m·s⁻¹, direzione orizzontale, verso <b>est</b> (→). Trova modulo e verso dei vettori richiesti.",
+ say:"Esercizio 1. È dato il vettore velocità v, dodici metri al secondo, direzione orizzontale, verso est. Trova modulo e verso di: tre v, meno due v, v diviso quattro. Poi: un carrello di massa due virgola cinque chilogrammi ha accelerazione quattro metri al secondo quadrato verso nord. Trova la forza, F uguale m per a.",
+ items:[
+  {id:"x1a", tipo:"n", lab:"a) 3·<span class=\"vec\">v</span> — modulo", u:"m·s⁻¹", ok:36, pt:0.5, ans:"36 m·s⁻¹",
+   tr:[[4,"Hai diviso: 3·v vuol dire modulo × 3."],[15,"Hai sommato: si moltiplica, 3 × 12."]]},
+  {id:"x1b", tipo:"s", lab:"a) 3·<span class=\"vec\">v</span> — verso", o:["→ est","← ovest"], ok:0, pt:0.5, ans:"est: il 3 è positivo, il verso non cambia"},
+  {id:"x1c", tipo:"n", lab:"b) −2·<span class=\"vec\">v</span> — modulo", u:"m·s⁻¹", ok:24, pt:0.5, ans:"24 m·s⁻¹",
+   tr:[[-24,"Il modulo è sempre positivo: il meno cambia solo il verso."],[10,"Hai sommato: −2·v vuol dire modulo × 2."],[6,"Hai diviso: il 2 moltiplica."]]},
+  {id:"x1d", tipo:"s", lab:"b) −2·<span class=\"vec\">v</span> — verso", o:["→ est","← ovest"], ok:1, pt:0.5, ans:"ovest: il segno meno inverte il verso"},
+  {id:"x1e", tipo:"n", lab:"c) <span class=\"vec\">v</span> / 4 — modulo", u:"m·s⁻¹", ok:3, pt:0.5, ans:"3 m·s⁻¹",
+   tr:[[48,"Hai moltiplicato: v / 4 vuol dire modulo diviso 4."]]},
+  {id:"x1f", tipo:"s", lab:"c) <span class=\"vec\">v</span> / 4 — verso", o:["→ est","← ovest"], ok:0, pt:0.5, ans:"est: si divide per un numero positivo"},
+  {id:"x1g", tipo:"n", lab:"d) Un carrello di massa <i>m</i> = 2,5 kg ha accelerazione <i>a</i> = 4,0 m·s⁻² verso <b>nord</b>. Modulo di <span class=\"vec\">F</span> = <i>m</i>·<span class=\"vec\">a</span>", u:"N", ok:10, pt:0.5, ans:"10 N",
+   tr:[[0.625,"Hai diviso: F = m per a."],[1.6,"Hai diviso: F = m per a."],[6.5,"Hai sommato: F = m per a."]]},
+  {id:"x1h", tipo:"s", lab:"d) Verso di <span class=\"vec\">F</span>", o:["↑ nord, come a","↓ sud, opposto ad a"], ok:0, pt:0.5, ans:"nord: la massa è uno scalare positivo"}
+ ],
+ how:"Scalare <b>positivo</b> per un vettore: il modulo si moltiplica, direzione e verso restano. Scalare <b>negativo</b>: il modulo si moltiplica per il numero senza segno, il verso si inverte. Dividere per uno scalare positivo: il modulo si divide, il verso resta.<br>a) 3 × 12 = 36 m·s⁻¹ verso est. b) 2 × 12 = 24 m·s⁻¹ verso ovest. c) 12 : 4 = 3 m·s⁻¹ verso est. d) 2,5 × 4,0 = 10 N verso nord."},
+
+{id:"x2", t:"Esercizio 2 · punta-coda e parallelogramma",
+ q:"Disegna la risultante: <b>tocca il punto della griglia dove finisce</b>. Il pallino rosa è dove parte. Poi scrivi il modulo.",
+ say:"Esercizio 2. Disegna la risultante: tocca il punto della griglia dove finisce. Il pallino rosa è dove parte. Nella parte a usa il metodo punta-coda con tre vettori, nella parte b la regola del parallelogramma. Poi scrivi il modulo.",
+ items:[
+  {id:"x2a", tipo:"g", lab:"a) Punta-coda: R = <span style=\"color:var(--va)\">A</span> + <span style=\"color:var(--vb)\">B</span> + <span style=\"color:var(--vc)\">C</span>. Scala: 1 quadretto = 10 km/h.",
+   vs:[["A","va",[1,7],[4,0]],["B","vb",[7,7],[0,-3]],["C","vc",[10,6],[-2,-1]]], s:[1,7], par:false, pt:1.5,
+   ans:"R parte dalla coda di A e finisce 2 quadretti a destra e 4 in su"},
+  {id:"x2b", tipo:"n", lab:"a) Modulo di R", u:"km/h", ok:44.72, rel:0.025, pt:0.5, ans:"√(2² + 4²) = √20 ≈ 4,5 quadretti → circa 45 km/h",
+   tr:[[4.472,"Questi sono quadretti: moltiplica per la scala, × 10."],[92.4,"Hai sommato i moduli: si sommano solo con stessa direzione e verso."],[20,"20 è R² in quadretti: manca la radice."]]},
+  {id:"x2c", tipo:"g", lab:"b) Parallelogramma: <span style=\"color:var(--va)\">A</span> e <span style=\"color:var(--vb)\">B</span> partono dallo stesso punto O. Scala: 1 quadretto = 2 N.",
+   vs:[["A","va",[3,6],[3,0]],["B","vb",[3,6],[0,-4]]], s:[3,6], par:true, pt:1.5,
+   ans:"R è la diagonale da O al vertice opposto: 3 quadretti a destra e 4 in su"},
+  {id:"x2d", tipo:"n", lab:"b) Modulo di R (A = 6 N e B = 8 N sono perpendicolari)", u:"N", ok:10, pt:0.5, ans:"√(6² + 8²) = √100 = 10 N",
+   tr:[[14,"Hai sommato 6 + 8: con vettori perpendicolari si usa Pitagora."],[5,"Questi sono quadretti: × 2."],[100,"100 è R²: manca la radice."],[2,"Hai sottratto: con vettori perpendicolari si usa Pitagora."]]}
+ ],
+ open:{q:"Domanda aperta, da scrivere sul quaderno: spiega con parole e con un disegno la regola del parallelogramma.",
+       model:"Si disegnano i due vettori con le <b>code nello stesso punto</b> O. Dalla punta di ciascun vettore si traccia la <b>parallela all'altro</b>: le due rette si incontrano in un punto C. La risultante è la <b>diagonale</b> del parallelogramma che va <b>da O a C</b> (verso da O a C). Non va da punta a punta: quella è l'altra diagonale. Con più di due vettori conviene il punta-coda."},
+ how:"a) Punta-coda: B si sposta con la coda sulla punta di A, C con la coda sulla punta di B. R va dalla coda di A alla punta di C: 2 quadretti a destra e 4 in su, √20 ≈ 4,5 quadretti × 10 = circa 45 km/h.<br>b) Parallelogramma: dalle punte si tracciano le parallele; R è la diagonale da O. A e B sono perpendicolari: R = √(6² + 8²) = 10 N."},
+
+{id:"x3", t:"Esercizio 3 · definizioni: massa, densità, forze",
+ q:"Scegli la risposta giusta.",
+ say:"Esercizio 3. Definizioni: massa, densità, forze. Scegli la risposta giusta. Tocca il pulsante accanto a ogni domanda per ascoltarla.",
+ items:[
+  {id:"x3a", tipo:"s", shuffle:true, lab:"a) La massa è…", pt:1,
+   o:["una proprietà dei corpi che descrive la loro «volontà» di non cambiare la velocità","la forza con cui la Terra attira un corpo","lo spazio occupato da un corpo","una grandezza vettoriale che si misura in newton"], ok:0,
+   ans:"una proprietà dei corpi che descrive la «volontà» di non cambiare la velocità",
+   why:"Negli appunti: la massa descrive la «volontà» dei corpi a non cambiare la velocità. È uno scalare e si misura in kg. La forza con cui la Terra attira un corpo è il peso; lo spazio occupato è il volume."},
+  {id:"x3b", tipo:"s", shuffle:true, lab:"b) 1 kg è la massa di…", pt:1,
+   o:["1 dm³ (1 litro) di acqua","1 cm³ di acqua","1 m³ di acqua","1 litro di qualsiasi liquido"], ok:0,
+   ans:"1 dm³ di acqua", why:"d(H₂O) = 1 kg/dm³: un decimetro cubo d'acqua ha massa 1 kg. Ogni liquido ha la sua densità, quindi 1 litro di olio non fa 1 kg."},
+  {id:"x3c", tipo:"s", shuffle:true, lab:"c) La densità è una grandezza…", pt:1,
+   o:["scalare e derivata","vettoriale e derivata","scalare e fondamentale","vettoriale e fondamentale"], ok:0,
+   ans:"scalare e derivata", why:"Negli appunti: la densità è una grandezza scalare, derivata nel S.I. (si ottiene da massa e volume, d = m / V)."},
+  {id:"x3d", tipo:"s", shuffle:true, lab:"d) Si chiamano forze tutte le cause che…", pt:1,
+   o:["possono cambiare la velocità dei corpi liberi o deformare i corpi vincolati","fanno muovere sempre i corpi","agiscono solo se i corpi si toccano","hanno una massa"], ok:0,
+   ans:"possono cambiare la velocità dei corpi liberi o deformare i corpi vincolati", why:"È la definizione operativa di forza. Una forza non fa sempre muovere: un corpo vincolato si deforma. E ci sono forze a distanza."}
+ ],
+ open:{q:"Domanda aperta, da scrivere sul quaderno: che cos'è la massa? In che unità si misura nel S.I.?",
+       model:"La massa è una <b>proprietà dei corpi</b> che descrive la loro «volontà» di <b>non cambiare la velocità</b>. È una grandezza <b>scalare</b>. Nel S.I. si misura in <b>kilogrammi (kg)</b>: 1 kg è la massa di 1 dm³ d'acqua. Si misura con la bilancia a bracci uguali."},
+ how:""},
+
+{id:"x4", t:"Esercizio 4 · densità e densità relativa",
+ q:"Usa d(H₂O) = 1 kg/dm³.",
+ say:"Esercizio 4. Densità e densità relativa. La densità dell'acqua è un chilogrammo al decimetro cubo.",
+ items:[
+  {id:"x4a", tipo:"n", lab:"a) Scrivi d(H₂O) in kg·m⁻³", u:"kg·m⁻³", ok:1000, pt:1, mag:true, ans:"1·10³ kg·m⁻³",
+   tr:[[0.001,"Al contrario: 1 dm³ = 10⁻³ m³, e dividere per 10⁻³ vuol dire moltiplicare per 1000."]]},
+  {id:"x4b", tipo:"n", lab:"b) Il ferro ha d = 7,9·10³ kg·m⁻³. La sua densità relativa", u:"", ok:7.9, pt:1, mag:true, ans:"7,9",
+   tr:[[7.9e6,"Hai moltiplicato: d<sub>r</sub> = d(materiale) : d(H₂O)."],[0.1266,"Al contrario: d<sub>r</sub> = d(materiale) : d(H₂O)."]]},
+  {id:"x4c", tipo:"s", lab:"c) Che unità di misura ha la densità relativa?", o:["kg·m⁻³","g·cm⁻³","nessuna: è un numero puro"], ok:2, pt:0.5,
+   ans:"nessuna: kg·m⁻³ diviso kg·m⁻³ si semplifica"},
+  {id:"x4d", tipo:"n", lab:"d) L'olio ha densità relativa 0,92. La sua densità", u:"kg·m⁻³", ok:920, pt:1, mag:true, ans:"920 kg·m⁻³",
+   tr:[[0.92,"Questa è la densità relativa: d = d(H₂O) · d<sub>r</sub> = 1000 · 0,92."],[1087,"Hai diviso: d = d(H₂O) per d<sub>r</sub>."]]},
+  {id:"x4e", tipo:"s", lab:"e) Quale formula hai usato in d)?", o:["d = d(H₂O) : d<sub>r</sub>","d = d(H₂O) · d<sub>r</sub>","d = d<sub>r</sub> : d(H₂O)"], ok:1, pt:0.5,
+   ans:"d = d(H₂O) · d<sub>r</sub> (formula principale)"}
+ ],
+ how:"a) 1 kg/dm³ = 1 kg / (10⁻¹ m)³ = 1 kg / 10⁻³ m³ = 1·10³ kg·m⁻³.<br>b) d<sub>r</sub> = d(materiale) / d(H₂O) = 7,9·10³ / 1·10³ = 7,9.<br>c) Le unità si semplificano: è un numero puro.<br>d) e) Formula principale: d = d(H₂O) · d<sub>r</sub> = 1000 · 0,92 = 920 kg·m⁻³."},
+
+{id:"x5", t:"Esercizio 5 · le forze: tipologia e forze fondamentali",
+ q:"Per ogni forza scegli: a contatto o a distanza. Poi rispondi alla domanda finale.",
+ say:"Esercizio 5. Per ogni forza scegli: a contatto o a distanza. Poi rispondi alla domanda finale sulle forze fondamentali in natura.",
+ items:[
+  {id:"x5a", tipo:"s", lab:"a) Il dito che fa partire un rullino", o:["a contatto","a distanza"], ok:0, pt:0.5, ans:"a contatto: il rullino parte solo se dito e rullino si toccano"},
+  {id:"x5b", tipo:"s", lab:"b) La calamita che mette in movimento una puntina d'acciaio senza toccarla", o:["a contatto","a distanza"], ok:1, pt:0.5, ans:"a distanza"},
+  {id:"x5c", tipo:"s", lab:"c) La forza gravitazionale", o:["a contatto","a distanza"], ok:1, pt:0.5, ans:"a distanza"},
+  {id:"x5d", tipo:"s", lab:"d) La forza elettromagnetica", o:["a contatto","a distanza"], ok:1, pt:0.5, ans:"a distanza"},
+  {id:"x5e", tipo:"s", lab:"e) La forza nucleare forte", o:["a contatto","a distanza"], ok:0, pt:0.5, ans:"a contatto (come negli appunti)"},
+  {id:"x5f", tipo:"s", lab:"f) La forza nucleare debole", o:["a contatto","a distanza"], ok:0, pt:0.5, ans:"a contatto (come negli appunti)"},
+  {id:"x5g", tipo:"s", shuffle:true, lab:"g) Le forze fondamentali in natura sono:", pt:1,
+   o:["gravitazionale, elettromagnetica, nucleare forte, nucleare debole","gravitazionale, elastica, d'attrito, peso","a contatto, a distanza, elastica, magnetica","peso, elettrica, magnetica, nucleare"], ok:0,
+   ans:"gravitazionale, elettromagnetica, nucleare forte, nucleare debole",
+   why:"Sono quattro: gravitazionale ed elettromagnetica (a distanza), nucleare forte e nucleare debole (a contatto negli appunti). Elastica, attrito e peso sono forze, ma non fondamentali."}
+ ],
+ how:"Negli appunti: forze <b>a contatto</b> (per agire serve il contatto tra i due corpi: il dito e il rullino) e forze <b>a distanza</b> (la calamita muove la puntina senza toccarla).<br>Forze fondamentali: <b>gravitazionale</b> ed <b>elettromagnetica</b> → a distanza; <b>nucleare forte</b> e <b>nucleare debole</b> → a contatto (agiscono solo a distanze piccolissime, dentro il nucleo dell'atomo)."},
+
+{id:"x6", t:"Esercizio 6 · problema con inversione ed equivalenze",
+ q:"Un oggetto ha densità relativa <i>d</i><sub>r</sub> = 2,5 e volume <i>V</i> = 40 cm³. Trova la massa in hg, sapendo che <i>d</i> = <i>m</i>·<i>V</i>⁻¹. Riporta equivalenze, inversione e unità.",
+ say:"Esercizio 6. Un oggetto ha densità relativa due virgola cinque e volume quaranta centimetri cubi. Trova la massa in ettogrammi, sapendo che la densità è massa per volume alla meno uno.",
+ items:[
+  {id:"x6a", tipo:"n", lab:"a) Densità dell'oggetto", u:"kg·m⁻³", ok:2500, pt:1, mag:true, ans:"d = d(H₂O) · d<sub>r</sub> = 1000 · 2,5 = 2,5·10³ kg·m⁻³",
+   tr:[[2.5,"Questa è la densità relativa: d = d(H₂O) · d<sub>r</sub> = 1000 · 2,5."],[400,"Hai diviso: d = d(H₂O) per d<sub>r</sub>."]]},
+  {id:"x6b", tipo:"n", lab:"b) <i>V</i> = 40 cm³ in m³", u:"m³", ok:4e-5, pt:1, mag:true, ans:"40 · 10⁻⁶ m³ = 4,0·10⁻⁵ m³",
+   tr:[[0.04,"0,040 sono dm³: per i m³ ricorda 1 cm³ = 10⁻⁶ m³."]]},
+  {id:"x6c", tipo:"s", lab:"c) Formula inversa", o:["<i>m</i> = <i>V</i> : <i>d</i>","<i>m</i> = <i>d</i> · <i>V</i>","<i>m</i> = <i>d</i> : <i>V</i>"], ok:1, pt:1,
+   ans:"d = m / V → d · V = m → m = d · V"},
+  {id:"x6d", tipo:"n", lab:"d) Massa in kg", u:"kg", ok:0.1, pt:0.5, ans:"2,5·10³ · 4,0·10⁻⁵ = 10·10⁻² = 0,1 kg",
+   tr:[[100000,"Hai lasciato i cm³: prima V = 4,0·10⁻⁵ m³."],[6.25e7,"Hai diviso: m = d · V."],[1.6e-8,"Hai diviso: m = d · V."],[1e-4,"Hai usato 2,5 (la densità relativa) al posto della densità: d = 2,5·10³ kg·m⁻³."]]},
+  {id:"x6e", tipo:"n", lab:"e) Massa in hg", u:"hg", ok:1, pt:0.5, ans:"0,1 kg = 1 hg",
+   tr:[[0.01,"Al contrario: 1 kg = 10 hg, quindi 0,1 kg = 1 hg."],[100,"Questi sono grammi: 1 hg = 100 g."]]}
+ ],
+ how:"Equivalenze: d = 1000 · 2,5 = 2,5·10³ kg·m⁻³; V = 40 cm³ = 4,0·10⁻⁵ m³.<br>Inversione: d = m · V⁻¹ = m / V → d · V = m → m = d · V.<br>Numeri e unità: m = 2,5·10³ kg·m⁻³ · 4,0·10⁻⁵ m³ = 0,1 kg (m⁻³ · m³ = 1) = <b>1 hg</b>."},
+
+{id:"x7", t:"Esercizio 7 · secondo problema",
+ q:"Un liquido di massa <i>m</i> = 3,0 hg occupa un volume <i>V</i> = 0,25 L. Trova la sua densità e la sua densità relativa.",
+ say:"Esercizio 7. Un liquido di massa tre virgola zero ettogrammi occupa un volume di zero virgola venticinque litri. Trova la sua densità e la sua densità relativa.",
+ items:[
+  {id:"x7a", tipo:"n", lab:"a) <i>m</i> in kg", u:"kg", ok:0.3, pt:0.5, ans:"3,0 hg = 0,30 kg",
+   tr:[[3,"3 sono gli ettogrammi: 1 hg = 0,1 kg."],[300,"300 sono i grammi."]]},
+  {id:"x7b", tipo:"n", lab:"b) <i>V</i> in m³", u:"m³", ok:2.5e-4, pt:1, mag:true, ans:"0,25 L = 0,25 dm³ = 2,5·10⁻⁴ m³",
+   tr:[[0.25,"0,25 sono litri, cioè dm³: 1 L = 10⁻³ m³."]]},
+  {id:"x7c", tipo:"n", lab:"c) Densità", u:"kg·m⁻³", ok:1200, pt:1.5, mag:true, ans:"0,30 / 2,5·10⁻⁴ = 1,2·10³ kg·m⁻³",
+   tr:[[12,"Hai lasciato hg e L: prima le equivalenze."],[7.5e-5,"Hai moltiplicato: d = m : V."],[8.333e-4,"Al contrario: d = m : V."]]},
+  {id:"x7d", tipo:"n", lab:"d) Densità relativa", u:"", ok:1.2, pt:1, mag:true, ans:"1,2·10³ / 1·10³ = 1,2",
+   tr:[[1.2e6,"Hai moltiplicato: d<sub>r</sub> = d : d(H₂O)."]]}
+ ],
+ how:"m = 3,0 hg = 0,30 kg; V = 0,25 L = 0,25 dm³ = 2,5·10⁻⁴ m³.<br>d = m / V = 0,30 kg / 2,5·10⁻⁴ m³ = 1,2·10³ kg·m⁻³. Controllo: 300 g / 250 cm³ = 1,2 g/cm³.<br>d<sub>r</sub> = d / d(H₂O) = 1,2·10³ / 1·10³ = 1,2 (numero puro)."},
+
+{id:"x8", t:"Esercizio 8 · Giochi di Anacleto",
+ q:"Scegli la risposta giusta.",
+ say:"Esercizio 8, Giochi di Anacleto. Scegli la risposta giusta. Tocca il pulsante accanto a ogni domanda per ascoltarla.",
+ items:[
+  {id:"x8a", tipo:"s", shuffle:true, lab:"a) Due forze perpendicolari di 5 N e 12 N agiscono sullo stesso punto. La risultante vale:", pt:1,
+   o:["13 N","17 N","7 N","60 N"], ok:0, ans:"13 N", why:"Perpendicolari: R = √(5² + 12²) = √169 = 13 N. 17 N sarebbe con lo stesso verso, 7 N con versi opposti."},
+  {id:"x8b", tipo:"s", shuffle:true, lab:"b) Il vettore <span class=\"vec\">B</span> = −3·<span class=\"vec\">A</span>. Rispetto ad <span class=\"vec\">A</span>, il vettore <span class=\"vec\">B</span> ha:", pt:1,
+   o:["modulo triplo, stessa direzione, verso opposto","modulo triplo, direzione opposta, stesso verso","modulo un terzo, stessa direzione, verso opposto","modulo triplo, stessa direzione, stesso verso"], ok:0,
+   ans:"modulo triplo, stessa direzione, verso opposto", why:"Il 3 triplica il modulo, il meno inverte il verso, la direzione (la retta) resta la stessa. «Direzione opposta» non esiste: opposto è il verso."},
+  {id:"x8c", tipo:"s", shuffle:true, lab:"c) Un astronauta va dalla Terra alla Luna. La sua massa e il suo peso:", pt:1,
+   o:["massa uguale, peso minore","massa minore, peso minore","massa uguale, peso uguale","massa minore, peso uguale"], ok:0,
+   ans:"massa uguale, peso minore", why:"La massa è una proprietà del corpo: non cambia. Il peso è la forza di gravità: sulla Luna è circa 6 volte più piccolo."}
+ ],
+ how:""}
+];
+
+/* ═══════════ strumenti ═══════════ */
+function $(id){ return document.getElementById(id); }
+function fx(n){ return (Math.round(n*10)/10).toString(); }
+function pS(x){ return (Math.round(x*100)/100).toString().replace('.',','); }
+const C = {ink:'#1B2430', soft:'#5A6473', grid:'#E6E1D6', va:'#1D4E89', vb:'#B06A00', vc:'#1F7A4D', vr:'#A8327A', no:'#9B2C2C', ok:'#1F5C4B'};
+function arrow(x1,y1,x2,y2,c,hc,w,dash){
+  w = w||4;
+  const dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy)||1, ux=dx/L, uy=dy/L;
+  const h=Math.max(13,w*3.4), hw=h*0.55, bx=x2-ux*h, by=y2-uy*h;
+  return '<path d="M'+fx(x1)+' '+fx(y1)+' L'+fx(bx)+' '+fx(by)+'" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round" fill="none"'+(dash?' stroke-dasharray="7 6"':'')+'/>'+
+         '<polygon points="'+fx(x2)+','+fx(y2)+' '+fx(bx-uy*hw)+','+fx(by+ux*hw)+' '+fx(bx+uy*hw)+','+fx(by-ux*hw)+'" fill="'+(hc||c)+'"'+(dash?' fill-opacity=".5"':'')+'/>';
+}
+function txt(x,y,t,o){
+  o = o||{};
+  return '<text x="'+fx(x)+'" y="'+fx(y)+'" font-size="'+(o.s||16)+'" fill="'+(o.c||C.ink)+'" font-family="-apple-system,Arial,sans-serif"'+
+         (o.a?' text-anchor="'+o.a+'"':'')+(o.w?' font-weight="'+o.w+'"':'')+(o.i?' font-style="italic"':'')+'>'+t+'</text>';
+}
+function grid(cols,rows,s,ox,oy){
+  let h='<g stroke="'+C.grid+'" stroke-width="1">';
+  for(let i=0;i<=cols;i++) h+='<path d="M'+(ox+i*s)+' '+oy+' V'+(oy+rows*s)+'"/>';
+  for(let i=0;i<=rows;i++) h+='<path d="M'+ox+' '+(oy+i*s)+' H'+(ox+cols*s)+'"/>';
+  return h+'</g>';
+}
+function nums(s){
+  s = String(s==null?'':s).trim(); if(!s) return [];
+  const sup = {'\u2070':'0','\u00b9':'1','\u00b2':'2','\u00b3':'3','\u2074':'4','\u2075':'5','\u2076':'6','\u2077':'7','\u2078':'8','\u2079':'9','\u207b':'-','\u207a':'+'};
+  s = s.replace(/(kg·m⁻³|kg\/m³|kg\/m3|g·cm⁻³|g\/cm³|m·s⁻¹|m\/s|km\/h|cm³|dm³|m³|m3|kg|hg|g|N|L|m)\s*$/,'');
+  s = s.replace(/[\u2070\u00b9\u00b2\u00b3\u2074-\u2079\u207b\u207a]+/g, m=>{ let o='^'; for(const c of m) o+=sup[c]; return o; });
+  s = s.replace(/\s+/g,'').replace(/[\u2212\u2013]/g,'-').replace(/[\u00d7xX\u00b7\u22c5*]/g,'*');
+  const vars = [];
+  if(s.indexOf(',')>=0) vars.push(s.replace(/\./g,'').replace(/,/g,'.'));
+  else { vars.push(s); if(/^[+-]?[1-9]\d{0,2}(\.\d{3})+(\*|$)/.test(s)) vars.push(s.replace(/\.(?=\d{3})/g,'')); }
+  const out = [];
+  vars.forEach(t=>{
+    let m = t.match(/^([+-]?\d*\.?\d+)\*10\^([+-]?\d+)$/);
+    if(m){ out.push(parseFloat(m[1])*Math.pow(10,parseInt(m[2],10))); return; }
+    m = t.match(/^10\^([+-]?\d+)$/);
+    if(m){ out.push(Math.pow(10,parseInt(m[1],10))); return; }
+    if(/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(t)) out.push(parseFloat(t));
+  });
+  return out;
+}
+function vicino(v,a,p){ if(p.rel!=null) return Math.abs(v-a) <= Math.abs(a)*p.rel; if(p.tol!=null) return Math.abs(v-a) <= p.tol; return Math.abs(v-a) <= Math.abs(a)*0.004 + 1e-12; }
+function volte(k){ const s = String(Math.pow(10,k)); return s.length>4 ? s.replace(/\B(?=(\d{3})+(?!\d))/g,' ') : s; }
+function checkNum(p, s){
+  const vs = nums(s);
+  if(!String(s||'').trim()) return {vuoto:true};
+  if(!vs.length) return {ok:false, msg:'Il numero non è leggibile.'};
+  if(vs.some(v=>vicino(v,p.ok,p))) return {ok:true};
+  let msg = null;
+  vs.forEach(v=>(p.tr||[]).forEach(t=>{ if(msg===null && vicino(v,t[0],{rel:0.012})) msg = t[1]; }));
+  if(msg===null && p.mag && vs[0]>0){
+    const L = Math.log(vs[0]/p.ok)/Math.LN10, k = Math.round(L);
+    if(k!==0 && Math.abs(L-k)<0.01) msg = 'Le cifre vanno bene, ma il numero è '+(k>0?'troppo grande':'troppo piccolo')+' di '+volte(Math.abs(k))+' volte. Controlla le equivalenze.';
+  }
+  return {ok:false, msg: msg || 'Non è giusto.'};
+}
+function rnd(seed){ let s = seed>>>0; return ()=>{ s = (s*1664525 + 1013904223)>>>0; return s/4294967296; }; }
+function perm(n, r){ const a = []; for(let i=0;i<n;i++) a.push(i); for(let i=n-1;i>0;i--){ const j = Math.floor(r()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+/* ═══════════ stato ═══════════ */
+const KEY = 'fis-sim-forze-densita';
+let S = null, armed = false, ORD = {};
+function nuovo(){ return {v:{}, p:{}, g:{}, done:false, punti:null, seed:Math.floor(Math.random()*1e9)}; }
+function load(){
+  try{ const t = localStorage.getItem(KEY); if(t){ const o = JSON.parse(t); if(o && o.v && o.p && o.g && o.seed!=null) return o; } }catch(e){}
+  return nuovo();
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function tutti(){ let a = []; EXS.forEach(E=>{ a = a.concat(E.items); }); return a; }
+function massimo(){ return tutti().reduce((s,p)=>s+p.pt,0); }
+function data(p){ return p.tipo==='n' ? String(S.v[p.id]||'').trim()!=='' : p.tipo==='s' ? S.p[p.id]!=null : !!S.g[p.id]; }
+
+/* ═══════════ griglia ═══════════ */
+const G = {cols:12, rows:8, S:28, O:10};
+function gx(i){ return G.O+i*G.S; } function gy(j){ return G.O+j*G.S; }
+function somma(p){ let x=0,y=0; p.vs.forEach(v=>{ x+=v[3][0]; y+=v[3][1]; }); return [p.s[0]+x, p.s[1]+y]; }
+function gDraw(p){
+  let h = grid(G.cols,G.rows,G.S,G.O,G.O), i, j;
+  for(i=0;i<=G.cols;i++) for(j=0;j<=G.rows;j++) h += '<circle cx="'+gx(i)+'" cy="'+gy(j)+'" r="2" fill="#C9C2B3"/>';
+  const T = somma(p), tip = S.g[p.id];
+  if(S.done){
+    if(p.par){
+      const a=p.vs[0][3], b=p.vs[1][3], O=p.s;
+      h += '<path d="M'+gx(O[0]+a[0])+' '+gy(O[1]+a[1])+' L'+gx(T[0])+' '+gy(T[1])+' M'+gx(O[0]+b[0])+' '+gy(O[1]+b[1])+' L'+gx(T[0])+' '+gy(T[1])+'" stroke="'+C.soft+'" stroke-width="2" stroke-dasharray="7 6" fill="none"/>';
+    } else {
+      let q = p.s.slice();
+      p.vs.forEach(v=>{ if(!(v[2][0]===q[0] && v[2][1]===q[1])) h += arrow(gx(q[0]),gy(q[1]),gx(q[0]+v[3][0]),gy(q[1]+v[3][1]),C[v[1]],C[v[1]],3,true); q = [q[0]+v[3][0], q[1]+v[3][1]]; });
+    }
+  }
+  p.vs.forEach(v=>{
+    const t=v[2], d=v[3];
+    h += arrow(gx(t[0]),gy(t[1]),gx(t[0]+d[0]),gy(t[1]+d[1]),C[v[1]],C[v[1]],4.5);
+    h += txt(gx(t[0]+d[0]/2)+(d[1]!==0&&d[0]===0?-14:0), gy(t[1]+d[1]/2)+(d[1]===0?-9:(d[0]===0?5:-8)), v[0], {w:700,s:17,c:C[v[1]],i:true,a:'middle'});
+  });
+  if(p.par) h += txt(gx(p.s[0])-10, gy(p.s[1])+20, 'O', {w:700,s:16});
+  if(S.done){
+    const giusto = tip && tip[0]===T[0] && tip[1]===T[1];
+    if(tip && !giusto) h += arrow(gx(p.s[0]),gy(p.s[1]),gx(tip[0]),gy(tip[1]),C.no,C.no,4,true);
+    h += arrow(gx(p.s[0]),gy(p.s[1]),gx(T[0]),gy(T[1]),C.vr,C.vr,5);
+    h += txt(gx((p.s[0]+T[0])/2)+12, gy((p.s[1]+T[1])/2)-6, 'R', {w:700,s:19,c:C.vr,i:true});
+  } else if(tip){
+    h += arrow(gx(p.s[0]),gy(p.s[1]),gx(tip[0]),gy(tip[1]),C.vr,C.vr,5);
+  }
+  h += '<circle cx="'+gx(p.s[0])+'" cy="'+gy(p.s[1])+'" r="7" fill="'+C.vr+'"/>';
+  if(!S.done) for(i=0;i<=G.cols;i++) for(j=0;j<=G.rows;j++)
+    h += '<circle class="cp" data-x="'+i+'" data-y="'+j+'" cx="'+gx(i)+'" cy="'+gy(j)+'" r="13" fill="#000" fill-opacity="0"/>';
+  $('g'+p.id).innerHTML = h;
+}
+function gTap(id,i,j){
+  if(S.done) return;
+  const p = tutti().find(x=>x.id===id);
+  if(i===p.s[0] && j===p.s[1]) return;
+  S.g[id] = [i,j]; save(); gDraw(p); prog(); disarma();
+}
+function gClear(id){ if(S.done) return; delete S.g[id]; save(); gDraw(tutti().find(x=>x.id===id)); prog(); disarma(); }
+
+/* ═══════════ disegno della verifica ═══════════ */
+function render(){
+  const r = rnd(S.seed); ORD = {};
+  let h = '';
+  EXS.forEach(E=>{
+    const max = E.items.reduce((s,p)=>s+p.pt,0);
+    h += '<div class="card" id="c'+E.id+'"><div class="qhead"><div class="qnum">'+E.t+' <span class="pt" id="pt'+E.id+'">· '+pS(max)+' punti</span></div>'
+       + '<button class="spk" onclick="leggi(this)" aria-label="Ascolta" data-say="'+E.say.replace(/"/g,'&quot;')+'">🔊</button></div>'
+       + '<p class="qtext">'+E.q+'</p>';
+    E.items.forEach(p=>{
+      h += '<div class="item" id="it'+p.id+'"><div class="lab">'+p.lab+(p.shuffle ? ' <button class="spk mini" onclick="leggi(this)" aria-label="Ascolta" data-say="">🔊</button>' : '')+'</div>';
+      if(p.tipo==='n') h += '<div class="chk"><input id="'+p.id+'" inputmode="decimal" placeholder="..." autocomplete="off" oninput="tieni(this)"><span class="u">'+p.u+'</span></div>';
+      else if(p.tipo==='s'){
+        const o = p.shuffle ? perm(p.o.length, r) : p.o.map((x,k)=>k); ORD[p.id] = o;
+        h += '<div class="mc'+(p.o.length===2?' two':'')+(p.shuffle?' one':'')+'" id="o'+p.id+'">';
+        o.forEach(k=>{ h += '<button onclick="scegli(\''+p.id+'\','+k+')" data-k="'+k+'">'+p.o[k]+'</button>'; });
+        h += '</div>';
+      } else {
+        h += '<svg id="g'+p.id+'" viewBox="0 0 356 244" role="img" aria-label="Griglia per disegnare la risultante"></svg>'
+           + '<button class="mini" id="gc'+p.id+'" onclick="gClear(\''+p.id+'\')">Cancella la freccia</button>';
+      }
+      h += '<div class="fb" id="f'+p.id+'"></div></div>';
+    });
+    if(E.open) h += '<div class="open"><div class="lbl">Domanda aperta · sul quaderno</div>'+E.open.q.replace(/^Domanda aperta, da scrivere sul quaderno: /,'')
+                  + '<div class="model" id="m'+E.id+'"><b>Risposta modello.</b> '+E.open.model+'</div></div>';
+    h += '<div class="fb" id="hw'+E.id+'"></div></div>';
+  });
+  $('exam').innerHTML = h;
+  EXS.forEach(E=>E.items.forEach(p=>{
+    if(p.tipo==='g'){ gDraw(p); $('g'+p.id).addEventListener('click', e=>{ const t = e.target; if(t && t.getAttribute && t.getAttribute('data-x')!==null) gTap(p.id, +t.getAttribute('data-x'), +t.getAttribute('data-y')); }); }
+    if(p.shuffle){ const b = $('it'+p.id).querySelector('.spk'); b.setAttribute('data-say', parla(p)); }
+  }));
+  Array.prototype.forEach.call(document.querySelectorAll('#exam input'), el=>{
+    if(S.v[el.id]!=null) el.value = S.v[el.id];
+    el.addEventListener('keydown', function(e){ if(e.key==='Enter') this.blur(); });
+  });
+  Object.keys(S.p).forEach(id=>segna(id));
+  armed = false;
+  $('esito').className = 'esito'; $('esitoTop').className = 'esito';
+  $('consegna').style.display = ''; $('ricomincia').style.display = 'none';
+  $('consegna').className = 'btn solid'; $('consegna').textContent = 'Consegna';
+  if(S.done) correggi(false); else prog();
+}
+function parla(p){
+  return (p.lab.replace(/^[a-z]\)\s*/,'')+' Le risposte sono: '+ORD[p.id].map(k=>p.o[k]).join('; '))
+    .replace(/<sub>([^<]*)<\/sub>/g,' $1 ').replace(/<[^>]+>/g,'').replace(/·/g,' per ').replace(/−/g,'meno ')
+    .replace(/(\d+),(\d+)/g,'$1 virgola $2').replace(/«|»|"/g,'');
+}
+function segna(id){
+  const box = $('o'+id); if(!box) return;
+  Array.prototype.forEach.call(box.children, b=>b.classList.toggle('sel', +b.getAttribute('data-k')===S.p[id]));
+}
+function disarma(){ if(armed){ armed = false; $('consegna').className = 'btn solid'; $('consegna').textContent = 'Consegna'; } }
+function tieni(el){ if(S.done) return; S.v[el.id] = el.value; save(); prog(); disarma(); }
+function scegli(id,k){
+  if(S.done) return;
+  if(S.p[id]===k) delete S.p[id]; else S.p[id] = k;
+  segna(id); save(); prog(); disarma();
+}
+function risposte(){ return tutti().filter(data).length; }
+function prog(){ $('prog').textContent = 'Risposte date: '+risposte()+' su '+tutti().length; }
+
+/* ═══════════ consegna e correzione ═══════════ */
+function consegna(){
+  const vuote = tutti().length - risposte();
+  if(vuote>0 && !armed){
+    armed = true; $('consegna').className = 'btn warn';
+    $('consegna').textContent = (vuote===1 ? "C'è 1 risposta vuota" : 'Ci sono '+vuote+' risposte vuote')+': tocca di nuovo per consegnare';
+    return;
+  }
+  S.done = true; save(); correggi(true);
+}
+function correggi(scorri){
+  let tot = 0; const righe = [];
+  EXS.forEach(E=>{
+    let pj = 0; const maxE = E.items.reduce((s,p)=>s+p.pt,0);
+    E.items.forEach(p=>{
+      let res;
+      if(p.tipo==='s'){
+        const k = S.p[p.id], box = $('o'+p.id); box.classList.add('locked');
+        Array.prototype.forEach.call(box.children, b=>{ const bk = +b.getAttribute('data-k'); b.classList.remove('sel'); if(bk===p.ok) b.classList.add('right'); else if(bk===k) b.classList.add('wrong'); });
+        res = (k==null) ? {vuoto:true} : (k===p.ok ? {ok:true} : {ok:false, msg:'Non è giusto.'});
+      } else if(p.tipo==='g'){
+        const t = S.g[p.id], T = somma(p);
+        res = !t ? {vuoto:true} : (t[0]===T[0] && t[1]===T[1] ? {ok:true} : {ok:false, msg:'La freccia rossa tratteggiata è la tua; quella rosa è la risultante giusta.'});
+        gDraw(p); const c = $('gc'+p.id); if(c) c.style.display = 'none';
+      } else res = checkNum(p, S.v[p.id]);
+      const f = $('f'+p.id);
+      if(res.ok){ f.className = 'fb on y'; f.innerHTML = '✓ Giusto · +'+pS(p.pt); pj += p.pt; }
+      else {
+        f.className = 'fb on n';
+        f.innerHTML = (res.vuoto ? '<b class="t">— Non hai risposto · 0</b>' : '<b class="t">✗ '+res.msg+' · 0</b>')
+                    + '<div class="giusta">Risposta giusta: '+p.ans+'</div>' + (p.why ? '<div class="how">'+p.why+'</div>' : '');
+      }
+    });
+    const pt = $('pt'+E.id); pt.textContent = '· '+pS(pj)+' su '+pS(maxE); pt.className = 'pt'+(pj===maxE?' y':'');
+    if(pj<maxE && E.how){ const hw = $('hw'+E.id); hw.className = 'fb on n'; hw.innerHTML = '<b class="t" style="color:var(--ink)">Come si fa</b><div class="how">'+E.how+'</div>'; }
+    if(E.open) $('m'+E.id).classList.add('on');
+    righe.push([E.t.replace(/^Esercizio (\d+) · /,'$1 · '), pj, maxE]);
+    tot += pj;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#exam input'), el=>{ el.readOnly = true; });
+  S.punti = tot; save();
+  const max = massimo(), perc = Math.round(tot/max*100), ok = perc>=60;
+  let tab = ''; righe.forEach(x=>{ tab += '<tr><td>'+x[0]+'</td><td class="c">'+pS(x[1])+' su '+pS(x[2])+'</td></tr>'; });
+  $('esito').innerHTML = '<div class="qnum">Risultato</div><div class="voto '+(ok?'ok':'ko')+'">'+pS(tot)+' <small>su '+pS(max)+'</small></div>'
+    + '<div class="det"><b>'+perc+'% dei punti.</b> '+(ok ? 'Buon lavoro: guarda le correzioni in rosso per gli ultimi errori.' : 'Leggi le spiegazioni in rosso, poi tocca Ricomincia: le risposte a scelta vengono rimescolate.')+'</div>'
+    + '<table>'+tab+'</table><div class="det" style="color:var(--soft);font-size:14px">Punteggio della simulazione: risposta sbagliata o vuota 0 punti. Le domande aperte non sono contate: confronta il quaderno con la risposta modello. Non so come la prof trasforma i punti in voto.</div>';
+  $('esito').className = 'esito on';
+  $('esitoTop').innerHTML = '<div class="qnum">Verifica consegnata</div><div class="det"><b>'+pS(tot)+' punti su '+pS(max)+'</b> ('+perc+'%). Sotto ogni domanda trovi la correzione; il riepilogo è in fondo.</div>';
+  $('esitoTop').className = 'esito on';
+  $('consegna').style.display = 'none'; $('ricomincia').style.display = '';
+  $('prog').textContent = '';
+  if(scorri){ const e = $('esitoTop'); if(e.scrollIntoView) e.scrollIntoView({behavior:'smooth', block:'start'}); }
+}
+function ricomincia(){ S = nuovo(); save(); render(); window.scrollTo(0,0); }
+
+/* ---------- voce ---------- */
+let voce = null, parlaBtn = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==='it-IT') || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function leggi(btn){
+  if(!window.speechSynthesis){ alert('Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome.'); return; }
+  const era = parlaBtn;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove('on'); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(btn.getAttribute('data-say') || '');
+  u.lang = 'it-IT'; u.rate = 0.88; if(voce) u.voice = voce;
+  u.onend = u.onerror = ()=>{ btn.classList.remove('on'); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add('on');
+  speechSynthesis.speak(u);
+}
+
+/* ---------- avvio ---------- */
+S = load(); render();
+
+</script>
+</body>
+</html>
