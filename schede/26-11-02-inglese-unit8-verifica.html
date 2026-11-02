@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inglese — Unit 8: hai capito?</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#0E7C86; --accent-soft:#E2F2F3; --accent-line:#BFE0E3;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --ps:#1D5FA8; --ps-soft:#E6EEF9; --pp:#B4531A; --pp-soft:#FBEDE3;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif; font-size:18px; line-height:1.7; letter-spacing:.005em; padding:0 0 env(safe-area-inset-bottom)}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700; margin:34px 0 4px; border-top:1px solid var(--rule); padding-top:16px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.qnum .pt{color:var(--soft); letter-spacing:.04em}
+.ins{font-size:17px; font-weight:700; line-height:1.45; margin:0}
+.sub{font-size:15px; color:var(--soft); margin:2px 0 8px; line-height:1.45}
+.box{border:2px dashed var(--accent-line); border-radius:12px; padding:7px 12px; margin:8px 0 6px; font-size:17px; font-weight:700; color:var(--accent); line-height:1.6; text-align:center}
+button{font:inherit; cursor:pointer}
+.rows .row{border-top:1px solid var(--rule); padding:12px 0 8px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:18.5px; line-height:2}
+.op .n{color:var(--soft); font-weight:700; margin-right:4px}
+.op .base{color:var(--accent); font-weight:700}
+.spk{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:0 7px; font-size:14px; line-height:1.5; margin-left:6px; vertical-align:2px; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+select, .tin{font:inherit; font-size:17px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink); padding:3px 6px; vertical-align:baseline; max-width:100%}
+select{min-width:120px}
+.tin{width:190px; padding:4px 9px}
+select:focus, .tin:focus{outline:none; border-color:var(--accent)}
+.sok{border-color:var(--ok) !important; background:var(--ok-soft) !important}
+.sko{border-color:var(--no) !important; background:var(--no-soft) !important}
+select:disabled, .tin:read-only{opacity:1; color:var(--ink)}
+.opts{display:grid; gap:7px; margin-top:6px; grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts.c1{grid-template-columns:1fr}
+.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 8px; min-width:0; font-size:16px; font-weight:600; color:var(--ink); line-height:1.35; overflow-wrap:break-word}
+.opts.c1 button{text-align:left; padding:10px 12px}
+.opts button.sel{border-color:var(--ink); background:#E9ECF1}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.opts.locked button{cursor:default}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+@media (max-width:460px){ .opts button{font-size:14.5px; padding:9px 4px} .opts.c1 button{font-size:15.5px; padding:9px 10px} }
+.fb{display:none; font-size:15.5px; line-height:1.55; margin-top:7px; border-radius:10px; padding:7px 11px}
+.fb.on{display:block}
+.fb.y{background:var(--ok-soft); color:var(--ok); font-weight:700}
+.fb.n{background:var(--no-soft); color:var(--no)}
+.fb.n b{display:block}
+.fb .giusta{color:var(--ink); font-weight:700; margin-top:3px}
+.row.y .op::after{content:" ✓"; color:var(--ok); font-weight:700}
+.row.n .op::after{content:" ✗"; color:var(--no); font-weight:700}
+/* tessere */
+.tline{min-height:50px; border:2px dashed var(--accent-line); border-radius:12px; padding:6px; display:flex; flex-wrap:wrap; gap:6px; align-items:center; background:#FAFDFD}
+.tline.okk{border-style:solid; border-color:var(--ok); background:var(--ok-soft)}
+.tline.kko{border-style:solid; border-color:var(--no); background:var(--no-soft)}
+.tpool{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px}
+.tk{border:2px solid var(--ink); background:#fff; border-radius:10px; padding:4px 11px; font-size:17px; font-weight:700; color:var(--ink)}
+.tline .tk{border-color:var(--accent); color:var(--accent)}
+.tend{font-size:20px; font-weight:800; color:var(--soft)}
+.clr{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:10px; padding:4px 12px; font-size:14.5px; font-weight:600}
+/* azioni */
+.acts{display:flex; gap:8px; margin-top:14px}
+.acts button{flex:1; border-radius:12px; padding:11px 10px; font-size:16px; font-weight:700}
+.go{border:2px solid var(--ink); background:var(--ink); color:#fff}
+.retry{border:2px solid var(--accent); background:#fff; color:var(--accent)}
+.esito{font-size:15.5px; font-weight:700; margin-top:10px; line-height:1.5}
+.esito.y{color:var(--ok)} .esito.n{color:var(--no)}
+/* teoria dopo l'errore */
+.teo{display:none; margin-top:14px; border:2px solid var(--warn); background:var(--warn-soft); border-radius:14px; padding:12px 14px; font-size:16px; line-height:1.55}
+.teo.on{display:block}
+.teo h3{margin:0 0 6px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--warn)}
+.teo h4{margin:10px 0 4px; font-size:16.5px}
+.teo table{width:100%; border-collapse:collapse; background:#fff; margin:6px 0; font-size:15px}
+.teo td, .teo th{border:1px solid var(--rule); padding:5px 8px; text-align:left; vertical-align:top; line-height:1.4}
+.teo th{background:#F4F1EA; font-size:13px; letter-spacing:.04em}
+.teo .en{font-weight:700; color:var(--accent)}
+.duo{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:6px 0}
+@media (max-width:460px){ .duo{grid-template-columns:1fr} }
+.duo > div{border-radius:12px; padding:9px 11px; background:#fff}
+.duo .a{border:2px solid var(--ps)} .duo .a b.t{color:var(--ps)}
+.duo .b{border:2px solid var(--pp)} .duo .b b.t{color:var(--pp)}
+.duo svg{width:100%; height:auto; display:block; margin:4px 0}
+.sig{display:inline-block; border-radius:7px; padding:0 6px; margin:1px 2px; font-weight:700; font-size:14.5px}
+.sig.a{background:var(--ps-soft); color:var(--ps)} .sig.b{background:var(--pp-soft); color:var(--pp)}
+/* riepilogo */
+.sum{border:2px solid var(--accent-line); background:var(--accent-soft); border-radius:14px; padding:16px; margin:24px 0 10px}
+.sum table{width:100%; border-collapse:collapse; background:#fff; font-size:15px; margin:8px 0}
+.sum td{border:1px solid var(--rule); padding:6px 8px; line-height:1.4}
+.sum td.c{text-align:center; white-space:nowrap}
+.v.ok{color:var(--ok); font-weight:700} .v.mid{color:var(--warn); font-weight:700} .v.ko{color:var(--no); font-weight:700}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 14px; font-size:16.5px; font-weight:700; margin-top:10px}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Inglese · Unit 8</div>
+  <h1>There's no place like home — hai capito?</h1>
+  <p class="lead">Fai un esercizio alla volta, poi tocca <b>Correggi</b>. Se sbagli, sotto compare <b>la regola</b> e il <b>perché</b> dell'errore: rileggila e riprova solo quelli sbagliati. Al secondo errore vedi la risposta giusta. Per il risultato conta il primo tentativo.</p>
+</header>
+
+<h2>Vocabulary</h2>
+<div id="secV"></div>
+<h2>Grammar · past simple e present perfect</h2>
+<div id="secG"></div>
+
+<div class="sum" id="sum"></div>
+<button class="btn" onclick="ricomincia()">Ricomincia tutto da capo</button>
+
+<p class="foot">Dal libro: Phases 1, unità 8 — Household chores, appliances, past simple vs present perfect, been / gone.</p>
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function lev(a,b){
+  const m = a.length, n = b.length; if(Math.abs(m-n)>2) return 9;
+  let p = []; for(let j=0;j<=n;j++) p[j] = j;
+  for(let i=1;i<=m;i++){ const c = [i]; for(let j=1;j<=n;j++) c[j] = Math.min(p[j]+1, c[j-1]+1, p[j-1]+(a[i-1]===b[j-1]?0:1)); p = c; }
+  return p[n];
+}
+/* normalizza: minuscole, niente punteggiatura, contrazioni sciolte */
+function nz(s){
+  s = String(s||"").toLowerCase().replace(/[’`]/g,"'").replace(/[.!?,;:]+/g," ").replace(/\s+/g," ").trim();
+  s = s.replace(/\bhaven't\b/g,"have not").replace(/\bhasn't\b/g,"has not").replace(/\bdidn't\b/g,"did not")
+       .replace(/\b(i|you|we|they)'ve\b/g,"$1 have").replace(/\b(he|she|it)'s\b/g,"$1 has")
+       .replace(/^'ve\b/,"have").replace(/^'s\b/,"has");
+  return s.replace(/\s+/g," ").trim();
+}
+
+/* ═══════════ la teoria che compare dopo un errore ═══════════ */
+const ARR_PS = '<svg viewBox="0 0 200 54" aria-hidden="true"><line x1="8" y1="40" x2="186" y2="40" stroke="#1D5FA8" stroke-width="3"/><path d="M186 34 L196 40 L186 46 z" fill="#1D5FA8"/><line x1="80" y1="6" x2="80" y2="32" stroke="#9B2C2C" stroke-width="3"/><path d="M74 28 L80 38 L86 28 z" fill="#9B2C2C"/><text x="8" y="53" font-size="10" fill="#5A6473">past</text><text x="160" y="53" font-size="10" fill="#5A6473">present</text></svg>';
+const ARR_PP = '<svg viewBox="0 0 200 54" aria-hidden="true"><line x1="8" y1="40" x2="186" y2="40" stroke="#1D5FA8" stroke-width="3"/><path d="M186 34 L196 40 L186 46 z" fill="#1D5FA8"/><path d="M40 34 Q110 -6 176 30" fill="none" stroke="#B4531A" stroke-width="3"/><path d="M170 26 L180 33 L168 34 z" fill="#B4531A"/><text x="8" y="53" font-size="10" fill="#5A6473">past</text><text x="160" y="53" font-size="10" fill="#5A6473">present</text></svg>';
+const TEO = {
+ chores:'<h3>Ripassa · le faccende di casa</h3><table><tr><th>in inglese</th><th>in italiano</th></tr>'
+  +'<tr><td class="en">take out the rubbish</td><td>portare fuori la spazzatura</td></tr>'
+  +'<tr><td class="en">load / empty the dishwasher</td><td>caricare / svuotare la lavastoviglie</td></tr>'
+  +'<tr><td class="en">make breakfast / lunch / dinner</td><td>preparare colazione / pranzo / cena</td></tr>'
+  +'<tr><td class="en">lay / clear the table</td><td>apparecchiare / sparecchiare</td></tr>'
+  +'<tr><td class="en">mop / sweep the floor</td><td>lavare / spazzare il pavimento</td></tr>'
+  +'<tr><td class="en">vacuum (hoover) the carpet</td><td>passare l\'aspirapolvere</td></tr>'
+  +'<tr><td class="en">hang out the washing</td><td>stendere il bucato</td></tr>'
+  +'<tr><td class="en">tidy your room</td><td>mettere in ordine la camera</td></tr></table>',
+ dos:'<h3>Ripassa · le espressioni con do</h3><table><tr><th>in inglese</th><th>in italiano</th></tr>'
+  +'<tr><td class="en">do the cooking</td><td>cucinare</td></tr><tr><td class="en">do the ironing</td><td>stirare</td></tr>'
+  +'<tr><td class="en">do the washing / the laundry</td><td>fare il bucato (i vestiti)</td></tr>'
+  +'<tr><td class="en">do the washing-up</td><td>lavare i piatti</td></tr>'
+  +'<tr><td class="en">do the shopping</td><td>fare la spesa</td></tr><tr><td class="en">do the dusting</td><td>spolverare</td></tr></table>'
+  +'Attenzione: <b>washing</b> sono i vestiti, <b>washing-up</b> sono i piatti.',
+ app:'<h3>Ripassa · gli elettrodomestici</h3><table><tr><th>in inglese</th><th>in italiano</th><th>a che serve</th></tr>'
+  +'<tr><td class="en">blender</td><td>frullatore</td><td>frullati, zuppe</td></tr>'
+  +'<tr><td class="en">electric kettle</td><td>bollitore</td><td>far bollire l\'acqua</td></tr>'
+  +'<tr><td class="en">vacuum cleaner</td><td>aspirapolvere</td><td>pulire tappeti e pavimenti</td></tr>'
+  +'<tr><td class="en">dishwasher</td><td>lavastoviglie</td><td>lavare piatti e bicchieri</td></tr>'
+  +'<tr><td class="en">toaster</td><td>tostapane</td><td>tostare il pane</td></tr>'
+  +'<tr><td class="en">fridge</td><td>frigorifero</td><td>tenere il cibo freddo</td></tr>'
+  +'<tr><td class="en">cooker</td><td>cucina (fornelli e forno)</td><td>cucinare</td></tr>'
+  +'<tr><td class="en">iron</td><td>ferro da stiro</td><td>stirare</td></tr>'
+  +'<tr><td class="en">microwave</td><td>microonde</td><td>scaldare il cibo</td></tr></table>'
+  +'Per non confondere: <b>blender</b> frulla, <b>kettle</b> bolle l\'acqua, <b>vacuum cleaner</b> aspira.',
+ part:'<h3>Ripassa · il participio</h3>Dopo <b>have / has</b> ci vuole sempre il <b>participio</b>, cioè la <b>terza colonna</b> dei verbi.'
+  +'<h4>Verbi regolari: + -ed</h4>move → <span class="en">moved</span> · cook → <span class="en">cooked</span> · decide → <span class="en">decided</span> · tidy → <span class="en">tidied</span> (y → ied)'
+  +'<h4>Verbi irregolari: si imparano</h4><table><tr><th>base</th><th>past simple (2ª)</th><th>participio (3ª)</th></tr>'
+  +'<tr><td>feed</td><td>fed</td><td class="en">fed</td></tr><tr><td>hear</td><td>heard</td><td class="en">heard</td></tr>'
+  +'<tr><td>take</td><td>took</td><td class="en">taken</td></tr><tr><td>see</td><td>saw</td><td class="en">seen</td></tr>'
+  +'<tr><td>do</td><td>did</td><td class="en">done</td></tr><tr><td>make</td><td>made</td><td class="en">made</td></tr>'
+  +'<tr><td>leave</td><td>left</td><td class="en">left</td></tr><tr><td>go</td><td>went</td><td class="en">gone / been</td></tr></table>'
+  +'La seconda colonna va da sola (<i>I took</i>). La terza va dopo have/has (<i>I have taken</i>).',
+ tempi:'<h3>Ripassa · past simple o present perfect?</h3><div class="duo">'
+  +'<div class="a"><b class="t">PAST SIMPLE</b>'+ARR_PS+'Azione finita in un <b>momento preciso</b>.<br>Parole spia: <span class="sig a">yesterday</span><span class="sig a">last week</span><span class="sig a">two days ago</span><span class="sig a">in 2020</span><span class="sig a">When…?</span><span class="sig a">What time…?</span><br>Forma: verbo + <b>-ed</b> o seconda colonna.<br>Domande e negative: <b>did + forma base</b>: <i>Did you buy? I didn\'t buy.</i></div>'
+  +'<div class="b"><b class="t">PRESENT PERFECT</b>'+ARR_PP+'Azione nel passato <b>senza momento preciso</b>: conta il fatto.<br>Parole spia: <span class="sig b">ever</span><span class="sig b">never</span><span class="sig b">just</span><span class="sig b">recently</span><span class="sig b">lately</span><span class="sig b">once</span><span class="sig b">twice</span><span class="sig b">yet</span><br>Forma: <b>have / has + participio</b> (terza colonna).<br>he / she / it → <b>has</b>. <i>just, ever, never</i> vanno tra have e il participio: <i>I have just fed.</i></div>'
+  +'</div>',
+ bg:'<h3>Ripassa · been o gone?</h3><div class="duo">'
+  +'<div class="a"><b class="t">BEEN</b><svg viewBox="0 0 200 50" aria-hidden="true"><text x="4" y="30" font-size="13" fill="#1B2430">🏠</text><path d="M30 22 Q100 -4 170 22" fill="none" stroke="#1D5FA8" stroke-width="3"/><path d="M164 16 L174 24 L162 26 z" fill="#1D5FA8"/><path d="M170 32 Q100 54 30 32" fill="none" stroke="#1D5FA8" stroke-width="3"/><path d="M36 26 L26 32 L38 38 z" fill="#1D5FA8"/><text x="176" y="30" font-size="13">🏛️</text></svg>è andato <b>ed è tornato</b>.<br><i>Have you ever been to London?</i><br><i>John has been to New York</i> (ora è di nuovo qui).</div>'
+  +'<div class="b"><b class="t">GONE</b><svg viewBox="0 0 200 50" aria-hidden="true"><text x="4" y="30" font-size="13" fill="#1B2430">🏠</text><path d="M30 26 L168 26" fill="none" stroke="#B4531A" stroke-width="3"/><path d="M164 20 L174 26 L164 32 z" fill="#B4531A"/><text x="176" y="30" font-size="13">🏦</text></svg>è andato <b>ed è ancora lì</b>.<br><i>Where is Mum? She has gone to the bank</i> (è in banca adesso).</div>'
+  +'</div>'
+};
+
+/* ═══════════ gli esercizi ═══════════ */
+const EX = [
+{id:"e1", sec:"V", tipo:"sel", teo:["chores"], tit:"Exercise 1 · Household chores",
+ ins:"Complete the sentences with the verbs in the box. There are two extra verbs.", it:"Completa con i verbi del riquadro. Due verbi non servono.",
+ box:["clear","empty","hang out","lay","load","make","sweep","take out","tidy","vacuum"],
+ items:[
+  {q:"Can you ___ the rubbish, please? The bin is full.", a:"take out", why:"take out the rubbish: portare fuori la spazzatura."},
+  {q:"Dinner is almost ready. Please ___ the table.", a:"lay", why:"Prima di mangiare si apparecchia: lay the table.", tr:{clear:"Clear è sparecchiare, dopo aver mangiato. Prima di mangiare: lay."}},
+  {q:"After lunch I ___ the table and put the plates in the dishwasher.", a:"clear", why:"Dopo pranzo si sparecchia: clear the table.", tr:{lay:"Lay è apparecchiare, prima di mangiare. Dopo: clear."}},
+  {q:"The clothes are wet. Let's ___ the washing in the garden.", a:"hang out", why:"hang out the washing: stendere il bucato."},
+  {q:"Your room is a mess! ___ it now, please.", a:"tidy", why:"tidy your room: mettere in ordine."},
+  {q:"The dishwasher has finished. Can you ___ it?", a:"empty", why:"Ha finito: va svuotata, empty.", tr:{load:"Load è caricare. Se ha finito, va svuotata: empty."}},
+  {q:"There's a lot of dust on the carpet. I'll ___ it.", a:"vacuum", why:"Il tappeto si pulisce con l'aspirapolvere: vacuum.", tr:{sweep:"Sweep è spazzare il pavimento con la scopa. Per il tappeto: vacuum."}},
+  {q:"Dad, can you ___ breakfast for us?", a:"make", why:"make breakfast: preparare la colazione."}]},
+{id:"e2", sec:"V", tipo:"mc", teo:["dos"], tit:"Exercise 2 · Collocations with do",
+ ins:"What does it mean? Choose the Italian translation.", it:"Che cosa vuol dire? Scegli la traduzione.",
+ items:[
+  {q:"do the washing-up", o:["fare il bucato","lavare i piatti","lavarsi"], ok:1, why:"washing-up = i piatti.", tr:{0:"Fare il bucato è do the washing, senza -up."}},
+  {q:"do the ironing", o:["stirare","cucinare","fare la spesa"], ok:0, why:"iron = ferro da stiro: do the ironing = stirare."},
+  {q:"do the shopping", o:["spolverare","fare il bucato","fare la spesa"], ok:2, why:"do the shopping = fare la spesa."},
+  {q:"do the dusting", o:["lavare i piatti","spolverare","stirare"], ok:1, why:"dust = polvere: do the dusting = spolverare."},
+  {q:"do the washing", o:["lavare i piatti","fare il bucato","lavarsi"], ok:1, why:"washing = i vestiti da lavare: fare il bucato.", tr:{0:"Lavare i piatti è do the washing-up."}},
+  {q:"do the cooking", o:["fare la spesa","stirare","cucinare"], ok:2, why:"do the cooking = cucinare."}]},
+{id:"e3", sec:"V", tipo:"sel", teo:["app"], tit:"Exercise 3 · Appliances",
+ ins:"What is it? Complete with the words in the box. There are three extra words.", it:"Che cos'è? Completa con le parole del riquadro. Tre parole non servono.",
+ box:["blender","cooker","dishwasher","electric kettle","fridge","iron","microwave","toaster","vacuum cleaner"],
+ items:[
+  {q:"You use it to boil water for tea: the ___.", a:"electric kettle", why:"kettle = bollitore.", tr:{blender:"Il blender frulla. Per bollire l'acqua: kettle."}},
+  {q:"It keeps food cold: the ___.", a:"fridge", why:"fridge = frigorifero."},
+  {q:"It washes plates and glasses: the ___.", a:"dishwasher", why:"dish = piatto: dishwasher = lavastoviglie."},
+  {q:"You use it to clean the carpet: the ___.", a:"vacuum cleaner", why:"vacuum cleaner = aspirapolvere."},
+  {q:"It makes bread hot and crunchy: the ___.", a:"toaster", why:"toast = pane tostato: toaster."},
+  {q:"You use it to make smoothies and soups: the ___.", a:"blender", why:"blender = frullatore.", tr:{"electric kettle":"Il kettle bolle l'acqua. Per frullare: blender."}}]},
+
+{id:"e4", sec:"G", tipo:"part", teo:["part"], tit:"Exercise 4 · The past participle",
+ ins:"Write the past participle (the third form).", it:"Scrivi il participio, la terza colonna. È quello che va dopo have / has.",
+ items:[
+  {b:"feed", ps:"fed", pp:"fed"},{b:"hear", ps:"heard", pp:"heard"},{b:"take", ps:"took", pp:"taken"},{b:"see", ps:"saw", pp:"seen"},
+  {b:"do", ps:"did", pp:"done"},{b:"make", ps:"made", pp:"made"},{b:"move", ps:"moved", pp:"moved", reg:true},{b:"leave", ps:"left", pp:"left"}]},
+{id:"e5", sec:"G", tipo:"mc", teo:["tempi"], tit:"Exercise 5 · Past simple or present perfect?",
+ ins:"Choose the correct alternative. Look for the time expression!", it:"Cerca la parola spia: un momento preciso (past simple) o no (present perfect)?",
+ items:[
+  {q:"I ___ my room yesterday.", o:["have tidied","tidied"], ok:1, why:"yesterday = momento preciso: past simple.", tr:{0:"Con yesterday non si usa il present perfect: c'è un momento preciso."}},
+  {q:"___ the ironing?", o:["Did you ever do","Have you ever done"], ok:1, why:"ever = present perfect: Have you ever done…?", tr:{0:"Con ever si usa il present perfect: Have you ever…?"}},
+  {q:"She ___ the rubbish out, so the bin is empty.", o:["has just taken","just took"], ok:0, why:"just = present perfect: has just taken.", tr:{1:"Con just il libro usa il present perfect: has just taken."}},
+  {q:"We ___ the washing-up two hours ago.", o:["did","have done"], ok:0, why:"two hours ago = momento preciso: past simple.", tr:{1:"Con ago non si usa il present perfect."}},
+  {q:"When ___ the shopping?", o:["have you done","did you do"], ok:1, why:"When…? chiede il momento: past simple.", tr:{0:"Con When…? si usa il past simple: When did you do…?"}},
+  {q:"Last Sunday Mum ___ dinner for ten people.", o:["made","has made"], ok:0, why:"last Sunday = momento preciso: past simple.", tr:{1:"Con last Sunday non si usa il present perfect."}}]},
+{id:"e6", sec:"G", tipo:"verb", teo:["tempi","part"], tit:"Exercise 6 · Complete with the verbs in brackets",
+ ins:"Complete with the past simple or the present perfect.", it:"Come gli esercizi 7 e 10 del libro. Scrivi tutto quello che va nello spazio, anche have / did e just / ever / never.",
+ items:[
+  {q:"___ (you / ever / clean) the oven?", a:["have you ever cleaned"], t:"pp", subj:"you", qn:true, b:"clean", ps:"cleaned", pp:"cleaned", adv:"ever", sig:"ever"},
+  {q:"I ___ (just / tidy) my room. Come and see!", a:["have just tidied"], t:"pp", subj:"i", b:"tidy", ps:"tidied", pp:"tidied", adv:"just", sig:"just"},
+  {q:"We ___ (do) the shopping yesterday.", a:["did"], t:"ps", subj:"we", b:"do", ps:"did", pp:"done", sig:"yesterday"},
+  {q:"My brother ___ (never / make) dinner for the family.", a:["has never made"], t:"pp", subj:"he", b:"make", ps:"made", pp:"made", adv:"never", sig:"never"},
+  {q:"___ (you / hear) the news? Tom is moving house!", a:["have you heard"], t:"pp", subj:"you", qn:true, b:"hear", ps:"heard", pp:"heard", sig:"una notizia appena saputa, senza un momento preciso"},
+  {q:"They ___ (move) here last month.", a:["moved"], t:"ps", subj:"they", b:"move", ps:"moved", pp:"moved", sig:"last month"},
+  {q:"When ___ (you / buy) your new fridge?", a:["did you buy"], t:"ps", subj:"you", qn:true, b:"buy", ps:"bought", pp:"bought", sig:"When…?"},
+  {q:"She ___ (just / feed) the cat, so it isn't hungry.", a:["has just fed"], t:"pp", subj:"she", b:"feed", ps:"fed", pp:"fed", adv:"just", sig:"just"}]},
+{id:"e7", sec:"G", tipo:"mc", fix:["been","gone"], teo:["bg"], tit:"Exercise 7 · Been or gone?",
+ ins:"Complete with been or gone.", it:"È tornato (been) o è ancora là (gone)?",
+ items:[
+  {q:"‘Where's Dad?’ ‘He's ___ to the supermarket.’", ok:1, why:"Non è qui: è ancora al supermercato → gone."},
+  {q:"I've ___ to Rome three times. I love it!", ok:0, why:"Ci è stato ed è tornato → been."},
+  {q:"Have you ever ___ to a concert?", ok:0, why:"Have you ever been…? = ci sei mai stato (e tornato)."},
+  {q:"Sara isn't at school today. She's ___ to the dentist's.", ok:1, why:"Non c'è: è ancora dal dentista → gone."},
+  {q:"We've just ___ to the park. Now we're home.", ok:0, why:"Sono tornati a casa → been."},
+  {q:"The office is closed: the manager has ___ home.", ok:1, why:"Il direttore non è più qui: è andato a casa → gone."}]},
+{id:"e8", sec:"G", tipo:"mc", c1:true, teo:["tempi","part"], tit:"Exercise 8 · Correct the mistakes",
+ ins:"Each sentence has a mistake. Choose the correct sentence.", it:"Come l'esercizio 8 del libro: ogni frase ha un errore. Scegli la frase corretta.",
+ items:[
+  {q:"I have seen that film last week.", o:["I have saw that film last week.","I saw that film last week.","I seen that film last week."], ok:1, why:"last week = momento preciso: past simple, I saw.", tr:{0:"Con last week niente have. E dopo have ci vorrebbe seen, non saw.",2:"Seen è il participio: da solo non basta. Con last week: I saw."}},
+  {q:"Did you ever been to London?", o:["Have you ever been to London?","Have you ever went to London?","Did you ever went to London?"], ok:0, why:"ever = present perfect: Have you ever been…?", tr:{1:"Dopo have ci vuole il participio: been (o gone), non went.",2:"Dopo did il verbo è alla forma base. E con ever si usa il present perfect."}},
+  {q:"She has went to the bank.", o:["She has goed to the bank.","She went has to the bank.","She has gone to the bank."], ok:2, why:"Dopo has ci vuole il participio: go – went – gone.", tr:{0:"Go è irregolare: il participio è gone.",1:"Has va prima del verbo, e serve il participio gone."}},
+  {q:"We didn't cleared the table.", o:["We didn't clear the table.","We not cleared the table.","We haven't clear the table."], ok:0, why:"Dopo did / didn't il verbo resta alla forma base: clear.", tr:{1:"Nella negativa del past simple ci vuole didn't + forma base.",2:"Dopo haven't ci vorrebbe il participio: cleared."}},
+  {q:"He just has moved here from Manchester.", o:["He has just move here from Manchester.","He has just moved here from Manchester.","He just moved has here from Manchester."], ok:1, why:"just va tra has e il participio: has just moved.", tr:{0:"Dopo has ci vuole il participio: moved, con -ed.",2:"Has va prima del verbo: has just moved."}}]},
+{id:"e9", sec:"G", tipo:"tiles", teo:["tempi","bg"], tit:"Exercise 9 · Translate",
+ ins:"Translate into English: put the pieces in the right order.", it:"Tocca i pezzi in ordine. Attenzione: ci sono due pezzi in più che non servono.",
+ items:[
+  {it:"Hai mai vissuto all'estero?", t:["Have","you","ever","lived","abroad"], end:"?", x:["Did","live"], tr:{Did:"Con ever serve il present perfect: Have you ever…?", live:"Dopo have ci vuole il participio: lived."}},
+  {it:"Ieri ho sparecchiato la tavola.", t:["Yesterday","I","cleared","the table"], alt:[["I","cleared","the table","Yesterday"]], end:".", x:["have","clear"], tr:{have:"C'è yesterday, un momento preciso: past simple, senza have.", clear:"Serve il passato: cleared."}},
+  {it:"Mia madre è andata al supermercato (ed è ancora lì).", t:["My mother","has","gone","to the supermarket"], end:".", x:["been","went"], tr:{been:"Been vuol dire andata e tornata. È ancora lì: gone.", went:"Dopo has ci vuole il participio: gone."}},
+  {it:"Ho appena portato fuori la spazzatura.", t:["I","have","just","taken out","the rubbish"], end:".", x:["took","did"], tr:{took:"Dopo have ci vuole la terza colonna: taken.", did:"Con just serve il present perfect: have just taken."}}]}
+];
+
+/* ═══════════ stato salvato ═══════════ */
+const KEY = "ing-u8-verifica";
+let S = load();
+function load(){ try{ const o = JSON.parse(localStorage.getItem(KEY)||"null"); if(o && o.v && o.ok && o.st) return o; }catch(e){} return {v:{}, ok:{}, st:{}}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ═══════════ disegno ═══════════ */
+function sel(id, list){ return '<select id="'+id+'" onchange="tieni(this)" aria-label="scegli"><option value="">…</option>'+list.map(w=>'<option value="'+esc(w)+'">'+esc(w)+'</option>').join("")+'</select>'; }
+function tin(id){ return '<input class="tin" id="'+id+'" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" oninput="tieni(this)" aria-label="risposta">'; }
+function spk(t){ return '<button class="spk" onclick="leggi(this)" data-say="'+esc(t)+'" aria-label="Ascolta">🔊</button>'; }
+function plain(q){ return q.replace(/_{3}/g,"...").replace(/\s*\([^)]*\)/g,""); }
+function render(){
+  const V = [], G = [];
+  EX.forEach(E=>{
+    let h = '<div class="card" id="'+E.id+'"><div class="qnum">'+E.tit+' <span class="pt" id="pt_'+E.id+'">· '+E.items.length+' punti</span></div>'
+          + '<p class="ins">'+E.ins+'</p><p class="sub">'+E.it+'</p>';
+    if(E.box) h += '<div class="box">'+E.box.join(" · ")+'</div>';
+    if(E.fix) h += '<div class="box">'+E.fix.join(" · ")+'</div>';
+    h += '<div class="rows">';
+    E.items.forEach((r,i)=>{
+      const id = E.id+"_"+i;
+      h += '<div class="row" id="r_'+id+'"><div class="op"><span class="n">'+(i+1)+'.</span>';
+      if(E.tipo==="sel") h += r.q.replace("___", sel(id, E.box)) + spk(plain(r.q));
+      else if(E.tipo==="verb") h += r.q.replace("___", tin(id)) + spk(plain(r.q));
+      else if(E.tipo==="part") h += '<span class="base">'+r.b+'</span> → '+tin(id);
+      else if(E.tipo==="mc") h += (E.fix || E.c1 || E.id==="e5" ? r.q.replace("___","<b>_____</b>") : '<span class="base">'+r.q+'</span>') + spk(plain(r.q));
+      else if(E.tipo==="tiles") h += r.it;
+      h += '</div>';
+      if(E.tipo==="mc"){
+        const opts = E.fix || r.o;
+        h += '<div class="opts '+(E.c1?"c1":(opts.length===2?"c2":""))+'" id="o_'+id+'">' + opts.map((o,k)=>'<button onclick="scegli(\''+id+'\','+k+')">'+o+'</button>').join("") + '</div>';
+      }
+      if(E.tipo==="tiles") h += '<div class="tline" id="tl_'+id+'"></div><div class="tpool" id="tp_'+id+'"></div><button class="clr" id="cl_'+id+'" onclick="clrK(\''+id+'\')">Ricomincia la frase</button>';
+      h += '<div class="fb" id="f_'+id+'"></div></div>';
+    });
+    h += '</div><div class="teo" id="teo_'+E.id+'"></div>'
+       + '<div class="acts"><button class="go" id="go_'+E.id+'" onclick="correggi(\''+E.id+'\')">Correggi</button>'
+       + '<button class="retry" id="rt_'+E.id+'" style="display:none" onclick="riprova(\''+E.id+'\')">Riprova quelli sbagliati</button></div>'
+       + '<div class="esito" id="es_'+E.id+'"></div></div>';
+    (E.sec==="V" ? V : G).push(h);
+  });
+  $("secV").innerHTML = V.join(""); $("secG").innerHTML = G.join("");
+  EX.forEach(E=>{
+    E.items.forEach((r,i)=>{
+      const id = E.id+"_"+i;
+      if(E.tipo==="sel" || E.tipo==="verb" || E.tipo==="part"){ const el = $(id); if(S.v[id]!=null) el.value = S.v[id]; if(el.tagName==="INPUT") el.addEventListener("keydown", function(e){ if(e.key==="Enter") this.blur(); }); }
+      if(E.tipo==="mc" && S.v[id]!=null){ const b = $("o_"+id).children[S.v[id]]; if(b) b.classList.add("sel"); }
+      if(E.tipo==="tiles") drawK(id);
+    });
+    if(S.st[E.id] && S.st[E.id].round>0) mostra(E.id);
+  });
+  riepilogo();
+}
+
+/* ═══════════ risposte ═══════════ */
+function tieni(el){ const E = exOf(el.id); if(S.ok[el.id]===true) return; S.v[el.id] = el.value; save(); }
+function exOf(id){ return EX.find(E=>id.indexOf(E.id+"_")===0); }
+function itemOf(id){ const E = exOf(id); return E.items[+id.split("_")[1]]; }
+function scegli(id,k){
+  if(S.ok[id]===true || bloccato(id)) return;
+  const box = $("o_"+id); Array.prototype.forEach.call(box.children,(b,i)=>b.classList.toggle("sel", i===k));
+  S.v[id] = k; save();
+}
+function bloccato(id){ return S.ok[id]===false && S.st[exOf(id).id] && S.st[exOf(id).id].attesa; }
+/* tessere */
+function tilesAll(r){ if(!r._all){ const all = r.t.concat(r.x||[]); r._all = all.slice().sort((a,b)=>(a.length*7+a.charCodeAt(0))%11 - (b.length*7+b.charCodeAt(0))%11); } return r._all; }
+function drawK(id){
+  const r = itemOf(id), all = tilesAll(r), line = Array.isArray(S.v[id]) ? S.v[id] : [];
+  const lock = S.ok[id]===true || bloccato(id);
+  $("tl_"+id).innerHTML = line.map((k,p)=>'<button class="tk" onclick="outK(\''+id+'\','+p+')"'+(lock?' disabled':'')+'>'+all[k]+'</button>').join("") + (line.length ? '<span class="tend">'+r.end+'</span>' : '');
+  let h = ""; all.forEach((w,k)=>{ if(line.indexOf(k)<0) h += '<button class="tk" onclick="inK(\''+id+'\','+k+')"'+(lock?' disabled':'')+'>'+w+'</button>'; });
+  $("tp_"+id).innerHTML = S.ok[id]===true ? "" : h;
+  const cl = $("cl_"+id); if(cl) cl.style.display = lock ? "none" : "";
+}
+function inK(id,k){ if(S.ok[id]===true || bloccato(id)) return; const l = Array.isArray(S.v[id]) ? S.v[id] : []; l.push(k); S.v[id] = l; save(); drawK(id); }
+function outK(id,p){ if(S.ok[id]===true || bloccato(id)) return; const l = S.v[id]; l.splice(p,1); save(); drawK(id); }
+function clrK(id){ if(S.ok[id]===true || bloccato(id)) return; S.v[id] = []; save(); drawK(id); }
+
+/* ═══════════ correzione ═══════════ */
+function valuta(E, r, id){
+  const v = S.v[id];
+  if(E.tipo==="sel"){
+    if(!v) return {vuoto:true};
+    return v===r.a ? {ok:true} : {msg:(r.tr && r.tr[v]) || "Non è la parola giusta: guarda nella tabella qui sotto che cosa vuol dire.", giusta:r.a, why:r.why};
+  }
+  if(E.tipo==="mc"){
+    if(v==null) return {vuoto:true};
+    const opts = E.fix || r.o;
+    const FIX = ["Been vuol dire andato e tornato. Qui è già tornato, o è ancora là?","Gone vuol dire che è ancora là. Qui è ancora là, o è già tornato?"];
+    return v===r.ok ? {ok:true} : {msg:(r.tr && r.tr[v]) || (E.fix ? FIX[v] : "Non è giusta: rileggi la regola qui sotto."), giusta:opts[r.ok], why:r.why};
+  }
+  if(E.tipo==="part"){
+    const a = nz(v); if(!a) return {vuoto:true};
+    if(a===r.pp || (r.b==="go" && a==="been")) return {ok:true};
+    let m = null;
+    if(a===r.b) m = "Questa è la forma base. Ti serve la terza colonna.";
+    else if(a===r.ps && r.ps!==r.pp) m = "Questa è la seconda colonna, il past simple. Il participio è la terza: "+r.b+" – "+r.ps+" – "+r.pp+".";
+    else if(!r.reg && (a===r.b+"ed" || a===r.b+"d")) m = "«"+r.b+"» è irregolare: "+r.b+" – "+r.ps+" – "+r.pp+".";
+    else if(lev(a,r.pp)<=1) m = "Quasi: controlla le lettere.";
+    return {msg:m || "Non è il participio giusto.", giusta:r.b+" – "+r.ps+" – "+r.pp};
+  }
+  if(E.tipo==="verb"){
+    const a = nz(v); if(!a) return {vuoto:true};
+    if(r.a.indexOf(a)>=0) return {ok:true};
+    const pre = nz(r.q.split("___")[0]);
+    if(pre && r.a.some(x=>a===pre+" "+x)) return {ok:true};
+    return {msg:diagVerb(r,a) || "Non è giusto.", giusta:r.a[0]};
+  }
+  if(E.tipo==="tiles"){
+    const line = Array.isArray(v) ? v : []; if(!line.length) return {vuoto:true};
+    const all = tilesAll(r), got = line.map(k=>all[k]);
+    const same = (x)=> x.join(" ").toLowerCase()===got.join(" ").toLowerCase();
+    if(same(r.t) || (r.alt||[]).some(same)) return {ok:true};
+    const extra = (r.x||[]).filter(x=>got.indexOf(x)>=0);
+    let m;
+    if(extra.length) m = r.tr[extra[0]];
+    else if(got.length<r.t.length) m = "Mancano dei pezzi.";
+    else m = "L'ordine non è giusto.";
+    return {msg:m, giusta:r.t.join(" ")+r.end};
+  }
+}
+/* perché è sbagliato un verbo tra parentesi */
+function diagVerb(r, a){
+  const tok = a.split(" "), last = tok[tok.length-1];
+  const terza = ["he","she","it"].indexOf(r.subj)>=0;
+  const hasHave = /\b(have|has)\b/.test(a), hasDid = /\bdid\b/.test(a);
+  if(r.t==="pp"){
+    if(hasDid) return "«did» è del past simple. Qui c'è «"+r.sig+"»: serve il present perfect, have / has + participio.";
+    if(!hasHave) return a.indexOf(r.ps)>=0 ? "Hai usato il past simple. Con «"+r.sig+"» serve il present perfect: have / has + participio." : "Manca have / has: il present perfect è have / has + participio.";
+    if(terza && /\bhave\b/.test(a)) return "Con he / she / it si usa has, non have.";
+    if(!terza && /\bhas\b/.test(a)) return "Con I / you / we / they si usa have, non has.";
+    if(r.qn && tok.indexOf(r.subj)<0) return "Manca il soggetto: nella domanda è have + "+r.subj+" + participio (Have "+r.subj+" … "+r.pp+"?).";
+    if(r.qn && tok[0]!=="have" && tok[0]!=="has") return "Nella domanda have va prima del soggetto: Have you…?";
+    if(r.adv && a.indexOf(r.adv)<0) return "Manca «"+r.adv+"»: va tra have / has e il participio.";
+    if(r.adv && new RegExp("\\b"+r.adv+" (have|has)\\b").test(a)) return "«"+r.adv+"» va tra have / has e il participio: have "+r.adv+" "+r.pp+".";
+    if(last===r.b && r.b!==r.pp) return "Dopo have / has ci vuole il participio, la terza colonna: "+r.b+" → "+r.pp+".";
+    if(r.pp!==r.b+"ed" && (last===r.b+"ed" || last===r.b+"d")) return "«"+r.b+"» è irregolare: "+r.b+" – "+r.ps+" – "+r.pp+".";
+    if(r.ps!==r.pp && last===r.ps) return "Hai usato la seconda colonna ("+r.ps+"). Dopo have / has ci vuole la terza: "+r.pp+".";
+  } else {
+    if(hasHave) return "C'è «"+r.sig+"»: un momento preciso, finito. Serve il past simple, senza have / has.";
+    if(r.qn){
+      if(!hasDid) return "Nella domanda al past simple ci vuole did: did + soggetto + forma base.";
+      if(r.ps!==r.b && a.indexOf(r.ps)>=0) return "Dopo did il verbo resta alla forma base: did you "+r.b+", non "+r.ps+".";
+    } else {
+      if(a===r.pp && r.pp!==r.ps) return "«"+r.pp+"» è il participio: va solo dopo have / has. Il past simple è "+r.ps+".";
+      if(a===r.b) return "Serve il passato: "+r.b+" → "+r.ps+".";
+      if(r.ps!==r.b+"ed" && a===r.b+"ed") return "«"+r.b+"» è irregolare: "+r.b+" – "+r.ps+".";
+      if(hasDid) return "Nella frase affermativa non serve did: basta "+r.ps+".";
+    }
+  }
+  if(r.a.some(x=>lev(a,x)<=1)) return "Quasi: controlla le lettere.";
+  return null;
+}
+function correggi(eid){
+  const E = EX.find(x=>x.id===eid);
+  const st = S.st[eid] || (S.st[eid] = {round:0, first:null});
+  let vuote = 0;
+  E.items.forEach((r,i)=>{ const id = eid+"_"+i; if(S.ok[id]!==true && valuta(E,r,id).vuoto) vuote++; });
+  const btn = $("go_"+eid);
+  if(vuote && !btn.dataset.armed){ btn.dataset.armed = "1"; btn.textContent = (vuote===1?"1 risposta vuota":vuote+" risposte vuote")+": tocca di nuovo"; return; }
+  delete btn.dataset.armed;
+  st.round++; st.attesa = true;
+  let ok = 0;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i;
+    if(S.ok[id]===true){ ok++; return; }
+    const res = valuta(E,r,id);
+    S.ok[id] = !!res.ok; if(res.ok) ok++;
+    S.why = S.why || {}; S.why[id] = res.ok ? null : res;
+  });
+  if(st.first==null) st.first = [ok, E.items.length];
+  save(); mostra(eid); riepilogo();
+}
+function mostra(eid){
+  const E = EX.find(x=>x.id===eid), st = S.st[eid];
+  let sbagliati = 0;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i, row = $("r_"+id), f = $("f_"+id);
+    row.classList.remove("y","n");
+    if(S.ok[id]===true){
+      row.classList.add("y"); f.className = "fb on y"; f.innerHTML = "✓ Giusto";
+      blocca(E,id,true);
+    } else if(S.ok[id]===false && st.attesa){
+      sbagliati++;
+      const res = (S.why && S.why[id]) || valuta(E,r,id);
+      row.classList.add("n");
+      let h = res.vuoto ? "<b>— Non hai risposto.</b>" : "<b>✗ "+res.msg+"</b>";
+      if(st.round>=2 && res.giusta) h += '<div class="giusta">Risposta giusta: '+res.giusta+(res.why ? ' — <span style="font-weight:400">'+res.why+'</span>' : '')+'</div>';
+      f.className = "fb on n"; f.innerHTML = h;
+      blocca(E,id,false);
+    } else {
+      f.className = "fb"; f.innerHTML = "";
+    }
+  });
+  const teo = $("teo_"+eid);
+  if(sbagliati){ teo.innerHTML = E.teo.map(k=>TEO[k]).join("<hr style='border:none;border-top:1px dashed #EBD9AE;margin:12px 0'>"); teo.className = "teo on"; }
+  else { teo.className = "teo"; teo.innerHTML = ""; }
+  $("go_"+eid).style.display = (sbagliati && st.attesa) ? "none" : (allOk(E) ? "none" : "");
+  $("go_"+eid).textContent = "Correggi";
+  $("rt_"+eid).style.display = (sbagliati && st.attesa) ? "" : "none";
+  const es = $("es_"+eid);
+  if(st.first){
+    const f = st.first;
+    es.className = "esito "+(allOk(E) ? "y" : "n");
+    es.innerHTML = allOk(E) ? "✓ Esercizio completato. Al primo tentativo: "+f[0]+" su "+f[1]+"."
+                 : (st.attesa ? "Al primo tentativo: "+f[0]+" su "+f[1]+". Leggi la regola qui sopra, poi tocca Riprova."
+                              : "Riprova quelli rimasti vuoti, poi tocca Correggi.");
+    $("pt_"+eid).textContent = "· "+f[0]+" su "+f[1];
+  }
+}
+function allOk(E){ return E.items.every((r,i)=>S.ok[E.id+"_"+i]===true); }
+function blocca(E,id,giusto){
+  if(E.tipo==="sel" || E.tipo==="verb" || E.tipo==="part"){
+    const el = $(id); el.classList.remove("sok","sko"); el.classList.add(giusto ? "sok" : "sko");
+    if(el.tagName==="SELECT") el.disabled = true; else el.readOnly = true;
+  }
+  if(E.tipo==="mc"){
+    const box = $("o_"+id); box.classList.add("locked");
+    const v = S.v[id], r = itemOf(id);
+    Array.prototype.forEach.call(box.children,(b,k)=>{ b.classList.remove("sel","right","wrong"); if(giusto && k===r.ok) b.classList.add("right"); if(!giusto && k===v) b.classList.add("wrong"); });
+  }
+  if(E.tipo==="tiles"){ $("tl_"+id).className = "tline "+(giusto ? "okk" : "kko"); drawK(id); }
+}
+function riprova(eid){
+  const E = EX.find(x=>x.id===eid), st = S.st[eid];
+  st.attesa = false;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i;
+    if(S.ok[id]===true) return;
+    delete S.ok[id]; delete S.v[id];
+    const row = $("r_"+id); row.classList.remove("y","n");
+    if(E.tipo==="sel" || E.tipo==="verb" || E.tipo==="part"){ const el = $(id); el.value = ""; el.classList.remove("sok","sko"); el.disabled = false; el.readOnly = false; }
+    if(E.tipo==="mc"){ const box = $("o_"+id); box.classList.remove("locked"); Array.prototype.forEach.call(box.children,b=>b.classList.remove("sel","right","wrong")); }
+    if(E.tipo==="tiles"){ $("tl_"+id).className = "tline"; drawK(id); }
+    const f = $("f_"+id); f.className = "fb"; f.innerHTML = "";
+  });
+  save();
+  $("rt_"+eid).style.display = "none"; $("go_"+eid).style.display = "";
+  $("es_"+eid).className = "esito"; $("es_"+eid).innerHTML = "Riprova quelli rimasti vuoti. La regola resta qui sopra.";
+}
+function riepilogo(){
+  let righe = "", tot = 0, n = 0, fatti = 0;
+  EX.forEach(E=>{
+    const st = S.st[E.id], f = st && st.first;
+    let v = '<span class="v">da fare</span>';
+    if(f){ fatti++; tot += f[0]; n += f[1]; const p = f[0]/f[1];
+      v = p>=0.75 ? '<span class="v ok">capito</span>' : (p>=0.5 ? '<span class="v mid">quasi</span>' : '<span class="v ko">da ripassare</span>'); }
+    righe += '<tr><td>'+E.tit.replace(/^Exercise /,"")+'</td><td class="c">'+(f ? f[0]+" su "+f[1] : "–")+'</td><td class="c">'+v+'</td></tr>';
+  });
+  $("sum").innerHTML = '<div class="qnum">Risultato al primo tentativo</div>'
+    + (fatti ? '<div style="font-size:17px;font-weight:700">'+tot+' su '+n+' ('+Math.round(tot/n*100)+'%) · esercizi fatti: '+fatti+' su '+EX.length+'</div>' : '<div style="font-size:16px">Ancora nessun esercizio corretto.</div>')
+    + '<table>'+righe+'</table><div style="font-size:14px;color:var(--soft)">capito = almeno 3 su 4 giusti al primo tentativo.</div>';
+}
+function ricomincia(){ if(!confirm("Cancellare tutte le risposte e ricominciare?")) return; S = {v:{}, ok:{}, st:{}}; save(); render(); window.scrollTo(0,0); }
+
+/* ═══════════ voce inglese ═══════════ */
+let voEn = null, parlaBtn = null, warmed = false;
+function pickVoice(){ const vs = window.speechSynthesis ? speechSynthesis.getVoices() : []; voEn = vs.find(v=>v.lang==="en-GB") || vs.find(v=>/^en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function warmUp(){ if(warmed || !window.speechSynthesis) return; warmed = true; try{ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("touchstart", warmUp, {once:true});
+document.addEventListener("click", warmUp, {once:true});
+function leggi(btn){
+  if(!window.speechSynthesis) return;
+  const era = parlaBtn; try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(String(btn.getAttribute("data-say")||"").replace(/[‘’]/g,"'"));
+  u.lang = "en-GB"; u.rate = 0.85; if(voEn) u.voice = voEn;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on"); speechSynthesis.speak(u);
+}
+
+render();
+</script>
+</body>
+</html>
