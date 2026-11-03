@@ -1,0 +1,486 @@
+{
+ "id": "en-10-unit8-parole",
+ "subject": "Inglese",
+ "lang": "en",
+ "len": 12,
+ "updated": "2026-11-03",
+ "title": "Unit 8 — le parole da sapere",
+ "blurb": "Faccende di casa, le espressioni con do, gli elettrodomestici.",
+ "items": [
+  {
+   "type": "info",
+   "title": "Le parole di Unit 8",
+   "html": "<p style='margin:0 0 6px;font-size:15px'><b>Faccende</b>: take out the rubbish · load / empty the dishwasher · lay / clear the table · mop / sweep the floor · vacuum · hang out the washing · tidy your room · make breakfast</p><p style='margin:0 0 6px;font-size:15px'><b>Con do</b>: do the cooking · the ironing · the washing · the washing-up · the shopping · the dusting</p><p style='margin:0;font-size:15px'><b>Elettrodomestici</b>: blender · electric kettle · vacuum cleaner · dishwasher · toaster · fridge · cooker · iron · microwave</p>"
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "take out the rubbish",
+   "options": [
+    "portare fuori la spazzatura",
+    "spolverare",
+    "spazzare il pavimento",
+    "svuotare la lavastoviglie"
+   ],
+   "answer": "portare fuori la spazzatura",
+   "speak": "take out the rubbish",
+   "why": "take out the rubbish = portare fuori la spazzatura."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 1,
+   "lab": "Come si dice in inglese?",
+   "prompt": "caricare la lavastoviglie",
+   "options": [
+    "load the dishwasher",
+    "take out the rubbish",
+    "do the washing",
+    "sweep the floor"
+   ],
+   "answer": "load the dishwasher",
+   "speak": "load the dishwasher",
+   "why": "caricare la lavastoviglie = load the dishwasher."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 2,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "empty the dishwasher",
+   "options": [
+    "svuotare la lavastoviglie",
+    "stendere il bucato",
+    "cucinare",
+    "lavare i piatti"
+   ],
+   "answer": "svuotare la lavastoviglie",
+   "speak": "empty the dishwasher",
+   "why": "empty the dishwasher = svuotare la lavastoviglie."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 0,
+   "lab": "Come si dice in inglese?",
+   "prompt": "apparecchiare la tavola",
+   "options": [
+    "lay the table",
+    "mop the floor",
+    "empty the dishwasher",
+    "do the shopping"
+   ],
+   "answer": "lay the table",
+   "speak": "lay the table",
+   "why": "apparecchiare la tavola = lay the table."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 1,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "clear the table",
+   "options": [
+    "sparecchiare la tavola",
+    "apparecchiare la tavola",
+    "spazzare il pavimento",
+    "mettere in ordine la camera"
+   ],
+   "answer": "sparecchiare la tavola",
+   "speak": "clear the table",
+   "why": "clear the table = sparecchiare la tavola."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 2,
+   "lab": "Come si dice in inglese?",
+   "prompt": "spazzare il pavimento",
+   "options": [
+    "sweep the floor",
+    "take out the rubbish",
+    "lay the table",
+    "do the washing"
+   ],
+   "answer": "sweep the floor",
+   "speak": "sweep the floor",
+   "why": "spazzare il pavimento = sweep the floor."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "mop the floor",
+   "options": [
+    "lavare il pavimento",
+    "mettere in ordine la camera",
+    "portare fuori la spazzatura",
+    "caricare la lavastoviglie"
+   ],
+   "answer": "lavare il pavimento",
+   "speak": "mop the floor",
+   "why": "mop the floor = lavare il pavimento."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 1,
+   "lab": "Come si dice in inglese?",
+   "prompt": "stendere il bucato",
+   "options": [
+    "hang out the washing",
+    "load the dishwasher",
+    "do the shopping",
+    "tidy your room"
+   ],
+   "answer": "hang out the washing",
+   "speak": "hang out the washing",
+   "why": "stendere il bucato = hang out the washing."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 2,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "tidy your room",
+   "options": [
+    "mettere in ordine la camera",
+    "lavare il pavimento",
+    "portare fuori la spazzatura",
+    "lavare i piatti"
+   ],
+   "answer": "mettere in ordine la camera",
+   "speak": "tidy your room",
+   "why": "tidy your room = mettere in ordine la camera."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 0,
+   "lab": "Come si dice in inglese?",
+   "prompt": "lavare i piatti",
+   "options": [
+    "do the washing-up",
+    "do the ironing",
+    "do the shopping",
+    "mop the floor"
+   ],
+   "answer": "do the washing-up",
+   "speak": "do the washing-up",
+   "why": "lavare i piatti = do the washing-up."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 1,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "do the washing",
+   "options": [
+    "fare il bucato",
+    "spazzare il pavimento",
+    "spolverare",
+    "portare fuori la spazzatura"
+   ],
+   "answer": "fare il bucato",
+   "speak": "do the washing",
+   "why": "do the washing = fare il bucato."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 2,
+   "lab": "Come si dice in inglese?",
+   "prompt": "stirare",
+   "options": [
+    "do the ironing",
+    "lay the table",
+    "do the dusting",
+    "take out the rubbish"
+   ],
+   "answer": "do the ironing",
+   "speak": "do the ironing",
+   "why": "stirare = do the ironing."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "do the shopping",
+   "options": [
+    "fare la spesa",
+    "lavare i piatti",
+    "spazzare il pavimento",
+    "fare il bucato"
+   ],
+   "answer": "fare la spesa",
+   "speak": "do the shopping",
+   "why": "do the shopping = fare la spesa."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 1,
+   "lab": "Come si dice in inglese?",
+   "prompt": "spolverare",
+   "options": [
+    "do the dusting",
+    "empty the dishwasher",
+    "do the washing-up",
+    "lay the table"
+   ],
+   "answer": "do the dusting",
+   "speak": "do the dusting",
+   "why": "spolverare = do the dusting."
+  },
+  {
+   "type": "mc",
+   "area": "Faccende di casa",
+   "color": 2,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "do the cooking",
+   "options": [
+    "cucinare",
+    "stirare",
+    "spazzare il pavimento",
+    "lavare i piatti"
+   ],
+   "answer": "cucinare",
+   "speak": "do the cooking",
+   "why": "do the cooking = cucinare."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 0,
+   "lab": "Come si dice in inglese?",
+   "prompt": "frullatore",
+   "options": [
+    "blender",
+    "cooker",
+    "fridge",
+    "dishwasher"
+   ],
+   "answer": "blender",
+   "speak": "blender",
+   "why": "frullatore = blender."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 1,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "electric kettle",
+   "options": [
+    "bollitore",
+    "cucina (fornelli e forno)",
+    "frigorifero",
+    "frullatore"
+   ],
+   "answer": "bollitore",
+   "speak": "electric kettle",
+   "why": "electric kettle = bollitore."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 2,
+   "lab": "Come si dice in inglese?",
+   "prompt": "aspirapolvere",
+   "options": [
+    "vacuum cleaner",
+    "microwave",
+    "electric kettle",
+    "cooker"
+   ],
+   "answer": "vacuum cleaner",
+   "speak": "vacuum cleaner",
+   "why": "aspirapolvere = vacuum cleaner."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "dishwasher",
+   "options": [
+    "lavastoviglie",
+    "microonde",
+    "frigorifero",
+    "tostapane"
+   ],
+   "answer": "lavastoviglie",
+   "speak": "dishwasher",
+   "why": "dishwasher = lavastoviglie."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 1,
+   "lab": "Come si dice in inglese?",
+   "prompt": "tostapane",
+   "options": [
+    "toaster",
+    "vacuum cleaner",
+    "electric kettle",
+    "iron"
+   ],
+   "answer": "toaster",
+   "speak": "toaster",
+   "why": "tostapane = toaster."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 2,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "fridge",
+   "options": [
+    "frigorifero",
+    "cucina (fornelli e forno)",
+    "microonde",
+    "tostapane"
+   ],
+   "answer": "frigorifero",
+   "speak": "fridge",
+   "why": "fridge = frigorifero."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 0,
+   "lab": "Come si dice in inglese?",
+   "prompt": "cucina (fornelli e forno)",
+   "options": [
+    "cooker",
+    "dishwasher",
+    "toaster",
+    "blender"
+   ],
+   "answer": "cooker",
+   "speak": "cooker",
+   "why": "cucina (fornelli e forno) = cooker."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 1,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "iron",
+   "options": [
+    "ferro da stiro",
+    "bollitore",
+    "frullatore",
+    "lavastoviglie"
+   ],
+   "answer": "ferro da stiro",
+   "speak": "iron",
+   "why": "iron = ferro da stiro."
+  },
+  {
+   "type": "mc",
+   "area": "Elettrodomestici",
+   "color": 2,
+   "lab": "Come si dice in inglese?",
+   "prompt": "microonde",
+   "options": [
+    "microwave",
+    "blender",
+    "toaster",
+    "vacuum cleaner"
+   ],
+   "answer": "microwave",
+   "speak": "microwave",
+   "why": "microonde = microwave."
+  },
+  {
+   "type": "mc",
+   "area": "Non confondere",
+   "color": 0,
+   "lab": "Scegli",
+   "prompt": "Dinner is ready! Please ___ the table.",
+   "options": [
+    "lay",
+    "clear"
+   ],
+   "answer": "lay",
+   "why": "Prima di mangiare si apparecchia: lay. Clear è dopo."
+  },
+  {
+   "type": "mc",
+   "area": "Non confondere",
+   "color": 0,
+   "lab": "Scegli",
+   "prompt": "I always do the ___ after dinner: plates, glasses and pans.",
+   "options": [
+    "washing-up",
+    "washing"
+   ],
+   "answer": "washing-up",
+   "why": "washing-up = i piatti. washing = i vestiti."
+  },
+  {
+   "type": "mc",
+   "area": "Non confondere",
+   "color": 1,
+   "lab": "Scegli",
+   "prompt": "The dishwasher has finished. Can you ___ it?",
+   "options": [
+    "empty",
+    "load"
+   ],
+   "answer": "empty",
+   "why": "Ha finito: va svuotata, empty. Load = caricare."
+  },
+  {
+   "type": "txt",
+   "area": "Scrivi la parola",
+   "color": 1,
+   "lab": "Scrivi in inglese",
+   "q": "frigorifero → ___",
+   "sub": "Una parola.",
+   "answer": "fridge",
+   "why": "fridge (si dice frig)."
+  },
+  {
+   "type": "txt",
+   "area": "Scrivi la parola",
+   "color": 2,
+   "lab": "Scrivi in inglese",
+   "q": "tostapane → ___",
+   "sub": "Una parola.",
+   "answer": "toaster",
+   "why": "toast = pane tostato → toaster."
+  },
+  {
+   "type": "txt",
+   "area": "Scrivi la parola",
+   "color": 2,
+   "lab": "Completa",
+   "q": "Can you take out the ___, please? The bin is full.",
+   "sub": "spazzatura",
+   "answer": "rubbish",
+   "alts": [
+    "trash",
+    "garbage"
+   ],
+   "why": "rubbish = spazzatura (inglese britannico)."
+  },
+  {
+   "type": "txt",
+   "area": "Scrivi la parola",
+   "color": 0,
+   "lab": "Completa",
+   "q": "I'll ___ the carpet with the vacuum cleaner.",
+   "sub": "passare l'aspirapolvere",
+   "answer": "vacuum",
+   "alts": [
+    "hoover"
+   ],
+   "why": "vacuum (o hoover) the carpet."
+  }
+ ]
+}
