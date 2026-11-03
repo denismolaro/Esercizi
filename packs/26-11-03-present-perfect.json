@@ -1,0 +1,432 @@
+{
+ "id": "en-09-present-perfect",
+ "subject": "Inglese",
+ "lang": "en",
+ "len": 12,
+ "updated": "2026-11-03",
+ "title": "Present perfect — have / has + participio",
+ "blurb": "File 23 e Unit 8: le forme, just / already / yet / ever / never, been o gone, e quando invece serve il past simple.",
+ "items": [
+  {
+   "type": "info",
+   "title": "Present perfect in una riga",
+   "html": "<p style='margin:0 0 8px;font-size:15px'><b style='color:#B4531A'>have / has + participio</b> (terza colonna). Conta il fatto, <b>non il momento</b>.</p><table style='width:100%;border-collapse:collapse;font-size:15px'><tr><td style='background:#B4531A;color:#fff;padding:7px;font-weight:700;vertical-align:top'>PRESENT<br>PERFECT</td><td style='padding:7px;border-bottom:1px solid #ddd'><i>I <b>have just eaten</b>. · <b>Have</b> you <b>ever been</b> to London? · She <b>hasn't</b> finished <b>yet</b>.</i><br>Spie: just, already, yet, ever, never, before</td></tr><tr><td style='background:#1D5FA8;color:#fff;padding:7px;font-weight:700;vertical-align:top'>PAST<br>SIMPLE</td><td style='padding:7px'><i>I <b>went</b> to the stadium <b>on Sunday</b>.</i><br>Spie: yesterday, ago, last…, on Sunday, When…?</td></tr></table>"
+  },
+  {
+   "type": "mc",
+   "area": "Riconosci il tempo",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "I went to the stadium with Mark on Sunday.",
+   "options": [
+    "Sono andato allo stadio con Mark domenica.",
+    "Ho studiato con Mark domenica.",
+    "Vado allo stadio con Mark domenica.",
+    "Sono stato allo stadio con Mark ogni domenica."
+   ],
+   "answer": "Sono andato allo stadio con Mark domenica.",
+   "why": "went è il passato di go (andare): go – went – gone. On Sunday = un momento preciso."
+  },
+  {
+   "type": "mc",
+   "area": "Riconosci il tempo",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "I have just eaten.",
+   "options": [
+    "Ho appena mangiato.",
+    "Mangio adesso.",
+    "Ho mangiato ieri.",
+    "Sto mangiando."
+   ],
+   "answer": "Ho appena mangiato.",
+   "why": "have + eaten = ho mangiato. just = appena."
+  },
+  {
+   "type": "mc",
+   "area": "Riconosci il tempo",
+   "color": 1,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "She hasn't finished her homework yet.",
+   "options": [
+    "Non ha ancora finito i compiti.",
+    "Non ha finito i compiti ieri.",
+    "Non finisce mai i compiti.",
+    "Ha già finito i compiti."
+   ],
+   "answer": "Non ha ancora finito i compiti.",
+   "why": "hasn't + participio = non ha… · yet in fondo a una negativa = ancora."
+  },
+  {
+   "type": "mc",
+   "area": "Riconosci il tempo",
+   "color": 1,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "Have you ever been to London?",
+   "options": [
+    "Sei mai stato a Londra?",
+    "Sei andato a Londra ieri?",
+    "Vai spesso a Londra?",
+    "Vuoi andare a Londra?"
+   ],
+   "answer": "Sei mai stato a Londra?",
+   "why": "Have you ever been…? = sei mai stato…?"
+  },
+  {
+   "type": "mc",
+   "area": "Riconosci il tempo",
+   "color": 2,
+   "lab": "Quale tempo è?",
+   "prompt": "We bought a new fridge last month.",
+   "options": [
+    "past simple",
+    "present perfect",
+    "present simple"
+   ],
+   "answer": "past simple",
+   "why": "bought da solo, senza have, e last month: past simple."
+  },
+  {
+   "type": "mc",
+   "area": "Riconosci il tempo",
+   "color": 2,
+   "lab": "Quale tempo è?",
+   "prompt": "My dad has cleaned the kitchen.",
+   "options": [
+    "present perfect",
+    "past simple",
+    "present simple"
+   ],
+   "answer": "present perfect",
+   "why": "has + cleaned = present perfect."
+  },
+  {
+   "type": "mc",
+   "area": "Quale tempo serve",
+   "color": 0,
+   "lab": "Scegli",
+   "prompt": "I ___ this film two years ago.",
+   "options": [
+    "saw",
+    "have seen"
+   ],
+   "answer": "saw",
+   "why": "two years ago = momento preciso: past simple."
+  },
+  {
+   "type": "mc",
+   "area": "Quale tempo serve",
+   "color": 0,
+   "lab": "Scegli",
+   "prompt": "I ___ this film. It's really good!",
+   "options": [
+    "have seen",
+    "saw yesterday"
+   ],
+   "answer": "have seen",
+   "why": "Nessun momento: conta il fatto, present perfect."
+  },
+  {
+   "type": "mc",
+   "area": "Quale tempo serve",
+   "color": 1,
+   "lab": "Scegli",
+   "prompt": "When ___ to Paris?",
+   "options": [
+    "did you go",
+    "have you been"
+   ],
+   "answer": "did you go",
+   "why": "When…? chiede il momento: past simple."
+  },
+  {
+   "type": "mc",
+   "area": "Quale tempo serve",
+   "color": 1,
+   "lab": "Scegli",
+   "prompt": "___ to Paris?",
+   "options": [
+    "Have you ever been",
+    "Did you ever went"
+   ],
+   "answer": "Have you ever been",
+   "why": "ever → present perfect. E dopo did ci vorrebbe la forma base, non went."
+  },
+  {
+   "type": "mc",
+   "area": "Quale tempo serve",
+   "color": 2,
+   "lab": "Scegli",
+   "prompt": "Tom ___ the rubbish out ten minutes ago.",
+   "options": [
+    "took",
+    "has taken"
+   ],
+   "answer": "took",
+   "why": "ten minutes ago: past simple."
+  },
+  {
+   "type": "txt",
+   "area": "have o has",
+   "color": 0,
+   "lab": "Completa con have o has",
+   "q": "My sister ___ washed the dishes.",
+   "sub": "Scrivi solo la parola che manca.",
+   "answer": "has",
+   "why": "My sister = she → has."
+  },
+  {
+   "type": "txt",
+   "area": "have o has",
+   "color": 0,
+   "lab": "Completa con have o has",
+   "q": "My parents ___ gone to the cinema.",
+   "sub": "Scrivi solo la parola che manca.",
+   "answer": "have",
+   "why": "My parents = they → have."
+  },
+  {
+   "type": "txt",
+   "area": "have o has",
+   "color": 1,
+   "lab": "Completa con haven't o hasn't",
+   "q": "Luca ___ tidied his room yet.",
+   "sub": "Scrivi solo la parola che manca.",
+   "answer": "hasn't",
+   "alts": [
+    "has not"
+   ],
+   "why": "Luca = he → hasn't."
+  },
+  {
+   "type": "txt",
+   "area": "Il participio",
+   "color": 1,
+   "lab": "Scrivi il participio (write)",
+   "q": "I have ___ an email to my teacher.",
+   "sub": "Terza colonna.",
+   "answer": "written",
+   "why": "write – wrote – written."
+  },
+  {
+   "type": "txt",
+   "area": "Il participio",
+   "color": 2,
+   "lab": "Scrivi il participio (break)",
+   "q": "Oh no! I have ___ my phone.",
+   "sub": "Terza colonna.",
+   "answer": "broken",
+   "why": "break – broke – broken."
+  },
+  {
+   "type": "txt",
+   "area": "Il participio",
+   "color": 2,
+   "lab": "Scrivi il participio (do)",
+   "q": "Have you ___ your homework?",
+   "sub": "Terza colonna.",
+   "answer": "done",
+   "why": "do – did – done. Did va da solo, done dopo have."
+  },
+  {
+   "type": "txt",
+   "area": "Il participio",
+   "color": 0,
+   "lab": "Scrivi il participio (meet)",
+   "q": "I think I have ___ her before.",
+   "sub": "Terza colonna.",
+   "answer": "met",
+   "why": "meet – met – met."
+  },
+  {
+   "type": "txt",
+   "area": "Il participio",
+   "color": 0,
+   "lab": "Scrivi il participio (lose)",
+   "q": "She has ___ her keys again.",
+   "sub": "Terza colonna.",
+   "answer": "lost",
+   "why": "lose – lost – lost."
+  },
+  {
+   "type": "order",
+   "area": "Dove va l'avverbio",
+   "color": 1,
+   "q": "Metti in ordine: Ho appena fatto colazione.",
+   "steps": [
+    "I",
+    "have",
+    "just",
+    "had",
+    "breakfast."
+   ],
+   "why": "just tra have e il participio."
+  },
+  {
+   "type": "order",
+   "area": "Dove va l'avverbio",
+   "color": 1,
+   "q": "Metti in ordine: Non ha ancora chiamato.",
+   "steps": [
+    "He",
+    "hasn't",
+    "called",
+    "yet."
+   ],
+   "why": "yet va in fondo."
+  },
+  {
+   "type": "order",
+   "area": "Dove va l'avverbio",
+   "color": 2,
+   "q": "Metti in ordine: Hai mai mangiato il sushi?",
+   "steps": [
+    "Have",
+    "you",
+    "ever",
+    "eaten",
+    "sushi?"
+   ],
+   "why": "Have + soggetto + ever + participio."
+  },
+  {
+   "type": "order",
+   "area": "Dove va l'avverbio",
+   "color": 2,
+   "q": "Metti in ordine: Ho già letto questo libro.",
+   "steps": [
+    "I",
+    "have",
+    "already",
+    "read",
+    "this book."
+   ],
+   "why": "already tra have e il participio."
+  },
+  {
+   "type": "mc",
+   "area": "Dove va l'avverbio",
+   "color": 0,
+   "lab": "Quale frase è giusta?",
+   "prompt": "(never) — Non sono mai stato in Scozia.",
+   "options": [
+    "I have never been to Scotland.",
+    "I never have been to Scotland.",
+    "I have been never to Scotland.",
+    "I haven't never been to Scotland."
+   ],
+   "answer": "I have never been to Scotland.",
+   "why": "never tra have e il participio. Mai never con haven't: never è già negativo."
+  },
+  {
+   "type": "mc",
+   "area": "just, already, yet",
+   "color": 1,
+   "lab": "Scegli",
+   "prompt": "Have you finished ___?",
+   "options": [
+    "yet",
+    "already",
+    "just"
+   ],
+   "answer": "yet",
+   "why": "Nelle domande in fondo: yet."
+  },
+  {
+   "type": "mc",
+   "area": "just, already, yet",
+   "color": 1,
+   "lab": "Scegli",
+   "prompt": "Don't call her now: she has ___ gone to bed.",
+   "options": [
+    "just",
+    "yet",
+    "ever"
+   ],
+   "answer": "just",
+   "why": "È appena andata a letto: just."
+  },
+  {
+   "type": "mc",
+   "area": "been o gone",
+   "color": 2,
+   "lab": "Scegli",
+   "prompt": "Mum isn't here. She's ___ to work.",
+   "options": [
+    "gone",
+    "been"
+   ],
+   "answer": "gone",
+   "why": "Non c'è: è ancora al lavoro → gone."
+  },
+  {
+   "type": "mc",
+   "area": "been o gone",
+   "color": 2,
+   "lab": "Scegli",
+   "prompt": "I've ___ to the dentist. My tooth is OK now.",
+   "options": [
+    "been",
+    "gone"
+   ],
+   "answer": "been",
+   "why": "È tornato e racconta: been."
+  },
+  {
+   "type": "mc",
+   "area": "Domande e risposte",
+   "color": 0,
+   "lab": "Risposta breve",
+   "prompt": "Have you seen my keys?",
+   "options": [
+    "No, I haven't.",
+    "No, I didn't.",
+    "No, I don't.",
+    "No, I haven't seen."
+   ],
+   "answer": "No, I haven't.",
+   "why": "Si ripete solo have: No, I haven't."
+  },
+  {
+   "type": "mc",
+   "area": "Domande e risposte",
+   "color": 0,
+   "lab": "Quale domanda è giusta?",
+   "prompt": "Chiedi se Anna ha comprato il pane.",
+   "options": [
+    "Has Anna bought the bread?",
+    "Did Anna has bought the bread?",
+    "Have Anna bought the bread?",
+    "Has Anna buy the bread?"
+   ],
+   "answer": "Has Anna bought the bread?",
+   "why": "Has + soggetto + participio (bought)."
+  },
+  {
+   "type": "txt",
+   "area": "Domande e risposte",
+   "color": 1,
+   "lab": "Completa il question tag",
+   "q": "You've done the washing-up, ___?",
+   "sub": "Scrivi le due parole del tag.",
+   "answer": "haven't you",
+   "alts": [
+    "have not you"
+   ],
+   "why": "Affermativa → tag negativo: haven't you?"
+  },
+  {
+   "type": "txt",
+   "area": "first time",
+   "color": 2,
+   "lab": "Completa (try)",
+   "q": "It's the first time I ___ Indian food.",
+   "sub": "Scrivi solo le parole che mancano.",
+   "answer": "have tried",
+   "alts": [
+    "have eaten"
+   ],
+   "why": "It's the first time + present perfect."
+  }
+ ]
+}
