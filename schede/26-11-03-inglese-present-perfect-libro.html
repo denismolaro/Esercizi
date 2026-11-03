@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inglese — Present perfect: esercizi del libro</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#0E7C86; --accent-soft:#E2F2F3; --accent-line:#BFE0E3;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --ps:#1D5FA8; --ps-soft:#E6EEF9; --pp:#B4531A; --pp-soft:#FBEDE3;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif; font-size:18px; line-height:1.7; letter-spacing:.005em; padding:0 0 env(safe-area-inset-bottom)}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700; margin:34px 0 4px; border-top:1px solid var(--rule); padding-top:16px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.qnum .pt{color:var(--soft); letter-spacing:.04em}
+.ins{font-size:17px; font-weight:700; line-height:1.45; margin:0}
+.sub{font-size:15px; color:var(--soft); margin:2px 0 8px; line-height:1.45}
+.box{border:2px dashed var(--accent-line); border-radius:12px; padding:7px 12px; margin:8px 0 6px; font-size:17px; font-weight:700; color:var(--accent); line-height:1.6; text-align:center}
+button{font:inherit; cursor:pointer}
+.rows .row{border-top:1px solid var(--rule); padding:12px 0 8px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:18.5px; line-height:2}
+.op .n{color:var(--soft); font-weight:700; margin-right:4px}
+.op .base{color:var(--accent); font-weight:700}
+.spk{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:0 7px; font-size:14px; line-height:1.5; margin-left:6px; vertical-align:2px; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+select, .tin{font:inherit; font-size:17px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink); padding:3px 6px; vertical-align:baseline; max-width:100%}
+select{min-width:120px}
+.tin{width:190px; padding:4px 9px}
+select:focus, .tin:focus{outline:none; border-color:var(--accent)}
+.sok{border-color:var(--ok) !important; background:var(--ok-soft) !important}
+.sko{border-color:var(--no) !important; background:var(--no-soft) !important}
+select:disabled, .tin:read-only{opacity:1; color:var(--ink)}
+.opts{display:grid; gap:7px; margin-top:6px; grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts.c1{grid-template-columns:1fr}
+.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 8px; min-width:0; font-size:16px; font-weight:600; color:var(--ink); line-height:1.35; overflow-wrap:break-word}
+.opts.c1 button{text-align:left; padding:10px 12px}
+.opts button.sel{border-color:var(--ink); background:#E9ECF1}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.opts.locked button{cursor:default}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+@media (max-width:460px){ .opts button{font-size:14.5px; padding:9px 4px} .opts.c1 button{font-size:15.5px; padding:9px 10px} }
+.fb{display:none; font-size:15.5px; line-height:1.55; margin-top:7px; border-radius:10px; padding:7px 11px}
+.fb.on{display:block}
+.fb.y{background:var(--ok-soft); color:var(--ok); font-weight:700}
+.fb.n{background:var(--no-soft); color:var(--no)}
+.fb.n b{display:block}
+.fb .giusta{color:var(--ink); font-weight:700; margin-top:3px}
+.row.y .op::after{content:" ✓"; color:var(--ok); font-weight:700}
+.row.n .op::after{content:" ✗"; color:var(--no); font-weight:700}
+/* tessere */
+.tline{min-height:50px; border:2px dashed var(--accent-line); border-radius:12px; padding:6px; display:flex; flex-wrap:wrap; gap:6px; align-items:center; background:#FAFDFD}
+.tline.okk{border-style:solid; border-color:var(--ok); background:var(--ok-soft)}
+.tline.kko{border-style:solid; border-color:var(--no); background:var(--no-soft)}
+.tpool{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px}
+.tk{border:2px solid var(--ink); background:#fff; border-radius:10px; padding:4px 11px; font-size:17px; font-weight:700; color:var(--ink)}
+.tline .tk{border-color:var(--accent); color:var(--accent)}
+.tend{font-size:20px; font-weight:800; color:var(--soft)}
+.clr{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:10px; padding:4px 12px; font-size:14.5px; font-weight:600}
+/* azioni */
+.acts{display:flex; gap:8px; margin-top:14px}
+.acts button{flex:1; border-radius:12px; padding:11px 10px; font-size:16px; font-weight:700}
+.go{border:2px solid var(--ink); background:var(--ink); color:#fff}
+.retry{border:2px solid var(--accent); background:#fff; color:var(--accent)}
+.esito{font-size:15.5px; font-weight:700; margin-top:10px; line-height:1.5}
+.esito.y{color:var(--ok)} .esito.n{color:var(--no)}
+/* teoria dopo l'errore */
+.teo{display:none; margin-top:14px; border:2px solid var(--warn); background:var(--warn-soft); border-radius:14px; padding:12px 14px; font-size:16px; line-height:1.55}
+.teo.on{display:block}
+.teo h3{margin:0 0 6px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--warn)}
+.teo h4{margin:10px 0 4px; font-size:16.5px}
+.teo table{width:100%; border-collapse:collapse; background:#fff; margin:6px 0; font-size:15px}
+.teo td, .teo th{border:1px solid var(--rule); padding:5px 8px; text-align:left; vertical-align:top; line-height:1.4}
+.teo th{background:#F4F1EA; font-size:13px; letter-spacing:.04em}
+.teo .en{font-weight:700; color:var(--accent)}
+.duo{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:6px 0}
+@media (max-width:460px){ .duo{grid-template-columns:1fr} }
+.duo > div{border-radius:12px; padding:9px 11px; background:#fff}
+.duo .a{border:2px solid var(--ps)} .duo .a b.t{color:var(--ps)}
+.duo .b{border:2px solid var(--pp)} .duo .b b.t{color:var(--pp)}
+.duo svg{width:100%; height:auto; display:block; margin:4px 0}
+.sig{display:inline-block; border-radius:7px; padding:0 6px; margin:1px 2px; font-weight:700; font-size:14.5px}
+.sig.a{background:var(--ps-soft); color:var(--ps)} .sig.b{background:var(--pp-soft); color:var(--pp)}
+/* riepilogo */
+.sum{border:2px solid var(--accent-line); background:var(--accent-soft); border-radius:14px; padding:16px; margin:24px 0 10px}
+.sum table{width:100%; border-collapse:collapse; background:#fff; font-size:15px; margin:8px 0}
+.sum td{border:1px solid var(--rule); padding:6px 8px; line-height:1.4}
+.sum td.c{text-align:center; white-space:nowrap}
+.v.ok{color:var(--ok); font-weight:700} .v.mid{color:var(--warn); font-weight:700} .v.ko{color:var(--no); font-weight:700}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 14px; font-size:16.5px; font-weight:700; margin-top:10px}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+.pre{font-size:15.5px; color:var(--soft); line-height:1.45; margin-bottom:2px}
+.tin.w{width:100%; max-width:430px; display:block; margin:4px 0}
+.tin.m{width:130px}
+.tre{display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:4px}
+.tre label{font-size:13.5px; color:var(--soft); display:flex; flex-direction:column; line-height:1.3}
+.mk{font-weight:800; margin-right:4px} .mk.y{color:var(--ok)} .mk.n{color:var(--no)}
+.sum a{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Inglese · File 23 · present perfect</div>
+  <h1>Gli esercizi del libro, pp. 210–213</h1>
+  <p class="lead">Sono gli stessi esercizi dei compiti. Fanne uno, tocca <b>Correggi</b>: se sbagli compare <b>la regola</b> e il <b>perché</b>. Riprova quelli sbagliati; al secondo errore vedi la risposta giusta. Quando un esercizio è tutto verde, <b>copialo sul quaderno</b>.</p>
+</header>
+<h2>Pagina 210 · le forme del verbo</h2>
+<div id="sec_p210"></div>
+<h2>Pagina 211 · participio ed ever</h2>
+<div id="sec_p211"></div>
+<h2>Pagina 212 · already, just, yet, been / gone</h2>
+<div id="sec_p212"></div>
+<h2>Pagina 213 · first time, never… before</h2>
+<div id="sec_p213"></div>
+
+<div class="sum" id="sum"></div>
+<button class="btn" onclick="ricomincia()">Ricomincia tutto da capo</button>
+
+<p class="foot">Dal libro: File 23, Grammar &amp; Practice A — Present perfect simple, esercizi 1–20.</p>
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function lev(a,b){
+  const m = a.length, n = b.length; if(Math.abs(m-n)>2) return 9;
+  let p = []; for(let j=0;j<=n;j++) p[j] = j;
+  for(let i=1;i<=m;i++){ const c = [i]; for(let j=1;j<=n;j++) c[j] = Math.min(p[j]+1, c[j-1]+1, p[j-1]+(a[i-1]===b[j-1]?0:1)); p = c; }
+  return p[n];
+}
+/* normalizza: minuscole, niente punteggiatura, contrazioni sciolte */
+function nz(s){
+  s = String(s||"").toLowerCase().replace(/[’`]/g,"'").replace(/[.!?,;:]+/g," ").replace(/\s+/g," ").trim();
+  s = s.replace(/\bhaven't\b/g,"have not").replace(/\bhasn't\b/g,"has not").replace(/\bdidn't\b/g,"did not")
+       .replace(/\b(i|you|we|they)'ve\b/g,"$1 have").replace(/\b(he|she|it)'s\b/g,"$1 has")
+       .replace(/^'ve\b/,"have").replace(/^'s\b/,"has");
+  return s.replace(/\s+/g," ").trim();
+}
+
+/* ═══════════ la teoria che compare dopo un errore ═══════════ */
+const ARR_PS = '<svg viewBox="0 0 200 54" aria-hidden="true"><line x1="8" y1="40" x2="186" y2="40" stroke="#1D5FA8" stroke-width="3"/><path d="M186 34 L196 40 L186 46 z" fill="#1D5FA8"/><line x1="80" y1="6" x2="80" y2="32" stroke="#9B2C2C" stroke-width="3"/><path d="M74 28 L80 38 L86 28 z" fill="#9B2C2C"/><text x="8" y="53" font-size="10" fill="#5A6473">past</text><text x="160" y="53" font-size="10" fill="#5A6473">present</text></svg>';
+const ARR_PP = '<svg viewBox="0 0 200 54" aria-hidden="true"><line x1="8" y1="40" x2="186" y2="40" stroke="#1D5FA8" stroke-width="3"/><path d="M186 34 L196 40 L186 46 z" fill="#1D5FA8"/><path d="M40 34 Q110 -6 176 30" fill="none" stroke="#B4531A" stroke-width="3"/><path d="M170 26 L180 33 L168 34 z" fill="#B4531A"/><text x="8" y="53" font-size="10" fill="#5A6473">past</text><text x="160" y="53" font-size="10" fill="#5A6473">present</text></svg>';
+const TEO = {
+ reg:'<h3>Ripassa · i verbi regolari: + -ed</h3>Past simple e participio sono <b>uguali</b>. Attenzione a come si scrive:'
+  +'<table><tr><th>se il verbo…</th><th>allora</th><th>esempio</th></tr>'
+  +'<tr><td>finisce in <b>-e</b></td><td>aggiungi solo <b>-d</b></td><td class="en">decide → decided · live → lived</td></tr>'
+  +'<tr><td>finisce in <b>consonante + y</b></td><td>y → <b>-ied</b></td><td class="en">study → studied · try → tried</td></tr>'
+  +'<tr><td>finisce in <b>vocale + y</b></td><td>solo <b>-ed</b></td><td class="en">play → played · stay → stayed</td></tr>'
+  +'<tr><td>è corto e finisce con <b>una vocale + una consonante</b> (accento in fondo)</td><td>raddoppia la consonante</td><td class="en">admit → admitted</td></tr>'
+  +'<tr><td>finisce in <b>-l</b> (inglese britannico)</td><td>raddoppia la l</td><td class="en">travel → travelled</td></tr></table>',
+ part:'<h3>Ripassa · le tre colonne</h3><table><tr><th>base</th><th>past simple (2ª)</th><th>participio (3ª)</th></tr>'
+  +'<tr><td>speak</td><td>spoke</td><td class="en">spoken</td></tr><tr><td>take</td><td>took</td><td class="en">taken</td></tr>'
+  +'<tr><td>eat</td><td>ate</td><td class="en">eaten</td></tr><tr><td>do</td><td>did</td><td class="en">done</td></tr>'
+  +'<tr><td>go</td><td>went</td><td class="en">gone / been</td></tr><tr><td>teach</td><td>taught</td><td class="en">taught</td></tr></table>'
+  +'La <b>seconda</b> colonna va da sola: <i>I took</i>. La <b>terza</b> va dopo have / has: <i>I have taken</i>.',
+ forme:'<h3>Ripassa · le quattro forme</h3><table>'
+  +'<tr><th>affermativa</th><td>soggetto + <b>have / has</b> + participio<br><i>She <b>has</b> washed the windows. · She<b>\'s</b> washed…</i></td></tr>'
+  +'<tr><th>negativa</th><td>soggetto + <b>haven\'t / hasn\'t</b> + participio<br><i>She <b>hasn\'t</b> washed the windows.</i></td></tr>'
+  +'<tr><th>domanda</th><td><b>Have / Has</b> + soggetto + participio?<br><i><b>Has</b> she washed the windows?</i></td></tr>'
+  +'<tr><th>domanda negativa</th><td><b>Haven\'t / Hasn\'t</b> + soggetto + participio?<br><i><b>Hasn\'t</b> she washed the windows?</i></td></tr></table>'
+  +'<b>has</b> solo con he / she / it (e un nome singolare). Mai <b>did</b>: did è del past simple.',
+ tag:'<h3>Ripassa · risposte brevi e question tags</h3>Si ripete <b>solo have / has</b>, non il participio.'
+  +'<table><tr><th>frase</th><th>tag</th><th>risposta breve</th></tr>'
+  +'<tr><td>affermativa: <i>She<b>\'s</b> grown up…</i></td><td>negativo: <b class="en">hasn\'t she?</b></td><td><i>Yes, she <b>has</b>. / No, she <b>hasn\'t</b>.</i></td></tr>'
+  +'<tr><td>negativa: <i>They <b>haven\'t</b> had…</i></td><td>positivo: <b class="en">have they?</b></td><td><i>Yes, they <b>have</b>. / No, they <b>haven\'t</b>.</i></td></tr></table>'
+  +'<h4>Anch\'io / neanch\'io</h4><i>I\'ve seen it.</i> → <b class="en">So have I.</b> · <i>I haven\'t seen it.</i> → <b class="en">Neither have I.</b> (o <b>Nor</b> have I)<br>Con un nome singolare: <b class="en">So has Steve. / Neither has Steve.</b>',
+ avv:'<h3>Ripassa · dove va l\'avverbio</h3><table>'
+  +'<tr><th>tra have / has e il participio</th><td><b class="en">just · already · ever · never · nearly · also · recently</b><br><i>I have <b>just</b> made tea. · Have you <b>ever</b> eaten sushi?</i></td></tr>'
+  +'<tr><th>in fondo alla frase</th><td><b class="en">yet · before · many times · twice · so far</b><br><i>Have you finished <b>yet</b>? · I have met her <b>before</b>.</i></td></tr></table>'
+  +'<b>just</b> = appena fatto · <b>already</b> = già · <b>yet</b> = ancora (nelle negative) / già (nelle domande).',
+ tempi:'<h3>Ripassa · past simple o present perfect?</h3><div class="duo">'
+  +'<div class="a"><b class="t">PAST SIMPLE</b>'+ARR_PS+'Azione finita in un <b>momento preciso</b>.<br><span class="sig a">yesterday</span><span class="sig a">ago</span><span class="sig a">last…</span><span class="sig a">When…?</span><br><i>Ryan <b>went</b> to the bank five minutes ago.</i></div>'
+  +'<div class="b"><b class="t">PRESENT PERFECT</b>'+ARR_PP+'Il momento <b>non conta</b>: conta il fatto, ora.<br><span class="sig b">ever</span><span class="sig b">never</span><span class="sig b">just</span><span class="sig b">yet</span><span class="sig b">before</span><br><i>Ryan <b>has just gone</b> to the bank.</i></div></div>',
+ bg:'<h3>Ripassa · been o gone?</h3><div class="duo">'
+  +'<div class="a"><b class="t">BEEN</b> = andato <b>e tornato</b>.<br><i>Where have you been? You\'re all muddy!</i><br>(sei qui, sporco: sei tornato)</div>'
+  +'<div class="b"><b class="t">GONE</b> = andato <b>ed è ancora lì</b>.<br><i>Where\'s Steve? He\'s gone to the bank.</i><br>(non c\'è: è ancora in banca)</div></div>'
+  +'Trucco: la persona <b>è qui</b> davanti a te? → <b>been</b>. <b>Non c\'è</b>? → <b>gone</b>.',
+ first:'<h3>Ripassa · first time, ever, such</h3><table>'
+  +'<tr><th>It\'s the first / second time…</th><td>+ <b>present perfect</b><br><i>It\'s the first time he <b>has spoken</b> to me.</i></td></tr>'
+  +'<tr><th>superlativo + ever</th><td><i>the best book I <b>have ever read</b></i></td></tr>'
+  +'<tr><th>never … such … before</th><td><i>I<b>\'ve never read such a good</b> book <b>before</b>.</i><br>Dopo <b>such a / such an</b> va l\'aggettivo normale (good, bad), non il superlativo.</td></tr></table>'
+};
+
+/* ═══════════ gli esercizi del libro, File 23, pp. 210–213 ═══════════ */
+const SECS = [{k:"p210",t:"Pagina 210"},{k:"p211",t:"Pagina 211"},{k:"p212",t:"Pagina 212"},{k:"p213",t:"Pagina 213"}];
+const EX = [
+{id:"e1", sec:"p210", tipo:"tre", teo:["reg"], tit:"Exercise 1 · Regular verbs",
+ ins:"Write the past simple and the past participle.", it:"Verbi regolari: le due colonne sono uguali. Attenzione a come si scrive.",
+ items:[
+  {b:"decide", ps:"decided", pp:"decided", reg:true},{b:"travel", ps:"travelled", pp:"travelled", reg:true, alt:["traveled"]},
+  {b:"study", ps:"studied", pp:"studied", reg:true},{b:"play", ps:"played", pp:"played", reg:true},
+  {b:"admit", ps:"admitted", pp:"admitted", reg:true},{b:"live", ps:"lived", pp:"lived", reg:true},
+  {b:"wash", ps:"washed", pp:"washed", reg:true},{b:"watch", ps:"watched", pp:"watched", reg:true},
+  {b:"start", ps:"started", pp:"started", reg:true},{b:"stay", ps:"stayed", pp:"stayed", reg:true},
+  {b:"try", ps:"tried", pp:"tried", reg:true}]},
+{id:"e2", sec:"p210", tipo:"tre", teo:["part"], tit:"Exercise 2 · Irregular verbs",
+ ins:"Write the past simple and the past participle.", it:"Verbi irregolari: si imparano a memoria. Se non lo sai, prova lo stesso.",
+ items:[
+  {b:"speak", ps:"spoke", pp:"spoken"},{b:"put", ps:"put", pp:"put"},{b:"cost", ps:"cost", pp:"cost"},
+  {b:"swim", ps:"swam", pp:"swum"},{b:"begin", ps:"began", pp:"begun"},{b:"teach", ps:"taught", pp:"taught"},
+  {b:"know", ps:"knew", pp:"known"},{b:"win", ps:"won", pp:"won"},{b:"get", ps:"got", pp:"got"},
+  {b:"become", ps:"became", pp:"become"},{b:"eat", ps:"ate", pp:"eaten"},{b:"catch", ps:"caught", pp:"caught"},
+  {b:"do", ps:"did", pp:"done"},{b:"give", ps:"gave", pp:"given"},{b:"fall", ps:"fell", pp:"fallen"},
+  {b:"feel", ps:"felt", pp:"felt"},{b:"leave", ps:"left", pp:"left"}]},
+{id:"e3", sec:"p210", tipo:"verb", teo:["forme","part"], tit:"Exercise 3 · Present perfect",
+ ins:"Write the present perfect.", it:"Scrivi have / has + participio. Va bene anche la forma contratta ('ve, 's); sul quaderno scrivile tutte e due.",
+ items:[
+  {q:"We ___ (see) this film before.", a:["have seen"], t:"pp", subj:"we", b:"see", ps:"saw", pp:"seen", sig:"before"},
+  {q:"Jane ___ (wash) all the windows.", a:["has washed"], t:"pp", subj:"she", b:"wash", ps:"washed", pp:"washed"},
+  {q:"They ___ (be) there many times.", a:["have been"], t:"pp", subj:"they", b:"be", ps:"was / were", pp:"been", sig:"many times"},
+  {q:"David ___ (lose) his watch.", a:["has lost"], t:"pp", subj:"he", b:"lose", ps:"lost", pp:"lost"},
+  {q:"You ___ (break) my camera.", a:["have broken"], t:"pp", subj:"you", b:"break", ps:"broke", pp:"broken"},
+  {q:"I ___ (read) this book before.", a:["have read"], t:"pp", subj:"i", b:"read", ps:"read", pp:"read", sig:"before"}]},
+{id:"e4", sec:"p210", tipo:"tiles", teo:["forme"], tit:"Exercise 4 · Questions and negatives",
+ ins:"Put the pieces in order.", it:"Sul quaderno fai tutte e tre le forme per ogni frase. Qui ne alleni una per frase. Ci sono due pezzi in più.",
+ items:[
+  {it:"<b>Domanda</b> · We have seen this film before.", t:["Have","we","seen","this film","before"], end:"?", x:["Did","saw"], tr:{Did:"Did è del past simple. Nella domanda del present perfect have va davanti: Have we…?", saw:"Dopo have ci vuole il participio: seen."}},
+  {it:"<b>Negativa</b> · Jane has washed all the windows.", t:["Jane","hasn't","washed","all the windows"], end:".", x:["didn't","haven't"], tr:{"didn't":"Didn't è del past simple. Qui: hasn't + participio.", "haven't":"Jane è she: hasn't, non haven't."}},
+  {it:"<b>Domanda negativa</b> · They have been there many times.", t:["Haven't","they","been","there","many times"], end:"?", x:["Didn't","Hasn't"], tr:{"Didn't":"Didn't è del past simple. Qui: Haven't they…?", "Hasn't":"They vuole have: Haven't they…?"}},
+  {it:"<b>Domanda</b> · David has lost his watch.", t:["Has","David","lost","his watch"], end:"?", x:["Have","lose"], tr:{Have:"David è he: Has David…?", lose:"Dopo has ci vuole il participio: lost."}},
+  {it:"<b>Negativa</b> · You have broken my camera.", t:["You","haven't","broken","my camera"], end:".", x:["broke","not"], tr:{broke:"Broke è la seconda colonna. Dopo haven't: broken.", not:"Not da solo non basta: haven't, cioè have not, tutto insieme."}},
+  {it:"<b>Domanda negativa</b> · I have read this book before.", t:["Haven't","I","read","this book","before"], end:"?", x:["Don't","Hasn't"], tr:{"Don't":"Don't è del presente. Qui: Haven't I…?", "Hasn't":"Con I si usa have: Haven't I…?"}}]},
+{id:"e5", sec:"p210", tipo:"txt", teo:["tag"], tit:"Exercise 5 · Question tags and short answers",
+ ins:"Complete with the question tag or the short answer.", it:"Ripeti solo have / has, con il soggetto. Una riga per il tag, una per la risposta.",
+ items:[
+  {q:"‘She's grown up in Wales, ___?’", a:["hasn't she"], why:"Frase affermativa → tag negativo: hasn't she?", tr:{"has she":"La frase è affermativa: il tag è negativo, hasn't she?","isn't she":"Qui 's vuol dire has (has grown up): hasn't she?","doesn't she":"Il verbo è has grown: si ripete has → hasn't she?"}},
+  {q:"‘She's grown up in Wales, hasn't she?’ ‘Yes, ___.’", a:["she has"], why:"Yes, she has. Si ripete solo has.", tr:{"she is":"'s qui è has (has grown up): Yes, she has.","she does":"Si ripete has: Yes, she has.","she has grown up":"Nella risposta breve non si ripete il participio: Yes, she has."}},
+  {q:"‘They haven't had a good time, ___?’", a:["have they"], why:"Frase negativa → tag positivo: have they?", tr:{"haven't they":"La frase è già negativa (haven't): il tag è positivo, have they?","did they":"Il verbo è haven't had: si ripete have → have they?"}},
+  {q:"‘They haven't had a good time, have they?’ ‘No, ___.’", a:["they haven't"], why:"No, they haven't.", tr:{"they didn't":"Si ripete have: No, they haven't.","they don't":"Si ripete have: No, they haven't."}},
+  {q:"‘The kids have gone to the fun-fair, ___?’", a:["haven't they"], why:"The kids = they. Affermativa → haven't they?", tr:{"have they":"La frase è affermativa: il tag è negativo, haven't they?","haven't the kids":"Nel tag si usa il pronome: the kids → they."}},
+  {q:"‘The kids have gone to the fun-fair, haven't they?’ ‘Yes, ___.’", a:["they have"], why:"Yes, they have."},
+  {q:"‘David hasn't sold his old car, ___?’", a:["has he"], why:"Frase negativa → tag positivo. David = he: has he?", tr:{"hasn't he":"La frase è già negativa: il tag è positivo, has he?","did he":"Il verbo è hasn't sold: si ripete has → has he?","has david":"Nel tag si usa il pronome: David → he."}},
+  {q:"‘David hasn't sold his old car, has he?’ ‘No, ___.’", a:["he hasn't"], why:"No, he hasn't."}]},
+
+{id:"e6", sec:"p211", tipo:"txt", teo:["tag"], tit:"Exercise 6 · So… or Neither / Nor…",
+ ins:"Reply with So… or Neither / Nor…", it:"Frase affermativa → So have I. Frase negativa → Neither have I.",
+ items:[
+  {q:"‘Mary's grown up in New York.’ ‘___ I.’", a:["So have"], why:"Affermativa → So have I.", tr:{"neither have":"La frase è affermativa: So have I.","so am":"'s qui è has (has grown up): So have I.","so do":"Si ripete have: So have I."}},
+  {q:"‘I haven't bought a present for Jane.’ ‘___ I.’", a:["Neither have","nor have"], why:"Negativa → Neither have I.", tr:{"so have":"La frase è negativa (haven't): Neither have I.","neither do":"Si ripete have: Neither have I."}},
+  {q:"‘Beth and Mark have opened a pub.’ ‘___ Jill and Peter.’", a:["So have"], why:"Affermativa, Jill and Peter = they → So have.", tr:{"so has":"Jill and Peter sono due persone (they): So have."}},
+  {q:"‘Betty hasn't passed the Physics exam.’ ‘___ Steve.’", a:["Neither has","nor has"], why:"Negativa, Steve = he → Neither has Steve.", tr:{"neither have":"Steve è una persona sola (he): Neither has.","so has":"La frase è negativa (hasn't): Neither has Steve."}}]},
+{id:"e7", sec:"p211", tipo:"txt", box:["buy","fly","read","spend","speak","hear","take"], teo:["part"], tit:"Exercise 7 · The past participle",
+ ins:"Complete with the past participle of the right verb.", it:"Scegli il verbo dal riquadro e scrivi la terza colonna.",
+ items:[
+  {q:"John has ___ some books back to the library.", a:["taken"], b:"take", ps:"took", pp:"taken", why:"take back = riportare: take – took – taken."},
+  {q:"Steve has just ___ to Barbara on the phone.", a:["spoken"], b:"speak", ps:"spoke", pp:"spoken", why:"speak to = parlare con: speak – spoke – spoken."},
+  {q:"Have you ___ the weather report on TV?", a:["heard"], b:"hear", ps:"heard", pp:"heard", why:"hear = sentire: hear – heard – heard."},
+  {q:"I have ___ The Times but not The Guardian.", a:["read"], b:"read", ps:"read", pp:"read", why:"The Times è un giornale: si legge. read – read – read (si dice red)."},
+  {q:"Jennifer has ___ a lot of money on presents.", a:["spent"], b:"spend", ps:"spent", pp:"spent", why:"spend money = spendere: spend – spent – spent."},
+  {q:"I have ___ a new coat. Do you like it?", a:["bought"], b:"buy", ps:"bought", pp:"bought", why:"buy = comprare: buy – bought – bought."}]},
+{id:"e8", sec:"p211", tipo:"verb", teo:["forme","part"], tit:"Exercise 8 · What has happened?",
+ ins:"Look at the pictures in the book and complete.", it:"Scrivi has / have + participio. Sul quaderno completa la frase con quello che vedi nella foto.",
+ items:[
+  {q:"Jenny ___ (graduate).", a:["has graduated"], t:"pp", subj:"she", b:"graduate", ps:"graduated", pp:"graduated"},
+  {q:"Ted ___ (eat).", a:["has eaten"], t:"pp", subj:"he", b:"eat", ps:"ate", pp:"eaten"},
+  {q:"They ___ (drink).", a:["have drunk"], t:"pp", subj:"they", b:"drink", ps:"drank", pp:"drunk"},
+  {q:"She ___ (go) to bed.", a:["has gone"], t:"pp", subj:"she", b:"go", ps:"went", pp:"gone"}]},
+{id:"e9", sec:"p211", tipo:"txt", teo:["forme","bg"], tit:"Exercise 9 · Has… ever been to…?",
+ ins:"Look at the table in the book and complete.", it:"Domande con Has… ever been…? Risposte con Yes, …'s been there… o No, …'s never been there.",
+ items:[
+  {q:"‘Has Linda ever been to Berlin?’ ‘Yes, ___.’", a:["she's been there three times","she has been there 3 times"], why:"Berlin (3): Yes, she's been there three times."},
+  {q:"‘___ to Istanbul?’ ‘No, she's never been there.’", a:["Has Linda ever been","has she ever been"], why:"Has + soggetto + ever + been?"},
+  {q:"‘Has Sarah ever been to Paris?’ ‘Yes, ___.’", a:["she's been there several times"], why:"Paris (several times): Yes, she's been there several times."},
+  {q:"‘Has Sarah ever been to New York?’ ‘No, ___.’", a:["she's never been there"], why:"No, she's never been there.", tr:{"she has not been there":"Il libro vuole never: she's never been there."}},
+  {q:"‘___ to Geneva?’ ‘Yes, he's been there many times.’", a:["Has Yusuf ever been","has he ever been"], why:"Yusuf = he: Has Yusuf ever been…?"},
+  {q:"‘Has Yusuf ever been to Budapest?’ ‘No, ___.’", a:["he's never been there"], why:"No, he's never been there."}]},
+{id:"e10", sec:"p211", tipo:"tiles", teo:["forme","avv"], tit:"Exercise 10 · Questions with ever",
+ ins:"Make questions: put the pieces in order.", it:"Have / Has + soggetto + ever + participio? Ci sono due pezzi in più.",
+ items:[
+  {it:"they / ever / eat / a Greek salad?", t:["Have","they","ever","eaten","a Greek salad"], end:"?", x:["Did","ate"], tr:{Did:"Con ever serve il present perfect: Have they ever…?", ate:"Ate è la seconda colonna. Dopo have: eaten."}},
+  {it:"you / ever / read / any horror stories?", t:["Have","you","ever","read","any horror stories"], end:"?", x:["Has","reading"], tr:{Has:"Con you si usa have: Have you…?", reading:"Dopo have ci vuole il participio: read."}},
+  {it:"he / ever / do / any sailing?", t:["Has","he","ever","done","any sailing"], end:"?", x:["Have","did"], tr:{Have:"Con he si usa has: Has he…?", did:"Did è la seconda colonna. Dopo has: done."}},
+  {it:"she / ever / play / golf?", t:["Has","she","ever","played","golf"], end:"?", x:["Did","play"], tr:{Did:"Con ever serve il present perfect: Has she ever…?", play:"Dopo has ci vuole il participio: played."}}]},
+
+{id:"e11", sec:"p212", tipo:"txt", wide:true, teo:["avv"], tit:"Exercise 11 · already",
+ ins:"Reply with the present perfect and already.", it:"Come nell'esempio: ‘I've already ironed them.’ already va tra have e il participio.",
+ items:[
+  {q:"‘Remember to dust the bookshelves.’ ‘___.’", a:["I've already dusted them","i have already dusted the bookshelves"], why:"I've already dusted them."},
+  {q:"‘Don't forget to phone the doctor.’ ‘___.’", a:["I've already phoned him","i have already phoned her","i have already phoned the doctor","i have already called him","i have already called her","i have already called the doctor"], why:"I've already phoned him / her."},
+  {q:"‘Remember to clean your shoes.’ ‘___.’", a:["I've already cleaned them","i have already cleaned my shoes"], why:"I've already cleaned them."},
+  {q:"‘Don't forget to wash the dishes.’ ‘___.’", a:["I've already washed them","i have already washed the dishes"], why:"I've already washed them."}]},
+{id:"e12", sec:"p212", tipo:"txt", teo:["avv","forme"], tit:"Exercise 12 · just or not… yet",
+ ins:"✓ = has just done it. ✗ = hasn't done it yet.", it:"✓ → have / has just + participio. ✗ → haven't / hasn't + participio (yet è già scritto in fondo).",
+ items:[
+  {q:"✓ Yusuf and Federico ___ round Hyde Park.", a:["have just walked"], why:"Due persone, ✓: have just walked."},
+  {q:"✗ Yasuko ___ the Underground yet.", a:["hasn't used"], why:"Una persona, ✗: hasn't used… yet."},
+  {q:"✓ Marco ___ his parents' home.", a:["has just phoned","has just called"], why:"Una persona, ✓: has just phoned."},
+  {q:"✓ Enrico ___ a present for his parents.", a:["has just bought"], b:"buy", ps:"bought", pp:"bought", why:"buy – bought – bought: has just bought."},
+  {q:"✗ Juan ___ to the wax museum yet.", a:["hasn't been"], why:"✗: hasn't been… yet."},
+  {q:"✗ Marie ___ St Paul's Cathedral yet.", a:["hasn't seen"], b:"see", ps:"saw", pp:"seen", why:"see – saw – seen: hasn't seen… yet."}]},
+{id:"e13", sec:"p212", tipo:"tiles", teo:["avv"], tit:"Exercise 13 · Where does the adverb go?",
+ ins:"Put the pieces in order.", it:"just, already, ever, never, nearly, recently tra have e il participio. yet, before, many times in fondo.",
+ items:[
+  {it:"Have you visited the city centre? (yet)", t:["Have","you","visited","the city centre","yet"], end:"?"},
+  {it:"We haven't seen that film. (yet)", t:["We","haven't","seen","that film","yet"], end:"."},
+  {it:"We have been to London. (many times)", t:["We","have","been","to London","many times"], end:"."},
+  {it:"She has finished doing her homework. (nearly)", t:["She","has","nearly","finished","doing her homework"], end:"."},
+  {it:"I think I have met her. (before)", t:["I think","I","have","met","her","before"], end:"."},
+  {it:"Have you been to the cinema? (recently)", t:["Have","you","been","to the cinema","recently"], alt:[["Have","you","recently","been","to the cinema"]], end:"?"},
+  {it:"They have left. (already)", t:["They","have","already","left"], alt:[["They","have","left","already"]], end:"."},
+  {it:"The conference has started. (just)", t:["The conference","has","just","started"], end:"."},
+  {it:"Have you eaten Chinese food? (ever)", t:["Have","you","ever","eaten","Chinese food"], end:"?"},
+  {it:"I have been there. (never)", t:["I","have","never","been","there"], end:"."}]},
+{id:"e14", sec:"p212", tipo:"verb", teo:["forme","avv"], tit:"Exercise 14 · Colin and Linda",
+ ins:"Complete the dialogue with the present perfect.", it:"Se tra parentesi c'è anche un avverbio, mettilo tra have e il participio.",
+ items:[
+  {q:"Colin: I ___ (be) very busy, so I'm not cold.", a:["have been"], t:"pp", subj:"i", b:"be", ps:"was", pp:"been"},
+  {q:"I ___ (wash) the dishes…", a:["have washed"], t:"pp", subj:"i", b:"wash", ps:"washed", pp:"washed"},
+  {q:"…and I ___ (clean) the kitchen.", a:["have cleaned"], t:"pp", subj:"i", b:"clean", ps:"cleaned", pp:"cleaned"},
+  {q:"I ___ (also / clear) a lot of papers off my desk.", a:["have also cleared"], t:"pp", subj:"i", b:"clear", ps:"cleared", pp:"cleared", adv:"also"},
+  {q:"And I ___ (just / make) a pot of tea.", a:["have just made"], t:"pp", subj:"i", b:"make", ps:"made", pp:"made", adv:"just"},
+  {q:"Linda: Great! ___ (you / fix) the computer yet?", a:["Have you fixed"], t:"pp", subj:"you", qn:true, b:"fix", ps:"fixed", pp:"fixed", sig:"yet"},
+  {q:"Colin: No, I ___ (not / start) with the computer yet.", a:["haven't started"], t:"pp", subj:"i", b:"start", ps:"started", pp:"started", sig:"yet"},
+  {q:"Linda: You ___ (work) very hard, Colin!", a:["have worked"], t:"pp", subj:"you", b:"work", ps:"worked", pp:"worked"},
+  {q:"I ___ (invite) Barbara and Gerry for dinner.", a:["have invited"], t:"pp", subj:"i", b:"invite", ps:"invited", pp:"invited"},
+  {q:"___ (you / cook) dinner?", a:["Have you cooked"], t:"pp", subj:"you", qn:true, b:"cook", ps:"cooked", pp:"cooked"}]},
+{id:"e15", sec:"p212", tipo:"mc", gap:true, fix:["been","gone"], teo:["bg"], tit:"Exercise 15 · been or gone?",
+ ins:"Complete with been or gone.", it:"La persona è qui (been) o è ancora là (gone)? Sul quaderno scrivi anche have / has.",
+ items:[
+  {q:"My sister has ___ to the park. She left fifteen minutes ago.", ok:1, why:"È uscita e non è ancora tornata → gone."},
+  {q:"‘Where have you been?’ ‘I've just ___ to the gym.’", ok:0, why:"Sta parlando con te: è tornato → been."},
+  {q:"Peter has ___ to school. He'll be back by 4.00.", ok:1, why:"Tornerà alle 4: adesso è ancora a scuola → gone."},
+  {q:"‘Have you ever ___ to Japan?’ ‘No, never.’", ok:0, why:"Have you ever been…? = ci sei mai stato (e tornato)."},
+  {q:"Sarah's got a fantastic tan. Where has she ___?", ok:0, why:"È qui, abbronzata: è tornata → been."},
+  {q:"I can't find Steve. Where has he ___?", ok:1, why:"Non lo trovi: è ancora da qualche parte → gone."},
+  {q:"You are all muddy. Where have you ___?", ok:0, why:"Sei qui, sporco di fango: sei tornato → been."},
+  {q:"Betty has just ___ to the railway station. She's leaving for Leeds.", ok:1, why:"È alla stazione adesso → gone."}]},
+
+{id:"e16", sec:"p213", tipo:"verb", teo:["first"], tit:"Exercise 16 · the most… I have ever…",
+ ins:"Complete the sentences.", it:"Dopo il superlativo: soggetto + have + ever + participio.",
+ items:[
+  {q:"This is the most delicate shampoo ___ (I / ever / use).", a:["I have ever used"], t:"pp", subj:"i", b:"use", ps:"used", pp:"used", adv:"ever", sig:"ever"},
+  {q:"This is the best book ___ (I / ever / read).", a:["I have ever read"], t:"pp", subj:"i", b:"read", ps:"read", pp:"read", adv:"ever", sig:"ever"},
+  {q:"This is the worst haircut ___ (I / ever / have).", a:["I have ever had"], t:"pp", subj:"i", b:"have", ps:"had", pp:"had", adv:"ever", sig:"ever"},
+  {q:"This is the most interesting museum ___ (I / ever / visit).", a:["I have ever visited"], t:"pp", subj:"i", b:"visit", ps:"visited", pp:"visited", adv:"ever", sig:"ever"}]},
+{id:"e17", sec:"p213", tipo:"tiles", teo:["first"], tit:"Exercise 17 · I've never… such… before",
+ ins:"Put the pieces in order.", it:"Come nell'esempio: I've never done such a difficult test before. Ci sono due pezzi in più.",
+ items:[
+  {it:"This is the most delicate shampoo I have ever used.", t:["I","have","never","used","such a","delicate shampoo","before"], end:".", x:["ever","such an"], tr:{ever:"Qui c'è già never: ever non serve.","such an":"delicate comincia con consonante: such a."}},
+  {it:"This is the best book I have ever read.", t:["I","have","never","read","such a","good book","before"], end:".", x:["best book","ever"], tr:{"best book":"Dopo such a si usa l'aggettivo normale: good, non best.",ever:"Qui c'è già never: ever non serve."}},
+  {it:"This is the worst haircut I have ever had.", t:["I","have","never","had","such a","bad haircut","before"], end:".", x:["worst haircut","have"], tr:{"worst haircut":"Dopo such a si usa l'aggettivo normale: bad, non worst.",have:"Il participio di have è had: I have never had."}},
+  {it:"This is the most interesting museum I have ever visited.", t:["I","have","never","visited","such an","interesting museum","before"], end:".", x:["such a","most"], tr:{"such a":"interesting comincia con vocale: such an.",most:"Dopo such an si usa l'aggettivo normale, senza most."}}]},
+{id:"e18", sec:"p213", tipo:"verb", teo:["first"], tit:"Exercise 18 · It's the first time…",
+ ins:"Complete the sentences.", it:"It's the first / second / third time + present perfect.",
+ items:[
+  {q:"It's the first time he ___ (speak) to me.", a:["has spoken"], t:"pp", subj:"he", b:"speak", ps:"spoke", pp:"spoken", sig:"It's the first time"},
+  {q:"It's the third time I ___ (read) this book.", a:["have read"], t:"pp", subj:"i", b:"read", ps:"read", pp:"read", sig:"It's the third time"},
+  {q:"It's the second time we ___ (visit) the National Gallery.", a:["have visited"], t:"pp", subj:"we", b:"visit", ps:"visited", pp:"visited", sig:"It's the second time"},
+  {q:"It's the first time she ___ (drive) a car.", a:["has driven"], t:"pp", subj:"she", b:"drive", ps:"drove", pp:"driven", sig:"It's the first time"}]},
+{id:"e19", sec:"p213", tipo:"txt", teo:["first","bg"], tit:"Exercise 19 · Same meaning",
+ ins:"Complete the second sentence: same meaning, max three words.", it:"Leggi la prima frase, poi scrivi solo le parole che mancano nella seconda.",
+ items:[
+  {pre:"This is my first journey by plane.", q:"→ I ___ by plane before.", a:["'ve never travelled","have never traveled","have never flown","have never been"], why:"Prima volta = non l'ho mai fatto prima: I've never travelled by plane before."},
+  {pre:"I have visited this museum three times.", q:"→ This is the third time I ___ this museum.", a:["have visited"], why:"It's the third time + present perfect: I've visited."},
+  {pre:"This is the second time I have quarrelled with Mark.", q:"→ I ___ Mark twice so far.", a:["have quarrelled with","have quarreled with"], why:"I've quarrelled with Mark twice so far. Non dimenticare with."},
+  {pre:"This is the first time John has sent me some flowers.", q:"→ John has never ___ flowers before.", a:["sent me"], why:"send – sent – sent: John has never sent me flowers before."},
+  {pre:"Ryan went to the bank five minutes ago. He'll be back soon.", q:"→ Ryan has just ___ bank.", a:["gone to the"], why:"È ancora in banca: has just gone to the bank."}]},
+{id:"e20", sec:"p213", tipo:"txt", teo:["avv","first","bg"], tit:"Exercise 20 · Key word transformations",
+ ins:"Complete with two to five words, including the word given.", it:"Come all'esame B2 First. La parola in grassetto va usata così com'è.",
+ items:[
+  {pre:"We're still waiting for Susan. <b>arrived</b>", q:"→ Susan ___ yet.", a:["hasn't arrived"], why:"Stiamo ancora aspettando = non è ancora arrivata: Susan hasn't arrived yet."},
+  {pre:"We have been to Kenya twice. <b>second</b>", q:"→ This is the ___ to Kenya.", a:["second time we have been"], why:"This is the second time we've been to Kenya."},
+  {pre:"This is the funniest film I've ever seen. <b>such</b>", q:"→ I ___ a funny film before.", a:["'ve never seen such"], why:"I've never seen such a funny film before."},
+  {pre:"Alex went to the gym a few minutes ago. <b>just</b>", q:"→ Alex ___ to the gym.", a:["has just gone"], why:"È ancora in palestra: Alex has just gone to the gym."},
+  {pre:"This is the first time he has tried judo. <b>never</b>", q:"→ He ___ before.", a:["has never tried judo","has never done judo"], why:"He has never tried judo before."},
+  {pre:"Mark left two minutes ago. <b>just</b>", q:"→ Mark ___ left.", a:["has just"], why:"Mark has just left."}]}
+];
+
+/* ═══════════ stato salvato ═══════════ */
+const KEY = "ing-file23-libro";
+let S = load();
+function load(){ try{ const o = JSON.parse(localStorage.getItem(KEY)||"null"); if(o && o.v && o.ok && o.st) return o; }catch(e){} return {v:{}, ok:{}, st:{}}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ═══════════ disegno ═══════════ */
+function tin(id, cls){ return '<input class="tin'+(cls?' '+cls:'')+'" id="'+id+'" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" oninput="tieni(this)" aria-label="risposta">'; }
+function spk(t){ return '<button class="spk" onclick="leggi(this)" data-say="'+esc(t)+'" aria-label="Ascolta">🔊</button>'; }
+function plain(q){ return q.replace(/^[✓✗]\s*/,"").replace(/^→\s*/,"").replace(/^(Colin|Linda):\s*/,"").replace(/_{3}/g,"...").replace(/\s*\([^)]*\)/g,""); }
+function inputsOf(E,id){ return E.tipo==="tre" ? [id+"_s", id+"_p"] : [id]; }
+function render(){
+  const out = {};
+  SECS.forEach(s=>out[s.k]=[]);
+  EX.forEach(E=>{
+    let h = '<div class="card" id="'+E.id+'"><div class="qnum">'+E.tit+' <span class="pt" id="pt_'+E.id+'">· '+E.items.length+' punti</span></div>'
+          + '<p class="ins">'+E.ins+'</p><p class="sub">'+E.it+'</p>';
+    if(E.box) h += '<div class="box">'+E.box.join(" · ")+'</div>';
+    if(E.fix) h += '<div class="box">'+E.fix.join(" · ")+'</div>';
+    h += '<div class="rows">';
+    E.items.forEach((r,i)=>{
+      const id = E.id+"_"+i;
+      h += '<div class="row" id="r_'+id+'">';
+      if(r.pre) h += '<div class="pre">'+r.pre+'</div>';
+      h += '<div class="op"><span class="n">'+(i+1)+'.</span>';
+      const q = r.q ? r.q.replace(/^✓/,'<span class="mk y">✓</span>').replace(/^✗/,'<span class="mk n">✗</span>') : "";
+      if(E.tipo==="verb") h += q.replace("___", tin(id)) + spk(plain(r.q));
+      else if(E.tipo==="txt") h += q.replace("___", tin(id, (E.wide||r.pre||(r.a[0].length>18))?"w":"")) + spk(plain(r.q));
+      else if(E.tipo==="tre") h += '<span class="base">'+r.b+'</span>'+spk(r.b)+'<span class="tre"><label>past simple '+tin(id+"_s","m")+'</label><label>participle '+tin(id+"_p","m")+'</label></span>';
+      else if(E.tipo==="mc") h += (E.gap ? r.q.replace("___","<b>_____</b>") : '<span class="base">'+r.q+'</span>') + spk(plain(r.q));
+      else if(E.tipo==="tiles") h += r.it;
+      h += '</div>';
+      if(E.tipo==="mc"){
+        const opts = E.fix || r.o;
+        h += '<div class="opts '+(opts.length===2?"c2":"")+'" id="o_'+id+'">' + opts.map((o,k)=>'<button onclick="scegli(\''+id+'\','+k+')">'+o+'</button>').join("") + '</div>';
+      }
+      if(E.tipo==="tiles") h += '<div class="tline" id="tl_'+id+'"></div><div class="tpool" id="tp_'+id+'"></div><button class="clr" id="cl_'+id+'" onclick="clrK(\''+id+'\')">Ricomincia la frase</button>';
+      h += '<div class="fb" id="f_'+id+'"></div></div>';
+    });
+    h += '</div><div class="teo" id="teo_'+E.id+'"></div>'
+       + '<div class="acts"><button class="go" id="go_'+E.id+'" onclick="correggi(\''+E.id+'\')">Correggi</button>'
+       + '<button class="retry" id="rt_'+E.id+'" style="display:none" onclick="riprova(\''+E.id+'\')">Riprova quelli sbagliati</button></div>'
+       + '<div class="esito" id="es_'+E.id+'"></div></div>';
+    out[E.sec].push(h);
+  });
+  SECS.forEach(s=>{ $("sec_"+s.k).innerHTML = out[s.k].join(""); });
+  EX.forEach(E=>{
+    E.items.forEach((r,i)=>{
+      const id = E.id+"_"+i;
+      if(E.tipo==="verb" || E.tipo==="txt" || E.tipo==="tre"){
+        inputsOf(E,id).forEach(k=>{ const el = $(k); if(S.v[k]!=null) el.value = S.v[k]; el.addEventListener("keydown", function(e){ if(e.key==="Enter") this.blur(); }); });
+      }
+      if(E.tipo==="mc" && S.v[id]!=null){ const b = $("o_"+id).children[S.v[id]]; if(b) b.classList.add("sel"); }
+      if(E.tipo==="tiles") drawK(id);
+    });
+    if(S.st[E.id] && S.st[E.id].round>0) mostra(E.id);
+  });
+  riepilogo();
+}
+
+/* ═══════════ risposte ═══════════ */
+function rowId(id){ const p = id.split("_"); return p[0]+"_"+p[1]; }
+function tieni(el){ if(S.ok[rowId(el.id)]===true) return; S.v[el.id] = el.value; save(); }
+function exOf(id){ return EX.find(E=>id.indexOf(E.id+"_")===0); }
+function itemOf(id){ const E = exOf(id); return E.items[+id.split("_")[1]]; }
+function scegli(id,k){
+  if(S.ok[id]===true || bloccato(id)) return;
+  const box = $("o_"+id); Array.prototype.forEach.call(box.children,(b,i)=>b.classList.toggle("sel", i===k));
+  S.v[id] = k; save();
+}
+function bloccato(id){ return S.ok[id]===false && S.st[exOf(id).id] && S.st[exOf(id).id].attesa; }
+/* tessere */
+function tilesAll(r){ if(!r._all){ const all = r.t.concat(r.x||[]); r._all = all.slice().sort((a,b)=>((a.length*7+a.charCodeAt(0))%11 - (b.length*7+b.charCodeAt(0))%11) || (a<b?-1:1)); } return r._all; }
+function drawK(id){
+  const r = itemOf(id), all = tilesAll(r), line = Array.isArray(S.v[id]) ? S.v[id] : [];
+  const lock = S.ok[id]===true || bloccato(id);
+  $("tl_"+id).innerHTML = line.map((k,p)=>'<button class="tk" onclick="outK(\''+id+'\','+p+')"'+(lock?' disabled':'')+'>'+all[k]+'</button>').join("") + (line.length ? '<span class="tend">'+r.end+'</span>' : '');
+  let h = ""; all.forEach((w,k)=>{ if(line.indexOf(k)<0) h += '<button class="tk" onclick="inK(\''+id+'\','+k+')"'+(lock?' disabled':'')+'>'+w+'</button>'; });
+  $("tp_"+id).innerHTML = S.ok[id]===true ? "" : h;
+  const cl = $("cl_"+id); if(cl) cl.style.display = lock ? "none" : "";
+}
+function inK(id,k){ if(S.ok[id]===true || bloccato(id)) return; const l = Array.isArray(S.v[id]) ? S.v[id] : []; l.push(k); S.v[id] = l; save(); drawK(id); }
+function outK(id,p){ if(S.ok[id]===true || bloccato(id)) return; const l = S.v[id]; l.splice(p,1); save(); drawK(id); }
+function clrK(id){ if(S.ok[id]===true || bloccato(id)) return; S.v[id] = []; save(); drawK(id); }
+
+/* ═══════════ correzione ═══════════ */
+function senzaSiNo(a){ return a.replace(/^(yes|no)\s+/,""); }
+function valuta(E, r, id){
+  if(E.tipo==="mc"){
+    const v = S.v[id]; if(v==null) return {vuoto:true};
+    const opts = E.fix || r.o;
+    const FIX = ["Been vuol dire andato e tornato. La persona è già qui, o è ancora là?","Gone vuol dire che è ancora là. È ancora là, o è già tornata?"];
+    return v===r.ok ? {ok:true} : {msg:(r.tr && r.tr[v]) || (E.fix ? FIX[v] : "Non è giusta: rileggi la regola qui sotto."), giusta:opts[r.ok], why:r.why};
+  }
+  if(E.tipo==="tre"){
+    const s = nz(S.v[id+"_s"]), p = nz(S.v[id+"_p"]);
+    if(!s && !p) return {vuoto:true};
+    const okS = s===r.ps || (r.alt||[]).indexOf(s)>=0, okP = p===r.pp || (r.alt||[]).indexOf(p)>=0;
+    const giusta = r.b+" – "+r.ps+" – "+r.pp;
+    if(okS && okP) return {ok:true};
+    let m = null;
+    if(!s || !p) m = "Servono tutte e due le colonne.";
+    else if(r.reg) m = diagReg(r, okS ? p : s);
+    else {
+      if(!okS && s===r.pp) m = "Nella seconda colonna hai scritto il participio («"+s+"»). Il past simple è un'altra parola.";
+      else if(!okP && p===r.ps) m = "Nella terza colonna hai scritto il past simple («"+p+"»). Il participio è un'altra parola.";
+      else if(s===r.b+"ed" || s===r.b+"d" || p===r.b+"ed" || p===r.b+"d") m = "«"+r.b+"» è irregolare: niente -ed.";
+      else if(r.b==="get" && p==="gotten") m = "Gotten è americano. Nel libro (inglese britannico): get – got – got.";
+      else if(lev(okS?p:s, okS?r.pp:r.ps)<=1) m = "Quasi: controlla le lettere.";
+    }
+    return {msg:m || "Non è giusto: "+(okS?"il participio":(okP?"il past simple":"tutte e due le forme"))+".", giusta:giusta, okS:okS, okP:okP};
+  }
+  if(E.tipo==="verb"){
+    const a = nz(S.v[id]); if(!a) return {vuoto:true};
+    if(r.a.map(nz).indexOf(a)>=0) return {ok:true};
+    const pre = nz(r.q.replace(/^(Colin|Linda):/,"").split("___")[0]);
+    if(pre && r.a.some(x=>a===pre+" "+nz(x))) return {ok:true};
+    return {msg:diagVerb(r,a) || diagGen(r,a) || "Non è giusto.", giusta:r.a[0]};
+  }
+  if(E.tipo==="txt"){
+    let a = nz(S.v[id]); if(!a) return {vuoto:true};
+    const cand = r.a.map(nz);
+    if(cand.indexOf(a)>=0 || cand.indexOf(senzaSiNo(a))>=0) return {ok:true};
+    a = senzaSiNo(a);
+    let m = null; if(r.tr) for(const k in r.tr) if(nz(k)===a) m = r.tr[k];
+    if(!m && r.pp){
+      if(a===r.b && r.b!==r.pp) m = "Questa è la forma base. Dopo have / has ci vuole la terza colonna.";
+      else if(a===r.ps && r.ps!==r.pp) m = "Questa è la seconda colonna. Dopo have / has ci vuole la terza: "+r.b+" – "+r.ps+" – "+r.pp+".";
+      else if(a===r.b+"ed" || a===r.b+"d") m = "«"+r.b+"» è irregolare: "+r.b+" – "+r.ps+" – "+r.pp+".";
+      else if(lev(a,r.pp)<=1) m = "Quasi: controlla le lettere.";
+      else m = "Non è il verbo giusto: rileggi la frase e il riquadro.";
+    }
+    if(!m) m = diagGen(r,a);
+    return {msg:m || "Non è giusto.", giusta:r.a[0], why:r.why};
+  }
+  if(E.tipo==="tiles"){
+    const line = Array.isArray(S.v[id]) ? S.v[id] : []; if(!line.length) return {vuoto:true};
+    const all = tilesAll(r), got = line.map(k=>all[k]);
+    const same = (x)=> x.join(" ").toLowerCase()===got.join(" ").toLowerCase();
+    if(same(r.t) || (r.alt||[]).some(same)) return {ok:true};
+    const extra = (r.x||[]).filter(x=>got.indexOf(x)>=0);
+    let m;
+    if(extra.length) m = r.tr[extra[0]];
+    else if(got.length<r.t.length) m = "Mancano dei pezzi.";
+    else m = "L'ordine non è giusto: guarda dove va have / has e dove va l'avverbio.";
+    return {msg:m, giusta:r.t.join(" ")+r.end};
+  }
+}
+/* regolari: errori di ortografia tipici */
+function diagReg(r, a){
+  const b = r.b, c = r.pp;
+  if(a===b) return "Questa è la forma base: serve -ed.";
+  if(/e$/.test(b) && a===b+"ed") return "«"+b+"» finisce già in -e: aggiungi solo -d → "+c+".";
+  if(/[^aeiou]y$/.test(b) && a===b+"ed") return "Consonante + y: la y diventa -ied → "+c+".";
+  if(/[aeiou]y$/.test(b) && a===b.slice(0,-1)+"ied") return "Vocale + y: la y resta, solo -ed → "+c+".";
+  if(/(.)\1ed$/.test(c) && !/(.)\1/.test(b.slice(-2)) && a===b+"ed") return "Qui la consonante finale si raddoppia: "+c+".";
+  if(lev(a,c)<=1) return "Quasi: controlla le lettere.";
+  return null;
+}
+/* il soggetto / l'avverbio nelle frasi con il verbo tra parentesi */
+function spia(r){ return r.sig ? "con «"+r.sig+"»" : "qui"; }
+function diagVerb(r, a){
+  const tok = a.split(" "), last = tok[tok.length-1];
+  const terza = ["he","she","it"].indexOf(r.subj)>=0;
+  const hasHave = /\b(have|has)\b/.test(a), hasDid = /\bdid\b/.test(a);
+  if(hasDid) return "«did» è del past simple. "+cap(spia(r))+" serve il present perfect: have / has + participio.";
+  if(!hasHave) return (a.indexOf(r.ps)>=0 && r.ps!==r.pp) ? "Hai usato il past simple. "+cap(spia(r))+" serve il present perfect: have / has + participio." : "Manca have / has: il present perfect è have / has + participio.";
+  if(terza && /\bhave\b/.test(a) && !/\bhas\b/.test(a)) return "Con he / she / it (e un nome singolare) si usa has, non have.";
+  if(!terza && /\bhas\b/.test(a)) return "Con I / you / we / they si usa have, non has.";
+  if(r.qn && tok.indexOf(r.subj)<0) return "Manca il soggetto: nella domanda è Have + "+r.subj+" + participio.";
+  if(r.qn && tok[0]!=="have" && tok[0]!=="has") return "Nella domanda have / has va prima del soggetto: Have you…?";
+  if(r.adv && a.indexOf(r.adv)<0) return "Manca «"+r.adv+"»: va tra have / has e il participio.";
+  if(r.adv && new RegExp("\\b"+r.adv+" (have|has)\\b").test(a)) return "«"+r.adv+"» va tra have / has e il participio: have "+r.adv+" "+r.pp+".";
+  if(/\bnot\b/.test(nz(r.a[0])) && !/\bnot\b/.test(a)) return "La frase è negativa: haven't / hasn't + participio.";
+  if(last===r.b && r.b!==r.pp) return "Dopo have / has ci vuole il participio, la terza colonna: "+r.b+" → "+r.pp+".";
+  if(r.pp!==r.b+"ed" && (last===r.b+"ed" || last===r.b+"d")) return "«"+r.b+"» è irregolare: "+r.b+" – "+r.ps+" – "+r.pp+".";
+  if(r.ps!==r.pp && last===r.ps) return "Hai usato la seconda colonna ("+r.ps+"). Dopo have / has ci vuole la terza: "+r.pp+".";
+  return null;
+}
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+/* errori generici: did, have/has, avverbio mancante, ordine, lettere */
+function diagGen(r, a){
+  const c = nz(r.a[0]), W = s=>s.split(" ");
+  if(/\bdid\b/.test(a) && !/\bdid\b/.test(c)) return "«did» è del past simple. Qui serve have / has + participio.";
+  if(/\bhas\b/.test(c) && /\bhave\b/.test(a) && !/\bhas\b/.test(a)) return "Il soggetto è he / she / it (una persona): has, non have.";
+  if(/\bhave\b/.test(c) && /\bhas\b/.test(a) && !/\bhave\b/.test(a)) return "Il soggetto è I / you / we / they: have, non has.";
+  if(/\bnot\b/.test(c) && !/\bnot\b/.test(a)) return "Qui serve la negativa: haven't / hasn't.";
+  for(const w of ["already","just","never","ever","such","there","with","me","time","the"]){
+    if(new RegExp("\\b"+w+"\\b").test(c) && !new RegExp("\\b"+w+"\\b").test(a)) return "Manca «"+w+"».";
+  }
+  if(/\balready\b/.test(c) && /\balready$/.test(a)) return "Come nell'esempio: already va tra have e il participio (I've already…).";
+  const sa = W(a).slice().sort().join(" "), sc = W(c).slice().sort().join(" ");
+  if(sa===sc) return "Le parole sono giuste, ma l'ordine no.";
+  if(r.a.some(x=>lev(a,nz(x))<=2)) return "Quasi: controlla le lettere.";
+  return null;
+}
+function correggi(eid){
+  const E = EX.find(x=>x.id===eid);
+  const st = S.st[eid] || (S.st[eid] = {round:0, first:null});
+  let vuote = 0;
+  E.items.forEach((r,i)=>{ const id = eid+"_"+i; if(S.ok[id]!==true && valuta(E,r,id).vuoto) vuote++; });
+  const btn = $("go_"+eid);
+  if(vuote && !btn.dataset.armed){ btn.dataset.armed = "1"; btn.textContent = (vuote===1?"1 risposta vuota":vuote+" risposte vuote")+": tocca di nuovo"; return; }
+  delete btn.dataset.armed;
+  st.round++; st.attesa = true;
+  let ok = 0;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i;
+    if(S.ok[id]===true){ ok++; return; }
+    const res = valuta(E,r,id);
+    S.ok[id] = !!res.ok; if(res.ok) ok++;
+    S.why = S.why || {}; S.why[id] = res.ok ? null : res;
+  });
+  if(st.first==null) st.first = [ok, E.items.length];
+  save(); mostra(eid); riepilogo();
+}
+function mostra(eid){
+  const E = EX.find(x=>x.id===eid), st = S.st[eid];
+  let sbagliati = 0;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i, row = $("r_"+id), f = $("f_"+id);
+    row.classList.remove("y","n");
+    if(S.ok[id]===true){
+      row.classList.add("y"); f.className = "fb on y"; f.innerHTML = "✓ Giusto";
+      blocca(E,id,true);
+    } else if(S.ok[id]===false && st.attesa){
+      sbagliati++;
+      const res = (S.why && S.why[id]) || valuta(E,r,id);
+      row.classList.add("n");
+      let h = res.vuoto ? "<b>— Non hai risposto.</b>" : "<b>✗ "+res.msg+"</b>";
+      if(st.round>=2 && res.giusta) h += '<div class="giusta">Risposta giusta: '+res.giusta+(res.why ? ' — <span style="font-weight:400">'+res.why+'</span>' : '')+'</div>';
+      f.className = "fb on n"; f.innerHTML = h;
+      blocca(E,id,false,res);
+    } else {
+      f.className = "fb"; f.innerHTML = "";
+    }
+  });
+  const teo = $("teo_"+eid);
+  if(sbagliati){ teo.innerHTML = E.teo.map(k=>TEO[k]).join("<hr style='border:none;border-top:1px dashed #EBD9AE;margin:12px 0'>"); teo.className = "teo on"; }
+  else { teo.className = "teo"; teo.innerHTML = ""; }
+  $("go_"+eid).style.display = (sbagliati && st.attesa) ? "none" : (allOk(E) ? "none" : "");
+  $("go_"+eid).textContent = "Correggi";
+  $("rt_"+eid).style.display = (sbagliati && st.attesa) ? "" : "none";
+  const es = $("es_"+eid);
+  if(st.first){
+    const f = st.first;
+    es.className = "esito "+(allOk(E) ? "y" : "n");
+    es.innerHTML = allOk(E) ? "✓ Esercizio completato. Al primo tentativo: "+f[0]+" su "+f[1]+". Ora fallo sul quaderno."
+                 : (st.attesa ? "Al primo tentativo: "+f[0]+" su "+f[1]+". Leggi la regola qui sopra, poi tocca Riprova."
+                              : "Riprova quelli sbagliati, poi tocca Correggi.");
+    $("pt_"+eid).textContent = "· "+f[0]+" su "+f[1];
+  }
+}
+function allOk(E){ return E.items.every((r,i)=>S.ok[E.id+"_"+i]===true); }
+function blocca(E,id,giusto,res){
+  if(E.tipo==="verb" || E.tipo==="txt"){
+    const el = $(id); el.classList.remove("sok","sko"); el.classList.add(giusto ? "sok" : "sko"); el.readOnly = true;
+  }
+  if(E.tipo==="tre"){
+    const oS = giusto || (res && res.okS), oP = giusto || (res && res.okP);
+    [[id+"_s",oS],[id+"_p",oP]].forEach(([k,o])=>{ const el = $(k); el.classList.remove("sok","sko"); el.classList.add(o ? "sok" : "sko"); el.readOnly = true; });
+  }
+  if(E.tipo==="mc"){
+    const box = $("o_"+id); box.classList.add("locked");
+    const v = S.v[id], r = itemOf(id);
+    Array.prototype.forEach.call(box.children,(b,k)=>{ b.classList.remove("sel","right","wrong"); if(giusto && k===r.ok) b.classList.add("right"); if(!giusto && k===v) b.classList.add("wrong"); });
+  }
+  if(E.tipo==="tiles"){ $("tl_"+id).className = "tline "+(giusto ? "okk" : "kko"); drawK(id); }
+}
+function riprova(eid){
+  const E = EX.find(x=>x.id===eid), st = S.st[eid];
+  st.attesa = false;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i;
+    if(S.ok[id]===true) return;
+    const res = S.why && S.why[id];
+    delete S.ok[id];
+    const row = $("r_"+id); row.classList.remove("y","n");
+    if(E.tipo==="verb" || E.tipo==="txt"){ delete S.v[id]; const el = $(id); el.value = ""; el.classList.remove("sok","sko"); el.readOnly = false; }
+    if(E.tipo==="tre"){
+      /* la colonna gia' giusta resta */
+      [[id+"_s",res&&res.okS],[id+"_p",res&&res.okP]].forEach(([k,o])=>{ const el = $(k); el.classList.remove("sok","sko"); if(o){ el.classList.add("sok"); el.readOnly = true; } else { delete S.v[k]; el.value = ""; el.readOnly = false; } });
+    }
+    if(E.tipo==="mc"){ delete S.v[id]; const box = $("o_"+id); box.classList.remove("locked"); Array.prototype.forEach.call(box.children,b=>b.classList.remove("sel","right","wrong")); }
+    if(E.tipo==="tiles"){ delete S.v[id]; $("tl_"+id).className = "tline"; drawK(id); }
+    const f = $("f_"+id); f.className = "fb"; f.innerHTML = "";
+  });
+  save();
+  $("rt_"+eid).style.display = "none"; $("go_"+eid).style.display = "";
+  $("es_"+eid).className = "esito"; $("es_"+eid).innerHTML = "Riprova quelli sbagliati. La regola resta qui sopra.";
+}
+function riepilogo(){
+  let righe = "", tot = 0, n = 0, fatti = 0;
+  EX.forEach(E=>{
+    const st = S.st[E.id], f = st && st.first;
+    let v = '<span class="v">da fare</span>';
+    if(f){ fatti++; tot += f[0]; n += f[1]; const p = f[0]/f[1];
+      v = p>=0.75 ? '<span class="v ok">capito</span>' : (p>=0.5 ? '<span class="v mid">quasi</span>' : '<span class="v ko">da ripassare</span>'); }
+    righe += '<tr><td><a href="#'+E.id+'">'+E.tit.replace(/^Exercise /,"")+'</a></td><td class="c">'+(f ? f[0]+" su "+f[1] : "–")+'</td><td class="c">'+v+'</td></tr>';
+  });
+  $("sum").innerHTML = '<div class="qnum">Risultato al primo tentativo</div>'
+    + (fatti ? '<div style="font-size:17px;font-weight:700">'+tot+' su '+n+' ('+Math.round(tot/n*100)+'%) · esercizi fatti: '+fatti+' su '+EX.length+'</div>' : '<div style="font-size:16px">Ancora nessun esercizio corretto.</div>')
+    + '<table>'+righe+'</table><div style="font-size:14px;color:var(--soft)">capito = almeno 3 su 4 giusti al primo tentativo.</div>';
+}
+function ricomincia(){ if(!confirm("Cancellare tutte le risposte e ricominciare?")) return; S = {v:{}, ok:{}, st:{}}; save(); render(); window.scrollTo(0,0); }
+
+/* ═══════════ voce inglese ═══════════ */
+let voEn = null, parlaBtn = null, warmed = false;
+function pickVoice(){ const vs = window.speechSynthesis ? speechSynthesis.getVoices() : []; voEn = vs.find(v=>v.lang==="en-GB") || vs.find(v=>/^en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function warmUp(){ if(warmed || !window.speechSynthesis) return; warmed = true; try{ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("touchstart", warmUp, {once:true});
+document.addEventListener("click", warmUp, {once:true});
+function leggi(btn){
+  if(!window.speechSynthesis) return;
+  const era = parlaBtn; try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(String(btn.getAttribute("data-say")||"").replace(/[‘’]/g,"'"));
+  u.lang = "en-GB"; u.rate = 0.85; if(voEn) u.voice = voEn;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on"); speechSynthesis.speak(u);
+}
+
+render();
+</script>
+</body>
+</html>
