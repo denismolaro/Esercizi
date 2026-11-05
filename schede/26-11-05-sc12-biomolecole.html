@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scienze 12 — Le biomolecole</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --giu-soft:#E6EEF9;   /* scendo la scala: moltiplico */
+  --su:#B4531A;  --su-soft:#FBEDE3;    /* salgo la scala: divido */
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:23px; text-align:center; display:block; margin:14px 0; line-height:1.5}
+.f i{font-style:italic}
+.f.big{font-size:30px}
+.ex{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px; line-height:1.6}
+.ex .lbl, .box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.ex .fx{font-family:"Times New Roman",Georgia,serif; font-size:20px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.giu{color:var(--giu); font-weight:700} .su{color:var(--su); font-weight:700}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+td.c, th.c{text-align:center}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+
+/* passi numerati del metodo */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16.5px; line-height:1.55}
+.flow .st b.n{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.flow .st.av{border-left-color:var(--warn); background:var(--warn-soft)}
+.flow .st.av b.n{color:var(--warn)}
+
+/* mappa della materia */
+.tree{margin:14px 0; font-size:16px}
+.tree .n0{background:var(--ink); color:#fff; border-radius:10px; padding:8px 12px; text-align:center; font-weight:700}
+.tree .lv{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+.tree .n1{border:2px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 10px; text-align:center; font-weight:700; color:var(--accent)}
+.tree .n2{border:1px solid var(--rule); background:#fff; border-radius:10px; padding:7px 9px; font-size:15px; line-height:1.4; margin-top:6px}
+.tree .n2 b{display:block}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* la virgola che si sposta */
+.vm{border:2px solid var(--accent-line); border-radius:14px; padding:14px; margin:14px 0; background:#fff}
+.vm .num{font-family:"Times New Roman",Georgia,serif; font-size:34px; text-align:center; line-height:1.3; word-break:break-all; margin:6px 0}
+.vm .num .cm{color:var(--accent); font-weight:700; font-size:40px}
+.vm .num sup{font-size:22px}
+.vm .msg{font-size:16px; text-align:center; min-height:3.1em; font-weight:600}
+.vm .msg.ok{color:var(--ok)}
+.vm .ctl{display:flex; gap:8px; margin-top:8px}
+.vm .ctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 6px; font:inherit; font-size:16px; font-weight:700; cursor:pointer}
+.vm .pre{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; justify-content:center}
+.vm .pre button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:4px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.vm .pre button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft)}
+
+/* la scala dei prefissi */
+.lad{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.lad .dims{display:flex; gap:6px; margin-bottom:10px}
+.lad .dims button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 4px; font:inherit; font-size:16px; font-weight:700; color:var(--soft); cursor:pointer}
+.lad .dims button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.lad .hint{font-size:15px; color:var(--soft); text-align:center; margin-bottom:8px}
+.rungs{display:flex; flex-direction:column; gap:4px}
+.rung{display:flex; align-items:center; gap:10px; border:2px solid var(--rule); border-radius:10px; padding:6px 10px; background:#fff; cursor:pointer; font:inherit; color:var(--ink); text-align:left; width:100%}
+.rung .u{font-family:"Times New Roman",Georgia,serif; font-size:21px; font-weight:700; min-width:64px}
+.rung .e{font-size:14px; color:var(--soft)}
+.rung.gap{border-style:dashed; padding:0 10px; min-height:14px; cursor:default; background:transparent}
+.rung.gap .e{font-size:12.5px}
+.rung.mid{background:#F4F1EA}
+.rung.from{border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+.rung.to{border-color:var(--ink); background:var(--ink); color:#fff}
+.rung.to .e{color:#DDE3EA}
+.lad .out{margin-top:10px; border-radius:12px; padding:10px 12px; font-size:17px; line-height:1.55; min-height:3.2em; background:#F4F1EA}
+.lad .out.g{background:var(--giu-soft); color:var(--giu)}
+.lad .out.s{background:var(--su-soft); color:var(--su)}
+
+/* passaggi di stato */
+.sb{font-size:14px}
+
+/* curve di riscaldamento */
+.curva{margin:14px 0}
+.cbtns{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.cb{border:2px solid var(--rule); border-left-width:12px; background:#fff; border-radius:10px; padding:8px 12px;
+  font:inherit; font-size:16px; text-align:left; color:var(--ink); cursor:pointer}
+.cb.on{border-top-color:var(--accent); border-right-color:var(--accent); border-bottom-color:var(--accent); background:var(--accent-soft)}
+.cout{margin-top:8px; border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:#F4F1EA; color:var(--soft); min-height:3.2em}
+.cout.on{background:var(--accent-soft); color:var(--ink); border:1px solid var(--accent-line)}
+/* striscia dei punti fissi */
+.strip{display:flex; align-items:stretch; margin:12px 0 2px; font-size:15px; font-weight:700; text-align:center}
+.strip .z{flex:1; padding:9px 4px; border-radius:8px}
+.strip .z1{background:#D5DCE3} .strip .z2{background:#D3E5F6} .strip .z3{background:#FAEBC0}
+.strip .mk{flex:0 0 auto; align-self:center; padding:0 6px; font-family:"Times New Roman",Georgia,serif; font-size:19px; color:var(--accent)}
+.stripax{font-size:13px; color:var(--soft); text-align:right; margin-bottom:10px}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+
+/* le tre famiglie */
+.fam{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:14px 0}
+.fam div{border-radius:12px; padding:8px 6px; text-align:center; font-size:13.5px; line-height:1.4}
+.fam b{display:block; font-size:16px; margin-bottom:2px}
+.fam svg{margin:2px auto 4px}
+.fam .f1{background:#FBEFD3; color:#6E4A06} .fam .f2{background:#FBE3EF; color:#8E1B55} .fam .f3{background:#E6EEF9; color:#1D4F8A}
+
+/* catena di monomeri e disegni a pulsanti */
+.poly,.tog{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.pstat{text-align:center; font-size:16.5px}
+.pctl{display:flex; gap:8px; margin-top:10px}
+.pctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:10px 6px;
+  font:inherit; font-size:16px; font-weight:700; cursor:pointer; line-height:1.3}
+.pctl button small{display:block; font-size:12.5px; font-weight:600; color:var(--soft)}
+.pctl button:disabled{opacity:.35}
+.pmsg{min-height:1.6em; text-align:center; font-size:15px; color:var(--soft); margin-top:8px}
+.tbtns{display:flex; flex-wrap:wrap; gap:6px}
+.tbtns button{flex:1 1 40%; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 6px;
+  font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer}
+.tbtns button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.tout{border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:var(--accent-soft); border:1px solid var(--accent-line)}
+
+
+.flow .st .n{text-transform:none; letter-spacing:0; font-size:14.5px}
+/* analogia */
+.an{background:#E6EEF9; border:1px solid #C9D9EE; border-radius:12px; padding:12px 16px; margin:14px 0; font-size:17px; line-height:1.6}
+.an .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:#1D4F8A; font-weight:700; margin-bottom:3px}
+/* prova tu */
+.quiz{margin-top:18px; padding-top:14px; border-top:1px dashed var(--rule)}
+.quiz .qhd{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.quiz .qhd span{color:var(--soft); letter-spacing:.04em}
+.qz{margin:10px 0 16px}
+.qz .qq{font-weight:700; font-size:17px; line-height:1.45; margin-bottom:7px}
+.qz .op{display:flex; flex-direction:column; gap:6px}
+.qz .op button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left; font:inherit; font-size:16.5px; line-height:1.4; color:var(--ink); cursor:pointer}
+.qz .op button.right{border-color:#1F5C4B; background:#E8F0EC; color:#1F5C4B; font-weight:700}
+.qz .op button.wrong{border-color:#9B2C2C; background:#FBEAEA; color:#9B2C2C}
+.qz.done .op button:not(.right):not(.wrong){opacity:.5}
+.qz .why{display:none; margin-top:7px; border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.55}
+.qz .why.on{display:block}
+.qz .why.y{background:#E8F0EC; color:#1F5C4B}
+.qz .why.n{background:#FBEAEA; color:#7A2222}
+/* percorso */
+.path{display:flex; gap:8px; margin:26px 0 0}
+.path a{flex:1; display:block; border:2px solid var(--accent-line); border-radius:12px; padding:10px 12px; text-decoration:none; color:var(--accent); font-weight:700; font-size:15px; line-height:1.35; background:#fff}
+.path a small{display:block; color:var(--soft); font-weight:600; font-size:12.5px}
+.path a.nx{text-align:right}
+/* costruttore di atomi */
+.atomw,.formw{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.aw-row{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:8px}
+.aw-ctl{border:1px solid var(--rule); border-radius:12px; padding:6px; text-align:center; font-size:14px; font-weight:700}
+.aw-ctl .v{font-size:22px; display:block; line-height:1.2}
+.aw-ctl button{border:2px solid var(--rule); background:#fff; border-radius:9px; width:40px; height:36px; font-size:20px; font-weight:700; cursor:pointer; margin:2px}
+.aw-out{margin-top:8px; border-radius:12px; padding:10px 12px; background:var(--accent-soft); border:1px solid var(--accent-line); font-size:16.5px; line-height:1.55}
+.aw-sym{font-family:"Times New Roman",Georgia,serif; font-size:30px; display:inline-flex; align-items:center; gap:2px; margin-right:10px; vertical-align:middle}
+.aw-sym .ix{display:inline-flex; flex-direction:column; font-size:15px; line-height:1.05; text-align:right}
+.fw-sel{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+.fw-sel label{font-size:13px; font-weight:700; color:var(--soft); display:block; margin-bottom:3px}
+.fw-sel select{width:100%; font:inherit; font-size:17px; padding:8px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink)}
+.fw-tiles{display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; justify-content:center}
+.fw-t{border-radius:10px; padding:6px 10px; font-weight:700; font-size:16px}
+.fw-t.c{background:#E6EEF9; color:#1D4F8A; border:2px solid #9DB8DC}
+.fw-t.a{background:#FBE3EF; color:#8E1B55; border:2px solid #E8A9C8}
+.fw-f{font-family:"Times New Roman",Georgia,serif; font-size:30px; text-align:center; margin:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Scienze · scheda 12 di 12</div>
+  <h1>12 · Le biomolecole</h1>
+  <p class="lead">Carboidrati, lipidi e proteine: come sono fatti, come si costruiscono e a che cosa servono. Usa quello che hai visto nelle schede 10 e 11: legami, gruppi –OH, –COOH, –NH₂, polare e apolare.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<nav class="path"><a href="26-11-05-sc11-acqua.html">◀ Scheda 11<small>L'acqua</small></a></nav><p class="foot" id="foot">Percorso di scienze in 12 schede, costruito sugli appunti di Liam (settembre–novembre 2026).</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const PARTI = ["1 · Le molecole della vita", "2 · Carboidrati", "3 · Lipidi", "4 · Proteine", "5 · Ripasso"];
+const CARDS = [{"parte": 0, "t": "Di che cosa parlano gli appunti", "body": "<p class=\"s\">Gli appunti parlano delle biomolecole: le grandi molecole che formano gli esseri viventi e danno loro energia.</p><p class=\"s\">Ne avete studiate tre famiglie: i carboidrati, i lipidi e le proteine.</p><div class=\"fam\"><div class=\"f1\"><svg viewBox=\"0 0 90 44\" style=\"margin:4px auto 2px;max-width:90px\"><polygon points=\"29.3,28.5 18.0,35.0 6.7,28.5 6.7,15.5 18.0,9.0 29.3,15.5\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"31\" y1=\"22\" x2=\"37\" y2=\"22\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"61.3,28.5 50.0,35.0 38.7,28.5 38.7,15.5 50.0,9.0 61.3,15.5\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"63\" y1=\"22\" x2=\"69\" y2=\"22\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"88.9,26.0 82.0,30.0 75.1,26.0 75.1,18.0 82.0,14.0 88.9,18.0\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/></svg><b>Carboidrati</b>gli zuccheri: energia, riserva, struttura delle piante</div><div class=\"f2\"><svg viewBox=\"0 0 90 44\" style=\"margin:4px auto 2px;max-width:90px\"><circle cx=\"16\" cy=\"22\" r=\"10\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"3\"/><polyline points=\"27.0,18.0 35.0,25.0 43.0,18.0 51.0,25.0 59.0,18.0 67.0,25.0 75.0,18.0 83.0,25.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/></svg><b>Lipidi</b>grassi e oli: riserva di energia</div><div class=\"f3\"><svg viewBox=\"0 0 90 44\" style=\"margin:4px auto 2px;max-width:90px\"><circle cx=\"8\" cy=\"22.0\" r=\"6\" fill=\"#1D5FA8\"/><circle cx=\"20\" cy=\"28.2\" r=\"6\" fill=\"#7B3FA0\"/><circle cx=\"33\" cy=\"27.7\" r=\"6\" fill=\"#2E9E5B\"/><circle cx=\"45\" cy=\"20.9\" r=\"6\" fill=\"#C98A12\"/><circle cx=\"58\" cy=\"15.3\" r=\"6\" fill=\"#D63384\"/><circle cx=\"70\" cy=\"17.1\" r=\"6\" fill=\"#1D5FA8\"/><circle cx=\"83\" cy=\"24.2\" r=\"6\" fill=\"#7B3FA0\"/></svg><b>Proteine</b>costruiscono e lavorano: trasporto, muscoli, messaggeri</div></div><p class=\"s\">Le grandi biomolecole si costruiscono quasi tutte allo stesso modo: tanti pezzi piccoli attaccati uno all'altro, come i vagoni di un treno.</p>", "words": [["biomolecola", "molecola che si trova negli esseri viventi (bio = vita)."]], "ask": ["Quali sono le tre famiglie di biomolecole degli appunti?", "<b>Carboidrati, lipidi e proteine.</b>"], "quiz": [["Le tre famiglie di biomolecole degli appunti sono…", ["acqua, sali, gas", "atomi, ioni, molecole", "carboidrati, lipidi, proteine"], 2, "Più avanti vedrai anche gli acidi nucleici."]]}, {"parte": 0, "t": "Prima di cominciare: le basi", "body": "<p class=\"s\">Per capire le biomolecole servono quattro idee delle schede 10 e 11. Eccole in breve.</p><div class=\"scroll\"><table><tr><th>idea</th><th>in breve</th><th>scheda</th></tr><tr><td>il carbonio fa 4 legami</td><td>per questo forma lunghe catene</td><td>10</td></tr><tr><td>doppio legame C=C</td><td>fa piegare la catena degli acidi grassi insaturi</td><td>10</td></tr><tr><td>gruppi –OH, –COOH, –NH₂</td><td>le «maniglie» che si attaccano tra loro</td><td>10</td></tr><tr><td>polare e apolare</td><td>polare va con l'acqua, apolare no</td><td>10 e 11</td></tr></table></div><div class=\"an s\"><div class=\"lbl\">Le maniglie in questa scheda</div><span style=\"display:none\">: </span>Il –OH del glicerolo si attacca al –COOH degli acidi grassi (trigliceridi). Il –COOH di un amminoacido si attacca al –NH₂ del successivo (proteine). Gli zuccheri si attaccano tra loro con i loro –OH. Ogni volta esce una molecola d'acqua.</div>", "ask": ["Che cosa esce ogni volta che due pezzi di una biomolecola si attaccano?", "Una molecola d'<b>acqua</b>: è una condensazione."], "quiz": [["Il glicerolo ha tre gruppi…", ["–COOH", "–OH", "–NH₂"], 1, "Tre ossidrili."], ["Un amminoacido ha i gruppi…", ["–NH₂ e –COOH", "solo C e H", "solo –OH"], 0, "Amminico e carbossilico."]]}, {"parte": 0, "t": "Monomeri e polimeri", "body": "<p class=\"s\">Un monomero è un pezzo piccolo, un'unità che si ripete. Un polimero è una catena lunga, fatta di tanti monomeri attaccati.</p><div class=\"poly\"></div><p class=\"s\">Unire i monomeri si chiama polimerizzazione. È una sintesi per condensazione: ogni volta che due pezzi si attaccano, esce una molecola d'acqua.</p><p class=\"s\">Il contrario è l'idrolisi: con l'acqua la catena si spezza e tornano i monomeri. È una decomposizione, detta anche depolimerizzazione.</p><div class=\"trap s\" data-say=\"Attenzione agli appunti: sotto la freccia della decomposizione c'è scritto idrocarburi. La parola giusta è idrolisi: idro vuol dire acqua, lisi vuol dire rompere.\"><b>Negli appunti</b> sotto la freccia della decomposizione c'è scritto «idrocarburi». La parola giusta è <b>idrolisi</b>: idro = acqua, lisi = rompere.</div>", "init": "polyInit", "words": [["monomero", "mono = uno, mero = parte: il pezzo singolo."], ["polimero", "poli = tanti: la catena di tanti monomeri."], ["condensazione", "unione di due molecole con uscita di una molecola d'acqua."], ["idrolisi", "rottura di una molecola grazie all'acqua."]], "ask": ["Per unire 5 monomeri in una catena, quante molecole d'acqua escono?", "<b>4</b>: una per ogni attacco. Prova con i pulsanti: i monomeri sono sempre uno in più delle molecole d'acqua."], "quiz": [["Unendo 4 monomeri escono molecole d'acqua…", ["3", "4", "5"], 0, "Una per ogni attacco."], ["L'idrolisi…", ["produce idrocarburi", "spezza un polimero usando l'acqua", "unisce i monomeri"], 1, "Idro = acqua, lisi = rompere."]]}, {"parte": 1, "t": "I carboidrati: quattro gruppi", "body": "<p class=\"s\">I carboidrati sono gli zuccheri. Si dividono in quattro gruppi, secondo quante unità di zucchero contengono.</p><svg viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"Carboidrati: uno, due, pochi o tanti zuccheri\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"4\" y=\"28\" text-anchor=\"start\" font-size=\"13.5\" fill=\"#1B2430\" font-weight=\"700\">monosaccaridi</text><text x=\"4\" y=\"44\" text-anchor=\"start\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">1 zucchero</text><polygon points=\"135.1,35.2 126.0,40.5 116.9,35.2 116.9,24.8 126.0,19.5 135.1,24.7\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"4\" y=\"74\" text-anchor=\"start\" font-size=\"13.5\" fill=\"#1B2430\" font-weight=\"700\">disaccaridi</text><text x=\"4\" y=\"90\" text-anchor=\"start\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">2 zuccheri</text><polygon points=\"135.1,81.2 126.0,86.5 116.9,81.2 116.9,70.8 126.0,65.5 135.1,70.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"136\" y1=\"76\" x2=\"140\" y2=\"76\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"159.1,81.2 150.0,86.5 140.9,81.2 140.9,70.8 150.0,65.5 159.1,70.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"4\" y=\"120\" text-anchor=\"start\" font-size=\"13.5\" fill=\"#1B2430\" font-weight=\"700\">oligosaccaridi</text><text x=\"4\" y=\"136\" text-anchor=\"start\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">pochi</text><polygon points=\"135.1,127.2 126.0,132.5 116.9,127.2 116.9,116.8 126.0,111.5 135.1,116.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"136\" y1=\"122\" x2=\"140\" y2=\"122\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"159.1,127.2 150.0,132.5 140.9,127.2 140.9,116.8 150.0,111.5 159.1,116.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"160\" y1=\"122\" x2=\"164\" y2=\"122\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"183.1,127.2 174.0,132.5 164.9,127.2 164.9,116.8 174.0,111.5 183.1,116.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"184\" y1=\"122\" x2=\"188\" y2=\"122\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"207.1,127.2 198.0,132.5 188.9,127.2 188.9,116.8 198.0,111.5 207.1,116.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"4\" y=\"166\" text-anchor=\"start\" font-size=\"13.5\" fill=\"#1B2430\" font-weight=\"700\">polisaccaridi</text><text x=\"4\" y=\"182\" text-anchor=\"start\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">tanti</text><polygon points=\"135.1,173.2 126.0,178.5 116.9,173.2 116.9,162.8 126.0,157.5 135.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"136\" y1=\"168\" x2=\"140\" y2=\"168\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"159.1,173.2 150.0,178.5 140.9,173.2 140.9,162.8 150.0,157.5 159.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"160\" y1=\"168\" x2=\"164\" y2=\"168\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"183.1,173.2 174.0,178.5 164.9,173.2 164.9,162.8 174.0,157.5 183.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"184\" y1=\"168\" x2=\"188\" y2=\"168\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"207.1,173.2 198.0,178.5 188.9,173.2 188.9,162.8 198.0,157.5 207.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"208\" y1=\"168\" x2=\"212\" y2=\"168\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"231.1,173.2 222.0,178.5 212.9,173.2 212.9,162.8 222.0,157.5 231.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"232\" y1=\"168\" x2=\"236\" y2=\"168\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"255.1,173.2 246.0,178.5 236.9,173.2 236.9,162.8 246.0,157.5 255.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"256\" y1=\"168\" x2=\"260\" y2=\"168\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"279.1,173.2 270.0,178.5 260.9,173.2 260.9,162.8 270.0,157.5 279.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"280\" y1=\"168\" x2=\"284\" y2=\"168\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"303.1,173.2 294.0,178.5 284.9,173.2 284.9,162.8 294.0,157.5 303.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><line x1=\"304\" y1=\"168\" x2=\"308\" y2=\"168\" stroke=\"#C98A12\" stroke-width=\"2.5\"/><polygon points=\"327.1,173.2 318.0,178.5 308.9,173.2 308.9,162.8 318.0,157.5 327.1,162.8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"338\" y=\"173\" text-anchor=\"start\" font-size=\"18\" fill=\"#C98A12\" font-weight=\"700\">…</text><path d=\"M330,14 V96\" stroke=\"#2E9E5B\" stroke-width=\"2\" fill=\"none\"/><text x=\"326\" y=\"60\" text-anchor=\"end\" font-size=\"12\" fill=\"#2E9E5B\" font-weight=\"700\">dolci</text></g></svg><p class=\"s\" data-say=\"Il nome lo dice: mono vuol dire uno, di vuol dire due, oligo vuol dire pochi, poli vuol dire tanti.\">Il nome lo dice: <b>mono</b> = uno, <b>di</b> = due, <b>oligo</b> = pochi, <b>poli</b> = tanti.</p><p class=\"s\">Monosaccaridi e disaccaridi sono gli zuccheri semplici: hanno sapore dolce. I polisaccaridi sono gli zuccheri complessi.</p>", "words": [["saccaride", "vuol dire zucchero (dal latino saccharum)."]], "ask": ["Il saccarosio è fatto di due zuccheri semplici. In che gruppo sta?", "Nei <b>disaccaridi</b>."], "quiz": [["Il lattosio è un…", ["polisaccaride", "monosaccaride", "disaccaride"], 2, "Glucosio + galattosio."], ["Gli zuccheri dolci sono…", ["mono e disaccaridi", "polisaccaridi"], 0, "Gli zuccheri semplici."]]}, {"parte": 1, "t": "Glucosio e fruttosio: gli isomeri", "body": "<p class=\"s\" data-say=\"Il monosaccaride più importante è il glucosio. La sua formula è: C sei, H dodici, O sei.\">Il monosaccaride più importante è il <b>glucosio</b>: formula C₆H₁₂O₆.</p><p class=\"s\" data-say=\"Anche il fruttosio, lo zucchero della frutta, ha formula C sei, H dodici, O sei.\">Anche il <b>fruttosio</b>, lo zucchero della frutta, ha formula C₆H₁₂O₆.</p><svg viewBox=\"0 0 340 190\" role=\"img\" aria-label=\"Glucosio esagono e fruttosio pentagono, stessa formula\"><g font-family=\"-apple-system,Arial,sans-serif\"><polygon points=\"124.6,90.0 90.0,110.0 55.4,90.0 55.4,50.0 90.0,30.0 124.6,50.0\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"3\"/><circle cx=\"124.6\" cy=\"50.0\" r=\"11\" fill=\"#fff\" stroke=\"#C0392B\" stroke-width=\"2\"/><text x=\"124.64101615137756\" y=\"54.5\" text-anchor=\"middle\" font-size=\"13\" fill=\"#C0392B\" font-weight=\"700\">O</text><polygon points=\"250.0,32.0 288.0,59.6 273.5,104.4 226.5,104.4 212.0,59.6\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"3\"/><circle cx=\"250\" cy=\"32\" r=\"11\" fill=\"#fff\" stroke=\"#C0392B\" stroke-width=\"2\"/><text x=\"250\" y=\"36.5\" text-anchor=\"middle\" font-size=\"13\" fill=\"#C0392B\" font-weight=\"700\">O</text><text x=\"90\" y=\"140\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">glucosio</text><text x=\"90\" y=\"158\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">anello a 6 lati</text><text x=\"250\" y=\"140\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">fruttosio</text><text x=\"250\" y=\"158\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">anello a 5 lati</text><text x=\"170\" y=\"180\" text-anchor=\"middle\" font-size=\"13.5\" fill=\"#C98A12\" font-weight=\"700\">stessa formula: C₆H₁₂O₆</text></g></svg><p class=\"s\">Stessa formula, ma atomi disposti in modo diverso: si chiamano isomeri. Il glucosio si chiude ad anello a sei lati, il fruttosio a cinque lati.</p><div class=\"ex s\" data-say=\"È come con i mattoncini: stessi pezzi, costruzione diversa.\"><div class=\"lbl\">Come i mattoncini</div>Stessi pezzi, costruzione diversa.</div><div class=\"trap s\" data-say=\"Negli appunti il glucosio è disegnato come un ottagono. L'anello del glucosio ha sei lati: è un esagono.\"><b>Negli appunti</b> il glucosio è disegnato come un ottagono: il suo anello ha <b>sei</b> lati.</div>", "words": [["isomeri", "molecole con la stessa formula ma con struttura diversa."]], "ask": ["Glucosio e fruttosio hanno la stessa formula. Perché sono sostanze diverse?", "Perché gli atomi sono disposti in modo diverso: sono <b>isomeri</b>."], "quiz": [["Glucosio e fruttosio sono…", ["polimeri", "lo stesso zucchero", "isomeri"], 2, "Stessa formula, struttura diversa."], ["L'anello del glucosio ha…", ["8 lati", "6 lati", "5 lati"], 1, "Il fruttosio ne ha 5."]]}, {"parte": 1, "t": "I disaccaridi", "body": "<p class=\"s\">Un disaccaride è fatto da due monosaccaridi uniti per condensazione: quando si attaccano, esce una molecola d'acqua.</p><svg viewBox=\"0 0 340 182\" role=\"img\" aria-label=\"Glucosio e fruttosio uniti: saccarosio, esce acqua\"><g font-family=\"-apple-system,Arial,sans-serif\"><polygon points=\"109.4,112.0 80.0,129.0 50.6,112.0 50.6,78.0 80.0,61.0 109.4,78.0\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"3\"/><polygon points=\"255.0,63.0 287.3,86.5 275.0,124.5 235.0,124.5 222.7,86.5\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"3\"/><line x1=\"114\" y1=\"95\" x2=\"160\" y2=\"95\" stroke=\"#C98A12\" stroke-width=\"3\"/><line x1=\"182\" y1=\"95\" x2=\"222\" y2=\"95\" stroke=\"#C98A12\" stroke-width=\"3\"/><circle cx=\"171\" cy=\"95\" r=\"11\" fill=\"#fff\" stroke=\"#C0392B\" stroke-width=\"2\"/><text x=\"171\" y=\"99.5\" text-anchor=\"middle\" font-size=\"13\" fill=\"#C0392B\" font-weight=\"700\">O</text><path d=\"M171,78 V44\" stroke=\"#4F9BD9\" stroke-width=\"2\" stroke-dasharray=\"4 3\" fill=\"none\"/><path d=\"M165,50 L171,42 L177,50\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><path d=\"M171.0,21.0 C178.0,29.0 177.0,37.0 171.0,37.0 C165.0,37.0 164.0,29.0 171.0,21.0 Z\" fill=\"#4F9BD9\"/><text x=\"171.0\" y=\"17.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"#1D5FA8\" font-weight=\"700\">H₂O</text><text x=\"80\" y=\"150\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1B2430\" font-weight=\"700\">glucosio</text><text x=\"255\" y=\"150\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1B2430\" font-weight=\"700\">fruttosio</text><text x=\"171\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"#5A6473\" font-weight=\"400\">= saccarosio + una molecola d'acqua che esce</text></g></svg><div class=\"scroll\"><table><tr><th>Disaccaride</th><th>È fatto da</th></tr><tr><td><b>saccarosio</b><br>lo zucchero da cucina</td><td>glucosio + fruttosio</td></tr><tr><td><b>lattosio</b><br>lo zucchero del latte</td><td>glucosio + galattosio</td></tr></table></div><p class=\"s\" data-say=\"Siccome esce una molecola d'acqua, il saccarosio non è C dodici H ventiquattro O dodici, ma C dodici H ventidue O undici.\">Siccome esce un H₂O, il saccarosio non è C₁₂H₂₄O₁₂ ma <b>C₁₂H₂₂O₁₁</b>.</p><span class=\"f\">C₆H₁₂O₆ + C₆H₁₂O₆ → C₁₂H₂₂O₁₁ + H₂O</span><div class=\"trap s\" data-say=\"Negli appunti la riga del lattosio è rimasta a metà: il lattosio è fatto di glucosio più galattosio.\"><b>Negli appunti</b> la riga del lattosio è rimasta a metà: lattosio = glucosio + galattosio.</div>", "ask": ["Glucosio + fruttosio: quale disaccaride si forma, e che cosa esce?", "Il <b>saccarosio</b>; esce <b>una molecola d'acqua</b>."], "quiz": [["Glucosio + fruttosio →", ["lattosio", "amido", "saccarosio + acqua"], 2, "Condensazione."], ["La formula del saccarosio è…", ["C₁₂H₂₂O₁₁", "C₆H₁₂O₆", "C₁₂H₂₄O₁₂"], 0, "Esce un H₂O."]]}, {"parte": 1, "t": "I polisaccaridi: tre polimeri del glucosio", "body": "<p class=\"s\">Cellulosa, amido e glicogeno sono tutti polimeri del glucosio: catene lunghissime di glucosio. Cambia come sono fatte le catene e a che cosa servono.</p><svg viewBox=\"0 0 340 250\" role=\"img\" aria-label=\"Cellulosa, amido e glicogeno disegnati come catene di glucosio\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"4\" y=\"20\" text-anchor=\"start\" font-size=\"14\" fill=\"#1B2430\" font-weight=\"700\">cellulosa</text><text x=\"4\" y=\"36\" text-anchor=\"start\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">catene dritte, affiancate</text><text x=\"4\" y=\"52\" text-anchor=\"start\" font-size=\"12.5\" fill=\"#C98A12\" font-weight=\"700\">costruisce la pianta</text><circle cx=\"170.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"179.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"188.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"197.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"206.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"215.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"224.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"233.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"242.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"251.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"260.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"269.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"278.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"287.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"296.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"305.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"314.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"323.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"332.0\" cy=\"16.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"170.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"179.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"188.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"197.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"206.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"215.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"224.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"233.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"242.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"251.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"260.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"269.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"278.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"287.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"296.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"305.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"314.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"323.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"332.0\" cy=\"25.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"170.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"179.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"188.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"197.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"206.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"215.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"224.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"233.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"242.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"251.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"260.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"269.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"278.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"287.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"296.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"305.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"314.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"323.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"332.0\" cy=\"34.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"170.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"179.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"188.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"197.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"206.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"215.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"224.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"233.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"242.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"251.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"260.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"269.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"278.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"287.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"296.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"305.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"314.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"323.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"332.0\" cy=\"43.0\" r=\"3.6\" fill=\"#C98A12\"/><text x=\"4\" y=\"100\" text-anchor=\"start\" font-size=\"14\" fill=\"#1B2430\" font-weight=\"700\">amido</text><text x=\"4\" y=\"116\" text-anchor=\"start\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">catena con pochi rami</text><text x=\"4\" y=\"132\" text-anchor=\"start\" font-size=\"12.5\" fill=\"#C98A12\" font-weight=\"700\">riserva delle piante</text><circle cx=\"170.0\" cy=\"112.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"178.0\" cy=\"114.6\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"186.0\" cy=\"116.7\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"194.0\" cy=\"117.9\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"202.0\" cy=\"117.8\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"210.0\" cy=\"116.6\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"218.0\" cy=\"114.4\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"226.0\" cy=\"111.8\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"234.0\" cy=\"109.2\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"242.0\" cy=\"107.1\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"250.0\" cy=\"106.1\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"258.0\" cy=\"106.2\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"266.0\" cy=\"107.6\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"274.0\" cy=\"109.8\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"282.0\" cy=\"112.5\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"290.0\" cy=\"115.1\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"298.0\" cy=\"117.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"306.0\" cy=\"118.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"314.0\" cy=\"117.7\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"322.0\" cy=\"116.3\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"330.0\" cy=\"114.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"234.0\" cy=\"115.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"241.0\" cy=\"108.8\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"248.0\" cy=\"102.5\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"255.0\" cy=\"96.2\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"262.0\" cy=\"90.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"290.0\" cy=\"112.0\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"299.3\" cy=\"118.7\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"308.7\" cy=\"125.3\" r=\"3.6\" fill=\"#C98A12\"/><circle cx=\"318.0\" cy=\"132.0\" r=\"3.6\" fill=\"#C98A12\"/><text x=\"4\" y=\"184\" text-anchor=\"start\" font-size=\"14\" fill=\"#1B2430\" font-weight=\"700\">glicogeno</text><text x=\"4\" y=\"200\" text-anchor=\"start\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">tantissimi rami</text><text x=\"4\" y=\"216\" text-anchor=\"start\" font-size=\"12.5\" fill=\"#C98A12\" font-weight=\"700\">riserva degli animali:</text><text x=\"4\" y=\"232\" text-anchor=\"start\" font-size=\"12.5\" fill=\"#C98A12\" font-weight=\"700\">fegato e muscoli</text><circle cx=\"176.0\" cy=\"205.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"186.5\" cy=\"205.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"197.0\" cy=\"205.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"207.5\" cy=\"205.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"218.0\" cy=\"205.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"218.0\" cy=\"205.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"226.4\" cy=\"199.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"234.9\" cy=\"193.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"243.3\" cy=\"186.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"243.3\" cy=\"186.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"247.0\" cy=\"176.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"250.8\" cy=\"165.2\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"250.8\" cy=\"165.2\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"248.3\" cy=\"157.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"245.9\" cy=\"148.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"250.8\" cy=\"165.2\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"257.7\" cy=\"160.2\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"264.6\" cy=\"155.3\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"243.3\" cy=\"186.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"254.8\" cy=\"186.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"266.3\" cy=\"186.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"266.3\" cy=\"186.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"273.2\" cy=\"182.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"280.1\" cy=\"177.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"266.3\" cy=\"186.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"273.2\" cy=\"191.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"280.1\" cy=\"196.8\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"218.0\" cy=\"205.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"226.4\" cy=\"211.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"234.9\" cy=\"217.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"243.3\" cy=\"223.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"243.3\" cy=\"223.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"254.8\" cy=\"223.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"266.3\" cy=\"223.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"266.3\" cy=\"223.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"273.2\" cy=\"218.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"280.1\" cy=\"213.2\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"266.3\" cy=\"223.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"273.2\" cy=\"228.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"280.1\" cy=\"232.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"243.3\" cy=\"223.1\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"247.0\" cy=\"233.9\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"250.8\" cy=\"244.8\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"250.8\" cy=\"244.8\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"257.7\" cy=\"249.8\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"264.6\" cy=\"254.7\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"250.8\" cy=\"244.8\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"248.3\" cy=\"253.0\" r=\"3.2\" fill=\"#C98A12\"/><circle cx=\"245.9\" cy=\"261.1\" r=\"3.2\" fill=\"#C98A12\"/></g></svg><div class=\"scroll\"><table><tr><th>Polisaccaride</th><th>Dove</th><th>A che cosa serve</th></tr><tr><td><b>cellulosa</b></td><td>piante</td><td>costituisce la pianta: è il suo materiale da costruzione</td></tr><tr><td><b>amido</b></td><td>piante</td><td>riserva di energia (patate, cereali)</td></tr><tr><td><b>glicogeno</b></td><td>animali</td><td>riserva di energia, nei muscoli e nel fegato</td></tr></table></div>", "words": [["riserva", "energia messa da parte, da usare quando serve."]], "ask": ["Dove mettiamo da parte il glicogeno?", "Nei <b>muscoli</b> e nel <b>fegato</b>."], "quiz": [["Il glicogeno si trova…", ["nel legno", "nelle foglie", "nei muscoli e nel fegato"], 2, "Riserva degli animali."], ["La cellulosa…", ["è la riserva degli animali", "è uno zucchero semplice", "costituisce la struttura delle piante"], 2, "Materiale da costruzione."]]}, {"parte": 1, "t": "Carboidrati ed energia", "body": "<p class=\"s\">Gli zuccheri semplici danno energia subito: si usano in fretta.</p><p class=\"s\">L'amido dà energia a lungo termine: prima va spezzato in tanti glucosi, quindi l'energia arriva piano piano.</p><p class=\"s\">La cellulosa per noi non dà energia: non riusciamo a digerirla. Sono le fibre.</p><svg viewBox=\"0 0 340 148\" role=\"img\" aria-label=\"Un grammo di carboidrati 4 kilocalorie, un grammo di grassi 9\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"4\" y=\"18\" text-anchor=\"start\" font-size=\"13.5\" fill=\"#1B2430\" font-weight=\"700\">1 g di carboidrati → 4 kcal</text><rect x=\"4\" y=\"26\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#C98A12\"/><rect x=\"37\" y=\"26\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#C98A12\"/><rect x=\"70\" y=\"26\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#C98A12\"/><rect x=\"103\" y=\"26\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#C98A12\"/><text x=\"4\" y=\"84\" text-anchor=\"start\" font-size=\"13.5\" fill=\"#1B2430\" font-weight=\"700\">1 g di grassi → 9 kcal</text><rect x=\"4\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><rect x=\"37\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><rect x=\"70\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><rect x=\"103\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><rect x=\"136\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><rect x=\"169\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><rect x=\"202\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><rect x=\"235\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><rect x=\"268\" y=\"92\" width=\"28\" height=\"28\" rx=\"5\" fill=\"#2E9E5B\"/><text x=\"4\" y=\"140\" text-anchor=\"start\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">ogni quadratino = 1 kcal</text></g></svg><p class=\"s\">Un grammo di carboidrati dà circa 4 kilocalorie. Un grammo di grassi ne dà 9: più del doppio.</p>", "words": [["kilocaloria (kcal)", "unità di energia: 1 kcal = 1000 cal = 4,186 kJ."]], "ask": ["Quante kcal danno circa 10 g di zucchero? E 10 g di olio?", "Zucchero: 10 × 4 = <b>40 kcal</b>. Olio: 10 × 9 = <b>90 kcal</b>."], "quiz": [["1 g di grassi dà circa…", ["9 kcal", "4 kcal", "1 kcal"], 0, "Più del doppio dei carboidrati."], ["Gli zuccheri semplici danno energia…", ["mai", "subito", "a lungo termine"], 1, "L'amido invece piano piano."]]}, {"parte": 2, "t": "I lipidi: quattro tipi", "body": "<p class=\"s\">I lipidi sono i grassi e gli oli. Negli appunti ce ne sono quattro tipi: acidi grassi, trigliceridi, fosfolipidi e steroidi.</p><svg viewBox=\"0 0 340 192\" role=\"img\" aria-label=\"Quattro tipi di lipidi: acido grasso, trigliceride, fosfolipide, steroide\"><g font-family=\"-apple-system,Arial,sans-serif\"><circle cx=\"30\" cy=\"40\" r=\"10\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"3\"/><polyline points=\"41.0,36.0 50.0,43.0 59.0,36.0 68.0,43.0 77.0,36.0 86.0,43.0 95.0,36.0 104.0,43.0 113.0,36.0 122.0,43.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"85\" y=\"80\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1B2430\" font-weight=\"700\">acido grasso</text><rect x=\"186\" y=\"14\" width=\"10\" height=\"56\" rx=\"4\" fill=\"#5A6473\"/><polyline points=\"197.0,20.0 206.0,26.0 215.0,20.0 224.0,26.0 233.0,20.0 242.0,26.0 251.0,20.0 260.0,26.0 269.0,20.0 278.0,26.0 287.0,20.0 296.0,26.0 305.0,20.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"197.0,40.0 206.0,46.0 215.0,40.0 224.0,46.0 233.0,40.0 242.0,46.0 251.0,40.0 260.0,46.0 269.0,40.0 278.0,46.0 287.0,40.0 296.0,46.0 305.0,40.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"197.0,60.0 206.0,66.0 215.0,60.0 224.0,66.0 233.0,60.0 242.0,66.0 251.0,60.0 260.0,66.0 269.0,60.0 278.0,66.0 287.0,60.0 296.0,66.0 305.0,60.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"255\" y=\"80\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1B2430\" font-weight=\"700\">trigliceride</text><circle cx=\"30\" cy=\"128\" r=\"11\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"3\"/><text x=\"30\" y=\"132.5\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2E9E5B\" font-weight=\"700\">P</text><rect x=\"42\" y=\"118\" width=\"9\" height=\"40\" rx=\"4\" fill=\"#5A6473\"/><polyline points=\"52.0,124.0 61.0,130.0 70.0,124.0 79.0,130.0 88.0,124.0 97.0,130.0 106.0,124.0 115.0,130.0 124.0,124.0 133.0,130.0 142.0,124.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"52.0,144.0 61.0,150.0 70.0,144.0 79.0,150.0 88.0,144.0 97.0,150.0 106.0,144.0 115.0,150.0 124.0,144.0 133.0,150.0 142.0,144.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"85\" y=\"180\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1B2430\" font-weight=\"700\">fosfolipide</text><polygon points=\"208.1,142.0 196.0,149.0 183.9,142.0 183.9,128.0 196.0,121.0 208.1,128.0\" fill=\"none\" stroke=\"#5A6473\" stroke-width=\"2.5\"/><polygon points=\"232.1,128.0 220.0,135.0 207.9,128.0 207.9,114.0 220.0,107.0 232.1,114.0\" fill=\"none\" stroke=\"#5A6473\" stroke-width=\"2.5\"/><polygon points=\"256.1,142.0 244.0,149.0 231.9,142.0 231.9,128.0 244.0,121.0 256.1,128.0\" fill=\"none\" stroke=\"#5A6473\" stroke-width=\"2.5\"/><polygon points=\"268.0,116.0 279.4,124.3 275.1,137.7 260.9,137.7 256.6,124.3\" fill=\"none\" stroke=\"#5A6473\" stroke-width=\"2.5\"/><text x=\"232\" y=\"170\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1B2430\" font-weight=\"700\">steroide</text><text x=\"232\" y=\"186\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5A6473\" font-weight=\"400\">(negli appunti solo nominato)</text></g></svg><p class=\"s\">Sono la riserva di energia più concentrata: 9 kilocalorie per grammo.</p><p class=\"s\">Gli steroidi negli appunti sono solo nominati: la spiegazione non c'è ancora.</p>", "ask": ["Quali sono i quattro tipi di lipidi degli appunti?", "<b>Acidi grassi, trigliceridi, fosfolipidi, steroidi.</b>"], "quiz": [["Quale NON è un tipo di lipide degli appunti?", ["fosfolipidi", "trigliceridi", "amido"], 2, "L'amido è un carboidrato."]]}, {"parte": 2, "t": "L'acido grasso: una testa e una coda", "body": "<p class=\"s\" data-say=\"Un acido grasso è una lunga catena idrocarburica, fatta solo di carbonio e idrogeno, che finisce con il gruppo C O O H.\">Un acido grasso è una lunga <b>catena idrocarburica</b>, fatta solo di carbonio e idrogeno, che finisce con il gruppo <b>COOH</b>.</p><svg viewBox=\"0 0 340 232\" role=\"img\" aria-label=\"Acido grasso con coda apolare e testa polare; sull'acqua le teste stanno nell'acqua\"><g font-family=\"-apple-system,Arial,sans-serif\"><polyline points=\"16.0,36.0 25.0,45.0 34.0,36.0 43.0,45.0 52.0,36.0 61.0,45.0 70.0,36.0 79.0,45.0 88.0,36.0 97.0,45.0 106.0,36.0 115.0,45.0 124.0,36.0 133.0,45.0 142.0,36.0 151.0,45.0 160.0,36.0 169.0,45.0 178.0,36.0 187.0,45.0 196.0,36.0 205.0,45.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"222\" cy=\"40\" r=\"22\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"3.5\"/><text x=\"222\" y=\"45\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#2E9E5B\" font-weight=\"700\">COOH</text><rect x=\"10\" y=\"22\" width=\"194\" height=\"34\" rx=\"10\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/><text x=\"90\" y=\"74\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#D63384\" font-weight=\"700\">coda: catena idrocarburica</text><text x=\"90\" y=\"89\" text-anchor=\"middle\" font-size=\"12\" fill=\"#D63384\" font-weight=\"400\">apolare: non ama l'acqua</text><text x=\"262\" y=\"80\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#2E9E5B\" font-weight=\"700\">testa polare</text><text x=\"262\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2E9E5B\" font-weight=\"400\">ama l'acqua</text><rect x=\"10\" y=\"180\" width=\"320\" height=\"50\" rx=\"6\" fill=\"#DCEBF8\"/><text x=\"170\" y=\"214\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1D5FA8\" font-weight=\"700\">acqua</text><line x1=\"10\" y1=\"180\" x2=\"330\" y2=\"180\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><polyline points=\"33.0,118.0 39.0,126.0 33.0,134.0 39.0,142.0 33.0,150.0 39.0,158.0 33.0,166.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"36\" cy=\"178\" r=\"8\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><polyline points=\"71.0,118.0 77.0,126.0 71.0,134.0 77.0,142.0 71.0,150.0 77.0,158.0 71.0,166.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"74\" cy=\"178\" r=\"8\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><polyline points=\"109.0,118.0 115.0,126.0 109.0,134.0 115.0,142.0 109.0,150.0 115.0,158.0 109.0,166.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"112\" cy=\"178\" r=\"8\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><polyline points=\"147.0,118.0 153.0,126.0 147.0,134.0 153.0,142.0 147.0,150.0 153.0,158.0 147.0,166.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"150\" cy=\"178\" r=\"8\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><polyline points=\"185.0,118.0 191.0,126.0 185.0,134.0 191.0,142.0 185.0,150.0 191.0,158.0 185.0,166.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"188\" cy=\"178\" r=\"8\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><polyline points=\"223.0,118.0 229.0,126.0 223.0,134.0 229.0,142.0 223.0,150.0 229.0,158.0 223.0,166.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"226\" cy=\"178\" r=\"8\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><polyline points=\"261.0,118.0 267.0,126.0 261.0,134.0 267.0,142.0 261.0,150.0 267.0,158.0 261.0,166.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"264\" cy=\"178\" r=\"8\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><polyline points=\"299.0,118.0 305.0,126.0 299.0,134.0 305.0,142.0 299.0,150.0 305.0,158.0 299.0,166.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"302\" cy=\"178\" r=\"8\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><text x=\"170\" y=\"112\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">code fuori dall'acqua, teste nell'acqua</text></g></svg><p class=\"s\">La catena è apolare: non si mescola con l'acqua. Il gruppo COOH è polare: va d'accordo con l'acqua.</p><p class=\"s\">Per questo, sull'acqua, gli acidi grassi si mettono in fila con la testa nell'acqua e la coda fuori.</p><div class=\"ex s\" data-say=\"L'acido acetico dell'aceto, C H 3 C O O H, ha lo stesso gruppo C O O H, ma una catena cortissima. Gli acidi grassi hanno catene molto più lunghe.\"><div class=\"lbl\">Esempio degli appunti</div>L'acido acetico dell'aceto, CH₃COOH, ha lo stesso gruppo COOH, ma una catena cortissima. Gli acidi grassi hanno catene molto più lunghe.</div>", "words": [["idrocarburo", "molecola fatta solo di carbonio (C) e idrogeno (H)."], ["polare", "con zone un po' cariche: va d'accordo con l'acqua."], ["apolare", "senza zone cariche: l'acqua la respinge, come l'olio."]], "ask": ["Quale parte dell'acido grasso sta nell'acqua?", "La <b>testa COOH</b>, che è polare."], "quiz": [["La coda di un acido grasso è…", ["apolare", "polare"], 0, "Solo C e H."], ["Sull'acqua gli acidi grassi tengono dentro l'acqua…", ["la testa COOH", "la coda"], 0, "La testa è polare."]]}, {"parte": 2, "t": "Saturi e insaturi", "body": "<p class=\"s\">In un acido grasso saturo i carboni sono legati solo con legami semplici: la catena è dritta.</p><p class=\"s\">In un acido grasso insaturo c'è almeno un doppio legame: lì la catena fa una piega.</p><svg viewBox=\"0 0 340 192\" role=\"img\" aria-label=\"Acidi grassi saturi dritti e impacchettati, insaturi piegati e distanti\"><g font-family=\"-apple-system,Arial,sans-serif\"><rect x=\"6\" y=\"10\" width=\"158\" height=\"120\" rx=\"12\" fill=\"none\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><polyline points=\"18.0,26.0 27.0,33.0 36.0,26.0 45.0,33.0 54.0,26.0 63.0,33.0 72.0,26.0 81.0,33.0 90.0,26.0 99.0,33.0 108.0,26.0 117.0,33.0 126.0,26.0 135.0,33.0 144.0,26.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"18.0,42.0 27.0,49.0 36.0,42.0 45.0,49.0 54.0,42.0 63.0,49.0 72.0,42.0 81.0,49.0 90.0,42.0 99.0,49.0 108.0,42.0 117.0,49.0 126.0,42.0 135.0,49.0 144.0,42.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"18.0,58.0 27.0,65.0 36.0,58.0 45.0,65.0 54.0,58.0 63.0,65.0 72.0,58.0 81.0,65.0 90.0,58.0 99.0,65.0 108.0,58.0 117.0,65.0 126.0,58.0 135.0,65.0 144.0,58.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"18.0,74.0 27.0,81.0 36.0,74.0 45.0,81.0 54.0,74.0 63.0,81.0 72.0,74.0 81.0,81.0 90.0,74.0 99.0,81.0 108.0,74.0 117.0,81.0 126.0,74.0 135.0,81.0 144.0,74.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"18.0,90.0 27.0,97.0 36.0,90.0 45.0,97.0 54.0,90.0 63.0,97.0 72.0,90.0 81.0,97.0 90.0,90.0 99.0,97.0 108.0,90.0 117.0,97.0 126.0,90.0 135.0,97.0 144.0,90.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"18.0,106.0 27.0,113.0 36.0,106.0 45.0,113.0 54.0,106.0 63.0,113.0 72.0,106.0 81.0,113.0 90.0,106.0 99.0,113.0 108.0,106.0 117.0,113.0 126.0,106.0 135.0,113.0 144.0,106.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"85\" y=\"150\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1B2430\" font-weight=\"700\">saturi: catene dritte</text><text x=\"85\" y=\"166\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">si impacchettano strette</text><text x=\"85\" y=\"184\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#2E9E5B\" font-weight=\"700\">→ solidi: burro</text><rect x=\"176\" y=\"10\" width=\"158\" height=\"120\" rx=\"12\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2\"/><polyline points=\"186.0,22.0 195.0,29.0 204.0,22.0 213.0,29.0 222.0,22.0 231.0,29.0 240.0,22.0 245.8,29.7 255.3,31.5 261.0,39.3 270.5,41.1 276.3,48.8\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"240.0\" cy=\"22.0\" r=\"5\" fill=\"none\" stroke=\"#1B2430\" stroke-width=\"2\"/><polyline points=\"204.0,56.0 213.0,63.0 222.0,56.0 231.0,63.0 240.0,56.0 249.0,63.0 258.0,56.0 263.8,63.7 273.3,65.5 279.0,73.3 288.5,75.1 294.3,82.8\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"258.0\" cy=\"56.0\" r=\"5\" fill=\"none\" stroke=\"#1B2430\" stroke-width=\"2\"/><polyline points=\"190.0,90.0 199.0,97.0 208.0,90.0 217.0,97.0 226.0,90.0 235.0,97.0 244.0,90.0 249.8,97.7 259.3,99.5 265.0,107.3 274.5,109.1 280.3,116.8\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2.8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"244.0\" cy=\"90.0\" r=\"5\" fill=\"none\" stroke=\"#1B2430\" stroke-width=\"2\"/><text x=\"255\" y=\"150\" text-anchor=\"middle\" font-size=\"13\" fill=\"#1B2430\" font-weight=\"700\">insaturi: con una piega</text><text x=\"255\" y=\"166\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">nella piega: doppio legame</text><text x=\"255\" y=\"184\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#D63384\" font-weight=\"700\">→ liquidi: oli</text></g></svg><p class=\"s\">Le catene dritte si impacchettano strette, come matite in un astuccio: il grasso è solido, come il burro e i grassi animali.</p><p class=\"s\">Le catene piegate non riescono ad avvicinarsi: il grasso è liquido, come gli oli.</p><p class=\"s\">Omega 3 e omega 6 sono acidi grassi insaturi. Il numero dice dov'è il primo doppio legame, contando dalla fine della coda: al terzo carbonio negli omega 3, al sesto negli omega 6.</p><div class=\"trap s\" data-say=\"Negli appunti i carboni sono numerati partendo dal gruppo C O O H. Per omega 3 e omega 6 si conta invece dall'altra parte, dalla fine della coda.\"><b>Negli appunti</b> i carboni sono numerati dal lato del COOH. Per omega 3 e omega 6 si conta dall'altra parte: dalla <b>fine della coda</b>.</div>", "words": [["saturo", "«pieno» di idrogeni: nessun doppio legame tra i carboni."], ["insaturo", "con almeno un doppio legame tra due carboni."]], "ask": ["Perché l'olio d'oliva è liquido e il burro è solido?", "L'olio ha acidi grassi <b>insaturi</b>, con le pieghe, che non si impacchettano. Il burro ha soprattutto acidi grassi <b>saturi</b>, dritti, che si impacchettano stretti."], "quiz": [["Un acido grasso insaturo ha…", ["solo legami semplici", "almeno un doppio legame C=C"], 1, "Lì la catena si piega."], ["Il burro è solido perché ha soprattutto acidi grassi…", ["saturi", "insaturi"], 0, "Catene dritte che si impacchettano."], ["Negli omega 3 il primo doppio legame è al terzo carbonio contando…", ["dalla fine della coda", "dal gruppo COOH"], 0, "Dal lato opposto al COOH."]]}, {"parte": 2, "t": "I trigliceridi", "body": "<p class=\"s\">Un trigliceride è fatto da una molecola di glicerolo e tre molecole di acidi grassi.</p><div class=\"tog\" data-set=\"TRIG\"></div><p class=\"s\">Ogni acido grasso si attacca a un OH del glicerolo. Ogni attacco libera una molecola d'acqua: in tutto ne escono tre. È una condensazione, come nei polimeri.</p><p class=\"s\">I trigliceridi sono i grassi di riserva: danno 9 kilocalorie per grammo.</p><div class=\"ex s\" data-say=\"Due cellule degli appunti: gli epatociti sono le cellule del fegato, gli adipociti sono le cellule del grasso.\"><div class=\"lbl\">Due cellule degli appunti</div><b>epatociti</b> = cellule del fegato · <b>adipociti</b> = cellule del grasso</div>", "init": "togInit", "words": [["glicerolo", "piccola molecola con tre gruppi OH, uno per ogni acido grasso."]], "ask": ["Quante molecole d'acqua escono quando si forma un trigliceride?", "<b>Tre</b>: una per ogni acido grasso."], "quiz": [["Un trigliceride è fatto da…", ["1 glicerolo + 3 acidi grassi", "2 acidi grassi + 1 fosfato", "3 glicerolo + 1 acido grasso"], 0, "Escono 3 H₂O."]]}, {"parte": 2, "t": "I fosfolipidi", "body": "<p class=\"s\">Un fosfolipide è fatto da una molecola di glicerolo, due acidi grassi e un gruppo fosfato.</p><svg viewBox=\"0 0 340 152\" role=\"img\" aria-label=\"Trigliceride con tre code, fosfolipide con testa polare e due code\"><g font-family=\"-apple-system,Arial,sans-serif\"><rect x=\"40\" y=\"20\" width=\"10\" height=\"66\" rx=\"4\" fill=\"#5A6473\"/><polyline points=\"51.0,28.0 60.0,34.0 69.0,28.0 78.0,34.0 87.0,28.0 96.0,34.0 105.0,28.0 114.0,34.0 123.0,28.0 132.0,34.0 141.0,28.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"51.0,52.0 60.0,58.0 69.0,52.0 78.0,58.0 87.0,52.0 96.0,58.0 105.0,52.0 114.0,58.0 123.0,52.0 132.0,58.0 141.0,52.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"51.0,76.0 60.0,82.0 69.0,76.0 78.0,82.0 87.0,76.0 96.0,82.0 105.0,76.0 114.0,82.0 123.0,76.0 132.0,82.0 141.0,76.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"85\" y=\"112\" text-anchor=\"middle\" font-size=\"13.5\" fill=\"#1B2430\" font-weight=\"700\">trigliceride</text><text x=\"85\" y=\"128\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">glicerolo + 3 acidi grassi</text><text x=\"85\" y=\"144\" text-anchor=\"middle\" font-size=\"12\" fill=\"#D63384\" font-weight=\"700\">tutto apolare</text><circle cx=\"212\" cy=\"30\" r=\"16\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"3\"/><text x=\"212\" y=\"35\" text-anchor=\"middle\" font-size=\"15\" fill=\"#2E9E5B\" font-weight=\"700\">P</text><rect x=\"207\" y=\"46\" width=\"10\" height=\"44\" rx=\"4\" fill=\"#5A6473\"/><polyline points=\"218.0,54.0 227.0,60.0 236.0,54.0 245.0,60.0 254.0,54.0 263.0,60.0 272.0,54.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"218.0,78.0 227.0,84.0 236.0,78.0 245.0,84.0 254.0,78.0 263.0,84.0 272.0,78.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"234\" y=\"30\" text-anchor=\"start\" font-size=\"12\" fill=\"#2E9E5B\" font-weight=\"700\">testa polare</text><text x=\"255\" y=\"112\" text-anchor=\"middle\" font-size=\"13.5\" fill=\"#1B2430\" font-weight=\"700\">fosfolipide</text><text x=\"255\" y=\"128\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5A6473\" font-weight=\"400\">glicerolo + 2 acidi grassi</text><text x=\"255\" y=\"144\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2E9E5B\" font-weight=\"700\">+ 1 gruppo fosfato</text><path d=\"M278,54 h8 v34 h-8\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"2\"/><text x=\"291\" y=\"68\" text-anchor=\"start\" font-size=\"11.5\" fill=\"#D63384\" font-weight=\"700\">coda</text><text x=\"291\" y=\"82\" text-anchor=\"start\" font-size=\"11.5\" fill=\"#D63384\" font-weight=\"700\">apolare</text></g></svg><p class=\"s\">Il gruppo fosfato forma una testa polare, che va d'accordo con l'acqua. Le due catene degli acidi grassi formano una coda apolare, che l'acqua respinge.</p><div class=\"scroll\"><table><tr><th></th><th class=\"c\">trigliceride</th><th class=\"c\">fosfolipide</th></tr><tr><td><b>glicerolo</b></td><td class=\"c\">1</td><td class=\"c\">1</td></tr><tr><td><b>acidi grassi</b></td><td class=\"c\">3</td><td class=\"c\">2</td></tr><tr><td><b>gruppo fosfato</b></td><td class=\"c\">no</td><td class=\"c\">sì</td></tr><tr><td><b>com'è</b></td><td class=\"c\">tutto apolare</td><td class=\"c\">testa polare, coda apolare</td></tr></table></div>", "words": [["gruppo fosfato", "gruppo con un atomo di fosforo (P) e ossigeni; ha una carica negativa."]], "ask": ["Che differenza c'è tra un trigliceride e un fosfolipide?", "Il fosfolipide ha <b>due</b> acidi grassi e, al posto del terzo, un <b>gruppo fosfato</b>, che fa da testa polare."], "quiz": [["Il fosfolipide ha…", ["solo parti apolari", "3 acidi grassi", "testa polare e coda apolare"], 2, "Glicerolo, 2 acidi grassi, gruppo fosfato."]]}, {"parte": 3, "t": "Le proteine e gli amminoacidi", "body": "<p class=\"s\">Le proteine possono essere strutturali, cioè costruiscono parti del corpo, oppure funzionali, cioè fanno un lavoro.</p><p class=\"s\">Sono polimeri degli amminoacidi.</p><svg viewBox=\"0 0 300 182\" role=\"img\" aria-label=\"Amminoacido: gruppo amminico, carbonio centrale con H e R, gruppo carbossilico\"><g font-family=\"-apple-system,Arial,sans-serif\"><rect x=\"8\" y=\"34\" width=\"88\" height=\"86\" rx=\"12\" fill=\"#E6EEF9\" stroke=\"#1D5FA8\" stroke-width=\"2\"/><text x=\"52\" y=\"62\" text-anchor=\"middle\" font-size=\"17\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><text x=\"52\" y=\"86\" text-anchor=\"middle\" font-size=\"19\" fill=\"#1D5FA8\" font-weight=\"700\">N–</text><text x=\"52\" y=\"110\" text-anchor=\"middle\" font-size=\"17\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><text x=\"52\" y=\"138\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1D5FA8\" font-weight=\"700\">gruppo amminico</text><text x=\"132\" y=\"86\" text-anchor=\"middle\" font-size=\"24\" fill=\"#1B2430\" font-weight=\"700\">C</text><line x1=\"132\" y1=\"40\" x2=\"132\" y2=\"66\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"132\" y=\"34\" text-anchor=\"middle\" font-size=\"17\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"96\" y1=\"80\" x2=\"118\" y2=\"80\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><line x1=\"146\" y1=\"80\" x2=\"172\" y2=\"80\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><line x1=\"132\" y1=\"94\" x2=\"132\" y2=\"118\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><circle cx=\"132\" cy=\"138\" r=\"18\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2.5\"/><text x=\"132\" y=\"144\" text-anchor=\"middle\" font-size=\"17\" fill=\"#7B3FA0\" font-weight=\"700\">R</text><text x=\"132\" y=\"172\" text-anchor=\"middle\" font-size=\"12\" fill=\"#7B3FA0\" font-weight=\"700\">parte variabile</text><rect x=\"172\" y=\"34\" width=\"120\" height=\"86\" rx=\"12\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><text x=\"202\" y=\"86\" text-anchor=\"middle\" font-size=\"19\" fill=\"#2E9E5B\" font-weight=\"700\">C</text><text x=\"232\" y=\"52\" text-anchor=\"middle\" font-size=\"17\" fill=\"#2E9E5B\" font-weight=\"700\">O</text><line x1=\"208\" y1=\"72\" x2=\"224\" y2=\"58\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"213\" y1=\"76\" x2=\"229\" y2=\"62\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"210\" y1=\"88\" x2=\"226\" y2=\"100\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><text x=\"250\" y=\"112\" text-anchor=\"middle\" font-size=\"17\" fill=\"#2E9E5B\" font-weight=\"700\">O–H</text><text x=\"232\" y=\"138\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2E9E5B\" font-weight=\"700\">gruppo carbossilico</text></g></svg><p class=\"s\" data-say=\"Ogni amminoacido ha un carbonio centrale. Attaccati al carbonio ci sono: un idrogeno, il gruppo amminico N H 2, il gruppo carbossilico C O O H e un gruppo R.\">Ogni amminoacido ha un <b>carbonio centrale</b>. Attaccati ci sono: un idrogeno, il <b>gruppo amminico</b> NH₂, il <b>gruppo carbossilico</b> COOH e un <b>gruppo R</b>.</p><p class=\"s\">R si chiama catena laterale, residuo o parte variabile: è l'unica parte che cambia da un amminoacido all'altro.</p>", "words": [["gruppo amminico", "NH₂: un azoto con due idrogeni."], ["gruppo carbossilico", "COOH: lo stesso gruppo degli acidi grassi."], ["R", "la catena laterale, o residuo: la parte che cambia."]], "ask": ["Che cosa cambia tra un amminoacido e l'altro?", "Solo il <b>gruppo R</b>, la parte variabile."], "quiz": [["In un amminoacido la parte che cambia è…", ["il gruppo NH₂", "il gruppo COOH", "il gruppo R"], 2, "Catena laterale."], ["Le proteine sono polimeri di…", ["amminoacidi", "glucosio", "acidi grassi"], 0, "Uniti da legami peptidici."]]}, {"parte": 3, "t": "Il legame peptidico", "body": "<p class=\"s\" data-say=\"Due amminoacidi si uniscono così: l'O H del primo e un H del secondo escono insieme, come molecola d'acqua.\">Due amminoacidi si uniscono così: l'<b>OH</b> del primo e un <b>H</b> del secondo escono insieme, come molecola d'acqua.</p><div class=\"tog\" data-set=\"PEPT\"></div><p class=\"s\">Il legame che si forma tra il carbonio del primo e l'azoto del secondo si chiama legame peptidico. Anche questa è una condensazione.</p><p class=\"s\">Tanti amminoacidi uniti uno dopo l'altro formano una proteina.</p>", "init": "togInit", "words": [["legame peptidico", "il legame tra il C di un amminoacido e l'N del successivo."]], "ask": ["Per unire 3 amminoacidi, quanti legami peptidici si formano e quante molecole d'acqua escono?", "<b>2 legami</b> e <b>2 molecole d'acqua</b>: come nel treno, gli attacchi sono uno in meno dei vagoni."], "quiz": [["Il legame peptidico si forma tra…", ["due ossigeni", "due gruppi R", "il C del COOH di un amminoacido e l'N del successivo"], 2, "Esce H₂O."], ["Per unire 5 amminoacidi escono molecole d'acqua…", ["4", "6", "5"], 0, "Una per legame."]]}, {"parte": 3, "t": "Le quattro strutture delle proteine", "body": "<p class=\"s\">Una proteina ha quattro livelli di struttura. Tocca i numeri per vederli.</p><div class=\"tog\" data-set=\"PROT\"></div><p class=\"s\">Primaria: la sequenza lineare degli amminoacidi, cioè il loro ordine nella catena.</p><p class=\"s\">Secondaria: la catena si avvolge ad alfa elica o si piega a beta foglietto. Queste forme sono tenute insieme da legami a idrogeno fra amminoacidi non vicini nella catena.</p><p class=\"s\">Terziaria: tutta la catena si ripiega su sé stessa e prende una forma in tre dimensioni.</p><p class=\"s\">Quaternaria: più strutture terziarie si uniscono. C'è solo in alcune proteine.</p>", "init": "togInit", "words": [["α elica", "la catena si avvolge a spirale, come una molla."], ["β foglietto", "tratti di catena affiancati a zig-zag, come un foglio piegato a fisarmonica."], ["legame a idrogeno", "attrazione debole tra un H e un atomo come O o N di un'altra parte della catena."], ["adiacente", "vicino, uno accanto all'altro."]], "ask": ["Quale struttura c'è solo in alcune proteine?", "La <b>quaternaria</b>: l'unione di più strutture terziarie."], "quiz": [["La struttura secondaria comprende…", ["α elica e β foglietto", "più catene unite", "solo l'ordine degli amminoacidi"], 0, "Tenute da legami a idrogeno."], ["La struttura primaria è…", ["la forma in 3D", "la sequenza degli amminoacidi", "l'unione di più catene"], 1, "L'ordine nella catena."]]}, {"parte": 3, "t": "A che cosa servono le proteine", "body": "<p class=\"s\">Negli appunti ci sono queste funzioni delle proteine.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Trasporto</b>Portano sostanze da una parte all'altra del corpo.</div><div class=\"st s\"><b class=\"n\">Contrazione muscolare</b>Fanno accorciare i muscoli, quindi ci fanno muovere.</div><div class=\"st s\"><b class=\"n\">Messaggeri chimici</b>Portano messaggi da un organo all'altro.</div></div><p class=\"s\">E, come abbiamo visto, possono anche essere strutturali: costruiscono parti del corpo.</p><div class=\"trap s\" data-say=\"Negli appunti c'è anche una riga funzione del trasporto, che sembra ripetere la prima. Forse la professoressa ha detto un'altra funzione: conviene controllare sul libro.\"><b>Negli appunti</b> c'è anche «funzione del trasporto», che sembra ripetere la prima. Forse era un'altra funzione: conviene controllare sul libro.</div>", "ask": ["Dimmi tre funzioni delle proteine scritte negli appunti.", "<b>Trasporto, contrazione muscolare, messaggeri chimici.</b>"], "quiz": [["Quale è una funzione delle proteine degli appunti?", ["contrazione muscolare", "formare il legno", "riserva di energia nelle piante"], 0, "Insieme a trasporto e messaggeri chimici."]]}, {"parte": 4, "t": "Tutto in tre righe", "body": "<div class=\"flow\"><div class=\"st s\" data-say=\"Carboidrati. I pezzi sono i monosaccaridi, come il glucosio. Si uniscono per condensazione, ed esce acqua. Esempi: saccarosio, amido, glicogeno, cellulosa. Danno 4 kilocalorie per grammo.\"><b class=\"n\">Carboidrati</b>pezzi: monosaccaridi (glucosio) · si uniscono per condensazione, esce H₂O · esempi: saccarosio, amido, glicogeno, cellulosa · <b>4 kcal/g</b></div><div class=\"st s\" data-say=\"Lipidi. I trigliceridi sono fatti di glicerolo e acidi grassi, uniti per condensazione: escono tre molecole d'acqua. Esempi: burro, olio, fosfolipidi. Danno 9 kilocalorie per grammo.\"><b class=\"n\">Lipidi</b>trigliceridi: glicerolo + 3 acidi grassi, escono 3 H₂O · esempi: burro, olio, fosfolipidi · <b>9 kcal/g</b></div><div class=\"st s\" data-say=\"Proteine. I pezzi sono gli amminoacidi, uniti dal legame peptidico: esce acqua. Funzioni: trasporto, contrazione dei muscoli, messaggeri chimici.\"><b class=\"n\">Proteine</b>pezzi: amminoacidi · legame peptidico, esce H₂O · funzioni: trasporto, muscoli, messaggeri chimici</div></div><p class=\"s\">Il filo comune: per costruire si toglie acqua, è la condensazione. Per smontare si aggiunge acqua, è l'idrolisi.</p><div class=\"ex s\" data-say=\"Da ricordare: in una catena le molecole d'acqua che escono sono una in meno dei pezzi. Polare vuol dire che va d'accordo con l'acqua, apolare che l'acqua lo respinge.\"><div class=\"lbl\">Da ricordare</div>In una catena: molecole d'acqua uscite = pezzi − 1.<br>Polare: va d'accordo con l'acqua. Apolare: l'acqua lo respinge.</div>", "ask": ["Che cosa hanno in comune la formazione del saccarosio, di un trigliceride e di una proteina?", "Sono tutte <b>condensazioni</b>: ogni volta che due pezzi si uniscono esce una molecola d'acqua."], "quiz": [["Costruire una biomolecola dai monomeri è una…", ["condensazione", "fusione", "idrolisi"], 0, "Esce acqua."]]}, {"parte": 4, "t": "Ripasso: tutta la scheda", "body": "<p class=\"s\">Dodici domande su tutta la scheda.</p>", "quiz": [["Il glucosio è un…", ["monosaccaride", "polisaccaride", "disaccaride"], 0, "C₆H₁₂O₆."], ["La riserva di energia delle piante è…", ["l'amido", "la cellulosa", "il glicogeno"], 0, "Patate, cereali."], ["Le fibre per noi non danno energia perché…", ["sono grassi", "sono proteine", "non riusciamo a digerire la cellulosa"], 2, "Cellulosa = fibre."], ["I grassi danno per grammo…", ["4 kcal", "9 kcal"], 1, "I carboidrati 4."], ["Gli oli sono liquidi perché hanno acidi grassi…", ["insaturi", "saturi"], 0, "Con le pieghe."], ["Nel trigliceride gli acidi grassi sono…", ["1", "3", "2"], 1, "Nel fosfolipide 2."], ["Il fosfolipide ha la testa…", ["apolare", "polare (fosfato)"], 1, "E la coda apolare."], ["Il legame tra due amminoacidi si chiama…", ["ionico", "a idrogeno", "peptidico"], 2, "Tra C e N."], ["La struttura quaternaria c'è…", ["in tutte le proteine", "solo in alcune proteine"], 1, "Più catene unite."], ["L'α elica è tenuta da…", ["legami ionici", "legami a idrogeno", "legami peptidici tra catene diverse"], 1, "Tra amminoacidi non vicini."], ["Glucosio e fruttosio sono isomeri perché…", ["hanno formule diverse", "sono lo stesso zucchero", "hanno la stessa formula ma struttura diversa"], 2, "C₆H₁₂O₆ entrambi."], ["Unire monomeri in un polimero si chiama…", ["idrolisi", "polimerizzazione per condensazione", "sublimazione"], 1, "Esce acqua."]]}];
+const TOGS = {"TRIG": {"lab": ["Prima", "Dopo"], "svg": ["<svg viewBox=\"0 0 340 196\" role=\"img\" aria-label=\"Trigliceride: glicerolo con tre acidi grassi\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"30\" y=\"45\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><line x1=\"22\" y1=\"49\" x2=\"22\" y2=\"83\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"36\" y=\"45\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O</text><rect x=\"60\" y=\"29\" width=\"14\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"67\" y=\"45\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><rect x=\"110\" y=\"29\" width=\"32\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"126\" y=\"45\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">HO</text><text x=\"144\" y=\"45\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–C</text><polyline points=\"170.0,38.0 179.0,45.0 188.0,38.0 197.0,45.0 206.0,38.0 215.0,45.0 224.0,38.0 233.0,45.0 242.0,38.0 251.0,45.0 260.0,38.0 269.0,45.0 278.0,38.0 287.0,45.0 296.0,38.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"30\" y=\"97\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><line x1=\"22\" y1=\"101\" x2=\"22\" y2=\"135\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"36\" y=\"97\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O</text><rect x=\"60\" y=\"81\" width=\"14\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"67\" y=\"97\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><rect x=\"110\" y=\"81\" width=\"32\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"126\" y=\"97\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">HO</text><text x=\"144\" y=\"97\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–C</text><polyline points=\"170.0,90.0 179.0,97.0 188.0,90.0 197.0,97.0 206.0,90.0 215.0,97.0 224.0,90.0 233.0,97.0 242.0,90.0 251.0,97.0 260.0,90.0 269.0,97.0 278.0,90.0 287.0,97.0 296.0,90.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"30\" y=\"149\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><text x=\"36\" y=\"149\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O</text><rect x=\"60\" y=\"133\" width=\"14\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"67\" y=\"149\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><rect x=\"110\" y=\"133\" width=\"32\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"126\" y=\"149\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">HO</text><text x=\"144\" y=\"149\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–C</text><polyline points=\"170.0,142.0 179.0,149.0 188.0,142.0 197.0,149.0 206.0,142.0 215.0,149.0 224.0,142.0 233.0,149.0 242.0,142.0 251.0,149.0 260.0,142.0 269.0,149.0 278.0,142.0 287.0,149.0 296.0,142.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"12\" y=\"186\" text-anchor=\"start\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"700\">glicerolo</text><text x=\"250\" y=\"186\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#D63384\" font-weight=\"700\">3 acidi grassi</text></g></svg>", "<svg viewBox=\"0 0 340 196\" role=\"img\" aria-label=\"Trigliceride: glicerolo con tre acidi grassi, escono tre molecole d'acqua\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"30\" y=\"45\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><line x1=\"22\" y1=\"49\" x2=\"22\" y2=\"83\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"36\" y=\"45\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O–C</text><polyline points=\"84.0,38.0 93.0,45.0 102.0,38.0 111.0,45.0 120.0,38.0 129.0,45.0 138.0,38.0 147.0,45.0 156.0,38.0 165.0,45.0 174.0,38.0 183.0,45.0 192.0,38.0 201.0,45.0 210.0,38.0 219.0,45.0 228.0,38.0 237.0,45.0 246.0,38.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M306.0,33.0 C313.0,41.0 312.0,49.0 306.0,49.0 C300.0,49.0 299.0,41.0 306.0,33.0 Z\" fill=\"#4F9BD9\"/><text x=\"306.0\" y=\"29.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"#1D5FA8\" font-weight=\"700\">H₂O</text><text x=\"30\" y=\"97\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><line x1=\"22\" y1=\"101\" x2=\"22\" y2=\"135\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"36\" y=\"97\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O–C</text><polyline points=\"84.0,90.0 93.0,97.0 102.0,90.0 111.0,97.0 120.0,90.0 129.0,97.0 138.0,90.0 147.0,97.0 156.0,90.0 165.0,97.0 174.0,90.0 183.0,97.0 192.0,90.0 201.0,97.0 210.0,90.0 219.0,97.0 228.0,90.0 237.0,97.0 246.0,90.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M306.0,85.0 C313.0,93.0 312.0,101.0 306.0,101.0 C300.0,101.0 299.0,93.0 306.0,85.0 Z\" fill=\"#4F9BD9\"/><text x=\"30\" y=\"149\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><text x=\"36\" y=\"149\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O–C</text><polyline points=\"84.0,142.0 93.0,149.0 102.0,142.0 111.0,149.0 120.0,142.0 129.0,149.0 138.0,142.0 147.0,149.0 156.0,142.0 165.0,149.0 174.0,142.0 183.0,149.0 192.0,142.0 201.0,149.0 210.0,142.0 219.0,149.0 228.0,142.0 237.0,149.0 246.0,142.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M306.0,137.0 C313.0,145.0 312.0,153.0 306.0,153.0 C300.0,153.0 299.0,145.0 306.0,137.0 Z\" fill=\"#4F9BD9\"/><text x=\"12\" y=\"186\" text-anchor=\"start\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"700\">glicerolo</text><text x=\"220\" y=\"186\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#D63384\" font-weight=\"700\">trigliceride + 3 H₂O</text></g></svg>"], "txt": ["Il glicerolo ha tre OH. Ogni acido grasso ha un gruppo COOH.", "Tre condensazioni: escono tre molecole d'acqua e i tre acidi grassi restano attaccati al glicerolo."]}, "PEPT": {"lab": ["Prima", "Dopo"], "svg": ["<svg viewBox=\"0 0 340 160\" role=\"img\" aria-label=\"Due amminoacidi prima di unirsi\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"4\" y=\"70\" text-anchor=\"start\" font-size=\"16\" fill=\"#1D5FA8\" font-weight=\"700\">H₂N–</text><text x=\"58\" y=\"70\" text-anchor=\"middle\" font-size=\"20\" fill=\"#1B2430\" font-weight=\"700\">C</text><text x=\"58\" y=\"30\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"58\" y1=\"36\" x2=\"58\" y2=\"54\" stroke=\"#1B2430\" stroke-width=\"2\"/><line x1=\"58\" y1=\"78\" x2=\"58\" y2=\"96\" stroke=\"#1B2430\" stroke-width=\"2\"/><circle cx=\"58\" cy=\"110\" r=\"13\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2\"/><text x=\"58\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7B3FA0\" font-weight=\"700\">R₁</text><text x=\"72\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><text x=\"92\" y=\"70\" text-anchor=\"middle\" font-size=\"18\" fill=\"#2E9E5B\" font-weight=\"700\">C</text><text x=\"92\" y=\"36\" text-anchor=\"middle\" font-size=\"15\" fill=\"#2E9E5B\" font-weight=\"700\">O</text><line x1=\"91\" y1=\"54\" x2=\"91\" y2=\"42\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><line x1=\"95\" y1=\"54\" x2=\"95\" y2=\"42\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><text x=\"101\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><rect x=\"112\" y=\"54\" width=\"36\" height=\"24\" rx=\"6\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2.5\"/><text x=\"130\" y=\"71\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">OH</text><rect x=\"168\" y=\"54\" width=\"22\" height=\"24\" rx=\"6\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2.5\"/><text x=\"179\" y=\"71\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><text x=\"192\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1D5FA8\" font-weight=\"700\">N–</text><text x=\"201\" y=\"98\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><line x1=\"201\" y1=\"78\" x2=\"201\" y2=\"86\" stroke=\"#1D5FA8\" stroke-width=\"2\"/><text x=\"240\" y=\"70\" text-anchor=\"middle\" font-size=\"20\" fill=\"#1B2430\" font-weight=\"700\">C</text><text x=\"240\" y=\"30\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"240\" y1=\"36\" x2=\"240\" y2=\"54\" stroke=\"#1B2430\" stroke-width=\"2\"/><line x1=\"240\" y1=\"78\" x2=\"240\" y2=\"96\" stroke=\"#1B2430\" stroke-width=\"2\"/><circle cx=\"240\" cy=\"110\" r=\"13\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2\"/><text x=\"240\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7B3FA0\" font-weight=\"700\">R₂</text><text x=\"254\" y=\"70\" text-anchor=\"start\" font-size=\"16\" fill=\"#2E9E5B\" font-weight=\"700\">–COOH</text><text x=\"170\" y=\"150\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">l'OH del primo e un H del secondo stanno per uscire</text></g></svg>", "<svg viewBox=\"0 0 340 160\" role=\"img\" aria-label=\"Due amminoacidi uniti dal legame peptidico, esce acqua\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"4\" y=\"70\" text-anchor=\"start\" font-size=\"16\" fill=\"#1D5FA8\" font-weight=\"700\">H₂N–</text><text x=\"58\" y=\"70\" text-anchor=\"middle\" font-size=\"20\" fill=\"#1B2430\" font-weight=\"700\">C</text><text x=\"58\" y=\"30\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"58\" y1=\"36\" x2=\"58\" y2=\"54\" stroke=\"#1B2430\" stroke-width=\"2\"/><line x1=\"58\" y1=\"78\" x2=\"58\" y2=\"96\" stroke=\"#1B2430\" stroke-width=\"2\"/><circle cx=\"58\" cy=\"110\" r=\"13\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2\"/><text x=\"58\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7B3FA0\" font-weight=\"700\">R₁</text><text x=\"72\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><rect x=\"84\" y=\"48\" width=\"74\" height=\"30\" rx=\"8\" fill=\"#FFF3C4\" stroke=\"#E0B84A\" stroke-width=\"2\"/><text x=\"96\" y=\"70\" text-anchor=\"middle\" font-size=\"18\" fill=\"#2E9E5B\" font-weight=\"700\">C</text><text x=\"96\" y=\"36\" text-anchor=\"middle\" font-size=\"15\" fill=\"#2E9E5B\" font-weight=\"700\">O</text><line x1=\"94\" y1=\"54\" x2=\"94\" y2=\"42\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><line x1=\"98\" y1=\"54\" x2=\"98\" y2=\"42\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><text x=\"121\" y=\"70\" text-anchor=\"middle\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><text x=\"144\" y=\"70\" text-anchor=\"middle\" font-size=\"18\" fill=\"#1D5FA8\" font-weight=\"700\">N</text><text x=\"144\" y=\"98\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><text x=\"160\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><text x=\"196\" y=\"70\" text-anchor=\"middle\" font-size=\"20\" fill=\"#1B2430\" font-weight=\"700\">C</text><text x=\"196\" y=\"30\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"196\" y1=\"36\" x2=\"196\" y2=\"54\" stroke=\"#1B2430\" stroke-width=\"2\"/><line x1=\"196\" y1=\"78\" x2=\"196\" y2=\"96\" stroke=\"#1B2430\" stroke-width=\"2\"/><circle cx=\"196\" cy=\"110\" r=\"13\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2\"/><text x=\"196\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7B3FA0\" font-weight=\"700\">R₂</text><text x=\"210\" y=\"70\" text-anchor=\"start\" font-size=\"16\" fill=\"#2E9E5B\" font-weight=\"700\">–COOH</text><path d=\"M300.0,27.0 C307.0,35.0 306.0,43.0 300.0,43.0 C294.0,43.0 293.0,35.0 300.0,27.0 Z\" fill=\"#4F9BD9\"/><text x=\"300.0\" y=\"23.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"#1D5FA8\" font-weight=\"700\">H₂O</text><text x=\"121\" y=\"150\" text-anchor=\"middle\" font-size=\"13\" fill=\"#8A5A00\" font-weight=\"700\">legame peptidico</text></g></svg>"], "txt": ["L'OH del primo amminoacido e un H del secondo stanno per uscire.", "È uscita una molecola d'acqua: tra C e N c'è il legame peptidico."]}, "PROT": {"lab": ["1 · primaria", "2 · secondaria", "3 · terziaria", "4 · quaternaria"], "svg": ["<svg viewBox=\"0 0 340 156\" role=\"img\" aria-label=\"struttura primaria\"><g font-family=\"-apple-system,Arial,sans-serif\"><line x1=\"18.0\" y1=\"70.0\" x2=\"45.0\" y2=\"84.1\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"45.0\" y1=\"84.1\" x2=\"72.0\" y2=\"87.5\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"72.0\" y1=\"87.5\" x2=\"99.0\" y2=\"77.7\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"99.0\" y1=\"77.7\" x2=\"126.0\" y2=\"62.0\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"126.0\" y1=\"62.0\" x2=\"153.0\" y2=\"52.4\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"153.0\" y1=\"52.4\" x2=\"180.0\" y2=\"56.1\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"180.0\" y1=\"56.1\" x2=\"207.0\" y2=\"70.3\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"207.0\" y1=\"70.3\" x2=\"234.0\" y2=\"84.3\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"234.0\" y1=\"84.3\" x2=\"261.0\" y2=\"87.5\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"261.0\" y1=\"87.5\" x2=\"288.0\" y2=\"77.4\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"288.0\" y1=\"77.4\" x2=\"315.0\" y2=\"61.8\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"18.0\" cy=\"70.0\" r=\"10\" fill=\"#1D5FA8\"/><circle cx=\"45.0\" cy=\"84.1\" r=\"10\" fill=\"#C98A12\"/><circle cx=\"72.0\" cy=\"87.5\" r=\"10\" fill=\"#7B3FA0\"/><circle cx=\"99.0\" cy=\"77.7\" r=\"10\" fill=\"#D63384\"/><circle cx=\"126.0\" cy=\"62.0\" r=\"10\" fill=\"#2E9E5B\"/><circle cx=\"153.0\" cy=\"52.4\" r=\"10\" fill=\"#1D5FA8\"/><circle cx=\"180.0\" cy=\"56.1\" r=\"10\" fill=\"#C98A12\"/><circle cx=\"207.0\" cy=\"70.3\" r=\"10\" fill=\"#7B3FA0\"/><circle cx=\"234.0\" cy=\"84.3\" r=\"10\" fill=\"#D63384\"/><circle cx=\"261.0\" cy=\"87.5\" r=\"10\" fill=\"#2E9E5B\"/><circle cx=\"288.0\" cy=\"77.4\" r=\"10\" fill=\"#1D5FA8\"/><circle cx=\"315.0\" cy=\"61.8\" r=\"10\" fill=\"#C98A12\"/><text x=\"170\" y=\"130\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">ogni pallina è un amminoacido: conta l'ordine</text></g></svg>", "<svg viewBox=\"0 0 340 156\" role=\"img\" aria-label=\"struttura secondaria\"><g font-family=\"-apple-system,Arial,sans-serif\"><polyline points=\"22.0,60.0 22.6,65.4 22.8,70.6 22.7,75.3 22.4,79.3 21.8,82.5 21.0,84.7 20.1,85.9 19.2,85.9 18.3,84.7 17.5,82.5 16.9,79.3 16.5,75.3 16.4,70.6 16.7,65.4 17.2,60.0 18.2,54.6 19.4,49.4 21.0,44.7 22.9,40.7 25.0,37.5 27.3,35.3 29.7,34.1 32.1,34.1 34.5,35.3 36.8,37.5 38.9,40.7 40.7,44.7 42.3,49.4 43.6,54.6 44.5,60.0 45.1,65.4 45.3,70.6 45.2,75.3 44.9,79.3 44.2,82.5 43.5,84.7 42.6,85.9 41.7,85.9 40.8,84.7 40.0,82.5 39.4,79.3 39.0,75.3 38.9,70.6 39.2,65.4 39.8,60.0 40.7,54.6 41.9,49.4 43.5,44.7 45.4,40.7 47.5,37.5 49.8,35.3 52.2,34.1 54.6,34.1 57.0,35.3 59.3,37.5 61.4,40.7 63.2,44.7 64.8,49.4 66.1,54.6 67.0,60.0 67.6,65.4 67.8,70.6 67.7,75.3 67.4,79.3 66.8,82.5 66.0,84.7 65.1,85.9 64.2,85.9 63.3,84.7 62.5,82.5 61.9,79.3 61.5,75.3 61.4,70.6 61.7,65.4 62.2,60.0 63.2,54.6 64.4,49.4 66.0,44.7 67.9,40.7 70.0,37.5 72.3,35.3 74.7,34.1 77.1,34.1 79.5,35.3 81.7,37.5 83.9,40.7 85.7,44.7 87.3,49.4 88.6,54.6 89.5,60.0 90.1,65.4 90.3,70.6 90.2,75.3 89.9,79.3 89.2,82.5 88.5,84.7 87.6,85.9 86.7,85.9 85.8,84.7 85.0,82.5 84.4,79.3 84.0,75.3 83.9,70.6 84.2,65.4 84.8,60.0 85.7,54.6 86.9,49.4 88.5,44.7 90.4,40.7 92.5,37.5 94.8,35.3 97.2,34.1 99.6,34.1 102.0,35.3 104.2,37.5 106.4,40.7 108.2,44.7 109.8,49.4 111.1,54.6 112.0,60.0 112.6,65.4 112.8,70.6 112.7,75.3 112.4,79.3 111.8,82.5 111.0,84.7 110.1,85.9 109.2,85.9 108.3,84.7 107.5,82.5 106.9,79.3 106.5,75.3 106.4,70.6 106.7,65.4 107.2,60.0 108.2,54.6 109.4,49.4 111.0,44.7 112.9,40.7 115.0,37.5 117.3,35.3 119.7,34.1 122.1,34.1 124.5,35.3 126.8,37.5 128.9,40.7 130.7,44.7 132.3,49.4 133.6,54.6 134.5,60.0 135.1,65.4 135.3,70.6 135.2,75.3 134.9,79.3 134.3,82.5 133.5,84.7 132.6,85.9 131.7,85.9 130.8,84.7 130.0,82.5 129.4,79.3 129.0,75.3 128.9,70.6 129.2,65.4 129.8,60.0 130.7,54.6 131.9,49.4 133.5,44.7 135.4,40.7 137.5,37.5 139.8,35.3 142.2,34.1 144.6,34.1 147.0,35.3 149.2,37.5 151.4,40.7 153.2,44.7 154.8,49.4 156.1,54.6 157.0,60.0\" fill=\"none\" stroke=\"#7B3FA0\" stroke-width=\"4\" stroke-linejoin=\"round\"/><text x=\"82\" y=\"112\" text-anchor=\"middle\" font-size=\"14\" fill=\"#7B3FA0\" font-weight=\"700\">α elica</text><polyline points=\"190.0,30.0 199.5,38.0 209.0,30.0 218.5,38.0 228.0,30.0 237.5,38.0 247.0,30.0 256.5,38.0 266.0,30.0 275.5,38.0 285.0,30.0 294.5,38.0 304.0,30.0 313.5,38.0 323.0,30.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><line x1=\"199.5\" y1=\"38\" x2=\"199.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"218.5\" y1=\"38\" x2=\"218.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"237.5\" y1=\"38\" x2=\"237.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"256.5\" y1=\"38\" x2=\"256.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"275.5\" y1=\"38\" x2=\"275.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"294.5\" y1=\"38\" x2=\"294.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"313.5\" y1=\"38\" x2=\"313.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><polyline points=\"190.0,58.0 199.5,66.0 209.0,58.0 218.5,66.0 228.0,58.0 237.5,66.0 247.0,58.0 256.5,66.0 266.0,58.0 275.5,66.0 285.0,58.0 294.5,66.0 304.0,58.0 313.5,66.0 323.0,58.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><line x1=\"199.5\" y1=\"66\" x2=\"199.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"218.5\" y1=\"66\" x2=\"218.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"237.5\" y1=\"66\" x2=\"237.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"256.5\" y1=\"66\" x2=\"256.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"275.5\" y1=\"66\" x2=\"275.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"294.5\" y1=\"66\" x2=\"294.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"313.5\" y1=\"66\" x2=\"313.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><polyline points=\"190.0,86.0 199.5,94.0 209.0,86.0 218.5,94.0 228.0,86.0 237.5,94.0 247.0,86.0 256.5,94.0 266.0,86.0 275.5,94.0 285.0,86.0 294.5,94.0 304.0,86.0 313.5,94.0 323.0,86.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"258\" y=\"112\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1D5FA8\" font-weight=\"700\">β foglietto</text><text x=\"170\" y=\"136\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">i tratteggi sono legami a idrogeno</text></g></svg>", "<svg viewBox=\"0 0 340 156\" role=\"img\" aria-label=\"struttura terziaria\"><g font-family=\"-apple-system,Arial,sans-serif\"><path d=\"M40,96 C10,60 30,20 66,30\" fill=\"none\" stroke=\"#2E9E5B\" stroke-width=\"4\"/><polyline points=\"77.0,46.0 77.3,51.0 77.1,55.5 76.5,59.4 75.5,62.2 74.2,63.7 72.9,63.9 71.6,62.7 70.5,60.2 69.7,56.6 69.4,52.2 69.6,47.3 70.4,42.3 71.6,37.5 73.4,33.5 75.5,30.4 77.9,28.5 80.4,28.0 83.0,28.9 85.3,31.1 87.4,34.4 89.0,38.7 90.1,43.5 90.7,48.5 90.8,53.3 90.4,57.6 89.5,60.9 88.4,63.1 87.0,64.0 85.7,63.5 84.5,61.6 83.6,58.5 83.0,54.5 83.0,49.7 83.4,44.7 84.4,39.8 85.9,35.4 87.9,31.8 90.2,29.3 92.7,28.1 95.2,28.3 97.7,29.8 99.9,32.6 101.7,36.5 103.1,41.0 104.0,46.0 104.3,51.0 104.1,55.5 103.5,59.4 102.5,62.2 101.2,63.7 99.9,63.9 98.6,62.7 97.5,60.2 96.7,56.6 96.4,52.2 96.6,47.3 97.4,42.3 98.6,37.5 100.4,33.5 102.5,30.4 104.9,28.5 107.4,28.0 110.0,28.9 112.3,31.1 114.4,34.4 116.0,38.7 117.1,43.5 117.7,48.5 117.8,53.3 117.4,57.6 116.5,60.9 115.4,63.1 114.0,64.0 112.7,63.5 111.5,61.6 110.6,58.5 110.0,54.5 110.0,49.7 110.4,44.7 111.4,39.8 112.9,35.4 114.9,31.8 117.2,29.3 119.7,28.1 122.2,28.3 124.7,29.8 126.9,32.6 128.7,36.5 130.1,41.0\" fill=\"none\" stroke=\"#7B3FA0\" stroke-width=\"4\"/><path d=\"M130,40 C190,10 230,40 210,70\" fill=\"none\" stroke=\"#2E9E5B\" stroke-width=\"4\"/><polyline points=\"150.0,80.0 159.0,88.0 168.0,80.0 177.0,88.0 186.0,80.0 195.0,88.0 204.0,80.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"150.0,98.0 159.0,106.0 168.0,98.0 177.0,106.0 186.0,98.0 195.0,106.0 204.0,98.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M210,70 C230,95 215,110 214,102 M150,98 C100,120 60,120 40,96\" fill=\"none\" stroke=\"#2E9E5B\" stroke-width=\"4\"/><path d=\"M24,66 C20,10 120,-4 200,14 C270,30 262,118 200,124 C130,132 40,126 24,66 Z\" fill=\"none\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/><text x=\"170\" y=\"148\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">la catena si ripiega su sé stessa: forma in 3D</text></g></svg>", "<svg viewBox=\"0 0 340 156\" role=\"img\" aria-label=\"struttura quaternaria\"><g font-family=\"-apple-system,Arial,sans-serif\"><path d=\"M95,60 c-30,-6 -34,-38 -4,-44 c26,-6 46,10 40,30 c-4,18 -18,18 -36,14 z\" fill=\"#7B3FA0\" fill-opacity=\".25\" stroke=\"#7B3FA0\" stroke-width=\"3\"/><path d=\"M175,52 c-30,-6 -34,-38 -4,-44 c26,-6 46,10 40,30 c-4,18 -18,18 -36,14 z\" fill=\"#1D5FA8\" fill-opacity=\".25\" stroke=\"#1D5FA8\" stroke-width=\"3\"/><path d=\"M135,98 c-30,-6 -34,-38 -4,-44 c26,-6 46,10 40,30 c-4,18 -18,18 -36,14 z\" fill=\"#2E9E5B\" fill-opacity=\".25\" stroke=\"#2E9E5B\" stroke-width=\"3\"/><path d=\"M215,96 c-30,-6 -34,-38 -4,-44 c26,-6 46,10 40,30 c-4,18 -18,18 -36,14 z\" fill=\"#C98A12\" fill-opacity=\".25\" stroke=\"#C98A12\" stroke-width=\"3\"/><text x=\"170\" y=\"140\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">più catene ripiegate unite insieme</text></g></svg>"], "txt": ["<b>Primaria</b>: la sequenza lineare degli amminoacidi.", "<b>Secondaria</b>: α elica e β foglietto, tenuti da legami a idrogeno fra amminoacidi non vicini.", "<b>Terziaria</b>: la catena si ripiega e prende una forma in 3D.", "<b>Quaternaria</b>: più strutture terziarie unite. Solo in alcune proteine."]}};
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += quizHTML(c);
+  h += '</article>';
+  qzRes = {};
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("sc12-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+
+
+/* ═══════ prova tu ═══════ */
+function quizHTML(c){
+  if(!c.quiz || !c.quiz.length) return "";
+  let h = '<div class="quiz"><div class="qhd">Prova tu <span id="qsc"></span></div>';
+  c.quiz.forEach((q,i)=>{
+    h += '<div class="qz" id="qz'+i+'"><div class="qq">'+q[0]+'</div><div class="op">';
+    q[1].forEach((o,k)=>{ h += '<button onclick="qzAns('+i+','+k+')">'+o+'</button>'; });
+    h += '</div><div class="why"></div></div>';
+  });
+  return h + '</div>';
+}
+let qzRes = {};
+function qzAns(i,k){
+  const q = CARDS[idx].quiz[i], box = document.getElementById("qz"+i);
+  if(!box || box.classList.contains("done")) return;
+  box.classList.add("done");
+  const bs = box.querySelectorAll(".op button");
+  bs[q[2]].classList.add("right"); if(k!==q[2]) bs[k].classList.add("wrong");
+  const w = box.querySelector(".why");
+  w.className = "why on "+(k===q[2]?"y":"n");
+  w.innerHTML = (k===q[2] ? "<b>Giusto.</b> " : "<b>No.</b> ") + (q[3]||"");
+  qzRes[i] = (k===q[2]);
+  const n = Object.keys(qzRes).length, g = Object.keys(qzRes).filter(j=>qzRes[j]).length;
+  const sc = document.getElementById("qsc"); if(sc) sc.textContent = "· fatte "+n+" su "+CARDS[idx].quiz.length+", giuste "+g;
+}
+/* ═══════ la virgola che si sposta ═══════ */
+const VMP = [
+  {lab:"453,89", d:"45389", p:3, e:0},
+  {lab:"0,008332", d:"0008332", p:1, e:0},
+  {lab:"38779", d:"38779", p:5, e:0},
+  {lab:"45,89 × 10⁷", d:"4589", p:2, e:7},
+  {lab:"0,0017 × 10⁻³", d:"00017", p:1, e:-3}
+];
+let vm = null;
+function vmInit(){ vmSet(0); }
+function vmSet(k){ vm = {k:k, d:VMP[k].d, p:VMP[k].p, e:VMP[k].e, e0:VMP[k].e, p0:VMP[k].p}; vmDraw(); }
+function vmMove(dir){           /* dir = -1: virgola a sinistra; +1: a destra */
+  if(!vm) return;
+  if(dir<0){
+    if(vm.p<=0) vm.d = "0"+vm.d; else vm.p--;
+    if(vm.p===0){ vm.d="0"+vm.d; vm.p=1; }
+    vm.e++;
+  }else{
+    vm.p++;
+    if(vm.p>vm.d.length) vm.d = vm.d+"0";
+    vm.e--;
+  }
+  vmDraw();
+}
+function vmParts(){
+  let ip = vm.d.slice(0,vm.p).replace(/^0+/,""), fp = vm.d.slice(vm.p);
+  if(!ip) ip = "0";
+  return [ip, fp];
+}
+function supE(n){ return String(n).replace("-","−"); }
+function vmDraw(){
+  const box = document.getElementById("vm"); if(!box) return;
+  const pr = vmParts(), ip = pr[0], fp = pr[1];
+  let num = ip + (fp ? '<span class="cm">,</span>'+fp : '');
+  num += ' × 10<sup>'+supE(vm.e)+'</sup>';
+  const moved = vm.e - vm.e0;
+  let msg, cls = "msg";
+  if(ip.length===1 && ip!=="0"){
+    cls += " ok";
+    const n = Math.abs(moved), posti = n+(n===1?" posto":" posti");
+    msg = "✓ Notazione scientifica."+(moved>0 ? " Virgola "+posti+" a sinistra: l'esponente sale di "+n+"."
+                                     : moved<0 ? " Virgola "+posti+" a destra: l'esponente scende di "+n+"." : "");
+  }else if(ip==="0"){
+    msg = "Prima della virgola c'è 0: sposta la virgola a destra ▶";
+  }else{
+    msg = "Prima della virgola ci sono "+ip.length+" cifre: sposta la virgola a sinistra ◀";
+  }
+  let pre = '<div class="pre">';
+  VMP.forEach((x,i)=>{ pre += '<button class="'+(i===vm.k?"on":"")+'" onclick="vmSet('+i+')">'+x.lab+'</button>'; });
+  pre += '</div>';
+  box.innerHTML = '<div class="num">'+num+'</div><div class="'+cls+'">'+msg+'</div>'
+    + '<div class="ctl"><button onclick="vmMove(-1)">◀ virgola a sinistra</button><button onclick="vmMove(1)">virgola a destra ▶</button></div>'
+    + pre;
+}
+
+/* ═══════ la scala dei prefissi ═══════ */
+const RUNGS = [["k",3],["h",2],["da",1],["",0],["d",-1],["c",-2],["m",-3],["μ",-6],["n",-9]];
+let lad = {dim:1, from:null, to:null};
+function ladInit(){ lad = {dim:1, from:null, to:null}; ladDraw(); }
+function ladDim(n){ lad.dim = n; ladDraw(); }
+function ladTap(i){
+  if(lad.from===null || lad.to!==null){ lad.from = i; lad.to = null; }
+  else if(i!==lad.from){ lad.to = i; }
+  ladDraw();
+}
+function unitName(i){ const s = ["","","²","³"][lad.dim]; return RUNGS[i][0]+"m"+s; }
+function ladDraw(){
+  const box = document.getElementById("lad"); if(!box) return;
+  let h = '<div class="dims">';
+  [[1,"m"],[2,"m²"],[3,"m³"]].forEach(x=>{ h += '<button class="'+(lad.dim===x[0]?"on":"")+'" onclick="ladDim('+x[0]+')">'+x[1]+'</button>'; });
+  h += '</div><div class="hint">'+(lad.from===null?"Tocca l'unità di partenza":(lad.to===null?"Ora tocca l'unità di arrivo":"Tocca un'altra unità per ricominciare"))+'</div><div class="rungs">';
+  const lo = lad.to===null?null:Math.min(lad.from,lad.to), hi = lad.to===null?null:Math.max(lad.from,lad.to);
+  RUNGS.forEach((r,i)=>{
+    if(i>0 && RUNGS[i-1][1]-r[1]>1){
+      h += '<div class="rung gap"><span class="e">'+(RUNGS[i-1][1]-r[1]-1)+' gradini senza nome</span></div>';
+    }
+    let cl = "rung";
+    if(i===lad.from) cl += " from";
+    else if(i===lad.to) cl += " to";
+    else if(lo!==null && i>lo && i<hi) cl += " mid";
+    h += '<button class="'+cl+'" onclick="ladTap('+i+')"><span class="u">'+unitName(i)+'</span><span class="e">10<sup>'+supE(r[1]*lad.dim)+'</sup> m'+["","","²","³"][lad.dim]+'</span></button>';
+  });
+  h += '</div>';
+  let out = '<div class="out">Ogni gradino vale × '+[0,10,100,1000][lad.dim]+'.</div>';
+  if(lad.from!==null && lad.to!==null){
+    const g = Math.abs(RUNGS[lad.from][1]-RUNGS[lad.to][1]), k = g*lad.dim;
+    const scendo = RUNGS[lad.to][1] < RUNGS[lad.from][1];
+    out = '<div class="out '+(scendo?"g":"s")+'"><b>'+unitName(lad.from)+' → '+unitName(lad.to)+'</b>: '
+      +(scendo?"scendo ":"salgo ")+g+(g===1?" gradino":" gradini")
+      +(lad.dim>1?"; con "+["","","m²","m³"][lad.dim]+" ogni gradino vale "+[0,10,100,1000][lad.dim]+", cioè esponente "+g+" × "+lad.dim+" = "+k:"")
+      +'<br>→ <b>'+(scendo?"moltiplico per 10<sup>"+k+"</sup>":"divido per 10<sup>"+k+"</sup>, cioè × 10<sup>−"+k+"</sup>")+'</b></div>';
+  }
+  box.innerHTML = h + out;
+}
+
+/* ═══════ disegni piccoli ═══════ */
+function sqInit(){
+  const g = document.getElementById("sqgrid"); if(!g) return;
+  let s = '<rect x="20" y="15" width="140" height="140" fill="#E6EEF9" stroke="#1D5FA8" stroke-width="2.5"/>';
+  for(let i=1;i<10;i++){
+    s += '<line x1="'+(20+i*14)+'" y1="15" x2="'+(20+i*14)+'" y2="155" stroke="#9DB7DA" stroke-width="1"/>';
+    s += '<line x1="20" y1="'+(15+i*14)+'" x2="160" y2="'+(15+i*14)+'" stroke="#9DB7DA" stroke-width="1"/>';
+  }
+  s += '<rect x="20" y="15" width="14" height="14" fill="#1D5FA8"/>';
+  g.innerHTML = s;
+}
+function sphInit(){
+  const g = document.getElementById("spheres"); if(!g) return;
+  const cols = ["#4F86C6","#E0A43A","#B3261E","#1F7A4D"];
+  let s = '<circle cx="75" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/><circle cx="245" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/>';
+  const pts = [[-26,-18],[-6,-26],[14,-22],[30,-6],[-32,4],[-12,-4],[8,-2],[26,14],[-24,24],[-4,18],[14,28],[-14,34]];
+  pts.forEach((p,i)=>{
+    s += '<circle cx="'+(75+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="#4F86C6"/>';
+    s += '<circle cx="'+(245+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="'+cols[(i*7)%4]+'"/>';
+  });
+  g.innerHTML = s;
+}
+
+/* ═══════ curve di riscaldamento e raffreddamento ═══════ */
+const CURVE = {
+  risc:{ pts:[[45,-18],[85,0],[150,0],[215,100],[300,100],[337,112]],
+    col:["#D5DCE3","#DDD3EF","#D3E5F6","#F4D3E1","#FAEBC0"],
+    dk:["#8A99AA","#9C85C9","#6FA3D6","#D98AAE","#E0B84A"], below:[0,2],
+    tr:[["A–B","solido","Solo ghiaccio. La temperatura sale da −18&nbsp;°C a 0&nbsp;°C."],
+        ["B–C","solido + liquido","<b>Fusione.</b> Ghiaccio e acqua insieme. Sosta termica: si scalda, ma la temperatura resta 0&nbsp;°C finché c'è ghiaccio."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura sale da 0&nbsp;°C a 100&nbsp;°C."],
+        ["D–E","liquido + aeriforme","<b>Ebollizione.</b> Acqua e vapore insieme. Seconda sosta termica: la temperatura resta 100&nbsp;°C finché c'è liquido."],
+        ["E–F","aeriforme","Solo vapore. La temperatura riprende a salire."]]},
+  raff:{ pts:[[45,112],[80,100],[165,100],[225,0],[295,0],[337,-18]],
+    col:["#FAEBC0","#F4D3E1","#D3E5F6","#DDD3EF","#D5DCE3"],
+    dk:["#E0B84A","#D98AAE","#6FA3D6","#9C85C9","#8A99AA"],
+    tr:[["A–B","aeriforme","Solo vapore. La temperatura scende fino a 100&nbsp;°C."],
+        ["B–C","aeriforme + liquido","<b>Condensazione.</b> Il vapore diventa liquido. Sosta termica a 100&nbsp;°C."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura scende da 100&nbsp;°C a 0&nbsp;°C."],
+        ["D–E","liquido + solido","<b>Solidificazione.</b> L'acqua diventa ghiaccio. Sosta termica a 0&nbsp;°C."],
+        ["E–F","solido","Solo ghiaccio. La temperatura scende sotto 0&nbsp;°C."]]}
+};
+function curvY(T){ return 185 - T*1.3; }
+function curvInit(){
+  Array.prototype.forEach.call(stage.querySelectorAll(".curva"), el=>curvDraw(el, null));
+}
+function curvDraw(el, sel){
+  const C = CURVE[el.getAttribute("data-k")], P = C.pts.map(p=>[p[0], curvY(p[1])]);
+  const F = 'font-family="-apple-system,Arial,sans-serif"';
+  let s = '<svg viewBox="0 0 350 250" role="img" aria-label="Curva della temperatura nel tempo">';
+  for(let i=0;i<5;i++){
+    const op = sel===null ? .6 : (i===sel ? 1 : .18);
+    s += '<rect x="'+P[i][0]+'" y="22" width="'+(P[i+1][0]-P[i][0])+'" height="204" fill="'+C.col[i]+'" opacity="'+op+'"/>';
+  }
+  s += '<line x1="40" y1="'+curvY(100)+'" x2="345" y2="'+curvY(100)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="'+curvY(0)+'" x2="345" y2="'+curvY(0)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="14" x2="40" y2="226" stroke="#1B2430" stroke-width="1.8"/><line x1="40" y1="226" x2="346" y2="226" stroke="#1B2430" stroke-width="1.8"/>';
+  s += '<g '+F+' font-size="12.5" fill="#1B2430"><text x="4" y="14">t (°C)</text><text x="346" y="244" text-anchor="end">tempo →</text>';
+  s += '<text x="36" y="'+(curvY(100)+4)+'" text-anchor="end">100</text><text x="36" y="'+(curvY(0)+4)+'" text-anchor="end">0</text><text x="36" y="'+(curvY(-18)+4)+'" text-anchor="end">−18</text></g>';
+  s += '<polyline points="'+P.map(p=>p.join(",")).join(" ")+'" fill="none" stroke="#1B2430" stroke-width="3" stroke-linejoin="round"/>';
+  if(sel!==null) s += '<line x1="'+P[sel][0]+'" y1="'+P[sel][1]+'" x2="'+P[sel+1][0]+'" y2="'+P[sel+1][1]+'" stroke="#A8327A" stroke-width="7" stroke-linecap="round"/>';
+  const L = "ABCDEF";
+  P.forEach((p,i)=>{
+    s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="#1B2430"/>';
+    const up = (C.below && C.below.indexOf(i)>=0) ? 17 : -8;
+    s += '<text x="'+(p[0]+(i===5?-12:3))+'" y="'+(p[1]+up)+'" '+F+' font-size="14" font-weight="700" fill="#1B2430">'+L[i]+'</text>';
+  });
+  s += '</svg>';
+  let b = '<div class="cbtns">';
+  C.tr.forEach((t,i)=>{
+    b += '<button class="cb'+(i===sel?' on':'')+'" style="border-left-color:'+C.dk[i]+'" onclick="curvSel(this,'+i+')"><b>'+t[0]+'</b> · '+t[1]+'</button>';
+  });
+  b += '</div>';
+  const out = '<div class="cout'+(sel===null?'':' on')+'">'+(sel===null ? 'Tocca un tratto.' : '<b>Tratto '+C.tr[sel][0]+'</b> — '+C.tr[sel][2])+'</div>';
+  el.innerHTML = s + b + out;
+}
+function curvSel(btn,i){
+  let el = btn; while(el && !(el.classList && el.classList.contains("curva"))) el = el.parentNode;
+  if(el) curvDraw(el, i);
+}
+function partInit(){
+  const g = document.getElementById("parts"); if(!g) return;
+  let s = "";
+  for(let r=0;r<3;r++) for(let c=0;c<4;c++){
+    const x = 25+c*20, y = 50+r*20;
+    s += '<path d="M'+(x-12)+','+(y-12)+' q3,-3 6,0" fill="none" stroke="#9AA3AE" stroke-width="1"/>';
+    s += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#4F86C6"/>';
+  }
+  [[132,97],[151,98],[170,96],[189,98],[208,97],[142,80],[161,81],[180,79],[199,81],[151,63],[172,63]]
+    .forEach(p=>{ s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  [[254,28,-14,4],[302,40,10,10],[278,70,-12,-8],[316,90,8,-12],[252,95,-12,6]]
+    .forEach(p=>{ s += '<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+p[2])+'" y2="'+(p[1]+p[3])+'" stroke="#9AA3AE" stroke-width="2" stroke-linecap="round"/>'
+                    + '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  g.innerHTML = s;
+}
+
+
+/* ═══════ catena di monomeri ═══════ */
+let polyN = 3, polyMsg = "";
+function polyInit(){ polyN = 3; polyMsg = ""; polyDraw(); }
+function hexP(cx,cy,r){ const p = []; for(let k=0;k<6;k++){ const a = (30+60*k)*Math.PI/180; p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1)); } return p.join(" "); }
+function dropP(x,y){ return '<path d="M'+x+','+(y-9)+' C'+(x+7)+','+(y-1)+' '+(x+6)+','+(y+7)+' '+x+','+(y+7)+' C'+(x-6)+','+(y+7)+' '+(x-7)+','+(y-1)+' '+x+','+(y-9)+' Z" fill="#4F9BD9"/>'; }
+function polyDraw(){
+  const el = stage.querySelector(".poly"); if(!el) return;
+  let s = '<svg viewBox="0 0 340 104" role="img" aria-label="Catena di '+polyN+' monomeri"><g font-family="-apple-system,Arial,sans-serif">';
+  for(let i=0;i<polyN;i++){
+    const x = 26+i*46;
+    if(i>0) s += '<line x1="'+(x-30)+'" y1="78" x2="'+(x-16)+'" y2="78" stroke="#C98A12" stroke-width="3"/>' + dropP(x-23,40)
+              + '<text x="'+(x-23)+'" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="#1D5FA8">H₂O</text>';
+    s += '<polygon points="'+hexP(x,78,16)+'" fill="#FBEFD3" stroke="#C98A12" stroke-width="2.5"/>';
+  }
+  s += '</g></svg>';
+  el.innerHTML = s + '<div class="pstat"><b>'+polyN+'</b> '+(polyN===1?'monomero':'monomeri')+' nella catena · <b>'+(polyN-1)+'</b> '+(polyN===2?'molecola':'molecole')+' d\'acqua '+(polyN===2?'uscita':'uscite')+'</div>'
+    + '<div class="pctl"><button onclick="polyMove(1)"'+(polyN>=7?' disabled':'')+'>+ attacca un pezzo<small>condensazione</small></button>'
+    + '<button onclick="polyMove(-1)"'+(polyN<=1?' disabled':'')+'>− stacca con l\'acqua<small>idrolisi</small></button></div>'
+    + '<div class="pmsg">'+polyMsg+'</div>';
+}
+function polyMove(d){
+  const n = Math.max(1, Math.min(7, polyN+d)); if(n===polyN) return;
+  polyN = n;
+  polyMsg = d>0 ? "Si è attaccato un pezzo: è uscita una molecola d'acqua." : "È entrata una molecola d'acqua: la catena si è spezzata.";
+  polyDraw();
+}
+
+/* ═══════ disegni con i pulsanti (prima/dopo, strutture) ═══════ */
+function togInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".tog"), el=>togDraw(el,0)); }
+function togDraw(el,k){
+  const T = TOGS[el.getAttribute("data-set")]; if(!T) return;
+  let h = '<div class="tbtns">';
+  T.lab.forEach((l,i)=>{ h += '<button class="'+(i===k?'on':'')+'" onclick="togSel(this,'+i+')">'+l+'</button>'; });
+  el.innerHTML = h + '</div>' + T.svg[k] + '<div class="tout">'+T.txt[k]+'</div>';
+}
+function togSel(btn,k){
+  let el = btn; while(el && !(el.classList && el.classList.contains("tog"))) el = el.parentNode;
+  if(el) togDraw(el,k);
+}
+
+
+/* ═══════ costruttore di atomi ═══════ */
+const ELEM = ["","H idrogeno","He elio","Li litio","Be berillio","B boro","C carbonio","N azoto","O ossigeno","F fluoro","Ne neon","Na sodio","Mg magnesio","Al alluminio","Si silicio","P fosforo","S zolfo","Cl cloro","Ar argon","K potassio","Ca calcio"];
+function atomInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".atomw"), el=>{
+  el._p = +el.getAttribute("data-p")||6; el._n = +el.getAttribute("data-n")||6; el._e = +el.getAttribute("data-e")||6; atomDraw(el); }); }
+function atomMove(btn,what,d){
+  let el = btn; while(el && !(el.classList && el.classList.contains("atomw"))) el = el.parentNode; if(!el) return;
+  if(what==="p") el._p = Math.max(1,Math.min(20,el._p+d));
+  if(what==="n") el._n = Math.max(0,Math.min(24,el._n+d));
+  if(what==="e") el._e = Math.max(0,Math.min(22,el._e+d));
+  atomDraw(el);
+}
+function atomDraw(el){
+  const p = el._p, n = el._n, e = el._e, A = p+n, q = p-e, X = ELEM[p].split(" ");
+  let s = '<svg viewBox="0 0 340 170" role="img" aria-label="Atomo con '+p+' protoni, '+n+' neutroni, '+e+' elettroni">';
+  s += '<circle cx="170" cy="85" r="74" fill="none" stroke="#C9D3DE" stroke-width="2" stroke-dasharray="4 5"/>';
+  const tot = p+n, R = 6, cols = Math.ceil(Math.sqrt(tot)); let k = 0;
+  const order = []; for(let i=0;i<tot;i++) order.push(i%2===0 && order.filter(x=>x==="p").length<p ? "p" : (order.filter(x=>x==="n").length<n ? "n" : "p"));
+  for(let i=0;i<tot;i++){ const r = Math.floor(i/cols), c = i%cols, x = 170+(c-(cols-1)/2)*11, y = 85+(r-(Math.ceil(tot/cols)-1)/2)*11;
+    s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+R+'" fill="'+(order[i]==="p"?"#D9534F":"#9AA3AE")+'"/>'; }
+  for(let i=0;i<e;i++){ const a = 2*Math.PI*i/Math.max(e,1) - Math.PI/2; s += '<circle cx="'+(170+74*Math.cos(a)).toFixed(1)+'" cy="'+(85+74*Math.sin(a)).toFixed(1)+'" r="5" fill="#1D5FA8"/>'; }
+  s += '</svg>';
+  const qs = q===0 ? "" : (Math.abs(q)>1?Math.abs(q):"")+(q>0?"+":"−");
+  const sym = '<span class="aw-sym"><span class="ix"><span>'+A+'</span><span>'+p+'</span></span>'+X[0]+'<sup style="font-size:17px">'+qs+'</sup></span>';
+  const tipo = q===0 ? "atomo <b>neutro</b>: elettroni = protoni" : (q>0 ? "ione <b>positivo</b> (catione): ha perso "+q+(q===1?" elettrone":" elettroni") : "ione <b>negativo</b> (anione): ha preso "+(-q)+(-q===1?" elettrone":" elettroni"));
+  el.innerHTML = s
+   + '<div class="aw-row">'
+   + '<div class="aw-ctl" style="color:#B33A36">protoni<span class="v">'+p+'</span><button onclick="atomMove(this,\'p\',-1)">−</button><button onclick="atomMove(this,\'p\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#5A6473">neutroni<span class="v">'+n+'</span><button onclick="atomMove(this,\'n\',-1)">−</button><button onclick="atomMove(this,\'n\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#1D5FA8">elettroni<span class="v">'+e+'</span><button onclick="atomMove(this,\'e\',-1)">−</button><button onclick="atomMove(this,\'e\',1)">+</button></div>'
+   + '</div><div class="aw-out">'+sym+'<b>'+X[1]+'</b> · Z = '+p+' · A = '+p+' + '+n+' = '+A+'<br>'+tipo+'</div>';
+}
+
+/* ═══════ costruttore di formule ioniche ═══════ */
+const CAT = [["Na","+1","sodio",0],["K","+1","potassio",0],["NH<sub>4</sub>","+1","ammonio",1],["Mg","+2","magnesio",0],["Ca","+2","calcio",0],["Fe","+3","ferro (III)",0],["Al","+3","alluminio",0]];
+const ANI = [["Cl","−1","cloruro",0],["F","−1","fluoruro",0],["OH","−1","idrossido",1],["NO<sub>3</sub>","−1","nitrato",1],["ClO<sub>2</sub>","−1","clorito",1],["O","−2","ossido",0],["S","−2","solfuro",0],["SO<sub>4</sub>","−2","solfato",1],["CO<sub>3</sub>","−2","carbonato",1],["PO<sub>4</sub>","−3","fosfato",1]];
+function chg(s){ return parseInt(s.replace("−","-"),10); }
+function supq(q){ const a = Math.abs(q); return (a>1?a:"")+(q>0?"+":"−"); }
+function formInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".formw"), el=>{
+  let h = '<div class="fw-sel"><div><label>ione positivo</label><select onchange="formDraw(this)">';
+  CAT.forEach((c,i)=>{ h += '<option value="'+i+'"'+(i===4?' selected':'')+'>'+c[0].replace(/<\/?sub>/g,"")+supq(chg(c[1]))+' ('+c[2]+')</option>'; });
+  h += '</select></div><div><label>ione negativo</label><select onchange="formDraw(this)">';
+  ANI.forEach((a,i)=>{ h += '<option value="'+i+'"'+(i===0?' selected':'')+'>'+a[0].replace(/<\/?sub>/g,"")+supq(chg(a[1]))+' ('+a[2]+')</option>'; });
+  h += '</select></div></div><div class="fw-out"></div>';
+  el.innerHTML = h; formDraw(el.querySelector("select"));
+}); }
+function gcd(a,b){ return b ? gcd(b,a%b) : a; }
+function formDraw(sel){
+  let el = sel; while(el && !(el.classList && el.classList.contains("formw"))) el = el.parentNode; if(!el) return;
+  const ss = el.querySelectorAll("select"), c = CAT[+ss[0].value], a = ANI[+ss[1].value];
+  const qc = chg(c[1]), qa = -chg(a[1]), L = qc*qa/gcd(qc,qa), nc = L/qc, na = L/qa;
+  let t = '<div class="fw-tiles">';
+  for(let i=0;i<nc;i++) t += '<span class="fw-t c">'+c[0]+'<sup>'+supq(qc)+'</sup></span>';
+  for(let i=0;i<na;i++) t += '<span class="fw-t a">'+a[0]+'<sup>'+supq(-qa)+'</sup></span>';
+  t += '</div>';
+  const part = (x,n,poly)=> n===1 ? x : (poly ? "("+x+")<sub>"+n+"</sub>" : x+"<sub>"+n+"</sub>");
+  const f = part(c[0],nc,c[3]) + part(a[0],na,a[3]);
+  el.querySelector(".fw-out").innerHTML = t
+   + '<div style="text-align:center;font-size:16px">cariche: '+nc+' × (+'+qc+') = +'+(nc*qc)+' &nbsp;e&nbsp; '+na+' × (−'+qa+') = −'+(na*qa)+' &nbsp;→ in tutto <b>0</b></div>'
+   + '<div class="fw-f">'+f+'</div><div style="text-align:center;font-size:16px;color:#5A6473">'+a[2]+' di '+c[2]+'</div>';
+}
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){
+  const sup = {"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9"};
+  const sub = {"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+  const S = s=>s.split("").map(c=>sup[c]||sub[c]||c).join("");
+  return t.replace(/a\.C\./g,"avanti Cristo")
+    .replace(/10(⁻?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(m,e)=>" 10 alla "+(e[0]==="⁻"?"meno ":"")+S(e.replace("⁻","")))
+    .replace(/cm³/g," centimetri cubi").replace(/dm³/g," decimetri cubi").replace(/m³/g," metri cubi")
+    .replace(/cm²/g," centimetri quadrati").replace(/dm²/g," decimetri quadrati").replace(/m²/g," metri quadrati")
+    .replace(/([⁰¹²³⁴⁵⁶⁷⁸⁹]+)([⁺⁻])/g,(m,d,s)=>" "+S(d)+(s==="⁺"?" più":" meno"))
+    .replace(/⁺/g," più").replace(/⁻/g," meno").replace(/([₀-₉]+)/g,m=>" "+S(m)+" ")
+    .replace(/·/g,", ").replace(/×/g," per ").replace(/÷/g," diviso ").replace(/→/g,", ").replace(/≈/g," circa ")
+    .replace(/°C/g," gradi").replace(/%/g," per cento").replace(/−/g," meno ").replace(/ = /g," uguale ")
+    .replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = new SpeechSynthesisUtterance(say(el.getAttribute("data-say") || el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("sc12-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>
