@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scienze 9 — Leggi ponderali e calcoli con le masse atomiche</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --giu-soft:#E6EEF9;   /* scendo la scala: moltiplico */
+  --su:#B4531A;  --su-soft:#FBEDE3;    /* salgo la scala: divido */
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:23px; text-align:center; display:block; margin:14px 0; line-height:1.5}
+.f i{font-style:italic}
+.f.big{font-size:30px}
+.ex{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px; line-height:1.6}
+.ex .lbl, .box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.ex .fx{font-family:"Times New Roman",Georgia,serif; font-size:20px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.giu{color:var(--giu); font-weight:700} .su{color:var(--su); font-weight:700}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+td.c, th.c{text-align:center}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+
+/* passi numerati del metodo */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16.5px; line-height:1.55}
+.flow .st b.n{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.flow .st.av{border-left-color:var(--warn); background:var(--warn-soft)}
+.flow .st.av b.n{color:var(--warn)}
+
+/* mappa della materia */
+.tree{margin:14px 0; font-size:16px}
+.tree .n0{background:var(--ink); color:#fff; border-radius:10px; padding:8px 12px; text-align:center; font-weight:700}
+.tree .lv{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+.tree .n1{border:2px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 10px; text-align:center; font-weight:700; color:var(--accent)}
+.tree .n2{border:1px solid var(--rule); background:#fff; border-radius:10px; padding:7px 9px; font-size:15px; line-height:1.4; margin-top:6px}
+.tree .n2 b{display:block}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* la virgola che si sposta */
+.vm{border:2px solid var(--accent-line); border-radius:14px; padding:14px; margin:14px 0; background:#fff}
+.vm .num{font-family:"Times New Roman",Georgia,serif; font-size:34px; text-align:center; line-height:1.3; word-break:break-all; margin:6px 0}
+.vm .num .cm{color:var(--accent); font-weight:700; font-size:40px}
+.vm .num sup{font-size:22px}
+.vm .msg{font-size:16px; text-align:center; min-height:3.1em; font-weight:600}
+.vm .msg.ok{color:var(--ok)}
+.vm .ctl{display:flex; gap:8px; margin-top:8px}
+.vm .ctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 6px; font:inherit; font-size:16px; font-weight:700; cursor:pointer}
+.vm .pre{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; justify-content:center}
+.vm .pre button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:4px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.vm .pre button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft)}
+
+/* la scala dei prefissi */
+.lad{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.lad .dims{display:flex; gap:6px; margin-bottom:10px}
+.lad .dims button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 4px; font:inherit; font-size:16px; font-weight:700; color:var(--soft); cursor:pointer}
+.lad .dims button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.lad .hint{font-size:15px; color:var(--soft); text-align:center; margin-bottom:8px}
+.rungs{display:flex; flex-direction:column; gap:4px}
+.rung{display:flex; align-items:center; gap:10px; border:2px solid var(--rule); border-radius:10px; padding:6px 10px; background:#fff; cursor:pointer; font:inherit; color:var(--ink); text-align:left; width:100%}
+.rung .u{font-family:"Times New Roman",Georgia,serif; font-size:21px; font-weight:700; min-width:64px}
+.rung .e{font-size:14px; color:var(--soft)}
+.rung.gap{border-style:dashed; padding:0 10px; min-height:14px; cursor:default; background:transparent}
+.rung.gap .e{font-size:12.5px}
+.rung.mid{background:#F4F1EA}
+.rung.from{border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+.rung.to{border-color:var(--ink); background:var(--ink); color:#fff}
+.rung.to .e{color:#DDE3EA}
+.lad .out{margin-top:10px; border-radius:12px; padding:10px 12px; font-size:17px; line-height:1.55; min-height:3.2em; background:#F4F1EA}
+.lad .out.g{background:var(--giu-soft); color:var(--giu)}
+.lad .out.s{background:var(--su-soft); color:var(--su)}
+
+/* passaggi di stato */
+.sb{font-size:14px}
+
+/* curve di riscaldamento */
+.curva{margin:14px 0}
+.cbtns{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.cb{border:2px solid var(--rule); border-left-width:12px; background:#fff; border-radius:10px; padding:8px 12px;
+  font:inherit; font-size:16px; text-align:left; color:var(--ink); cursor:pointer}
+.cb.on{border-top-color:var(--accent); border-right-color:var(--accent); border-bottom-color:var(--accent); background:var(--accent-soft)}
+.cout{margin-top:8px; border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:#F4F1EA; color:var(--soft); min-height:3.2em}
+.cout.on{background:var(--accent-soft); color:var(--ink); border:1px solid var(--accent-line)}
+/* striscia dei punti fissi */
+.strip{display:flex; align-items:stretch; margin:12px 0 2px; font-size:15px; font-weight:700; text-align:center}
+.strip .z{flex:1; padding:9px 4px; border-radius:8px}
+.strip .z1{background:#D5DCE3} .strip .z2{background:#D3E5F6} .strip .z3{background:#FAEBC0}
+.strip .mk{flex:0 0 auto; align-self:center; padding:0 6px; font-family:"Times New Roman",Georgia,serif; font-size:19px; color:var(--accent)}
+.stripax{font-size:13px; color:var(--soft); text-align:right; margin-bottom:10px}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+
+/* le tre famiglie */
+.fam{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:14px 0}
+.fam div{border-radius:12px; padding:8px 6px; text-align:center; font-size:13.5px; line-height:1.4}
+.fam b{display:block; font-size:16px; margin-bottom:2px}
+.fam svg{margin:2px auto 4px}
+.fam .f1{background:#FBEFD3; color:#6E4A06} .fam .f2{background:#FBE3EF; color:#8E1B55} .fam .f3{background:#E6EEF9; color:#1D4F8A}
+
+/* catena di monomeri e disegni a pulsanti */
+.poly,.tog{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.pstat{text-align:center; font-size:16.5px}
+.pctl{display:flex; gap:8px; margin-top:10px}
+.pctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:10px 6px;
+  font:inherit; font-size:16px; font-weight:700; cursor:pointer; line-height:1.3}
+.pctl button small{display:block; font-size:12.5px; font-weight:600; color:var(--soft)}
+.pctl button:disabled{opacity:.35}
+.pmsg{min-height:1.6em; text-align:center; font-size:15px; color:var(--soft); margin-top:8px}
+.tbtns{display:flex; flex-wrap:wrap; gap:6px}
+.tbtns button{flex:1 1 40%; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 6px;
+  font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer}
+.tbtns button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.tout{border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:var(--accent-soft); border:1px solid var(--accent-line)}
+
+
+.flow .st .n{text-transform:none; letter-spacing:0; font-size:14.5px}
+/* analogia */
+.an{background:#E6EEF9; border:1px solid #C9D9EE; border-radius:12px; padding:12px 16px; margin:14px 0; font-size:17px; line-height:1.6}
+.an .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:#1D4F8A; font-weight:700; margin-bottom:3px}
+/* prova tu */
+.quiz{margin-top:18px; padding-top:14px; border-top:1px dashed var(--rule)}
+.quiz .qhd{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.quiz .qhd span{color:var(--soft); letter-spacing:.04em}
+.qz{margin:10px 0 16px}
+.qz .qq{font-weight:700; font-size:17px; line-height:1.45; margin-bottom:7px}
+.qz .op{display:flex; flex-direction:column; gap:6px}
+.qz .op button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left; font:inherit; font-size:16.5px; line-height:1.4; color:var(--ink); cursor:pointer}
+.qz .op button.right{border-color:#1F5C4B; background:#E8F0EC; color:#1F5C4B; font-weight:700}
+.qz .op button.wrong{border-color:#9B2C2C; background:#FBEAEA; color:#9B2C2C}
+.qz.done .op button:not(.right):not(.wrong){opacity:.5}
+.qz .why{display:none; margin-top:7px; border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.55}
+.qz .why.on{display:block}
+.qz .why.y{background:#E8F0EC; color:#1F5C4B}
+.qz .why.n{background:#FBEAEA; color:#7A2222}
+/* percorso */
+.path{display:flex; gap:8px; margin:26px 0 0}
+.path a{flex:1; display:block; border:2px solid var(--accent-line); border-radius:12px; padding:10px 12px; text-decoration:none; color:var(--accent); font-weight:700; font-size:15px; line-height:1.35; background:#fff}
+.path a small{display:block; color:var(--soft); font-weight:600; font-size:12.5px}
+.path a.nx{text-align:right}
+/* costruttore di atomi */
+.atomw,.formw{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.aw-row{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:8px}
+.aw-ctl{border:1px solid var(--rule); border-radius:12px; padding:6px; text-align:center; font-size:14px; font-weight:700}
+.aw-ctl .v{font-size:22px; display:block; line-height:1.2}
+.aw-ctl button{border:2px solid var(--rule); background:#fff; border-radius:9px; width:40px; height:36px; font-size:20px; font-weight:700; cursor:pointer; margin:2px}
+.aw-out{margin-top:8px; border-radius:12px; padding:10px 12px; background:var(--accent-soft); border:1px solid var(--accent-line); font-size:16.5px; line-height:1.55}
+.aw-sym{font-family:"Times New Roman",Georgia,serif; font-size:30px; display:inline-flex; align-items:center; gap:2px; margin-right:10px; vertical-align:middle}
+.aw-sym .ix{display:inline-flex; flex-direction:column; font-size:15px; line-height:1.05; text-align:right}
+.fw-sel{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+.fw-sel label{font-size:13px; font-weight:700; color:var(--soft); display:block; margin-bottom:3px}
+.fw-sel select{width:100%; font:inherit; font-size:17px; padding:8px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink)}
+.fw-tiles{display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; justify-content:center}
+.fw-t{border-radius:10px; padding:6px 10px; font-weight:700; font-size:16px}
+.fw-t.c{background:#E6EEF9; color:#1D4F8A; border:2px solid #9DB8DC}
+.fw-t.a{background:#FBE3EF; color:#8E1B55; border:2px solid #E8A9C8}
+.fw-f{font-family:"Times New Roman",Georgia,serif; font-size:30px; text-align:center; margin:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Scienze · scheda 9 di 12</div>
+  <h1>9 · Leggi ponderali e calcoli con le masse atomiche</h1>
+  <p class="lead">Lavoisier, Proust e Dalton; poi gli stessi calcoli con le masse atomiche della tavola periodica: rapporti, percentuali, reagente in eccesso. Gli esercizi degli appunti sono svolti in più modi.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<nav class="path"><a href="26-11-05-sc08-ioni.html">◀ Scheda 8<small>Ioni e composti ionici</small></a><a class="nx" href="26-11-05-sc10-legami.html">Scheda 10 ▶<small>Legami e molecole</small></a></nav><p class="foot" id="foot">Percorso di scienze in 12 schede, costruito sugli appunti di Liam (settembre–novembre 2026).</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const TOGS = {};
+const PARTI = ["1 · Lavoisier", "2 · Proust", "3 · Con le masse atomiche", "4 · Moli e Dalton", "5 · Ripasso"];
+const CARDS = [{"parte": 0, "t": "Lavoisier: la massa si conserva", "body": "<p class=\"s\">Lavoisier fu il primo a notare che, in una reazione chimica, la somma delle masse dei reagenti è sempre uguale alla somma delle masse dei prodotti.</p>\n<span class=\"f big\"><i>m</i> reagenti = <i>m</i> prodotti</span>\n<p class=\"s\">È la legge di conservazione della massa: nelle reazioni chimiche la materia si conserva.</p>\n<div class=\"ex\"><div class=\"lbl\">Sintesi: due reagenti, un prodotto</div>\nmagnesio + ossigeno → ossido di magnesio<br>\n<span class=\"fx\">2,93 g + ? = 4,86 g</span><br>\n<span class=\"fx\"><i>m</i> ossigeno = 4,86 − 2,93 = <b>1,93 g</b></span></div>\n<div class=\"ex\"><div class=\"lbl\">Decomposizione: un reagente, due prodotti</div>\nossido di mercurio → mercurio + ossigeno<br>\n<span class=\"fx\">216,6 g = 200,6 g + ?</span> &nbsp;→&nbsp; <span class=\"fx\"><i>m</i> ossigeno = <b>16,0 g</b></span></div>\n<p class=\"s\">Se manca una massa, la trovi con una sottrazione. Metti tutti i reagenti da una parte, tutti i prodotti dall'altra, e fai in modo che i due lati pesino uguale.</p>\n<div class=\"trap s\"><b>Anche i gas contano.</b> Se si forma idrogeno o vapore acqueo che se ne va, la sua massa va messa tra i prodotti.</div>", "ask": ["10,0 g di zinco reagiscono con 11,0 g di acido cloridrico e si formano 0,3 g di idrogeno. Quanto cloruro di zinco si forma?", "<b>20,7 g.</b> Reagenti 10,0 + 11,0 = 21,0 g. Prodotti: 21,0 − 0,3 = 20,7 g di cloruro di zinco."], "quiz": [["5 g di A reagiscono con 3 g di B e si forma solo C. Quanto C?", ["15 g", "8 g", "2 g"], 1, "Reagenti = prodotti: 5 + 3."], ["Nella legge di Lavoisier…", ["la massa dei reagenti è uguale a quella dei prodotti", "la massa aumenta", "la massa diminuisce"], 0, "In un sistema chiuso la massa si conserva."]]}, {"parte": 0, "t": "Lavoisier: esercizi svolti", "body": "<p class=\"s\">Per Lavoisier si scrive sempre la stessa uguaglianza: massa dei reagenti = massa dei prodotti. Poi si cerca l'unico numero che manca.</p><div class=\"ex s\" data-say=\"Dagli appunti: solfato di sodio più ferro uguale solfato di ferro più sodio. Si usano 56,2 grammi di ferro e si ottengono 153,2 grammi di solfato di ferro e 23,05 di sodio. Quanto solfato di sodio? x più 56,2 uguale 153,2 più 23,05, quindi x uguale 120,05 grammi.\"><div class=\"lbl\">Dagli appunti</div><span style=\"display:none\">: </span>Solfato di sodio + ferro = solfato di ferro + sodio. Si usano 56,2 g di ferro e si ottengono 153,2 g di solfato di ferro e 23,05 g di sodio. Quanto solfato di sodio?<br><i>x</i> + 56,2 = 153,2 + 23,05 → <i>x</i> = 176,25 − 56,2 = <b>120,05 g</b></div><div class=\"ex s\" data-say=\"Con quattro sostanze: acido più idrossido uguale sale più acqua. Si usano 80 grammi di idrossido e si ottengono 142 di sale e 36 di acqua. L&#x27;acido è 142 più 36 meno 80: 98 grammi.\"><div class=\"lbl\">Con quattro sostanze</div><span style=\"display:none\">: </span>Acido + idrossido = sale + acqua. Si usano 80,0 g di idrossido e si ottengono 142,0 g di sale e 36,0 g di acqua.<br>acido + 80,0 = 142,0 + 36,0 → acido = <b>98,0 g</b></div><div class=\"trap s\"><b>Prima scrivi chi sta a sinistra e chi a destra della freccia.</b> I prodotti si sommano tra loro, i reagenti si sommano tra loro. Un prodotto non si toglie da un altro prodotto: 126,4 − 18,1 era l'errore della verifica.</div><div class=\"an s\"><div class=\"lbl\">Come un conto della spesa</div><span style=\"display:none\">: </span>Quello che entra nel carrello (reagenti) deve pesare quanto quello che esce nelle buste (prodotti), anche se è ridistribuito diversamente.</div>", "ask": ["A + B = C + D. A = 10 g, B = 6 g, C = 9 g. Quanto vale D?", "10 + 6 = 9 + D → <b>D = 7 g</b>."], "quiz": [["Zinco + acido = sale + idrogeno: 13,0 g + 14,5 g = 27,1 g + x. Quanto idrogeno?", ["0,4 g", "1,4 g", "40,6 g"], 0, "27,5 − 27,1."], ["In A + B = C + D, D si trova con…", ["C − A − B", "A − B + C", "A + B − C"], 2, "Reagenti meno l'altro prodotto."]]}, {"parte": 1, "t": "Proust: il rapporto di combinazione", "body": "<p class=\"s\">In un composto gli elementi si combinano sempre nello stesso rapporto di massa. È la legge delle proporzioni definite, di Proust.</p>\n<span class=\"f\">rapporto Mg/O = <i>m</i> Mg / <i>m</i> O = 2,93 / 1,93 = <b>1,52</b></span>\n<p class=\"s\">Rapporto magnesio su ossigeno uguale uno virgola cinquantadue. Vuol dire: un grammo di ossigeno si combina con uno virgola cinquantadue grammi di magnesio. Il primo elemento scritto sta sopra.</p>\n<svg viewBox=\"0 0 330 120\" role=\"img\" aria-label=\"Da ossigeno a magnesio si moltiplica per il rapporto, da magnesio a ossigeno si divide\">\n<defs><marker id=\"mk1\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"#1D5FA8\"/></marker>\n<marker id=\"mk2\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"#B4531A\"/></marker></defs>\n<g font-family=\"-apple-system,Arial,sans-serif\">\n<rect x=\"10\" y=\"38\" width=\"96\" height=\"44\" rx=\"10\" fill=\"#fff\" stroke=\"#1B2430\" stroke-width=\"2\"/>\n<text x=\"58\" y=\"66\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"700\" fill=\"#1B2430\">Mg</text>\n<rect x=\"224\" y=\"38\" width=\"96\" height=\"44\" rx=\"10\" fill=\"#fff\" stroke=\"#1B2430\" stroke-width=\"2\"/>\n<text x=\"272\" y=\"66\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"700\" fill=\"#1B2430\">O</text>\n<path d=\"M222,46 C180,14 150,14 110,46\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"2.5\" marker-end=\"url(#mk1)\"/>\n<text x=\"165\" y=\"18\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#1D5FA8\">× 1,52</text>\n<path d=\"M110,76 C150,108 180,108 222,76\" fill=\"none\" stroke=\"#B4531A\" stroke-width=\"2.5\" marker-end=\"url(#mk2)\"/>\n<text x=\"165\" y=\"116\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#B4531A\">÷ 1,52</text>\n</g></svg>\n<p class=\"s\">Per usare il rapporto: dall'elemento di sotto a quello di sopra moltiplichi. Da quello di sopra a quello di sotto dividi.</p>\n<div class=\"ex\"><div class=\"lbl\">Con la proporzione</div>Rapporto P/Cl = 0,290. Quanto fosforo con 6,22 g di cloro?<br>\n<span class=\"fx\">0,290 : 1 = <i>x</i> : 6,22 &nbsp;→&nbsp; <i>x</i> = 0,290 × 6,22 = <b>1,80 g</b></span></div>\n<div class=\"trap\"><b>Rapporto 2 : 3</b> vuol dire S/O = 2 / 3 = 0,667. Cioè 2 g di zolfo ogni 3 g di ossigeno.</div>", "words": [["rapporto di combinazione", "quanti grammi del primo elemento si uniscono a 1 grammo del secondo, in quel composto."]], "ask": ["Rapporto Cl/Na = 1,5. Quanto cloro si combina con 5,00 g di sodio?", "<b>7,50 g.</b> Il sodio sta sotto, il cloro sopra: moltiplichi. 5,00 × 1,5 = 7,50."], "quiz": [["In un composto il rapporto tra le masse degli elementi è…", ["sempre lo stesso", "sempre 1 : 1", "diverso ogni volta"], 0, "È la legge di Proust."]]}, {"parte": 1, "t": "Proust: tre modi per lo stesso esercizio", "body": "<p class=\"s\">Dagli appunti: nell'ossido di rame il rapporto di combinazione in massa tra rame e ossigeno è 4 : 1. Quanto rame c'è in 153 g di ossido?</p><div class=\"flow\"><div class=\"st s\" data-say=\"Primo modo, le parti: 4 parti di rame più 1 di ossigeno fanno 5 parti. Una parte è 153 diviso 5, cioè 30,6 grammi. Il rame è 4 parti: 122,4 grammi.\"><b class=\"n\">Modo 1 · Le parti</b><span style=\"display:none\">: </span>4 parti di rame + 1 di ossigeno = 5 parti. Una parte = 153 ÷ 5 = 30,6 g. Rame = 4 × 30,6 = <b>122,4 g</b>.</div><div class=\"st s\" data-say=\"Secondo modo, la frazione: il rame è 4 parti su 5, quindi 153 per 4 quinti, 122,4 grammi.\"><b class=\"n\">Modo 2 · La frazione</b><span style=\"display:none\">: </span>Il rame è 4 parti su 5: 153 × 4/5 = <b>122,4 g</b>.</div><div class=\"st s\" data-say=\"Terzo modo, la percentuale: 4 su 5 è l&#x27;80 per cento. 153 per 80 diviso 100 fa 122,4 grammi.\"><b class=\"n\">Modo 3 · La percentuale</b><span style=\"display:none\">: </span>4 su 5 è l'80%: 153 × 80 ÷ 100 = <b>122,4 g</b>.</div></div><p class=\"s\">Tre strade, stesso risultato. Scegli quella che ti viene più naturale e usa le altre per controllare.</p><div class=\"ex s\"><div class=\"lbl\">Il contrario</div><span style=\"display:none\">: </span>Con 60 g di rame, quanto ossigeno si combina? Rame : ossigeno = 4 : 1 → ossigeno = 60 ÷ 4 = <b>15 g</b>, ossido = 75 g.</div><div class=\"trap s\"><b>Rapporto 4 : 1 non vuol dire 4 su 4.</b> Le parti totali sono 4 + 1 = 5: il rame è 4/5, non 4/4.</div>", "ask": ["Rapporto C : O = 3 : 8. Quanto carbonio in 44 g di anidride carbonica?", "Parti: 3 + 8 = 11 → una parte = 4 g → carbonio = 3 × 4 = <b>12 g</b>."], "quiz": [["Rapporto A : B = 2 : 1. In 30 g di composto quanto A?", ["15 g", "10 g", "20 g"], 2, "Parti 3: una parte 10 g; A = 2 parti."], ["Rapporto Mg : O = 3 : 2. Con 9 g di Mg, quanto O?", ["6 g", "13,5 g", "4,5 g"], 0, "9 × 2 ÷ 3."]]}, {"parte": 1, "t": "La composizione percentuale", "body": "<p class=\"s\">La percentuale di un elemento in un composto è la sua massa divisa per la massa del composto, per cento.</p>\n<span class=\"f\">% A = (<i>m</i> A / <i>m</i> composto) × 100</span>\n<p class=\"s\">Le percentuali di tutti gli elementi fanno sempre cento. Se ne conosci una, l'altra è cento meno quella.</p>\n<div class=\"ex\"><div class=\"lbl\">Dalle masse alla percentuale</div>170 g di ammoniaca contengono 140 g di azoto e 30 g di idrogeno.<br>\n<span class=\"fx\">% N = 140 / 170 × 100 = <b>82,4%</b></span> &nbsp; <span class=\"fx\">% H = 100 − 82,4 = <b>17,6%</b></span></div>\n<div class=\"ex\"><div class=\"lbl\">Dalla percentuale alla massa</div>Il cloruro di sodio contiene il 39,3% di sodio. Quanto sodio in 250 g di sale?<br>\n<span class=\"fx\"><i>m</i> Na = 250 × 39,3 / 100 = <b>98,3 g</b></span></div>\n<div class=\"ex\"><div class=\"lbl\">Dalle percentuali al rapporto</div>Nell'acqua: O 88,9%, H 11,1%.<br>\n<span class=\"fx\">O/H = 88,9 / 11,1 = <b>8,0</b></span> → 8 g di ossigeno per ogni grammo di idrogeno</div>\n<p class=\"s\">Dalla percentuale alla massa: moltiplichi la massa del composto per la percentuale e dividi per cento. Dalle percentuali al rapporto: dividi una percentuale per l'altra.</p>", "ask": ["Riscaldando 20,00 g di solfato di rame idrato restano 12,78 g di sale anidro. Che percentuale di acqua c'era?", "<b>36,1%.</b> Acqua persa: 20,00 − 12,78 = 7,22 g. Poi 7,22 / 20,00 × 100 = 36,1."], "quiz": [["In 50 g di composto ci sono 20 g di A. % di A?", ["60%", "20%", "40%"], 2, "20 ÷ 50 × 100."], ["La somma delle percentuali degli elementi di un composto fa…", ["dipende", "100%", "50%"], 1, "Tutto il composto."]]}, {"parte": 1, "t": "Chi avanza? Il reagente in eccesso", "body": "<p class=\"s\">Spesso i reagenti non sono nel rapporto giusto. Uno si consuma tutto, l'altro ne avanza un po': è il reagente in eccesso.</p>\n<div class=\"ex\"><div class=\"lbl\">Esempio</div>Nell'ossido di calcio il rapporto Ca/O è 2,5. Si fanno reagire 20,0 g di calcio con 10,0 g di ossigeno.</div>\n<div class=\"flow\">\n<div class=\"st\"><b class=\"n\">Passo 1 · quanto ne serve</b>Parto da uno dei due, il calcio, e calcolo quanto ossigeno gli serve.<br>\n<span class=\"fx\">O che serve = 20,0 / 2,5 = 8,0 g</span></div>\n<div class=\"st\"><b class=\"n\">Passo 2 · confronto</b>Ne servono 8,0 g e ne ho 10,0 g: l'ossigeno basta e avanza. Il calcio si consuma tutto.</div>\n<div class=\"st av\"><b class=\"n\">Passo 3 · l'avanzo</b><span class=\"fx\">10,0 − 8,0 = 2,0 g</span> di ossigeno in eccesso</div>\n<div class=\"st\"><b class=\"n\">Passo 4 · il prodotto, con Lavoisier</b>Sommo solo quello che ha reagito.<br>\n<span class=\"fx\">20,0 + 8,0 = 28,0 g</span> di ossido di calcio</div>\n</div>\n<p class=\"s\">Primo passo: parti da un reagente e calcola quanto serve dell'altro. Secondo passo: confronta con quello che hai. Terzo: calcola l'avanzo. Quarto: la massa del prodotto è la somma delle sole parti che hanno reagito.</p>\n<div class=\"trap s\" data-say=\"Attenzione: non è in eccesso per forza il reagente con più grammi, dipende dal rapporto. Con zolfo e ossigeno nel rapporto due a tre, se hai trenta grammi di zolfo e quaranta di ossigeno, avanza lo zolfo. E l'avanzo non va sommato nel prodotto.\"><b>Non vince chi ha più grammi.</b> Con zolfo e ossigeno nel rapporto 2 : 3, se hai 30 g di zolfo e 40 g di ossigeno, avanza lo zolfo, anche se l'ossigeno è di più.<br><b>L'avanzo non entra nel prodotto.</b></div>\n<p class=\"s\">Se al passo due ti accorgi che non basta, rifai il conto partendo dall'altro reagente.</p>", "ask": ["Cl/Na = 1,5. Si fanno reagire 5,00 g di sodio con 8,00 g di cloro. Chi avanza, e quanto sale si forma?", "Cloro che serve: 5,00 × 1,5 = 7,50 g. Ne ho 8,00: <b>avanzano 0,50 g di cloro</b>. Sale: 5,00 + 7,50 = <b>12,50 g</b>."], "quiz": [["10 g di idrogeno e 72 g di ossigeno (O : H = 8 : 1). Chi avanza?", ["l'idrogeno, 1 g", "nessuno", "l'ossigeno, 8 g"], 0, "72 g di O usano 9 g di H."]]}, {"parte": 2, "t": "Dalle masse atomiche al rapporto", "body": "<p class=\"s\">Quando il rapporto non è scritto, lo ricavi dalla tavola periodica: la formula dice quanti atomi ci sono, le masse atomiche dicono quanto pesano.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">1 · Masse atomiche</b><span style=\"display:none\">: </span>dalla tavola: Ca = 40,08 · Cl = 35,45</div><div class=\"st s\"><b class=\"n\">2 · La formula</b><span style=\"display:none\">: </span>CaCl₂: 1 Ca e 2 Cl → Ca = 40,08, Cl₂ = 2 × 35,45 = 70,90</div><div class=\"st s\"><b class=\"n\">3 · Il rapporto</b><span style=\"display:none\">: </span>Ca : Cl = 40,08 : 70,90 · Ca : CaCl₂ = 40,08 : 110,98</div><div class=\"st s\"><b class=\"n\">4 · I grammi</b><span style=\"display:none\">: </span>in 255 g di CaCl₂: Ca = 255 × 40,08 ÷ 110,98 = <b>92,1 g</b></div></div><div class=\"ex s\" data-say=\"Altri rapporti dagli appunti: nel cloruro di ferro, cloro su ferro è 2 per 35,45 diviso 55,85, cioè 1,27, senza unità. Il rapporto cloro su argento è 0,328: con 45 grammi di argento si combinano 14,8 grammi di cloro.\"><div class=\"lbl\">Altri rapporti dagli appunti</div><span style=\"display:none\">: </span>FeCl₂: rapporto Cl : Fe = 2 × 35,45 ÷ 55,85 = <b>1,27</b> (è un numero puro, senza unità).<br>Cl : Ag = 0,328 → con 45,0 g di argento si combinano 45,0 × 0,328 = <b>14,8 g</b> di cloro.</div><div class=\"trap s\"><b>Non togliere le masse atomiche dai grammi.</b> 255 − 70,9 non ha senso: 70,9 sono unità di massa atomica di un solo «pezzo» di formula, 255 sono grammi di tantissimi pezzi. Si usa la proporzione.</div><div class=\"an s\"><div class=\"lbl\">Come una ricetta</div><span style=\"display:none\">: </span>La formula è la ricetta: 1 Ca e 2 Cl. Le masse atomiche sono i pesi degli ingredienti. Se fai la ricetta 1000 volte più grande, le proporzioni restano uguali.</div>", "ask": ["Quanto magnesio in 190 g di MgCl₂ (Mg = 24,31, Cl = 35,45)?", "MgCl₂ = 24,31 + 70,90 = 95,21 → Mg = 190 × 24,31 ÷ 95,21 = <b>48,5 g</b>."], "quiz": [["La massa della formula CaCl₂ è…", ["110,98", "40,08", "75,53"], 0, "40,08 + 2 × 35,45."], ["Il rapporto Cl : Fe in FeCl₂ è 1,27. Si misura in…", ["u", "niente: è un numero puro", "grammi"], 1, "È un rapporto tra masse."], ["Per trovare i grammi di Ca in 255 g di CaCl₂ si fa…", ["255 × 40,08 ÷ 110,98", "255 − 70,90", "255 ÷ 40,08"], 0, "Proporzione."]]}, {"parte": 2, "t": "La composizione percentuale con le masse atomiche", "body": "<p class=\"s\">La percentuale di un elemento si calcola dividendo la sua massa nella formula per la massa di tutta la formula, per cento.</p><div class=\"ex s\" data-say=\"Dagli appunti, solfuro di sodio: due sodi pesano 45,98, lo zolfo 32,07, in tutto 78,05. La percentuale di sodio è 45,98 diviso 78,05 per cento: 58,91 per cento. Lo zolfo il 41,09.\"><div class=\"lbl\">Dagli appunti: Na₂S</div><span style=\"display:none\">: </span>Na₂ = 2 × 22,99 = 45,98 · S = 32,07 · Na₂S = 78,05<br>% Na = 45,98 ÷ 78,05 × 100 = <b>58,91%</b> · % S = 41,09%</div><div class=\"ex s\"><div class=\"lbl\">Dagli appunti: FeS</div><span style=\"display:none\">: </span>Fe = 55,85 · S = 32,07 · FeS = 87,92 → % Fe = 55,85 ÷ 87,92 × 100 = <b>63,52%</b></div><div class=\"ex s\" data-say=\"Dagli appunti, ipoclorito di sodio: 22,99 più 35,45 più 16 fa 74,44. Sodio 30,88 per cento, cloro 47,62, ossigeno 21,49. La somma fa 100.\"><div class=\"lbl\">Dagli appunti: NaClO (candeggina)</div><span style=\"display:none\">: </span>Na 22,99 + Cl 35,45 + O 16,00 = 74,44<br>% Na = 30,88% · % Cl = 47,62% · % O = 21,49% · somma = 100% ✓</div><div class=\"trap s\"><b>Usa le masse giuste della tavola.</b> Negli appunti per NaClO c'è 22,9 invece di 22,99 per il sodio: i risultati vengono un po' diversi (30,92% invece di 30,88%).</div><div class=\"an s\"><div class=\"lbl\">Il controllo</div><span style=\"display:none\">: </span>Le percentuali di tutti gli elementi devono sommare a 100%. Se non tornano, c'è un errore.</div>", "ask": ["% di ossigeno nell'acqua (H = 1,01, O = 16,00)?", "H₂O = 2,02 + 16,00 = 18,02 → O = 16,00 ÷ 18,02 × 100 = <b>88,8%</b>."], "quiz": [["% di C in CO₂ (C = 12,01, O = 16,00)?", ["72,7%", "12,0%", "27,3%"], 2, "12,01 ÷ 44,01 × 100."], ["In Na₂S il sodio pesa 45,98 su 78,05. Il conto giusto è…", ["45,98 ÷ 32,07 × 100", "45,98 ÷ 78,05 × 100", "78,05 − 45,98"], 1, "Parte ÷ tutto × 100."]]}, {"parte": 2, "t": "Dalla percentuale ai grammi", "body": "<p class=\"s\">Se conosci la percentuale, puoi trovare quanti grammi di un elemento servono o ci sono.</p><div class=\"ex s\" data-say=\"Dagli appunti: un composto di carbonio e idrogeno ha l&#x27;81,5 per cento di carbonio. Quanto idrogeno serve con 0,135 chilogrammi di carbonio? L&#x27;idrogeno è il 18,5 per cento. Idrogeno uguale 135 grammi per 18,5 diviso 81,5: 30,6 grammi.\"><div class=\"lbl\">Dagli appunti</div><span style=\"display:none\">: </span>Un composto di carbonio e idrogeno ha l'81,5% di carbonio. Quanto idrogeno serve se hai 0,135 kg di carbonio?<br>Idrogeno = 100 − 81,5 = 18,5%. Rapporto H : C = 18,5 : 81,5.<br>H = 135 g × 18,5 ÷ 81,5 = <b>30,6 g</b> (0,0306 kg).</div><div class=\"ex s\" data-say=\"Dagli appunti: quanto ferro serve per 12,32 grammi di ossido di ferro? Due ferri pesano 111,70, tutta la formula 159,70. Ferro uguale 12,32 per 111,70 diviso 159,70: 8,62 grammi.\"><div class=\"lbl\">Dagli appunti: Fe₂O₃</div><span style=\"display:none\">: </span>Quanto ferro serve per 12,32 g di Fe₂O₃? Fe₂ = 111,70 · Fe₂O₃ = 159,70<br>Fe = 12,32 × 111,70 ÷ 159,70 = <b>8,62 g</b></div><div class=\"trap s\"><b>Le unità prima di tutto</b>: 0,135 kg = 135 g. Puoi anche lavorare in kg, ma tutti i numeri devono essere nella stessa unità.</div>", "ask": ["Un composto ha il 40% di calcio. Quanto calcio in 250 g?", "250 × 40 ÷ 100 = <b>100 g</b>."], "quiz": [["Un composto ha il 25% di A. In 80 g ci sono di A…", ["20 g", "25 g", "60 g"], 0, "80 × 0,25."], ["Se il carbonio è l'81,5%, l'idrogeno è…", ["100%", "81,5%", "18,5%"], 2, "100 − 81,5."]]}, {"parte": 2, "t": "Il reagente in eccesso con le masse atomiche", "body": "<p class=\"s\">Il metodo è quello di sempre: calcola quanto serve dell'altro reagente, guarda chi finisce prima, e parti da quello.</p><div class=\"ex s\" data-say=\"Dagli appunti: 45,3 grammi di rame e 55,5 di cloro. Il cloro che serve per tutto il rame è 45,3 per 70,90 diviso 63,55: 50,54 grammi. Ce ne sono 55,5: avanza il cloro, circa 5 grammi. Il cloruro di rame è 95,8 grammi.\"><div class=\"lbl\">Dagli appunti: CuCl₂</div><span style=\"display:none\">: </span>45,3 g di rame e 55,5 g di cloro. Cu = 63,55, Cl₂ = 70,90.<br>Cloro che serve per tutto il rame: 45,3 × 70,90 ÷ 63,55 = 50,54 g. Ce n'è 55,5 → avanza il cloro: 55,5 − 50,54 = <b>4,96 g ≈ 5,0 g</b>.<br>CuCl₂ = 45,3 + 50,54 = 95,8 g.</div><div class=\"ex s\" data-say=\"Dagli appunti: 35,42 grammi di sodio e 110,3 di iodio. Lo iodio che servirebbe per tutto il sodio è 195,5 grammi, ma ce n&#x27;è solo 110,3: finisce lo iodio. Il sodio che reagisce è 20 grammi, ne avanzano 15,4. Lo ioduro di sodio è 130,3 grammi.\"><div class=\"lbl\">Dagli appunti: NaI</div><span style=\"display:none\">: </span>35,42 g di sodio e 110,3 g di iodio. Na = 22,99, I = 126,90.<br>Iodio che servirebbe per tutto il sodio: 35,42 × 126,90 ÷ 22,99 = 195,5 g. Ce n'è solo 110,3 → finisce lo <b>iodio</b>.<br>Sodio che reagisce: 110,3 × 22,99 ÷ 126,90 = 20,0 g · avanzano 15,4 g di sodio · NaI = 130,3 g.</div><div class=\"trap s\"><b>Negli appunti c'è «NaI₂»</b>: lo ioduro di sodio è <b>NaI</b>, perché Na⁺ e I⁻ hanno cariche +1 e −1 (scheda 8).</div>", "ask": ["12,0 g di Mg e 10,0 g di O (Mg : O = 1,52). Chi avanza?", "O che serve: 12,0 ÷ 1,52 = 7,9 g → avanza l'<b>ossigeno</b>, 2,1 g."], "quiz": [["Se per tutto il reagente A serve più B di quello che hai, il reagente che finisce è…", ["A", "nessuno", "B"], 2, "B non basta: finisce B."], ["Il prodotto si calcola partendo…", ["dal reagente che finisce", "dal reagente in eccesso", "dalla somma di tutto"], 0, "Quello in eccesso non reagisce tutto."]]}, {"parte": 3, "t": "Un altro modo: le moli", "body": "<p class=\"s\">Negli ultimi esercizi degli appunti compare la mole. La mole è un «pacchetto» di particelle, come la dozzina è un pacchetto di 12 uova.</p><p class=\"s\">Il trucco: una mole di un elemento pesa, in grammi, quanto la sua massa atomica. Una mole di carbonio pesa 12,01 g; una mole di cloro 35,45 g.</p><span class=\"f big\">n = m ÷ M</span><p class=\"s\" data-say=\"Moli uguale grammi diviso massa molare, in grammi per mole.\">moli = grammi diviso massa molare, in grammi per mole.</p><div class=\"ex s\" data-say=\"Dagli appunti, cloruro di ammonio: hai 15,3 grammi di azoto, 7,9 di idrogeno e 32,3 di cloro. Azoto: 1,09 moli. Idrogeno: 1,96 gruppi da quattro. Cloro: 0,91 moli. Il più piccolo è il cloro: finisce il cloro. Il cloruro di ammonio è 0,91 per 53,49: 48,7 grammi.\"><div class=\"lbl\">Dagli appunti: NH₄Cl</div><span style=\"display:none\">: </span>Hai 15,3 g di azoto, 7,9 g di idrogeno e 32,3 g di cloro. Quanto NH₄Cl puoi fare?<br>N: 15,3 ÷ 14,01 = 1,09 mol · H: 7,9 ÷ (4 × 1,008) = 1,96 «gruppi di 4 H» · Cl: 32,3 ÷ 35,45 = 0,91 mol<br>Ogni NH₄Cl vuole 1 N, 4 H, 1 Cl: il più piccolo è il cloro, 0,91 → finisce il cloro.<br>NH₄Cl = 0,91 × 53,49 = <b>48,7 g</b></div><div class=\"an s\"><div class=\"lbl\">La dozzina</div><span style=\"display:none\">: </span>Una dozzina di uova e una dozzina di angurie hanno lo stesso numero di pezzi ma pesi diversissimi. Una mole di idrogeno e una di oro: stesso numero di atomi, masse 1,01 g e 196,97 g.</div><div class=\"trap s\">Le moli si studiano bene più avanti: qui basta riconoscere n = m ÷ M e capire che si confronta «quanti pezzi» ci sono, non quanti grammi.</div>", "words": [["mole", "un pacchetto con un numero enorme e fisso di particelle (circa 6 × 10²³)."], ["massa molare", "la massa di una mole, in g/mol: uguale al numero della massa atomica."]], "ask": ["Quante moli sono 24,02 g di carbonio (12,01 g/mol)?", "24,02 ÷ 12,01 = <b>2 mol</b>."], "quiz": [["n = m ÷ M. 32,0 g di ossigeno atomico (16,00 g/mol) sono…", ["2 mol", "0,5 mol", "512 mol"], 0, "32 ÷ 16."], ["Una mole di sodio pesa…", ["11 g", "22,99 g", "1 g"], 1, "Quanto la massa atomica, in grammi."]]}, {"parte": 3, "t": "Dalton: le proporzioni multiple", "body": "<p class=\"s\">A volte due elementi formano più di un composto. Per esempio piombo e ossigeno formano due ossidi diversi.</p>\n<p class=\"s\">Legge di Dalton: le masse di un elemento che si combinano con la stessa massa dell'altro stanno tra loro in un rapporto di numeri interi piccoli, come uno a due, o due a tre.</p>\n<div class=\"flow\">\n<div class=\"st\"><b class=\"n\">Passo 1 · stessa massa del primo elemento</b>Per ogni composto calcola quanti grammi dell'altro elemento si legano a 1 g del primo: dividi.</div>\n<div class=\"st\"><b class=\"n\">Passo 2 · confronta</b>Dividi tutti i risultati per il più piccolo.</div>\n<div class=\"st\"><b class=\"n\">Passo 3 · numeri interi</b>Se esce 1,5 moltiplica tutto per 2: 1 : 1,5 diventa 2 : 3.</div>\n</div>\n<div class=\"ex\"><div class=\"lbl\">Con le masse · ossidi di piombo</div>\n1° ossido: 20,70 g Pb con 1,6 g O → <span class=\"fx\">1,6 / 20,70 = 0,0773</span><br>\n2° ossido: 10,35 g Pb con 1,6 g O → <span class=\"fx\">1,6 / 10,35 = 0,1546</span><br>\n<span class=\"fx\">0,1546 / 0,0773 = 2</span> → rapporto di Dalton <b>1 : 2</b></div>\n<div class=\"ex\"><div class=\"lbl\">Con le percentuali · pirite e solfuro di ferro</div>\nS nella pirite: 100 − 46,55 = 53,45% → <span class=\"fx\">53,45 / 46,55 = 1,148</span> g S per 1 g Fe<br>\nS nel solfuro: 100 − 63,53 = 36,47% → <span class=\"fx\">36,47 / 63,53 = 0,574</span> g S per 1 g Fe<br>\n<span class=\"fx\">1,148 / 0,574 = 2</span> → <b>1 : 2</b></div>\n<p class=\"s\">Con le percentuali: prima trovi la percentuale che manca, poi dividi la percentuale del secondo elemento per quella del primo. Così ottieni i grammi del secondo per ogni grammo del primo.</p>", "words": [["riferito all'ossigeno", "si confrontano le masse di ossigeno, tenendo fissa la massa dell'altro elemento."]], "ask": ["Tre ossidi di manganese danno 0,291, 0,437 e 0,583 g di ossigeno per 1 g di manganese. Rapporto di Dalton?", "Divido per 0,291: 1 : 1,5 : 2. Moltiplico per 2: <b>2 : 3 : 4</b>."], "quiz": [["Due ossidi: 1,60 g di O con 12,71 g di Cu nel primo, con 6,35 g nel secondo. Rapporto di Dalton riferito all'ossigeno?", ["2 : 1", "1 : 2", "1 : 1"], 1, "O per 1 g di Cu: 0,126 e 0,252."]]}, {"parte": 4, "t": "Ripasso: tutta la scheda", "body": "<p class=\"s\">Dieci domande su tutta la scheda.</p>", "quiz": [["A + B = C. A = 12 g, C = 20 g. B = ?", ["12 g", "32 g", "8 g"], 2, "20 − 12."], ["Rapporto Cu : O = 4 : 1. In 50 g di ossido, il rame è…", ["10 g", "12,5 g", "40 g"], 2, "4/5 di 50."], ["% di Na in NaCl (Na 22,99; Cl 35,45)?", ["60,7%", "22,99%", "39,3%"], 2, "22,99 ÷ 58,44 × 100."], ["Massa della formula di H₂O (H 1,01; O 16,00)?", ["18,02", "34,02", "17,01"], 0, "2 × 1,01 + 16,00."], ["Per i grammi di Ca in x g di CaCl₂ si usa…", ["x × 40,08 ÷ 110,98", "x − 70,90", "x ÷ 40,08"], 0, "Proporzione con la formula."], ["45,3 g di Cu e 55,5 g di Cl: servono 50,54 g di Cl. Chi è in eccesso?", ["il rame", "il cloro"], 1, "Ne avanzano 4,96 g."], ["n = m ÷ M: 70,9 g di Cl (35,45 g/mol) sono…", ["0,5 mol", "2513 mol", "2 mol"], 2, "70,9 ÷ 35,45."], ["La legge delle proporzioni definite è di…", ["Lavoisier", "Proust", "Dalton"], 1, "Rapporto fisso."], ["Lo ioduro di sodio si scrive…", ["NaI₂", "Na₂I", "NaI"], 2, "+1 e −1."], ["Le percentuali di tutti gli elementi di un composto sommano a…", ["dipende dal composto", "100%"], 1, "Sempre 100%."]]}];
+
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += quizHTML(c);
+  h += '</article>';
+  qzRes = {};
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("sc09-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+
+
+/* ═══════ prova tu ═══════ */
+function quizHTML(c){
+  if(!c.quiz || !c.quiz.length) return "";
+  let h = '<div class="quiz"><div class="qhd">Prova tu <span id="qsc"></span></div>';
+  c.quiz.forEach((q,i)=>{
+    h += '<div class="qz" id="qz'+i+'"><div class="qq">'+q[0]+'</div><div class="op">';
+    q[1].forEach((o,k)=>{ h += '<button onclick="qzAns('+i+','+k+')">'+o+'</button>'; });
+    h += '</div><div class="why"></div></div>';
+  });
+  return h + '</div>';
+}
+let qzRes = {};
+function qzAns(i,k){
+  const q = CARDS[idx].quiz[i], box = document.getElementById("qz"+i);
+  if(!box || box.classList.contains("done")) return;
+  box.classList.add("done");
+  const bs = box.querySelectorAll(".op button");
+  bs[q[2]].classList.add("right"); if(k!==q[2]) bs[k].classList.add("wrong");
+  const w = box.querySelector(".why");
+  w.className = "why on "+(k===q[2]?"y":"n");
+  w.innerHTML = (k===q[2] ? "<b>Giusto.</b> " : "<b>No.</b> ") + (q[3]||"");
+  qzRes[i] = (k===q[2]);
+  const n = Object.keys(qzRes).length, g = Object.keys(qzRes).filter(j=>qzRes[j]).length;
+  const sc = document.getElementById("qsc"); if(sc) sc.textContent = "· fatte "+n+" su "+CARDS[idx].quiz.length+", giuste "+g;
+}
+/* ═══════ la virgola che si sposta ═══════ */
+const VMP = [
+  {lab:"453,89", d:"45389", p:3, e:0},
+  {lab:"0,008332", d:"0008332", p:1, e:0},
+  {lab:"38779", d:"38779", p:5, e:0},
+  {lab:"45,89 × 10⁷", d:"4589", p:2, e:7},
+  {lab:"0,0017 × 10⁻³", d:"00017", p:1, e:-3}
+];
+let vm = null;
+function vmInit(){ vmSet(0); }
+function vmSet(k){ vm = {k:k, d:VMP[k].d, p:VMP[k].p, e:VMP[k].e, e0:VMP[k].e, p0:VMP[k].p}; vmDraw(); }
+function vmMove(dir){           /* dir = -1: virgola a sinistra; +1: a destra */
+  if(!vm) return;
+  if(dir<0){
+    if(vm.p<=0) vm.d = "0"+vm.d; else vm.p--;
+    if(vm.p===0){ vm.d="0"+vm.d; vm.p=1; }
+    vm.e++;
+  }else{
+    vm.p++;
+    if(vm.p>vm.d.length) vm.d = vm.d+"0";
+    vm.e--;
+  }
+  vmDraw();
+}
+function vmParts(){
+  let ip = vm.d.slice(0,vm.p).replace(/^0+/,""), fp = vm.d.slice(vm.p);
+  if(!ip) ip = "0";
+  return [ip, fp];
+}
+function supE(n){ return String(n).replace("-","−"); }
+function vmDraw(){
+  const box = document.getElementById("vm"); if(!box) return;
+  const pr = vmParts(), ip = pr[0], fp = pr[1];
+  let num = ip + (fp ? '<span class="cm">,</span>'+fp : '');
+  num += ' × 10<sup>'+supE(vm.e)+'</sup>';
+  const moved = vm.e - vm.e0;
+  let msg, cls = "msg";
+  if(ip.length===1 && ip!=="0"){
+    cls += " ok";
+    const n = Math.abs(moved), posti = n+(n===1?" posto":" posti");
+    msg = "✓ Notazione scientifica."+(moved>0 ? " Virgola "+posti+" a sinistra: l'esponente sale di "+n+"."
+                                     : moved<0 ? " Virgola "+posti+" a destra: l'esponente scende di "+n+"." : "");
+  }else if(ip==="0"){
+    msg = "Prima della virgola c'è 0: sposta la virgola a destra ▶";
+  }else{
+    msg = "Prima della virgola ci sono "+ip.length+" cifre: sposta la virgola a sinistra ◀";
+  }
+  let pre = '<div class="pre">';
+  VMP.forEach((x,i)=>{ pre += '<button class="'+(i===vm.k?"on":"")+'" onclick="vmSet('+i+')">'+x.lab+'</button>'; });
+  pre += '</div>';
+  box.innerHTML = '<div class="num">'+num+'</div><div class="'+cls+'">'+msg+'</div>'
+    + '<div class="ctl"><button onclick="vmMove(-1)">◀ virgola a sinistra</button><button onclick="vmMove(1)">virgola a destra ▶</button></div>'
+    + pre;
+}
+
+/* ═══════ la scala dei prefissi ═══════ */
+const RUNGS = [["k",3],["h",2],["da",1],["",0],["d",-1],["c",-2],["m",-3],["μ",-6],["n",-9]];
+let lad = {dim:1, from:null, to:null};
+function ladInit(){ lad = {dim:1, from:null, to:null}; ladDraw(); }
+function ladDim(n){ lad.dim = n; ladDraw(); }
+function ladTap(i){
+  if(lad.from===null || lad.to!==null){ lad.from = i; lad.to = null; }
+  else if(i!==lad.from){ lad.to = i; }
+  ladDraw();
+}
+function unitName(i){ const s = ["","","²","³"][lad.dim]; return RUNGS[i][0]+"m"+s; }
+function ladDraw(){
+  const box = document.getElementById("lad"); if(!box) return;
+  let h = '<div class="dims">';
+  [[1,"m"],[2,"m²"],[3,"m³"]].forEach(x=>{ h += '<button class="'+(lad.dim===x[0]?"on":"")+'" onclick="ladDim('+x[0]+')">'+x[1]+'</button>'; });
+  h += '</div><div class="hint">'+(lad.from===null?"Tocca l'unità di partenza":(lad.to===null?"Ora tocca l'unità di arrivo":"Tocca un'altra unità per ricominciare"))+'</div><div class="rungs">';
+  const lo = lad.to===null?null:Math.min(lad.from,lad.to), hi = lad.to===null?null:Math.max(lad.from,lad.to);
+  RUNGS.forEach((r,i)=>{
+    if(i>0 && RUNGS[i-1][1]-r[1]>1){
+      h += '<div class="rung gap"><span class="e">'+(RUNGS[i-1][1]-r[1]-1)+' gradini senza nome</span></div>';
+    }
+    let cl = "rung";
+    if(i===lad.from) cl += " from";
+    else if(i===lad.to) cl += " to";
+    else if(lo!==null && i>lo && i<hi) cl += " mid";
+    h += '<button class="'+cl+'" onclick="ladTap('+i+')"><span class="u">'+unitName(i)+'</span><span class="e">10<sup>'+supE(r[1]*lad.dim)+'</sup> m'+["","","²","³"][lad.dim]+'</span></button>';
+  });
+  h += '</div>';
+  let out = '<div class="out">Ogni gradino vale × '+[0,10,100,1000][lad.dim]+'.</div>';
+  if(lad.from!==null && lad.to!==null){
+    const g = Math.abs(RUNGS[lad.from][1]-RUNGS[lad.to][1]), k = g*lad.dim;
+    const scendo = RUNGS[lad.to][1] < RUNGS[lad.from][1];
+    out = '<div class="out '+(scendo?"g":"s")+'"><b>'+unitName(lad.from)+' → '+unitName(lad.to)+'</b>: '
+      +(scendo?"scendo ":"salgo ")+g+(g===1?" gradino":" gradini")
+      +(lad.dim>1?"; con "+["","","m²","m³"][lad.dim]+" ogni gradino vale "+[0,10,100,1000][lad.dim]+", cioè esponente "+g+" × "+lad.dim+" = "+k:"")
+      +'<br>→ <b>'+(scendo?"moltiplico per 10<sup>"+k+"</sup>":"divido per 10<sup>"+k+"</sup>, cioè × 10<sup>−"+k+"</sup>")+'</b></div>';
+  }
+  box.innerHTML = h + out;
+}
+
+/* ═══════ disegni piccoli ═══════ */
+function sqInit(){
+  const g = document.getElementById("sqgrid"); if(!g) return;
+  let s = '<rect x="20" y="15" width="140" height="140" fill="#E6EEF9" stroke="#1D5FA8" stroke-width="2.5"/>';
+  for(let i=1;i<10;i++){
+    s += '<line x1="'+(20+i*14)+'" y1="15" x2="'+(20+i*14)+'" y2="155" stroke="#9DB7DA" stroke-width="1"/>';
+    s += '<line x1="20" y1="'+(15+i*14)+'" x2="160" y2="'+(15+i*14)+'" stroke="#9DB7DA" stroke-width="1"/>';
+  }
+  s += '<rect x="20" y="15" width="14" height="14" fill="#1D5FA8"/>';
+  g.innerHTML = s;
+}
+function sphInit(){
+  const g = document.getElementById("spheres"); if(!g) return;
+  const cols = ["#4F86C6","#E0A43A","#B3261E","#1F7A4D"];
+  let s = '<circle cx="75" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/><circle cx="245" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/>';
+  const pts = [[-26,-18],[-6,-26],[14,-22],[30,-6],[-32,4],[-12,-4],[8,-2],[26,14],[-24,24],[-4,18],[14,28],[-14,34]];
+  pts.forEach((p,i)=>{
+    s += '<circle cx="'+(75+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="#4F86C6"/>';
+    s += '<circle cx="'+(245+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="'+cols[(i*7)%4]+'"/>';
+  });
+  g.innerHTML = s;
+}
+
+/* ═══════ curve di riscaldamento e raffreddamento ═══════ */
+const CURVE = {
+  risc:{ pts:[[45,-18],[85,0],[150,0],[215,100],[300,100],[337,112]],
+    col:["#D5DCE3","#DDD3EF","#D3E5F6","#F4D3E1","#FAEBC0"],
+    dk:["#8A99AA","#9C85C9","#6FA3D6","#D98AAE","#E0B84A"], below:[0,2],
+    tr:[["A–B","solido","Solo ghiaccio. La temperatura sale da −18&nbsp;°C a 0&nbsp;°C."],
+        ["B–C","solido + liquido","<b>Fusione.</b> Ghiaccio e acqua insieme. Sosta termica: si scalda, ma la temperatura resta 0&nbsp;°C finché c'è ghiaccio."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura sale da 0&nbsp;°C a 100&nbsp;°C."],
+        ["D–E","liquido + aeriforme","<b>Ebollizione.</b> Acqua e vapore insieme. Seconda sosta termica: la temperatura resta 100&nbsp;°C finché c'è liquido."],
+        ["E–F","aeriforme","Solo vapore. La temperatura riprende a salire."]]},
+  raff:{ pts:[[45,112],[80,100],[165,100],[225,0],[295,0],[337,-18]],
+    col:["#FAEBC0","#F4D3E1","#D3E5F6","#DDD3EF","#D5DCE3"],
+    dk:["#E0B84A","#D98AAE","#6FA3D6","#9C85C9","#8A99AA"],
+    tr:[["A–B","aeriforme","Solo vapore. La temperatura scende fino a 100&nbsp;°C."],
+        ["B–C","aeriforme + liquido","<b>Condensazione.</b> Il vapore diventa liquido. Sosta termica a 100&nbsp;°C."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura scende da 100&nbsp;°C a 0&nbsp;°C."],
+        ["D–E","liquido + solido","<b>Solidificazione.</b> L'acqua diventa ghiaccio. Sosta termica a 0&nbsp;°C."],
+        ["E–F","solido","Solo ghiaccio. La temperatura scende sotto 0&nbsp;°C."]]}
+};
+function curvY(T){ return 185 - T*1.3; }
+function curvInit(){
+  Array.prototype.forEach.call(stage.querySelectorAll(".curva"), el=>curvDraw(el, null));
+}
+function curvDraw(el, sel){
+  const C = CURVE[el.getAttribute("data-k")], P = C.pts.map(p=>[p[0], curvY(p[1])]);
+  const F = 'font-family="-apple-system,Arial,sans-serif"';
+  let s = '<svg viewBox="0 0 350 250" role="img" aria-label="Curva della temperatura nel tempo">';
+  for(let i=0;i<5;i++){
+    const op = sel===null ? .6 : (i===sel ? 1 : .18);
+    s += '<rect x="'+P[i][0]+'" y="22" width="'+(P[i+1][0]-P[i][0])+'" height="204" fill="'+C.col[i]+'" opacity="'+op+'"/>';
+  }
+  s += '<line x1="40" y1="'+curvY(100)+'" x2="345" y2="'+curvY(100)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="'+curvY(0)+'" x2="345" y2="'+curvY(0)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="14" x2="40" y2="226" stroke="#1B2430" stroke-width="1.8"/><line x1="40" y1="226" x2="346" y2="226" stroke="#1B2430" stroke-width="1.8"/>';
+  s += '<g '+F+' font-size="12.5" fill="#1B2430"><text x="4" y="14">t (°C)</text><text x="346" y="244" text-anchor="end">tempo →</text>';
+  s += '<text x="36" y="'+(curvY(100)+4)+'" text-anchor="end">100</text><text x="36" y="'+(curvY(0)+4)+'" text-anchor="end">0</text><text x="36" y="'+(curvY(-18)+4)+'" text-anchor="end">−18</text></g>';
+  s += '<polyline points="'+P.map(p=>p.join(",")).join(" ")+'" fill="none" stroke="#1B2430" stroke-width="3" stroke-linejoin="round"/>';
+  if(sel!==null) s += '<line x1="'+P[sel][0]+'" y1="'+P[sel][1]+'" x2="'+P[sel+1][0]+'" y2="'+P[sel+1][1]+'" stroke="#A8327A" stroke-width="7" stroke-linecap="round"/>';
+  const L = "ABCDEF";
+  P.forEach((p,i)=>{
+    s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="#1B2430"/>';
+    const up = (C.below && C.below.indexOf(i)>=0) ? 17 : -8;
+    s += '<text x="'+(p[0]+(i===5?-12:3))+'" y="'+(p[1]+up)+'" '+F+' font-size="14" font-weight="700" fill="#1B2430">'+L[i]+'</text>';
+  });
+  s += '</svg>';
+  let b = '<div class="cbtns">';
+  C.tr.forEach((t,i)=>{
+    b += '<button class="cb'+(i===sel?' on':'')+'" style="border-left-color:'+C.dk[i]+'" onclick="curvSel(this,'+i+')"><b>'+t[0]+'</b> · '+t[1]+'</button>';
+  });
+  b += '</div>';
+  const out = '<div class="cout'+(sel===null?'':' on')+'">'+(sel===null ? 'Tocca un tratto.' : '<b>Tratto '+C.tr[sel][0]+'</b> — '+C.tr[sel][2])+'</div>';
+  el.innerHTML = s + b + out;
+}
+function curvSel(btn,i){
+  let el = btn; while(el && !(el.classList && el.classList.contains("curva"))) el = el.parentNode;
+  if(el) curvDraw(el, i);
+}
+function partInit(){
+  const g = document.getElementById("parts"); if(!g) return;
+  let s = "";
+  for(let r=0;r<3;r++) for(let c=0;c<4;c++){
+    const x = 25+c*20, y = 50+r*20;
+    s += '<path d="M'+(x-12)+','+(y-12)+' q3,-3 6,0" fill="none" stroke="#9AA3AE" stroke-width="1"/>';
+    s += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#4F86C6"/>';
+  }
+  [[132,97],[151,98],[170,96],[189,98],[208,97],[142,80],[161,81],[180,79],[199,81],[151,63],[172,63]]
+    .forEach(p=>{ s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  [[254,28,-14,4],[302,40,10,10],[278,70,-12,-8],[316,90,8,-12],[252,95,-12,6]]
+    .forEach(p=>{ s += '<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+p[2])+'" y2="'+(p[1]+p[3])+'" stroke="#9AA3AE" stroke-width="2" stroke-linecap="round"/>'
+                    + '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  g.innerHTML = s;
+}
+
+
+/* ═══════ catena di monomeri ═══════ */
+let polyN = 3, polyMsg = "";
+function polyInit(){ polyN = 3; polyMsg = ""; polyDraw(); }
+function hexP(cx,cy,r){ const p = []; for(let k=0;k<6;k++){ const a = (30+60*k)*Math.PI/180; p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1)); } return p.join(" "); }
+function dropP(x,y){ return '<path d="M'+x+','+(y-9)+' C'+(x+7)+','+(y-1)+' '+(x+6)+','+(y+7)+' '+x+','+(y+7)+' C'+(x-6)+','+(y+7)+' '+(x-7)+','+(y-1)+' '+x+','+(y-9)+' Z" fill="#4F9BD9"/>'; }
+function polyDraw(){
+  const el = stage.querySelector(".poly"); if(!el) return;
+  let s = '<svg viewBox="0 0 340 104" role="img" aria-label="Catena di '+polyN+' monomeri"><g font-family="-apple-system,Arial,sans-serif">';
+  for(let i=0;i<polyN;i++){
+    const x = 26+i*46;
+    if(i>0) s += '<line x1="'+(x-30)+'" y1="78" x2="'+(x-16)+'" y2="78" stroke="#C98A12" stroke-width="3"/>' + dropP(x-23,40)
+              + '<text x="'+(x-23)+'" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="#1D5FA8">H₂O</text>';
+    s += '<polygon points="'+hexP(x,78,16)+'" fill="#FBEFD3" stroke="#C98A12" stroke-width="2.5"/>';
+  }
+  s += '</g></svg>';
+  el.innerHTML = s + '<div class="pstat"><b>'+polyN+'</b> '+(polyN===1?'monomero':'monomeri')+' nella catena · <b>'+(polyN-1)+'</b> '+(polyN===2?'molecola':'molecole')+' d\'acqua '+(polyN===2?'uscita':'uscite')+'</div>'
+    + '<div class="pctl"><button onclick="polyMove(1)"'+(polyN>=7?' disabled':'')+'>+ attacca un pezzo<small>condensazione</small></button>'
+    + '<button onclick="polyMove(-1)"'+(polyN<=1?' disabled':'')+'>− stacca con l\'acqua<small>idrolisi</small></button></div>'
+    + '<div class="pmsg">'+polyMsg+'</div>';
+}
+function polyMove(d){
+  const n = Math.max(1, Math.min(7, polyN+d)); if(n===polyN) return;
+  polyN = n;
+  polyMsg = d>0 ? "Si è attaccato un pezzo: è uscita una molecola d'acqua." : "È entrata una molecola d'acqua: la catena si è spezzata.";
+  polyDraw();
+}
+
+/* ═══════ disegni con i pulsanti (prima/dopo, strutture) ═══════ */
+function togInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".tog"), el=>togDraw(el,0)); }
+function togDraw(el,k){
+  const T = TOGS[el.getAttribute("data-set")]; if(!T) return;
+  let h = '<div class="tbtns">';
+  T.lab.forEach((l,i)=>{ h += '<button class="'+(i===k?'on':'')+'" onclick="togSel(this,'+i+')">'+l+'</button>'; });
+  el.innerHTML = h + '</div>' + T.svg[k] + '<div class="tout">'+T.txt[k]+'</div>';
+}
+function togSel(btn,k){
+  let el = btn; while(el && !(el.classList && el.classList.contains("tog"))) el = el.parentNode;
+  if(el) togDraw(el,k);
+}
+
+
+/* ═══════ costruttore di atomi ═══════ */
+const ELEM = ["","H idrogeno","He elio","Li litio","Be berillio","B boro","C carbonio","N azoto","O ossigeno","F fluoro","Ne neon","Na sodio","Mg magnesio","Al alluminio","Si silicio","P fosforo","S zolfo","Cl cloro","Ar argon","K potassio","Ca calcio"];
+function atomInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".atomw"), el=>{
+  el._p = +el.getAttribute("data-p")||6; el._n = +el.getAttribute("data-n")||6; el._e = +el.getAttribute("data-e")||6; atomDraw(el); }); }
+function atomMove(btn,what,d){
+  let el = btn; while(el && !(el.classList && el.classList.contains("atomw"))) el = el.parentNode; if(!el) return;
+  if(what==="p") el._p = Math.max(1,Math.min(20,el._p+d));
+  if(what==="n") el._n = Math.max(0,Math.min(24,el._n+d));
+  if(what==="e") el._e = Math.max(0,Math.min(22,el._e+d));
+  atomDraw(el);
+}
+function atomDraw(el){
+  const p = el._p, n = el._n, e = el._e, A = p+n, q = p-e, X = ELEM[p].split(" ");
+  let s = '<svg viewBox="0 0 340 170" role="img" aria-label="Atomo con '+p+' protoni, '+n+' neutroni, '+e+' elettroni">';
+  s += '<circle cx="170" cy="85" r="74" fill="none" stroke="#C9D3DE" stroke-width="2" stroke-dasharray="4 5"/>';
+  const tot = p+n, R = 6, cols = Math.ceil(Math.sqrt(tot)); let k = 0;
+  const order = []; for(let i=0;i<tot;i++) order.push(i%2===0 && order.filter(x=>x==="p").length<p ? "p" : (order.filter(x=>x==="n").length<n ? "n" : "p"));
+  for(let i=0;i<tot;i++){ const r = Math.floor(i/cols), c = i%cols, x = 170+(c-(cols-1)/2)*11, y = 85+(r-(Math.ceil(tot/cols)-1)/2)*11;
+    s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+R+'" fill="'+(order[i]==="p"?"#D9534F":"#9AA3AE")+'"/>'; }
+  for(let i=0;i<e;i++){ const a = 2*Math.PI*i/Math.max(e,1) - Math.PI/2; s += '<circle cx="'+(170+74*Math.cos(a)).toFixed(1)+'" cy="'+(85+74*Math.sin(a)).toFixed(1)+'" r="5" fill="#1D5FA8"/>'; }
+  s += '</svg>';
+  const qs = q===0 ? "" : (Math.abs(q)>1?Math.abs(q):"")+(q>0?"+":"−");
+  const sym = '<span class="aw-sym"><span class="ix"><span>'+A+'</span><span>'+p+'</span></span>'+X[0]+'<sup style="font-size:17px">'+qs+'</sup></span>';
+  const tipo = q===0 ? "atomo <b>neutro</b>: elettroni = protoni" : (q>0 ? "ione <b>positivo</b> (catione): ha perso "+q+(q===1?" elettrone":" elettroni") : "ione <b>negativo</b> (anione): ha preso "+(-q)+(-q===1?" elettrone":" elettroni"));
+  el.innerHTML = s
+   + '<div class="aw-row">'
+   + '<div class="aw-ctl" style="color:#B33A36">protoni<span class="v">'+p+'</span><button onclick="atomMove(this,\'p\',-1)">−</button><button onclick="atomMove(this,\'p\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#5A6473">neutroni<span class="v">'+n+'</span><button onclick="atomMove(this,\'n\',-1)">−</button><button onclick="atomMove(this,\'n\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#1D5FA8">elettroni<span class="v">'+e+'</span><button onclick="atomMove(this,\'e\',-1)">−</button><button onclick="atomMove(this,\'e\',1)">+</button></div>'
+   + '</div><div class="aw-out">'+sym+'<b>'+X[1]+'</b> · Z = '+p+' · A = '+p+' + '+n+' = '+A+'<br>'+tipo+'</div>';
+}
+
+/* ═══════ costruttore di formule ioniche ═══════ */
+const CAT = [["Na","+1","sodio",0],["K","+1","potassio",0],["NH<sub>4</sub>","+1","ammonio",1],["Mg","+2","magnesio",0],["Ca","+2","calcio",0],["Fe","+3","ferro (III)",0],["Al","+3","alluminio",0]];
+const ANI = [["Cl","−1","cloruro",0],["F","−1","fluoruro",0],["OH","−1","idrossido",1],["NO<sub>3</sub>","−1","nitrato",1],["ClO<sub>2</sub>","−1","clorito",1],["O","−2","ossido",0],["S","−2","solfuro",0],["SO<sub>4</sub>","−2","solfato",1],["CO<sub>3</sub>","−2","carbonato",1],["PO<sub>4</sub>","−3","fosfato",1]];
+function chg(s){ return parseInt(s.replace("−","-"),10); }
+function supq(q){ const a = Math.abs(q); return (a>1?a:"")+(q>0?"+":"−"); }
+function formInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".formw"), el=>{
+  let h = '<div class="fw-sel"><div><label>ione positivo</label><select onchange="formDraw(this)">';
+  CAT.forEach((c,i)=>{ h += '<option value="'+i+'"'+(i===4?' selected':'')+'>'+c[0].replace(/<\/?sub>/g,"")+supq(chg(c[1]))+' ('+c[2]+')</option>'; });
+  h += '</select></div><div><label>ione negativo</label><select onchange="formDraw(this)">';
+  ANI.forEach((a,i)=>{ h += '<option value="'+i+'"'+(i===0?' selected':'')+'>'+a[0].replace(/<\/?sub>/g,"")+supq(chg(a[1]))+' ('+a[2]+')</option>'; });
+  h += '</select></div></div><div class="fw-out"></div>';
+  el.innerHTML = h; formDraw(el.querySelector("select"));
+}); }
+function gcd(a,b){ return b ? gcd(b,a%b) : a; }
+function formDraw(sel){
+  let el = sel; while(el && !(el.classList && el.classList.contains("formw"))) el = el.parentNode; if(!el) return;
+  const ss = el.querySelectorAll("select"), c = CAT[+ss[0].value], a = ANI[+ss[1].value];
+  const qc = chg(c[1]), qa = -chg(a[1]), L = qc*qa/gcd(qc,qa), nc = L/qc, na = L/qa;
+  let t = '<div class="fw-tiles">';
+  for(let i=0;i<nc;i++) t += '<span class="fw-t c">'+c[0]+'<sup>'+supq(qc)+'</sup></span>';
+  for(let i=0;i<na;i++) t += '<span class="fw-t a">'+a[0]+'<sup>'+supq(-qa)+'</sup></span>';
+  t += '</div>';
+  const part = (x,n,poly)=> n===1 ? x : (poly ? "("+x+")<sub>"+n+"</sub>" : x+"<sub>"+n+"</sub>");
+  const f = part(c[0],nc,c[3]) + part(a[0],na,a[3]);
+  el.querySelector(".fw-out").innerHTML = t
+   + '<div style="text-align:center;font-size:16px">cariche: '+nc+' × (+'+qc+') = +'+(nc*qc)+' &nbsp;e&nbsp; '+na+' × (−'+qa+') = −'+(na*qa)+' &nbsp;→ in tutto <b>0</b></div>'
+   + '<div class="fw-f">'+f+'</div><div style="text-align:center;font-size:16px;color:#5A6473">'+a[2]+' di '+c[2]+'</div>';
+}
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){
+  const sup = {"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9"};
+  const sub = {"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+  const S = s=>s.split("").map(c=>sup[c]||sub[c]||c).join("");
+  return t.replace(/a\.C\./g,"avanti Cristo")
+    .replace(/10(⁻?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(m,e)=>" 10 alla "+(e[0]==="⁻"?"meno ":"")+S(e.replace("⁻","")))
+    .replace(/cm³/g," centimetri cubi").replace(/dm³/g," decimetri cubi").replace(/m³/g," metri cubi")
+    .replace(/cm²/g," centimetri quadrati").replace(/dm²/g," decimetri quadrati").replace(/m²/g," metri quadrati")
+    .replace(/([⁰¹²³⁴⁵⁶⁷⁸⁹]+)([⁺⁻])/g,(m,d,s)=>" "+S(d)+(s==="⁺"?" più":" meno"))
+    .replace(/⁺/g," più").replace(/⁻/g," meno").replace(/([₀-₉]+)/g,m=>" "+S(m)+" ")
+    .replace(/·/g,", ").replace(/×/g," per ").replace(/÷/g," diviso ").replace(/→/g,", ").replace(/≈/g," circa ")
+    .replace(/°C/g," gradi").replace(/%/g," per cento").replace(/−/g," meno ").replace(/ = /g," uguale ")
+    .replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = new SpeechSynthesisUtterance(say(el.getAttribute("data-say") || el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("sc09-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>
