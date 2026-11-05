@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scienze 4 — La materia: miscugli, sostanze, elementi, composti</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --giu-soft:#E6EEF9;   /* scendo la scala: moltiplico */
+  --su:#B4531A;  --su-soft:#FBEDE3;    /* salgo la scala: divido */
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:23px; text-align:center; display:block; margin:14px 0; line-height:1.5}
+.f i{font-style:italic}
+.f.big{font-size:30px}
+.ex{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px; line-height:1.6}
+.ex .lbl, .box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.ex .fx{font-family:"Times New Roman",Georgia,serif; font-size:20px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.giu{color:var(--giu); font-weight:700} .su{color:var(--su); font-weight:700}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+td.c, th.c{text-align:center}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+
+/* passi numerati del metodo */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16.5px; line-height:1.55}
+.flow .st b.n{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.flow .st.av{border-left-color:var(--warn); background:var(--warn-soft)}
+.flow .st.av b.n{color:var(--warn)}
+
+/* mappa della materia */
+.tree{margin:14px 0; font-size:16px}
+.tree .n0{background:var(--ink); color:#fff; border-radius:10px; padding:8px 12px; text-align:center; font-weight:700}
+.tree .lv{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+.tree .n1{border:2px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 10px; text-align:center; font-weight:700; color:var(--accent)}
+.tree .n2{border:1px solid var(--rule); background:#fff; border-radius:10px; padding:7px 9px; font-size:15px; line-height:1.4; margin-top:6px}
+.tree .n2 b{display:block}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* la virgola che si sposta */
+.vm{border:2px solid var(--accent-line); border-radius:14px; padding:14px; margin:14px 0; background:#fff}
+.vm .num{font-family:"Times New Roman",Georgia,serif; font-size:34px; text-align:center; line-height:1.3; word-break:break-all; margin:6px 0}
+.vm .num .cm{color:var(--accent); font-weight:700; font-size:40px}
+.vm .num sup{font-size:22px}
+.vm .msg{font-size:16px; text-align:center; min-height:3.1em; font-weight:600}
+.vm .msg.ok{color:var(--ok)}
+.vm .ctl{display:flex; gap:8px; margin-top:8px}
+.vm .ctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 6px; font:inherit; font-size:16px; font-weight:700; cursor:pointer}
+.vm .pre{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; justify-content:center}
+.vm .pre button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:4px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.vm .pre button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft)}
+
+/* la scala dei prefissi */
+.lad{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.lad .dims{display:flex; gap:6px; margin-bottom:10px}
+.lad .dims button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 4px; font:inherit; font-size:16px; font-weight:700; color:var(--soft); cursor:pointer}
+.lad .dims button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.lad .hint{font-size:15px; color:var(--soft); text-align:center; margin-bottom:8px}
+.rungs{display:flex; flex-direction:column; gap:4px}
+.rung{display:flex; align-items:center; gap:10px; border:2px solid var(--rule); border-radius:10px; padding:6px 10px; background:#fff; cursor:pointer; font:inherit; color:var(--ink); text-align:left; width:100%}
+.rung .u{font-family:"Times New Roman",Georgia,serif; font-size:21px; font-weight:700; min-width:64px}
+.rung .e{font-size:14px; color:var(--soft)}
+.rung.gap{border-style:dashed; padding:0 10px; min-height:14px; cursor:default; background:transparent}
+.rung.gap .e{font-size:12.5px}
+.rung.mid{background:#F4F1EA}
+.rung.from{border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+.rung.to{border-color:var(--ink); background:var(--ink); color:#fff}
+.rung.to .e{color:#DDE3EA}
+.lad .out{margin-top:10px; border-radius:12px; padding:10px 12px; font-size:17px; line-height:1.55; min-height:3.2em; background:#F4F1EA}
+.lad .out.g{background:var(--giu-soft); color:var(--giu)}
+.lad .out.s{background:var(--su-soft); color:var(--su)}
+
+/* passaggi di stato */
+.sb{font-size:14px}
+
+/* curve di riscaldamento */
+.curva{margin:14px 0}
+.cbtns{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.cb{border:2px solid var(--rule); border-left-width:12px; background:#fff; border-radius:10px; padding:8px 12px;
+  font:inherit; font-size:16px; text-align:left; color:var(--ink); cursor:pointer}
+.cb.on{border-top-color:var(--accent); border-right-color:var(--accent); border-bottom-color:var(--accent); background:var(--accent-soft)}
+.cout{margin-top:8px; border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:#F4F1EA; color:var(--soft); min-height:3.2em}
+.cout.on{background:var(--accent-soft); color:var(--ink); border:1px solid var(--accent-line)}
+/* striscia dei punti fissi */
+.strip{display:flex; align-items:stretch; margin:12px 0 2px; font-size:15px; font-weight:700; text-align:center}
+.strip .z{flex:1; padding:9px 4px; border-radius:8px}
+.strip .z1{background:#D5DCE3} .strip .z2{background:#D3E5F6} .strip .z3{background:#FAEBC0}
+.strip .mk{flex:0 0 auto; align-self:center; padding:0 6px; font-family:"Times New Roman",Georgia,serif; font-size:19px; color:var(--accent)}
+.stripax{font-size:13px; color:var(--soft); text-align:right; margin-bottom:10px}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+
+/* le tre famiglie */
+.fam{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:14px 0}
+.fam div{border-radius:12px; padding:8px 6px; text-align:center; font-size:13.5px; line-height:1.4}
+.fam b{display:block; font-size:16px; margin-bottom:2px}
+.fam svg{margin:2px auto 4px}
+.fam .f1{background:#FBEFD3; color:#6E4A06} .fam .f2{background:#FBE3EF; color:#8E1B55} .fam .f3{background:#E6EEF9; color:#1D4F8A}
+
+/* catena di monomeri e disegni a pulsanti */
+.poly,.tog{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.pstat{text-align:center; font-size:16.5px}
+.pctl{display:flex; gap:8px; margin-top:10px}
+.pctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:10px 6px;
+  font:inherit; font-size:16px; font-weight:700; cursor:pointer; line-height:1.3}
+.pctl button small{display:block; font-size:12.5px; font-weight:600; color:var(--soft)}
+.pctl button:disabled{opacity:.35}
+.pmsg{min-height:1.6em; text-align:center; font-size:15px; color:var(--soft); margin-top:8px}
+.tbtns{display:flex; flex-wrap:wrap; gap:6px}
+.tbtns button{flex:1 1 40%; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 6px;
+  font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer}
+.tbtns button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.tout{border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:var(--accent-soft); border:1px solid var(--accent-line)}
+
+
+.flow .st .n{text-transform:none; letter-spacing:0; font-size:14.5px}
+/* analogia */
+.an{background:#E6EEF9; border:1px solid #C9D9EE; border-radius:12px; padding:12px 16px; margin:14px 0; font-size:17px; line-height:1.6}
+.an .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:#1D4F8A; font-weight:700; margin-bottom:3px}
+/* prova tu */
+.quiz{margin-top:18px; padding-top:14px; border-top:1px dashed var(--rule)}
+.quiz .qhd{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.quiz .qhd span{color:var(--soft); letter-spacing:.04em}
+.qz{margin:10px 0 16px}
+.qz .qq{font-weight:700; font-size:17px; line-height:1.45; margin-bottom:7px}
+.qz .op{display:flex; flex-direction:column; gap:6px}
+.qz .op button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left; font:inherit; font-size:16.5px; line-height:1.4; color:var(--ink); cursor:pointer}
+.qz .op button.right{border-color:#1F5C4B; background:#E8F0EC; color:#1F5C4B; font-weight:700}
+.qz .op button.wrong{border-color:#9B2C2C; background:#FBEAEA; color:#9B2C2C}
+.qz.done .op button:not(.right):not(.wrong){opacity:.5}
+.qz .why{display:none; margin-top:7px; border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.55}
+.qz .why.on{display:block}
+.qz .why.y{background:#E8F0EC; color:#1F5C4B}
+.qz .why.n{background:#FBEAEA; color:#7A2222}
+/* percorso */
+.path{display:flex; gap:8px; margin:26px 0 0}
+.path a{flex:1; display:block; border:2px solid var(--accent-line); border-radius:12px; padding:10px 12px; text-decoration:none; color:var(--accent); font-weight:700; font-size:15px; line-height:1.35; background:#fff}
+.path a small{display:block; color:var(--soft); font-weight:600; font-size:12.5px}
+.path a.nx{text-align:right}
+/* costruttore di atomi */
+.atomw,.formw{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.aw-row{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:8px}
+.aw-ctl{border:1px solid var(--rule); border-radius:12px; padding:6px; text-align:center; font-size:14px; font-weight:700}
+.aw-ctl .v{font-size:22px; display:block; line-height:1.2}
+.aw-ctl button{border:2px solid var(--rule); background:#fff; border-radius:9px; width:40px; height:36px; font-size:20px; font-weight:700; cursor:pointer; margin:2px}
+.aw-out{margin-top:8px; border-radius:12px; padding:10px 12px; background:var(--accent-soft); border:1px solid var(--accent-line); font-size:16.5px; line-height:1.55}
+.aw-sym{font-family:"Times New Roman",Georgia,serif; font-size:30px; display:inline-flex; align-items:center; gap:2px; margin-right:10px; vertical-align:middle}
+.aw-sym .ix{display:inline-flex; flex-direction:column; font-size:15px; line-height:1.05; text-align:right}
+.fw-sel{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+.fw-sel label{font-size:13px; font-weight:700; color:var(--soft); display:block; margin-bottom:3px}
+.fw-sel select{width:100%; font:inherit; font-size:17px; padding:8px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink)}
+.fw-tiles{display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; justify-content:center}
+.fw-t{border-radius:10px; padding:6px 10px; font-weight:700; font-size:16px}
+.fw-t.c{background:#E6EEF9; color:#1D4F8A; border:2px solid #9DB8DC}
+.fw-t.a{background:#FBE3EF; color:#8E1B55; border:2px solid #E8A9C8}
+.fw-f{font-family:"Times New Roman",Georgia,serif; font-size:30px; text-align:center; margin:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Scienze · scheda 4 di 12</div>
+  <h1>4 · La materia: miscugli, sostanze, elementi, composti</h1>
+  <p class="lead">Come si classifica la materia: sostanze pure e miscugli, soluzioni, elementi e composti, simboli e formule, trasformazioni fisiche e chimiche.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<nav class="path"><a href="26-11-05-sc03-densita.html">◀ Scheda 3<small>La densità</small></a><a class="nx" href="26-11-05-sc05-calore.html">Scheda 5 ▶<small>Temperatura, calore ed energia</small></a></nav><p class="foot" id="foot">Percorso di scienze in 12 schede, costruito sugli appunti di Liam (settembre–novembre 2026).</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const TOGS = {};
+const PARTI = ["1 · Sostanze e miscugli", "2 · Miscugli e soluzioni", "3 · Elementi, composti, formule", "4 · Trasformazioni", "5 · Ripasso"];
+const CARDS = [{"parte": 0, "t": "La mappa della materia", "body": "<p class=\"s\">Tutta la materia si divide in due grandi gruppi: le sostanze pure e i miscugli.</p><svg viewBox=\"0 0 340 214\" role=\"img\" aria-label=\"Mappa: materia, sostanze pure e miscugli\"><g font-family=\"-apple-system,Arial,sans-serif\" text-anchor=\"middle\" font-weight=\"700\">\n<rect x=\"120\" y=\"6\" width=\"100\" height=\"30\" rx=\"8\" fill=\"#1B2430\"/><text x=\"170\" y=\"26\" font-size=\"14\" fill=\"#fff\">materia</text>\n<path d=\"M150,36 L85,64 M190,36 L255,64\" stroke=\"#5A6473\" stroke-width=\"2\" fill=\"none\"/>\n<rect x=\"18\" y=\"64\" width=\"134\" height=\"30\" rx=\"8\" fill=\"#E6EEF9\" stroke=\"#1D5FA8\" stroke-width=\"2\"/><text x=\"85\" y=\"84\" font-size=\"13.5\" fill=\"#1D4F8A\">sostanze pure</text>\n<rect x=\"188\" y=\"64\" width=\"134\" height=\"30\" rx=\"8\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"255\" y=\"84\" font-size=\"13.5\" fill=\"#7A5208\">miscugli</text>\n<path d=\"M60,94 L40,124 M110,94 L130,124 M230,94 L210,124 M280,94 L300,124\" stroke=\"#5A6473\" stroke-width=\"2\" fill=\"none\"/>\n<rect x=\"4\" y=\"124\" width=\"74\" height=\"28\" rx=\"7\" fill=\"#fff\" stroke=\"#1D5FA8\" stroke-width=\"2\"/><text x=\"41\" y=\"143\" font-size=\"12.5\" fill=\"#1D4F8A\">elementi</text>\n<rect x=\"92\" y=\"124\" width=\"76\" height=\"28\" rx=\"7\" fill=\"#fff\" stroke=\"#1D5FA8\" stroke-width=\"2\"/><text x=\"130\" y=\"143\" font-size=\"12.5\" fill=\"#1D4F8A\">composti</text>\n<rect x=\"172\" y=\"124\" width=\"76\" height=\"28\" rx=\"7\" fill=\"#fff\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"210\" y=\"143\" font-size=\"12.5\" fill=\"#7A5208\">omogenei</text>\n<rect x=\"258\" y=\"124\" width=\"80\" height=\"28\" rx=\"7\" fill=\"#fff\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"298\" y=\"143\" font-size=\"12.5\" fill=\"#7A5208\">eterogenei</text>\n<g font-weight=\"400\" font-size=\"11.5\" fill=\"#5A6473\"><text x=\"41\" y=\"170\">oro, O₂</text><text x=\"41\" y=\"185\">ossigeno</text>\n<text x=\"130\" y=\"170\">acqua, sale</text><text x=\"130\" y=\"185\">CO₂</text>\n<text x=\"210\" y=\"170\">acqua e</text><text x=\"210\" y=\"185\">zucchero, aria</text>\n<text x=\"298\" y=\"170\">acqua e olio,</text><text x=\"298\" y=\"185\">sabbia e acqua</text></g>\n<text x=\"210\" y=\"206\" font-size=\"11.5\" fill=\"#C98A12\">= soluzioni</text>\n</g></svg><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Sostanza pura</b><span style=\"display:none\">: </span>una sola sostanza: particelle tutte uguali. Elementi e composti.</div><div class=\"st s\"><b class=\"n\">Miscuglio</b><span style=\"display:none\">: </span>due o più sostanze mescolate, ognuna con le sue particelle.</div><div class=\"st s\"><b class=\"n\">Miscuglio omogeneo</b><span style=\"display:none\">: </span>si vede un'unica fase: è una soluzione.</div><div class=\"st s\"><b class=\"n\">Miscuglio eterogeneo</b><span style=\"display:none\">: </span>si vedono due o più fasi.</div></div><div class=\"an s\"><div class=\"lbl\">Come in cucina</div><span style=\"display:none\">: </span>Lo zucchero da solo è una sostanza pura. Lo zucchero sciolto nel tè è un miscuglio omogeneo. L'insalata è un miscuglio eterogeneo.</div>", "ask": ["L'aria è una sostanza pura?", "No: è un <b>miscuglio omogeneo</b> di gas (azoto, ossigeno, argon…)."], "quiz": [["L'acqua salata è…", ["una sostanza pura", "un miscuglio omogeneo", "un miscuglio eterogeneo"], 1, "Una sola fase, ma due sostanze."], ["Il sale da cucina (cloruro di sodio) da solo è…", ["una sostanza pura (composto)", "un miscuglio", "un elemento"], 0, "È un composto: sodio e cloro uniti."]]}, {"parte": 0, "t": "Sistemi omogenei ed eterogenei", "body": "<p class=\"s\">Una fase è una porzione di materia fisicamente distinguibile e delimitata, che ha proprietà intensive uniformi.</p>\n<p class=\"s\">Un sistema con una sola fase si dice omogeneo. Un sistema con due o più fasi si dice eterogeneo.</p>\n<svg viewBox=\"0 0 330 160\" role=\"img\" aria-label=\"Tre bicchieri: acqua zuccherata, acqua e olio, acqua e ghiaccio\">\n<g font-family=\"-apple-system,Arial,sans-serif\" font-size=\"13\" text-anchor=\"middle\">\n<path d=\"M20,30 L30,120 H90 L100,30\" fill=\"none\" stroke=\"#1B2430\" stroke-width=\"2\"/>\n<path d=\"M24,55 L30,120 H90 L96,55 Z\" fill=\"#CFE0F3\"/>\n<text x=\"60\" y=\"140\" fill=\"#1B2430\" font-weight=\"700\">acqua e zucchero</text>\n<text x=\"60\" y=\"156\" fill=\"#1F5C4B\">1 fase · omogeneo</text>\n<path d=\"M125,30 L135,120 H195 L205,30\" fill=\"none\" stroke=\"#1B2430\" stroke-width=\"2\"/>\n<path d=\"M130,78 L135,120 H195 L200,78 Z\" fill=\"#CFE0F3\"/>\n<path d=\"M128,55 L130,78 H200 L202,55 Z\" fill=\"#F2D98A\"/>\n<text x=\"165\" y=\"140\" fill=\"#1B2430\" font-weight=\"700\">acqua e olio</text>\n<text x=\"165\" y=\"156\" fill=\"#9B2C2C\">2 fasi · eterogeneo</text>\n<path d=\"M230,30 L240,120 H300 L310,30\" fill=\"none\" stroke=\"#1B2430\" stroke-width=\"2\"/>\n<path d=\"M234,55 L240,120 H300 L306,55 Z\" fill=\"#CFE0F3\"/>\n<rect x=\"248\" y=\"58\" width=\"18\" height=\"16\" rx=\"3\" fill=\"#fff\" stroke=\"#6F8FB5\" stroke-width=\"1.5\"/>\n<rect x=\"274\" y=\"62\" width=\"18\" height=\"16\" rx=\"3\" fill=\"#fff\" stroke=\"#6F8FB5\" stroke-width=\"1.5\"/>\n<text x=\"270\" y=\"140\" fill=\"#1B2430\" font-weight=\"700\">acqua e ghiaccio</text>\n<text x=\"270\" y=\"156\" fill=\"#9B2C2C\">2 fasi · eterogeneo</text>\n</g></svg>\n<p class=\"s\">Acqua e zucchero: due componenti, ma una sola fase. Sistema omogeneo.</p>\n<p class=\"s\">Acqua e olio: due strati, due fasi. Sistema eterogeneo.</p>\n<p class=\"s\">Acqua e ghiaccio: una sola sostanza, ma due fasi, quella solida e quella liquida. Sistema eterogeneo.</p>\n<div class=\"trap\"><b>Fasi e sostanze sono cose diverse.</b> Contare le fasi non ti dice quante sostanze ci sono.</div>", "words": [["fase", "una parte di materia che si distingue dalle altre e che dentro è tutta uguale."], ["proprietà intensive uniformi", "colore, densità e le altre proprietà intensive sono le stesse in ogni punto."]], "ask": ["Acqua e ghiaccio è un sistema omogeneo?", "<b>No, eterogeneo</b>: due fasi, anche se la sostanza è una sola."], "quiz": [["Acqua e ghiaccio nello stesso bicchiere: quante fasi?", ["3", "1", "2"], 2, "Solido e liquido si distinguono: due fasi, anche se la sostanza è una."], ["Un sistema con una sola fase è…", ["eterogeneo", "omogeneo"], 1, "Una fase = omogeneo."]]}, {"parte": 0, "t": "Sostanze pure e miscugli", "body": "<p class=\"s\">Nel linguaggio di tutti i giorni puro vuol dire non contaminato. In chimica vuol dire un'altra cosa.</p>\n<p class=\"s\">Un sistema è puro solo se è formato da una sola sostanza: particelle tutte uguali, proprietà caratteristiche e composizione costante.</p>\n<svg viewBox=\"0 0 320 130\" role=\"img\" aria-label=\"Sostanza pura con sfere uguali e miscuglio con sfere di colori diversi\">\n<g id=\"spheres\"></g>\n<text x=\"75\" y=\"125\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#1B2430\" font-family=\"-apple-system,Arial,sans-serif\">sostanza pura</text>\n<text x=\"245\" y=\"125\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#1B2430\" font-family=\"-apple-system,Arial,sans-serif\">miscuglio</text>\n</svg>\n<p class=\"s\">Nei disegni una sostanza pura si rappresenta con sfere tutte uguali, un miscuglio con sfere di colori diversi.</p>\n<p class=\"s\">L'acqua distillata è pura. L'acqua del rubinetto e l'acqua di mare no: evaporando lasciano i sali che avevano disciolti.</p>\n<p class=\"s\">Quasi tutta la materia intorno a noi è fatta di miscugli.</p>\n<div class=\"tree\">\n  <div class=\"n0\">MATERIA</div>\n  <div class=\"lv\">\n    <div><div class=\"n1\">sostanze pure</div>\n      <div class=\"n2\"><b>elementi</b>oro, ossigeno, ferro</div>\n      <div class=\"n2\"><b>composti</b>acqua, sale, anidride carbonica</div></div>\n    <div><div class=\"n1\">miscugli</div>\n      <div class=\"n2\"><b>omogenei = soluzioni</b>acqua e sale, aria, ottone</div>\n      <div class=\"n2\"><b>eterogenei</b>acqua e olio, sabbia, maionese</div></div>\n  </div>\n</div>", "init": "sphInit", "ask": ["L'acqua di mare è una sostanza pura?", "<b>No</b>, è un miscuglio omogeneo: acqua più sali disciolti. Lo prova il sale che resta quando evapora."], "quiz": [["Nei disegni a sfere, una sostanza pura ha…", ["sfere di colori diversi", "sfere tutte uguali"], 1, "Particelle tutte uguali."], ["L'acqua del rubinetto è…", ["un miscuglio (contiene sali)", "una sostanza pura"], 0, "Contiene sali disciolti; pura è l'acqua distillata."]]}, {"parte": 1, "t": "Le soluzioni", "body": "<p class=\"s\">Un miscuglio omogeneo di due o più sostanze si chiama soluzione. Le sue particelle sono piccolissime: meno di un nanometro.</p>\n<p class=\"s\">Il componente più abbondante è il solvente. I componenti meno abbondanti sono i soluti.</p>\n<div class=\"ex\"><div class=\"lbl\">Acqua e sale</div>acqua = <b>solvente</b> &nbsp;·&nbsp; sale = <b>soluto</b></div>\n<p class=\"s\">Le soluzioni possono essere liquide, come acqua e sale. Gassose, come l'aria. Solide, come le leghe metalliche: per esempio l'ottone, fatto di rame e zinco.</p>\n<p class=\"s\">L'aria è una soluzione di gas. Il componente principale è l'azoto, il settantotto per cento. Poi l'ossigeno, il ventuno per cento. L'uno per cento sono altri gas.</p>\n<p class=\"s\">Anche l'acqua gassata chiusa in bottiglia è una soluzione: un gas sciolto in un liquido. Quando la versi e fa le bolle, diventa un miscuglio eterogeneo.</p>", "words": [["solvente", "il componente più abbondante, quello che scioglie."], ["soluto", "il componente meno abbondante, quello che viene sciolto."], ["lega", "una soluzione solida di metalli, come l'ottone o il bronzo."]], "ask": ["Nell'aria, chi è il solvente?", "<b>L'azoto</b>, perché è il componente più abbondante: il 78%."], "quiz": [["In acqua e sale, il solvente è…", ["l'acqua", "il sale"], 0, "Il componente più abbondante."], ["L'ottone (rame e zinco) è…", ["un miscuglio eterogeneo", "una soluzione solida", "un composto"], 1, "Le leghe sono soluzioni solide."]]}, {"parte": 1, "t": "Miscugli eterogenei e colloidi", "body": "<p class=\"s\">Un miscuglio eterogeneo ha fasi distinguibili, a occhio nudo o al microscopio. Le sue particelle sono più grandi di mille nanometri.</p>\n<div class=\"scroll\"><table>\n<tr><th>Nome</th><th>Che cosa è disperso in che cosa</th><th>Esempio</th></tr>\n<tr><td><b>schiuma</b></td><td>gas in un liquido</td><td>cappuccino</td></tr>\n<tr><td><b>nebbia</b></td><td>liquido in un gas</td><td>goccioline d'acqua nell'aria</td></tr>\n<tr><td><b>fumo</b></td><td>solido in un gas</td><td>fumo di un camino</td></tr>\n<tr><td><b>emulsione</b></td><td>liquido in un liquido</td><td>maionese</td></tr>\n<tr><td><b>sospensione</b></td><td>solido in un liquido</td><td>succo di frutta</td></tr>\n</table></div>\n<p class=\"s\">Schiuma: gas in un liquido. Nebbia: liquido in un gas. Fumo: solido in un gas. Emulsione: due liquidi che non si mescolano. Sospensione: un solido in un liquido.</p>\n<p class=\"s\">A metà strada ci sono i colloidi, con particelle tra uno e mille nanometri. Il gel, come la gelatina. Il sol, come l'albume dell'uovo. L'aerosol, un liquido disperso nell'aria.</p>\n<svg viewBox=\"0 0 330 70\" role=\"img\" aria-label=\"Dimensione delle particelle: soluzioni sotto 1 nanometro, colloidi tra 1 e 1000, eterogenei sopra 1000\">\n<g font-family=\"-apple-system,Arial,sans-serif\" font-size=\"13\" text-anchor=\"middle\">\n<rect x=\"4\" y=\"8\" width=\"96\" height=\"30\" rx=\"6\" fill=\"#E8F0EC\"/><text x=\"52\" y=\"28\" fill=\"#1F5C4B\" font-weight=\"700\">soluzioni</text>\n<rect x=\"104\" y=\"8\" width=\"118\" height=\"30\" rx=\"6\" fill=\"#F8E9F2\"/><text x=\"163\" y=\"28\" fill=\"#A8327A\" font-weight=\"700\">colloidi</text>\n<rect x=\"226\" y=\"8\" width=\"100\" height=\"30\" rx=\"6\" fill=\"#FBF3E2\"/><text x=\"276\" y=\"28\" fill=\"#8A5A00\" font-weight=\"700\">eterogenei</text>\n<text x=\"52\" y=\"58\" fill=\"#5A6473\">&lt; 1 nm</text><text x=\"163\" y=\"58\" fill=\"#5A6473\">1 – 1000 nm</text><text x=\"276\" y=\"58\" fill=\"#5A6473\">&gt; 1000 nm</text>\n</g></svg>\n<p class=\"s\">Il termine smog viene dall'inglese: smoke, fumo, più fog, nebbia.</p>", "words": [["disperso", "sparso dentro un'altra sostanza in piccole parti."], ["immiscibili", "liquidi che non si mescolano tra loro, come acqua e olio."]], "ask": ["La maionese che tipo di miscuglio è?", "<b>Un'emulsione</b>: due liquidi immiscibili, agitati in goccioline minuscole."], "quiz": [["La maionese è…", ["un fumo", "un'emulsione", "una schiuma"], 1, "Liquido disperso in un liquido."], ["La nebbia è…", ["solido in un gas", "gas disperso in un liquido", "liquido disperso in un gas"], 2, "Goccioline d'acqua nell'aria."]]}, {"parte": 1, "t": "La solubilità", "body": "<p class=\"s\">Se metti zucchero nell'acqua e mescoli, a un certo punto non si scioglie più e resta sul fondo. Quel solido si chiama corpo di fondo, e la soluzione si dice satura.</p>\n<p class=\"s\">La solubilità è la quantità massima di soluto che si può sciogliere in una certa quantità di solvente, a una certa temperatura.</p>\n<p class=\"s\">La solubilità dipende da soluto e solvente. Per esempio la benzina non si scioglie in acqua, ma si scioglie nell'olio.</p>\n<p class=\"s\">Dipende anche dalla temperatura. Di solito solidi e liquidi si sciolgono di più se la temperatura sale. Il sale da cucina è un'eccezione: la temperatura cambia poco la sua solubilità.</p>\n<p class=\"s\">I gas invece si sciolgono di più a bassa temperatura e ad alta pressione. Per questo una bibita gassata lasciata aperta fuori dal frigo perde le bollicine.</p>\n<div class=\"ex\"><div class=\"lbl\">Da ricordare</div>solidi e liquidi: più caldo → <b>più</b> solubili<br>gas: più caldo → <b>meno</b> solubili</div>", "words": [["satura", "una soluzione che contiene già la massima quantità possibile di soluto."], ["corpo di fondo", "il soluto in più che non si scioglie e resta sul fondo."]], "ask": ["Perché una bibita gassata calda fa meno bollicine di una fredda?", "Perché i <b>gas</b> sono <b>meno solubili</b> quando la temperatura sale: il gas scappa via prima."], "quiz": [["Una soluzione con il corpo di fondo è…", ["satura", "pura", "diluita"], 0, "Non scioglie più soluto."]]}, {"parte": 1, "t": "La concentrazione in percentuale", "body": "<p class=\"s\">La concentrazione dice quanto soluto c'è in una soluzione.</p>\n<span class=\"f\">% <i>m/m</i> = (<i>massa soluto</i> / <i>massa soluzione</i>) × 100</span>\n<span class=\"f\">% <i>m/V</i> = (<i>grammi soluto</i> / <i>mL soluzione</i>) × 100</span>\n<p class=\"s\">Percento massa su massa: grammi di soluto diviso grammi di soluzione, per cento. Percento massa su volume: grammi di soluto diviso millilitri di soluzione, per cento.</p>\n<div class=\"trap s\" data-say=\"Attenzione: la massa della soluzione è soluto più solvente. Venti grammi di sale in ottanta grammi di acqua fanno cento grammi di soluzione, al venti per cento. Non si divide venti per ottanta.\"><b>La soluzione è soluto + solvente.</b> 20 g di sale in 80 g di acqua fanno 100 g di soluzione, quindi il 20% <i>m/m</i>. Non 20/80.</div>\n<div class=\"ex\"><div class=\"lbl\">Formula inversa</div>In quanti mL sciolgo 3,60 g per avere l'1,50% <i>m/V</i>?<br><span class=\"fx\">V = 3,60 / 1,50 × 100 = 240 mL</span></div>", "ask": ["Sciogli 5 g di zucchero in 45 g di acqua. Che concentrazione % m/m ottieni?", "<b>10%.</b> La soluzione pesa 5 + 45 = 50 g, e 5 / 50 × 100 = 10."], "quiz": [["20 g di sale in 80 g d'acqua: % m/m?", ["20%", "80%", "25%"], 0, "20 ÷ (20 + 80) × 100 = 20%."], ["Errore tipico nella % m/m…", ["dividere per il solo solvente invece che per la soluzione", "moltiplicare per 100"], 0, "Si divide per soluto + solvente."]]}, {"parte": 1, "t": "Separare i miscugli", "body": "<div class=\"scroll\"><table>\n<tr><th>Tecnica</th><th>Separa grazie a</th><th>Esempio</th><th class=\"c\">Per</th></tr>\n<tr><td><b>filtrazione</b></td><td>dimensione</td><td>acqua e sabbia</td><td class=\"c\">E</td></tr>\n<tr><td><b>setacciatura</b></td><td>dimensione</td><td>semi di varie misure</td><td class=\"c\">E</td></tr>\n<tr><td><b>decantazione</b></td><td>densità</td><td>acqua e fango</td><td class=\"c\">E</td></tr>\n<tr><td><b>centrifugazione</b></td><td>densità</td><td>panna dal latte</td><td class=\"c\">E</td></tr>\n<tr><td><b>estrazione</b></td><td>solubilità</td><td>caffeina dal caffè</td><td class=\"c\">O ed E</td></tr>\n<tr><td><b>cromatografia</b></td><td>velocità di migrazione</td><td>inchiostri</td><td class=\"c\">O</td></tr>\n<tr><td><b>distillazione</b></td><td>volatilità</td><td>alcol da un liquore</td><td class=\"c\">O</td></tr>\n</table></div>\n<p style=\"font-size:14px;color:var(--soft);margin-top:-6px\">O = miscugli omogenei · E = miscugli eterogenei</p>\n<p class=\"s\">Filtrazione e setacciatura separano per dimensione delle particelle. Decantazione e centrifugazione per densità.</p>\n<p class=\"s\">L'estrazione separa per solubilità. La cromatografia per velocità di migrazione. La distillazione per volatilità, cioè per quanto facilmente una sostanza evapora.</p>\n<p class=\"s\">Per i miscugli omogenei servono distillazione, cromatografia o estrazione. Filtrare una soluzione non serve a niente: il soluto passa dal filtro insieme al solvente.</p>", "words": [["volatilità", "la facilità con cui una sostanza passa allo stato di vapore."], ["decantazione", "si lascia riposare il miscuglio: la parte più densa va sul fondo."]], "ask": ["Come separi l'alcol da un liquore?", "Con la <b>distillazione</b>: l'alcol è più volatile dell'acqua ed evapora prima."], "quiz": [["Per separare acqua e sabbia si usa…", ["la filtrazione", "la cromatografia", "la distillazione"], 0, "La sabbia resta sul filtro."], ["Per separare l'alcol da un liquore si usa…", ["la filtrazione", "la distillazione", "la setacciatura"], 1, "Sfrutta la diversa volatilità."]]}, {"parte": 2, "t": "Elementi e composti", "body": "<p class=\"s\">Tutti i materiali della Terra sono fatti di due tipi di sostanze pure: gli elementi e i composti.</p>\n<p class=\"s\">Un elemento è una sostanza pura che non si può scomporre in sostanze più semplici con processi chimici. Esempio: l'oro. Puoi tagliarlo in pezzetti piccolissimi, ma resta oro.</p>\n<p class=\"s\">Un composto è una sostanza pura formata da elementi diversi, uniti in rapporti fissi. Con una reazione si può scomporre. Esempio: l'acqua, fatta di idrogeno e ossigeno.</p>\n<p class=\"s\">Ogni elemento ha un simbolo: una lettera maiuscola, oppure una maiuscola e una minuscola. Il simbolo si legge lettera per lettera. Li, il litio, si legge elle i.</p>\n<div class=\"ex\"><div class=\"lbl\">Simboli da sapere</div>\nH idrogeno · He elio · C carbonio · N azoto · O ossigeno · Na sodio · Mg magnesio · Al alluminio · Si silicio · S zolfo · Cl cloro · Fe ferro · Cu rame · Zn zinco · Hg mercurio · Pb piombo · Au oro</div>\n<p class=\"s\">Nell'universo quasi tutta la materia è idrogeno ed elio. Nella crosta terrestre prevalgono ossigeno e silicio. Nel corpo umano ossigeno, carbonio, idrogeno e azoto fanno il novantasei per cento.</p><div class=\"trap s\" data-say=\"Negli appunti c&#x27;è una definizione sbagliata di elemento. Quella giusta: un elemento è una sostanza pura che non si può scomporre in sostanze più semplici, ed è fatta da un solo tipo di atomo. Tante molecole di ossigeno insieme sono ancora ossigeno, non un miscuglio.\"><b>Negli appunti</b> c'è scritto che gli elementi sono «atomi presenti nella tavola periodica» e che «mettendo insieme più molecole troviamo dei miscugli». La definizione giusta: un <b>elemento</b> è una sostanza pura che <b>non si può scomporre</b> in sostanze più semplici, ed è fatta da un solo tipo di atomo. Tante molecole di O₂ insieme sono ancora ossigeno, non un miscuglio.</div>", "words": [["scomporre", "dividere una sostanza in sostanze più semplici con una reazione chimica."]], "ask": ["L'acqua è un elemento o un composto?", "<b>Un composto</b>: è fatta di idrogeno e ossigeno e si può scomporre."], "quiz": [["Un elemento…", ["si scompone con una reazione", "è sempre un miscuglio", "non si può scomporre in sostanze più semplici"], 2, "È la definizione."], ["L'acqua è…", ["un miscuglio", "un composto", "un elemento"], 1, "Idrogeno e ossigeno uniti in rapporto fisso."]]}, {"parte": 2, "t": "Simboli e formule", "body": "<p class=\"s\">Ogni elemento ha un simbolo: H idrogeno, O ossigeno, N azoto, C carbonio, Ca calcio. Le formule mettono insieme i simboli.</p><div class=\"flow\"><div class=\"st s\" data-say=\"Il numero piccolo in basso, il pedice, dice quanti atomi ci sono in una molecola. H 2 è una molecola con due atomi di idrogeno legati.\"><b class=\"n\">Il numero piccolo in basso: il pedice</b><span style=\"display:none\">: </span>dice quanti atomi ci sono in una molecola. H₂ = una molecola con 2 atomi di idrogeno legati.</div><div class=\"st s\" data-say=\"Il numero grande davanti, il coefficiente, dice quante molecole o quanti atomi separati ci sono. 2 H sono due atomi di idrogeno separati.\"><b class=\"n\">Il numero grande davanti: il coefficiente</b><span style=\"display:none\">: </span>dice quante molecole o atomi separati ci sono. 2H = 2 atomi di idrogeno separati.</div></div><div class=\"scroll\"><table><tr><th>scrittura</th><th>che cosa vuol dire</th></tr><tr><td>2H</td><td>2 atomi di idrogeno non legati</td></tr><tr><td>H₂</td><td>1 molecola di idrogeno (gas): 2 atomi legati</td></tr><tr><td>2H₂</td><td>2 molecole, 4 atomi in tutto</td></tr><tr><td>O₂</td><td>1 molecola di ossigeno</td></tr><tr><td>O₃</td><td>1 molecola di ozono: 3 atomi di ossigeno</td></tr><tr><td>N₂</td><td>1 molecola di azoto</td></tr><tr><td>H₂O</td><td>acqua: 2 H e 1 O</td></tr><tr><td>H₂O₂</td><td>acqua ossigenata: 2 H e 2 O</td></tr><tr><td>CO₂</td><td>anidride carbonica: 1 C e 2 O</td></tr><tr><td>Ca(OH)₂</td><td>idrossido di calcio: 1 Ca, 2 O, 2 H</td></tr></table></div><div class=\"trap s\"><b>Il 2 fuori dalla parentesi moltiplica tutto quello che c'è dentro.</b> In Ca(OH)₂ ci sono 2 ossigeni e 2 idrogeni, non uno.</div><div class=\"an s\"><div class=\"lbl\">Come le parole</div><span style=\"display:none\">: </span>I simboli sono le lettere, le formule sono le parole. H₂O e H₂O₂ differiscono per una lettera, ma sono sostanze diversissime: l'acqua si beve, l'acqua ossigenata no.</div>", "words": [["pedice", "il numero piccolo in basso a destra di un simbolo."], ["coefficiente", "il numero grande davanti a una formula."]], "ask": ["Quanti atomi in tutto ci sono in 3 O₂?", "3 molecole × 2 atomi = <b>6 atomi</b> di ossigeno."], "quiz": [["Che differenza c'è tra 2O e O₂?", ["2O sono due atomi separati, O₂ è una molecola di due atomi legati", "sono uguali", "O₂ ha quattro atomi"], 0, "Coefficiente = separati; pedice = legati nella stessa molecola."], ["In Ca(OH)₂ quanti atomi di ossigeno ci sono?", ["1", "2", "3"], 1, "Il 2 fuori moltiplica O e H."], ["O₃ è…", ["l'ozono", "l'ossigeno che respiriamo", "l'acqua"], 0, "Tre atomi di ossigeno legati."]]}, {"parte": 2, "t": "Atomi, molecole, ioni", "body": "<p class=\"s\">L'atomo è la particella più piccola di un elemento che ne conserva le proprietà chimiche.</p>\n<p class=\"s\">Un singolo atomo non ha colore, né densità, né conducibilità. Queste sono proprietà macroscopiche: nascono dall'unione di tantissimi atomi.</p>\n<p class=\"s\">Alcuni elementi esistono come molecole, cioè gruppi di atomi uguali legati. Idrogeno, ossigeno, azoto, fluoro, cloro, bromo e iodio: molecole di due atomi. Fosforo e arsenico: di quattro. Zolfo e selenio: fino a otto.</p>\n<span class=\"f\" style=\"font-size:21px\">H<sub>2</sub> O<sub>2</sub> N<sub>2</sub> F<sub>2</sub> Cl<sub>2</sub> Br<sub>2</sub> I<sub>2</sub> &nbsp;·&nbsp; P<sub>4</sub> As<sub>4</sub> &nbsp;·&nbsp; S<sub>8</sub> Se<sub>8</sub></span>\n<p class=\"s\">La molecola di un composto è fatta di atomi diversi: l'acqua, l'anidride carbonica, l'ammoniaca, il metano.</p>\n<p class=\"s\">Gli ioni sono atomi, o gruppi di atomi, con una o più cariche elettriche. Quelli positivi si chiamano cationi, quelli negativi anioni.</p>\n<div class=\"ex\"><div class=\"lbl\">Per ricordarlo</div>ca<b style=\"font-size:22px\">t</b>ione: la <b>t</b> sembra un <b>+</b> → positivo</div>\n<p class=\"s\">I composti ionici, come il sale da cucina, sono fatti di ioni, non di molecole.</p>", "words": [["molecola", "un gruppo di atomi legati tra loro. Può essere di un elemento, come O₂, o di un composto, come H₂O."], ["catione", "ione con carica positiva."], ["anione", "ione con carica negativa."]], "ask": ["La particella più piccola dell'idrogeno gassoso è l'atomo?", "<b>No, la molecola H₂.</b> L'idrogeno gassoso è fatto di molecole di due atomi."], "quiz": [["Lo zolfo forma molecole di…", ["4 atomi", "8 atomi (S₈)", "2 atomi"], 1, "Zolfo: S₈. Il fosforo: P₄."], ["Un singolo atomo d'oro ha il colore dell'oro?", ["sì", "no: il colore nasce da tantissimi atomi insieme"], 1, "Le proprietà come colore e densità sono di tanti atomi insieme."]]}, {"parte": 2, "t": "Da Democrito a Dalton", "body": "<table>\n<tr><th>Quando</th><th>Chi</th><th>Che cosa</th></tr>\n<tr><td>450 a.C. circa</td><td>Leucippo</td><td>la materia è fatta di particelle piccolissime</td></tr>\n<tr><td>460–370 a.C.</td><td>Democrito</td><td>le chiama <b>atomi</b>: «indivisibili»</td></tr>\n<tr><td>384–322 a.C.</td><td>Aristotele</td><td>materia divisibile all'infinito, 4 elementi: aria, acqua, terra, fuoco</td></tr>\n<tr><td>1743–1794</td><td>Lavoisier</td><td>conservazione della massa</td></tr>\n<tr><td>1803</td><td>Dalton</td><td>teoria atomica basata sugli esperimenti</td></tr>\n</table>\n<p class=\"s\">Leucippo, nel quattrocentocinquanta avanti Cristo circa, pensò che la materia fosse fatta di particelle piccolissime. Il suo allievo Democrito le chiamò atomi, dal greco atomos, che vuol dire indivisibile.</p>\n<p class=\"s\">Aristotele invece pensava che la materia fosse divisibile all'infinito, formata da quattro elementi: aria, acqua, terra e fuoco. La sua idea dominò fino alla fine del Settecento.</p>\n<p class=\"s\">Nel milleottocentotré l'inglese John Dalton propose il primo modello atomico basato sugli esperimenti. Partì da tre leggi, dette leggi ponderali: la conservazione della massa, le proporzioni definite, le proporzioni multiple.</p>", "words": [["ponderali", "dal latino pondus, peso: leggi che riguardano le masse."]], "ask": ["Qual è la differenza tra l'atomo di Democrito e quello di Dalton?", "Quello di Democrito era un'idea filosofica. Quello di Dalton si basava su <b>esperimenti</b> e sulle tre leggi ponderali."], "quiz": [["Chi chiamò «atomi» le particelle della materia?", ["Lavoisier", "Aristotele", "Democrito"], 2, "Atomo = indivisibile."], ["Nel 1803 la teoria atomica basata sugli esperimenti fu proposta da…", ["Redi", "Leucippo", "Dalton"], 2, "John Dalton."]]}, {"parte": 3, "t": "Trasformazioni fisiche e chimiche", "body": "<p class=\"s\">Le trasformazioni fisiche cambiano lo stato o l'aspetto della materia, ma non cambiano la sua composizione chimica. Non si formano nuove sostanze.</p>\n<p class=\"s\">Le trasformazioni chimiche, o reazioni chimiche, cambiano la composizione delle sostanze di partenza, i reagenti, e formano nuove sostanze, i prodotti.</p>\n<span class=\"f\"><b style=\"color:#B3261E\">reagenti</b> → <b style=\"color:var(--ok)\">prodotti</b></span>\n<span class=\"f\" style=\"font-size:19px\">magnesio + ossigeno → ossido di magnesio</span>\n<p class=\"s\">Segnali che fanno pensare a una reazione: si formano bollicine, cambia il colore, un solido si forma o scompare, cambia la temperatura, cambia l'odore, si emette luce.</p>\n<div class=\"trap s\"><b>I segnali non bastano.</b> Anche lo iodio che sublima e il ferro che fonde cambiano aspetto, ma sono trasformazioni fisiche. Per essere sicuri serve l'analisi chimica.</div>\n<div class=\"ex\"><div class=\"lbl\">Fisiche</div>ghiaccio che fonde, sale che si scioglie, iodio che sublima, ferro che fonde</div>\n<div class=\"ex\"><div class=\"lbl\">Chimiche</div>ferro che arrugginisce, legno che brucia, pane che lievita, aceto sul calcare</div>", "ask": ["Lo zucchero che si scioglie nell'acqua è una trasformazione chimica?", "<b>No, fisica.</b> Se fai evaporare l'acqua, lo zucchero torna uguale: non si è formata una nuova sostanza."], "quiz": [["Quale è una trasformazione chimica?", ["lo zucchero che si scioglie", "il ghiaccio che fonde", "il ferro che arrugginisce"], 2, "Si forma una sostanza nuova: la ruggine."], ["In una reazione, le sostanze di partenza si chiamano…", ["soluti", "reagenti", "prodotti"], 1, "Reagenti → prodotti."]]}, {"parte": 3, "t": "Fisica o chimica? Tanti esempi", "body": "<p class=\"s\">La domanda da farsi è una sola: alla fine c'è una sostanza nuova?</p><div class=\"scroll\"><table><tr><th>fenomeno</th><th class=\"c\">sostanza nuova?</th><th class=\"c\">tipo</th></tr><tr><td>il ghiaccio fonde</td><td class=\"c\">no, è sempre acqua</td><td class=\"c\">fisica</td></tr><tr><td>lo zucchero si scioglie nel tè</td><td class=\"c\">no, lo zucchero c'è ancora</td><td class=\"c\">fisica</td></tr><tr><td>l'arcobaleno</td><td class=\"c\">no, è luce che si separa</td><td class=\"c\">fisica</td></tr><tr><td>la brina sui vetri</td><td class=\"c\">no, è acqua solida</td><td class=\"c\">fisica</td></tr><tr><td>il ferro arrugginisce</td><td class=\"c\">sì, la ruggine</td><td class=\"c\">chimica</td></tr><tr><td>il legno brucia</td><td class=\"c\">sì, cenere, fumo, CO₂</td><td class=\"c\">chimica</td></tr><tr><td>il vino diventa aceto</td><td class=\"c\">sì, acido acetico</td><td class=\"c\">chimica</td></tr><tr><td>la pelle si abbronza</td><td class=\"c\">sì, il corpo produce melanina</td><td class=\"c\">chimica</td></tr><tr><td>una torta cuoce</td><td class=\"c\">sì</td><td class=\"c\">chimica</td></tr></table></div><div class=\"an s\"><div class=\"lbl\">I segnali di una reazione</div><span style=\"display:none\">: </span>Si forma un gas (bollicine), cambia il colore, si forma un solido, si libera o si assorbe calore o luce. Sono indizi, non prove: anche l'acqua che bolle fa bolle, ma è fisica.</div>", "ask": ["La formazione dell'arcobaleno è una trasformazione chimica?", "No: è <b>fisica</b>, la luce si separa nei suoi colori. Nessuna sostanza nuova."], "quiz": [["Quale di questi NON comporta reazioni chimiche?", ["l'inacidimento del vino", "la formazione dell'arcobaleno", "la crescita dei capelli"], 1, "È luce che si separa: fisica."], ["L'acqua che bolle e fa le bolle è una trasformazione…", ["fisica", "chimica"], 0, "Le bolle sono vapore acqueo: sempre acqua."], ["La digestione del cibo è una trasformazione…", ["fisica", "chimica"], 1, "Il cibo viene trasformato in sostanze nuove."]]}, {"parte": 4, "t": "Ripasso: tutta la scheda", "body": "<p class=\"s\">Dieci domande su tutta la scheda.</p>", "quiz": [["Una soluzione è…", ["un miscuglio omogeneo", "un miscuglio eterogeneo", "una sostanza pura"], 0, "Una fase sola, più sostanze."], ["Una soluzione è fisicamente… e chimicamente…", ["omogenea / omogenea", "omogenea / eterogenea", "eterogenea / omogenea"], 1, "Una fase sola, ma più sostanze."], ["Quanti atomi in tutto in 2H₂O?", ["4", "3", "6"], 2, "2 molecole × 3 atomi."], ["La sabbia nell'acqua si separa con…", ["la filtrazione", "la distillazione"], 0, "Resta sul filtro."], ["Un composto…", ["si può scomporre con una reazione in sostanze più semplici", "è un miscuglio", "non si può scomporre"], 0, "Per esempio l'acqua in idrogeno e ossigeno."], ["Il fumo di un camino è…", ["gas in un liquido", "liquido in un gas", "solido disperso in un gas"], 2, "Particelle solide nell'aria."], ["La ruggine che si forma sul ferro è una trasformazione…", ["fisica", "chimica"], 1, "Si forma una sostanza nuova."], ["H₂ indica…", ["una molecola con due atomi di idrogeno legati", "due atomi separati"], 0, "Pedice = legati."], ["10 g di zucchero in 40 g d'acqua: % m/m?", ["10%", "25%", "20%"], 2, "10 ÷ 50 × 100."], ["L'ossigeno che respiriamo è…", ["O₂", "O", "O₃"], 0, "Molecola di due atomi."]]}];
+
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += quizHTML(c);
+  h += '</article>';
+  qzRes = {};
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("sc04-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+
+
+/* ═══════ prova tu ═══════ */
+function quizHTML(c){
+  if(!c.quiz || !c.quiz.length) return "";
+  let h = '<div class="quiz"><div class="qhd">Prova tu <span id="qsc"></span></div>';
+  c.quiz.forEach((q,i)=>{
+    h += '<div class="qz" id="qz'+i+'"><div class="qq">'+q[0]+'</div><div class="op">';
+    q[1].forEach((o,k)=>{ h += '<button onclick="qzAns('+i+','+k+')">'+o+'</button>'; });
+    h += '</div><div class="why"></div></div>';
+  });
+  return h + '</div>';
+}
+let qzRes = {};
+function qzAns(i,k){
+  const q = CARDS[idx].quiz[i], box = document.getElementById("qz"+i);
+  if(!box || box.classList.contains("done")) return;
+  box.classList.add("done");
+  const bs = box.querySelectorAll(".op button");
+  bs[q[2]].classList.add("right"); if(k!==q[2]) bs[k].classList.add("wrong");
+  const w = box.querySelector(".why");
+  w.className = "why on "+(k===q[2]?"y":"n");
+  w.innerHTML = (k===q[2] ? "<b>Giusto.</b> " : "<b>No.</b> ") + (q[3]||"");
+  qzRes[i] = (k===q[2]);
+  const n = Object.keys(qzRes).length, g = Object.keys(qzRes).filter(j=>qzRes[j]).length;
+  const sc = document.getElementById("qsc"); if(sc) sc.textContent = "· fatte "+n+" su "+CARDS[idx].quiz.length+", giuste "+g;
+}
+/* ═══════ la virgola che si sposta ═══════ */
+const VMP = [
+  {lab:"453,89", d:"45389", p:3, e:0},
+  {lab:"0,008332", d:"0008332", p:1, e:0},
+  {lab:"38779", d:"38779", p:5, e:0},
+  {lab:"45,89 × 10⁷", d:"4589", p:2, e:7},
+  {lab:"0,0017 × 10⁻³", d:"00017", p:1, e:-3}
+];
+let vm = null;
+function vmInit(){ vmSet(0); }
+function vmSet(k){ vm = {k:k, d:VMP[k].d, p:VMP[k].p, e:VMP[k].e, e0:VMP[k].e, p0:VMP[k].p}; vmDraw(); }
+function vmMove(dir){           /* dir = -1: virgola a sinistra; +1: a destra */
+  if(!vm) return;
+  if(dir<0){
+    if(vm.p<=0) vm.d = "0"+vm.d; else vm.p--;
+    if(vm.p===0){ vm.d="0"+vm.d; vm.p=1; }
+    vm.e++;
+  }else{
+    vm.p++;
+    if(vm.p>vm.d.length) vm.d = vm.d+"0";
+    vm.e--;
+  }
+  vmDraw();
+}
+function vmParts(){
+  let ip = vm.d.slice(0,vm.p).replace(/^0+/,""), fp = vm.d.slice(vm.p);
+  if(!ip) ip = "0";
+  return [ip, fp];
+}
+function supE(n){ return String(n).replace("-","−"); }
+function vmDraw(){
+  const box = document.getElementById("vm"); if(!box) return;
+  const pr = vmParts(), ip = pr[0], fp = pr[1];
+  let num = ip + (fp ? '<span class="cm">,</span>'+fp : '');
+  num += ' × 10<sup>'+supE(vm.e)+'</sup>';
+  const moved = vm.e - vm.e0;
+  let msg, cls = "msg";
+  if(ip.length===1 && ip!=="0"){
+    cls += " ok";
+    const n = Math.abs(moved), posti = n+(n===1?" posto":" posti");
+    msg = "✓ Notazione scientifica."+(moved>0 ? " Virgola "+posti+" a sinistra: l'esponente sale di "+n+"."
+                                     : moved<0 ? " Virgola "+posti+" a destra: l'esponente scende di "+n+"." : "");
+  }else if(ip==="0"){
+    msg = "Prima della virgola c'è 0: sposta la virgola a destra ▶";
+  }else{
+    msg = "Prima della virgola ci sono "+ip.length+" cifre: sposta la virgola a sinistra ◀";
+  }
+  let pre = '<div class="pre">';
+  VMP.forEach((x,i)=>{ pre += '<button class="'+(i===vm.k?"on":"")+'" onclick="vmSet('+i+')">'+x.lab+'</button>'; });
+  pre += '</div>';
+  box.innerHTML = '<div class="num">'+num+'</div><div class="'+cls+'">'+msg+'</div>'
+    + '<div class="ctl"><button onclick="vmMove(-1)">◀ virgola a sinistra</button><button onclick="vmMove(1)">virgola a destra ▶</button></div>'
+    + pre;
+}
+
+/* ═══════ la scala dei prefissi ═══════ */
+const RUNGS = [["k",3],["h",2],["da",1],["",0],["d",-1],["c",-2],["m",-3],["μ",-6],["n",-9]];
+let lad = {dim:1, from:null, to:null};
+function ladInit(){ lad = {dim:1, from:null, to:null}; ladDraw(); }
+function ladDim(n){ lad.dim = n; ladDraw(); }
+function ladTap(i){
+  if(lad.from===null || lad.to!==null){ lad.from = i; lad.to = null; }
+  else if(i!==lad.from){ lad.to = i; }
+  ladDraw();
+}
+function unitName(i){ const s = ["","","²","³"][lad.dim]; return RUNGS[i][0]+"m"+s; }
+function ladDraw(){
+  const box = document.getElementById("lad"); if(!box) return;
+  let h = '<div class="dims">';
+  [[1,"m"],[2,"m²"],[3,"m³"]].forEach(x=>{ h += '<button class="'+(lad.dim===x[0]?"on":"")+'" onclick="ladDim('+x[0]+')">'+x[1]+'</button>'; });
+  h += '</div><div class="hint">'+(lad.from===null?"Tocca l'unità di partenza":(lad.to===null?"Ora tocca l'unità di arrivo":"Tocca un'altra unità per ricominciare"))+'</div><div class="rungs">';
+  const lo = lad.to===null?null:Math.min(lad.from,lad.to), hi = lad.to===null?null:Math.max(lad.from,lad.to);
+  RUNGS.forEach((r,i)=>{
+    if(i>0 && RUNGS[i-1][1]-r[1]>1){
+      h += '<div class="rung gap"><span class="e">'+(RUNGS[i-1][1]-r[1]-1)+' gradini senza nome</span></div>';
+    }
+    let cl = "rung";
+    if(i===lad.from) cl += " from";
+    else if(i===lad.to) cl += " to";
+    else if(lo!==null && i>lo && i<hi) cl += " mid";
+    h += '<button class="'+cl+'" onclick="ladTap('+i+')"><span class="u">'+unitName(i)+'</span><span class="e">10<sup>'+supE(r[1]*lad.dim)+'</sup> m'+["","","²","³"][lad.dim]+'</span></button>';
+  });
+  h += '</div>';
+  let out = '<div class="out">Ogni gradino vale × '+[0,10,100,1000][lad.dim]+'.</div>';
+  if(lad.from!==null && lad.to!==null){
+    const g = Math.abs(RUNGS[lad.from][1]-RUNGS[lad.to][1]), k = g*lad.dim;
+    const scendo = RUNGS[lad.to][1] < RUNGS[lad.from][1];
+    out = '<div class="out '+(scendo?"g":"s")+'"><b>'+unitName(lad.from)+' → '+unitName(lad.to)+'</b>: '
+      +(scendo?"scendo ":"salgo ")+g+(g===1?" gradino":" gradini")
+      +(lad.dim>1?"; con "+["","","m²","m³"][lad.dim]+" ogni gradino vale "+[0,10,100,1000][lad.dim]+", cioè esponente "+g+" × "+lad.dim+" = "+k:"")
+      +'<br>→ <b>'+(scendo?"moltiplico per 10<sup>"+k+"</sup>":"divido per 10<sup>"+k+"</sup>, cioè × 10<sup>−"+k+"</sup>")+'</b></div>';
+  }
+  box.innerHTML = h + out;
+}
+
+/* ═══════ disegni piccoli ═══════ */
+function sqInit(){
+  const g = document.getElementById("sqgrid"); if(!g) return;
+  let s = '<rect x="20" y="15" width="140" height="140" fill="#E6EEF9" stroke="#1D5FA8" stroke-width="2.5"/>';
+  for(let i=1;i<10;i++){
+    s += '<line x1="'+(20+i*14)+'" y1="15" x2="'+(20+i*14)+'" y2="155" stroke="#9DB7DA" stroke-width="1"/>';
+    s += '<line x1="20" y1="'+(15+i*14)+'" x2="160" y2="'+(15+i*14)+'" stroke="#9DB7DA" stroke-width="1"/>';
+  }
+  s += '<rect x="20" y="15" width="14" height="14" fill="#1D5FA8"/>';
+  g.innerHTML = s;
+}
+function sphInit(){
+  const g = document.getElementById("spheres"); if(!g) return;
+  const cols = ["#4F86C6","#E0A43A","#B3261E","#1F7A4D"];
+  let s = '<circle cx="75" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/><circle cx="245" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/>';
+  const pts = [[-26,-18],[-6,-26],[14,-22],[30,-6],[-32,4],[-12,-4],[8,-2],[26,14],[-24,24],[-4,18],[14,28],[-14,34]];
+  pts.forEach((p,i)=>{
+    s += '<circle cx="'+(75+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="#4F86C6"/>';
+    s += '<circle cx="'+(245+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="'+cols[(i*7)%4]+'"/>';
+  });
+  g.innerHTML = s;
+}
+
+/* ═══════ curve di riscaldamento e raffreddamento ═══════ */
+const CURVE = {
+  risc:{ pts:[[45,-18],[85,0],[150,0],[215,100],[300,100],[337,112]],
+    col:["#D5DCE3","#DDD3EF","#D3E5F6","#F4D3E1","#FAEBC0"],
+    dk:["#8A99AA","#9C85C9","#6FA3D6","#D98AAE","#E0B84A"], below:[0,2],
+    tr:[["A–B","solido","Solo ghiaccio. La temperatura sale da −18&nbsp;°C a 0&nbsp;°C."],
+        ["B–C","solido + liquido","<b>Fusione.</b> Ghiaccio e acqua insieme. Sosta termica: si scalda, ma la temperatura resta 0&nbsp;°C finché c'è ghiaccio."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura sale da 0&nbsp;°C a 100&nbsp;°C."],
+        ["D–E","liquido + aeriforme","<b>Ebollizione.</b> Acqua e vapore insieme. Seconda sosta termica: la temperatura resta 100&nbsp;°C finché c'è liquido."],
+        ["E–F","aeriforme","Solo vapore. La temperatura riprende a salire."]]},
+  raff:{ pts:[[45,112],[80,100],[165,100],[225,0],[295,0],[337,-18]],
+    col:["#FAEBC0","#F4D3E1","#D3E5F6","#DDD3EF","#D5DCE3"],
+    dk:["#E0B84A","#D98AAE","#6FA3D6","#9C85C9","#8A99AA"],
+    tr:[["A–B","aeriforme","Solo vapore. La temperatura scende fino a 100&nbsp;°C."],
+        ["B–C","aeriforme + liquido","<b>Condensazione.</b> Il vapore diventa liquido. Sosta termica a 100&nbsp;°C."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura scende da 100&nbsp;°C a 0&nbsp;°C."],
+        ["D–E","liquido + solido","<b>Solidificazione.</b> L'acqua diventa ghiaccio. Sosta termica a 0&nbsp;°C."],
+        ["E–F","solido","Solo ghiaccio. La temperatura scende sotto 0&nbsp;°C."]]}
+};
+function curvY(T){ return 185 - T*1.3; }
+function curvInit(){
+  Array.prototype.forEach.call(stage.querySelectorAll(".curva"), el=>curvDraw(el, null));
+}
+function curvDraw(el, sel){
+  const C = CURVE[el.getAttribute("data-k")], P = C.pts.map(p=>[p[0], curvY(p[1])]);
+  const F = 'font-family="-apple-system,Arial,sans-serif"';
+  let s = '<svg viewBox="0 0 350 250" role="img" aria-label="Curva della temperatura nel tempo">';
+  for(let i=0;i<5;i++){
+    const op = sel===null ? .6 : (i===sel ? 1 : .18);
+    s += '<rect x="'+P[i][0]+'" y="22" width="'+(P[i+1][0]-P[i][0])+'" height="204" fill="'+C.col[i]+'" opacity="'+op+'"/>';
+  }
+  s += '<line x1="40" y1="'+curvY(100)+'" x2="345" y2="'+curvY(100)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="'+curvY(0)+'" x2="345" y2="'+curvY(0)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="14" x2="40" y2="226" stroke="#1B2430" stroke-width="1.8"/><line x1="40" y1="226" x2="346" y2="226" stroke="#1B2430" stroke-width="1.8"/>';
+  s += '<g '+F+' font-size="12.5" fill="#1B2430"><text x="4" y="14">t (°C)</text><text x="346" y="244" text-anchor="end">tempo →</text>';
+  s += '<text x="36" y="'+(curvY(100)+4)+'" text-anchor="end">100</text><text x="36" y="'+(curvY(0)+4)+'" text-anchor="end">0</text><text x="36" y="'+(curvY(-18)+4)+'" text-anchor="end">−18</text></g>';
+  s += '<polyline points="'+P.map(p=>p.join(",")).join(" ")+'" fill="none" stroke="#1B2430" stroke-width="3" stroke-linejoin="round"/>';
+  if(sel!==null) s += '<line x1="'+P[sel][0]+'" y1="'+P[sel][1]+'" x2="'+P[sel+1][0]+'" y2="'+P[sel+1][1]+'" stroke="#A8327A" stroke-width="7" stroke-linecap="round"/>';
+  const L = "ABCDEF";
+  P.forEach((p,i)=>{
+    s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="#1B2430"/>';
+    const up = (C.below && C.below.indexOf(i)>=0) ? 17 : -8;
+    s += '<text x="'+(p[0]+(i===5?-12:3))+'" y="'+(p[1]+up)+'" '+F+' font-size="14" font-weight="700" fill="#1B2430">'+L[i]+'</text>';
+  });
+  s += '</svg>';
+  let b = '<div class="cbtns">';
+  C.tr.forEach((t,i)=>{
+    b += '<button class="cb'+(i===sel?' on':'')+'" style="border-left-color:'+C.dk[i]+'" onclick="curvSel(this,'+i+')"><b>'+t[0]+'</b> · '+t[1]+'</button>';
+  });
+  b += '</div>';
+  const out = '<div class="cout'+(sel===null?'':' on')+'">'+(sel===null ? 'Tocca un tratto.' : '<b>Tratto '+C.tr[sel][0]+'</b> — '+C.tr[sel][2])+'</div>';
+  el.innerHTML = s + b + out;
+}
+function curvSel(btn,i){
+  let el = btn; while(el && !(el.classList && el.classList.contains("curva"))) el = el.parentNode;
+  if(el) curvDraw(el, i);
+}
+function partInit(){
+  const g = document.getElementById("parts"); if(!g) return;
+  let s = "";
+  for(let r=0;r<3;r++) for(let c=0;c<4;c++){
+    const x = 25+c*20, y = 50+r*20;
+    s += '<path d="M'+(x-12)+','+(y-12)+' q3,-3 6,0" fill="none" stroke="#9AA3AE" stroke-width="1"/>';
+    s += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#4F86C6"/>';
+  }
+  [[132,97],[151,98],[170,96],[189,98],[208,97],[142,80],[161,81],[180,79],[199,81],[151,63],[172,63]]
+    .forEach(p=>{ s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  [[254,28,-14,4],[302,40,10,10],[278,70,-12,-8],[316,90,8,-12],[252,95,-12,6]]
+    .forEach(p=>{ s += '<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+p[2])+'" y2="'+(p[1]+p[3])+'" stroke="#9AA3AE" stroke-width="2" stroke-linecap="round"/>'
+                    + '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  g.innerHTML = s;
+}
+
+
+/* ═══════ catena di monomeri ═══════ */
+let polyN = 3, polyMsg = "";
+function polyInit(){ polyN = 3; polyMsg = ""; polyDraw(); }
+function hexP(cx,cy,r){ const p = []; for(let k=0;k<6;k++){ const a = (30+60*k)*Math.PI/180; p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1)); } return p.join(" "); }
+function dropP(x,y){ return '<path d="M'+x+','+(y-9)+' C'+(x+7)+','+(y-1)+' '+(x+6)+','+(y+7)+' '+x+','+(y+7)+' C'+(x-6)+','+(y+7)+' '+(x-7)+','+(y-1)+' '+x+','+(y-9)+' Z" fill="#4F9BD9"/>'; }
+function polyDraw(){
+  const el = stage.querySelector(".poly"); if(!el) return;
+  let s = '<svg viewBox="0 0 340 104" role="img" aria-label="Catena di '+polyN+' monomeri"><g font-family="-apple-system,Arial,sans-serif">';
+  for(let i=0;i<polyN;i++){
+    const x = 26+i*46;
+    if(i>0) s += '<line x1="'+(x-30)+'" y1="78" x2="'+(x-16)+'" y2="78" stroke="#C98A12" stroke-width="3"/>' + dropP(x-23,40)
+              + '<text x="'+(x-23)+'" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="#1D5FA8">H₂O</text>';
+    s += '<polygon points="'+hexP(x,78,16)+'" fill="#FBEFD3" stroke="#C98A12" stroke-width="2.5"/>';
+  }
+  s += '</g></svg>';
+  el.innerHTML = s + '<div class="pstat"><b>'+polyN+'</b> '+(polyN===1?'monomero':'monomeri')+' nella catena · <b>'+(polyN-1)+'</b> '+(polyN===2?'molecola':'molecole')+' d\'acqua '+(polyN===2?'uscita':'uscite')+'</div>'
+    + '<div class="pctl"><button onclick="polyMove(1)"'+(polyN>=7?' disabled':'')+'>+ attacca un pezzo<small>condensazione</small></button>'
+    + '<button onclick="polyMove(-1)"'+(polyN<=1?' disabled':'')+'>− stacca con l\'acqua<small>idrolisi</small></button></div>'
+    + '<div class="pmsg">'+polyMsg+'</div>';
+}
+function polyMove(d){
+  const n = Math.max(1, Math.min(7, polyN+d)); if(n===polyN) return;
+  polyN = n;
+  polyMsg = d>0 ? "Si è attaccato un pezzo: è uscita una molecola d'acqua." : "È entrata una molecola d'acqua: la catena si è spezzata.";
+  polyDraw();
+}
+
+/* ═══════ disegni con i pulsanti (prima/dopo, strutture) ═══════ */
+function togInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".tog"), el=>togDraw(el,0)); }
+function togDraw(el,k){
+  const T = TOGS[el.getAttribute("data-set")]; if(!T) return;
+  let h = '<div class="tbtns">';
+  T.lab.forEach((l,i)=>{ h += '<button class="'+(i===k?'on':'')+'" onclick="togSel(this,'+i+')">'+l+'</button>'; });
+  el.innerHTML = h + '</div>' + T.svg[k] + '<div class="tout">'+T.txt[k]+'</div>';
+}
+function togSel(btn,k){
+  let el = btn; while(el && !(el.classList && el.classList.contains("tog"))) el = el.parentNode;
+  if(el) togDraw(el,k);
+}
+
+
+/* ═══════ costruttore di atomi ═══════ */
+const ELEM = ["","H idrogeno","He elio","Li litio","Be berillio","B boro","C carbonio","N azoto","O ossigeno","F fluoro","Ne neon","Na sodio","Mg magnesio","Al alluminio","Si silicio","P fosforo","S zolfo","Cl cloro","Ar argon","K potassio","Ca calcio"];
+function atomInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".atomw"), el=>{
+  el._p = +el.getAttribute("data-p")||6; el._n = +el.getAttribute("data-n")||6; el._e = +el.getAttribute("data-e")||6; atomDraw(el); }); }
+function atomMove(btn,what,d){
+  let el = btn; while(el && !(el.classList && el.classList.contains("atomw"))) el = el.parentNode; if(!el) return;
+  if(what==="p") el._p = Math.max(1,Math.min(20,el._p+d));
+  if(what==="n") el._n = Math.max(0,Math.min(24,el._n+d));
+  if(what==="e") el._e = Math.max(0,Math.min(22,el._e+d));
+  atomDraw(el);
+}
+function atomDraw(el){
+  const p = el._p, n = el._n, e = el._e, A = p+n, q = p-e, X = ELEM[p].split(" ");
+  let s = '<svg viewBox="0 0 340 170" role="img" aria-label="Atomo con '+p+' protoni, '+n+' neutroni, '+e+' elettroni">';
+  s += '<circle cx="170" cy="85" r="74" fill="none" stroke="#C9D3DE" stroke-width="2" stroke-dasharray="4 5"/>';
+  const tot = p+n, R = 6, cols = Math.ceil(Math.sqrt(tot)); let k = 0;
+  const order = []; for(let i=0;i<tot;i++) order.push(i%2===0 && order.filter(x=>x==="p").length<p ? "p" : (order.filter(x=>x==="n").length<n ? "n" : "p"));
+  for(let i=0;i<tot;i++){ const r = Math.floor(i/cols), c = i%cols, x = 170+(c-(cols-1)/2)*11, y = 85+(r-(Math.ceil(tot/cols)-1)/2)*11;
+    s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+R+'" fill="'+(order[i]==="p"?"#D9534F":"#9AA3AE")+'"/>'; }
+  for(let i=0;i<e;i++){ const a = 2*Math.PI*i/Math.max(e,1) - Math.PI/2; s += '<circle cx="'+(170+74*Math.cos(a)).toFixed(1)+'" cy="'+(85+74*Math.sin(a)).toFixed(1)+'" r="5" fill="#1D5FA8"/>'; }
+  s += '</svg>';
+  const qs = q===0 ? "" : (Math.abs(q)>1?Math.abs(q):"")+(q>0?"+":"−");
+  const sym = '<span class="aw-sym"><span class="ix"><span>'+A+'</span><span>'+p+'</span></span>'+X[0]+'<sup style="font-size:17px">'+qs+'</sup></span>';
+  const tipo = q===0 ? "atomo <b>neutro</b>: elettroni = protoni" : (q>0 ? "ione <b>positivo</b> (catione): ha perso "+q+(q===1?" elettrone":" elettroni") : "ione <b>negativo</b> (anione): ha preso "+(-q)+(-q===1?" elettrone":" elettroni"));
+  el.innerHTML = s
+   + '<div class="aw-row">'
+   + '<div class="aw-ctl" style="color:#B33A36">protoni<span class="v">'+p+'</span><button onclick="atomMove(this,\'p\',-1)">−</button><button onclick="atomMove(this,\'p\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#5A6473">neutroni<span class="v">'+n+'</span><button onclick="atomMove(this,\'n\',-1)">−</button><button onclick="atomMove(this,\'n\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#1D5FA8">elettroni<span class="v">'+e+'</span><button onclick="atomMove(this,\'e\',-1)">−</button><button onclick="atomMove(this,\'e\',1)">+</button></div>'
+   + '</div><div class="aw-out">'+sym+'<b>'+X[1]+'</b> · Z = '+p+' · A = '+p+' + '+n+' = '+A+'<br>'+tipo+'</div>';
+}
+
+/* ═══════ costruttore di formule ioniche ═══════ */
+const CAT = [["Na","+1","sodio",0],["K","+1","potassio",0],["NH<sub>4</sub>","+1","ammonio",1],["Mg","+2","magnesio",0],["Ca","+2","calcio",0],["Fe","+3","ferro (III)",0],["Al","+3","alluminio",0]];
+const ANI = [["Cl","−1","cloruro",0],["F","−1","fluoruro",0],["OH","−1","idrossido",1],["NO<sub>3</sub>","−1","nitrato",1],["ClO<sub>2</sub>","−1","clorito",1],["O","−2","ossido",0],["S","−2","solfuro",0],["SO<sub>4</sub>","−2","solfato",1],["CO<sub>3</sub>","−2","carbonato",1],["PO<sub>4</sub>","−3","fosfato",1]];
+function chg(s){ return parseInt(s.replace("−","-"),10); }
+function supq(q){ const a = Math.abs(q); return (a>1?a:"")+(q>0?"+":"−"); }
+function formInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".formw"), el=>{
+  let h = '<div class="fw-sel"><div><label>ione positivo</label><select onchange="formDraw(this)">';
+  CAT.forEach((c,i)=>{ h += '<option value="'+i+'"'+(i===4?' selected':'')+'>'+c[0].replace(/<\/?sub>/g,"")+supq(chg(c[1]))+' ('+c[2]+')</option>'; });
+  h += '</select></div><div><label>ione negativo</label><select onchange="formDraw(this)">';
+  ANI.forEach((a,i)=>{ h += '<option value="'+i+'"'+(i===0?' selected':'')+'>'+a[0].replace(/<\/?sub>/g,"")+supq(chg(a[1]))+' ('+a[2]+')</option>'; });
+  h += '</select></div></div><div class="fw-out"></div>';
+  el.innerHTML = h; formDraw(el.querySelector("select"));
+}); }
+function gcd(a,b){ return b ? gcd(b,a%b) : a; }
+function formDraw(sel){
+  let el = sel; while(el && !(el.classList && el.classList.contains("formw"))) el = el.parentNode; if(!el) return;
+  const ss = el.querySelectorAll("select"), c = CAT[+ss[0].value], a = ANI[+ss[1].value];
+  const qc = chg(c[1]), qa = -chg(a[1]), L = qc*qa/gcd(qc,qa), nc = L/qc, na = L/qa;
+  let t = '<div class="fw-tiles">';
+  for(let i=0;i<nc;i++) t += '<span class="fw-t c">'+c[0]+'<sup>'+supq(qc)+'</sup></span>';
+  for(let i=0;i<na;i++) t += '<span class="fw-t a">'+a[0]+'<sup>'+supq(-qa)+'</sup></span>';
+  t += '</div>';
+  const part = (x,n,poly)=> n===1 ? x : (poly ? "("+x+")<sub>"+n+"</sub>" : x+"<sub>"+n+"</sub>");
+  const f = part(c[0],nc,c[3]) + part(a[0],na,a[3]);
+  el.querySelector(".fw-out").innerHTML = t
+   + '<div style="text-align:center;font-size:16px">cariche: '+nc+' × (+'+qc+') = +'+(nc*qc)+' &nbsp;e&nbsp; '+na+' × (−'+qa+') = −'+(na*qa)+' &nbsp;→ in tutto <b>0</b></div>'
+   + '<div class="fw-f">'+f+'</div><div style="text-align:center;font-size:16px;color:#5A6473">'+a[2]+' di '+c[2]+'</div>';
+}
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){
+  const sup = {"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9"};
+  const sub = {"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+  const S = s=>s.split("").map(c=>sup[c]||sub[c]||c).join("");
+  return t.replace(/a\.C\./g,"avanti Cristo")
+    .replace(/10(⁻?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(m,e)=>" 10 alla "+(e[0]==="⁻"?"meno ":"")+S(e.replace("⁻","")))
+    .replace(/cm³/g," centimetri cubi").replace(/dm³/g," decimetri cubi").replace(/m³/g," metri cubi")
+    .replace(/cm²/g," centimetri quadrati").replace(/dm²/g," decimetri quadrati").replace(/m²/g," metri quadrati")
+    .replace(/([⁰¹²³⁴⁵⁶⁷⁸⁹]+)([⁺⁻])/g,(m,d,s)=>" "+S(d)+(s==="⁺"?" più":" meno"))
+    .replace(/⁺/g," più").replace(/⁻/g," meno").replace(/([₀-₉]+)/g,m=>" "+S(m)+" ")
+    .replace(/·/g,", ").replace(/×/g," per ").replace(/÷/g," diviso ").replace(/→/g,", ").replace(/≈/g," circa ")
+    .replace(/°C/g," gradi").replace(/%/g," per cento").replace(/−/g," meno ").replace(/ = /g," uguale ")
+    .replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = new SpeechSynthesisUtterance(say(el.getAttribute("data-say") || el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("sc04-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>
