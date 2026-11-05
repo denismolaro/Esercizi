@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scienze 1 — Esseri viventi, metodo scientifico, ecosistema</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --giu-soft:#E6EEF9;   /* scendo la scala: moltiplico */
+  --su:#B4531A;  --su-soft:#FBEDE3;    /* salgo la scala: divido */
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:23px; text-align:center; display:block; margin:14px 0; line-height:1.5}
+.f i{font-style:italic}
+.f.big{font-size:30px}
+.ex{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px; line-height:1.6}
+.ex .lbl, .box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.ex .fx{font-family:"Times New Roman",Georgia,serif; font-size:20px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.giu{color:var(--giu); font-weight:700} .su{color:var(--su); font-weight:700}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+td.c, th.c{text-align:center}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+
+/* passi numerati del metodo */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16.5px; line-height:1.55}
+.flow .st b.n{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.flow .st.av{border-left-color:var(--warn); background:var(--warn-soft)}
+.flow .st.av b.n{color:var(--warn)}
+
+/* mappa della materia */
+.tree{margin:14px 0; font-size:16px}
+.tree .n0{background:var(--ink); color:#fff; border-radius:10px; padding:8px 12px; text-align:center; font-weight:700}
+.tree .lv{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+.tree .n1{border:2px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 10px; text-align:center; font-weight:700; color:var(--accent)}
+.tree .n2{border:1px solid var(--rule); background:#fff; border-radius:10px; padding:7px 9px; font-size:15px; line-height:1.4; margin-top:6px}
+.tree .n2 b{display:block}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* la virgola che si sposta */
+.vm{border:2px solid var(--accent-line); border-radius:14px; padding:14px; margin:14px 0; background:#fff}
+.vm .num{font-family:"Times New Roman",Georgia,serif; font-size:34px; text-align:center; line-height:1.3; word-break:break-all; margin:6px 0}
+.vm .num .cm{color:var(--accent); font-weight:700; font-size:40px}
+.vm .num sup{font-size:22px}
+.vm .msg{font-size:16px; text-align:center; min-height:3.1em; font-weight:600}
+.vm .msg.ok{color:var(--ok)}
+.vm .ctl{display:flex; gap:8px; margin-top:8px}
+.vm .ctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 6px; font:inherit; font-size:16px; font-weight:700; cursor:pointer}
+.vm .pre{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; justify-content:center}
+.vm .pre button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:4px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.vm .pre button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft)}
+
+/* la scala dei prefissi */
+.lad{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.lad .dims{display:flex; gap:6px; margin-bottom:10px}
+.lad .dims button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 4px; font:inherit; font-size:16px; font-weight:700; color:var(--soft); cursor:pointer}
+.lad .dims button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.lad .hint{font-size:15px; color:var(--soft); text-align:center; margin-bottom:8px}
+.rungs{display:flex; flex-direction:column; gap:4px}
+.rung{display:flex; align-items:center; gap:10px; border:2px solid var(--rule); border-radius:10px; padding:6px 10px; background:#fff; cursor:pointer; font:inherit; color:var(--ink); text-align:left; width:100%}
+.rung .u{font-family:"Times New Roman",Georgia,serif; font-size:21px; font-weight:700; min-width:64px}
+.rung .e{font-size:14px; color:var(--soft)}
+.rung.gap{border-style:dashed; padding:0 10px; min-height:14px; cursor:default; background:transparent}
+.rung.gap .e{font-size:12.5px}
+.rung.mid{background:#F4F1EA}
+.rung.from{border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+.rung.to{border-color:var(--ink); background:var(--ink); color:#fff}
+.rung.to .e{color:#DDE3EA}
+.lad .out{margin-top:10px; border-radius:12px; padding:10px 12px; font-size:17px; line-height:1.55; min-height:3.2em; background:#F4F1EA}
+.lad .out.g{background:var(--giu-soft); color:var(--giu)}
+.lad .out.s{background:var(--su-soft); color:var(--su)}
+
+/* passaggi di stato */
+.sb{font-size:14px}
+
+/* curve di riscaldamento */
+.curva{margin:14px 0}
+.cbtns{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.cb{border:2px solid var(--rule); border-left-width:12px; background:#fff; border-radius:10px; padding:8px 12px;
+  font:inherit; font-size:16px; text-align:left; color:var(--ink); cursor:pointer}
+.cb.on{border-top-color:var(--accent); border-right-color:var(--accent); border-bottom-color:var(--accent); background:var(--accent-soft)}
+.cout{margin-top:8px; border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:#F4F1EA; color:var(--soft); min-height:3.2em}
+.cout.on{background:var(--accent-soft); color:var(--ink); border:1px solid var(--accent-line)}
+/* striscia dei punti fissi */
+.strip{display:flex; align-items:stretch; margin:12px 0 2px; font-size:15px; font-weight:700; text-align:center}
+.strip .z{flex:1; padding:9px 4px; border-radius:8px}
+.strip .z1{background:#D5DCE3} .strip .z2{background:#D3E5F6} .strip .z3{background:#FAEBC0}
+.strip .mk{flex:0 0 auto; align-self:center; padding:0 6px; font-family:"Times New Roman",Georgia,serif; font-size:19px; color:var(--accent)}
+.stripax{font-size:13px; color:var(--soft); text-align:right; margin-bottom:10px}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+
+/* le tre famiglie */
+.fam{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:14px 0}
+.fam div{border-radius:12px; padding:8px 6px; text-align:center; font-size:13.5px; line-height:1.4}
+.fam b{display:block; font-size:16px; margin-bottom:2px}
+.fam svg{margin:2px auto 4px}
+.fam .f1{background:#FBEFD3; color:#6E4A06} .fam .f2{background:#FBE3EF; color:#8E1B55} .fam .f3{background:#E6EEF9; color:#1D4F8A}
+
+/* catena di monomeri e disegni a pulsanti */
+.poly,.tog{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.pstat{text-align:center; font-size:16.5px}
+.pctl{display:flex; gap:8px; margin-top:10px}
+.pctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:10px 6px;
+  font:inherit; font-size:16px; font-weight:700; cursor:pointer; line-height:1.3}
+.pctl button small{display:block; font-size:12.5px; font-weight:600; color:var(--soft)}
+.pctl button:disabled{opacity:.35}
+.pmsg{min-height:1.6em; text-align:center; font-size:15px; color:var(--soft); margin-top:8px}
+.tbtns{display:flex; flex-wrap:wrap; gap:6px}
+.tbtns button{flex:1 1 40%; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 6px;
+  font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer}
+.tbtns button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.tout{border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:var(--accent-soft); border:1px solid var(--accent-line)}
+
+
+.flow .st .n{text-transform:none; letter-spacing:0; font-size:14.5px}
+/* analogia */
+.an{background:#E6EEF9; border:1px solid #C9D9EE; border-radius:12px; padding:12px 16px; margin:14px 0; font-size:17px; line-height:1.6}
+.an .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:#1D4F8A; font-weight:700; margin-bottom:3px}
+/* prova tu */
+.quiz{margin-top:18px; padding-top:14px; border-top:1px dashed var(--rule)}
+.quiz .qhd{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.quiz .qhd span{color:var(--soft); letter-spacing:.04em}
+.qz{margin:10px 0 16px}
+.qz .qq{font-weight:700; font-size:17px; line-height:1.45; margin-bottom:7px}
+.qz .op{display:flex; flex-direction:column; gap:6px}
+.qz .op button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left; font:inherit; font-size:16.5px; line-height:1.4; color:var(--ink); cursor:pointer}
+.qz .op button.right{border-color:#1F5C4B; background:#E8F0EC; color:#1F5C4B; font-weight:700}
+.qz .op button.wrong{border-color:#9B2C2C; background:#FBEAEA; color:#9B2C2C}
+.qz.done .op button:not(.right):not(.wrong){opacity:.5}
+.qz .why{display:none; margin-top:7px; border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.55}
+.qz .why.on{display:block}
+.qz .why.y{background:#E8F0EC; color:#1F5C4B}
+.qz .why.n{background:#FBEAEA; color:#7A2222}
+/* percorso */
+.path{display:flex; gap:8px; margin:26px 0 0}
+.path a{flex:1; display:block; border:2px solid var(--accent-line); border-radius:12px; padding:10px 12px; text-decoration:none; color:var(--accent); font-weight:700; font-size:15px; line-height:1.35; background:#fff}
+.path a small{display:block; color:var(--soft); font-weight:600; font-size:12.5px}
+.path a.nx{text-align:right}
+/* costruttore di atomi */
+.atomw,.formw{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.aw-row{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:8px}
+.aw-ctl{border:1px solid var(--rule); border-radius:12px; padding:6px; text-align:center; font-size:14px; font-weight:700}
+.aw-ctl .v{font-size:22px; display:block; line-height:1.2}
+.aw-ctl button{border:2px solid var(--rule); background:#fff; border-radius:9px; width:40px; height:36px; font-size:20px; font-weight:700; cursor:pointer; margin:2px}
+.aw-out{margin-top:8px; border-radius:12px; padding:10px 12px; background:var(--accent-soft); border:1px solid var(--accent-line); font-size:16.5px; line-height:1.55}
+.aw-sym{font-family:"Times New Roman",Georgia,serif; font-size:30px; display:inline-flex; align-items:center; gap:2px; margin-right:10px; vertical-align:middle}
+.aw-sym .ix{display:inline-flex; flex-direction:column; font-size:15px; line-height:1.05; text-align:right}
+.fw-sel{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+.fw-sel label{font-size:13px; font-weight:700; color:var(--soft); display:block; margin-bottom:3px}
+.fw-sel select{width:100%; font:inherit; font-size:17px; padding:8px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink)}
+.fw-tiles{display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; justify-content:center}
+.fw-t{border-radius:10px; padding:6px 10px; font-weight:700; font-size:16px}
+.fw-t.c{background:#E6EEF9; color:#1D4F8A; border:2px solid #9DB8DC}
+.fw-t.a{background:#FBE3EF; color:#8E1B55; border:2px solid #E8A9C8}
+.fw-f{font-family:"Times New Roman",Georgia,serif; font-size:30px; text-align:center; margin:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Scienze · scheda 1 di 12</div>
+  <h1>1 · Esseri viventi, metodo scientifico, ecosistema</h1>
+  <p class="lead">Che cosa vuol dire «vivo», come lavorano gli scienziati, come stanno insieme viventi e ambiente. Una carta per volta: <b>Leggi</b> fa partire la voce, in fondo a ogni carta c'è <b>Prova tu</b>.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<nav class="path"><a class="nx" href="26-11-05-sc02-misure.html">Scheda 2 ▶<small>Misure e numeri</small></a></nav><p class="foot" id="foot">Percorso di scienze in 12 schede, costruito sugli appunti di Liam (settembre–novembre 2026).</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const TOGS = {};
+const PARTI = ["1 · Che cosa è vivo", "2 · Sistemi ed energia", "3 · Il metodo scientifico", "4 · L'ecosistema", "5 · Ripasso"];
+const CARDS = [{"parte": 0, "t": "Vivo o non vivo?", "body": "<p class=\"s\">Un essere vivente ha cinque caratteristiche, e le ha tutte insieme. Se ne manca anche una sola, non è vivo.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">1 · È formato da cellule</b><span style=\"display:none\">: </span>Una o tante: la cellula è il suo mattone.</div><div class=\"st s\"><b class=\"n\">2 · Reagisce agli stimoli</b><span style=\"display:none\">: </span>Si accorge dei cambiamenti dell'ambiente e risponde.</div><div class=\"st s\"><b class=\"n\">3 · Scambia energia con l'ambiente</b><span style=\"display:none\">: </span>La prende (cibo, luce) e la cede (calore).</div><div class=\"st s\"><b class=\"n\">4 · È organizzato</b><span style=\"display:none\">: </span>Dentro di lui avvengono reazioni chimiche ordinate: il metabolismo.</div><div class=\"st s\"><b class=\"n\">5 · Possiede informazioni e può trasmetterle</b><span style=\"display:none\">: </span>Le istruzioni per funzionare passano ai figli.</div></div><div class=\"an s\" data-say=\"Un trucco per ricordarle: cellule, stimoli, energia, metabolismo, informazione.\"><div class=\"lbl\">Un trucco per ricordarle</div><span style=\"display:none\">: </span><b>C</b>ellule · <b>S</b>timoli · <b>E</b>nergia · <b>M</b>etabolismo · <b>I</b>nformazione.</div>", "words": [["essere vivente", "organismo: persona, animale, pianta, fungo o batterio."]], "ask": ["Dimmi le cinque caratteristiche dei viventi.", "Formato da <b>cellule</b>, reagisce agli <b>stimoli</b>, scambia <b>energia</b>, è organizzato (<b>metabolismo</b>), ha <b>informazioni</b> e le trasmette."], "quiz": [["Quale di queste NON è una delle cinque caratteristiche dei viventi?", ["si sposta da un posto all'altro", "trasmette informazioni ai figli", "è formato da cellule", "reagisce agli stimoli"], 0, "Una quercia non si sposta, eppure è viva. Muoversi non è tra le cinque caratteristiche."], ["Per essere vivo, quante caratteristiche deve avere?", ["tutte e cinque", "almeno una", "almeno tre"], 0, "Le deve avere tutte insieme: il fuoco, per esempio, ne imita qualcuna ma non è vivo."]]}, {"parte": 0, "t": "Le cellule: i mattoni della vita", "body": "<p class=\"s\">La cellula è l'unità strutturale e funzionale dei viventi.</p><p class=\"s\">Strutturale vuol dire che i viventi sono costruiti con le cellule, come una casa con i mattoni. Funzionale vuol dire che la cellula è la parte più piccola che vive da sola: respira, si nutre, si divide.</p><svg viewBox=\"0 0 340 150\" role=\"img\" aria-label=\"Una cellula sola e un organismo fatto di tante cellule\"><g font-family=\"-apple-system,Arial,sans-serif\">\n<ellipse cx=\"70\" cy=\"62\" rx=\"52\" ry=\"36\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"3\"/><circle cx=\"80\" cy=\"58\" r=\"12\" fill=\"#2E9E5B\" opacity=\".55\"/>\n<text x=\"70\" y=\"122\" text-anchor=\"middle\" font-size=\"13.5\" font-weight=\"700\" fill=\"#1B2430\">unicellulare</text><text x=\"70\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5A6473\">una cellula: un batterio</text>\n<rect x=\"180\" y=\"22\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"191\" cy=\"31\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"204\" y=\"22\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"215\" cy=\"31\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"228\" y=\"22\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"239\" cy=\"31\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"252\" y=\"22\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"263\" cy=\"31\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"276\" y=\"22\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"287\" cy=\"31\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"300\" y=\"22\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"311\" cy=\"31\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"180\" y=\"42\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"191\" cy=\"51\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"204\" y=\"42\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"215\" cy=\"51\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"228\" y=\"42\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"239\" cy=\"51\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"252\" y=\"42\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"263\" cy=\"51\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"276\" y=\"42\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"287\" cy=\"51\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"300\" y=\"42\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"311\" cy=\"51\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"180\" y=\"62\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"191\" cy=\"71\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"204\" y=\"62\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"215\" cy=\"71\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"228\" y=\"62\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"239\" cy=\"71\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"252\" y=\"62\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"263\" cy=\"71\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"276\" y=\"62\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"287\" cy=\"71\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"300\" y=\"62\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"311\" cy=\"71\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"180\" y=\"82\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"191\" cy=\"91\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"204\" y=\"82\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"215\" cy=\"91\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"228\" y=\"82\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"239\" cy=\"91\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"252\" y=\"82\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"263\" cy=\"91\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"276\" y=\"82\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"287\" cy=\"91\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/><rect x=\"300\" y=\"82\" width=\"22\" height=\"18\" rx=\"5\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><circle cx=\"311\" cy=\"91\" r=\"3.5\" fill=\"#2E9E5B\" opacity=\".6\"/>\n<text x=\"252\" y=\"122\" text-anchor=\"middle\" font-size=\"13.5\" font-weight=\"700\" fill=\"#1B2430\">pluricellulare</text><text x=\"252\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5A6473\">tante cellule: tu, una quercia</text>\n</g></svg><p class=\"s\">Alcuni viventi sono fatti di una cellula sola: sono unicellulari, come i batteri e il lievito del pane. Altri sono fatti di tantissime cellule: sono pluricellulari, come noi, i cani e le piante.</p><div class=\"an s\"><div class=\"lbl\">Come i mattoncini</div><span style=\"display:none\">: </span>Con gli stessi mattoncini si costruisce una casetta o un castello. Con le cellule si costruisce un batterio o una balena.</div><div class=\"ex s\"><div class=\"lbl\">Esempi</div><span style=\"display:none\">: </span><b>unicellulari</b>: batteri, lievito, amebe · <b>pluricellulari</b>: un cane, una quercia, un fungo porcino, tu</div>", "words": [["unicellulare", "fatto di una sola cellula."], ["pluricellulare", "fatto di tante cellule."]], "ask": ["Che cosa vuol dire che la cellula è l'unità funzionale dei viventi?", "È la parte più piccola che è <b>viva da sola</b>: fa tutto quello che serve per vivere."], "quiz": [["Il lievito del pane è…", ["un vivente pluricellulare", "un non vivente", "un vivente unicellulare"], 2, "Il lievito è un fungo fatto di una cellula sola."], ["«Unità strutturale» vuol dire che…", ["ogni cellula è un organismo intero", "i viventi sono costruiti con le cellule", "le cellule non servono"], 1, "Come una casa costruita con i mattoni."]]}, {"parte": 0, "t": "Reagire agli stimoli", "body": "<p class=\"s\">Uno stimolo è un cambiamento nell'ambiente: luce, calore, un rumore, un tocco. Il vivente se ne accorge e risponde.</p><div class=\"ex s\"><div class=\"lbl\">Tre esempi</div><span style=\"display:none\">: </span>Una pianta sul davanzale si piega verso la finestra: risponde alla <b>luce</b>.<br>Tocchi una pentola calda e ritiri la mano: rispondi al <b>calore</b>.<br>Il gatto sente un rumore e gira la testa: risponde al <b>suono</b>.</div><div class=\"ex s\"><div class=\"lbl\">Un esempio curioso</div><span style=\"display:none\">: </span>La mimosa pudica chiude le foglie appena la tocchi: risponde al <b>tocco</b>.</div><div class=\"an s\"><div class=\"lbl\">Il confronto</div><span style=\"display:none\">: </span>Un sasso al sole si scalda, ma non fa niente: non risponde. Il vivente invece cambia il suo comportamento.</div>", "words": [["stimolo", "un cambiamento dell'ambiente che il vivente sente."]], "ask": ["Fai un esempio di stimolo e di risposta di una pianta.", "La <b>luce</b> (stimolo) e la pianta che si <b>piega verso la finestra</b> (risposta)."], "quiz": [["Quale di questi è uno stimolo?", ["il peso di un sasso", "il colore di una foglia", "la luce che entra dalla finestra"], 2, "Lo stimolo è un cambiamento dell'ambiente: la luce che arriva."], ["Ritiri la mano dalla pentola calda. Lo stimolo è…", ["la mano", "il calore", "la pentola"], 1, "Lo stimolo è il cambiamento che senti: il calore. Ritirare la mano è la risposta."]]}, {"parte": 0, "t": "Energia e metabolismo", "body": "<p class=\"s\">Ogni vivente scambia energia con l'ambiente: la prende e la cede.</p><div class=\"ex s\"><div class=\"lbl\">Prendere energia</div><span style=\"display:none\">: </span>Le <b>piante</b> la prendono dalla luce del sole (fotosintesi). Gli <b>animali</b> la prendono dal cibo.</div><div class=\"ex s\"><div class=\"lbl\">Cedere energia</div><span style=\"display:none\">: </span>Tutti cedono calore all'ambiente: per questo una stanza piena di persone si scalda.</div><p class=\"s\">Dentro ogni cellula avvengono continuamente reazioni chimiche ordinate: si costruiscono e si smontano molecole. Tutte insieme si chiamano metabolismo.</p><div class=\"an s\"><div class=\"lbl\">Come una fabbrica</div><span style=\"display:none\">: </span>La cellula è una fabbrica sempre accesa: entrano materie prime ed energia, escono prodotti e calore.</div><div class=\"trap s\"><b>Il fuoco non è vivo</b>, anche se consuma ossigeno, produce calore e «cresce». Non ha cellule e non ha informazioni da trasmettere.</div>", "words": [["metabolismo", "l'insieme di tutte le reazioni chimiche di un vivente."], ["fotosintesi", "il modo in cui le piante usano la luce per fabbricare il loro cibo."]], "ask": ["Che cos'è il metabolismo?", "L'insieme di <b>tutte le reazioni chimiche</b> che avvengono in un vivente."], "quiz": [["Da dove prende energia una pianta?", ["dalla luce del sole", "dal suolo", "dal vento"], 0, "Con la fotosintesi la pianta usa la luce."], ["Perché il fuoco non è vivo?", ["perché non produce calore", "perché non ha cellule né informazioni", "perché non consuma ossigeno"], 1, "Produce calore e consuma ossigeno, ma non ha cellule e non si riproduce con istruzioni."]]}, {"parte": 0, "t": "Informazione e riproduzione", "body": "<p class=\"s\">Ogni vivente possiede informazioni: le istruzioni per costruirsi e funzionare. Si trovano nel DNA, dentro le cellule.</p><p class=\"s\">Il vivente può trasmettere queste informazioni ai figli: per questo i figli somigliano ai genitori.</p><div class=\"ex s\"><div class=\"lbl\">Tre esempi</div><span style=\"display:none\">: </span>Da un seme di girasole nasce un girasole, non una rosa.<br>Un batterio si divide in due batteri uguali.<br>I cuccioli di un pastore tedesco somigliano ai genitori.</div><div class=\"an s\"><div class=\"lbl\">Come un libro di ricette</div><span style=\"display:none\">: </span>Il DNA è un libro di ricette. Quando un vivente si riproduce, passa una copia del libro ai figli.</div>", "words": [["DNA", "la molecola che contiene le informazioni di un vivente."]], "ask": ["Perché da un seme di girasole nasce un girasole?", "Perché il seme contiene le <b>informazioni</b> (DNA) del girasole, ricevute dai genitori."], "quiz": [["Dove si trovano le informazioni di un vivente?", ["nel DNA, dentro le cellule", "nell'acqua che beve", "nella luce"], 0, "Il DNA è il «libro di istruzioni»."]]}, {"parte": 0, "t": "Caso per caso: è vivo?", "body": "<p class=\"s\">Proviamo a usare le cinque caratteristiche come una lista di controllo.</p><div class=\"scroll\"><table><tr><th></th><th class=\"c\">cellule</th><th class=\"c\">stimoli</th><th class=\"c\">energia</th><th class=\"c\">informazioni</th><th class=\"c\">vivo?</th></tr><tr><td>cane</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\"><b>sì</b></td></tr><tr><td>quercia</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\"><b>sì</b></td></tr><tr><td>lievito</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\">sì</td><td class=\"c\"><b>sì</b></td></tr><tr><td>fuoco</td><td class=\"c\">no</td><td class=\"c\">no</td><td class=\"c\">sì</td><td class=\"c\">no</td><td class=\"c\"><b>no</b></td></tr><tr><td>robot</td><td class=\"c\">no</td><td class=\"c\">sì (sensori)</td><td class=\"c\">sì (batteria)</td><td class=\"c\">programma, ma non cellule</td><td class=\"c\"><b>no</b></td></tr><tr><td>cristallo di sale</td><td class=\"c\">no</td><td class=\"c\">no</td><td class=\"c\">no</td><td class=\"c\">no</td><td class=\"c\"><b>no</b></td></tr></table></div><div class=\"trap s\" data-say=\"Negli appunti, nella relazione, c&#x27;è scritto che un essere vivente è una persona o un animale che si muove, mangia e beve. Non basta: anche piante, funghi e batteri sono vivi. Valgono le cinque caratteristiche.\"><b>Negli appunti</b>, nella relazione, c'è scritto che un essere vivente è una persona o un animale che si muove, mangia e beve. Non basta: anche piante, funghi e batteri sono vivi. Valgono le cinque caratteristiche.</div>", "ask": ["Un robot reagisce ai sensori e usa energia. Perché non è vivo?", "Perché <b>non è fatto di cellule</b>: manca una delle cinque caratteristiche."], "quiz": [["Un cristallo di sale nell'acqua salata «cresce». È vivo?", ["no: non ha cellule e non ha metabolismo", "sì, perché cresce", "sì, perché è nell'acqua"], 0, "Crescere da solo non basta: servono tutte e cinque le caratteristiche."], ["Quale di questi è un vivente?", ["un fungo porcino", "una fiamma", "una nuvola"], 0, "Il fungo ha cellule, metabolismo, informazioni: è vivo."]]}, {"parte": 1, "t": "Sistemi aperti, chiusi, isolati", "body": "<p class=\"s\">In scienze la parte che studiamo si chiama sistema. Tutto il resto è l'ambiente.</p><svg viewBox=\"0 0 340 150\" role=\"img\" aria-label=\"Sistema aperto, chiuso e isolato\"><g font-family=\"-apple-system,Arial,sans-serif\"><rect x=\"8\" y=\"14\" width=\"96\" height=\"84\" rx=\"8\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"1.5\"/><text x=\"14\" y=\"94\" font-size=\"10.5\" fill=\"#5A6473\">ambiente</text><rect x=\"32\" y=\"34\" width=\"48\" height=\"40\" rx=\"6\" fill=\"#fff\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"56\" y=\"59\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1B2430\">sistema</text><path d=\"M38,24 q6,-6 12,0 t12,0 t12,0\" fill=\"none\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><path d=\"M74,20 l5,4 l-5,4\" fill=\"none\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><line x1=\"42\" y1=\"84\" x2=\"72\" y2=\"84\" stroke=\"#1D5FA8\" stroke-width=\"2.5\"/><path d=\"M70,80 l6,4 l-6,4\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"2.5\"/><text x=\"56\" y=\"122\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#1B2430\">aperto</text><rect x=\"122\" y=\"14\" width=\"96\" height=\"84\" rx=\"8\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"1.5\"/><text x=\"128\" y=\"94\" font-size=\"10.5\" fill=\"#5A6473\">ambiente</text><rect x=\"146\" y=\"34\" width=\"48\" height=\"40\" rx=\"6\" fill=\"#fff\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"170\" y=\"59\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1B2430\">sistema</text><path d=\"M152,24 q6,-6 12,0 t12,0 t12,0\" fill=\"none\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><path d=\"M188,20 l5,4 l-5,4\" fill=\"none\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><text x=\"170\" y=\"122\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#1B2430\">chiuso</text><rect x=\"236\" y=\"14\" width=\"96\" height=\"84\" rx=\"8\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"1.5\"/><text x=\"242\" y=\"94\" font-size=\"10.5\" fill=\"#5A6473\">ambiente</text><rect x=\"260\" y=\"34\" width=\"48\" height=\"40\" rx=\"6\" fill=\"#fff\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"284\" y=\"59\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1B2430\">sistema</text><text x=\"284\" y=\"122\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"700\" fill=\"#1B2430\">isolato</text>\n<path d=\"M20,140 q6,-6 12,0 t12,0\" fill=\"none\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><text x=\"50\" y=\"143\" font-size=\"12\" fill=\"#C0392B\" font-weight=\"700\">energia</text>\n<line x1=\"140\" y1=\"139\" x2=\"166\" y2=\"139\" stroke=\"#1D5FA8\" stroke-width=\"2.5\"/><text x=\"172\" y=\"143\" font-size=\"12\" fill=\"#1D5FA8\" font-weight=\"700\">materia</text></g></svg><div class=\"scroll\"><table><tr><th>sistema</th><th>scambia</th><th>esempio</th></tr><tr><td><b>aperto</b></td><td>energia <b>e</b> materia</td><td>pentola senza coperchio: escono calore e vapore</td></tr><tr><td><b>chiuso</b></td><td><b>solo</b> energia</td><td>pentola con il coperchio ben chiuso: esce calore, il vapore resta dentro</td></tr><tr><td><b>isolato</b></td><td><b>niente</b></td><td>thermos perfetto: niente entra e niente esce</td></tr></table></div><p class=\"s\">Ogni essere vivente è un sistema aperto: prende cibo, aria e acqua, e cede calore e rifiuti.</p><div class=\"an s\"><div class=\"lbl\">Pensa a una casa</div><span style=\"display:none\">: </span>Con porte e finestre aperte entrano persone e calore: aperta. Con le finestre chiuse entra solo il calore del sole: chiusa. Una cassaforte nel ghiaccio non scambia niente: isolata.</div>", "words": [["sistema", "la parte del mondo che stiamo studiando."], ["ambiente", "tutto quello che sta intorno al sistema."]], "ask": ["Che differenza c'è tra un sistema chiuso e uno isolato?", "Il chiuso scambia <b>solo energia</b>; l'isolato <b>non scambia niente</b>."], "quiz": [["Una bottiglia d'acqua tappata lasciata al sole è un sistema…", ["isolato", "aperto", "chiuso"], 2, "Entra energia (il calore del sole), ma l'acqua resta dentro: chiuso."], ["Un essere vivente è un sistema…", ["chiuso", "isolato", "aperto"], 2, "Scambia sia energia sia materia: mangia, respira, cede calore."], ["Una pentola che bolle senza coperchio è un sistema…", ["chiuso", "aperto", "isolato"], 1, "Escono calore e vapore: energia e materia."]]}, {"parte": 2, "t": "Il metodo scientifico", "body": "<p class=\"s\">Gli scienziati seguono un percorso per capire come funzionano le cose. In biologia si usa spesso il metodo sperimentale.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">1 · Osservazione</b><span style=\"display:none\">: </span>Noti un fenomeno.</div><div class=\"st s\"><b class=\"n\">2 · Ipotesi</b><span style=\"display:none\">: </span>Proponi una spiegazione possibile.</div><div class=\"st s\"><b class=\"n\">3 · Esperimento</b><span style=\"display:none\">: </span>Controlli se l'ipotesi è vera.</div><div class=\"st s\"><b class=\"n\">4a · Ipotesi validata</b><span style=\"display:none\">: </span>L'esperimento le dà ragione: hai la risposta.</div><div class=\"st s\"><b class=\"n\">4b · Ipotesi non validata</b><span style=\"display:none\">: </span>L'esperimento le dà torto: fai una nuova ipotesi e ricominci.</div></div><p class=\"s\">A volte un esperimento non si può fare, per esempio con le stelle o con i fossili. Allora si osserva con attenzione e si ragiona: è sempre metodo scientifico.</p><div class=\"an s\"><div class=\"lbl\">Come un detective</div><span style=\"display:none\">: </span>Il detective osserva gli indizi, sospetta qualcuno (ipotesi), cerca le prove (esperimento). Se le prove non tornano, cambia sospettato.</div>", "words": [["ipotesi", "una spiegazione possibile, da controllare."], ["validare", "confermare con le prove."]], "ask": ["Che cosa si fa se l'esperimento non conferma l'ipotesi?", "Si fa una <b>nuova ipotesi</b> e si ricomincia con un nuovo esperimento."], "quiz": [["Qual è il primo passo del metodo sperimentale?", ["l'ipotesi", "l'esperimento", "l'osservazione"], 2, "Prima si osserva un fenomeno, poi si cerca una spiegazione."], ["L'ipotesi è…", ["un risultato sicuro", "una spiegazione possibile da controllare", "un esperimento"], 1, "Va sempre controllata con un esperimento."]]}, {"parte": 2, "t": "Il metodo passo per passo", "body": "<p class=\"s\">Due esempi. Il primo è quello degli appunti.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Osservazione</b><span style=\"display:none\">: </span>Il computer non si accende.</div><div class=\"st s\"><b class=\"n\">Ipotesi 1</b><span style=\"display:none\">: </span>Non arriva corrente.</div><div class=\"st s\"><b class=\"n\">Esperimento</b><span style=\"display:none\">: </span>Provo la presa con una lampada: la corrente c'è.</div><div class=\"st s\"><b class=\"n\">Non validata</b><span style=\"display:none\">: </span>L'ipotesi era sbagliata: ne faccio un'altra.</div><div class=\"st s\"><b class=\"n\">Ipotesi 2</b><span style=\"display:none\">: </span>Il computer è rotto.</div><div class=\"st s\"><b class=\"n\">Esperimento</b><span style=\"display:none\">: </span>Lo provo con un altro alimentatore: niente.</div><div class=\"st s\"><b class=\"n\">Validata</b><span style=\"display:none\">: </span>Il computer è rotto.</div></div><div class=\"ex s\"><div class=\"lbl\">Il secondo esempio: la piantina</div><span style=\"display:none\">: </span><b>Osservazione</b>: una piantina appassisce.<br><b>Ipotesi</b>: ha poca acqua.<br><b>Esperimento</b>: prendo due piantine uguali, alla stessa luce; annaffio solo una.<br><b>Risultato</b>: si riprende solo quella annaffiata → ipotesi validata.</div><div class=\"trap s\"><b>Cambia una cosa sola alla volta.</b> Se alla seconda piantina cambio anche la luce, non so più se è stata l'acqua o la luce.</div>", "ask": ["Nell'esperimento delle piantine, perché le teniamo alla stessa luce?", "Per cambiare <b>una cosa sola</b>, l'acqua: così sappiamo che è stata lei."], "quiz": [["Nell'esempio del computer, l'ipotesi «non arriva corrente» è stata…", ["validata", "non validata"], 1, "La lampada si accendeva: la corrente c'era."], ["In un buon esperimento…", ["non si confronta niente", "si cambia una cosa sola alla volta", "si cambiano più cose insieme per fare prima"], 1, "Così si capisce quale cosa ha causato il risultato."]]}, {"parte": 2, "t": "Un esperimento famoso: Redi e le mosche", "body": "<p class=\"s\">Fino al Seicento molti pensavano che i vermi nascessero da soli dalla carne che marcisce.</p><p class=\"s\">Nel 1668 lo scienziato italiano Francesco Redi fece un esperimento. Mise della carne in alcuni barattoli aperti e in altri coperti con una garza.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Barattoli aperti</b><span style=\"display:none\">: </span>Le mosche entrano e depongono le uova: compaiono i vermi.</div><div class=\"st s\"><b class=\"n\">Barattoli coperti</b><span style=\"display:none\">: </span>Le mosche non entrano: niente vermi sulla carne.</div></div><p class=\"s\">Conclusione: i vermi non nascono dalla carne, ma dalle uova delle mosche. Un'idea sbagliata è stata smontata con un esperimento.</p><div class=\"an s\"><div class=\"lbl\">I passi del metodo</div><span style=\"display:none\">: </span>Osservazione: vermi sulla carne. Ipotesi: vengono dalle mosche. Esperimento: barattoli aperti e coperti. Validata.</div>", "ask": ["Perché Redi usò anche barattoli coperti?", "Per <b>confrontare</b>: cambiava una sola cosa, se le mosche potevano entrare o no."], "quiz": [["Nei barattoli coperti con la garza, sulla carne…", ["comparvero i vermi", "non comparvero vermi"], 1, "Le mosche non potevano deporre le uova."]]}, {"parte": 3, "t": "Dalla cellula all'ecosistema", "body": "<p class=\"s\">I viventi si possono guardare a livelli sempre più grandi, uno dentro l'altro.</p><svg viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Livelli: cellula, organismo, popolazione, comunità, ecosistema\"><g font-family=\"-apple-system,Arial,sans-serif\" font-weight=\"700\">\n<rect x=\"6\" y=\"6\" width=\"328\" height=\"196\" rx=\"16\" fill=\"#E6EEF9\" stroke=\"#1D5FA8\" stroke-width=\"2\"/><text x=\"20\" y=\"28\" font-size=\"13.5\" fill=\"#1D4F8A\">ecosistema = comunità + ambiente</text>\n<rect x=\"20\" y=\"40\" width=\"300\" height=\"148\" rx=\"14\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><text x=\"32\" y=\"60\" font-size=\"13.5\" fill=\"#1F5C4B\">comunità = tutte le popolazioni insieme</text>\n<rect x=\"34\" y=\"72\" width=\"178\" height=\"104\" rx=\"12\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"42\" y=\"92\" font-size=\"12.5\" fill=\"#7A5208\">popolazione = tutte le trote</text>\n<rect x=\"48\" y=\"104\" width=\"104\" height=\"62\" rx=\"10\" fill=\"#fff\" stroke=\"#8E1B55\" stroke-width=\"2\"/><text x=\"58\" y=\"122\" font-size=\"12.5\" fill=\"#8E1B55\">organismo:</text><text x=\"58\" y=\"138\" font-size=\"12.5\" fill=\"#8E1B55\">una trota</text>\n<circle cx=\"132\" cy=\"152\" r=\"9\" fill=\"#F8E9F2\" stroke=\"#8E1B55\" stroke-width=\"2\"/><text x=\"164\" y=\"157\" font-size=\"11.5\" fill=\"#8E1B55\">cellula</text>\n<text x=\"222\" y=\"110\" font-size=\"12.5\" fill=\"#1F5C4B\" font-weight=\"600\">rane</text><text x=\"222\" y=\"132\" font-size=\"12.5\" fill=\"#1F5C4B\" font-weight=\"600\">alghe</text><text x=\"222\" y=\"154\" font-size=\"12.5\" fill=\"#1F5C4B\" font-weight=\"600\">batteri…</text>\n</g></svg><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Cellula</b><span style=\"display:none\">: </span>l'unità più piccola della vita.</div><div class=\"st s\"><b class=\"n\">Organismo</b><span style=\"display:none\">: </span>un essere vivente: una trota.</div><div class=\"st s\"><b class=\"n\">Popolazione</b><span style=\"display:none\">: </span>tutti gli individui della stessa specie in un posto: tutte le trote del lago.</div><div class=\"st s\"><b class=\"n\">Comunità</b><span style=\"display:none\">: </span>tutte le popolazioni del posto: trote, rane, alghe, batteri.</div><div class=\"st s\"><b class=\"n\">Ecosistema</b><span style=\"display:none\">: </span>la comunità più l'ambiente: acqua, luce, temperatura, sali.</div></div><div class=\"trap s\"><b>Negli appunti</b> il terzo gradino è «specie». Il nome giusto del gradino è <b>popolazione</b>: gli individui di una stessa specie che vivono nello stesso posto.</div>", "words": [["specie", "gruppo di viventi simili che possono avere figli tra loro."], ["popolazione", "gli individui di una specie che vivono nello stesso posto."]], "ask": ["Che differenza c'è tra comunità ed ecosistema?", "L'ecosistema è la comunità <b>più l'ambiente</b> fisico e chimico."], "quiz": [["Tutte le rane di uno stagno formano…", ["una comunità", "un ecosistema", "una popolazione"], 2, "Stessa specie, stesso posto: popolazione."], ["Rane, pesci, alghe e batteri dello stagno formano…", ["una popolazione", "una comunità", "una cellula"], 1, "Tante popolazioni insieme: comunità."]]}, {"parte": 3, "t": "L'ecosistema: biotico e abiotico", "body": "<p class=\"s\"><mark>Un ecosistema è l'insieme di tutti gli esseri viventi, dei fattori fisici e chimici dell'ambiente, e delle loro interazioni.</mark></p><div class=\"scroll\"><table><tr><th>fattori</th><th>che cosa sono</th><th>esempi</th></tr><tr><td><b>biotici</b></td><td>i viventi</td><td>piante, animali, funghi, batteri</td></tr><tr><td><b>abiotici fisici</b></td><td>caratteristiche fisiche</td><td>temperatura, luce, umidità, pressione</td></tr><tr><td><b>abiotici chimici</b></td><td>sostanze dell'ambiente</td><td>ossigeno, sali minerali, acqua</td></tr></table></div><p class=\"s\">Un'interazione è un'influenza che va nei due sensi: A cambia B, e B cambia A.</p><div class=\"ex s\"><div class=\"lbl\">Interazioni</div><span style=\"display:none\">: </span>La volpe mangia i conigli: meno conigli. Con meno conigli, le volpi hanno meno cibo.<br>Gli alberi fanno ombra: il terreno resta più umido, e lì crescono funghi.<br>Le alghe producono ossigeno, che serve ai pesci.</div><div class=\"an s\"><div class=\"lbl\">Bio e a-bio</div><span style=\"display:none\">: </span><b>bio</b> = vita. <b>a</b> davanti vuol dire «senza»: abiotico = senza vita, come apolare = senza poli.</div>", "words": [["biotico", "che riguarda i viventi."], ["abiotico", "che non è vivente: luce, temperatura, acqua, sali."], ["interazione", "influenza reciproca: A cambia B e B cambia A."]], "ask": ["La temperatura dell'acqua di un lago è un fattore biotico o abiotico?", "<b>Abiotico</b> (fisico): non è un vivente."], "quiz": [["Quale di questi è un fattore biotico?", ["la luce", "l'umidità", "i funghi del bosco"], 2, "I funghi sono viventi."], ["L'ossigeno sciolto nell'acqua è un fattore…", ["abiotico fisico", "abiotico chimico", "biotico"], 1, "È una sostanza chimica dell'ambiente."], ["Quale frase descrive un'interazione?", ["le volpi mangiano i conigli e i conigli influenzano quante volpi ci sono", "il sasso è grigio", "la pioggia è bagnata"], 0, "Influenza in due sensi."]]}, {"parte": 4, "t": "Ripasso: tutta la scheda", "body": "<p class=\"s\">Ultima carta: dieci domande su tutta la scheda. Se sbagli, leggi la spiegazione e torna alla carta giusta.</p><div class=\"scroll\"><table><tr><th>parola</th><th>in breve</th></tr><tr><td>essere vivente</td><td>cellule, stimoli, energia, metabolismo, informazioni</td></tr><tr><td>sistema aperto / chiuso / isolato</td><td>energia e materia / solo energia / niente</td></tr><tr><td>metodo sperimentale</td><td>osservazione, ipotesi, esperimento, validazione</td></tr><tr><td>ecosistema</td><td>viventi + fattori fisici e chimici + interazioni</td></tr></table></div>", "quiz": [["Un'ameba è fatta di una cellula sola. È…", ["non vivente", "pluricellulare", "unicellulare"], 2, "Una cellula sola: unicellulare."], ["Che cos'è il metabolismo?", ["il numero di cellule", "l'insieme delle reazioni chimiche di un vivente", "la capacità di muoversi"], 1, "Tutte le reazioni chimiche, insieme."], ["Una pianta si piega verso la luce. È un esempio di…", ["risposta a uno stimolo", "fattore abiotico", "sistema isolato"], 0, "La luce è lo stimolo, piegarsi è la risposta."], ["Un thermos perfetto è un sistema…", ["chiuso", "isolato", "aperto"], 1, "Non scambia né energia né materia."], ["Quale NON è un fattore abiotico?", ["la temperatura", "la luce", "le formiche"], 2, "Le formiche sono viventi: fattore biotico."], ["Dopo l'ipotesi, nel metodo sperimentale viene…", ["l'esperimento", "la conclusione senza prove", "l'osservazione"], 0, "Si controlla l'ipotesi con un esperimento."], ["Tutti i lupi di un bosco formano…", ["una comunità", "una popolazione", "un ecosistema"], 1, "Stessa specie, stesso posto."], ["Redi dimostrò che i vermi sulla carne…", ["nascono da soli", "vengono dall'aria", "nascono dalle uova delle mosche"], 2, "Nei barattoli coperti non comparivano."], ["Perché i figli somigliano ai genitori?", ["perché mangiano le stesse cose", "perché ricevono le loro informazioni (DNA)", "per caso"], 1, "Il DNA passa ai figli."], ["Il fuoco non è vivo perché…", ["non è caldo", "non si muove", "non è fatto di cellule"], 2, "Manca la prima caratteristica: le cellule."]]}];
+
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += quizHTML(c);
+  h += '</article>';
+  qzRes = {};
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("sc01-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+
+
+/* ═══════ prova tu ═══════ */
+function quizHTML(c){
+  if(!c.quiz || !c.quiz.length) return "";
+  let h = '<div class="quiz"><div class="qhd">Prova tu <span id="qsc"></span></div>';
+  c.quiz.forEach((q,i)=>{
+    h += '<div class="qz" id="qz'+i+'"><div class="qq">'+q[0]+'</div><div class="op">';
+    q[1].forEach((o,k)=>{ h += '<button onclick="qzAns('+i+','+k+')">'+o+'</button>'; });
+    h += '</div><div class="why"></div></div>';
+  });
+  return h + '</div>';
+}
+let qzRes = {};
+function qzAns(i,k){
+  const q = CARDS[idx].quiz[i], box = document.getElementById("qz"+i);
+  if(!box || box.classList.contains("done")) return;
+  box.classList.add("done");
+  const bs = box.querySelectorAll(".op button");
+  bs[q[2]].classList.add("right"); if(k!==q[2]) bs[k].classList.add("wrong");
+  const w = box.querySelector(".why");
+  w.className = "why on "+(k===q[2]?"y":"n");
+  w.innerHTML = (k===q[2] ? "<b>Giusto.</b> " : "<b>No.</b> ") + (q[3]||"");
+  qzRes[i] = (k===q[2]);
+  const n = Object.keys(qzRes).length, g = Object.keys(qzRes).filter(j=>qzRes[j]).length;
+  const sc = document.getElementById("qsc"); if(sc) sc.textContent = "· fatte "+n+" su "+CARDS[idx].quiz.length+", giuste "+g;
+}
+/* ═══════ la virgola che si sposta ═══════ */
+const VMP = [
+  {lab:"453,89", d:"45389", p:3, e:0},
+  {lab:"0,008332", d:"0008332", p:1, e:0},
+  {lab:"38779", d:"38779", p:5, e:0},
+  {lab:"45,89 × 10⁷", d:"4589", p:2, e:7},
+  {lab:"0,0017 × 10⁻³", d:"00017", p:1, e:-3}
+];
+let vm = null;
+function vmInit(){ vmSet(0); }
+function vmSet(k){ vm = {k:k, d:VMP[k].d, p:VMP[k].p, e:VMP[k].e, e0:VMP[k].e, p0:VMP[k].p}; vmDraw(); }
+function vmMove(dir){           /* dir = -1: virgola a sinistra; +1: a destra */
+  if(!vm) return;
+  if(dir<0){
+    if(vm.p<=0) vm.d = "0"+vm.d; else vm.p--;
+    if(vm.p===0){ vm.d="0"+vm.d; vm.p=1; }
+    vm.e++;
+  }else{
+    vm.p++;
+    if(vm.p>vm.d.length) vm.d = vm.d+"0";
+    vm.e--;
+  }
+  vmDraw();
+}
+function vmParts(){
+  let ip = vm.d.slice(0,vm.p).replace(/^0+/,""), fp = vm.d.slice(vm.p);
+  if(!ip) ip = "0";
+  return [ip, fp];
+}
+function supE(n){ return String(n).replace("-","−"); }
+function vmDraw(){
+  const box = document.getElementById("vm"); if(!box) return;
+  const pr = vmParts(), ip = pr[0], fp = pr[1];
+  let num = ip + (fp ? '<span class="cm">,</span>'+fp : '');
+  num += ' × 10<sup>'+supE(vm.e)+'</sup>';
+  const moved = vm.e - vm.e0;
+  let msg, cls = "msg";
+  if(ip.length===1 && ip!=="0"){
+    cls += " ok";
+    const n = Math.abs(moved), posti = n+(n===1?" posto":" posti");
+    msg = "✓ Notazione scientifica."+(moved>0 ? " Virgola "+posti+" a sinistra: l'esponente sale di "+n+"."
+                                     : moved<0 ? " Virgola "+posti+" a destra: l'esponente scende di "+n+"." : "");
+  }else if(ip==="0"){
+    msg = "Prima della virgola c'è 0: sposta la virgola a destra ▶";
+  }else{
+    msg = "Prima della virgola ci sono "+ip.length+" cifre: sposta la virgola a sinistra ◀";
+  }
+  let pre = '<div class="pre">';
+  VMP.forEach((x,i)=>{ pre += '<button class="'+(i===vm.k?"on":"")+'" onclick="vmSet('+i+')">'+x.lab+'</button>'; });
+  pre += '</div>';
+  box.innerHTML = '<div class="num">'+num+'</div><div class="'+cls+'">'+msg+'</div>'
+    + '<div class="ctl"><button onclick="vmMove(-1)">◀ virgola a sinistra</button><button onclick="vmMove(1)">virgola a destra ▶</button></div>'
+    + pre;
+}
+
+/* ═══════ la scala dei prefissi ═══════ */
+const RUNGS = [["k",3],["h",2],["da",1],["",0],["d",-1],["c",-2],["m",-3],["μ",-6],["n",-9]];
+let lad = {dim:1, from:null, to:null};
+function ladInit(){ lad = {dim:1, from:null, to:null}; ladDraw(); }
+function ladDim(n){ lad.dim = n; ladDraw(); }
+function ladTap(i){
+  if(lad.from===null || lad.to!==null){ lad.from = i; lad.to = null; }
+  else if(i!==lad.from){ lad.to = i; }
+  ladDraw();
+}
+function unitName(i){ const s = ["","","²","³"][lad.dim]; return RUNGS[i][0]+"m"+s; }
+function ladDraw(){
+  const box = document.getElementById("lad"); if(!box) return;
+  let h = '<div class="dims">';
+  [[1,"m"],[2,"m²"],[3,"m³"]].forEach(x=>{ h += '<button class="'+(lad.dim===x[0]?"on":"")+'" onclick="ladDim('+x[0]+')">'+x[1]+'</button>'; });
+  h += '</div><div class="hint">'+(lad.from===null?"Tocca l'unità di partenza":(lad.to===null?"Ora tocca l'unità di arrivo":"Tocca un'altra unità per ricominciare"))+'</div><div class="rungs">';
+  const lo = lad.to===null?null:Math.min(lad.from,lad.to), hi = lad.to===null?null:Math.max(lad.from,lad.to);
+  RUNGS.forEach((r,i)=>{
+    if(i>0 && RUNGS[i-1][1]-r[1]>1){
+      h += '<div class="rung gap"><span class="e">'+(RUNGS[i-1][1]-r[1]-1)+' gradini senza nome</span></div>';
+    }
+    let cl = "rung";
+    if(i===lad.from) cl += " from";
+    else if(i===lad.to) cl += " to";
+    else if(lo!==null && i>lo && i<hi) cl += " mid";
+    h += '<button class="'+cl+'" onclick="ladTap('+i+')"><span class="u">'+unitName(i)+'</span><span class="e">10<sup>'+supE(r[1]*lad.dim)+'</sup> m'+["","","²","³"][lad.dim]+'</span></button>';
+  });
+  h += '</div>';
+  let out = '<div class="out">Ogni gradino vale × '+[0,10,100,1000][lad.dim]+'.</div>';
+  if(lad.from!==null && lad.to!==null){
+    const g = Math.abs(RUNGS[lad.from][1]-RUNGS[lad.to][1]), k = g*lad.dim;
+    const scendo = RUNGS[lad.to][1] < RUNGS[lad.from][1];
+    out = '<div class="out '+(scendo?"g":"s")+'"><b>'+unitName(lad.from)+' → '+unitName(lad.to)+'</b>: '
+      +(scendo?"scendo ":"salgo ")+g+(g===1?" gradino":" gradini")
+      +(lad.dim>1?"; con "+["","","m²","m³"][lad.dim]+" ogni gradino vale "+[0,10,100,1000][lad.dim]+", cioè esponente "+g+" × "+lad.dim+" = "+k:"")
+      +'<br>→ <b>'+(scendo?"moltiplico per 10<sup>"+k+"</sup>":"divido per 10<sup>"+k+"</sup>, cioè × 10<sup>−"+k+"</sup>")+'</b></div>';
+  }
+  box.innerHTML = h + out;
+}
+
+/* ═══════ disegni piccoli ═══════ */
+function sqInit(){
+  const g = document.getElementById("sqgrid"); if(!g) return;
+  let s = '<rect x="20" y="15" width="140" height="140" fill="#E6EEF9" stroke="#1D5FA8" stroke-width="2.5"/>';
+  for(let i=1;i<10;i++){
+    s += '<line x1="'+(20+i*14)+'" y1="15" x2="'+(20+i*14)+'" y2="155" stroke="#9DB7DA" stroke-width="1"/>';
+    s += '<line x1="20" y1="'+(15+i*14)+'" x2="160" y2="'+(15+i*14)+'" stroke="#9DB7DA" stroke-width="1"/>';
+  }
+  s += '<rect x="20" y="15" width="14" height="14" fill="#1D5FA8"/>';
+  g.innerHTML = s;
+}
+function sphInit(){
+  const g = document.getElementById("spheres"); if(!g) return;
+  const cols = ["#4F86C6","#E0A43A","#B3261E","#1F7A4D"];
+  let s = '<circle cx="75" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/><circle cx="245" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/>';
+  const pts = [[-26,-18],[-6,-26],[14,-22],[30,-6],[-32,4],[-12,-4],[8,-2],[26,14],[-24,24],[-4,18],[14,28],[-14,34]];
+  pts.forEach((p,i)=>{
+    s += '<circle cx="'+(75+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="#4F86C6"/>';
+    s += '<circle cx="'+(245+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="'+cols[(i*7)%4]+'"/>';
+  });
+  g.innerHTML = s;
+}
+
+/* ═══════ curve di riscaldamento e raffreddamento ═══════ */
+const CURVE = {
+  risc:{ pts:[[45,-18],[85,0],[150,0],[215,100],[300,100],[337,112]],
+    col:["#D5DCE3","#DDD3EF","#D3E5F6","#F4D3E1","#FAEBC0"],
+    dk:["#8A99AA","#9C85C9","#6FA3D6","#D98AAE","#E0B84A"], below:[0,2],
+    tr:[["A–B","solido","Solo ghiaccio. La temperatura sale da −18&nbsp;°C a 0&nbsp;°C."],
+        ["B–C","solido + liquido","<b>Fusione.</b> Ghiaccio e acqua insieme. Sosta termica: si scalda, ma la temperatura resta 0&nbsp;°C finché c'è ghiaccio."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura sale da 0&nbsp;°C a 100&nbsp;°C."],
+        ["D–E","liquido + aeriforme","<b>Ebollizione.</b> Acqua e vapore insieme. Seconda sosta termica: la temperatura resta 100&nbsp;°C finché c'è liquido."],
+        ["E–F","aeriforme","Solo vapore. La temperatura riprende a salire."]]},
+  raff:{ pts:[[45,112],[80,100],[165,100],[225,0],[295,0],[337,-18]],
+    col:["#FAEBC0","#F4D3E1","#D3E5F6","#DDD3EF","#D5DCE3"],
+    dk:["#E0B84A","#D98AAE","#6FA3D6","#9C85C9","#8A99AA"],
+    tr:[["A–B","aeriforme","Solo vapore. La temperatura scende fino a 100&nbsp;°C."],
+        ["B–C","aeriforme + liquido","<b>Condensazione.</b> Il vapore diventa liquido. Sosta termica a 100&nbsp;°C."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura scende da 100&nbsp;°C a 0&nbsp;°C."],
+        ["D–E","liquido + solido","<b>Solidificazione.</b> L'acqua diventa ghiaccio. Sosta termica a 0&nbsp;°C."],
+        ["E–F","solido","Solo ghiaccio. La temperatura scende sotto 0&nbsp;°C."]]}
+};
+function curvY(T){ return 185 - T*1.3; }
+function curvInit(){
+  Array.prototype.forEach.call(stage.querySelectorAll(".curva"), el=>curvDraw(el, null));
+}
+function curvDraw(el, sel){
+  const C = CURVE[el.getAttribute("data-k")], P = C.pts.map(p=>[p[0], curvY(p[1])]);
+  const F = 'font-family="-apple-system,Arial,sans-serif"';
+  let s = '<svg viewBox="0 0 350 250" role="img" aria-label="Curva della temperatura nel tempo">';
+  for(let i=0;i<5;i++){
+    const op = sel===null ? .6 : (i===sel ? 1 : .18);
+    s += '<rect x="'+P[i][0]+'" y="22" width="'+(P[i+1][0]-P[i][0])+'" height="204" fill="'+C.col[i]+'" opacity="'+op+'"/>';
+  }
+  s += '<line x1="40" y1="'+curvY(100)+'" x2="345" y2="'+curvY(100)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="'+curvY(0)+'" x2="345" y2="'+curvY(0)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="14" x2="40" y2="226" stroke="#1B2430" stroke-width="1.8"/><line x1="40" y1="226" x2="346" y2="226" stroke="#1B2430" stroke-width="1.8"/>';
+  s += '<g '+F+' font-size="12.5" fill="#1B2430"><text x="4" y="14">t (°C)</text><text x="346" y="244" text-anchor="end">tempo →</text>';
+  s += '<text x="36" y="'+(curvY(100)+4)+'" text-anchor="end">100</text><text x="36" y="'+(curvY(0)+4)+'" text-anchor="end">0</text><text x="36" y="'+(curvY(-18)+4)+'" text-anchor="end">−18</text></g>';
+  s += '<polyline points="'+P.map(p=>p.join(",")).join(" ")+'" fill="none" stroke="#1B2430" stroke-width="3" stroke-linejoin="round"/>';
+  if(sel!==null) s += '<line x1="'+P[sel][0]+'" y1="'+P[sel][1]+'" x2="'+P[sel+1][0]+'" y2="'+P[sel+1][1]+'" stroke="#A8327A" stroke-width="7" stroke-linecap="round"/>';
+  const L = "ABCDEF";
+  P.forEach((p,i)=>{
+    s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="#1B2430"/>';
+    const up = (C.below && C.below.indexOf(i)>=0) ? 17 : -8;
+    s += '<text x="'+(p[0]+(i===5?-12:3))+'" y="'+(p[1]+up)+'" '+F+' font-size="14" font-weight="700" fill="#1B2430">'+L[i]+'</text>';
+  });
+  s += '</svg>';
+  let b = '<div class="cbtns">';
+  C.tr.forEach((t,i)=>{
+    b += '<button class="cb'+(i===sel?' on':'')+'" style="border-left-color:'+C.dk[i]+'" onclick="curvSel(this,'+i+')"><b>'+t[0]+'</b> · '+t[1]+'</button>';
+  });
+  b += '</div>';
+  const out = '<div class="cout'+(sel===null?'':' on')+'">'+(sel===null ? 'Tocca un tratto.' : '<b>Tratto '+C.tr[sel][0]+'</b> — '+C.tr[sel][2])+'</div>';
+  el.innerHTML = s + b + out;
+}
+function curvSel(btn,i){
+  let el = btn; while(el && !(el.classList && el.classList.contains("curva"))) el = el.parentNode;
+  if(el) curvDraw(el, i);
+}
+function partInit(){
+  const g = document.getElementById("parts"); if(!g) return;
+  let s = "";
+  for(let r=0;r<3;r++) for(let c=0;c<4;c++){
+    const x = 25+c*20, y = 50+r*20;
+    s += '<path d="M'+(x-12)+','+(y-12)+' q3,-3 6,0" fill="none" stroke="#9AA3AE" stroke-width="1"/>';
+    s += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#4F86C6"/>';
+  }
+  [[132,97],[151,98],[170,96],[189,98],[208,97],[142,80],[161,81],[180,79],[199,81],[151,63],[172,63]]
+    .forEach(p=>{ s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  [[254,28,-14,4],[302,40,10,10],[278,70,-12,-8],[316,90,8,-12],[252,95,-12,6]]
+    .forEach(p=>{ s += '<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+p[2])+'" y2="'+(p[1]+p[3])+'" stroke="#9AA3AE" stroke-width="2" stroke-linecap="round"/>'
+                    + '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  g.innerHTML = s;
+}
+
+
+/* ═══════ catena di monomeri ═══════ */
+let polyN = 3, polyMsg = "";
+function polyInit(){ polyN = 3; polyMsg = ""; polyDraw(); }
+function hexP(cx,cy,r){ const p = []; for(let k=0;k<6;k++){ const a = (30+60*k)*Math.PI/180; p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1)); } return p.join(" "); }
+function dropP(x,y){ return '<path d="M'+x+','+(y-9)+' C'+(x+7)+','+(y-1)+' '+(x+6)+','+(y+7)+' '+x+','+(y+7)+' C'+(x-6)+','+(y+7)+' '+(x-7)+','+(y-1)+' '+x+','+(y-9)+' Z" fill="#4F9BD9"/>'; }
+function polyDraw(){
+  const el = stage.querySelector(".poly"); if(!el) return;
+  let s = '<svg viewBox="0 0 340 104" role="img" aria-label="Catena di '+polyN+' monomeri"><g font-family="-apple-system,Arial,sans-serif">';
+  for(let i=0;i<polyN;i++){
+    const x = 26+i*46;
+    if(i>0) s += '<line x1="'+(x-30)+'" y1="78" x2="'+(x-16)+'" y2="78" stroke="#C98A12" stroke-width="3"/>' + dropP(x-23,40)
+              + '<text x="'+(x-23)+'" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="#1D5FA8">H₂O</text>';
+    s += '<polygon points="'+hexP(x,78,16)+'" fill="#FBEFD3" stroke="#C98A12" stroke-width="2.5"/>';
+  }
+  s += '</g></svg>';
+  el.innerHTML = s + '<div class="pstat"><b>'+polyN+'</b> '+(polyN===1?'monomero':'monomeri')+' nella catena · <b>'+(polyN-1)+'</b> '+(polyN===2?'molecola':'molecole')+' d\'acqua '+(polyN===2?'uscita':'uscite')+'</div>'
+    + '<div class="pctl"><button onclick="polyMove(1)"'+(polyN>=7?' disabled':'')+'>+ attacca un pezzo<small>condensazione</small></button>'
+    + '<button onclick="polyMove(-1)"'+(polyN<=1?' disabled':'')+'>− stacca con l\'acqua<small>idrolisi</small></button></div>'
+    + '<div class="pmsg">'+polyMsg+'</div>';
+}
+function polyMove(d){
+  const n = Math.max(1, Math.min(7, polyN+d)); if(n===polyN) return;
+  polyN = n;
+  polyMsg = d>0 ? "Si è attaccato un pezzo: è uscita una molecola d'acqua." : "È entrata una molecola d'acqua: la catena si è spezzata.";
+  polyDraw();
+}
+
+/* ═══════ disegni con i pulsanti (prima/dopo, strutture) ═══════ */
+function togInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".tog"), el=>togDraw(el,0)); }
+function togDraw(el,k){
+  const T = TOGS[el.getAttribute("data-set")]; if(!T) return;
+  let h = '<div class="tbtns">';
+  T.lab.forEach((l,i)=>{ h += '<button class="'+(i===k?'on':'')+'" onclick="togSel(this,'+i+')">'+l+'</button>'; });
+  el.innerHTML = h + '</div>' + T.svg[k] + '<div class="tout">'+T.txt[k]+'</div>';
+}
+function togSel(btn,k){
+  let el = btn; while(el && !(el.classList && el.classList.contains("tog"))) el = el.parentNode;
+  if(el) togDraw(el,k);
+}
+
+
+/* ═══════ costruttore di atomi ═══════ */
+const ELEM = ["","H idrogeno","He elio","Li litio","Be berillio","B boro","C carbonio","N azoto","O ossigeno","F fluoro","Ne neon","Na sodio","Mg magnesio","Al alluminio","Si silicio","P fosforo","S zolfo","Cl cloro","Ar argon","K potassio","Ca calcio"];
+function atomInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".atomw"), el=>{
+  el._p = +el.getAttribute("data-p")||6; el._n = +el.getAttribute("data-n")||6; el._e = +el.getAttribute("data-e")||6; atomDraw(el); }); }
+function atomMove(btn,what,d){
+  let el = btn; while(el && !(el.classList && el.classList.contains("atomw"))) el = el.parentNode; if(!el) return;
+  if(what==="p") el._p = Math.max(1,Math.min(20,el._p+d));
+  if(what==="n") el._n = Math.max(0,Math.min(24,el._n+d));
+  if(what==="e") el._e = Math.max(0,Math.min(22,el._e+d));
+  atomDraw(el);
+}
+function atomDraw(el){
+  const p = el._p, n = el._n, e = el._e, A = p+n, q = p-e, X = ELEM[p].split(" ");
+  let s = '<svg viewBox="0 0 340 170" role="img" aria-label="Atomo con '+p+' protoni, '+n+' neutroni, '+e+' elettroni">';
+  s += '<circle cx="170" cy="85" r="74" fill="none" stroke="#C9D3DE" stroke-width="2" stroke-dasharray="4 5"/>';
+  const tot = p+n, R = 6, cols = Math.ceil(Math.sqrt(tot)); let k = 0;
+  const order = []; for(let i=0;i<tot;i++) order.push(i%2===0 && order.filter(x=>x==="p").length<p ? "p" : (order.filter(x=>x==="n").length<n ? "n" : "p"));
+  for(let i=0;i<tot;i++){ const r = Math.floor(i/cols), c = i%cols, x = 170+(c-(cols-1)/2)*11, y = 85+(r-(Math.ceil(tot/cols)-1)/2)*11;
+    s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+R+'" fill="'+(order[i]==="p"?"#D9534F":"#9AA3AE")+'"/>'; }
+  for(let i=0;i<e;i++){ const a = 2*Math.PI*i/Math.max(e,1) - Math.PI/2; s += '<circle cx="'+(170+74*Math.cos(a)).toFixed(1)+'" cy="'+(85+74*Math.sin(a)).toFixed(1)+'" r="5" fill="#1D5FA8"/>'; }
+  s += '</svg>';
+  const qs = q===0 ? "" : (Math.abs(q)>1?Math.abs(q):"")+(q>0?"+":"−");
+  const sym = '<span class="aw-sym"><span class="ix"><span>'+A+'</span><span>'+p+'</span></span>'+X[0]+'<sup style="font-size:17px">'+qs+'</sup></span>';
+  const tipo = q===0 ? "atomo <b>neutro</b>: elettroni = protoni" : (q>0 ? "ione <b>positivo</b> (catione): ha perso "+q+(q===1?" elettrone":" elettroni") : "ione <b>negativo</b> (anione): ha preso "+(-q)+(-q===1?" elettrone":" elettroni"));
+  el.innerHTML = s
+   + '<div class="aw-row">'
+   + '<div class="aw-ctl" style="color:#B33A36">protoni<span class="v">'+p+'</span><button onclick="atomMove(this,\'p\',-1)">−</button><button onclick="atomMove(this,\'p\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#5A6473">neutroni<span class="v">'+n+'</span><button onclick="atomMove(this,\'n\',-1)">−</button><button onclick="atomMove(this,\'n\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#1D5FA8">elettroni<span class="v">'+e+'</span><button onclick="atomMove(this,\'e\',-1)">−</button><button onclick="atomMove(this,\'e\',1)">+</button></div>'
+   + '</div><div class="aw-out">'+sym+'<b>'+X[1]+'</b> · Z = '+p+' · A = '+p+' + '+n+' = '+A+'<br>'+tipo+'</div>';
+}
+
+/* ═══════ costruttore di formule ioniche ═══════ */
+const CAT = [["Na","+1","sodio",0],["K","+1","potassio",0],["NH<sub>4</sub>","+1","ammonio",1],["Mg","+2","magnesio",0],["Ca","+2","calcio",0],["Fe","+3","ferro (III)",0],["Al","+3","alluminio",0]];
+const ANI = [["Cl","−1","cloruro",0],["F","−1","fluoruro",0],["OH","−1","idrossido",1],["NO<sub>3</sub>","−1","nitrato",1],["ClO<sub>2</sub>","−1","clorito",1],["O","−2","ossido",0],["S","−2","solfuro",0],["SO<sub>4</sub>","−2","solfato",1],["CO<sub>3</sub>","−2","carbonato",1],["PO<sub>4</sub>","−3","fosfato",1]];
+function chg(s){ return parseInt(s.replace("−","-"),10); }
+function supq(q){ const a = Math.abs(q); return (a>1?a:"")+(q>0?"+":"−"); }
+function formInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".formw"), el=>{
+  let h = '<div class="fw-sel"><div><label>ione positivo</label><select onchange="formDraw(this)">';
+  CAT.forEach((c,i)=>{ h += '<option value="'+i+'"'+(i===4?' selected':'')+'>'+c[0].replace(/<\/?sub>/g,"")+supq(chg(c[1]))+' ('+c[2]+')</option>'; });
+  h += '</select></div><div><label>ione negativo</label><select onchange="formDraw(this)">';
+  ANI.forEach((a,i)=>{ h += '<option value="'+i+'"'+(i===0?' selected':'')+'>'+a[0].replace(/<\/?sub>/g,"")+supq(chg(a[1]))+' ('+a[2]+')</option>'; });
+  h += '</select></div></div><div class="fw-out"></div>';
+  el.innerHTML = h; formDraw(el.querySelector("select"));
+}); }
+function gcd(a,b){ return b ? gcd(b,a%b) : a; }
+function formDraw(sel){
+  let el = sel; while(el && !(el.classList && el.classList.contains("formw"))) el = el.parentNode; if(!el) return;
+  const ss = el.querySelectorAll("select"), c = CAT[+ss[0].value], a = ANI[+ss[1].value];
+  const qc = chg(c[1]), qa = -chg(a[1]), L = qc*qa/gcd(qc,qa), nc = L/qc, na = L/qa;
+  let t = '<div class="fw-tiles">';
+  for(let i=0;i<nc;i++) t += '<span class="fw-t c">'+c[0]+'<sup>'+supq(qc)+'</sup></span>';
+  for(let i=0;i<na;i++) t += '<span class="fw-t a">'+a[0]+'<sup>'+supq(-qa)+'</sup></span>';
+  t += '</div>';
+  const part = (x,n,poly)=> n===1 ? x : (poly ? "("+x+")<sub>"+n+"</sub>" : x+"<sub>"+n+"</sub>");
+  const f = part(c[0],nc,c[3]) + part(a[0],na,a[3]);
+  el.querySelector(".fw-out").innerHTML = t
+   + '<div style="text-align:center;font-size:16px">cariche: '+nc+' × (+'+qc+') = +'+(nc*qc)+' &nbsp;e&nbsp; '+na+' × (−'+qa+') = −'+(na*qa)+' &nbsp;→ in tutto <b>0</b></div>'
+   + '<div class="fw-f">'+f+'</div><div style="text-align:center;font-size:16px;color:#5A6473">'+a[2]+' di '+c[2]+'</div>';
+}
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){
+  const sup = {"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9"};
+  const sub = {"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+  const S = s=>s.split("").map(c=>sup[c]||sub[c]||c).join("");
+  return t.replace(/a\.C\./g,"avanti Cristo")
+    .replace(/10(⁻?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(m,e)=>" 10 alla "+(e[0]==="⁻"?"meno ":"")+S(e.replace("⁻","")))
+    .replace(/cm³/g," centimetri cubi").replace(/dm³/g," decimetri cubi").replace(/m³/g," metri cubi")
+    .replace(/cm²/g," centimetri quadrati").replace(/dm²/g," decimetri quadrati").replace(/m²/g," metri quadrati")
+    .replace(/([⁰¹²³⁴⁵⁶⁷⁸⁹]+)([⁺⁻])/g,(m,d,s)=>" "+S(d)+(s==="⁺"?" più":" meno"))
+    .replace(/⁺/g," più").replace(/⁻/g," meno").replace(/([₀-₉]+)/g,m=>" "+S(m)+" ")
+    .replace(/·/g,", ").replace(/×/g," per ").replace(/÷/g," diviso ").replace(/→/g,", ").replace(/≈/g," circa ")
+    .replace(/°C/g," gradi").replace(/%/g," per cento").replace(/−/g," meno ").replace(/ = /g," uguale ")
+    .replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = new SpeechSynthesisUtterance(say(el.getAttribute("data-say") || el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("sc01-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>
