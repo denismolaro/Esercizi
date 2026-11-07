@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matematica — Geometria: il triangolo isoscele, dimostrazioni passo passo</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#B06A08; --accent-soft:#FBEEDA; --accent-line:#F0D3A8;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --mid:#7A5A00; --mid-soft:#FFF4D6;
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.hl{display:block; font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:var(--accent); margin-bottom:2px}
+
+/* il trucco per ricordare */
+.hook{background:#FFF7E8; border:1px solid var(--accent-line); border-radius:12px; padding:10px 14px; margin:14px 0; font-size:17px; line-height:1.6}
+.hook b{color:var(--accent)}
+
+/* figure sì / no */
+.figs{display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:10px; margin:12px 0}
+.figs.n1{grid-template-columns:1fr}
+.fg{margin:0; border:1px solid var(--rule); border-radius:12px; padding:8px 8px 6px; background:#fff; text-align:center}
+.fg svg{display:block; width:100%; height:auto; max-height:150px}
+.figs.n1 .fg svg{max-width:340px; max-height:230px; margin:0 auto}
+.fg figcaption{font-size:14px; line-height:1.35; color:var(--soft); margin-top:4px}
+.yn{display:inline-block; border-radius:999px; padding:0 8px; font-weight:800; font-size:12.5px; color:#fff; line-height:1.6}
+.yn.si{background:var(--ok)} .yn.no{background:var(--no)}
+
+/* la definizione del libro */
+.defs{border-left:5px solid var(--accent); padding:4px 0 4px 14px; margin:16px 0}
+.dh{display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; margin-bottom:2px}
+.dh .hl{margin:0}
+.dl{margin:6px 0; font-size:17.5px; line-height:1.6}
+.dl b.k{color:var(--accent)}
+.defs.cover b.k{color:transparent; background:#F4F1EA; border-bottom:2px solid var(--accent); border-radius:4px; cursor:pointer; padding:0 3px}
+.defs.cover b.k.shown{color:var(--ok); background:var(--ok-soft); border-bottom-color:var(--ok)}
+.cvh{display:none; font-size:14.5px; color:var(--soft); line-height:1.45; margin:2px 0 6px}
+.defs.cover .cvh{display:block}
+
+.vita{background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:12px; padding:10px 14px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.vita .hl{color:var(--ok)}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:10px 14px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap > b:first-child{color:var(--warn)}
+
+/* blocchi extra */
+.lad{display:flex; flex-direction:column; gap:6px; margin:12px 0}
+.ld{border-left:6px solid var(--ink); border-radius:10px; padding:7px 12px; font-size:16px; line-height:1.45; background:#F4F1EA}
+.ld b{display:block; font-size:17px}
+.ld.c0{border-color:#5A6473} .ld.c1{border-color:#2A6FB0; background:#E6EEF9} .ld.c2{border-color:#2F8A5B; background:#E4F2EA} .ld.c3{border-color:#B06A08; background:#FBEEDA}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+table.nm{border-collapse:collapse; width:100%; margin:12px 0; font-size:15.5px}
+table.nm td, table.nm th{border:1px solid var(--rule); padding:6px 8px; text-align:left; vertical-align:top; line-height:1.4}
+table.nm th{background:var(--accent-soft); color:var(--accent); font-size:13px}
+table.nm td.c{text-align:center; font-weight:700}
+.ex{border:1px solid var(--rule); border-radius:12px; padding:10px 14px; margin:12px 0; font-size:16.5px; line-height:1.6; background:#fff}
+.ex .r{display:block}
+
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:7px 13px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+.mini.acc{border-color:var(--accent); color:var(--accent)}
+
+/* tutte le parole */
+.gmodes{display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 4px}
+.gmodes button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:5px 12px; font:inherit; font-size:14px; font-weight:700; color:var(--soft); cursor:pointer}
+.gmodes button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.gh{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin:16px 0 4px}
+.gi{display:block; width:100%; text-align:left; border:1px solid var(--rule); border-radius:12px; background:#fff; padding:8px 12px; margin:6px 0; font:inherit; cursor:pointer; color:var(--ink)}
+.gi .gn{display:block; font-weight:700; color:var(--accent); font-size:17px; line-height:1.4}
+.gi .gd{display:block; font-size:15.5px; line-height:1.5}
+.gi .hide{color:transparent; background:#F4F1EA; border-radius:6px}
+.gi.open .hide{color:inherit; background:none}
+
+/* allenamento */
+.prog{display:flex; flex-wrap:wrap; gap:5px; margin:10px 0}
+.pc{border-radius:999px; padding:2px 9px; font-size:13px; font-weight:700; border:2px solid var(--rule); color:var(--soft); background:#fff; cursor:pointer; font-family:inherit}
+.pc.l0{border-color:#E8C4C4; background:var(--no-soft); color:var(--no)}
+.pc.l1{border-color:#E2C36B; background:var(--mid-soft); color:var(--mid)}
+.pc.l2{border-color:#BFD6CC; background:var(--ok-soft); color:var(--ok)}
+.legend{font-size:13.5px; color:var(--soft); line-height:1.5}
+.big{display:block; width:100%; border:2px solid var(--accent); background:var(--accent); color:#fff; border-radius:13px; padding:13px; font:inherit; font-size:17px; font-weight:700; margin:14px 0 6px; cursor:pointer}
+.big.ghost{background:#fff; color:var(--accent)}
+.qtop{display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:13.5px; color:var(--soft); font-weight:600}
+.kind{border-radius:999px; padding:1px 10px; background:var(--accent-soft); color:var(--accent); font-weight:700; font-size:13px}
+.tq{font-size:18.5px; line-height:1.55; font-weight:600; margin:10px 0}
+.tfig{max-width:300px; margin:6px auto}
+.tfig svg{display:block; width:100%; height:auto; max-height:170px}
+.opts{display:flex; flex-direction:column; gap:7px; margin:10px 0}
+.opt{border:2px solid var(--rule); background:#fff; border-radius:12px; padding:10px 13px; font:inherit; font-size:16.5px; line-height:1.4; text-align:left; cursor:pointer; color:var(--ink)}
+.opt.ok{border-color:var(--ok); background:var(--ok-soft); color:var(--ok); font-weight:700}
+.opt.no{border-color:var(--no); background:var(--no-soft); color:var(--no); text-decoration:line-through}
+.opt:disabled{cursor:default}
+.vfr{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.vfr .opt{text-align:center; font-weight:700}
+.built{min-height:3.2em; background:#F4F1EA; border-radius:12px; padding:9px 12px; font-size:16.5px; line-height:1.55; margin:8px 0}
+.built span{color:var(--ok); font-weight:600}
+.built .ph{color:var(--soft); font-style:italic; font-weight:400}
+.chunks{display:flex; flex-wrap:wrap; gap:7px; margin:8px 0}
+.chunk{border:2px solid var(--accent-line); background:#fff; border-radius:10px; padding:7px 11px; font:inherit; font-size:15.5px; line-height:1.35; text-align:left; cursor:pointer; color:var(--ink)}
+.chunk.bad{border-color:var(--no); background:var(--no-soft)}
+.fb{border-radius:12px; padding:10px 13px; margin:10px 0; font-size:16px; line-height:1.55}
+.fb.ok{background:var(--ok-soft); border:1px solid #BFD6CC}
+.fb.no{background:var(--no-soft); border:1px solid #E8C4C4}
+.fb b{display:block}
+.sum{font-size:16.5px; line-height:1.6}
+.sum .vt{font-size:40px; font-weight:800; text-align:center; line-height:1.1; margin:6px 0 0}
+.sum .vs{text-align:center; color:var(--soft); font-size:15px; margin-bottom:8px}
+.rv{display:flex; justify-content:space-between; align-items:center; gap:8px; border-top:1px solid var(--rule); padding:7px 0; font-size:16px}
+
+.reading{background:var(--read) !important; border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+
+/* schema in 7 passi */
+.steps7{counter-reset:st; margin:12px 0; padding:0; list-style:none}
+.steps7 li{position:relative; border:1px solid var(--rule); border-radius:12px; padding:9px 12px 9px 52px; margin:7px 0; background:#fff; font-size:16.5px; line-height:1.5}
+.steps7 li::before{counter-increment:st; content:counter(st); position:absolute; left:12px; top:9px; width:28px; height:28px; border-radius:50%;
+  background:var(--accent); color:#fff; font-weight:800; text-align:center; line-height:28px; font-size:15px}
+.steps7 li b{display:block; font-size:17px}
+.steps7 li i{color:var(--soft)}
+.model{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:14.5px; line-height:1.65; background:#F4F1EA; border-radius:12px; padding:12px 14px; margin:12px 0; white-space:pre-wrap}
+.an{white-space:nowrap}
+.why2{display:grid; grid-template-columns:1fr; gap:6px; margin:10px 0}
+.why2 div{border:1px solid var(--rule); border-radius:10px; padding:7px 11px; font-size:15.5px; line-height:1.45; background:#fff}
+.why2 b{color:var(--accent)}
+
+/* esercizi passo passo */
+.src{font-size:13.5px; color:var(--soft); font-weight:600}
+.txt{font-size:17.5px; line-height:1.6; font-weight:600; background:#FFF7E8; border:1px solid var(--accent-line); border-radius:12px; padding:10px 14px; margin:10px 0}
+.st{border-top:1px dashed var(--rule); padding-top:12px; margin-top:12px}
+.badge{display:inline-block; border-radius:999px; padding:1px 10px; background:var(--accent-soft); color:var(--accent); font-weight:700; font-size:13px; margin-bottom:4px}
+.badge.c{background:#E6EEF9; color:#2A6FB0}
+.sq{font-size:17px; line-height:1.55; font-weight:600; margin:2px 0 8px}
+.el{font-size:18px; font-weight:700; margin:2px 0 6px}
+.opts{display:flex; flex-direction:column; gap:7px; margin:8px 0}
+.opt{border:2px solid var(--rule); background:#fff; border-radius:12px; padding:9px 12px; font:inherit; font-size:16px; line-height:1.4; text-align:left; cursor:pointer; color:var(--ink)}
+.opt.ok{border-color:var(--ok); background:var(--ok-soft); color:var(--ok); font-weight:700}
+.opt.no{border-color:var(--no); background:var(--no-soft); color:var(--no); text-decoration:line-through}
+.opt:disabled{cursor:default}
+.box{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0}
+.wb{border:2px solid var(--accent-line); background:#fff; border-radius:999px; padding:5px 11px; font:inherit; font-size:14.5px; line-height:1.3; cursor:pointer; color:var(--ink)}
+.wb.ok{border-color:var(--ok); background:var(--ok-soft); color:var(--ok); font-weight:700}
+.wb.no{border-color:var(--no); background:var(--no-soft); color:var(--no); text-decoration:line-through}
+.wb:disabled{cursor:default}
+.fb{border-radius:12px; padding:9px 12px; margin:8px 0; font-size:15.5px; line-height:1.55}
+.fb.ok{background:var(--ok-soft); border:1px solid #BFD6CC}
+.fb.no{background:var(--no-soft); border:1px solid #E8C4C4}
+.fb b.h{display:block}
+.xfig{max-width:330px; margin:8px auto}
+.xfig svg{display:block; width:100%; height:auto}
+.proof{background:#fff; border:2px solid var(--ok); border-radius:12px; padding:10px 14px; margin:12px 0; font-size:16px; line-height:1.65}
+.proof .r{display:block}
+.proof .r.k{font-weight:700}
+.big{display:block; width:100%; border:2px solid var(--accent); background:var(--accent); color:#fff; border-radius:13px; padding:12px; font:inherit; font-size:17px; font-weight:700; margin:12px 0 6px; cursor:pointer}
+.big.ghost{background:#fff; color:var(--accent)}
+.score{text-align:center; font-size:15px; color:var(--soft); margin:6px 0}
+.score b{font-size:22px; color:var(--ink)}
+.list a, .list button.li{display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%; text-align:left; border:1px solid var(--rule); border-radius:12px; background:#fff; padding:9px 12px; margin:6px 0; font:inherit; font-size:16px; cursor:pointer; color:var(--ink)}
+.li .stt{font-size:13px; font-weight:700; color:var(--soft); white-space:nowrap}
+.li .stt.d{color:var(--ok)}
+
+/* prova */
+.pq{border-top:1px solid var(--rule); padding-top:12px; margin-top:12px}
+.pq .pn{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.part{border:1px solid var(--rule); border-radius:12px; padding:8px 12px; margin:8px 0; background:#FDFCF9}
+.part .pl{font-weight:700; font-size:15.5px}
+.part .ps{display:none; font-size:15.5px; line-height:1.6; margin-top:6px}
+.part.open .ps{display:block}
+.sbt{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-top:8px}
+.sbt button{border:2px solid var(--rule); background:#fff; border-radius:10px; padding:7px 4px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; color:var(--soft)}
+.sbt .s1.on{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.sbt .s5.on{border-color:#E2C36B; background:var(--mid-soft); color:var(--mid)}
+.sbt .s0.on{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.vt{font-size:40px; font-weight:800; text-align:center; line-height:1.1; margin:6px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Matematica · geometria · Unità 2</div>
+  <h1>Il triangolo isoscele: dimostrazioni passo passo</h1>
+  <p class="lead">Un solo schema in 7 passi, sempre uguale, per tutte le dimostrazioni. Prima lo schema e la teoria, poi le catene di deduzioni, le dimostrazioni guidate e una prova come in classe.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<p class="foot">Dal libro: Tema A, Unità 2, paragrafo 2 «Proprietà dei triangoli isosceli» (pagine 51–52), «Metodo di studio» (pagina 61) ed esercizi 55–79. Si usano solo il primo e il secondo criterio di congruenza.</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.02,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+/* ═══════ figure ═══════ */
+const INK="#1B2430", RED="#C2412D", BLUE="#2A6FB0", GREEN="#2F8A5B", GREY="#9AA3AE", GOLD="#B08A00", PURP="#7A4FB0";
+const LY="#FBF0C9", LR="#F6D3CB", LB="#D2E2F3";
+function Q(x,y){ return {x:x,y:y}; }
+function mid(a,b){ return Q((a.x+b.x)/2,(a.y+b.y)/2); }
+function lerp(a,b,t){ return Q(a.x+(b.x-a.x)*t, a.y+(b.y-a.y)*t); }
+function dist(a,b){ return Math.hypot(a.x-b.x,a.y-b.y); }
+function inter(a,b,c,d){ const d1x=b.x-a.x,d1y=b.y-a.y,d2x=d.x-c.x,d2y=d.y-c.y, den=d1x*d2y-d1y*d2x;
+  const t=((c.x-a.x)*d2y-(c.y-a.y)*d2x)/den; return lerp(a,b,t); }
+function bisFoot(V,X,Y){ const a=dist(V,X), b=dist(V,Y); return lerp(X,Y,a/(a+b)); }
+function n1(v){ return Math.round(v*10)/10; }
+function S(vb,b,lab){ return '<svg viewBox="'+vb+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+(lab||"figura")+'">'+b+'</svg>'; }
+function sg(a,b,o){ o=o||{}; return '<line x1="'+n1(a.x)+'" y1="'+n1(a.y)+'" x2="'+n1(b.x)+'" y2="'+n1(b.y)+'" stroke="'+(o.c||INK)+'" stroke-width="'+(o.w||2.6)+'" stroke-linecap="round"'+(o.d?' stroke-dasharray="6 5"':'')+'/>'; }
+function pg(pts,fill,op){ return '<polygon points="'+pts.map(p=>n1(p.x)+","+n1(p.y)).join(" ")+'" fill="'+fill+'" fill-opacity="'+(op||1)+'" stroke="none"/>'; }
+function dt(a,c){ return '<circle cx="'+n1(a.x)+'" cy="'+n1(a.y)+'" r="3.4" fill="'+(c||INK)+'"/>'; }
+function lb(a,t,dx,dy,o){ o=o||{}; return '<text x="'+n1(a.x+dx)+'" y="'+n1(a.y+dy)+'" font-size="'+(o.fs||16)+'" font-style="italic" font-family="Times New Roman,Georgia,serif" fill="'+(o.c||INK)+'" text-anchor="middle">'+t+'</text>'; }
+/* trattini di congruenza su un segmento */
+function tk(a,b,n,c){ const m=mid(a,b), L=dist(a,b), ux=(b.x-a.x)/L, uy=(b.y-a.y)/L, px=-uy, py=ux; let h='';
+  for(let i=0;i<n;i++){ const off=(i-(n-1)/2)*5, cx=m.x+ux*off, cy=m.y+uy*off;
+    h+=sg(Q(cx-px*6,cy-py*6),Q(cx+px*6,cy+py*6),{c:c||RED,w:2}); } return h; }
+/* archetto di angolo in V tra le semirette VA e VB */
+function ar(V,A,B,o){ o=o||{}; const r=o.r||18, a1=Math.atan2(A.y-V.y,A.x-V.x), a2=Math.atan2(B.y-V.y,B.x-V.x);
+  let d=a2-a1; while(d<=-Math.PI) d+=2*Math.PI; while(d>Math.PI) d-=2*Math.PI;
+  const sw=d>0?1:0, c=o.c||RED; let h='';
+  const pt=(rr,a)=>n1(V.x+rr*Math.cos(a))+","+n1(V.y+rr*Math.sin(a));
+  if(o.fill) h+='<path d="M'+n1(V.x)+","+n1(V.y)+' L'+pt(r,a1)+' A'+r+','+r+' 0 0 '+sw+' '+pt(r,a2)+' Z" fill="'+o.fill+'"/>';
+  for(let i=0;i<(o.n||1);i++){ const rr=r+i*4; h+='<path d="M'+pt(rr,a1)+' A'+rr+','+rr+' 0 0 '+sw+' '+pt(rr,a2)+'" fill="none" stroke="'+c+'" stroke-width="1.8"/>'; }
+  if(o.dot){ const am=a1+d/2; h+='<circle cx="'+n1(V.x+r*0.62*Math.cos(am))+'" cy="'+n1(V.y+r*0.62*Math.sin(am))+'" r="2.3" fill="'+c+'"/>'; }
+  return h; }
+/* angolo retto in V */
+function rt(V,A,B,s){ s=s||10; const la=dist(V,A), lbb=dist(V,B), ua=Q((A.x-V.x)/la,(A.y-V.y)/la), ub=Q((B.x-V.x)/lbb,(B.y-V.y)/lbb);
+  const p1=Q(V.x+ua.x*s,V.y+ua.y*s), p2=Q(p1.x+ub.x*s,p1.y+ub.y*s), p3=Q(V.x+ub.x*s,V.y+ub.y*s);
+  return '<path d="M'+n1(p1.x)+","+n1(p1.y)+' L'+n1(p2.x)+","+n1(p2.y)+' L'+n1(p3.x)+","+n1(p3.y)+'" fill="none" stroke="'+INK+'" stroke-width="1.6"/>'; }
+function tri(A,B,C,fill){ return pg([A,B,C],fill||LY)+sg(A,B)+sg(B,C)+sg(C,A); }
+function hl(T1,T2){ return (T1?pg(T1,LB,.75):'')+(T2?pg(T2,LR,.6):''); }
+
+/* triangolo isoscele di base AB */
+const A0=Q(40,200), B0=Q(260,200), C0=Q(150,40);
+const VB="0 0 300 228";
+function isoBase(extra, labs){ return extra + lb(A0,"A",-10,18) + lb(B0,"B",10,18) + lb(C0,"C",0,-10) + (labs||''); }
+
+const FIG = {
+ /* teoria */
+ parole: ()=>{ const H=mid(A0,B0); return S(VB, tri(A0,B0,C0)+ar(A0,B0,C0,{c:GREEN,r:22})+ar(B0,C0,A0,{c:GREEN,r:22})+ar(C0,A0,B0,{c:RED,r:22})
+   +tk(A0,C0,1)+tk(B0,C0,1)+isoBase('',lb(H,"base",0,20,{fs:13})+lb(Q(70,110),"lato",-14,0,{fs:13})+lb(Q(230,110),"lato",14,0,{fs:13})), "triangolo isoscele"); },
+ t2: (h)=>{ const H=mid(A0,B0); return S(VB, (h?hl([A0,H,C0],[B0,H,C0]):'')+tri(A0,B0,C0,h?'none':LY)+sg(C0,H,{c:RED})+ar(C0,A0,H,{r:30,c:RED})+ar(C0,H,B0,{r:30,c:RED})
+   +tk(A0,C0,1)+tk(B0,C0,1)+(h?ar(A0,B0,C0,{c:GREEN,r:22})+ar(B0,C0,A0,{c:GREEN,r:22})+rt(H,B0,C0):'')+dt(H)+isoBase('',lb(H,"H",0,20)), "bisettrice CH"); },
+ t4: ()=>S(VB, tri(A0,B0,C0)+ar(A0,B0,C0,{c:GREEN,r:22})+ar(B0,C0,A0,{c:GREEN,r:22})+isoBase(''), "triangolo con due angoli congruenti"),
+ crit1: ()=>{ const A=Q(30,150),B=Q(200,150),C=Q(80,30); return S("0 0 230 175", tri(A,B,C)+sg(A,B,{c:RED,w:5})+sg(A,C,{c:RED,w:5})+ar(A,B,C,{r:24,c:BLUE,fill:LB})
+   +lb(A,"A",-10,16)+lb(B,"B",8,16)+lb(C,"C",0,-8), "primo criterio"); },
+ crit2: ()=>{ const A=Q(30,150),B=Q(200,150),C=Q(80,30); return S("0 0 230 175", tri(A,B,C)+sg(A,B,{c:RED,w:5})+ar(A,B,C,{r:24,c:BLUE,fill:LB})+ar(B,C,A,{r:24,c:BLUE,fill:LB})
+   +lb(A,"A",-10,16)+lb(B,"B",8,16)+lb(C,"C",0,-8), "secondo criterio"); },
+ nocrit: ()=>{ const A=Q(30,150),B=Q(200,150),C=Q(80,30); return S("0 0 230 175", tri(A,B,C)+sg(A,B,{c:RED,w:5})+sg(B,C,{c:RED,w:5})+ar(A,B,C,{r:24,c:BLUE,fill:LB})
+   +lb(A,"A",-10,16)+lb(B,"B",8,16)+lb(C,"C",0,-8), "angolo non compreso"); },
+
+ /* catene, come gli esercizi 55 e 56 */
+ c1: ()=>{ const D=Q(60,40),C=Q(240,40),A=Q(30,190),B=Q(270,190),P=Q(150,190);
+   return S("0 0 300 220", pg([A,B,C,D],LY)+sg(D,C)+sg(D,A)+sg(C,B)+sg(A,B)+sg(P,D)+sg(P,C)+tk(P,D,1)+tk(P,C,1)
+     +ar(D,A,C,{c:RED,r:18})+ar(C,D,B,{c:RED,r:18})+ar(P,A,D,{c:PURP,r:16,n:2})+ar(P,C,B,{c:PURP,r:16,n:2})
+     +lb(D,"D",-6,-8)+lb(C,"C",6,-8)+lb(A,"A",-6,20)+lb(B,"B",6,20)+lb(P,"P",0,20), "figura della catena 1"); },
+ c2: ()=>{ const D=Q(60,40),C=Q(240,40),A=Q(30,190),B=Q(270,190),P=Q(150,190);
+   return S("0 0 300 220", pg([A,B,C,D],LY)+sg(D,C)+sg(D,A)+sg(C,B)+sg(A,B)+sg(P,D)+sg(P,C)+tk(D,A,1)+tk(C,B,1)
+     +ar(D,P,C,{c:GOLD,r:26,dot:1})+ar(C,D,P,{c:GOLD,r:26,dot:1})+ar(D,A,P,{c:BLUE,r:18})+ar(C,P,B,{c:BLUE,r:18})
+     +lb(D,"D",-6,-8)+lb(C,"C",6,-8)+lb(A,"A",-6,20)+lb(B,"B",6,20)+lb(P,"P",0,20), "figura della catena 2"); },
+
+ /* dimostrazioni guidate */
+ g1: (h)=>{ const M=mid(A0,C0), N=mid(B0,C0);
+   return S(VB, (h?hl([A0,M,B0],[B0,N,A0]):'')+tri(A0,B0,C0,h?'none':LY)+sg(A0,N,{c:RED})+sg(B0,M,{c:RED})+tk(A0,M,1)+tk(M,C0,1)+tk(C0,N,1)+tk(N,B0,1)
+     +(h?ar(A0,B0,C0,{c:GREEN,r:22})+ar(B0,C0,A0,{c:GREEN,r:22}):'')+dt(M)+dt(N)+isoBase('',lb(M,"M",-12,0)+lb(N,"N",12,0)), "esercizio 1"); },
+ g2: (h)=>{ const P=lerp(A0,B0,.27), R=lerp(A0,B0,.73);
+   return S(VB, (h?hl([A0,P,C0],[B0,R,C0]):'')+tri(A0,B0,C0,h?'none':LY)+sg(C0,P,{c:RED})+sg(C0,R,{c:RED})+tk(A0,C0,1)+tk(B0,C0,1)+tk(A0,P,2,BLUE)+tk(R,B0,2,BLUE)
+     +(h?ar(A0,B0,C0,{c:GREEN,r:22})+ar(B0,C0,A0,{c:GREEN,r:22}):'')+dt(P)+dt(R)+isoBase('',lb(P,"P",0,20)+lb(R,"Q",0,20)), "esercizio 2"); },
+ g3: (h)=>{ const A=Q(85,175),B=Q(215,175),C=Q(150,45),P=Q(25,175),R=Q(275,175);
+   return S("0 0 300 205", (h?hl([A,P,C],[B,R,C]):'')+pg([A,B,C],h?'none':LY)+sg(P,R)+sg(A,C)+sg(B,C)+sg(P,C,{c:RED})+sg(R,C,{c:RED})+tk(A,C,1)+tk(B,C,1)+tk(P,A,2,BLUE)+tk(B,R,2,BLUE)
+     +(h?ar(A,C,P,{c:GREEN,r:18})+ar(B,R,C,{c:GREEN,r:18}):'')+dt(A)+dt(B)+dt(P)+dt(R)
+     +lb(A,"A",0,20)+lb(B,"B",0,20)+lb(C,"C",0,-10)+lb(P,"P",0,20)+lb(R,"Q",0,20), "esercizio 3"); },
+ g4: (h)=>{ const D=bisFoot(A0,B0,C0), E=bisFoot(B0,A0,C0);
+   return S(VB, (h?hl([A0,D,B0],[B0,E,A0]):'')+tri(A0,B0,C0,h?'none':LY)+sg(A0,D,{c:RED})+sg(B0,E,{c:RED})+tk(A0,C0,1)+tk(B0,C0,1)
+     +ar(A0,B0,D,{c:BLUE,r:30})+ar(A0,D,C0,{c:BLUE,r:30})+ar(B0,E,A0,{c:PURP,r:30,n:2})+ar(B0,C0,E,{c:PURP,r:30,n:2})
+     +dt(D)+dt(E)+isoBase('',lb(D,"D",12,2)+lb(E,"E",-12,2)), "esercizio 4"); },
+ g5: (h)=>{ const P=bisFoot(A0,B0,C0), Rq=bisFoot(B0,A0,C0), R=inter(A0,P,B0,Rq);
+   return S(VB, (h?hl([A0,R,B0]):'')+tri(A0,B0,C0,h?'none':LY)+sg(A0,P,{c:RED})+sg(B0,Rq,{c:RED})+tk(A0,C0,1)+tk(B0,C0,1)
+     +ar(A0,B0,P,{c:BLUE,r:30})+ar(A0,P,C0,{c:BLUE,r:30})+ar(B0,Rq,A0,{c:PURP,r:30,n:2})+ar(B0,C0,Rq,{c:PURP,r:30,n:2})
+     +dt(P)+dt(Rq)+dt(R)+isoBase('',lb(P,"P",12,2)+lb(Rq,"Q",-12,2)+lb(R,"R",0,-9)), "esercizio 5"); },
+ g6: (h)=>{ const K=mid(A0,B0), P=lerp(C0,K,.55), M=mid(A0,K), N=mid(K,B0);
+   return S(VB, (h?hl([P,M,K],[P,N,K]):'')+tri(A0,B0,C0,h?'none':LY)+sg(C0,K,{c:RED})+sg(P,M,{c:BLUE})+sg(P,N,{c:BLUE})+tk(A0,C0,1)+tk(B0,C0,1)
+     +ar(C0,A0,K,{c:RED,r:30})+ar(C0,K,B0,{c:RED,r:30})+tk(A0,M,2,PURP)+tk(M,K,2,PURP)+tk(K,N,3,GOLD)+tk(N,B0,3,GOLD)
+     +(h?rt(K,B0,C0):'')+dt(K)+dt(P)+dt(M)+dt(N)+isoBase('',lb(K,"K",0,20)+lb(M,"M",0,20)+lb(N,"N",0,20)+lb(P,"P",12,0)), "esercizio 6"); },
+ g7: (h)=>{ const K=mid(A0,B0), P=lerp(C0,K,.74), M=mid(A0,C0), N=mid(B0,C0);
+   return S(VB, (h?hl([P,M,C0],[P,N,C0]):'')+tri(A0,B0,C0,h?'none':LY)+sg(C0,K,{c:RED})+sg(P,M,{c:BLUE})+sg(P,N,{c:BLUE})+tk(A0,M,1)+tk(M,C0,1)+tk(C0,N,1)+tk(N,B0,1)
+     +tk(A0,K,2,PURP)+tk(K,B0,2,PURP)+(h?ar(C0,M,P,{c:RED,r:30})+ar(C0,P,N,{c:RED,r:30}):'')
+     +dt(K)+dt(P)+dt(M)+dt(N)+isoBase('',lb(K,"K",0,20)+lb(M,"M",-12,0)+lb(N,"N",12,0)+lb(P,"P",12,0)), "esercizio 7"); },
+ g8: (h)=>{ const P=Q(150,138), C=C0, A=A0, B=B0;
+   return S(VB, (h===1?hl([A,B,P]):h===2?hl([A,P,C],[B,P,C]):'')+tri(A,B,C,h?'none':LY)+sg(A,P,{c:RED})+sg(B,P,{c:RED})+sg(C,P,{c:RED,d:1})+tk(A,C,1)+tk(B,C,1)
+     +ar(A,P,C,{c:BLUE,r:34})+ar(B,C,P,{c:BLUE,r:34})+dt(P)+isoBase('',lb(P,"P",12,8)), "esercizio 8"); },
+ g9: (h)=>{ const A=Q(40,115),B=Q(150,205),C=Q(260,115),D=Q(150,25);
+   return S("0 0 300 228", (h?hl([A,B,C],[A,D,C]):'')+pg([A,B,C,D],h?'none':LY)+sg(A,B)+sg(B,C)+sg(C,D)+sg(D,A)+(h?sg(A,C,{c:RED,d:1}):'')+tk(A,B,1)+tk(B,C,1)
+     +ar(A,B,D,{c:BLUE,r:24})+ar(C,D,B,{c:BLUE,r:24})+dt(A)+dt(B)+dt(C)+dt(D)+lb(A,"A",-12,6)+lb(B,"B",0,20)+lb(C,"C",12,6)+lb(D,"D",0,-9), "esercizio 9"); },
+ g10: (h)=>{ const H=mid(A0,B0), P=lerp(C0,H,.62), R1=inter(A0,P,B0,C0), R2=inter(B0,P,A0,C0);
+   return S(VB, (h===1?hl([A0,H,P],[B0,H,P]):h===2?hl([A0,P,R2],[B0,P,R1]):'')+tri(A0,B0,C0,h?'none':LY)+sg(C0,H)+sg(A0,R1,{c:RED})+sg(B0,R2,{c:RED})+rt(H,B0,C0)+tk(A0,C0,1)+tk(B0,C0,1)
+     +dt(H)+dt(P)+dt(R1)+dt(R2)+isoBase('',lb(H,"H",0,20)+lb(P,"P",13,4)+lb(R1,"Q",12,0)+lb(R2,"R",-12,0)), "esercizio 10"); },
+
+ /* prova */
+ e1: ()=>FIG.t2(1),
+ e2: ()=>{ const A=Q(40,205),B=Q(260,205),C=Q(150,118), D=lerp(A,C,1.55), E=lerp(B,C,1.55);
+   return S("0 0 300 230", hl([A,C,E],[B,C,D])+sg(A,B)+sg(A,D)+sg(B,E)+sg(A,E,{c:RED})+sg(B,D,{c:RED})+tk(A,C,1)+tk(B,C,1)+tk(C,D,2,BLUE)+tk(C,E,2,BLUE)
+     +ar(C,A,E,{c:GREEN,r:16})+ar(C,D,B,{c:GREEN,r:16})+dt(C)+dt(D)+dt(E)+lb(A,"A",-8,18)+lb(B,"B",8,18)+lb(C,"C",0,24)+lb(D,"D",8,-6)+lb(E,"E",-8,-6), "prova 2"); },
+ e3: ()=>{ const H=mid(A0,B0), D=lerp(C0,H,.55);
+   return S(VB, hl([A0,H,D],[B0,H,D])+sg(A0,B0)+sg(A0,C0)+sg(B0,C0)+sg(C0,H)+sg(A0,D,{c:RED})+sg(B0,D,{c:RED})+rt(H,B0,C0)+tk(A0,C0,1)+tk(B0,C0,1)+tk(A0,H,2,BLUE)+tk(H,B0,2,BLUE)
+     +dt(H)+dt(D)+isoBase('',lb(H,"H",0,20)+lb(D,"D",12,0)), "prova 3"); },
+ e4: ()=>{ const A=Q(40,205),B=Q(260,205),C=Q(150,14.5), P=Q(150,205-63.5);
+   return S("0 0 300 230", hl([A,P,C])+sg(A,B)+sg(B,C)+sg(C,A)+sg(A,P,{c:RED})+sg(C,P,{c:RED})+tk(A,B,1)+tk(B,C,1)+tk(C,A,1)
+     +ar(A,B,P,{c:BLUE,r:30})+ar(A,P,C,{c:BLUE,r:30})+ar(C,A,P,{c:PURP,r:30,n:2})+ar(C,P,B,{c:PURP,r:30,n:2})+dt(P)
+     +lb(A,"A",-8,18)+lb(B,"B",8,18)+lb(C,"C",0,-2)+lb(P,"P",12,10), "prova 4"); },
+ e5: ()=>{ const B=Q(50,200),C=Q(250,200),A=Q(95,50),A2=Q(205,50), O=inter(A,C,A2,B);
+   return S("0 0 300 228", hl(null,[B,O,C])+sg(B,C)+sg(A,B)+sg(A,C)+sg(A2,C)+sg(A2,B)+tk(A,B,1)+tk(A2,C,1)+ar(B,C,A,{c:BLUE,r:24})+ar(C,A2,B,{c:BLUE,r:24})
+     +dt(O)+lb(B,"B",-8,18)+lb(C,"C",8,18)+lb(A,"A",-6,-8)+lb(A2,"A′",8,-8)+lb(O,"O",0,-12), "prova 5"); }
+};
+
+/* ═══════ la cassetta dei perché: sempre gli stessi, sempre nello stesso ordine ═══════ */
+const WHY = [
+ ["ip","per ipotesi"],
+ ["com","in comune"],
+ ["cos","per costruzione"],
+ ["base","angoli alla base di un triangolo isoscele"],
+ ["meta","metà di elementi congruenti"],
+ ["diff","somme o differenze di elementi congruenti"],
+ ["opp","opposti al vertice"],
+ ["supp","supplementari di angoli congruenti"],
+ ["retti","angoli retti"],
+ ["t3","teorema 3: bisettrice = mediana = altezza"],
+ ["prima","dimostrato prima"]
+];
+const PASSO = ["","Figura","Ipotesi e tesi","Idea","Tre coppie","Criterio","Conclusione","Controllo"];
+const PARTI = ["1 · Lo schema","2 · Teoria","3 · Catene","4 · Dimostrazioni guidate","5 · Prova"];
+
+/* ═══════ le carte di teoria ═══════ */
+const MODEL = 'IPOTESI  ...\nTESI     ...\n(COSTRUZIONE  ...)\n\nConsidero i triangoli ... e ...; essi hanno:\n•  ... ≅ ...   perché ...\n•  ... ≅ ...   perché ...\n•  ... ≅ ...   perché ...\nQuindi sono congruenti per il ... criterio.\nIn particolare ... ≅ ...\nperché elementi corrispondenti.';
+
+const CARDS = [
+{parte:0, t:"Lo schema in 7 passi",
+ hook:"Ogni dimostrazione si fa con gli <b>stessi 7 passi</b>, sempre nello stesso ordine. Imparali come una scaletta: in classe ti basta seguirla.",
+ extra:'<ol class="steps7">'
+  +'<li class="s"><b>Figura</b>Disegno grande e segno con lo stesso simbolo gli elementi congruenti per ipotesi. <i>Cosa mi dicono i dati?</i></li>'
+  +'<li class="s"><b>Ipotesi e tesi</b>Riscrivo il testo come «se… allora…». L\'ipotesi viene prima di «allora», la tesi dopo.</li>'
+  +'<li class="s"><b>Idea</b>Quali due triangoli contengono gli elementi della tesi? Serve una costruzione? Se la tesi è «è isoscele», posso trovare due angoli congruenti e usare il teorema 4?</li>'
+  +'<li class="s"><b>Tre coppie</b>Scrivo tre coppie di elementi congruenti, ognuna con il suo perché preso dalla cassetta dei perché.</li>'
+  +'<li class="s"><b>Criterio</b>Primo: due lati e l\'angolo compreso. Secondo: un lato e i due angoli ai suoi estremi.</li>'
+  +'<li class="s"><b>Conclusione</b>«In particolare… perché elementi corrispondenti»: ecco la tesi.</li>'
+  +'<li class="s"><b>Controllo</b>Ho usato tutte le ipotesi? Ogni riga ha il suo perché?</li></ol>'
+  +'<span class="hl">Il modello da copiare sul quaderno</span><div class="model">'+MODEL+'</div>',
+ trap:"Il libro dà due consigli. Primo: capisci l'<b>idea alla base</b>, cioè quali triangoli e perché. Secondo: dopo aver capito una dimostrazione, chiudi il libro e <b>riscrivila tutta</b> sul quaderno.",
+ ask:["Qual è il passo 3, e quale domanda ti fai?","L'idea: quali due triangoli contengono gli elementi della tesi? Serve una costruzione?"]},
+
+{parte:0, t:"La cassetta dei perché",
+ hook:"Ogni coppia congruente ha bisogno di un perché. I perché sono quasi sempre questi undici: tienili come una cassetta degli attrezzi.",
+ extra:'<div class="why2">'
+  +'<div class="s"><b>per ipotesi</b>: è scritto nel testo, per esempio «AC ≅ BC» o «AP ≅ QB».</div>'
+  +'<div class="s"><b>in comune</b>: lo stesso lato, o lo stesso angolo, appartiene a tutti e due i triangoli.</div>'
+  +'<div class="s"><b>per costruzione</b>: l\'ho disegnato io così, per esempio la bisettrice che ho tracciato.</div>'
+  +'<div class="s"><b>angoli alla base di un triangolo isoscele</b>: sono congruenti per il teorema 2.</div>'
+  +'<div class="s"><b>metà di elementi congruenti</b>: punti medi di lati congruenti, bisettrici di angoli congruenti.</div>'
+  +'<div class="s"><b>somme o differenze di elementi congruenti</b>: tolgo, o aggiungo, pezzi congruenti a pezzi congruenti.</div>'
+  +'<div class="s"><b>opposti al vertice</b>: due rette che si incrociano a X.</div>'
+  +'<div class="s"><b>supplementari di angoli congruenti</b>: gli angoli «di fuori» quando prolunghi un lato.</div>'
+  +'<div class="s"><b>angoli retti</b>: tutti gli angoli retti sono congruenti; li danno le altezze.</div>'
+  +'<div class="s"><b>teorema 3</b>: nel triangolo isoscele bisettrice, mediana e altezza relative alla base coincidono.</div>'
+  +'<div class="s"><b>dimostrato prima</b>: l\'ho ottenuto in un passaggio precedente.</div></div>',
+ trap:"Non scrivere mai una coppia senza perché: in classe una riga senza perché vale zero.",
+ ask:["Prolunghi la base AB oltre A e oltre B. Con quale perché dici che i due angoli esterni sono congruenti?","Supplementari di angoli congruenti: sono i supplementari degli angoli alla base."]},
+
+{parte:0, t:"I due criteri",
+ hook:"Primo criterio: <b>L-A-L</b>, due lati e l'angolo <b>in mezzo</b>. Secondo criterio: <b>A-L-A</b>, un lato e i due angoli <b>ai suoi estremi</b>.",
+ figs:[["crit1","primo: due lati e l'angolo compreso","si"],["crit2","secondo: un lato e i due angoli adiacenti","si"],["nocrit","due lati e un angolo non compreso","no"]],
+ def:["[Primo criterio]: se due triangoli hanno ordinatamente congruenti [due lati] e l'[angolo tra essi compreso], allora sono congruenti.",
+      "[Secondo criterio]: se due triangoli hanno ordinatamente congruenti [un lato] e i [due angoli ad esso adiacenti], allora sono congruenti."],
+ trap:"Prima di scrivere «primo criterio» guarda la figura: l'angolo deve stare <b>tra</b> i due lati. Se sta da un'altra parte, il criterio non vale.",
+ ask:["Hai AB, AC e l'angolo in B. Puoi usare il primo criterio?","No: l'angolo compreso tra AB e AC è quello in A."]},
+
+{parte:0, t:"Gli elementi corrispondenti",
+ hook:"In due triangoli congruenti, <b>di fronte</b> ad angoli congruenti stanno lati congruenti, e di fronte a lati congruenti stanno angoli congruenti.",
+ def:["Scrivi i due triangoli con i vertici [nello stesso ordine]: AMB e BNA vuol dire A con B, M con N, B con A.",
+      "Allora sono [corrispondenti] i lati con le stesse posizioni: BM, cioè 2° e 3° vertice del primo, corrisponde ad AN, 2° e 3° del secondo.",
+      "Sono corrispondenti anche i lati che stanno [di fronte ad angoli congruenti]."],
+ vita:"È come due copie dello stesso disegno su due fogli: per trovare il pezzo che corrisponde, guardi dove sta, non come si chiama.",
+ trap:"Nella conclusione scrivi sempre «perché elementi corrispondenti in triangoli congruenti»: è il perché dell'ultima riga.",
+ ask:["I triangoli ADB e BEA sono congruenti, con l'angolo in B del primo congruente all'angolo in A del secondo. Quale lato corrisponde ad AD?","BE: AD sta di fronte all'angolo in B, BE di fronte all'angolo in A."]},
+
+{parte:1, t:"Il triangolo isoscele: le parole",
+ hook:"«Isoscele» viene dal greco: <b>isos</b> uguale e <b>skélos</b> gamba, cioè «gambe uguali». Le gambe sono i lati obliqui.",
+ figs:[["parole","lati obliqui, base, angoli alla base (verdi), angolo al vertice (rosso)",""]],
+ def:["Un triangolo è [isoscele] se ha [due lati congruenti], i [lati obliqui]. Il terzo lato è la [base].",
+      "I due angoli adiacenti alla base sono gli [angoli alla base]; l'altro è l'[angolo al vertice].",
+      "[Mediana] relativa a un lato: segmento che unisce il punto medio del lato al vertice opposto.",
+      "[Bisettrice] di un angolo del triangolo: il pezzo di bisettrice tra il vertice e il lato opposto.",
+      "[Altezza] relativa a un lato: segmento che parte dal vertice opposto ed è perpendicolare al lato."],
+ trap:"«Isoscele sulla base AB» vuol dire: la base è AB, quindi i lati obliqui congruenti sono AC e BC.",
+ ask:["ABC è isoscele sulla base BC. Quali lati sono congruenti?","AB e AC."]},
+
+{parte:1, t:"Teorema 2: gli angoli alla base",
+ hook:"Lati obliqui uguali → angoli alla base uguali. Dalle «gambe» agli angoli.",
+ figs:[["t2","costruzione: la bisettrice CH",""]],
+ def:["[Enunciato]: se un triangolo è [isoscele], allora ha [gli angoli alla base congruenti].",
+      "[Ipotesi]: AC ≅ BC. [Tesi]: {CAB} ≅ {CBA}.",
+      "[Costruzione preliminare]: traccio la [bisettrice] CH dell'angolo C.",
+      "Triangoli AHC e BHC: AC ≅ BC [per ipotesi]; CH [in comune]; {ACH} ≅ {BCH} [per costruzione]. [Primo criterio].",
+      "In particolare {CAH} ≅ {CBH} perché [elementi corrispondenti]."],
+ vita:"Le due falde di un tetto a capanna sono lunghe uguali: gli angoli che formano con la trave orizzontale sono uguali.",
+ trap:"Dalla stessa dimostrazione escono anche due regali: AH ≅ HB e gli angoli in H sono retti. È il teorema 3.",
+ ask:["Qual è la costruzione preliminare del teorema 2?","La bisettrice CH dell'angolo al vertice C."]},
+
+{parte:1, t:"Teorema 3 e corollario: tre segmenti in uno",
+ hook:"Nel triangolo isoscele, la bisettrice dell'angolo al vertice, la mediana e l'altezza relative alla base sono <b>lo stesso segmento</b>. Se ne hai uno, hai gli altri due.",
+ figs:[["t2","CH: bisettrice, mediana e altezza",""]],
+ def:["[Teorema 3]: in un triangolo isoscele la [bisettrice] dell'angolo al vertice è anche [mediana] e [altezza] relativa alla base.",
+      "[Corollario] a: la [mediana] relativa alla base è anche altezza e bisettrice dell'angolo al vertice.",
+      "[Corollario] b: l'[altezza] relativa alla base è anche mediana e bisettrice dell'angolo al vertice."],
+ extra:'<div class="scroll"><table class="nm"><tr><th>se il testo ti dà…</th><th>allora hai anche…</th></tr>'
+  +'<tr><td>la bisettrice CK</td><td class="s">K punto medio di AB (AK ≅ KB) e angoli retti in K</td></tr>'
+  +'<tr><td>la mediana CK</td><td class="s">angoli in C congruenti ({ACK} ≅ {BCK}) e angoli retti in K</td></tr>'
+  +'<tr><td>l\'altezza CH</td><td class="s">H punto medio di AB e angoli in C congruenti</td></tr></table></div>',
+ trap:"Vale solo per il segmento che parte dal vertice C e arriva alla base. In un triangolo qualsiasi la mediana e la bisettrice sono segmenti diversi.",
+ ask:["Il testo dice: «CH è l'altezza del triangolo isoscele ABC di base AB». Cosa puoi scrivere su AH e HB?","AH ≅ HB, perché l'altezza relativa alla base è anche mediana (corollario)."]},
+
+{parte:1, t:"Il teorema inverso: teoremi 4 e 5",
+ hook:"Il teorema inverso scambia ipotesi e tesi: da «se p, allora q» a «se q, allora p». Non sempre è vero!",
+ figs:[["t4","due angoli congruenti → isoscele",""]],
+ def:["[Teorema 4]: se un triangolo ha [due angoli congruenti], allora è [isoscele].",
+      "[Ipotesi]: {A} ≅ {B}. [Tesi]: AC ≅ BC.",
+      "Si dimostra tracciando le [bisettrici] degli angoli A e B e usando due volte il [secondo criterio].",
+      "[Teorema 5]: un triangolo è isoscele [se e solo se] ha due angoli congruenti. Unisce il teorema 2 e il teorema 4."],
+ vita:"«Se un animale è un gatto, allora ha quattro zampe»: vero. L'inversa «se ha quattro zampe, allora è un gatto»: falsa, potrebbe essere un cane. Per il triangolo isoscele invece l'inversa è vera.",
+ trap:"Teorema 2: da isoscele ad angoli congruenti. Teorema 4: da angoli congruenti a isoscele. Nel compito scrivi quale stai usando.",
+ ask:["Hai dimostrato che due angoli di un triangolo sono congruenti. Quale teorema ti dice che è isoscele?","Il teorema 4, l'inverso del teorema 2."]},
+
+{parte:1, t:"Due strade per dimostrare «è isoscele»",
+ hook:"Quando la tesi è «il triangolo XYZ è isoscele», hai <b>due strade</b>. Al passo 3 scegli la più corta.",
+ def:["[Strada 1]: dimostro che [due lati] sono congruenti, trovando due triangoli congruenti che li contengono.",
+      "[Strada 2]: dimostro che [due angoli] del triangolo sono congruenti, poi uso il [teorema 4]."],
+ extra:'<div class="lad"><div class="ld c1 s"><b>Strada 1 · due lati</b>Esercizi guidati 2 e 3: i lati CP e CQ stanno in due triangoli congruenti.</div>'
+  +'<div class="ld c2 s"><b>Strada 2 · due angoli</b>Esercizi guidati 5, 8 e 9: gli angoli sono metà o differenze di angoli congruenti.</div></div>',
+ trap:"Domanda da farsi: gli angoli alla base del triangolo che mi interessa sono metà, somme o differenze di angoli che conosco? Se sì, strada 2.",
+ ask:["Gli angoli in A e in B del triangolo ARB sono metà degli angoli alla base di ABC. Quale strada?","La strada 2: sono metà di angoli congruenti, quindi congruenti, e per il teorema 4 ARB è isoscele."]},
+
+{parte:2, t:"Catena 1", ex:"c1"},
+{parte:2, t:"Catena 2", ex:"c2"},
+{parte:3, t:"Elenco delle dimostrazioni guidate", list:1},
+{parte:3, t:"1 · Le mediane dei lati obliqui", ex:"g1"},
+{parte:3, t:"2 · Due punti sulla base", ex:"g2"},
+{parte:3, t:"3 · La base prolungata", ex:"g3"},
+{parte:3, t:"4 · Le bisettrici degli angoli alla base", ex:"g4"},
+{parte:3, t:"5 · Le bisettrici si incontrano in R", ex:"g5"},
+{parte:3, t:"6 · Un punto sulla bisettrice dell'angolo al vertice", ex:"g6"},
+{parte:3, t:"7 · Un punto sulla mediana", ex:"g7"},
+{parte:3, t:"8 · Un punto dentro il triangolo", ex:"g8"},
+{parte:3, t:"9 · Il quadrilatero", ex:"g9"},
+{parte:3, t:"10 · L'altezza e due prolungamenti", ex:"g10"},
+{parte:4, t:"Prova come in classe", prova:1}
+];
+
+/* ═══════ gli esercizi passo passo ═══════
+   s = passo dello schema · k: draw = disegna e confronta, ch = scegli, why = scegli il perché dalla cassetta, info = da leggere
+   o: la prima opzione è quella giusta (sullo schermo vengono mescolate) · hl: mostra la figura con i triangoli colorati */
+const EXS = {
+ c1:{src:"Come l'esercizio 55 del libro", fig:"c1",
+  txt:"In figura, per ipotesi: PD ≅ PC, {ADC} ≅ {BCD} e {DPA} ≅ {CPB}. Giustifica ogni passaggio della catena di deduzioni.",
+  steps:[
+   {k:"ch",q:"1. Il triangolo PCD è isoscele perché…",o:["PD ≅ PC per ipotesi","{PDC} ≅ {PCD}","AD ≅ BC"],w:"Un triangolo con due lati congruenti è isoscele per definizione. PD ≅ PC è scritto nell'ipotesi."},
+   {k:"ch",q:"2. {PDC} ≅ {PCD} perché…",o:["angoli alla base del triangolo isoscele PCD","opposti al vertice","per ipotesi"],w:"PCD è isoscele sulla base DC: per il teorema 2 i suoi angoli alla base sono congruenti."},
+   {k:"ch",q:"3. {ADP} ≅ {BCP} perché…",o:["differenze di angoli congruenti: {ADC} − {PDC} e {BCD} − {PCD}","angoli alla base di un triangolo isoscele","opposti al vertice"],w:"Dagli angoli congruenti {ADC} e {BCD} tolgo gli angoli congruenti del passo 2."},
+   {k:"ch",q:"4. Il triangolo APD è congruente al triangolo BPC in base al…",o:["secondo criterio: DP ≅ CP con gli angoli in D e in P","primo criterio","nessun criterio"],w:"Lato DP con i due angoli ai suoi estremi, {ADP} e {DPA}; lato CP con {BCP} e {CPB}."},
+   {k:"info",q:"Ogni passaggio usa quello prima: per questo si chiama catena. Nelle dimostrazioni succede lo stesso."}
+  ],
+  proof:["Il triangolo PCD è isoscele perché PD ≅ PC per ipotesi.","{PDC} ≅ {PCD} perché angoli alla base del triangolo isoscele PCD.","{ADP} ≅ {BCP} perché differenze di angoli congruenti.","APD ≅ BPC per il secondo criterio: DP ≅ CP, {ADP} ≅ {BCP}, {DPA} ≅ {CPB}."]},
+
+ c2:{src:"Come l'esercizio 56 del libro", fig:"c2",
+  txt:"In figura, per ipotesi: {PDC} ≅ {PCD}, {ADP} ≅ {BCP} e AD ≅ BC. Giustifica ogni passaggio della catena di deduzioni.",
+  steps:[
+   {k:"ch",q:"1. Il triangolo PCD è isoscele perché…",o:["ha due angoli congruenti (teorema 4)","ha due lati congruenti per ipotesi","è equilatero"],w:"Qui l'ipotesi dà due angoli congruenti, non due lati: si usa il teorema inverso."},
+   {k:"ch",q:"2. PD ≅ PC perché…",o:["sono i lati obliqui del triangolo isoscele PCD","per ipotesi","angoli alla base"],w:"Se PCD è isoscele sulla base DC, i lati obliqui PD e PC sono congruenti."},
+   {k:"ch",q:"3. Il triangolo APD è congruente al triangolo BPC in base al…",o:["primo criterio: AD ≅ BC, DP ≅ CP e l'angolo compreso in D e in C","secondo criterio","nessun criterio"],w:"Due lati e l'angolo compreso: in D l'angolo {ADP} sta tra AD e DP, in C l'angolo {BCP} sta tra BC e CP."},
+   {k:"ch",q:"4. {PAD} ≅ {PBC} perché…",o:["elementi corrispondenti in triangoli congruenti","angoli alla base di un triangolo isoscele","opposti al vertice"],w:"{PAD} sta di fronte a DP, {PBC} di fronte a CP, e DP ≅ CP."},
+   {k:"info",q:"Differenza con la catena 1: lì dai lati arrivavo agli angoli (teorema 2), qui dagli angoli arrivo ai lati (teorema 4)."}
+  ],
+  proof:["Il triangolo PCD è isoscele perché ha due angoli congruenti (teorema 4).","PD ≅ PC perché lati obliqui del triangolo isoscele PCD.","APD ≅ BPC per il primo criterio: AD ≅ BC, DP ≅ CP, {ADP} ≅ {BCP}.","{PAD} ≅ {PBC} perché elementi corrispondenti."]},
+
+ g1:{src:"Come gli esercizi 57 e 62 del libro", fig:"g1",
+  txt:"Il triangolo ABC è isoscele sulla base AB. M e N sono i punti medi di AC e di BC. Dimostra che AN ≅ BM.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC con la base AB in basso. Segna M e N e traccia AN e BM. Segna con lo stesso simbolo i segmenti congruenti per ipotesi."},
+   {s:2,k:"ch",q:"Qual è l'ipotesi?",o:["AC ≅ BC; AM ≅ MC; BN ≅ NC","AC ≅ BC; AN ≅ BM","AB ≅ AC; M e N punti medi"],w:"«Isoscele sulla base AB» vuol dire AC ≅ BC. «M punto medio di AC» si scrive AM ≅ MC. AN ≅ BM è la tesi: non va mai nell'ipotesi."},
+   {s:2,k:"ch",q:"Qual è la tesi?",o:["AN ≅ BM","AC ≅ BC","AM ≅ BN"],w:"La tesi è quello che viene dopo «dimostra che»."},
+   {s:3,k:"ch",q:"Quali due triangoli confronto?",o:["AMB e BNA","AMC e BNC","ABC e MNC"],hl:1,w:"Servono due triangoli che contengano AN e BM: BM sta in AMB, AN sta in BNA. Funzionerebbero anche ANC e BMC, con l'angolo C in comune."},
+   {s:4,k:"why",el:"AM ≅ BN",a:"meta",w:"AM è metà di AC, BN è metà di BC, e AC ≅ BC."},
+   {s:4,k:"why",el:"AB",a:"com",w:"AB è un lato di tutti e due i triangoli."},
+   {s:4,k:"why",el:"{MAB} ≅ {NBA}",a:"base",w:"Sono gli angoli alla base del triangolo isoscele ABC (teorema 2)."},
+   {s:5,k:"ch",q:"Quale criterio?",o:["primo criterio","secondo criterio"],w:"Due lati e l'angolo compreso: in A l'angolo sta tra AM e AB, in B tra BN e BA."},
+   {s:6,k:"ch",q:"Cosa ottieni come elementi corrispondenti?",o:["BM ≅ AN","AM ≅ BN","AC ≅ BC"],w:"BM sta di fronte all'angolo in A, AN di fronte all'angolo in B: angoli congruenti, quindi lati corrispondenti. È la tesi."},
+   {s:7,k:"info",q:"Ho usato tutte le ipotesi? «Isoscele» mi ha dato gli angoli alla base e AC ≅ BC, «punti medi» mi ha dato AM ≅ BN. Sì. AN e BM sono le mediane relative ai lati obliqui: è anche l'esercizio 62."}
+  ],
+  proof:["IPOTESI AC ≅ BC; AM ≅ MC; BN ≅ NC","TESI AN ≅ BM","Considero i triangoli AMB e BNA; essi hanno:","• AM ≅ BN perché metà di segmenti congruenti","• AB in comune","• {MAB} ≅ {NBA} perché angoli alla base del triangolo isoscele ABC","Quindi sono congruenti per il primo criterio.","In particolare BM ≅ AN perché elementi corrispondenti."]},
+
+ g2:{src:"Come l'esercizio 58 del libro", fig:"g2",
+  txt:"Il triangolo ABC è isoscele sulla base AB. Sulla base prendi due punti P e Q tali che AP ≅ QB. Dimostra che il triangolo PQC è isoscele sulla base PQ.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC, poi P e Q sulla base, con P più vicino ad A. Traccia CP e CQ. Segna AC ≅ BC con un trattino e AP ≅ QB con due."},
+   {s:2,k:"ch",q:"Qual è l'ipotesi?",o:["AC ≅ BC; AP ≅ QB","CP ≅ CQ; AP ≅ QB","AC ≅ BC; PQ ≅ AB"],w:"CP ≅ CQ è quello che devi dimostrare."},
+   {s:2,k:"ch",q:"«PQC è isoscele sulla base PQ». Cosa devi dimostrare, in simboli?",o:["CP ≅ CQ","AP ≅ QB","AC ≅ BC"],w:"Se la base è PQ, i lati obliqui sono CP e CQ."},
+   {s:3,k:"ch",q:"Quali due triangoli confronto?",o:["APC e BQC","PQC e ABC","APQ e BQC"],hl:1,w:"CP sta in APC, CQ sta in BQC."},
+   {s:4,k:"why",el:"AC ≅ BC",a:"ip",w:"ABC è isoscele sulla base AB."},
+   {s:4,k:"why",el:"AP ≅ BQ",a:"ip",w:"È scritto nel testo."},
+   {s:4,k:"why",el:"{CAP} ≅ {CBQ}",a:"base",w:"Sono gli angoli alla base di ABC."},
+   {s:5,k:"ch",q:"Quale criterio?",o:["primo criterio","secondo criterio"],w:"AC, AP e l'angolo in A compreso tra loro; BC, BQ e l'angolo in B."},
+   {s:6,k:"ch",q:"Cosa ottieni?",o:["CP ≅ CQ, quindi PQC è isoscele sulla base PQ","AP ≅ BQ","PQC è equilatero"],w:"CP e CQ stanno di fronte agli angoli in A e in B: sono corrispondenti."},
+   {s:7,k:"info",q:"Strada 1 per «isoscele»: due lati congruenti trovati con due triangoli congruenti. Ipotesi usate: isoscele e AP ≅ QB. Tutte."}
+  ],
+  proof:["IPOTESI AC ≅ BC; AP ≅ QB","TESI CP ≅ CQ","Considero i triangoli APC e BQC; essi hanno:","• AC ≅ BC per ipotesi","• AP ≅ BQ per ipotesi","• {CAP} ≅ {CBQ} perché angoli alla base del triangolo isoscele ABC","Quindi sono congruenti per il primo criterio.","In particolare CP ≅ CQ perché elementi corrispondenti: PQC è isoscele sulla base PQ."]},
+
+ g3:{src:"Come l'esercizio 63 del libro", fig:"g3",
+  txt:"Il triangolo ABC è isoscele sulla base AB. Prolunga AB dalla parte di A di un segmento AP e dalla parte di B di un segmento BQ, con AP ≅ BQ. Dimostra che il triangolo PQC è isoscele.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC e prolunga la base da tutte e due le parti. Segna P a sinistra di A e Q a destra di B, con AP ≅ BQ. Traccia CP e CQ."},
+   {s:2,k:"ch",q:"Qual è la tesi, in simboli?",o:["CP ≅ CQ","AP ≅ BQ","AC ≅ BC"],w:"PQC ha la base PQ: i lati obliqui sono CP e CQ."},
+   {s:3,k:"ch",q:"Quali due triangoli confronto?",o:["APC e BQC","ABC e PQC"],hl:1,w:"CP sta in APC, CQ sta in BQC. Funzionerebbero anche ACQ e BCP, ma con un passaggio in più."},
+   {s:4,k:"why",el:"AC ≅ BC",a:"ip",w:"ABC è isoscele sulla base AB."},
+   {s:4,k:"why",el:"AP ≅ BQ",a:"ip",w:"È scritto nel testo."},
+   {s:4,k:"why",el:"{CAP} ≅ {CBQ}",a:"supp",w:"{CAP} è adiacente a {CAB}, quindi supplementare; {CBQ} è supplementare di {CBA}. Gli angoli alla base sono congruenti, quindi lo sono anche i loro supplementari. Attento: {CAP} e {CBQ} non sono angoli alla base."},
+   {s:5,k:"ch",q:"Quale criterio?",o:["primo criterio","secondo criterio"],w:"L'angolo in A sta tra AC e AP, quello in B tra BC e BQ."},
+   {s:6,k:"ch",q:"Cosa ottieni?",o:["CP ≅ CQ, quindi PQC è isoscele","{CPA} ≅ {CAP}","PQ ≅ AB"],w:"CP e CQ sono corrispondenti: stanno di fronte agli angoli in A e in B."},
+   {s:7,k:"info",q:"Novità rispetto all'esercizio 2: gli angoli «di fuori» si giustificano con i supplementari. Ipotesi usate: isoscele, i prolungamenti, AP ≅ BQ."}
+  ],
+  proof:["IPOTESI AC ≅ BC; AP ≅ BQ","TESI CP ≅ CQ","Considero i triangoli APC e BQC; essi hanno:","• AC ≅ BC per ipotesi","• AP ≅ BQ per ipotesi","• {CAP} ≅ {CBQ} perché supplementari degli angoli alla base, che sono congruenti","Quindi sono congruenti per il primo criterio.","In particolare CP ≅ CQ perché elementi corrispondenti: PQC è isoscele."]},
+
+ g4:{src:"Come l'esercizio 60 del libro", fig:"g4",
+  txt:"Il triangolo ABC è isoscele sulla base AB. Traccia le bisettrici AD e BE degli angoli alla base (D su BC, E su AC). Dimostra che i triangoli ADB e BEA sono congruenti e che AD ≅ BE.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC e le due bisettrici. Segna con un archetto le due metà dell'angolo A e con due archetti le due metà dell'angolo B."},
+   {s:2,k:"ch",q:"Qual è la tesi?",o:["ADB ≅ BEA e AD ≅ BE","AC ≅ BC e {A} ≅ {B}","AD e BE sono bisettrici"],w:"Le altre due sono ipotesi o conseguenze dell'ipotesi."},
+   {s:3,k:"ch",q:"I triangoli li dà già la tesi: ADB e BEA. Quale lato hanno in comune?",o:["AB","AD","BE"],hl:1,w:"AB è un lato sia di ADB sia di BEA."},
+   {s:4,k:"why",el:"AB",a:"com",w:"Lato di tutti e due i triangoli."},
+   {s:4,k:"why",el:"{DAB} ≅ {EBA}",a:"meta",w:"Sono le metà degli angoli alla base, che sono congruenti."},
+   {s:4,k:"why",el:"{ABD} ≅ {BAE}",a:"base",w:"Questa volta sono gli angoli alla base interi: {ABD} è tutto l'angolo B, {BAE} tutto l'angolo A."},
+   {s:5,k:"ch",q:"Quale criterio?",o:["secondo criterio","primo criterio"],w:"Ho un solo lato, AB, e i due angoli ai suoi estremi. Per il primo criterio servirebbero due lati."},
+   {s:6,k:"ch",q:"Cosa ottieni come elementi corrispondenti?",o:["AD ≅ BE","AE ≅ DE","AB ≅ AD"],w:"AD sta di fronte all'angolo in B di ADB, BE di fronte all'angolo in A di BEA: angoli congruenti."},
+   {s:7,k:"info",q:"Ipotesi usate: isoscele (angoli alla base) e le due bisettrici (metà). Prima volta del secondo criterio: quando hai più angoli che lati, pensa al secondo."}
+  ],
+  proof:["IPOTESI AC ≅ BC; AD bisettrice di {A}; BE bisettrice di {B}","TESI ADB ≅ BEA; AD ≅ BE","Considero i triangoli ADB e BEA; essi hanno:","• AB in comune","• {DAB} ≅ {EBA} perché metà di angoli congruenti","• {ABD} ≅ {BAE} perché angoli alla base del triangolo isoscele","Quindi sono congruenti per il secondo criterio.","In particolare AD ≅ BE perché elementi corrispondenti."]},
+
+ g5:{src:"Come l'esercizio svolto 65 del libro", fig:"g5",
+  txt:"Il triangolo ABC è isoscele sulla base AB. Le bisettrici AP e BQ degli angoli alla base si incontrano nel punto R. Dimostra che il triangolo ARB è isoscele.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC e le due bisettrici AP e BQ. Chiama R il punto in cui si incrociano."},
+   {s:2,k:"ch",q:"Qual è la tesi, in simboli?",o:["AR ≅ BR","AP ≅ BQ","R è il punto medio di AB"],w:"ARB isoscele sulla base AB: i lati obliqui sono AR e BR."},
+   {s:3,k:"ch",q:"Per «isoscele» hai due strade. Qual è la più corta qui?",o:["trovo due angoli congruenti in ARB e uso il teorema 4","cerco due triangoli congruenti che contengono AR e BR"],hl:1,w:"Gli angoli di ARB in A e in B sono metà degli angoli alla base: sono congruenti subito. Basta il teorema inverso."},
+   {s:4,k:"why",el:"{RAB} ≅ {RBA}",a:"meta",w:"Metà degli angoli alla base, che sono congruenti."},
+   {s:5,k:"ch",q:"Quale teorema ti fa passare da due angoli congruenti a due lati congruenti?",o:["teorema 4: due angoli congruenti → isoscele","teorema 2: isoscele → angoli alla base congruenti","primo criterio"],w:"Il teorema 2 va nel verso opposto."},
+   {s:6,k:"ch",q:"Cosa ottieni?",o:["AR ≅ BR: ARB è isoscele sulla base AB","AP ≅ BQ","AR ≅ RP"],w:"Il teorema 4 dà i due lati congruenti."},
+   {s:7,k:"info",q:"Qui i passi 4 e 5 diventano una coppia sola e un teorema invece del criterio: è la strada 2. Confronta la tua scrittura con l'esercizio svolto 65."}
+  ],
+  proof:["IPOTESI AC ≅ BC; {BAP} ≅ {PAC}; {ABQ} ≅ {QBC}","TESI AR ≅ RB","ABC è isoscele sulla base AB, quindi {A} ≅ {B}.","{BAR} ≅ {ABR} perché metà di angoli congruenti.","Il triangolo ARB ha due angoli congruenti: per il teorema 4 è isoscele sulla base AB, cioè AR ≅ RB."]},
+
+ g6:{src:"Come gli esercizi 69 e 77 del libro", fig:"g6",
+  txt:"Il triangolo ABC è isoscele sulla base AB. CK è la bisettrice dell'angolo C (K su AB). Su CK prendi un punto P. M e N sono i punti medi di AK e di KB. Dimostra che PM ≅ PN.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC e la bisettrice CK. Prendi P su CK, segna M a metà di AK e N a metà di KB. Traccia PM e PN."},
+   {s:2,k:"ch",q:"Qual è la tesi?",o:["PM ≅ PN","AK ≅ KB","PK ≅ CK"],w:"È quello che viene dopo «dimostra che»."},
+   {s:3,k:"ch",q:"Cosa ti dice il teorema 3 sulla bisettrice CK?",o:["è anche mediana e altezza: AK ≅ KB e CK è perpendicolare ad AB","è congruente ai lati obliqui","divide la base in due parti qualsiasi"],w:"Nel triangolo isoscele la bisettrice dell'angolo al vertice è anche mediana e altezza relativa alla base."},
+   {s:3,k:"ch",q:"Quali due triangoli confronto?",o:["PMK e PNK","PMC e PNC","AMP e BNP"],hl:1,w:"PM sta in PMK, PN sta in PNK, e i due triangoli hanno PK in comune."},
+   {s:4,k:"why",el:"MK ≅ NK",a:"meta",w:"AK ≅ KB per il teorema 3, e MK e NK sono le loro metà."},
+   {s:4,k:"why",el:"PK",a:"com",w:"Lato di tutti e due i triangoli."},
+   {s:4,k:"why",el:"{PKM} ≅ {PKN}",a:"retti",w:"CK è anche altezza (teorema 3): gli angoli in K sono retti, e gli angoli retti sono tutti congruenti."},
+   {s:5,k:"ch",q:"Quale criterio?",o:["primo criterio","secondo criterio"],w:"L'angolo in K sta tra MK e PK, e tra NK e PK."},
+   {s:6,k:"ch",q:"Cosa ottieni?",o:["PM ≅ PN","PK ≅ MK","AM ≅ NB"],w:"PM e PN stanno di fronte agli angoli retti in K: sono corrispondenti."},
+   {s:7,k:"info",q:"La chiave era il teorema 3: dalla bisettrice ho ricavato il punto medio K e gli angoli retti. Ipotesi usate: isoscele, bisettrice, P su CK, punti medi."}
+  ],
+  proof:["IPOTESI AC ≅ BC; {ACK} ≅ {KCB}; P su CK; AM ≅ MK; KN ≅ NB","TESI PM ≅ PN","Per il teorema 3, CK è anche mediana e altezza: AK ≅ KB e CK ⊥ AB.","Considero i triangoli PMK e PNK; essi hanno:","• MK ≅ NK perché metà di segmenti congruenti","• PK in comune","• {PKM} ≅ {PKN} perché angoli retti","Quindi sono congruenti per il primo criterio.","In particolare PM ≅ PN perché elementi corrispondenti."]},
+
+ g7:{src:"Come gli esercizi 72 e 75 del libro", fig:"g7",
+  txt:"Il triangolo ABC è isoscele sulla base AB. M e N sono i punti medi di AC e di BC. Su CK, la mediana relativa ad AB, prendi un punto P. Dimostra che i triangoli PMC e PNC sono congruenti.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC, la mediana CK (K punto medio di AB), il punto P su CK e i punti medi M e N dei lati obliqui. Traccia PM e PN."},
+   {s:2,k:"ch",q:"Qual è la tesi?",o:["i triangoli PMC e PNC sono congruenti","CM ≅ CN","CK è bisettrice"],w:"La tesi parla di due triangoli: li dà già lei."},
+   {s:3,k:"ch",q:"PMC e PNC hanno CP in comune. Cosa sai della mediana CK nel triangolo isoscele?",o:["è anche bisettrice dell'angolo C (corollario)","è lunga metà della base","non si può dire niente"],hl:1,w:"Corollario a del teorema 3: la mediana relativa alla base è anche bisettrice dell'angolo al vertice."},
+   {s:4,k:"why",el:"CM ≅ CN",a:"meta",w:"Metà dei lati obliqui, che sono congruenti."},
+   {s:4,k:"why",el:"CP",a:"com",w:"Lato di tutti e due i triangoli."},
+   {s:4,k:"why",el:"{MCP} ≅ {NCP}",a:"t3",w:"La mediana CK è anche bisettrice: divide l'angolo C in due angoli congruenti."},
+   {s:5,k:"ch",q:"Quale criterio?",o:["primo criterio","secondo criterio"],w:"L'angolo in C sta tra CM e CP, e tra CN e CP."},
+   {s:6,k:"ch",q:"Ecco la tesi. Cosa ottieni in più, come elementi corrispondenti?",o:["PM ≅ PN","PC ≅ CM","MN ≅ AB"],w:"PM e PN stanno di fronte agli angoli congruenti in C."},
+   {s:7,k:"info",q:"«E se?» dell'esercizio 72: se P fosse sulla bisettrice dell'angolo C, cambierebbe solo un perché. {MCP} ≅ {NCP} sarebbe per ipotesi."}
+  ],
+  proof:["IPOTESI AC ≅ BC; AM ≅ MC; BN ≅ NC; AK ≅ KB; P su CK","TESI PMC ≅ PNC","Per il corollario del teorema 3, la mediana CK è anche bisettrice: {ACK} ≅ {BCK}.","Considero i triangoli PMC e PNC; essi hanno:","• CM ≅ CN perché metà di segmenti congruenti","• CP in comune","• {MCP} ≅ {NCP} perché la mediana CK è anche bisettrice","Quindi sono congruenti per il primo criterio."]},
+
+ g8:{src:"Come l'esercizio 67 del libro", fig:"g8",
+  txt:"Il triangolo ABC è isoscele sulla base AB. P è un punto interno al triangolo tale che {PAC} ≅ {PBC}. Dimostra, nell'ordine: a) che il triangolo ABP è isoscele sulla base AB; b) che P sta sulla bisettrice dell'angolo C.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC e un punto P all'interno, sull'asse del triangolo. Traccia AP, BP e CP. Segna con un archetto {PAC} e {PBC}."},
+   {s:2,k:"ch",q:"Parte a. Cosa devi dimostrare, in simboli?",o:["PA ≅ PB","{PAC} ≅ {PBC}","PC ≅ PA"],w:"ABP isoscele sulla base AB: i lati obliqui sono PA e PB."},
+   {s:3,k:"ch",q:"Quale strada per la parte a?",o:["trovo due angoli congruenti in ABP e uso il teorema 4","cerco due triangoli congruenti"],hl:1,w:"Gli angoli {PAB} e {PBA} si ottengono togliendo angoli congruenti da angoli congruenti."},
+   {s:4,k:"why",el:"{PAB} ≅ {PBA}",a:"diff",w:"{PAB} è {CAB} meno {CAP}, {PBA} è {CBA} meno {CBP}. Gli angoli alla base sono congruenti e {CAP} ≅ {CBP} per ipotesi."},
+   {s:5,k:"ch",q:"Quale teorema?",o:["teorema 4: ABP ha due angoli congruenti, quindi è isoscele","teorema 2","secondo criterio"],w:"Da due angoli congruenti ai lati congruenti: l'inverso."},
+   {s:2,k:"ch",q:"Parte b. «P sta sulla bisettrice dell'angolo C» vuol dire:",o:["{ACP} ≅ {BCP}","CP ≅ AB","{CAP} ≅ {CBP}"],w:"La semiretta CP divide l'angolo C in due angoli congruenti."},
+   {s:3,k:"ch",q:"Quali due triangoli confronto?",o:["APC e BPC","APB e ABC","ACP e ABP"],hl:2,w:"{ACP} sta in APC, {BCP} sta in BPC."},
+   {s:4,k:"why",el:"AC ≅ BC",a:"ip",w:"ABC è isoscele sulla base AB."},
+   {s:4,k:"why",el:"AP ≅ BP",a:"prima",w:"L'ho dimostrato nella parte a."},
+   {s:4,k:"why",el:"{CAP} ≅ {CBP}",a:"ip",w:"È scritto nel testo."},
+   {s:5,k:"ch",q:"Quale criterio?",o:["primo criterio","secondo criterio"],w:"L'angolo in A sta tra AC e AP, quello in B tra BC e BP."},
+   {s:6,k:"ch",q:"Cosa ottieni?",o:["{ACP} ≅ {BCP}: CP è la bisettrice dell'angolo C","AP ≅ CP","{PAB} ≅ {PCB}"],w:"Gli angoli in C stanno di fronte ad AP e BP, che sono congruenti."},
+   {s:7,k:"info",q:"La parte a serve per la parte b: per questo il testo dice «nell'ordine». Nei compiti succede spesso, e il perché diventa «dimostrato prima»."}
+  ],
+  proof:["IPOTESI AC ≅ BC; {PAC} ≅ {PBC}","TESI a) PA ≅ PB; b) {ACP} ≅ {BCP}","a) {PAB} ≅ {PBA} perché differenze di angoli congruenti ({CAB} − {CAP} e {CBA} − {CBP}).","Per il teorema 4 il triangolo ABP è isoscele sulla base AB: PA ≅ PB.","b) Considero i triangoli APC e BPC; essi hanno:","• AC ≅ BC per ipotesi","• AP ≅ BP per la parte a","• {CAP} ≅ {CBP} per ipotesi","Quindi sono congruenti per il primo criterio.","In particolare {ACP} ≅ {BCP} perché elementi corrispondenti: P sta sulla bisettrice dell'angolo C."]},
+
+ g9:{src:"Come l'esercizio 73 del libro", fig:"g9",
+  txt:"Nel quadrilatero convesso ABCD si ha AB ≅ BC e {DAB} ≅ {DCB}. Dimostra che AD ≅ CD.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna il quadrilatero ABCD. Segna AB ≅ BC con un trattino e gli angoli in A e in C del quadrilatero con un archetto."},
+   {s:2,k:"ch",q:"Qual è la tesi?",o:["AD ≅ CD","AB ≅ BC","{DAB} ≅ {DCB}"],w:"Le altre due sono le ipotesi."},
+   {s:3,k:"ch",q:"Nella figura non ci sono triangoli. Quale costruzione preliminare fai?",o:["traccio la diagonale AC","traccio la diagonale BD","prolungo AB oltre B"],hl:1,w:"Con AC nascono il triangolo ABC, isoscele perché AB ≅ BC, e il triangolo ADC, che contiene AD e CD. Con BD avresti due lati e un angolo non compreso: nessun criterio."},
+   {s:4,k:"why",el:"{BAC} ≅ {BCA}",a:"base",w:"ABC è isoscele sulla base AC, perché AB ≅ BC."},
+   {s:4,k:"why",el:"{DAC} ≅ {DCA}",a:"diff",w:"{DAC} è {DAB} meno {BAC}, {DCA} è {DCB} meno {BCA}: angoli congruenti meno angoli congruenti."},
+   {s:5,k:"ch",q:"Quale teorema?",o:["teorema 4: ADC ha due angoli congruenti, quindi è isoscele","primo criterio","teorema 2"],w:"Da due angoli congruenti a due lati congruenti."},
+   {s:6,k:"ch",q:"Cosa ottieni?",o:["AD ≅ CD","AC ≅ BD","AB ≅ AD"],w:"I lati obliqui del triangolo isoscele ADC, di base AC."},
+   {s:7,k:"info",q:"Ipotesi usate: AB ≅ BC (per gli angoli alla base di ABC) e {DAB} ≅ {DCB} (per la differenza). Senza la costruzione non si poteva partire."}
+  ],
+  proof:["IPOTESI AB ≅ BC; {DAB} ≅ {DCB}","TESI AD ≅ CD","COSTRUZIONE traccio la diagonale AC.","Il triangolo ABC è isoscele sulla base AC perché AB ≅ BC: quindi {BAC} ≅ {BCA} (angoli alla base).","{DAC} ≅ {DCA} perché differenze di angoli congruenti.","Il triangolo ADC ha due angoli congruenti: per il teorema 4 è isoscele sulla base AC, quindi AD ≅ CD."]},
+
+ g10:{src:"Come gli esercizi 70 e 78 del libro", fig:"g10",
+  txt:"Il triangolo ABC è isoscele sulla base AB e CH è l'altezza. Su CH prendi un punto P. Il prolungamento di AP incontra BC in Q, il prolungamento di BP incontra AC in R. Dimostra che il triangolo PRQ è isoscele sulla base RQ.",
+  steps:[
+   {s:1,k:"draw",q:"Disegna ABC e l'altezza CH. Prendi P su CH, prolunga AP fino a BC (punto Q) e BP fino ad AC (punto R)."},
+   {s:2,k:"ch",q:"Qual è la tesi, in simboli?",o:["PR ≅ PQ","RQ ≅ AB","CR ≅ CQ"],w:"PRQ isoscele sulla base RQ: i lati obliqui sono PR e PQ."},
+   {s:3,k:"info",q:"È una dimostrazione in due tempi. Primo tempo: dimostro qualcosa su AP e BP. Secondo tempo: lo uso per PR e PQ."},
+   {s:3,k:"ch",q:"Primo tempo. Cosa ti dice il corollario sull'altezza CH?",o:["è anche mediana: AH ≅ HB","è congruente alla base","passa per il punto medio di AC"],w:"Corollario b: l'altezza relativa alla base è anche mediana e bisettrice."},
+   {s:3,k:"ch",q:"Primo tempo: quali triangoli?",o:["AHP e BHP","APC e BPC","APR e BPQ"],hl:1,w:"AHP e BHP hanno PH in comune e contengono AP e BP."},
+   {s:4,k:"why",el:"AH ≅ HB",a:"t3",w:"L'altezza CH è anche mediana."},
+   {s:4,k:"why",el:"PH",a:"com",w:"Lato di tutti e due."},
+   {s:4,k:"why",el:"{AHP} ≅ {BHP}",a:"retti",w:"CH è altezza: gli angoli in H sono retti."},
+   {s:6,k:"ch",q:"Primo criterio. Cosa ottieni?",o:["AP ≅ BP e {PAH} ≅ {PBH}","PR ≅ PQ","AH ≅ PH"],w:"Elementi corrispondenti: i lati AP e BP e gli angoli in A e in B."},
+   {s:3,k:"ch",q:"Secondo tempo: quali triangoli contengono PR e PQ?",o:["APR e BPQ","PRQ e PAB","CPR e CPQ"],hl:2,w:"PR sta in APR, PQ sta in BPQ."},
+   {s:4,k:"why",el:"{RAP} ≅ {QBP}",a:"diff",w:"{RAP} è {CAB} meno {PAB}, {QBP} è {CBA} meno {PBA}: angoli alla base meno gli angoli congruenti del primo tempo."},
+   {s:4,k:"why",el:"AP ≅ BP",a:"prima",w:"Trovato nel primo tempo."},
+   {s:4,k:"why",el:"{APR} ≅ {BPQ}",a:"opp",w:"PR è il prolungamento di BP e PQ il prolungamento di AP."},
+   {s:5,k:"ch",q:"Quale criterio?",o:["secondo criterio","primo criterio"],w:"Il lato AP è compreso tra gli angoli in A e in P; il lato BP tra gli angoli in B e in P."},
+   {s:6,k:"ch",q:"Cosa ottieni?",o:["PR ≅ PQ: PRQ è isoscele sulla base RQ","RQ ≅ AB","CR ≅ AB"],w:"PR e PQ stanno di fronte agli angoli in A e in B dei due triangoli."},
+   {s:7,k:"info",q:"Quando ti manca una coppia, chiediti: posso dimostrarla prima con altri due triangoli? Qui il primo tempo serviva solo a preparare AP ≅ BP e gli angoli in A e in B."}
+  ],
+  proof:["IPOTESI AC ≅ BC; CH ⊥ AB; P su CH","TESI PR ≅ PQ","Per il corollario, l'altezza CH è anche mediana: AH ≅ HB.","Triangoli AHP e BHP: AH ≅ HB; PH in comune; {AHP} ≅ {BHP} perché retti. Primo criterio: quindi AP ≅ BP e {PAH} ≅ {PBH}.","Triangoli APR e BPQ:","• {RAP} ≅ {QBP} perché differenze di angoli congruenti","• AP ≅ BP per la dimostrazione precedente","• {APR} ≅ {BPQ} perché opposti al vertice","Quindi sono congruenti per il secondo criterio.","In particolare PR ≅ PQ perché elementi corrispondenti: PRQ è isoscele sulla base RQ."]}
+};
+
+/* ═══════ la prova ═══════ */
+const PROVA = [
+ {t:"Teoria", fig:"e1",
+  txt:"Enuncia e dimostra il teorema degli angoli alla base del triangolo isoscele.",
+  parts:[["Enunciato, ipotesi e tesi","Se un triangolo è isoscele, allora ha gli angoli alla base congruenti. IPOTESI AC ≅ BC. TESI {CAB} ≅ {CBA}."],
+         ["Costruzione e tre coppie","COSTRUZIONE la bisettrice CH dell'angolo C. Triangoli AHC e BHC: AC ≅ BC per ipotesi; CH in comune; {ACH} ≅ {BCH} per costruzione."],
+         ["Criterio e conclusione","Primo criterio. In particolare {CAH} ≅ {CBH}, cioè {CAB} ≅ {CBA}, perché elementi corrispondenti."]]},
+ {t:"Lati obliqui prolungati", fig:"e2",
+  txt:"Il triangolo ABC è isoscele sulla base AB. Prolunga AC oltre C di un segmento CD e BC oltre C di un segmento CE, con CD ≅ CE. Dimostra che AE ≅ BD.",
+  parts:[["Figura, ipotesi e tesi","IPOTESI AC ≅ BC; CD ≅ CE. TESI AE ≅ BD."],
+         ["Triangoli e tre coppie","Triangoli ACE e BCD: AC ≅ BC per ipotesi; CE ≅ CD per ipotesi; {ACE} ≅ {BCD} perché opposti al vertice."],
+         ["Criterio e conclusione","Primo criterio: l'angolo in C è compreso tra i due lati. In particolare AE ≅ BD perché elementi corrispondenti."]]},
+ {t:"Un punto sull'altezza", fig:"e3",
+  txt:"Il triangolo ABC è isoscele sulla base AB e CH è l'altezza relativa ad AB. Su CH prendi un punto D. Dimostra che il triangolo ADB è isoscele.",
+  parts:[["Figura, ipotesi e tesi","IPOTESI AC ≅ BC; CH ⊥ AB; D su CH. TESI AD ≅ BD."],
+         ["Idea e tre coppie","Per il corollario l'altezza CH è anche mediana: AH ≅ HB. Triangoli AHD e BHD: AH ≅ HB per il teorema 3; DH in comune; {AHD} ≅ {BHD} perché retti."],
+         ["Criterio e conclusione","Primo criterio. In particolare AD ≅ BD perché elementi corrispondenti: ADB è isoscele sulla base AB."]]},
+ {t:"Il triangolo equilatero", fig:"e4",
+  txt:"Nel triangolo equilatero ABC, P è il punto in cui si incontrano le bisettrici degli angoli A e C. Dimostra che AP ≅ PC.",
+  parts:[["Figura, ipotesi e tesi","IPOTESI AB ≅ BC ≅ CA; AP bisettrice di {A}; CP bisettrice di {C}. TESI AP ≅ PC."],
+         ["Idea: due angoli congruenti","ABC è isoscele sulla base AC, perché AB ≅ BC: quindi {A} ≅ {C} (teorema 2). {PAC} ≅ {PCA} perché metà di angoli congruenti."],
+         ["Teorema e conclusione","Il triangolo APC ha due angoli congruenti: per il teorema 4 è isoscele sulla base AC, quindi AP ≅ PC."]]},
+ {t:"Due triangoli sulla stessa base", fig:"e5",
+  txt:"ABC e A′BC sono due triangoli dalla stessa parte della retta BC, con AB ≅ A′C e {ABC} ≅ {A′CB}. O è il punto in cui si incontrano AC e A′B. Dimostra che il triangolo BOC è isoscele.",
+  parts:[["Figura, ipotesi e tesi","IPOTESI AB ≅ A′C; {ABC} ≅ {A′CB}. TESI OB ≅ OC."],
+         ["Primo tempo: triangoli ABC e A′CB","AB ≅ A′C per ipotesi; BC in comune; {ABC} ≅ {A′CB} per ipotesi. Primo criterio: quindi {ACB} ≅ {A′BC} perché elementi corrispondenti."],
+         ["Secondo tempo e conclusione","Nel triangolo BOC gli angoli {OCB} e {OBC} sono proprio {ACB} e {A′BC}: congruenti. Per il teorema 4 BOC è isoscele: OB ≅ OC."]]}
+];
+
+/* ═══════ scrittura degli angoli: {ABC} → AB̂C ═══════ */
+function TX(s){
+  return String(s)
+    .replace(/\{([A-Z]′?)([A-Z])([A-Z]′?)\}/g, (m,a,b,c)=>'<span class="an">'+a+b+'\u0302'+c+'</span>')
+    .replace(/\{([A-Z])\}/g, (m,a)=>'<span class="an">'+a+'\u0302</span>');
+}
+function D(s){ return TX(s).replace(/\[([^\]]+)\]/g,'<b class="k">$1</b>'); }
+function $(id){ return document.getElementById(id); }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+
+/* ═══════ stato salvato ═══════ */
+const KEY = "geo-isoscele-261107";
+let ST = (function(){ try{ const s = JSON.parse(localStorage.getItem(KEY)||"null"); if(s && s.ex) return s; }catch(e){} return {idx:0, ex:{}, pv:{}}; })();
+if(!ST.pv) ST.pv = {};
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
+
+/* ═══════ carte ═══════ */
+let idx = 0, reading = false, queue = [], qi = 0, rate = 0.88;
+const stage = $("stage"), chips = $("chips");
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card"><div class="kicker">'+PARTI[c.parte]+'</div><h2 class="s">'+c.t+'</h2>';
+  if(c.hook) h += '<div class="hook s"><span class="hl">L\'idea</span>'+TX(c.hook)+'</div>';
+  if(c.figs) h += '<div class="figs n'+c.figs.length+'">'+c.figs.map(f=>'<figure class="fg">'+FIG[f[0]]()+'<figcaption>'
+      +(f[2] ? '<span class="yn '+f[2]+'">'+(f[2]==="si"?"sì":"no")+'</span> ' : '')+f[1]+'</figcaption></figure>').join('')+'</div>';
+  if(c.def) h += '<div class="defs" id="defs"><div class="dh"><span class="hl">Dal libro</span>'
+      + '<button class="mini acc" id="cvb" onclick="cover()">Mettiti alla prova</button></div>'
+      + '<div class="cvh">Di\' ad alta voce le parole che mancano, poi tocca i riquadri per controllare.</div>'
+      + c.def.map(d=>'<p class="dl s">'+D(d)+'</p>').join('')+'</div>';
+  if(c.extra) h += TX(c.extra);
+  if(c.vita) h += '<div class="vita s"><span class="hl">Un esempio</span>'+TX(c.vita)+'</div>';
+  if(c.trap) h += '<div class="trap s"><b>Attento.</b> '+TX(c.trap)+'</div>';
+  if(c.ex) h += '<div id="exbox"></div>';
+  if(c.list) h += '<div id="listbox"></div>';
+  if(c.prova) h += '<div id="provabox"></div>';
+  if(c.ask) h += '<div class="ask"><div class="q s">'+TX(c.ask[0])+'</div>'
+      + '<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button><div class="a">'+TX(c.ask[1])+'</div></div>';
+  h += '</article>';
+  stage.innerHTML = h;
+  if(c.ex) exDraw(c.ex);
+  if(c.list) listDraw();
+  if(c.prova) provaDraw();
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  $("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  $("prev").disabled = (idx===0);
+  $("next").disabled = (idx===CARDS.length-1);
+  ST.idx = idx; save();
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function reveal(btn){ const a = btn.parentNode.querySelector(".a"); a.classList.add("on"); btn.style.display = "none"; hear(a.textContent); }
+function cover(){
+  const d = $("defs"); if(!d) return; stop();
+  const on = d.classList.toggle("cover");
+  Array.prototype.forEach.call(d.querySelectorAll("b.k"), b=>b.classList.remove("shown"));
+  $("cvb").textContent = on ? "Mostra tutto" : "Mettiti alla prova";
+}
+stage.addEventListener("click", e=>{
+  const b = e.target.closest ? e.target.closest("b.k") : null;
+  if(b && b.closest(".cover") && !b.classList.contains("shown")){ b.classList.add("shown"); hear(b.textContent); }
+});
+
+/* ═══════ esercizi passo passo ═══════ */
+function exState(id){
+  let s = ST.ex[id];
+  if(!s){ s = ST.ex[id] = {pos:0, res:{}, pick:{}, ord:{}, done:false}; }
+  return s;
+}
+function exReset(id){ stop(); delete ST.ex[id]; save(); exDraw(id); window.scrollTo(0,0); }
+function stepOrder(id, i){
+  const s = exState(id), st = EXS[id].steps[i];
+  if(!s.ord[i] && st.o) s.ord[i] = shuffle(st.o.map((x,j)=>j));
+  return s.ord[i];
+}
+function exDraw(id){
+  const box = $("exbox"); if(!box) return;
+  const E = EXS[id], s = exState(id);
+  let h = '<div class="src">'+E.src+'</div><div class="txt s">'+TX(E.txt)+'</div>';
+  if(id[0]==="c") h += '<div class="xfig">'+FIG[E.fig]()+'</div>';
+  for(let i=0;i<=s.pos && i<E.steps.length;i++) h += stepHTML(id,i);
+  const cur = E.steps[s.pos], answered = s.res[s.pos]!==undefined;
+  if(answered && s.pos < E.steps.length-1) h += '<button class="big" onclick="exNext(\''+id+'\')">Avanti</button>';
+  if(answered && s.pos === E.steps.length-1) h += finalHTML(id);
+  box.innerHTML = h;
+}
+function stepHTML(id,i){
+  const E = EXS[id], st = E.steps[i], s = exState(id), r = s.res[i], cur = (i===exState(id).pos);
+  let h = '<div class="st">';
+  if(st.s) h += '<span class="badge">Passo '+st.s+' · '+PASSO[st.s]+'</span>';
+  else if(id[0]==="c") h += '<span class="badge c">Catena</span>';
+  if(st.k==="draw"){
+    h += '<div class="sq'+(cur?' s':'')+'">'+TX(st.q)+'</div>';
+    if(r===undefined) h += '<button class="mini acc" onclick="exAns(\''+id+'\','+i+',0)">Ho disegnato: confronta</button>';
+    else h += '<div class="xfig">'+FIG[E.fig](0)+'</div>';
+  }else if(st.k==="info"){
+    h += '<div class="fb ok'+(cur?' s':'')+'">'+TX(st.q)+'</div>';
+  }else if(st.k==="ch"){
+    h += '<div class="sq'+(cur?' s':'')+'">'+TX(st.q)+'</div><div class="opts">';
+    stepOrder(id,i).forEach(j=>{
+      let cl = '';
+      if(r!==undefined){ if(j===0) cl = ' ok'; else if(s.pick[i]===j) cl = ' no'; }
+      h += '<button class="opt'+cl+(cur&&r===undefined?' s':'')+'" '+(r!==undefined?'disabled':'')+' onclick="exAns(\''+id+'\','+i+','+j+')">'+TX(st.o[j])+'</button>';
+    });
+    h += '</div>';
+    if(r!==undefined) h += fbHTML(r, st.w) + (st.hl ? '<div class="xfig">'+FIG[E.fig](st.hl)+'</div>' : '');
+  }else if(st.k==="why"){
+    h += '<div class="el'+(cur?' s':'')+'">'+TX(st.el)+' <span style="font-weight:400">perché…</span></div><div class="box">';
+    WHY.forEach(w=>{
+      let cl = '';
+      if(r!==undefined){ if(w[0]===st.a) cl = ' ok'; else if(s.pick[i]===w[0]) cl = ' no'; }
+      h += '<button class="wb'+cl+'" '+(r!==undefined?'disabled':'')+' onclick="exWhy(\''+id+'\','+i+',\''+w[0]+'\')">'+w[1]+'</button>';
+    });
+    h += '</div>';
+    if(r!==undefined) h += fbHTML(r, '<b>'+WHY.find(w=>w[0]===st.a)[1]+'.</b> '+st.w);
+  }
+  return h + '</div>';
+}
+function fbHTML(ok, w){ return '<div class="fb '+(ok?'ok':'no')+' s"><b class="h">'+(ok?'Giusto.':'Non è così.')+'</b>'+TX(w)+'</div>'; }
+function exAns(id,i,j){
+  const s = exState(id); if(s.res[i]!==undefined) return;
+  s.pick[i] = j; s.res[i] = (EXS[id].steps[i].k==="ch") ? (j===0) : true;
+  save(); exDraw(id); scrollLast();
+}
+function exWhy(id,i,key){
+  const s = exState(id); if(s.res[i]!==undefined) return;
+  s.pick[i] = key; s.res[i] = (key===EXS[id].steps[i].a);
+  save(); exDraw(id); scrollLast();
+}
+function exNext(id){
+  stop(); const s = exState(id); s.pos++;
+  const st = EXS[id].steps[s.pos];
+  if(st && st.k==="info") s.res[s.pos] = true;
+  save(); exDraw(id); scrollLast();
+}
+function scrollLast(){
+  const all = stage.querySelectorAll(".st"); const el = all[all.length-1];
+  if(el && el.scrollIntoView) el.scrollIntoView({block:"start", behavior:"smooth"});
+}
+function exScore(id){
+  const E = EXS[id], s = ST.ex[id]; if(!s) return null;
+  let tot = 0, ok = 0;
+  E.steps.forEach((st,i)=>{ if(st.k==="ch"||st.k==="why"){ tot++; if(s.res[i]===true) ok++; } });
+  return [ok,tot];
+}
+function finalHTML(id){
+  const E = EXS[id], s = exState(id);
+  if(!s.done){ s.done = true; save(); }
+  const sc = exScore(id);
+  let h = '<div class="st"><span class="badge">La dimostrazione scritta</span>'
+    + '<div class="proof s">'+E.proof.map(r=>'<span class="r'+(/^(IPOTESI|TESI|COSTRUZIONE)/.test(r)?' k':'')+'">'+TX(r)+'</span>').join('')+'</div>'
+    + '<div class="trap s"><b>Ora tocca a te.</b> Chiudi la scheda e riscrivi tutta la dimostrazione sul quaderno, con il modello dello schema. Poi riapri e confronta.</div>'
+    + '<div class="score">Risposte giuste al primo colpo: <b>'+sc[0]+' su '+sc[1]+'</b></div>';
+  const ci = CARDS.findIndex(c=>c.ex===id);
+  if(ci+1 < CARDS.length) h += '<button class="big" onclick="show('+(ci+1)+')">Carta successiva</button>';
+  h += '<button class="big ghost" onclick="exReset(\''+id+'\')">Rifai da capo</button></div>';
+  return h;
+}
+
+/* ═══════ elenco delle guidate ═══════ */
+function listDraw(){
+  const box = $("listbox"); if(!box) return;
+  let h = '<p class="s" style="font-size:16.5px">Dieci dimostrazioni dal facile al difficile, tutte con lo stesso schema. Per ogni passo scegli la risposta; per ogni coppia scegli il perché dalla cassetta. Alla fine trovi la dimostrazione scritta per intero.</p><div class="list">';
+  CARDS.forEach((c,i)=>{ if(!c.ex || c.parte!==3) return;
+    const s = ST.ex[c.ex], sc = exScore(c.ex);
+    const stt = s && s.done ? '<span class="stt d">fatto · '+sc[0]+'/'+sc[1]+'</span>' : (s && s.pos ? '<span class="stt">iniziato</span>' : '<span class="stt">da fare</span>');
+    h += '<button class="li" onclick="show('+i+')"><span>'+c.t+'</span>'+stt+'</button>';
+  });
+  box.innerHTML = h + '</div>';
+}
+
+/* ═══════ la prova ═══════ */
+function provaDraw(){
+  const box = $("provabox"); if(!box) return;
+  let h = '<p class="s" style="font-size:16.5px">Cinque esercizi da fare sul quaderno, senza aiuti, in circa 60 minuti. Per ognuno segui lo schema in 7 passi. Poi apri la soluzione, una parte alla volta, e valuta il tuo lavoro.</p>';
+  PROVA.forEach((p,i)=>{
+    h += '<div class="pq"><div class="pn">Esercizio '+(i+1)+' · '+p.t+' · 3 punti</div><div class="txt s">'+TX(p.txt)+'</div>';
+    const open = ST.pv['o'+i];
+    if(!open) h += '<button class="mini acc" onclick="pvOpen('+i+')">Ho finito: mostra la soluzione</button>';
+    else{
+      h += '<div class="xfig">'+FIG[p.fig]()+'</div>';
+      p.parts.forEach((pt,k)=>{
+        const sc = ST.pv[i+'-'+k];
+        h += '<div class="part open"><div class="pl">'+(k+1)+'. '+pt[0]+'</div><div class="ps s">'+TX(pt[1])+'</div>'
+          + '<div class="sbt"><button class="s1'+(sc===1?' on':'')+'" onclick="pvScore('+i+','+k+',1)">✓ Giusto</button>'
+          + '<button class="s5'+(sc===0.5?' on':'')+'" onclick="pvScore('+i+','+k+',0.5)">½ In parte</button>'
+          + '<button class="s0'+(sc===0?' on':'')+'" onclick="pvScore('+i+','+k+',0)">✗ No</button></div></div>';
+      });
+    }
+    h += '</div>';
+  });
+  let got = 0, n = 0;
+  PROVA.forEach((p,i)=>p.parts.forEach((pt,k)=>{ const v = ST.pv[i+'-'+k]; if(v!==undefined){ got += v; n++; } }));
+  const tot = PROVA.length*3;
+  h += '<div class="st"><span class="badge">Risultato</span>';
+  if(n){ const voto = Math.max(2, Math.round(got/tot*10*2)/2);
+    h += '<div class="vt">'+String(voto).replace(".",",")+'</div><div class="score">voto stimato · '+String(got).replace(".",",")+' punti su '+tot+(n<tot?' · mancano '+(tot-n)+' parti da valutare':'')+'</div>'; }
+  else h += '<div class="score">Valuta le parti per vedere il voto stimato.</div>';
+  h += '<button class="big ghost" onclick="pvReset()">Ricomincia la prova</button></div>';
+  box.innerHTML = h;
+}
+function pvOpen(i){ if(!confirm("Hai scritto tutto sul quaderno? Dopo vedi la soluzione.")) return; ST.pv['o'+i] = 1; save(); provaDraw(); }
+function pvScore(i,k,v){ ST.pv[i+'-'+k] = v; save(); const y = window.scrollY; provaDraw(); window.scrollTo(0,y); }
+function pvReset(){ if(!confirm("Cancello le soluzioni aperte e i punteggi della prova?")) return; ST.pv = {}; save(); provaDraw(); window.scrollTo(0,0); }
+
+/* ═══════ voce ═══════ */
+let voIt = null, warmed = false;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voIt = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function warmUp(){
+  if(warmed || !window.speechSynthesis) return; warmed = true;
+  try{ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }catch(e){}
+}
+document.addEventListener("touchstart", warmUp, {once:true, passive:true});
+function clean(t){
+  return String(t).normalize("NFD")
+    .replace(/([A-Z])′?([A-Z])\u0302([A-Z])′?/g," angolo $1 $2 $3 ")
+    .replace(/([A-Z])\u0302/g," angolo $1 ").normalize("NFC")
+    .replace(/≅/g," congruente a ").replace(/⊥/g," perpendicolare a ").replace(/→/g,", allora ")
+    .replace(/\bπ\b/g," pi greco ").replace(/′/g," primo ")
+    .replace(/\b([A-Z])([A-Z])([A-Z])\b/g,"$1 $2 $3").replace(/\b([A-Z])([A-Z])\b/g,"$1 $2")
+    .replace(/[«»]/g,"").replace(/…/g,", ").replace(/[·•]/g,", ").replace(/\s+/g," ").trim();
+}
+function mk(t){
+  const u = new SpeechSynthesisUtterance(clean(t));
+  u.lang = "it-IT"; u.rate = rate; if(voIt) u.voice = voIt;
+  return u;
+}
+function hear(t){
+  if(!window.speechSynthesis) return;
+  if(reading) stop();
+  try{ speechSynthesis.cancel(); }catch(e){}
+  speechSynthesis.speak(mk(t));
+}
+function sayOf(el){
+  if(!el.closest(".cover")) return el.textContent;
+  const c = el.cloneNode(true);
+  Array.prototype.forEach.call(c.querySelectorAll("b.k:not(.shown)"), b=>{ b.textContent = " … "; });
+  return c.textContent;
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = $("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = mk(sayOf(el));
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ if(window.speechSynthesis) speechSynthesis.cancel(); }catch(e){}
+  const p = $("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+idx = Math.max(0, Math.min(CARDS.length-1, ST.idx||0));
+render();
+</script>
+</body>
+</html>
