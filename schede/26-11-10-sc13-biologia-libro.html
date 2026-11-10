@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scienze 13 — Biologia dal libro</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --giu-soft:#E6EEF9;   /* scendo la scala: moltiplico */
+  --su:#B4531A;  --su-soft:#FBEDE3;    /* salgo la scala: divido */
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:23px; text-align:center; display:block; margin:14px 0; line-height:1.5}
+.f i{font-style:italic}
+.f.big{font-size:30px}
+.ex{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px; line-height:1.6}
+.ex .lbl, .box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.ex .fx{font-family:"Times New Roman",Georgia,serif; font-size:20px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.giu{color:var(--giu); font-weight:700} .su{color:var(--su); font-weight:700}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+td.c, th.c{text-align:center}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+
+/* passi numerati del metodo */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16.5px; line-height:1.55}
+.flow .st b.n{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.flow .st.av{border-left-color:var(--warn); background:var(--warn-soft)}
+.flow .st.av b.n{color:var(--warn)}
+
+/* mappa della materia */
+.tree{margin:14px 0; font-size:16px}
+.tree .n0{background:var(--ink); color:#fff; border-radius:10px; padding:8px 12px; text-align:center; font-weight:700}
+.tree .lv{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+.tree .n1{border:2px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 10px; text-align:center; font-weight:700; color:var(--accent)}
+.tree .n2{border:1px solid var(--rule); background:#fff; border-radius:10px; padding:7px 9px; font-size:15px; line-height:1.4; margin-top:6px}
+.tree .n2 b{display:block}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* la virgola che si sposta */
+.vm{border:2px solid var(--accent-line); border-radius:14px; padding:14px; margin:14px 0; background:#fff}
+.vm .num{font-family:"Times New Roman",Georgia,serif; font-size:34px; text-align:center; line-height:1.3; word-break:break-all; margin:6px 0}
+.vm .num .cm{color:var(--accent); font-weight:700; font-size:40px}
+.vm .num sup{font-size:22px}
+.vm .msg{font-size:16px; text-align:center; min-height:3.1em; font-weight:600}
+.vm .msg.ok{color:var(--ok)}
+.vm .ctl{display:flex; gap:8px; margin-top:8px}
+.vm .ctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 6px; font:inherit; font-size:16px; font-weight:700; cursor:pointer}
+.vm .pre{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; justify-content:center}
+.vm .pre button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:4px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.vm .pre button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft)}
+
+/* la scala dei prefissi */
+.lad{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.lad .dims{display:flex; gap:6px; margin-bottom:10px}
+.lad .dims button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 4px; font:inherit; font-size:16px; font-weight:700; color:var(--soft); cursor:pointer}
+.lad .dims button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.lad .hint{font-size:15px; color:var(--soft); text-align:center; margin-bottom:8px}
+.rungs{display:flex; flex-direction:column; gap:4px}
+.rung{display:flex; align-items:center; gap:10px; border:2px solid var(--rule); border-radius:10px; padding:6px 10px; background:#fff; cursor:pointer; font:inherit; color:var(--ink); text-align:left; width:100%}
+.rung .u{font-family:"Times New Roman",Georgia,serif; font-size:21px; font-weight:700; min-width:64px}
+.rung .e{font-size:14px; color:var(--soft)}
+.rung.gap{border-style:dashed; padding:0 10px; min-height:14px; cursor:default; background:transparent}
+.rung.gap .e{font-size:12.5px}
+.rung.mid{background:#F4F1EA}
+.rung.from{border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+.rung.to{border-color:var(--ink); background:var(--ink); color:#fff}
+.rung.to .e{color:#DDE3EA}
+.lad .out{margin-top:10px; border-radius:12px; padding:10px 12px; font-size:17px; line-height:1.55; min-height:3.2em; background:#F4F1EA}
+.lad .out.g{background:var(--giu-soft); color:var(--giu)}
+.lad .out.s{background:var(--su-soft); color:var(--su)}
+
+/* passaggi di stato */
+.sb{font-size:14px}
+
+/* curve di riscaldamento */
+.curva{margin:14px 0}
+.cbtns{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.cb{border:2px solid var(--rule); border-left-width:12px; background:#fff; border-radius:10px; padding:8px 12px;
+  font:inherit; font-size:16px; text-align:left; color:var(--ink); cursor:pointer}
+.cb.on{border-top-color:var(--accent); border-right-color:var(--accent); border-bottom-color:var(--accent); background:var(--accent-soft)}
+.cout{margin-top:8px; border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:#F4F1EA; color:var(--soft); min-height:3.2em}
+.cout.on{background:var(--accent-soft); color:var(--ink); border:1px solid var(--accent-line)}
+/* striscia dei punti fissi */
+.strip{display:flex; align-items:stretch; margin:12px 0 2px; font-size:15px; font-weight:700; text-align:center}
+.strip .z{flex:1; padding:9px 4px; border-radius:8px}
+.strip .z1{background:#D5DCE3} .strip .z2{background:#D3E5F6} .strip .z3{background:#FAEBC0}
+.strip .mk{flex:0 0 auto; align-self:center; padding:0 6px; font-family:"Times New Roman",Georgia,serif; font-size:19px; color:var(--accent)}
+.stripax{font-size:13px; color:var(--soft); text-align:right; margin-bottom:10px}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+
+/* le tre famiglie */
+.fam{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:14px 0}
+.fam div{border-radius:12px; padding:8px 6px; text-align:center; font-size:13.5px; line-height:1.4}
+.fam b{display:block; font-size:16px; margin-bottom:2px}
+.fam svg{margin:2px auto 4px}
+.fam .f1{background:#FBEFD3; color:#6E4A06} .fam .f2{background:#FBE3EF; color:#8E1B55} .fam .f3{background:#E6EEF9; color:#1D4F8A}
+
+/* catena di monomeri e disegni a pulsanti */
+.poly,.tog{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.pstat{text-align:center; font-size:16.5px}
+.pctl{display:flex; gap:8px; margin-top:10px}
+.pctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:10px 6px;
+  font:inherit; font-size:16px; font-weight:700; cursor:pointer; line-height:1.3}
+.pctl button small{display:block; font-size:12.5px; font-weight:600; color:var(--soft)}
+.pctl button:disabled{opacity:.35}
+.pmsg{min-height:1.6em; text-align:center; font-size:15px; color:var(--soft); margin-top:8px}
+.tbtns{display:flex; flex-wrap:wrap; gap:6px}
+.tbtns button{flex:1 1 40%; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 6px;
+  font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer}
+.tbtns button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.tout{border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:var(--accent-soft); border:1px solid var(--accent-line)}
+
+
+.flow .st .n{text-transform:none; letter-spacing:0; font-size:14.5px}
+/* analogia */
+.an{background:#E6EEF9; border:1px solid #C9D9EE; border-radius:12px; padding:12px 16px; margin:14px 0; font-size:17px; line-height:1.6}
+.an .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:#1D4F8A; font-weight:700; margin-bottom:3px}
+/* prova tu */
+.quiz{margin-top:18px; padding-top:14px; border-top:1px dashed var(--rule)}
+.quiz .qhd{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.quiz .qhd span{color:var(--soft); letter-spacing:.04em}
+.qz{margin:10px 0 16px}
+.qz .qq{font-weight:700; font-size:17px; line-height:1.45; margin-bottom:7px}
+.qz .op{display:flex; flex-direction:column; gap:6px}
+.qz .op button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left; font:inherit; font-size:16.5px; line-height:1.4; color:var(--ink); cursor:pointer}
+.qz .op button.right{border-color:#1F5C4B; background:#E8F0EC; color:#1F5C4B; font-weight:700}
+.qz .op button.wrong{border-color:#9B2C2C; background:#FBEAEA; color:#9B2C2C}
+.qz.done .op button:not(.right):not(.wrong){opacity:.5}
+.qz .why{display:none; margin-top:7px; border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.55}
+.qz .why.on{display:block}
+.qz .why.y{background:#E8F0EC; color:#1F5C4B}
+.qz .why.n{background:#FBEAEA; color:#7A2222}
+/* percorso */
+.path{display:flex; gap:8px; margin:26px 0 0}
+.path a{flex:1; display:block; border:2px solid var(--accent-line); border-radius:12px; padding:10px 12px; text-decoration:none; color:var(--accent); font-weight:700; font-size:15px; line-height:1.35; background:#fff}
+.path a small{display:block; color:var(--soft); font-weight:600; font-size:12.5px}
+.path a.nx{text-align:right}
+/* costruttore di atomi */
+.atomw,.formw{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.aw-row{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:8px}
+.aw-ctl{border:1px solid var(--rule); border-radius:12px; padding:6px; text-align:center; font-size:14px; font-weight:700}
+.aw-ctl .v{font-size:22px; display:block; line-height:1.2}
+.aw-ctl button{border:2px solid var(--rule); background:#fff; border-radius:9px; width:40px; height:36px; font-size:20px; font-weight:700; cursor:pointer; margin:2px}
+.aw-out{margin-top:8px; border-radius:12px; padding:10px 12px; background:var(--accent-soft); border:1px solid var(--accent-line); font-size:16.5px; line-height:1.55}
+.aw-sym{font-family:"Times New Roman",Georgia,serif; font-size:30px; display:inline-flex; align-items:center; gap:2px; margin-right:10px; vertical-align:middle}
+.aw-sym .ix{display:inline-flex; flex-direction:column; font-size:15px; line-height:1.05; text-align:right}
+.fw-sel{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+.fw-sel label{font-size:13px; font-weight:700; color:var(--soft); display:block; margin-bottom:3px}
+.fw-sel select{width:100%; font:inherit; font-size:17px; padding:8px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink)}
+.fw-tiles{display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; justify-content:center}
+.fw-t{border-radius:10px; padding:6px 10px; font-weight:700; font-size:16px}
+.fw-t.c{background:#E6EEF9; color:#1D4F8A; border:2px solid #9DB8DC}
+.fw-t.a{background:#FBE3EF; color:#8E1B55; border:2px solid #E8A9C8}
+.fw-f{font-family:"Times New Roman",Georgia,serif; font-size:30px; text-align:center; margin:4px 0}
+/* livelli */
+.lvbar{display:flex; gap:3px; margin:12px 0}
+.lvbar span{flex:1; height:16px; border-radius:4px; background:#ECE8DF}
+.lvbar span.on{background:var(--accent)}
+/* scala del pH */
+.phw{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.ph-scale{position:relative; height:34px; border-radius:10px; background:linear-gradient(90deg,#C62828,#EF6C00,#F9A825,#9CCC65,#43A047,#26A69A,#1E88E5,#3949AB,#5E35B1); margin:22px 0 4px}
+.ph-mark{position:absolute; top:-14px; width:4px; height:62px; background:var(--ink); border-radius:2px; transform:translateX(-2px)}
+.ph-num{display:flex; justify-content:space-between; font-size:13px; color:var(--soft)}
+.ph-list{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+.ph-list button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:5px 11px; font:inherit; font-size:14.5px; font-weight:600; color:var(--ink); cursor:pointer}
+.ph-list button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.ph-out{margin-top:10px; border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:var(--accent-soft); border:1px solid var(--accent-line); min-height:3.2em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Scienze · scheda 13 di 13</div>
+  <h1>13 · Biologia dal libro: quello che mancava</h1>
+  <p class="lead">Le pagine del libro di biologia (A2–A17 e A26–A43) aggiungono argomenti e dati che negli appunti non c'erano: le 7 caratteristiche dei viventi, Darwin, domini e regni, il metodo scientifico del libro, i numeri dell'acqua, il pH, isomeri, zuccheri e lipidi.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<nav class="path"><a href="26-11-05-sc12-biomolecole.html">◀ Scheda 12<small>Le biomolecole</small></a></nav><p class="foot" id="foot">Percorso di scienze in 13 schede: le prime 12 sugli appunti di Liam, la 13 sulle pagine del libro (novembre 2026).</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const TOGS = {"livelli": {"lab": ["atomo", "molecola", "macromolecola", "cellula", "tessuto", "organo", "sistema", "organismo", "popolazione", "comunità", "ecosistema", "biosfera"], "svg": ["<div class=\"lvbar\"><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"\"></span></div>", "<div class=\"lvbar\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span></div>"], "txt": ["<b>Atomo</b> — la particella più piccola di un elemento: O, C, H, N…", "<b>Molecola</b> — atomi uniti da legami: acqua H₂O, metano, CO₂.", "<b>Macromolecola</b> — molecola grandissima: proteine, acidi nucleici (DNA).", "<b>Cellula</b> — la struttura di base della vita. Qui comincia il <i>vivo</i>.", "<b>Tessuto</b> — tante cellule simili che lavorano insieme (tessuto muscolare).", "<b>Organo</b> — tessuti diversi che lavorano insieme: cuore, cervello, stomaco.", "<b>Sistema / apparato</b> — organi con funzioni collegate: il sistema nervoso.", "<b>Organismo</b> — un individuo: una rana <i>Rana pipiens</i>. Fin qui è la gerarchia <b>interna</b>.", "<b>Popolazione</b> — individui della <b>stessa specie</b> nella stessa zona. Da qui è la gerarchia <b>esterna</b>.", "<b>Comunità</b> — tutte le popolazioni di <b>specie diverse</b> di un luogo (stagno: erba, rane, libellule, procioni).", "<b>Ecosistema</b> — la comunità <b>più l'ambiente</b> in cui vive, con i loro scambi di energia.", "<b>Biosfera</b> — tutti gli ecosistemi della Terra: da 10 km di altezza nell'atmosfera a 300 m sotto terra e 8 km negli oceani."]}};
+const PARTI = ["1 · La biologia e i viventi", "2 · Come la biologia studia la vita", "3 · L'acqua: i dati del libro", "4 · Biomolecole: i dettagli del libro", "5 · Ripasso"];
+const CARDS = [{"parte": 0, "t": "Di che cosa parla questa scheda", "body": "<p class=\"s\">Questa scheda è fatta con le pagine del libro di biologia. Aggiunge quello che <b>non c'era negli appunti</b> e quindi nelle schede da 1 a 12.</p><div class=\"scroll\"><table><tr><th>parte</th><th>pagine del libro</th><th>di che cosa parla</th></tr><tr><td>1</td><td>A2–A9</td><td>la biologia, le 7 caratteristiche dei viventi, Darwin, domini e regni</td></tr><tr><td>2</td><td>A14–A17</td><td>il metodo scientifico come lo spiega il libro</td></tr><tr><td>3</td><td>A26–A31</td><td>l'acqua: i numeri, le soluzioni, il pH</td></tr><tr><td>4</td><td>A32–A43</td><td>isomeri, gruppi funzionali, zuccheri, lipidi</td></tr><tr><td>5</td><td>—</td><td>ripasso con le domande del libro</td></tr></table></div><div class=\"trap s\"><b>Attento:</b> dove il libro e gli appunti dicono cose un po' diverse (per esempio 5 o 7 caratteristiche dei viventi), la scheda te lo segnala. All'interrogazione usa la versione del libro, ma sappi che esiste anche l'altra.</div>"}, {"parte": 0, "t": "Che cosa studia la biologia", "body": "<p class=\"s\"><b>Biologia</b> viene dal greco: <i>bíos</i> = vita, <i>lógos</i> = discorso, studio. È la scienza che studia gli <b>esseri viventi</b>.</p><p class=\"s\">I viventi sono tantissimi e diversissimi: dai batteri, più piccoli di un millimetro, alla balenottera azzurra, lunga 30 metri. Questa grande varietà si chiama <b>biodiversità</b>. Viene dall'evoluzione, partita da un antenato comune quasi <b>4 miliardi di anni fa</b>.</p><div class=\"scroll\"><table><tr><th>disciplina</th><th>che cosa studia</th></tr><tr><td><b>zoologia</b></td><td>gli animali</td></tr><tr><td><b>botanica</b></td><td>le piante</td></tr><tr><td>ittiologia</td><td>i pesci</td></tr><tr><td>entomologia</td><td>gli insetti</td></tr><tr><td>ornitologia</td><td>gli uccelli</td></tr><tr><td><b>ecologia</b></td><td>le interazioni tra organismi e ambiente</td></tr><tr><td><b>istologia</b></td><td>i tessuti</td></tr><tr><td><b>citologia</b></td><td>le cellule</td></tr><tr><td>biologia molecolare, genomica, proteomica</td><td>i viventi a livello delle molecole</td></tr></table></div><p class=\"s\">Oggi la biologia usa anche tecniche di altre scienze: biotecnologie, bioinformatica, ingegneria genetica. Con la <b>cristallografia a raggi X</b>, che viene dalla fisica, si è scoperta la struttura a doppia elica del DNA.</p>", "ask": ["Che differenza c'è tra istologia e citologia?", "L'<b>istologia</b> studia i <b>tessuti</b>, la <b>citologia</b> studia le <b>cellule</b>."], "quiz": [["L'entomologia studia…", ["gli uccelli", "gli insetti", "i pesci"], 1, "Ornitologia = uccelli, ittiologia = pesci."], ["Che cos'è la biodiversità?", ["la grande varietà di forme di vita", "lo studio dei tessuti", "una malattia delle piante"], 0, "È il risultato dell'evoluzione."], ["L'ecologia studia…", ["le cellule", "le molecole", "le interazioni tra organismi e ambiente"], 2, "Eco- = casa, ambiente."]]}, {"parte": 0, "t": "Le 7 caratteristiche dei viventi", "body": "<p class=\"s\">Il libro dice che <b>tutti</b> i viventi hanno in comune <b>sette caratteristiche</b>. Sono queste che li distinguono da un sasso.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">1 · Sono fatti di cellule</b>una o tante</div><div class=\"st s\"><b class=\"n\">2 · Contengono informazioni ereditarie</b>nel DNA</div><div class=\"st s\"><b class=\"n\">3 · Ricavano dall'ambiente energia e nutrienti</b>autotrofi ed eterotrofi</div><div class=\"st s\"><b class=\"n\">4 · Regolano il proprio ambiente interno</b>omeostasi</div><div class=\"st s\"><b class=\"n\">5 · Sono organizzati in livelli gerarchici</b>atomi → cellule → organi → organismo</div><div class=\"st s\"><b class=\"n\">6 · Interagiscono gli uni con gli altri</b>popolazioni, comunità, ecosistemi</div><div class=\"st s\"><b class=\"n\">7 · Derivano da un antenato comune</b>evoluzione</div></div><div class=\"trap s\"><b>Attento:</b> negli appunti (scheda 1) le caratteristiche erano <b>5</b>: cellule, stimoli, energia, informazioni, riproduzione. Il libro ne mette <b>7</b>, in modo diverso. Impara quelle del libro.</div><p class=\"s\">In alcune fasi della vita un organismo può non mostrarle tutte. Un seme può restare fermo per anni senza consumare energia: si dice <b>quiescenza</b>. La lampreda adulta smette di nutrirsi e vive solo per riprodursi.</p><p class=\"s\">I <b>virus</b> hanno solo alcune di queste caratteristiche: per questo non sono organismi ma <b>entità biologiche</b>, e si comportano da <b>parassiti obbligati</b> delle cellule.</p>", "words": [["quiescenza", "stato di riposo: il seme non consuma energia e non si sviluppa, finché le condizioni non tornano buone"], ["parassita obbligato", "può vivere e moltiplicarsi solo dentro una cellula di un altro organismo"]], "ask": ["Perché il virus non è considerato un organismo?", "Perché ha <b>solo alcune</b> delle 7 caratteristiche dei viventi. È un'<b>entità biologica</b>, parassita obbligato delle cellule."], "quiz": [["Quante sono le caratteristiche comuni dei viventi secondo il libro?", ["5", "7", "10"], 1, "Sette (figura 2 del libro)."], ["Un seme che resta inattivo per anni è in…", ["omeostasi", "quiescenza", "evoluzione"], 1, "Poi germina quando le condizioni tornano favorevoli."], ["Quale NON è una delle 7 caratteristiche?", ["sono fatti di cellule", "si muovono", "derivano da un antenato comune"], 1, "Le piante sono vive ma non si spostano."]]}, {"parte": 0, "t": "Chi ha scoperto le cellule", "body": "<p class=\"s\">La cellula si è scoperta grazie al <b>microscopio</b>. Tre momenti da ricordare:</p><div class=\"scroll\"><table><tr><th>chi</th><th>quando</th><th>che cosa ha fatto</th></tr><tr><td><b>Robert Hooke</b>, inglese</td><td>Seicento (1635–1703)</td><td>migliora il <b>microscopio ottico</b>; guarda fettine di <b>sughero</b> e vede tante «cellette»: le chiama <b>cellule</b> (dal latino <i>cellula</i>). In realtà erano cellule morte.</td></tr><tr><td><b>Antoni van Leeuwenhoek</b>, olandese</td><td>stessi anni</td><td>con un microscopio costruito da lui vede tanti organismi <b>unicellulari</b> nelle acque stagnanti</td></tr><tr><td><b>Schleiden</b> (piante) e <b>Schwann</b> (animali), tedeschi</td><td>1838</td><td>capiscono che piante e animali sono fatti dello stesso elemento di base: la <b>cellula</b></td></tr></table></div><p class=\"s\">Gli organismi <b>unicellulari</b> sono fatti da una sola cellula. I <b>pluricellulari</b> da tante cellule specializzate in funzioni diverse.</p><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>La cellula è la struttura di base degli organismi viventi, in grado di svolgere tutte le funzioni vitali.</div>", "ask": ["Che cosa vide Hooke nel sughero?", "Tante piccole «cellette» separate da una parete rigida: le chiamò <b>cellule</b>. Erano cellule morte."], "quiz": [["Chi diede il nome alle cellule?", ["Darwin", "Hooke", "Schwann"], 1, "Osservando il sughero."], ["Schleiden e Schwann, nel 1838, conclusero che…", ["piante e animali sono fatti di cellule", "i virus sono vivi", "l'acqua è polare"], 0, "Uno studiava le piante, l'altro gli animali."], ["Un organismo fatto da una sola cellula è…", ["pluricellulare", "unicellulare", "un tessuto"], 1, "Uni = uno."]]}, {"parte": 0, "t": "DNA, nucleotidi e geni", "body": "<p class=\"s\">I viventi si riproducono e si sviluppano seguendo un «progetto interno»: l'<b>informazione genetica</b>. Sta in una molecola: il <b>DNA</b>, acido deossiribonucleico.</p><p class=\"s\">Il DNA è una lunga sequenza di molecole più piccole, i <b>nucleotidi</b>, legati come le <b>perle di una collana</b>. I tipi di nucleotidi sono uguali in tutti gli organismi: cambia l'<b>ordine</b>, come le lettere che formano parole diverse.</p><p class=\"s\">Un <b>gene</b> è un pezzo di DNA: una sequenza precisa di nucleotidi. Il DNA è fatto di <b>due filamenti</b>.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Compito 1</b>contiene le istruzioni per costruire e far funzionare ogni cellula e tutto l'organismo</div><div class=\"st s\"><b class=\"n\">Compito 2</b>permette di trasmettere le caratteristiche ai figli</div></div><div class=\"trap s\"><b>Attento:</b> alcuni virus non hanno DNA ma <b>RNA</b>, acido ribonucleico.</div>", "words": [["nucleotide", "il «mattoncino» del DNA: l'unità che si ripete"], ["gene", "una sequenza di nucleotidi che contiene un'informazione"]], "ask": ["Che rapporto c'è tra DNA, gene e nucleotide?", "Il <b>DNA</b> è la collana intera; un <b>gene</b> è un tratto della collana; un <b>nucleotide</b> è una perla."], "quiz": [["Le unità che formano il DNA si chiamano…", ["amminoacidi", "nucleotidi", "monosaccaridi"], 1, "Gli amminoacidi formano le proteine."], ["Un gene è…", ["una sequenza di nucleotidi del DNA", "una cellula", "una proteina"], 0, "È un tratto di DNA."], ["Il patrimonio genetico di alcuni virus è fatto di…", ["RNA", "glucosio", "lipidi"], 0, "Acido ribonucleico."]]}, {"parte": 0, "t": "Autotrofi ed eterotrofi", "body": "<p class=\"s\">Tutti i viventi hanno bisogno di <b>energia</b> e di <b>materie prime</b> per costruire le cellule. Ci sono due modi per procurarsele.</p><div class=\"scroll\"><table><tr><th></th><th>autotrofi</th><th>eterotrofi</th></tr><tr><td>vuol dire</td><td>«si nutrono da sé»</td><td>«si nutrono di altri»</td></tr><tr><td>come</td><td>con la <b>fotosintesi</b>: luce del Sole + CO₂ + acqua → zuccheri</td><td>mangiano sostanze prodotte da altri organismi</td></tr><tr><td>chi</td><td>piante, alghe, alcuni batteri</td><td>animali, funghi, la maggior parte dei batteri</td></tr><tr><td>in ecologia</td><td><b>produttori</b></td><td><b>consumatori</b></td></tr></table></div><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Consumatori primari</b>mangiano autotrofi: gli <b>erbivori</b></div><div class=\"st s\"><b class=\"n\">Consumatori secondari</b>mangiano altri eterotrofi: i <b>carnivori</b></div></div><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>Per produrre energia e nutrienti gli autotrofi sfruttano la luce solare, mentre gli eterotrofi utilizzano le sostanze prodotte da altri organismi.</div>", "ask": ["Un fungo è autotrofo o eterotrofo?", "<b>Eterotrofo</b>: non fa la fotosintesi, si nutre di sostanze prodotte da altri (legno morto, resti)."], "quiz": [["Una pianta è…", ["eterotrofa", "autotrofa", "un consumatore"], 1, "Fa la fotosintesi."], ["Una mucca che mangia l'erba è un consumatore…", ["primario", "secondario", "produttore"], 0, "Mangia un autotrofo."], ["Il lupo che mangia la pecora è un consumatore…", ["primario", "secondario", "produttore"], 1, "Mangia un altro eterotrofo."]]}, {"parte": 0, "t": "L'omeostasi", "body": "<p class=\"s\">L'ambiente intorno a noi cambia sempre: temperatura, umidità, sale, cibo. Ma dentro un vivente certi valori devono restare <b>quasi costanti</b>.</p><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>L'<b>omeostasi</b> è la capacità di un organismo vivente di mantenere stabili le condizioni interne, anche quando si verificano variazioni nell'ambiente.</div><p class=\"s\">Esempio: d'estate l'aria può arrivare a 40 °C, ma la nostra temperatura resta tra <b>36 e 37 °C</b>. Una roccia al sole, invece, si scalda e basta.</p><p class=\"s\">Per non scaldarsi troppo il corpo usa la <b>sudorazione</b> e la <b>dilatazione dei vasi sanguigni</b>, che disperdono calore.</p><p class=\"s\">Anche un'ameba, un organismo di una sola cellula, adatta il suo metabolismo alla temperatura dell'acqua e all'ossigeno disponibile.</p>", "ask": ["Perché sudiamo quando fa caldo? Usa la parola omeostasi.", "Il sudore evapora e porta via calore: così la temperatura resta intorno ai 36–37 °C. È un meccanismo di <b>omeostasi</b> termica."], "quiz": [["La temperatura del corpo umano resta circa…", ["30–31 °C", "36–37 °C", "40–41 °C"], 1, "Anche se fuori fa più caldo o più freddo."], ["L'omeostasi è…", ["mantenere costanti le condizioni interne", "cambiare forma nel tempo", "nutrirsi da sé"], 0, "Omeo = uguale, stasi = stare."]]}, {"parte": 0, "t": "I livelli gerarchici", "body": "<p class=\"s\">I viventi sono organizzati per livelli, dal più piccolo al più grande, uno dentro l'altro. Tocca i livelli per vederli.</p><div class=\"tog\" data-set=\"livelli\"></div><p class=\"s\">Nei pluricellulari le cellule si <b>specializzano</b>: un neurone trasmette impulsi ma non sa muoversi. Hanno perso la capacità di vivere da sole: ognuna dipende dalle altre.</p><p class=\"s\">Gli organismi interagiscono. Alcuni <b>competono</b>: i merli difendono il territorio, gli erbivori dello stagno competono per il cibo. Altri <b>cooperano</b>: gli elefanti si spostano in gruppo, le formiche vivono in colonie.</p>", "ask": ["Che differenza c'è tra popolazione e comunità?", "La <b>popolazione</b> è fatta di individui della <b>stessa specie</b>; la <b>comunità</b> è l'insieme di popolazioni di <b>specie diverse</b> nello stesso luogo."], "quiz": [["Un gruppo di cellule simili che lavorano insieme è…", ["un organo", "un tessuto", "un sistema"], 1, "Esempio: il tessuto muscolare."], ["Il cuore è…", ["un tessuto", "un organo", "un apparato"], 1, "È fatto di tessuti diversi."], ["Comunità + ambiente in cui vive =", ["popolazione", "biosfera", "ecosistema"], 2, "Con gli scambi di energia."], ["Tutte le rane della stessa specie di uno stagno formano…", ["una popolazione", "una comunità", "un ecosistema"], 0, "Stessa specie, stesso luogo."]], "init": "togInit"}, {"parte": 0, "t": "Darwin e la selezione naturale", "body": "<p class=\"s\">Nel <b>1859</b> Charles <b>Darwin</b> pubblica <i>L'origine delle specie</i>. La sua teoria: tutti i viventi discendono da antenati comuni, quindi sono parenti. Lui la chiama «<b>discendenza con modificazioni</b>».</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">1 · Selezione artificiale</b>l'uomo sceglie gli animali e le piante con i caratteri che gli servono e li fa riprodurre</div><div class=\"st s\"><b class=\"n\">2 · Darwin pensa</b>se lo fa l'uomo, può succedere anche in natura</div><div class=\"st s\"><b class=\"n\">3 · In natura</b>nascono tantissimi figli, ma solo una piccola parte sopravvive e si riproduce</div><div class=\"st s\"><b class=\"n\">4 · Selezione naturale</b>chi ha una caratteristica che aiuta a sopravvivere fa più figli: la caratteristica si diffonde</div><div class=\"st s\"><b class=\"n\">5 · Adattamento</b>col tempo la popolazione si adatta al suo ambiente</div></div><div class=\"scroll\"><table><tr><th>rana</th><th>adattamento</th></tr><tr><td>terricola</td><td>zampe con piccole dita lunghe per spostarsi sul terreno</td></tr><tr><td>acquatica</td><td>zampe posteriori <b>palmate</b></td></tr><tr><td>arboricola</td><td>zampe con <b>cuscinetti adesivi</b></td></tr><tr><td>che plana</td><td>dita palmate per planare da un albero all'altro</td></tr></table></div><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>L'<b>evoluzione</b> è l'insieme dei cambiamenti che si verifica in una popolazione nel tempo.</div>", "words": [["adattamenti", "caratteristiche di struttura, di funzionamento o di comportamento che aumentano la probabilità di sopravvivere e riprodursi"], ["progenie", "i discendenti, i figli"]], "ask": ["Spiega la selezione naturale con l'esempio delle rane acquatiche.", "Tra le rane che vivono in acqua, quelle con le zampe più palmate nuotano meglio, sopravvivono di più e fanno più figli. Così la zampa palmata si diffonde nella popolazione."], "quiz": [["In che anno Darwin pubblicò L'origine delle specie?", ["1638", "1859", "1953"], 1, "Metà Ottocento."], ["La selezione fatta dall'uomo sugli animali domestici è…", ["naturale", "artificiale", "casuale"], 1, "Da qui partì Darwin."], ["Le zampe palmate delle rane acquatiche sono…", ["un adattamento", "un caso di omeostasi", "una quiescenza"], 0, "Aiutano a nuotare."]]}, {"parte": 0, "t": "Specie, 3 domini e 4 regni", "body": "<p class=\"s\">Una <b>specie</b> è un gruppo di organismi che possono accoppiarsi tra loro e generare <b>prole fertile</b>. Le specie si raggruppano in <b>tre domini</b>.</p><div class=\"scroll\"><table><tr><th>dominio</th><th>cellula</th><th>come sono</th></tr><tr><td><b>archèi</b></td><td>procariote</td><td>unicellulari, metabolismi molto diversi</td></tr><tr><td><b>batteri</b></td><td>procariote</td><td>unicellulari, anche in colonie; vivono quasi ovunque</td></tr><tr><td><b>eucarioti</b></td><td>eucariote</td><td>4 regni: protisti, piante, funghi, animali</td></tr></table></div><p class=\"s\">La cellula <b>procariote</b> è piccola e semplice, senza comparti interni. La cellula <b>eucariote</b> è più grande e ha una struttura interna più complessa.</p><div class=\"scroll\"><table><tr><th>regno</th><th>uni / pluri</th><th>come si nutre</th></tr><tr><td><b>protisti</b> (alghe, protozoi…)</td><td>unicellulari o pluricellulari</td><td>molti fotosintetici, altri eterotrofi</td></tr><tr><td><b>piante</b></td><td>pluricellulari</td><td><b>autotrofe</b>: fotosintesi</td></tr><tr><td><b>funghi</b></td><td>unicellulari e pluricellulari</td><td>eterotrofi per <b>assorbimento</b>: digeriscono fuori e assorbono</td></tr><tr><td><b>animali</b></td><td>pluricellulari</td><td>eterotrofi per <b>ingestione</b>: mangiano e digeriscono dentro</td></tr></table></div><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>Tutti i viventi si classificano in tre grandi domìni: archèi, batteri ed eucarioti.</div>", "ask": ["Che differenza c'è tra come si nutrono un fungo e un animale?", "Il <b>fungo</b> secerne fuori le sostanze che digeriscono il cibo e poi <b>assorbe</b>; l'<b>animale</b> <b>ingerisce</b> il cibo e lo digerisce dentro."], "quiz": [["Batteri e archèi hanno cellule…", ["eucariote", "procariote", "vegetali"], 1, "Piccole, senza comparti interni."], ["Quale NON è un regno degli eucarioti?", ["funghi", "batteri", "protisti"], 1, "I batteri sono un dominio a parte."], ["Le piante sono…", ["pluricellulari autotrofe", "unicellulari eterotrofe", "procarioti"], 0, "Fanno la fotosintesi."], ["Le alghe e i protozoi sono…", ["funghi", "protisti", "animali"], 1, "Regno dei protisti."]]}, {"parte": 1, "t": "Il metodo scientifico del libro", "body": "<p class=\"s\">Il <b>metodo scientifico</b> è stato introdotto da <b>Galileo Galilei</b> (1564–1642), il padre della scienza moderna. Prima di lui i filosofi, come Aristotele, pensavano di capire la natura <b>solo ragionando</b>, senza misure né esperimenti.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">1</b>compiono osservazioni sistematiche</div><div class=\"st s\"><b class=\"n\">2</b>formulano una domanda</div><div class=\"st s\"><b class=\"n\">3</b>elaborano un'<b>ipotesi</b>, cioè una possibile risposta</div><div class=\"st s\"><b class=\"n\">4</b>traggono <b>previsioni</b> partendo dall'ipotesi</div><div class=\"st s\"><b class=\"n\">5</b>verificano l'ipotesi con osservazioni o <b>esperimenti</b></div></div><p class=\"s\">Se i risultati <b>non</b> confermano l'ipotesi, la si rivede o se ne fa una nuova. Se la confermano, l'esperimento viene ripetuto e verificato da altri scienziati.</p><div class=\"trap s\"><b>Attento:</b> il libro dice che il metodo <b>non è una linea dritta</b>: gli scienziati possono partire da punti diversi o tornare indietro.</div><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>Il metodo scientifico è il procedimento che parte dall'osservazione di un fenomeno, prevede la formulazione di ipotesi e infine verifica la correttezza delle previsioni.</div>", "ask": ["Che cosa cambia Galileo rispetto ad Aristotele?", "Aristotele cercava di capire la natura <b>solo con il ragionamento</b>; Galileo vuole che ogni idea sia <b>verificata con misure ed esperimenti</b>."], "quiz": [["Chi è considerato il padre della scienza moderna?", ["Aristotele", "Galileo Galilei", "Darwin"], 1, "Ha introdotto il metodo scientifico."], ["Un'ipotesi è…", ["una possibile risposta a una domanda", "un risultato sicuro", "una misura"], 0, "Va verificata."], ["Se l'esperimento smentisce l'ipotesi…", ["l'ipotesi si rivede o si cambia", "si cambiano i dati", "l'ipotesi è comunque giusta"], 0, "Si torna al passo 3."]]}, {"parte": 1, "t": "Dati, induzione e deduzione", "body": "<p class=\"s\">Il primo passo è l'<b>osservazione</b>. Oggi ci aiutano microscopi ottici ed elettronici, il sequenziamento del DNA, la risonanza magnetica, il GPS.</p><div class=\"scroll\"><table><tr><th>dati</th><th>come si ottengono</th><th>esempio</th></tr><tr><td><b>qualitativi</b></td><td>con la percezione: si descrivono</td><td>«la foglia è gialla», «il fossile somiglia a un pesce»</td></tr><tr><td><b>quantitativi</b></td><td>con <b>strumenti di misura</b>: sono numeri</td><td>«la pianta è alta 12 cm»</td></tr></table></div><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Logica induttiva</b>dalle <b>osservazioni</b> si arriva a un'<b>ipotesi</b> (dal particolare al generale)</div><div class=\"st s\"><b class=\"n\">Logica deduttiva</b>dall'<b>ipotesi</b>, considerata vera, si ricavano le <b>previsioni</b> (dal generale al particolare)</div></div><p class=\"s\"><i>Ipotesi</i> viene dal greco <i>hypó</i> = sotto e <i>thésis</i> = posizione: vuol dire «<b>supposizione</b>».</p><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>In seguito all'osservazione, gli scienziati lavorano per induzione formulando ipotesi; dalle ipotesi, poi, deducono previsioni coerenti con l'ipotesi stessa.</div>", "ask": ["«Se i lombrichi fanno i cumuli di terra, dove ci sono più lombrichi troverò più cumuli.» È induzione o deduzione?", "<b>Deduzione</b>: parto dall'ipotesi e ricavo una previsione."], "quiz": [["«Il fiore ha 5 petali rossi» è un dato…", ["qualitativo", "quantitativo", "tutti e due"], 2, "5 è un numero (quantitativo), rosso è qualitativo: qui ci sono tutti e due."], ["«La temperatura dell'acqua è 18 °C» è un dato…", ["qualitativo", "quantitativo"], 1, "Misurato con un termometro."], ["Passare dalle osservazioni all'ipotesi è…", ["logica induttiva", "logica deduttiva", "una previsione"], 0, "Dal particolare al generale."], ["Ricavare previsioni dall'ipotesi è…", ["logica induttiva", "logica deduttiva", "un dato"], 1, "Dal generale al particolare."]]}, {"parte": 1, "t": "Esperimento controllato o comparativo", "body": "<p class=\"s\">Per verificare le previsioni si fanno esperimenti. Il libro ne descrive <b>due tipi</b>.</p><div class=\"scroll\"><table><tr><th></th><th>controllato</th><th>comparativo</th></tr><tr><td>che cosa si fa</td><td>si cambia <b>una sola variabile</b> e si confrontano due campioni simili</td><td>si raccolgono dati da campioni diversi e si mettono a confronto</td></tr><tr><td>quando</td><td>quando si può tenere tutto sotto controllo</td><td>quando le variabili sono troppe e collegate</td></tr></table></div><p class=\"s\">Nell'esperimento controllato ci sono due campioni:</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Campione sperimentale</b>quello in cui si cambia la variabile</div><div class=\"st s\"><b class=\"n\">Campione di controllo</b>quello in cui la variabile <b>non</b> viene cambiata</div></div><div class=\"scroll\"><table><tr><th>variabile</th><th>che cos'è</th></tr><tr><td><b>indipendente</b></td><td>quella su cui <b>interveniamo</b> noi</td></tr><tr><td><b>dipendente</b></td><td>la <b>risposta</b> che misuriamo nel campione</td></tr><tr><td>tutte le altre</td><td>devono restare <b>costanti</b></td></tr></table></div><div class=\"ex s\"><div class=\"lbl\">Esempio</div><span style=\"display:none\">: </span>Esempio: 20 piantine uguali, stessa luce, stessa acqua, stessa terra. A 10 do il fertilizzante (campione sperimentale), alle altre 10 no (controllo). Variabile indipendente: il fertilizzante. Variabile dipendente: quanto crescono.</div><p class=\"s\">Alla fine si usano i <b>metodi statistici</b> per capire se la differenza è <b>significativa</b>, cioè se dipende davvero dalla variabile e non dal caso.</p>", "words": [["significatività", "quanto è probabile che una differenza misurata non sia dovuta al caso"]], "ask": ["Nell'esempio delle piantine, perché serve il campione di controllo?", "Per avere un confronto: se le piantine col fertilizzante crescono di più <b>rispetto a quelle senza</b>, so che è merito del fertilizzante."], "quiz": [["Nell'esperimento delle piantine, la crescita è la variabile…", ["indipendente", "dipendente", "costante"], 1, "È la risposta che misuro."], ["Il campione in cui NON cambio la variabile si chiama…", ["sperimentale", "di controllo", "comparativo"], 1, "Serve per il confronto."], ["In un esperimento controllato si cambia…", ["una sola variabile", "tutte le variabili", "nessuna variabile"], 0, "Le altre restano costanti."], ["Per sapere se una differenza è dovuta al caso si usano…", ["i metodi statistici", "gli organismi modello", "le previsioni"], 0, "Valutano la significatività."]]}, {"parte": 1, "t": "Organismi modello, teorie, comunità scientifica", "body": "<p class=\"s\">Tutti i viventi derivano da un antenato comune e sono fatti di molecole simili. Quindi quello che si scopre su un organismo si può <b>generalizzare</b> ad altri, con cautela. Gli organismi su cui si fanno tanti studi si chiamano <b>organismi modello</b>.</p><div class=\"scroll\"><table><tr><th>organismo modello</th><th>che cosa ci ha insegnato</th></tr><tr><td>batteri</td><td>le reazioni chimiche delle cellule</td></tr><tr><td><i>Chlorella</i>, alga unicellulare</td><td>la fotosintesi</td></tr><tr><td><i>Arabidopsis thaliana</i>, pianta parente della senape</td><td>la genetica delle piante</td></tr><tr><td><i>Caenorhabditis elegans</i>, verme</td><td>lo sviluppo e le neuroscienze</td></tr><tr><td><i>Drosophila melanogaster</i>, moscerino della frutta</td><td>i geni che decidono la forma del corpo</td></tr></table></div><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Ipotesi</b>confermata dagli esperimenti →</div><div class=\"st s\"><b class=\"n\">Teoria</b>spiega anche altri fenomeni simili; non è mai definitiva →</div><div class=\"st s\"><b class=\"n\">Fatto scientifico</b>una teoria verificata da tanti esperimenti diversi, che non si mette più in discussione: per esempio la <b>teoria cellulare</b></div></div><p class=\"s\">Oggi la scienza si fa in <b>gruppi di ricerca</b> con competenze diverse, che possono unirsi in un <b>progetto di ricerca</b>. Le scoperte si condividono nella <b>letteratura scientifica</b>: articoli (<i>paper</i>) su riviste scientifiche.</p><p class=\"s\">Prima di essere pubblicato, l'articolo è controllato da esperti: è la <b>peer review</b>, «revisione tra pari».</p><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>Una teoria che è stata verificata da esperimenti diversi è considerata un fatto scientifico.</div>", "ask": ["Che cos'è la peer review?", "La <b>revisione tra pari</b>: esperti dello stesso campo controllano l'articolo e decidono se è degno di essere pubblicato o va rivisto."], "quiz": [["Il moscerino della frutta Drosophila è…", ["un organismo modello", "un virus", "una pianta"], 0, "Studiato per i geni."], ["Una teoria scientifica…", ["non è mai definitiva", "non si può più cambiare", "non ha bisogno di esperimenti"], 0, "Va sempre verificata."], ["La teoria cellulare oggi è considerata…", ["un'ipotesi", "un fatto scientifico", "un'opinione"], 1, "Confermata da tantissime prove."], ["Peer review vuol dire…", ["revisione tra pari", "rivista scientifica", "gruppo di ricerca"], 0, "Controllo degli esperti."]]}, {"parte": 2, "t": "Gli elementi della vita", "body": "<p class=\"s\">Il <b>96%</b> della massa di ogni vivente è fatto da <b>sei elementi</b>: carbonio C, idrogeno H, ossigeno O, azoto N, fosforo P, zolfo S. Un trucco per ricordarli: <b>CHONPS</b>.</p><p class=\"s\">La sostanza più abbondante nei viventi è l'<b>acqua</b>: circa il <b>90%</b> del peso di una medusa, il <b>70%</b> del corpo umano.</p><div class=\"scroll\"><table><tr><th>elemento</th><th>% nel corpo umano</th><th>elemento</th><th>%</th></tr><tr><td>ossigeno</td><td>65,0</td><td>potassio</td><td>0,4</td></tr><tr><td>carbonio</td><td>18,5</td><td>zolfo</td><td>0,3</td></tr><tr><td>idrogeno</td><td>9,5</td><td>sodio</td><td>0,2</td></tr><tr><td>azoto</td><td>3,3</td><td>cloro</td><td>0,2</td></tr><tr><td>calcio</td><td>1,5</td><td>magnesio</td><td>0,1</td></tr><tr><td>fosforo</td><td>1,0</td><td></td><td></td></tr></table></div><p class=\"s\">Ci sono anche elementi <b>in tracce</b>, pochissimi ma importanti: sodio e potassio per le cellule nervose, magnesio per le reazioni con gli enzimi, calcio come segnale tra le cellule, lo ione ferro Fe²⁺ per trasportare l'ossigeno nel sangue.</p><div class=\"scroll\"><table><tr><th>elettronegatività</th><th>valore</th></tr><tr><td>O ossigeno</td><td>3,5</td></tr><tr><td>Cl cloro</td><td>3,1</td></tr><tr><td>N azoto</td><td>3,0</td></tr><tr><td>C carbonio</td><td>2,5</td></tr><tr><td>P fosforo</td><td>2,2</td></tr><tr><td>H idrogeno</td><td>2,1</td></tr><tr><td>Na sodio</td><td>0,9</td></tr><tr><td>K potassio</td><td>0,8</td></tr></table></div><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Differenza piccola</b>legame covalente <b>apolare</b>: C–H</div><div class=\"st s\"><b class=\"n\">Differenza media</b>legame covalente <b>polare</b>: O–H, N–H</div><div class=\"st s\"><b class=\"n\">Differenza grande</b>un atomo strappa l'elettrone all'altro: legame <b>ionico</b>, Na⁺Cl⁻</div></div>", "ask": ["Perché il legame tra Na e Cl è ionico?", "Perché la differenza di elettronegatività è grande (3,1 − 0,9 = 2,2): il cloro strappa un elettrone al sodio e si formano gli ioni Na⁺ e Cl⁻."], "quiz": [["Quale elemento è il più abbondante nel corpo umano?", ["carbonio", "ossigeno", "idrogeno"], 1, "65%, soprattutto per l'acqua."], ["Quanta acqua c'è nel corpo umano?", ["circa il 30%", "circa il 70%", "circa il 96%"], 1, "Nella medusa il 90%."], ["Il legame C–H è…", ["apolare", "polare", "ionico"], 0, "2,5 e 2,1: differenza piccola."], ["Lo ione che trasporta l'ossigeno nel sangue è…", ["Na⁺", "Fe²⁺", "Cl⁻"], 1, "Lo ione ferroso."]]}, {"parte": 2, "t": "L'acqua in numeri", "body": "<p class=\"s\">Il libro dà alcuni numeri sull'acqua. Sono quelli che più facilmente finiscono nelle domande.</p><div class=\"scroll\"><table><tr><th>che cosa</th><th>valore</th></tr><tr><td>angolo tra i due legami O–H</td><td>circa <b>104,5°</b> (forma a V)</td></tr><tr><td>legami a idrogeno per molecola</td><td>fino a <b>4</b> (2 con l'ossigeno, 1 per ogni idrogeno)</td></tr><tr><td>legami a idrogeno in media nell'acqua liquida</td><td><b>3,4</b></td></tr><tr><td>forza di un legame a idrogeno</td><td>il <b>5%</b> di un legame covalente</td></tr><tr><td>calore latente di fusione</td><td><b>80 cal/g</b> (il diossido di carbonio solo 44 cal/g)</td></tr><tr><td>calore specifico</td><td><b>1 cal/(g·°C)</b></td></tr></table></div><p class=\"s\"><b>Calore latente di fusione</b>: il calore che serve per fondere 1 g di un solido già alla temperatura di fusione. Per l'acqua è alto perché bisogna rompere tanti legami a idrogeno.</p><p class=\"s\"><b>Calore latente di vaporizzazione</b>: il calore per far passare l'acqua da liquida a vapore. È alto anche questo. Per questo il sudore che evapora ci <b>rinfresca</b>: porta via calore dal corpo.</p><p class=\"s\"><b>Calore specifico</b>: il calore che serve per alzare di 1 °C la temperatura di 1 g di sostanza. Con lo stesso calore che alza di 1 °C un grammo d'acqua, un grammo di ferro si scalda di <b>10 °C</b>.</p><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>Il calore latente di fusione e di vaporizzazione dell'acqua è elevato a causa della forza dei numerosi legami a idrogeno.</div>", "ask": ["Perché le città vicino al mare hanno inverni meno freddi e estati meno calde?", "Perché l'acqua ha un <b>calore specifico alto</b>: si scalda e si raffredda lentamente e così mitiga la temperatura vicino a sé."], "quiz": [["Il calore latente di fusione dell'acqua è…", ["1 cal/g", "80 cal/g", "104,5 cal/g"], 1, "104,5 è l'angolo, in gradi."], ["Lo stesso calore che alza di 1 °C 1 g d'acqua alza 1 g di ferro di…", ["1 °C", "10 °C", "100 °C"], 1, "Il ferro si scalda molto più in fretta."], ["Quanti legami a idrogeno può fare al massimo una molecola d'acqua?", ["2", "4", "6"], 1, "In media nel liquido sono 3,4."], ["Sudare rinfresca perché l'acqua ha un alto…", ["calore latente di vaporizzazione", "punto di fusione", "angolo di legame"], 0, "Evaporando porta via calore."]]}, {"parte": 2, "t": "Coesione, adesione, soluzioni", "body": "<p class=\"s\">Nell'acqua liquida i legami a idrogeno si rompono e si riformano di continuo: circa <b>mille miliardi di volte al minuto</b> per ogni molecola.</p><div class=\"scroll\"><table><tr><th>forza</th><th>tra chi</th><th>esempio</th></tr><tr><td><b>coesione</b></td><td>molecole d'acqua <b>con altre molecole d'acqua</b></td><td>l'acqua resiste se la tiri: tensione superficiale</td></tr><tr><td><b>adesione</b></td><td>molecole d'acqua <b>con molecole diverse</b></td><td>l'acqua si attacca alla cellulosa dei vasi delle piante</td></tr></table></div><p class=\"s\">Coesione e adesione insieme fanno <b>risalire l'acqua</b> dalle radici alle foglie degli alberi: quando l'acqua evapora dalle foglie, tira su tutta la colonna.</p><p class=\"s\">La <b>tensione superficiale</b>: la superficie dell'acqua è come una membrana elastica. Un ago appoggiato piano galleggia; i gerridi, insetti «pattinatori», camminano sull'acqua.</p><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Soluzione</b>miscuglio omogeneo: non distingui i componenti nemmeno al microscopio (tè, acqua di mare)</div><div class=\"st s\"><b class=\"n\">Solvente</b>il componente più abbondante: nei viventi è l'<b>acqua</b></div><div class=\"st s\"><b class=\"n\">Soluto</b>la sostanza sciolta</div><div class=\"st s\"><b class=\"n\">Concentrazione</b>quanto soluto c'è in <b>un litro</b> di soluzione</div></div><p class=\"s\">Si sciolgono bene in acqua i composti <b>ionici</b> (sale) e le molecole <b>polari</b> (zucchero, saccarosio). Le molecole <b>apolari</b>, come l'olio, no.</p>", "ask": ["Che differenza c'è tra coesione e adesione?", "<b>Coesione</b>: acqua che si attacca ad altra acqua. <b>Adesione</b>: acqua che si attacca a un'altra sostanza."], "quiz": [["Nell'acqua salata del mare, il sale è…", ["il solvente", "il soluto", "la soluzione"], 1, "Il solvente è l'acqua."], ["L'acqua che si attacca alle pareti dei vasi della pianta è un esempio di…", ["coesione", "adesione", "idrolisi"], 1, "Molecole diverse."], ["Quale di queste NON si scioglie bene in acqua?", ["sale", "zucchero", "olio"], 2, "L'olio è apolare."]]}, {"parte": 2, "t": "Acidi, basi e pH", "body": "<p class=\"s\">Gli <b>acidi</b> in acqua liberano ioni idrogeno <b>H⁺</b>. Esempio: l'acido cloridrico HCl → H⁺ + Cl⁻.</p><p class=\"s\">Le <b>basi</b> invece <b>accettano</b> ioni H⁺, e così ne fanno diminuire la concentrazione. Esempi: lo ione ossidrile OH⁻ (OH⁻ + H⁺ → H₂O), la soda caustica NaOH, l'ammoniaca NH₃.</p><p class=\"s\">Il <b>pH</b> misura la concentrazione di H⁺. La scala va da <b>0</b>, massima acidità, a <b>14</b>, massima basicità. <b>7</b> è neutro. Tocca una sostanza:</p><div class=\"phw\"></div><div class=\"trap s\"><b>Attento:</b> una unità di pH = <b>10 volte</b> la concentrazione di H⁺. Da pH 3 a pH 5 non è «2 volte più acido», ma 10 × 10 = <b>100 volte</b>.</div><p class=\"s\">Il pH del <b>sangue</b> è <b>7,4</b>. Sotto 7,38 si parla di <b>acidosi</b>, sopra 7,45 di <b>alcalosi</b>. Sotto 7 o sopra 7,8 non si sopravvive.</p><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>L'acidità e la basicità delle soluzioni biologiche sono importanti per gli organismi, che devono mantenere costanti le loro condizioni interne.</div>", "ask": ["Il succo di limone ha pH 2, il caffè nero pH 5. Quante volte è più acido il limone?", "Differenza 5 − 2 = 3 unità → 10 × 10 × 10 = <b>1000 volte</b> più H⁺."], "quiz": [["Una soluzione con pH 9 è…", ["acida", "neutra", "basica"], 2, "Più di 7."], ["Gli acidi in acqua…", ["liberano ioni H⁺", "accettano ioni H⁺", "sono sempre neutri"], 0, "Le basi li accettano."], ["Il pH normale del sangue è…", ["7", "7,4", "8"], 1, "Tra 7,38 e 7,45."], ["Da pH 6 a pH 4 la concentrazione di H⁺ diventa…", ["2 volte più alta", "20 volte più alta", "100 volte più alta"], 2, "Due unità: 10 × 10."]], "init": "phInit"}, {"parte": 3, "t": "Composti organici e isomeri", "body": "<p class=\"s\">Le <b>biomolecole</b> sono quattro tipi: <b>proteine, carboidrati, lipidi, acidi nucleici</b>. Sono tutte <b>composti organici</b>, cioè composti del carbonio.</p><p class=\"s\">Sono composti organici anche plastiche, fibre, farmaci, pesticidi, profumi e i derivati del petrolio. Ce ne sono tantissimi perché il carbonio fa forti legami covalenti sia con altri carboni sia con altri elementi.</p><div class=\"scroll\"><table><tr><th>le catene di carbonio possono essere</th><th>esempio</th></tr><tr><td>lineari</td><td>propano</td></tr><tr><td>ramificate</td><td>isopentano</td></tr><tr><td>ad anello</td><td>glucosio ad anello</td></tr><tr><td>con doppi (o tripli) legami</td><td>1-butene, 2-butene</td></tr></table></div><p class=\"s\">Gli <b>idrocarburi</b> sono fatti solo di carbonio e idrogeno.</p><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>Gli <b>isomeri di struttura</b> sono molecole che hanno la stessa formula chimica, ma che differiscono nel modo in cui gli atomi sono legati tra loro.</div><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Isomeri di catena</b>cambia la disposizione dei carboni nella catena</div><div class=\"st s\"><b class=\"n\">Isomeri di posizione</b>cambia la posizione dei legami tra i carboni (1-butene e 2-butene: il doppio legame è in punti diversi)</div><div class=\"st s\"><b class=\"n\">Isomeri di gruppo</b>cambia la posizione dei gruppi funzionali (glucosio e fruttosio)</div></div>", "words": [["isomeria", "dal greco <i>ísos</i> = uguale e <i>méros</i> = parte: stessi pezzi, montati in modo diverso"]], "ask": ["Glucosio e fruttosio sono isomeri. Perché?", "Hanno la <b>stessa formula</b> C₆H₁₂O₆, ma gli atomi sono legati in modo diverso: il gruppo C=O è in posizione diversa."], "quiz": [["Un composto organico è un composto…", ["dell'ossigeno", "del carbonio", "dell'acqua"], 1, "Le biomolecole sono tutte composti organici."], ["Gli idrocarburi contengono solo…", ["C e H", "C, H e O", "C e N"], 0, "Idro = idrogeno, carburi = carbonio."], ["Due isomeri di struttura hanno…", ["stessa formula, struttura diversa", "formula diversa, stessa struttura", "tutto uguale"], 0, "Stessi atomi, legati in modo diverso."]]}, {"parte": 3, "t": "I gruppi funzionali", "body": "<p class=\"s\">Sulle catene di carbonio ci sono piccoli gruppi di atomi che decidono come si comporta la molecola: i <b>gruppi funzionali</b>.</p><div class=\"scroll\"><table><tr><th>gruppo</th><th>si scrive</th><th>dove lo trovi</th></tr><tr><td>ossidrile</td><td>–OH</td><td>alcoli, zuccheri, glicerolo</td></tr><tr><td>carbonile in fondo alla catena (<b>aldeidico</b>)</td><td>–CHO</td><td>aldeidi, glucosio</td></tr><tr><td>carbonile in mezzo alla catena (<b>chetonico</b>)</td><td>R–CO–R</td><td>chetoni: <b>acetone</b>; fruttosio</td></tr><tr><td><b>carbossile</b></td><td>–COOH</td><td>acidi carbossilici: <b>acido acetico</b>; acidi grassi, amminoacidi</td></tr><tr><td>amminico</td><td>–NH₂</td><td>amminoacidi</td></tr><tr><td>fosfato</td><td>–OPO₃²⁻</td><td>fosfolipidi, nucleotidi</td></tr></table></div><p class=\"s\">Aldeidi e chetoni hanno lo stesso gruppo C=O, il <b>carbonile</b>. Cambia solo la <b>posizione</b>: in fondo alla catena è un'aldeide, in mezzo è un chetone. E la posizione cambia le proprietà.</p><div class=\"trap s\"><b>Attento:</b> nelle foto del libro questa pagina si vede solo in parte (chetoni, acido acetico, aldeidi). Gli altri gruppi sono quelli già visti nella scheda 10.</div>", "ask": ["Che gruppo funzionale caratterizza le aldeidi?", "Il gruppo carbonilico <b>C=O in fondo alla catena</b>: –CHO."], "quiz": [["L'acetone è un…", ["chetone", "acido carbossilico", "alcol"], 0, "C=O in mezzo alla catena."], ["L'acido acetico (aceto) ha il gruppo…", ["–OH", "–COOH", "–NH₂"], 1, "Carbossile."], ["Aldeidi e chetoni differiscono per…", ["la posizione del gruppo C=O", "il numero di ossigeni", "la presenza di azoto"], 0, "In fondo o in mezzo."]]}, {"parte": 3, "t": "Macromolecole: condensazione e idrolisi", "body": "<p class=\"s\">Le molecole biologiche sono spesso enormi, con tantissimi atomi: per questo si chiamano <b>macromolecole</b>. Quasi tutte sono <b>polimeri</b>: catene di molecole più piccole, i <b>monomeri</b>, come un muro fatto di mattoni.</p><div class=\"scroll\"><table><tr><th>polimero</th><th>monomero</th></tr><tr><td>polisaccaridi</td><td>monosaccaridi</td></tr><tr><td>proteine</td><td>amminoacidi</td></tr><tr><td>acidi nucleici</td><td>nucleotidi</td></tr></table></div><div class=\"trap s\"><b>Attento:</b> i <b>lipidi NON sono polimeri</b>: non sono fatti da unità che si ripetono.</div><div class=\"poly\"></div><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Condensazione</b>unisce due monomeri con un legame covalente; <b>esce</b> una molecola d'acqua; serve <b>energia</b></div><div class=\"st s\"><b class=\"n\">Idrolisi</b>spezza il legame; <b>entra</b> una molecola d'acqua; si liberano i monomeri</div></div><p class=\"s\">Tutte le biomolecole hanno due cose in comune: 1) una precisa <b>struttura tridimensionale</b>, legata alla funzione; 2) <b>proprietà chimiche</b> specifiche, che ne decidono forma e funzione.</p>", "ask": ["Che cosa si ottiene da una reazione di condensazione tra due monomeri?", "Un pezzo di polimero (i due monomeri legati da un legame covalente) e una <b>molecola d'acqua</b>."], "quiz": [["Quali biomolecole NON sono polimeri?", ["proteine", "lipidi", "acidi nucleici"], 1, "Sono molto diversi tra loro."], ["Nell'idrolisi l'acqua…", ["esce", "entra e spezza il legame", "non c'entra"], 1, "Idro = acqua, lisi = rottura."], ["I monomeri delle proteine sono…", ["nucleotidi", "amminoacidi", "monosaccaridi"], 1, "Le catene si ripiegano."], ["Per unire 5 monomeri in una catena escono…", ["5 molecole d'acqua", "4 molecole d'acqua", "1 molecola d'acqua"], 1, "Una per ogni legame: 5 − 1 = 4."]], "init": "polyInit"}, {"parte": 3, "t": "Carboidrati: i monosaccaridi", "body": "<p class=\"s\">I carboidrati si dividono in quattro gruppi. Gli <b>oligosaccaridi</b> hanno da 3 a 20 monosaccaridi: il <b>melecitosio</b>, nella linfa degli alberi e nel miele, ne ha 3.</p><p class=\"s\">I carboidrati hanno quattro funzioni: sono la <b>principale fonte di energia</b> delle cellule; servono come <b>riserva</b>; danno lo <b>scheletro di carbonio</b> per costruire altre molecole; sono <b>materiale strutturale</b> per sostegno e rivestimento.</p><p class=\"s\">Un <b>monosaccaride</b> ha: una catena di <b>3–7 carboni</b>; un carbonio nel gruppo carbonilico <b>C=O</b>; tutti gli altri carboni con un gruppo <b>–OH</b>.</p><div class=\"scroll\"><table><tr><th>carboni</th><th>nome</th><th>esempi</th></tr><tr><td>3</td><td><b>triosio</b></td><td></td></tr><tr><td>4</td><td>tetroso</td><td></td></tr><tr><td>5</td><td><b>pentoso</b></td><td>ribosio, deossiribosio</td></tr><tr><td>6</td><td><b>esoso</b></td><td>glucosio, fruttosio, mannosio, galattosio</td></tr></table></div><div class=\"scroll\"><table><tr><th></th><th>aldosi</th><th>chetosi</th></tr><tr><td>C=O</td><td>all'<b>inizio</b> della catena</td><td>al <b>secondo posto</b></td></tr><tr><td>esempio</td><td><b>glucosio</b></td><td><b>fruttosio</b></td></tr></table></div><p class=\"s\">Con 4 o più carboni possono stare a catena lineare oppure ad <b>anello</b>. Nelle cellule la forma ad anello è più stabile e più frequente.</p><p class=\"s\">Le cellule demoliscono il glucosio con la <b>respirazione cellulare</b>: si libera energia e si producono acqua e diossido di carbonio.</p><div class=\"scroll\"><table><tr><th>pentoso</th><th>dove</th><th>differenza</th></tr><tr><td><b>ribosio</b></td><td>nell'<b>RNA</b></td><td></td></tr><tr><td><b>deossiribosio</b></td><td>nel <b>DNA</b></td><td>gli manca un atomo di ossigeno sul carbonio 2</td></tr></table></div><div class=\"trap s\"><b>Attento:</b> ribosio e deossiribosio <b>non sono isomeri</b>: non hanno la stessa formula, perché uno ha un ossigeno in meno.</div>", "ask": ["Perché glucosio e fruttosio sono isomeri, ma ribosio e deossiribosio no?", "Glucosio e fruttosio hanno la stessa formula C₆H₁₂O₆. Il deossiribosio ha <b>un ossigeno in meno</b> del ribosio, quindi la formula è diversa."], "quiz": [["Il glucosio è un…", ["aldoso", "chetoso", "pentoso"], 0, "C=O all'inizio della catena; è un esoso."], ["Un monosaccaride con 5 carboni è un…", ["triosio", "pentoso", "esoso"], 1, "Penta = cinque."], ["Il deossiribosio si trova nel…", ["DNA", "RNA", "amido"], 0, "Il ribosio nell'RNA."], ["Il melecitosio è un…", ["monosaccaride", "trisaccaride", "polisaccaride"], 1, "3 unità: è un oligosaccaride."]]}, {"parte": 3, "t": "Polisaccaridi: amido, glicogeno, cellulosa, chitina", "body": "<p class=\"s\">I <b>polisaccaridi</b> sono polimeri di centinaia o migliaia di monosaccaridi, uniti da <b>legami glicosidici</b>. Il libro ne descrive quattro.</p><div class=\"scroll\"><table><tr><th></th><th>monomero</th><th>forma</th><th>dove</th><th>a che cosa serve</th></tr><tr><td><b>amido</b></td><td>glucosio</td><td>ramificato</td><td>piante: chicchi, patate, semi</td><td>riserva di energia delle piante</td></tr><tr><td><b>glicogeno</b></td><td>glucosio</td><td><b>molto</b> ramificato, più compatto</td><td>animali: <b>fegato</b> e <b>muscoli</b></td><td>riserva di energia degli animali</td></tr><tr><td><b>cellulosa</b></td><td>glucosio</td><td><b>non</b> ramificato: fibre</td><td>pareti delle cellule vegetali, tronchi, cotone</td><td>sostegno</td></tr><tr><td><b>chitina</b></td><td>N-acetilglucosammina</td><td>catene</td><td>scheletro esterno di insetti e crostacei; parete dei funghi</td><td>sostegno</td></tr></table></div><p class=\"s\">Amido e glicogeno si spezzano facilmente in glucosio. La cellulosa invece è molto stabile: le sue catene si uniscono con legami a idrogeno e formano fibre rigide.</p><p class=\"s\">La <b>cellulosa</b> è la sostanza organica più abbondante sulla Terra. Noi non riusciamo a digerirla: per noi è <b>fibra</b>. La chitina le contende il primo posto.</p><div class=\"ex s\"><div class=\"lbl\">Strano ma vero</div><span style=\"display:none\">: </span>Il topinambur contiene <b>inulina</b>, un polisaccaride fatto di fruttosio. Non lo digeriamo, ma aiuta i batteri buoni dell'intestino (è un <b>prebiotico</b>) e non alza gli zuccheri nel sangue: per questo è consigliato ai diabetici.</div>", "ask": ["Cellulosa e amido sono fatti tutti e due di glucosio. Che cosa cambia?", "La <b>forma</b> e la <b>funzione</b>: l'amido è ramificato e fa da riserva; la cellulosa non è ramificata, forma fibre e fa da sostegno."], "quiz": [["Il glicogeno si trova…", ["nel fegato e nei muscoli", "nelle foglie", "nel guscio dei granchi"], 0, "È la riserva degli animali."], ["La chitina è nello scheletro esterno di…", ["mammiferi", "insetti e crostacei", "piante"], 1, "Anche nella parete dei funghi."], ["Il polisaccaride più ramificato è…", ["la cellulosa", "l'amido", "il glicogeno"], 2, "Per questo è più compatto."], ["Quale polisaccaride NON è fatto di glucosio?", ["amido", "chitina", "cellulosa"], 1, "È fatta di N-acetilglucosammina."]]}, {"parte": 3, "t": "I lipidi: trigliceridi, saturi e insaturi", "body": "<p class=\"s\">I <b>lipidi</b> sono <b>apolari</b> e insolubili in acqua; sono fatti soprattutto di carbonio e idrogeno. <b>Non sono polimeri</b>.</p><div class=\"scroll\"><table><tr><th>tipo</th><th>a che cosa serve</th></tr><tr><td>trigliceridi (grassi e oli)</td><td>riserva di energia e isolante termico</td></tr><tr><td>fosfolipidi</td><td>membrane delle cellule a doppio strato</td></tr><tr><td>carotenoidi</td><td>catturano la luce con le clorofille</td></tr><tr><td>steroidi, acidi grassi</td><td>regolazione: ormoni, vitamine</td></tr><tr><td>oli e cere</td><td>impermeabilizzano pelle, pelliccia, penne, foglie</td></tr></table></div><p class=\"s\">Un <b>trigliceride</b> è fatto da <b>1 glicerolo</b> (un alcol con 3 gruppi –OH) e <b>3 acidi grassi</b>. Si forma per <b>condensazione</b>: escono 3 molecole d'acqua e si formano 3 <b>legami estere</b>. Dà più del <b>doppio</b> dell'energia di carboidrati e proteine.</p><div class=\"scroll\"><table><tr><th></th><th>grassi</th><th>oli</th></tr><tr><td>a temperatura ambiente</td><td><b>solidi</b></td><td><b>liquidi</b></td></tr><tr><td>acidi grassi</td><td><b>saturi</b>, catena lunga</td><td><b>insaturi</b>, catena corta</td></tr><tr><td>esempio</td><td>burro, strutto (animali)</td><td>olio d'oliva, di girasole (piante)</td></tr><tr><td>punto di fusione</td><td>alto</td><td>basso</td></tr></table></div><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Saturo</b>solo legami semplici tra i carboni: catena dritta; le molecole si affiancano come matite nella scatola (acido palmitico)</div><div class=\"st s\"><b class=\"n\">Insaturo</b>uno o più doppi legami: la catena fa dei «gomiti» e non si compatta (acido linoleico)</div><div class=\"st s\"><b class=\"n\">Mono- e polinsaturi</b>un solo doppio legame = monoinsaturo; più doppi legami = polinsaturo</div></div><p class=\"s\">Un acido grasso ha una testa polare (–COOH) e una lunga coda apolare: è <b>anfipatico</b>. I <b>fosfolipidi</b> hanno al posto di un acido grasso un <b>gruppo fosfato</b> legato a una molecola polare (colina o serina): testa idrofila, due code idrofobe, e in acqua formano il <b>doppio strato</b>.</p>", "ask": ["Perché il burro è solido e l'olio d'oliva è liquido?", "Il burro ha acidi grassi <b>saturi</b>, dritti, che si compattano. L'olio ha acidi grassi <b>insaturi</b>, con i gomiti, che non si compattano."], "quiz": [["Un trigliceride è fatto da…", ["3 glicerolo + 1 acido grasso", "1 glicerolo + 3 acidi grassi", "2 acidi grassi + 1 fosfato"], 1, "Tri = tre acidi grassi."], ["Il legame tra glicerolo e acido grasso è un legame…", ["estere", "peptidico", "glicosidico"], 0, "Si forma per condensazione."], ["Un acido grasso con doppi legami è…", ["saturo", "insaturo", "un polisaccaride"], 1, "Ha i gomiti."], ["Nei fosfolipidi uno degli acidi grassi è sostituito da…", ["un gruppo fosfato", "un estere", "un glucosio"], 0, "Legato a una molecola polare."]]}, {"parte": 3, "t": "Altri lipidi: carotenoidi, steroidi, vitamine, cere", "body": "<p class=\"s\">Alcuni lipidi non hanno glicerolo e acidi grassi, ma sono apolari e fatti di C e H: per questo sono lipidi anche loro.</p><div class=\"scroll\"><table><tr><th>lipide</th><th>com'è</th><th>esempi e funzioni</th></tr><tr><td><b>carotenoidi</b></td><td>pigmenti che assorbono la luce</td><td>il <b>β-carotene</b> cattura la luce nella fotosintesi; nel nostro corpo si spezza in <b>2 molecole di vitamina A</b> → rodopsina → <b>vista</b>. Colore di carote, pomodori, zucche, tuorlo</td></tr><tr><td><b>steroidi</b></td><td>4 anelli di carbonio uniti</td><td><b>colesterolo</b>: nelle membrane animali, prodotto dal fegato, base per <b>testosterone</b>, altri ormoni steroidei e sali biliari; <b>cortisolo</b>: ormone delle ghiandole surrenali</td></tr><tr><td><b>vitamine</b> liposolubili</td><td>piccole molecole che il corpo non sa fare: vanno prese col cibo</td><td><b>A, D, E, K</b>; si conservano nel tessuto adiposo e nel fegato. La vitamina D2 si forma nella pelle con la luce</td></tr><tr><td><b>cere</b></td><td>molecole lunghissime, 40–60 carboni, molto apolari</td><td>impermeabili: capelli, <b>penne</b> degli uccelli acquatici, foglie lucide dell'<b>agrifoglio</b>, alveari delle api</td></tr></table></div><div class=\"trap s\"><b>Attento:</b> le vitamine del gruppo <b>B</b> non sono lipidi: sono <b>idrosolubili</b>, cioè si sciolgono in acqua.</div><p class=\"s\">La carenza di vitamina A porta a un ritardo della crescita e alla cecità notturna.</p><div class=\"ex s\"><div class=\"lbl\">Dal libro</div><span style=\"display:none\">: </span>I carotenoidi, gli steroidi, le vitamine e le cere sono lipidi che svolgono compiti di conversione dell'energia, di regolazione e di protezione.</div>", "ask": ["Perché le penne del martin pescatore non si bagnano?", "Perché sono rivestite di <b>cera</b>, molto apolare e quindi impermeabile all'acqua."], "quiz": [["Dal β-carotene si ottiene la vitamina…", ["A", "B", "C"], 0, "Due molecole di vitamina A."], ["Il colesterolo è…", ["uno steroide", "una cera", "un carotenoide"], 0, "Ha la struttura ad anelli."], ["Quali vitamine sono liposolubili?", ["A, D, E, K", "B e C", "solo la B"], 0, "Si sciolgono nei grassi."], ["Le foglie dell'agrifoglio sono lucide perché rivestite di…", ["amido", "cera", "chitina"], 1, "Riduce la perdita d'acqua."]]}, {"parte": 4, "t": "Le domande del libro", "body": "<p class=\"s\">Queste sono le domande di fine lezione del libro («Finisci con metodo»). Rispondi a voce, poi controlla.</p><div class=\"ask\"><div class=\"q\">Che cosa studia la biologia?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Gli esseri viventi: com'è fatta la vita, come funziona, come si è evoluta. È divisa in tante discipline.</div></div><div class=\"ask\"><div class=\"q\">Quali sono le caratteristiche comuni a tutti gli organismi viventi?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Sono fatti di cellule; contengono informazioni ereditarie (DNA); ricavano energia e nutrienti dall'ambiente; regolano l'ambiente interno (omeostasi); sono organizzati in livelli gerarchici; interagiscono tra loro; derivano da un antenato comune.</div></div><div class=\"ask\"><div class=\"q\">Qual è la differenza tra comunità e popolazione? Che cosa si intende per ecosistema?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Popolazione = una sola specie; comunità = più specie nello stesso luogo. Ecosistema = la comunità più l'ambiente in cui vive.</div></div><div class=\"ask\"><div class=\"q\">Quali sono le diverse tappe del metodo scientifico?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Osservazione, domanda, ipotesi, previsione, esperimento; poi si conferma o si rivede l'ipotesi.</div></div><div class=\"ask\"><div class=\"q\">A che cosa serve un organismo modello?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Le scoperte fatte su di lui si possono generalizzare, con cautela, ad altri organismi.</div></div><div class=\"ask\"><div class=\"q\">Qual è la differenza tra teoria e fatto scientifico?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Una teoria spiega molti fenomeni ma non è mai definitiva; un fatto scientifico è una teoria verificata da tanti esperimenti diversi, che non si mette più in discussione.</div></div><div class=\"ask\"><div class=\"q\">Che cos'è una peer review?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">La revisione tra pari: esperti controllano un articolo prima che sia pubblicato.</div></div><div class=\"ask\"><div class=\"q\">Quali sono le caratteristiche che descrivono il legame a idrogeno?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">È un'attrazione debole (5% di un covalente) tra un H δ+ di una molecola e un atomo molto elettronegativo (O o N) δ− di un'altra molecola o di un'altra parte della stessa.</div></div><div class=\"ask\"><div class=\"q\">Perché la densità dell'acqua è maggiore allo stato liquido che allo stato solido?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Nel ghiaccio i legami a idrogeno tengono le molecole ferme e distanziate, con tanti spazi vuoti; nel liquido si rompono e le molecole si avvicinano.</div></div><div class=\"ask\"><div class=\"q\">Quali sarebbero le conseguenze se il ghiaccio si inabissasse nell'acqua?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Gli stagni gelerebbero dal fondo fino a diventare un blocco di ghiaccio: i pesci e gli altri organismi morirebbero.</div></div><div class=\"ask\"><div class=\"q\">Che cos'è il pH?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">La misura della concentrazione di ioni H⁺: scala da 0 (acido) a 14 (basico), 7 neutro.</div></div><div class=\"ask\"><div class=\"q\">Che cosa sono le biomolecole?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Composti organici a base di catene di carbonio: proteine, carboidrati, lipidi, acidi nucleici.</div></div><div class=\"ask\"><div class=\"q\">Che cos'è l'isomeria di struttura?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Stessa formula chimica, atomi legati in modo diverso.</div></div><div class=\"ask\"><div class=\"q\">Che cosa è il risultato di una reazione di condensazione?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Un legame covalente tra due monomeri e una molecola d'acqua che esce.</div></div><div class=\"ask\"><div class=\"q\">Qual è la differenza tra aldosi e chetosi?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Negli aldosi il C=O è all'inizio della catena (glucosio), nei chetosi al secondo posto (fruttosio).</div></div><div class=\"ask\"><div class=\"q\">Che cosa avviene quando due monosaccaridi si uniscono a formare un disaccaride?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Una condensazione: si forma un legame glicosidico ed esce una molecola d'acqua.</div></div><div class=\"ask\"><div class=\"q\">Che cos'è la cellulosa? In che cosa differisce dall'amido?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Un polimero non ramificato del glucosio, che forma fibre di sostegno; l'amido è ramificato e fa da riserva.</div></div><div class=\"ask\"><div class=\"q\">Qual è la struttura di un trigliceride?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Un glicerolo legato a tre acidi grassi con legami estere.</div></div><div class=\"ask\"><div class=\"q\">Quali lipidi sono tipicamente anfipatici?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Gli acidi grassi e i fosfolipidi: testa polare e coda apolare.</div></div><div class=\"ask\"><div class=\"q\">Che cosa contraddistingue gli steroidi?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">La struttura ad anelli di carbonio uniti.</div></div><div class=\"ask\"><div class=\"q\">Qual è la funzione dei carotenoidi?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Assorbono la luce (fotosintesi); il β-carotene dà la vitamina A.</div></div><div class=\"ask\"><div class=\"q\">Dove immagazzinano le vitamine liposolubili gli animali?</div><button class=\"mini\" onclick=\"reveal(this)\">Prova a rispondere, poi tocca qui</button><div class=\"a\">Nel tessuto adiposo e nel fegato.</div></div>"}, {"parte": 4, "t": "Ripasso: tutta la scheda", "body": "<p class=\"s\">Quindici domande su tutta la scheda. Se sbagli, leggi la spiegazione e torna alla carta giusta.</p>", "quiz": [["Le sette caratteristiche dei viventi comprendono…", ["l'omeostasi", "la quiescenza", "la cristallografia"], 0, "La quiescenza è una fase in cui alcune caratteristiche non si vedono."], ["I virus sono…", ["organismi unicellulari", "entità biologiche, parassiti obbligati", "procarioti"], 1, "Hanno solo alcune caratteristiche dei viventi."], ["Robert Hooke osservò al microscopio…", ["acque stagnanti", "fettine di sughero", "il DNA"], 1, "Leeuwenhoek osservò le acque stagnanti."], ["I funghi sono…", ["autotrofi", "eterotrofi per assorbimento", "procarioti"], 1, "Digeriscono fuori e assorbono."], ["Il livello subito sopra il tessuto è…", ["la cellula", "l'organo", "il sistema"], 1, "Cellula → tessuto → organo → sistema."], ["Nell'esperimento controllato la variabile su cui interveniamo è…", ["dipendente", "indipendente", "di controllo"], 1, "La dipendente è la risposta."], ["Dalle ipotesi alle previsioni si usa la logica…", ["induttiva", "deduttiva", "statistica"], 1, "Dal generale al particolare."], ["Il 96% della massa dei viventi è fatto da…", ["C, H, O, N, P, S", "Na, K, Cl", "Fe, Ca, Mg"], 0, "CHONPS."], ["Il calore specifico dell'acqua è…", ["80 cal/g", "1 cal/(g·°C)", "44 cal/g"], 1, "80 cal/g è il calore latente di fusione."], ["Una soluzione con pH 3 rispetto a una con pH 5 ha H⁺…", ["2 volte di più", "100 volte di più", "100 volte di meno"], 1, "Due unità più acida: 10 × 10."], ["Il fruttosio è…", ["un aldoso", "un chetoso", "un pentoso"], 1, "C=O al secondo carbonio."], ["Il ribosio fa parte…", ["dell'RNA", "del DNA", "dell'amido"], 0, "Il deossiribosio è nel DNA."], ["Il glicogeno è…", ["la riserva di glucosio degli animali", "la parete delle cellule vegetali", "un lipide"], 0, "Nel fegato e nei muscoli."], ["Un olio, a temperatura ambiente, è liquido perché…", ["ha acidi grassi insaturi", "ha acidi grassi saturi", "è un polisaccaride"], 0, "I gomiti impediscono di compattarsi."], ["Testosterone e colesterolo sono…", ["carotenoidi", "steroidi", "cere"], 1, "Struttura ad anelli."]]}];
+
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += quizHTML(c);
+  h += '</article>';
+  qzRes = {};
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("sc13-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+
+
+/* ═══════ prova tu ═══════ */
+function quizHTML(c){
+  if(!c.quiz || !c.quiz.length) return "";
+  let h = '<div class="quiz"><div class="qhd">Prova tu <span id="qsc"></span></div>';
+  c.quiz.forEach((q,i)=>{
+    h += '<div class="qz" id="qz'+i+'"><div class="qq">'+q[0]+'</div><div class="op">';
+    q[1].forEach((o,k)=>{ h += '<button onclick="qzAns('+i+','+k+')">'+o+'</button>'; });
+    h += '</div><div class="why"></div></div>';
+  });
+  return h + '</div>';
+}
+let qzRes = {};
+function qzAns(i,k){
+  const q = CARDS[idx].quiz[i], box = document.getElementById("qz"+i);
+  if(!box || box.classList.contains("done")) return;
+  box.classList.add("done");
+  const bs = box.querySelectorAll(".op button");
+  bs[q[2]].classList.add("right"); if(k!==q[2]) bs[k].classList.add("wrong");
+  const w = box.querySelector(".why");
+  w.className = "why on "+(k===q[2]?"y":"n");
+  w.innerHTML = (k===q[2] ? "<b>Giusto.</b> " : "<b>No.</b> ") + (q[3]||"");
+  qzRes[i] = (k===q[2]);
+  const n = Object.keys(qzRes).length, g = Object.keys(qzRes).filter(j=>qzRes[j]).length;
+  const sc = document.getElementById("qsc"); if(sc) sc.textContent = "· fatte "+n+" su "+CARDS[idx].quiz.length+", giuste "+g;
+}
+/* ═══════ la virgola che si sposta ═══════ */
+const VMP = [
+  {lab:"453,89", d:"45389", p:3, e:0},
+  {lab:"0,008332", d:"0008332", p:1, e:0},
+  {lab:"38779", d:"38779", p:5, e:0},
+  {lab:"45,89 × 10⁷", d:"4589", p:2, e:7},
+  {lab:"0,0017 × 10⁻³", d:"00017", p:1, e:-3}
+];
+let vm = null;
+function vmInit(){ vmSet(0); }
+function vmSet(k){ vm = {k:k, d:VMP[k].d, p:VMP[k].p, e:VMP[k].e, e0:VMP[k].e, p0:VMP[k].p}; vmDraw(); }
+function vmMove(dir){           /* dir = -1: virgola a sinistra; +1: a destra */
+  if(!vm) return;
+  if(dir<0){
+    if(vm.p<=0) vm.d = "0"+vm.d; else vm.p--;
+    if(vm.p===0){ vm.d="0"+vm.d; vm.p=1; }
+    vm.e++;
+  }else{
+    vm.p++;
+    if(vm.p>vm.d.length) vm.d = vm.d+"0";
+    vm.e--;
+  }
+  vmDraw();
+}
+function vmParts(){
+  let ip = vm.d.slice(0,vm.p).replace(/^0+/,""), fp = vm.d.slice(vm.p);
+  if(!ip) ip = "0";
+  return [ip, fp];
+}
+function supE(n){ return String(n).replace("-","−"); }
+function vmDraw(){
+  const box = document.getElementById("vm"); if(!box) return;
+  const pr = vmParts(), ip = pr[0], fp = pr[1];
+  let num = ip + (fp ? '<span class="cm">,</span>'+fp : '');
+  num += ' × 10<sup>'+supE(vm.e)+'</sup>';
+  const moved = vm.e - vm.e0;
+  let msg, cls = "msg";
+  if(ip.length===1 && ip!=="0"){
+    cls += " ok";
+    const n = Math.abs(moved), posti = n+(n===1?" posto":" posti");
+    msg = "✓ Notazione scientifica."+(moved>0 ? " Virgola "+posti+" a sinistra: l'esponente sale di "+n+"."
+                                     : moved<0 ? " Virgola "+posti+" a destra: l'esponente scende di "+n+"." : "");
+  }else if(ip==="0"){
+    msg = "Prima della virgola c'è 0: sposta la virgola a destra ▶";
+  }else{
+    msg = "Prima della virgola ci sono "+ip.length+" cifre: sposta la virgola a sinistra ◀";
+  }
+  let pre = '<div class="pre">';
+  VMP.forEach((x,i)=>{ pre += '<button class="'+(i===vm.k?"on":"")+'" onclick="vmSet('+i+')">'+x.lab+'</button>'; });
+  pre += '</div>';
+  box.innerHTML = '<div class="num">'+num+'</div><div class="'+cls+'">'+msg+'</div>'
+    + '<div class="ctl"><button onclick="vmMove(-1)">◀ virgola a sinistra</button><button onclick="vmMove(1)">virgola a destra ▶</button></div>'
+    + pre;
+}
+
+/* ═══════ la scala dei prefissi ═══════ */
+const RUNGS = [["k",3],["h",2],["da",1],["",0],["d",-1],["c",-2],["m",-3],["μ",-6],["n",-9]];
+let lad = {dim:1, from:null, to:null};
+function ladInit(){ lad = {dim:1, from:null, to:null}; ladDraw(); }
+function ladDim(n){ lad.dim = n; ladDraw(); }
+function ladTap(i){
+  if(lad.from===null || lad.to!==null){ lad.from = i; lad.to = null; }
+  else if(i!==lad.from){ lad.to = i; }
+  ladDraw();
+}
+function unitName(i){ const s = ["","","²","³"][lad.dim]; return RUNGS[i][0]+"m"+s; }
+function ladDraw(){
+  const box = document.getElementById("lad"); if(!box) return;
+  let h = '<div class="dims">';
+  [[1,"m"],[2,"m²"],[3,"m³"]].forEach(x=>{ h += '<button class="'+(lad.dim===x[0]?"on":"")+'" onclick="ladDim('+x[0]+')">'+x[1]+'</button>'; });
+  h += '</div><div class="hint">'+(lad.from===null?"Tocca l'unità di partenza":(lad.to===null?"Ora tocca l'unità di arrivo":"Tocca un'altra unità per ricominciare"))+'</div><div class="rungs">';
+  const lo = lad.to===null?null:Math.min(lad.from,lad.to), hi = lad.to===null?null:Math.max(lad.from,lad.to);
+  RUNGS.forEach((r,i)=>{
+    if(i>0 && RUNGS[i-1][1]-r[1]>1){
+      h += '<div class="rung gap"><span class="e">'+(RUNGS[i-1][1]-r[1]-1)+' gradini senza nome</span></div>';
+    }
+    let cl = "rung";
+    if(i===lad.from) cl += " from";
+    else if(i===lad.to) cl += " to";
+    else if(lo!==null && i>lo && i<hi) cl += " mid";
+    h += '<button class="'+cl+'" onclick="ladTap('+i+')"><span class="u">'+unitName(i)+'</span><span class="e">10<sup>'+supE(r[1]*lad.dim)+'</sup> m'+["","","²","³"][lad.dim]+'</span></button>';
+  });
+  h += '</div>';
+  let out = '<div class="out">Ogni gradino vale × '+[0,10,100,1000][lad.dim]+'.</div>';
+  if(lad.from!==null && lad.to!==null){
+    const g = Math.abs(RUNGS[lad.from][1]-RUNGS[lad.to][1]), k = g*lad.dim;
+    const scendo = RUNGS[lad.to][1] < RUNGS[lad.from][1];
+    out = '<div class="out '+(scendo?"g":"s")+'"><b>'+unitName(lad.from)+' → '+unitName(lad.to)+'</b>: '
+      +(scendo?"scendo ":"salgo ")+g+(g===1?" gradino":" gradini")
+      +(lad.dim>1?"; con "+["","","m²","m³"][lad.dim]+" ogni gradino vale "+[0,10,100,1000][lad.dim]+", cioè esponente "+g+" × "+lad.dim+" = "+k:"")
+      +'<br>→ <b>'+(scendo?"moltiplico per 10<sup>"+k+"</sup>":"divido per 10<sup>"+k+"</sup>, cioè × 10<sup>−"+k+"</sup>")+'</b></div>';
+  }
+  box.innerHTML = h + out;
+}
+
+/* ═══════ disegni piccoli ═══════ */
+function sqInit(){
+  const g = document.getElementById("sqgrid"); if(!g) return;
+  let s = '<rect x="20" y="15" width="140" height="140" fill="#E6EEF9" stroke="#1D5FA8" stroke-width="2.5"/>';
+  for(let i=1;i<10;i++){
+    s += '<line x1="'+(20+i*14)+'" y1="15" x2="'+(20+i*14)+'" y2="155" stroke="#9DB7DA" stroke-width="1"/>';
+    s += '<line x1="20" y1="'+(15+i*14)+'" x2="160" y2="'+(15+i*14)+'" stroke="#9DB7DA" stroke-width="1"/>';
+  }
+  s += '<rect x="20" y="15" width="14" height="14" fill="#1D5FA8"/>';
+  g.innerHTML = s;
+}
+function sphInit(){
+  const g = document.getElementById("spheres"); if(!g) return;
+  const cols = ["#4F86C6","#E0A43A","#B3261E","#1F7A4D"];
+  let s = '<circle cx="75" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/><circle cx="245" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/>';
+  const pts = [[-26,-18],[-6,-26],[14,-22],[30,-6],[-32,4],[-12,-4],[8,-2],[26,14],[-24,24],[-4,18],[14,28],[-14,34]];
+  pts.forEach((p,i)=>{
+    s += '<circle cx="'+(75+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="#4F86C6"/>';
+    s += '<circle cx="'+(245+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="'+cols[(i*7)%4]+'"/>';
+  });
+  g.innerHTML = s;
+}
+
+/* ═══════ curve di riscaldamento e raffreddamento ═══════ */
+const CURVE = {
+  risc:{ pts:[[45,-18],[85,0],[150,0],[215,100],[300,100],[337,112]],
+    col:["#D5DCE3","#DDD3EF","#D3E5F6","#F4D3E1","#FAEBC0"],
+    dk:["#8A99AA","#9C85C9","#6FA3D6","#D98AAE","#E0B84A"], below:[0,2],
+    tr:[["A–B","solido","Solo ghiaccio. La temperatura sale da −18&nbsp;°C a 0&nbsp;°C."],
+        ["B–C","solido + liquido","<b>Fusione.</b> Ghiaccio e acqua insieme. Sosta termica: si scalda, ma la temperatura resta 0&nbsp;°C finché c'è ghiaccio."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura sale da 0&nbsp;°C a 100&nbsp;°C."],
+        ["D–E","liquido + aeriforme","<b>Ebollizione.</b> Acqua e vapore insieme. Seconda sosta termica: la temperatura resta 100&nbsp;°C finché c'è liquido."],
+        ["E–F","aeriforme","Solo vapore. La temperatura riprende a salire."]]},
+  raff:{ pts:[[45,112],[80,100],[165,100],[225,0],[295,0],[337,-18]],
+    col:["#FAEBC0","#F4D3E1","#D3E5F6","#DDD3EF","#D5DCE3"],
+    dk:["#E0B84A","#D98AAE","#6FA3D6","#9C85C9","#8A99AA"],
+    tr:[["A–B","aeriforme","Solo vapore. La temperatura scende fino a 100&nbsp;°C."],
+        ["B–C","aeriforme + liquido","<b>Condensazione.</b> Il vapore diventa liquido. Sosta termica a 100&nbsp;°C."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura scende da 100&nbsp;°C a 0&nbsp;°C."],
+        ["D–E","liquido + solido","<b>Solidificazione.</b> L'acqua diventa ghiaccio. Sosta termica a 0&nbsp;°C."],
+        ["E–F","solido","Solo ghiaccio. La temperatura scende sotto 0&nbsp;°C."]]}
+};
+function curvY(T){ return 185 - T*1.3; }
+function curvInit(){
+  Array.prototype.forEach.call(stage.querySelectorAll(".curva"), el=>curvDraw(el, null));
+}
+function curvDraw(el, sel){
+  const C = CURVE[el.getAttribute("data-k")], P = C.pts.map(p=>[p[0], curvY(p[1])]);
+  const F = 'font-family="-apple-system,Arial,sans-serif"';
+  let s = '<svg viewBox="0 0 350 250" role="img" aria-label="Curva della temperatura nel tempo">';
+  for(let i=0;i<5;i++){
+    const op = sel===null ? .6 : (i===sel ? 1 : .18);
+    s += '<rect x="'+P[i][0]+'" y="22" width="'+(P[i+1][0]-P[i][0])+'" height="204" fill="'+C.col[i]+'" opacity="'+op+'"/>';
+  }
+  s += '<line x1="40" y1="'+curvY(100)+'" x2="345" y2="'+curvY(100)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="'+curvY(0)+'" x2="345" y2="'+curvY(0)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="14" x2="40" y2="226" stroke="#1B2430" stroke-width="1.8"/><line x1="40" y1="226" x2="346" y2="226" stroke="#1B2430" stroke-width="1.8"/>';
+  s += '<g '+F+' font-size="12.5" fill="#1B2430"><text x="4" y="14">t (°C)</text><text x="346" y="244" text-anchor="end">tempo →</text>';
+  s += '<text x="36" y="'+(curvY(100)+4)+'" text-anchor="end">100</text><text x="36" y="'+(curvY(0)+4)+'" text-anchor="end">0</text><text x="36" y="'+(curvY(-18)+4)+'" text-anchor="end">−18</text></g>';
+  s += '<polyline points="'+P.map(p=>p.join(",")).join(" ")+'" fill="none" stroke="#1B2430" stroke-width="3" stroke-linejoin="round"/>';
+  if(sel!==null) s += '<line x1="'+P[sel][0]+'" y1="'+P[sel][1]+'" x2="'+P[sel+1][0]+'" y2="'+P[sel+1][1]+'" stroke="#A8327A" stroke-width="7" stroke-linecap="round"/>';
+  const L = "ABCDEF";
+  P.forEach((p,i)=>{
+    s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="#1B2430"/>';
+    const up = (C.below && C.below.indexOf(i)>=0) ? 17 : -8;
+    s += '<text x="'+(p[0]+(i===5?-12:3))+'" y="'+(p[1]+up)+'" '+F+' font-size="14" font-weight="700" fill="#1B2430">'+L[i]+'</text>';
+  });
+  s += '</svg>';
+  let b = '<div class="cbtns">';
+  C.tr.forEach((t,i)=>{
+    b += '<button class="cb'+(i===sel?' on':'')+'" style="border-left-color:'+C.dk[i]+'" onclick="curvSel(this,'+i+')"><b>'+t[0]+'</b> · '+t[1]+'</button>';
+  });
+  b += '</div>';
+  const out = '<div class="cout'+(sel===null?'':' on')+'">'+(sel===null ? 'Tocca un tratto.' : '<b>Tratto '+C.tr[sel][0]+'</b> — '+C.tr[sel][2])+'</div>';
+  el.innerHTML = s + b + out;
+}
+function curvSel(btn,i){
+  let el = btn; while(el && !(el.classList && el.classList.contains("curva"))) el = el.parentNode;
+  if(el) curvDraw(el, i);
+}
+function partInit(){
+  const g = document.getElementById("parts"); if(!g) return;
+  let s = "";
+  for(let r=0;r<3;r++) for(let c=0;c<4;c++){
+    const x = 25+c*20, y = 50+r*20;
+    s += '<path d="M'+(x-12)+','+(y-12)+' q3,-3 6,0" fill="none" stroke="#9AA3AE" stroke-width="1"/>';
+    s += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#4F86C6"/>';
+  }
+  [[132,97],[151,98],[170,96],[189,98],[208,97],[142,80],[161,81],[180,79],[199,81],[151,63],[172,63]]
+    .forEach(p=>{ s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  [[254,28,-14,4],[302,40,10,10],[278,70,-12,-8],[316,90,8,-12],[252,95,-12,6]]
+    .forEach(p=>{ s += '<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+p[2])+'" y2="'+(p[1]+p[3])+'" stroke="#9AA3AE" stroke-width="2" stroke-linecap="round"/>'
+                    + '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  g.innerHTML = s;
+}
+
+
+/* ═══════ catena di monomeri ═══════ */
+let polyN = 3, polyMsg = "";
+function polyInit(){ polyN = 3; polyMsg = ""; polyDraw(); }
+function hexP(cx,cy,r){ const p = []; for(let k=0;k<6;k++){ const a = (30+60*k)*Math.PI/180; p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1)); } return p.join(" "); }
+function dropP(x,y){ return '<path d="M'+x+','+(y-9)+' C'+(x+7)+','+(y-1)+' '+(x+6)+','+(y+7)+' '+x+','+(y+7)+' C'+(x-6)+','+(y+7)+' '+(x-7)+','+(y-1)+' '+x+','+(y-9)+' Z" fill="#4F9BD9"/>'; }
+function polyDraw(){
+  const el = stage.querySelector(".poly"); if(!el) return;
+  let s = '<svg viewBox="0 0 340 104" role="img" aria-label="Catena di '+polyN+' monomeri"><g font-family="-apple-system,Arial,sans-serif">';
+  for(let i=0;i<polyN;i++){
+    const x = 26+i*46;
+    if(i>0) s += '<line x1="'+(x-30)+'" y1="78" x2="'+(x-16)+'" y2="78" stroke="#C98A12" stroke-width="3"/>' + dropP(x-23,40)
+              + '<text x="'+(x-23)+'" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="#1D5FA8">H₂O</text>';
+    s += '<polygon points="'+hexP(x,78,16)+'" fill="#FBEFD3" stroke="#C98A12" stroke-width="2.5"/>';
+  }
+  s += '</g></svg>';
+  el.innerHTML = s + '<div class="pstat"><b>'+polyN+'</b> '+(polyN===1?'monomero':'monomeri')+' nella catena · <b>'+(polyN-1)+'</b> '+(polyN===2?'molecola':'molecole')+' d\'acqua '+(polyN===2?'uscita':'uscite')+'</div>'
+    + '<div class="pctl"><button onclick="polyMove(1)"'+(polyN>=7?' disabled':'')+'>+ attacca un pezzo<small>condensazione</small></button>'
+    + '<button onclick="polyMove(-1)"'+(polyN<=1?' disabled':'')+'>− stacca con l\'acqua<small>idrolisi</small></button></div>'
+    + '<div class="pmsg">'+polyMsg+'</div>';
+}
+function polyMove(d){
+  const n = Math.max(1, Math.min(7, polyN+d)); if(n===polyN) return;
+  polyN = n;
+  polyMsg = d>0 ? "Si è attaccato un pezzo: è uscita una molecola d'acqua." : "È entrata una molecola d'acqua: la catena si è spezzata.";
+  polyDraw();
+}
+
+/* ═══════ disegni con i pulsanti (prima/dopo, strutture) ═══════ */
+function togInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".tog"), el=>togDraw(el,0)); }
+function togDraw(el,k){
+  const T = TOGS[el.getAttribute("data-set")]; if(!T) return;
+  let h = '<div class="tbtns">';
+  T.lab.forEach((l,i)=>{ h += '<button class="'+(i===k?'on':'')+'" onclick="togSel(this,'+i+')">'+l+'</button>'; });
+  el.innerHTML = h + '</div>' + T.svg[k] + '<div class="tout">'+T.txt[k]+'</div>';
+}
+function togSel(btn,k){
+  let el = btn; while(el && !(el.classList && el.classList.contains("tog"))) el = el.parentNode;
+  if(el) togDraw(el,k);
+}
+
+
+/* ═══════ costruttore di atomi ═══════ */
+const ELEM = ["","H idrogeno","He elio","Li litio","Be berillio","B boro","C carbonio","N azoto","O ossigeno","F fluoro","Ne neon","Na sodio","Mg magnesio","Al alluminio","Si silicio","P fosforo","S zolfo","Cl cloro","Ar argon","K potassio","Ca calcio"];
+function atomInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".atomw"), el=>{
+  el._p = +el.getAttribute("data-p")||6; el._n = +el.getAttribute("data-n")||6; el._e = +el.getAttribute("data-e")||6; atomDraw(el); }); }
+function atomMove(btn,what,d){
+  let el = btn; while(el && !(el.classList && el.classList.contains("atomw"))) el = el.parentNode; if(!el) return;
+  if(what==="p") el._p = Math.max(1,Math.min(20,el._p+d));
+  if(what==="n") el._n = Math.max(0,Math.min(24,el._n+d));
+  if(what==="e") el._e = Math.max(0,Math.min(22,el._e+d));
+  atomDraw(el);
+}
+function atomDraw(el){
+  const p = el._p, n = el._n, e = el._e, A = p+n, q = p-e, X = ELEM[p].split(" ");
+  let s = '<svg viewBox="0 0 340 170" role="img" aria-label="Atomo con '+p+' protoni, '+n+' neutroni, '+e+' elettroni">';
+  s += '<circle cx="170" cy="85" r="74" fill="none" stroke="#C9D3DE" stroke-width="2" stroke-dasharray="4 5"/>';
+  const tot = p+n, R = 6, cols = Math.ceil(Math.sqrt(tot)); let k = 0;
+  const order = []; for(let i=0;i<tot;i++) order.push(i%2===0 && order.filter(x=>x==="p").length<p ? "p" : (order.filter(x=>x==="n").length<n ? "n" : "p"));
+  for(let i=0;i<tot;i++){ const r = Math.floor(i/cols), c = i%cols, x = 170+(c-(cols-1)/2)*11, y = 85+(r-(Math.ceil(tot/cols)-1)/2)*11;
+    s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+R+'" fill="'+(order[i]==="p"?"#D9534F":"#9AA3AE")+'"/>'; }
+  for(let i=0;i<e;i++){ const a = 2*Math.PI*i/Math.max(e,1) - Math.PI/2; s += '<circle cx="'+(170+74*Math.cos(a)).toFixed(1)+'" cy="'+(85+74*Math.sin(a)).toFixed(1)+'" r="5" fill="#1D5FA8"/>'; }
+  s += '</svg>';
+  const qs = q===0 ? "" : (Math.abs(q)>1?Math.abs(q):"")+(q>0?"+":"−");
+  const sym = '<span class="aw-sym"><span class="ix"><span>'+A+'</span><span>'+p+'</span></span>'+X[0]+'<sup style="font-size:17px">'+qs+'</sup></span>';
+  const tipo = q===0 ? "atomo <b>neutro</b>: elettroni = protoni" : (q>0 ? "ione <b>positivo</b> (catione): ha perso "+q+(q===1?" elettrone":" elettroni") : "ione <b>negativo</b> (anione): ha preso "+(-q)+(-q===1?" elettrone":" elettroni"));
+  el.innerHTML = s
+   + '<div class="aw-row">'
+   + '<div class="aw-ctl" style="color:#B33A36">protoni<span class="v">'+p+'</span><button onclick="atomMove(this,\'p\',-1)">−</button><button onclick="atomMove(this,\'p\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#5A6473">neutroni<span class="v">'+n+'</span><button onclick="atomMove(this,\'n\',-1)">−</button><button onclick="atomMove(this,\'n\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#1D5FA8">elettroni<span class="v">'+e+'</span><button onclick="atomMove(this,\'e\',-1)">−</button><button onclick="atomMove(this,\'e\',1)">+</button></div>'
+   + '</div><div class="aw-out">'+sym+'<b>'+X[1]+'</b> · Z = '+p+' · A = '+p+' + '+n+' = '+A+'<br>'+tipo+'</div>';
+}
+
+/* ═══════ costruttore di formule ioniche ═══════ */
+const CAT = [["Na","+1","sodio",0],["K","+1","potassio",0],["NH<sub>4</sub>","+1","ammonio",1],["Mg","+2","magnesio",0],["Ca","+2","calcio",0],["Fe","+3","ferro (III)",0],["Al","+3","alluminio",0]];
+const ANI = [["Cl","−1","cloruro",0],["F","−1","fluoruro",0],["OH","−1","idrossido",1],["NO<sub>3</sub>","−1","nitrato",1],["ClO<sub>2</sub>","−1","clorito",1],["O","−2","ossido",0],["S","−2","solfuro",0],["SO<sub>4</sub>","−2","solfato",1],["CO<sub>3</sub>","−2","carbonato",1],["PO<sub>4</sub>","−3","fosfato",1]];
+function chg(s){ return parseInt(s.replace("−","-"),10); }
+function supq(q){ const a = Math.abs(q); return (a>1?a:"")+(q>0?"+":"−"); }
+function formInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".formw"), el=>{
+  let h = '<div class="fw-sel"><div><label>ione positivo</label><select onchange="formDraw(this)">';
+  CAT.forEach((c,i)=>{ h += '<option value="'+i+'"'+(i===4?' selected':'')+'>'+c[0].replace(/<\/?sub>/g,"")+supq(chg(c[1]))+' ('+c[2]+')</option>'; });
+  h += '</select></div><div><label>ione negativo</label><select onchange="formDraw(this)">';
+  ANI.forEach((a,i)=>{ h += '<option value="'+i+'"'+(i===0?' selected':'')+'>'+a[0].replace(/<\/?sub>/g,"")+supq(chg(a[1]))+' ('+a[2]+')</option>'; });
+  h += '</select></div></div><div class="fw-out"></div>';
+  el.innerHTML = h; formDraw(el.querySelector("select"));
+}); }
+function gcd(a,b){ return b ? gcd(b,a%b) : a; }
+function formDraw(sel){
+  let el = sel; while(el && !(el.classList && el.classList.contains("formw"))) el = el.parentNode; if(!el) return;
+  const ss = el.querySelectorAll("select"), c = CAT[+ss[0].value], a = ANI[+ss[1].value];
+  const qc = chg(c[1]), qa = -chg(a[1]), L = qc*qa/gcd(qc,qa), nc = L/qc, na = L/qa;
+  let t = '<div class="fw-tiles">';
+  for(let i=0;i<nc;i++) t += '<span class="fw-t c">'+c[0]+'<sup>'+supq(qc)+'</sup></span>';
+  for(let i=0;i<na;i++) t += '<span class="fw-t a">'+a[0]+'<sup>'+supq(-qa)+'</sup></span>';
+  t += '</div>';
+  const part = (x,n,poly)=> n===1 ? x : (poly ? "("+x+")<sub>"+n+"</sub>" : x+"<sub>"+n+"</sub>");
+  const f = part(c[0],nc,c[3]) + part(a[0],na,a[3]);
+  el.querySelector(".fw-out").innerHTML = t
+   + '<div style="text-align:center;font-size:16px">cariche: '+nc+' × (+'+qc+') = +'+(nc*qc)+' &nbsp;e&nbsp; '+na+' × (−'+qa+') = −'+(na*qa)+' &nbsp;→ in tutto <b>0</b></div>'
+   + '<div class="fw-f">'+f+'</div><div style="text-align:center;font-size:16px;color:#5A6473">'+a[2]+' di '+c[2]+'</div>';
+}
+
+/* ═══════ scala del pH ═══════ */
+const PH = [["succhi gastrici",1,""],["succo di limone",2.4,""],["aceto",2.9,""],["cola",3,"circa "],["pomodoro",4,"circa "],["caffè nero",5,"circa "],["saliva",6.5,"circa "],["acqua distillata",7,""],["sangue umano",7.4,""],["acqua di mare",8,"circa "],["bicarbonato di sodio",9,"circa "],["latte di magnesia",10.5,"circa "],["ammoniaca per la casa",11.5,"circa "],["prodotto per pulire il forno",13.5,"circa "]];
+let phSel = 7;
+function phInit(){ phSel = 7; phDraw(); }
+function phPick(i){ phSel = i; phDraw(); }
+function phDraw(){
+  const el = stage.querySelector(".phw"); if(!el) return;
+  const p = PH[phSel], v = p[1];
+  let nums = ""; for(let i=0;i<=14;i+=2) nums += "<span>"+i+"</span>";
+  let h = '<div class="ph-scale"><div class="ph-mark" style="left:'+(v/14*100).toFixed(1)+'%"></div></div><div class="ph-num">'+nums+'</div><div class="ph-list">';
+  PH.forEach((x,i)=>{ h += '<button class="'+(i===phSel?"on":"")+'" onclick="phPick('+i+')">'+x[0]+'</button>'; });
+  const tipo = v<7 ? "<b>acida</b>" : (v>7 ? "<b>basica</b>" : "<b>neutra</b>");
+  const vs = String(v).replace(".",",");
+  let cmp = "";
+  if(v!==7){ const d = Math.abs(7-v), n = Number(Math.pow(10,d).toPrecision(2)); cmp = "<br>Rispetto all'acqua distillata (pH 7) ha "+(v<7?"più":"meno")+" ioni H⁺: circa "+n.toLocaleString("it-IT")+" volte "+(v<7?"di più":"di meno")+"."; }
+  el.innerHTML = h + '</div><div class="ph-out"><b>'+p[0]+'</b>: pH '+p[2]+vs+' → soluzione '+tipo+'.'+cmp+'</div>';
+}
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){
+  const sup = {"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9"};
+  const sub = {"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+  const S = s=>s.split("").map(c=>sup[c]||sub[c]||c).join("");
+  return t.replace(/a\.C\./g,"avanti Cristo")
+    .replace(/10(⁻?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(m,e)=>" 10 alla "+(e[0]==="⁻"?"meno ":"")+S(e.replace("⁻","")))
+    .replace(/cm³/g," centimetri cubi").replace(/dm³/g," decimetri cubi").replace(/m³/g," metri cubi")
+    .replace(/cm²/g," centimetri quadrati").replace(/dm²/g," decimetri quadrati").replace(/m²/g," metri quadrati")
+    .replace(/([⁰¹²³⁴⁵⁶⁷⁸⁹]+)([⁺⁻])/g,(m,d,s)=>" "+S(d)+(s==="⁺"?" più":" meno"))
+    .replace(/⁺/g," più").replace(/⁻/g," meno").replace(/([₀-₉]+)/g,m=>" "+S(m)+" ")
+    .replace(/·/g,", ").replace(/×/g," per ").replace(/÷/g," diviso ").replace(/→/g,", ").replace(/≈/g," circa ")
+    .replace(/°C/g," gradi").replace(/%/g," per cento").replace(/−/g," meno ").replace(/ = /g," uguale ")
+    .replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = new SpeechSynthesisUtterance(say(el.getAttribute("data-say") || el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("sc13-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>
