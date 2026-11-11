@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Biologia 3 — La vita dipende dall&#x27;acqua</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#A8327A; --accent-soft:#F8E9F2; --accent-line:#EBC9DC;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C;
+  --giu:#1D5FA8; --giu-soft:#E6EEF9;   /* scendo la scala: moltiplico */
+  --su:#B4531A;  --su-soft:#FBEDE3;    /* salgo la scala: divido */
+  --read:#FFF0A8;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif;
+  font-size:18px; line-height:1.7; letter-spacing:.005em;
+  padding:0 0 calc(110px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 30px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 18px; font-size:16px}
+
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 18px}
+.chips button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:7px 13px;
+  font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.chips button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+
+.card{border:1px solid var(--rule); border-radius:16px; background:#fff; padding:20px; margin:0 0 14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kicker{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.card h2{font-size:23px; line-height:1.25; margin:6px 0 2px; letter-spacing:-.015em}
+.card p{margin:12px 0}
+.f{font-family:"Times New Roman",Georgia,serif; font-size:23px; text-align:center; display:block; margin:14px 0; line-height:1.5}
+.f i{font-style:italic}
+.f.big{font-size:30px}
+.ex{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:12px; padding:12px 16px; margin:12px 0; font-size:17px; line-height:1.6}
+.ex .lbl, .box .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.ex .fx{font-family:"Times New Roman",Georgia,serif; font-size:20px}
+.trap{background:var(--warn-soft); border:1px solid #EBD9AE; border-radius:12px; padding:12px 16px; margin:12px 0; font-size:16.5px; line-height:1.6}
+.trap b{color:var(--warn)}
+mark{background:#FFF3C4; padding:0 3px; border-radius:3px}
+.giu{color:var(--giu); font-weight:700} .su{color:var(--su); font-weight:700}
+table{width:100%; border-collapse:collapse; margin:14px 0; font-size:15.5px}
+th,td{border:1px solid var(--rule); padding:8px 9px; text-align:left; vertical-align:top; line-height:1.45}
+th{background:var(--accent-soft); color:var(--accent); font-size:13px; letter-spacing:.05em; text-transform:uppercase}
+td.c, th.c{text-align:center}
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+svg{display:block; width:100%; height:auto; margin:12px 0}
+
+/* passi numerati del metodo */
+.flow{display:flex; flex-direction:column; gap:8px; margin:14px 0}
+.flow .st{border-left:5px solid var(--accent); background:var(--accent-soft); border-radius:10px;
+  padding:9px 12px; font-size:16.5px; line-height:1.55}
+.flow .st b.n{display:block; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.flow .st.av{border-left-color:var(--warn); background:var(--warn-soft)}
+.flow .st.av b.n{color:var(--warn)}
+
+/* mappa della materia */
+.tree{margin:14px 0; font-size:16px}
+.tree .n0{background:var(--ink); color:#fff; border-radius:10px; padding:8px 12px; text-align:center; font-weight:700}
+.tree .lv{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+.tree .n1{border:2px solid var(--accent); background:var(--accent-soft); border-radius:10px; padding:8px 10px; text-align:center; font-weight:700; color:var(--accent)}
+.tree .n2{border:1px solid var(--rule); background:#fff; border-radius:10px; padding:7px 9px; font-size:15px; line-height:1.4; margin-top:6px}
+.tree .n2 b{display:block}
+
+/* parole nuove */
+.words{margin:16px 0 0; border-top:1px dashed var(--rule); padding-top:12px}
+.words .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); font-weight:700; margin-bottom:7px}
+.w{display:inline-block; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:6px 11px;
+  font:inherit; font-size:15px; font-weight:600; margin:0 6px 6px 0; cursor:pointer; color:var(--ink)}
+.w.open{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.wdef{display:none; font-size:16px; background:var(--accent-soft); border-radius:10px; padding:10px 12px; margin:2px 0 8px; line-height:1.55}
+.wdef.on{display:block}
+
+/* domanda di controllo */
+.ask{margin-top:16px; border-top:1px dashed var(--rule); padding-top:14px}
+.ask .q{font-size:17px; font-weight:700; margin-bottom:8px}
+.ask .a{display:none; background:var(--ok-soft); border:1px solid #BFD6CC; border-radius:10px; padding:10px 12px; font-size:16px; line-height:1.55}
+.ask .a.on{display:block}
+.mini{border:2px solid var(--ink); background:#fff; color:var(--ink); border-radius:10px; padding:8px 14px;
+  font:inherit; font-size:15px; font-weight:600; cursor:pointer}
+
+/* la virgola che si sposta */
+.vm{border:2px solid var(--accent-line); border-radius:14px; padding:14px; margin:14px 0; background:#fff}
+.vm .num{font-family:"Times New Roman",Georgia,serif; font-size:34px; text-align:center; line-height:1.3; word-break:break-all; margin:6px 0}
+.vm .num .cm{color:var(--accent); font-weight:700; font-size:40px}
+.vm .num sup{font-size:22px}
+.vm .msg{font-size:16px; text-align:center; min-height:3.1em; font-weight:600}
+.vm .msg.ok{color:var(--ok)}
+.vm .ctl{display:flex; gap:8px; margin-top:8px}
+.vm .ctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 6px; font:inherit; font-size:16px; font-weight:700; cursor:pointer}
+.vm .pre{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; justify-content:center}
+.vm .pre button{border:2px solid var(--rule); background:#fff; border-radius:999px; padding:4px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--soft); cursor:pointer}
+.vm .pre button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-soft)}
+
+/* la scala dei prefissi */
+.lad{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.lad .dims{display:flex; gap:6px; margin-bottom:10px}
+.lad .dims button{flex:1; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 4px; font:inherit; font-size:16px; font-weight:700; color:var(--soft); cursor:pointer}
+.lad .dims button.on{border-color:var(--ink); background:var(--ink); color:#fff}
+.lad .hint{font-size:15px; color:var(--soft); text-align:center; margin-bottom:8px}
+.rungs{display:flex; flex-direction:column; gap:4px}
+.rung{display:flex; align-items:center; gap:10px; border:2px solid var(--rule); border-radius:10px; padding:6px 10px; background:#fff; cursor:pointer; font:inherit; color:var(--ink); text-align:left; width:100%}
+.rung .u{font-family:"Times New Roman",Georgia,serif; font-size:21px; font-weight:700; min-width:64px}
+.rung .e{font-size:14px; color:var(--soft)}
+.rung.gap{border-style:dashed; padding:0 10px; min-height:14px; cursor:default; background:transparent}
+.rung.gap .e{font-size:12.5px}
+.rung.mid{background:#F4F1EA}
+.rung.from{border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+.rung.to{border-color:var(--ink); background:var(--ink); color:#fff}
+.rung.to .e{color:#DDE3EA}
+.lad .out{margin-top:10px; border-radius:12px; padding:10px 12px; font-size:17px; line-height:1.55; min-height:3.2em; background:#F4F1EA}
+.lad .out.g{background:var(--giu-soft); color:var(--giu)}
+.lad .out.s{background:var(--su-soft); color:var(--su)}
+
+/* passaggi di stato */
+.sb{font-size:14px}
+
+/* curve di riscaldamento */
+.curva{margin:14px 0}
+.cbtns{display:flex; flex-direction:column; gap:6px; margin-top:6px}
+.cb{border:2px solid var(--rule); border-left-width:12px; background:#fff; border-radius:10px; padding:8px 12px;
+  font:inherit; font-size:16px; text-align:left; color:var(--ink); cursor:pointer}
+.cb.on{border-top-color:var(--accent); border-right-color:var(--accent); border-bottom-color:var(--accent); background:var(--accent-soft)}
+.cout{margin-top:8px; border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:#F4F1EA; color:var(--soft); min-height:3.2em}
+.cout.on{background:var(--accent-soft); color:var(--ink); border:1px solid var(--accent-line)}
+/* striscia dei punti fissi */
+.strip{display:flex; align-items:stretch; margin:12px 0 2px; font-size:15px; font-weight:700; text-align:center}
+.strip .z{flex:1; padding:9px 4px; border-radius:8px}
+.strip .z1{background:#D5DCE3} .strip .z2{background:#D3E5F6} .strip .z3{background:#FAEBC0}
+.strip .mk{flex:0 0 auto; align-self:center; padding:0 6px; font-family:"Times New Roman",Georgia,serif; font-size:19px; color:var(--accent)}
+.stripax{font-size:13px; color:var(--soft); text-align:right; margin-bottom:10px}
+
+/* lettura */
+.s.reading{background:var(--read); border-radius:5px; box-shadow:0 0 0 3px var(--read)}
+
+/* barra in basso */
+.bar{position:fixed; left:0; right:0; bottom:0; background:rgba(251,250,247,.97);
+  border-top:1px solid var(--rule); padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px)}
+.bar .in{max-width:660px; margin:0 auto; display:flex; gap:8px; align-items:center}
+.bar button{font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--ink); background:#fff;
+  color:var(--ink); font-weight:700; padding:11px 0; font-size:16px}
+.bar .nav{flex:0 0 58px}
+.bar .play{flex:1 1 auto; background:var(--ink); color:#fff; border-color:var(--ink)}
+.bar .play.on{background:var(--accent); border-color:var(--accent)}
+.bar .nav:disabled{opacity:.35}
+.count{font-size:13px; color:var(--soft); text-align:center; max-width:660px; margin:5px auto 0; font-weight:600}
+.speed{display:flex; gap:6px; justify-content:center; margin-top:6px}
+.speed button{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:999px;
+  padding:4px 12px; font-size:13px; font-weight:700; flex:0 0 auto}
+.speed button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:30px; line-height:1.6}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto !important} }
+
+/* le tre famiglie */
+.fam{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:14px 0}
+.fam div{border-radius:12px; padding:8px 6px; text-align:center; font-size:13.5px; line-height:1.4}
+.fam b{display:block; font-size:16px; margin-bottom:2px}
+.fam svg{margin:2px auto 4px}
+.fam .f1{background:#FBEFD3; color:#6E4A06} .fam .f2{background:#FBE3EF; color:#8E1B55} .fam .f3{background:#E6EEF9; color:#1D4F8A}
+
+/* catena di monomeri e disegni a pulsanti */
+.poly,.tog{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.pstat{text-align:center; font-size:16.5px}
+.pctl{display:flex; gap:8px; margin-top:10px}
+.pctl button{flex:1; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:10px 6px;
+  font:inherit; font-size:16px; font-weight:700; cursor:pointer; line-height:1.3}
+.pctl button small{display:block; font-size:12.5px; font-weight:600; color:var(--soft)}
+.pctl button:disabled{opacity:.35}
+.pmsg{min-height:1.6em; text-align:center; font-size:15px; color:var(--soft); margin-top:8px}
+.tbtns{display:flex; flex-wrap:wrap; gap:6px}
+.tbtns button{flex:1 1 40%; border:2px solid var(--rule); background:#fff; border-radius:10px; padding:8px 6px;
+  font:inherit; font-size:15px; font-weight:700; color:var(--soft); cursor:pointer}
+.tbtns button.on{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+.tout{border-radius:12px; padding:10px 12px; font-size:16.5px; line-height:1.55; background:var(--accent-soft); border:1px solid var(--accent-line)}
+
+
+.flow .st b.n{text-transform:none; letter-spacing:0; font-size:14.5px}
+/* analogia */
+.an{background:#E6EEF9; border:1px solid #C9D9EE; border-radius:12px; padding:12px 16px; margin:14px 0; font-size:17px; line-height:1.6}
+.an .lbl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:#1D4F8A; font-weight:700; margin-bottom:3px}
+/* prova tu */
+.quiz{margin-top:18px; padding-top:14px; border-top:1px dashed var(--rule)}
+.quiz .qhd{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px}
+.quiz .qhd span{color:var(--soft); letter-spacing:.04em}
+.qz{margin:10px 0 16px}
+.qz .qq{font-weight:700; font-size:17px; line-height:1.45; margin-bottom:7px}
+.qz .op{display:flex; flex-direction:column; gap:6px}
+.qz .op button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:9px 12px; text-align:left; font:inherit; font-size:16.5px; line-height:1.4; color:var(--ink); cursor:pointer}
+.qz .op button.right{border-color:#1F5C4B; background:#E8F0EC; color:#1F5C4B; font-weight:700}
+.qz .op button.wrong{border-color:#9B2C2C; background:#FBEAEA; color:#9B2C2C}
+.qz.done .op button:not(.right):not(.wrong){opacity:.5}
+.qz .why{display:none; margin-top:7px; border-radius:10px; padding:8px 12px; font-size:16px; line-height:1.55}
+.qz .why.on{display:block}
+.qz .why.y{background:#E8F0EC; color:#1F5C4B}
+.qz .why.n{background:#FBEAEA; color:#7A2222}
+/* percorso */
+.path{display:flex; gap:8px; margin:26px 0 0}
+.path a{flex:1; display:block; border:2px solid var(--accent-line); border-radius:12px; padding:10px 12px; text-decoration:none; color:var(--accent); font-weight:700; font-size:15px; line-height:1.35; background:#fff}
+.path a small{display:block; color:var(--soft); font-weight:600; font-size:12.5px}
+.path a.nx{text-align:right}
+/* costruttore di atomi */
+.atomw,.formw{border:2px solid var(--accent-line); border-radius:14px; padding:12px; margin:14px 0; background:#fff}
+.aw-row{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:8px}
+.aw-ctl{border:1px solid var(--rule); border-radius:12px; padding:6px; text-align:center; font-size:14px; font-weight:700}
+.aw-ctl .v{font-size:22px; display:block; line-height:1.2}
+.aw-ctl button{border:2px solid var(--rule); background:#fff; border-radius:9px; width:40px; height:36px; font-size:20px; font-weight:700; cursor:pointer; margin:2px}
+.aw-out{margin-top:8px; border-radius:12px; padding:10px 12px; background:var(--accent-soft); border:1px solid var(--accent-line); font-size:16.5px; line-height:1.55}
+.aw-sym{font-family:"Times New Roman",Georgia,serif; font-size:30px; display:inline-flex; align-items:center; gap:2px; margin-right:10px; vertical-align:middle}
+.aw-sym .ix{display:inline-flex; flex-direction:column; font-size:15px; line-height:1.05; text-align:right}
+.fw-sel{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+.fw-sel label{font-size:13px; font-weight:700; color:var(--soft); display:block; margin-bottom:3px}
+.fw-sel select{width:100%; font:inherit; font-size:17px; padding:8px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink)}
+.fw-tiles{display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; justify-content:center}
+.fw-t{border-radius:10px; padding:6px 10px; font-weight:700; font-size:16px}
+.fw-t.c{background:#E6EEF9; color:#1D4F8A; border:2px solid #9DB8DC}
+.fw-t.a{background:#FBE3EF; color:#8E1B55; border:2px solid #E8A9C8}
+.fw-f{font-family:"Times New Roman",Georgia,serif; font-size:30px; text-align:center; margin:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">Biologia · scheda 3 di 7</div>
+  <h1>3 · La vita dipende dall'acqua</h1>
+  <p class="lead">Libro, unità A2, lezione 1. Gli elementi della vita, i legami, la molecola d'acqua polare e i legami a idrogeno, le proprietà speciali dell'acqua, l'acqua come solvente, acidi, basi e pH.</p>
+</header>
+
+<div class="chips" id="chips"></div>
+<div id="stage"></div>
+<nav class="path"><a href="26-11-10-bio02-metodo.html">◀ Scheda 2<small>Come la biologia studia la vita: il metodo scientifico</small></a><a class="nx" href="26-11-10-bio04-biomolecole.html">Scheda 4 ▶<small>Le proprietà delle biomolecole</small></a></nav><p class="foot" id="foot">Percorso di biologia in 7 schede: segue il libro (unità A1 e A2) e usa anche gli appunti di Liam.</p>
+
+</div>
+
+<div class="bar">
+  <div class="in">
+    <button class="nav" id="prev" onclick="go(-1)" aria-label="Carta precedente">◀</button>
+    <button class="play" id="play" onclick="toggleRead()">▶ Leggi</button>
+    <button class="nav" id="next" onclick="go(1)" aria-label="Carta successiva">▶</button>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="speed">
+    <button onclick="setRate(0.72,this)">lenta</button>
+    <button class="on" onclick="setRate(0.88,this)">normale</button>
+    <button onclick="setRate(1.05,this)">veloce</button>
+  </div>
+</div>
+
+<script>
+const PARTI = ["1 · Gli elementi della vita", "2 · La molecola d'acqua", "3 · Le proprietà dell'acqua", "4 · L'acqua solvente", "5 · Acidi, basi e pH", "6 · Ripasso"];
+const CARDS = [{"parte": 0, "t": "Gli elementi della vita", "body": "<p class=\"s\">L'acqua è la sostanza più abbondante nei viventi: è circa il 90% del peso di una medusa e il 70% del corpo umano.</p><p class=\"s\"><mark>Circa il 96% della massa di ogni organismo è fatto da sei elementi: ossigeno, carbonio, idrogeno, azoto, fosforo e zolfo.</mark></p><div class=\"scroll\"><table><tr><th>elemento</th><th class=\"c\">% nel corpo umano</th></tr><tr><td>ossigeno O</td><td class=\"c\">65,0</td></tr><tr><td>carbonio C</td><td class=\"c\">18,5</td></tr><tr><td>idrogeno H</td><td class=\"c\">9,5</td></tr><tr><td>azoto N</td><td class=\"c\">3,3</td></tr><tr><td>calcio Ca</td><td class=\"c\">1,5</td></tr><tr><td>fosforo P</td><td class=\"c\">1,0</td></tr><tr><td>potassio K</td><td class=\"c\">0,4</td></tr><tr><td>zolfo S</td><td class=\"c\">0,3</td></tr><tr><td>sodio Na · cloro Cl</td><td class=\"c\">0,2 · 0,2</td></tr><tr><td>magnesio Mg</td><td class=\"c\">0,1</td></tr></table></div><div class=\"ex s\"><div class=\"lbl\">Gli elementi «in tracce» contano</div><span style=\"display:none\">: </span>Sodio e potassio servono alle cellule nervose. Il magnesio partecipa a molte reazioni. Il calcio fa da segnale tra le cellule. Lo ione ferro Fe²⁺ trasporta l'ossigeno nel sangue.</div><div class=\"an s\"><div class=\"lbl\">Un trucco</div><span style=\"display:none\">: </span>CHONPS: Carbonio, H idrogeno, Ossigeno, N azoto, P fosforo, S zolfo.</div>", "ask": ["Quali sono i sei elementi principali della vita?", "<b>C, H, O, N, P, S</b> (carbonio, idrogeno, ossigeno, azoto, fosforo, zolfo)."], "quiz": [["L'elemento più abbondante nel corpo umano (in massa) è…", ["l'idrogeno", "il carbonio", "l'ossigeno"], 2, "65%, soprattutto per l'acqua."], ["Quale di questi NON è tra i sei elementi principali?", ["il calcio", "il fosforo", "lo zolfo"], 0, "Il calcio è importante ma meno abbondante."]]}, {"parte": 0, "t": "Elettronegatività e tipi di legame", "body": "<p class=\"s\">L'elettronegatività dice quanto un atomo attira gli elettroni di un legame. Il libro dà questi valori.</p><div class=\"scroll\"><table><tr><th>elemento</th><th class=\"c\">elettronegatività</th></tr><tr><td>ossigeno O</td><td class=\"c\">3,5</td></tr><tr><td>cloro Cl</td><td class=\"c\">3,1</td></tr><tr><td>azoto N</td><td class=\"c\">3,0</td></tr><tr><td>carbonio C</td><td class=\"c\">2,5</td></tr><tr><td>fosforo P</td><td class=\"c\">2,2</td></tr><tr><td>idrogeno H</td><td class=\"c\">2,1</td></tr><tr><td>sodio Na</td><td class=\"c\">0,9</td></tr><tr><td>potassio K</td><td class=\"c\">0,8</td></tr></table></div><div class=\"flow\"><div class=\"st s\"><b class=\"n\">Valori simili</b><span style=\"display:none\">: </span>covalente apolare: elettroni condivisi alla pari. C–H (2,5 e 2,1) è considerato apolare.</div><div class=\"st s\"><b class=\"n\">Valori diversi</b><span style=\"display:none\">: </span>covalente polare: elettroni spostati verso l'atomo più elettronegativo. O–H (3,5 e 2,1), N–H.</div><div class=\"st s\"><b class=\"n\">Differenza molto grande</b><span style=\"display:none\">: </span>legame ionico: l'atomo più elettronegativo strappa gli elettroni. Cl (3,1) e Na (0,9) → Na⁺ e Cl⁻.</div></div><div class=\"an s\"><div class=\"lbl\">Il tiro alla fune, con i numeri</div><span style=\"display:none\">: </span>Più grande è la differenza tra i due numeri, più la corda si sposta. Se la differenza è enorme, uno dei due si prende tutta la corda: legame ionico.</div>", "ask": ["Il legame N–H è polare o apolare?", "<b>Polare</b>: 3,0 contro 2,1, l'azoto attira di più."], "quiz": [["Tra Na (0,9) e Cl (3,1) si forma un legame…", ["ionico", "covalente apolare"], 0, "Differenza molto grande."], ["Il legame C–H è considerato…", ["molto polare", "ionico", "apolare"], 2, "2,5 e 2,1 sono vicini."]]}, {"parte": 1, "t": "Com'è fatta la molecola d'acqua", "body": "<p class=\"s\">La molecola d'acqua, H₂O, ha un ossigeno al centro legato a due idrogeni. Non è dritta: è piegata a forma di V.</p><svg viewBox=\"0 0 340 150\" role=\"img\" aria-label=\"Molecola d'acqua a forma di V, ossigeno delta meno e idrogeni delta più\"><g font-family=\"-apple-system,Arial,sans-serif\" font-weight=\"700\"><g transform=\"translate(130.0,50.0) rotate(0) scale(1.60)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><text x=\"0\" y=\"6\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#C0392B\">O</text><text x=\"-28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text><text x=\"28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text></g>\n<text x=\"130\" y=\"18\" text-anchor=\"middle\" font-size=\"17\" fill=\"#C0392B\">δ−</text><text x=\"70\" y=\"128\" text-anchor=\"middle\" font-size=\"17\" fill=\"#5A6473\">δ+</text><text x=\"190\" y=\"128\" text-anchor=\"middle\" font-size=\"17\" fill=\"#5A6473\">δ+</text>\n<path d=\"M112,74 A26,26 0 0 0 148,74\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"2\"/><text x=\"130\" y=\"100\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1D5FA8\">104,5°</text>\n<text x=\"244\" y=\"60\" font-size=\"13\" fill=\"#1B2430\">a forma di V:</text><text x=\"244\" y=\"78\" font-size=\"13\" fill=\"#1B2430\">un lato −,</text><text x=\"244\" y=\"96\" font-size=\"13\" fill=\"#1B2430\">l'altro +</text></g></svg><p class=\"s\">L'ossigeno tira verso di sé gli elettroni dei legami: diventa un po' negativo, δ−. I due idrogeni diventano un po' positivi, δ+.</p><p class=\"s\">Siccome la molecola è piegata, da una parte c'è il «meno» e dall'altra il «più». Per questo l'acqua è una molecola polare.</p><div class=\"an s\"><div class=\"lbl\">Una calamita</div><span style=\"display:none\">: </span>La molecola d'acqua è come una piccola calamita con un polo − (l'ossigeno) e un polo + (gli idrogeni).</div><div class=\"ex s\"><div class=\"lbl\">Dagli appunti</div><span style=\"display:none\">: </span>Polarità dell'acqua: δ+ sugli H, δ− sull'O. δ è la delta minuscola (carica parziale), Δ la delta maiuscola (differenza, come in ΔT).</div>", "words": [["polare", "che ha una parte un po' negativa e una un po' positiva."]], "ask": ["Perché l'acqua è polare?", "L'ossigeno tira gli elettroni (<b>δ−</b>), gli idrogeni restano <b>δ+</b>, e la molecola è piegata: un lato −, l'altro +."], "quiz": [["Nella molecola d'acqua l'ossigeno è…", ["δ−", "δ+", "neutro"], 0, "Tira verso di sé gli elettroni."], ["La molecola d'acqua ha forma…", ["a cerchio", "dritta", "a V, piegata"], 2, "L'angolo è circa 104,5°."]]}, {"parte": 1, "t": "Il legame a idrogeno", "body": "<p class=\"s\">L'idrogeno δ+ di una molecola d'acqua è attratto dall'ossigeno δ− di un'altra molecola. Questa attrazione tra molecole si chiama legame a idrogeno.</p><svg viewBox=\"0 0 340 196\" role=\"img\" aria-label=\"Legami a idrogeno tra molecole d'acqua\"><g font-family=\"-apple-system,Arial,sans-serif\"><g transform=\"translate(80.0,48.0) rotate(0) scale(1.00)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><text x=\"0\" y=\"6\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#C0392B\">O</text><text x=\"-28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text><text x=\"28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text></g><g transform=\"translate(190.0,96.0) rotate(180) scale(1.00)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><text x=\"0\" y=\"6\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#C0392B\">O</text><text x=\"-28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text><text x=\"28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text></g><g transform=\"translate(290.0,46.0) rotate(20) scale(1.00)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><text x=\"0\" y=\"6\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#C0392B\">O</text><text x=\"-28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text><text x=\"28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text></g><g transform=\"translate(92.0,138.0) rotate(-10) scale(1.00)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><text x=\"0\" y=\"6\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#C0392B\">O</text><text x=\"-28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text><text x=\"28\" y=\"29\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#5A6473\">H</text></g>\n<line x1=\"108\" y1=\"74\" x2=\"174\" y2=\"92\" stroke=\"#2E9E5B\" stroke-width=\"2.5\" stroke-dasharray=\"4 4\"/>\n<line x1=\"218\" y1=\"74\" x2=\"276\" y2=\"58\" stroke=\"#2E9E5B\" stroke-width=\"2.5\" stroke-dasharray=\"4 4\"/>\n<line x1=\"162\" y1=\"72\" x2=\"100\" y2=\"128\" stroke=\"#2E9E5B\" stroke-width=\"2.5\" stroke-dasharray=\"4 4\"/>\n<text x=\"170\" y=\"188\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#2E9E5B\">- - - legame a idrogeno</text></g></svg><p class=\"s\">È un legame debole, molto più debole del legame covalente O–H dentro la molecola. Ma le molecole d'acqua sono tantissime, e tutti questi legami insieme contano moltissimo.</p><div class=\"trap s\"><b>Il legame a idrogeno è tra due molecole</b>, non dentro la molecola. Dentro H₂O ci sono due legami covalenti O–H; tra una molecola e l'altra ci sono i legami a idrogeno.</div><div class=\"an s\"><div class=\"lbl\">Il velcro</div><span style=\"display:none\">: </span>Ogni gancetto del velcro tiene pochissimo, ma tutti insieme tengono forte. I legami a idrogeno sono così.</div><div class=\"ex s\"><div class=\"lbl\">Dove li ritrovi</div><span style=\"display:none\">: </span>Tengono insieme l'α elica e il β foglietto delle proteine (scheda 7) e i due filamenti del DNA.</div>", "words": [["legame a idrogeno", "attrazione debole tra un H δ+ di una molecola e un O (o N) δ− di un'altra."]], "ask": ["Che differenza c'è tra il legame O–H e il legame a idrogeno?", "O–H è <b>covalente</b>, forte, dentro la molecola. Il legame a idrogeno è <b>debole</b>, tra molecole diverse."], "quiz": [["Il legame a idrogeno si forma…", ["tra l'H δ+ di una molecola e l'O δ− di un'altra", "tra due atomi di idrogeno", "dentro la molecola d'acqua"], 0, "È tra molecole."], ["Rispetto al legame covalente, il legame a idrogeno è…", ["più debole", "più forte"], 0, "Ma sono tantissimi."]]}, {"parte": 2, "t": "Le proprietà speciali dell'acqua", "body": "<p class=\"s\">Molte proprietà dell'acqua vengono dalla sua polarità e dai legami a idrogeno.</p><div class=\"scroll\"><table><tr><th>proprietà</th><th>esempio</th></tr><tr><td>è trasparente</td><td>la luce passa: le alghe fanno fotosintesi anche sott'acqua</td></tr><tr><td>è un ottimo solvente</td><td>scioglie sale, zucchero, tante sostanze polari e ioniche</td></tr><tr><td>tensione superficiale</td><td>alcuni insetti camminano sull'acqua</td></tr><tr><td>capillarità</td><td>l'acqua sale in un tubicino sottile e nelle piante</td></tr><tr><td>calore specifico alto</td><td>il mare si scalda e si raffredda lentamente</td></tr><tr><td>calore latente alto</td><td>sudare ci rinfresca</td></tr><tr><td>il ghiaccio è meno denso dell'acqua</td><td>i cubetti galleggiano, i laghi gelano dall'alto</td></tr></table></div><div class=\"ex s\"><div class=\"lbl\">Dagli appunti</div><span style=\"display:none\">: </span>Proprietà fisiche: calore latente (fusione, ebollizione), densità del solido minore di quella del liquido, trasparenza, capacità di sciogliere, tensione superficiale, capillarità, elevato calore specifico. Proprietà chimica: la polarità.</div>", "ask": ["Dimmi tre proprietà dell'acqua che vengono dai legami a idrogeno.", "Per esempio: <b>tensione superficiale</b>, <b>capillarità</b>, <b>calore specifico alto</b> (anche il ghiaccio che galleggia)."], "quiz": [["Il mare d'estate resta fresco perché l'acqua ha…", ["un colore blu", "un calore specifico alto", "una densità bassa"], 1, "Le serve tanta energia per scaldarsi."], ["Quale NON è una proprietà dell'acqua?", ["è un buon solvente", "ha una tensione superficiale alta", "il ghiaccio è più denso dell'acqua"], 2, "È il contrario: il ghiaccio è meno denso."]]}, {"parte": 2, "t": "L'acqua in numeri", "body": "<div class=\"flow\"><div class=\"st s\"><b class=\"n\">Legami a idrogeno</b><span style=\"display:none\">: </span>ogni molecola d'acqua può formarne 4. Un legame a idrogeno è forte circa il 5% di un legame covalente.</div><div class=\"st s\"><b class=\"n\">Calore latente di fusione</b><span style=\"display:none\">: </span>per fondere 1 g di ghiaccio servono 80 cal. Il ghiaccio secco (CO₂ solida) ne vuole solo 44.</div><div class=\"st s\"><b class=\"n\">Calore latente di vaporizzazione</b><span style=\"display:none\">: </span>altissimo: per evaporare l'acqua deve rompere tanti legami a idrogeno. Per questo sudare rinfresca.</div><div class=\"st s\"><b class=\"n\">Calore specifico</b><span style=\"display:none\">: </span>1 cal/(g·°C): l'acqua si scalda e si raffredda lentamente. Mari e laghi rendono il clima più mite.</div><div class=\"st s\"><b class=\"n\">Densità del ghiaccio</b><span style=\"display:none\">: </span>minore di quella dell'acqua: il ghiaccio galleggia e isola l'acqua sotto.</div></div><div class=\"an s\"><div class=\"lbl\">Il filo comune</div><span style=\"display:none\">: </span>Tutte queste proprietà vengono dalla stessa causa: la molecola è polare e forma tanti legami a idrogeno (le carte precedenti).</div>", "ask": ["Quante calorie servono per fondere 10 g di ghiaccio a 0 °C?", "10 × 80 = <b>800 cal</b>."], "quiz": [["Una molecola d'acqua può formare fino a…", ["1 legame a idrogeno", "4 legami a idrogeno", "10 legami a idrogeno"], 1, "Due con l'ossigeno e uno per ogni idrogeno."], ["Il calore latente di fusione dell'acqua è…", ["80 cal/g", "1 cal/g", "44 cal/g"], 0, "44 è quello della CO₂."]]}, {"parte": 2, "t": "Tensione superficiale e capillarità", "body": "<p class=\"s\">Le molecole d'acqua si attraggono tra loro con i legami a idrogeno. In superficie si tengono così forte da formare una specie di pellicola: è la tensione superficiale.</p><div class=\"ex s\"><div class=\"lbl\">Tensione superficiale</div><span style=\"display:none\">: </span>Un insetto, il gerride, cammina sull'acqua senza affondare.<br>Una goccia d'acqua sul tavolo resta tonda.<br>Un ago appoggiato piano può restare a galla.</div><p class=\"s\">L'acqua è attratta anche da altre superfici, come il vetro o le fibre della carta. In un tubicino sottile sale da sola verso l'alto: è la capillarità.</p><div class=\"ex s\"><div class=\"lbl\">Capillarità</div><span style=\"display:none\">: </span>Lo scottex che tocca l'acqua si bagna tutto.<br>Le piante portano l'acqua dalle radici alle foglie in vasi sottilissimi.<br>Lo zucchero in una zolletta si bagna fino in cima.</div><div class=\"an s\"><div class=\"lbl\">Due attrazioni</div><span style=\"display:none\">: </span>Coesione: l'acqua che tira l'acqua (tensione superficiale). Adesione: l'acqua che tira il vetro o la carta (capillarità).</div>", "ask": ["Perché lo scottex assorbe l'acqua?", "Per <b>capillarità</b>: l'acqua è attratta dalle fibre e sale negli spazi sottili."], "quiz": [["Un insetto cammina sull'acqua grazie…", ["al calore specifico", "alla tensione superficiale", "alla capillarità"], 1, "La «pellicola» della superficie."], ["L'acqua che sale nei vasi delle piante è…", ["evaporazione", "tensione superficiale", "capillarità"], 2, "Sale in tubicini sottili."]]}, {"parte": 2, "t": "Il ghiaccio galleggia", "body": "<p class=\"s\">Quasi tutte le sostanze da solide sono più dense che da liquide. L'acqua no: il ghiaccio (0,92 g/cm³) è meno denso dell'acqua liquida (1,00 g/cm³).</p><p class=\"s\">Quando l'acqua gela, i legami a idrogeno tengono le molecole in una rete ordinata con tanti spazi vuoti. Così il ghiaccio occupa più volume: circa il 9% in più.</p><div class=\"ex s\"><div class=\"lbl\">Conseguenze</div><span style=\"display:none\">: </span>I cubetti galleggiano nel bicchiere.<br>Una bottiglia piena dimenticata nel freezer si rompe.<br>I laghi gelano dall'alto: il ghiaccio fa da coperchio e sotto i pesci sopravvivono.</div><div class=\"an s\"><div class=\"lbl\">Persone in fila</div><span style=\"display:none\">: </span>Nel liquido le molecole sono come persone in una folla, strette. Nel ghiaccio sono come persone che si tengono per mano a braccia tese: in cerchio occupano più spazio.</div>", "ask": ["Perché i pesci sopravvivono sotto un lago ghiacciato?", "Il ghiaccio, <b>meno denso</b>, resta sopra e isola l'acqua sotto, che non gela."], "quiz": [["Il ghiaccio galleggia perché…", ["è meno denso dell'acqua liquida", "è più freddo", "contiene aria"], 0, "0,92 contro 1,00 g/cm³."], ["Quando l'acqua gela, il suo volume…", ["diminuisce", "resta uguale", "aumenta"], 2, "Per questo la bottiglia nel freezer si rompe."]]}, {"parte": 3, "t": "Il simile scioglie il simile", "body": "<p class=\"s\">Una sostanza si scioglie bene in un solvente che le somiglia: polare in polare, apolare in apolare.</p><div class=\"scroll\"><table><tr><th>solvente</th><th class=\"c\">soluto</th><th class=\"c\">risultato</th></tr><tr><td>polare</td><td class=\"c\">polare</td><td class=\"c\">soluzione</td></tr><tr><td>polare</td><td class=\"c\">apolare</td><td class=\"c\">2 fasi distinte</td></tr><tr><td>apolare</td><td class=\"c\">apolare</td><td class=\"c\">soluzione</td></tr><tr><td>apolare</td><td class=\"c\">polare</td><td class=\"c\">2 fasi distinte</td></tr></table></div><div class=\"ex s\"><div class=\"lbl\">Esempi</div><span style=\"display:none\">: </span>Zucchero in acqua: si scioglie (polare in polare).<br>Sale in acqua: si scioglie (gli ioni sono attratti dall'acqua polare).<br>Olio in acqua: due strati (apolare in polare).<br>Olio nella benzina: si scioglie (apolare in apolare).<br>Una macchia di grasso: con l'acqua non va via, con lo smacchiatore sì.</div><div class=\"ex s\"><div class=\"lbl\">Dagli appunti</div><span style=\"display:none\">: </span>L'acqua scioglie soluti polari oppure soluti ionici; NO soluti apolari.</div><div class=\"an s\"><div class=\"lbl\">Gli amici</div><span style=\"display:none\">: </span>Le molecole stanno volentieri con chi è come loro: le polari con le polari, le apolari con le apolari.</div>", "ask": ["Perché l'olio non si scioglie in acqua?", "L'olio è <b>apolare</b> e l'acqua è <b>polare</b>: non si mescolano, si formano due fasi."], "quiz": [["Lo zucchero (polare) nell'acqua (polare)…", ["forma due fasi", "si scioglie"], 1, "Simile con simile."], ["La benzina (apolare) nell'acqua…", ["forma due fasi", "si scioglie"], 0, "Apolare con polare."], ["Il sale da cucina (ionico) in acqua…", ["forma due fasi", "si scioglie"], 1, "Gli ioni sono attratti dalle molecole polari."]]}, {"parte": 3, "t": "Come l'acqua scioglie il sale", "body": "<p class=\"s\">Nel sale ci sono ioni Na⁺ e Cl⁻. Quando lo metti in acqua, le molecole d'acqua circondano ogni ione e lo staccano dal cristallo.</p><svg viewBox=\"0 0 340 176\" role=\"img\" aria-label=\"Molecole d'acqua intorno agli ioni sodio e cloruro\"><g font-family=\"-apple-system,Arial,sans-serif\" font-weight=\"700\"><circle cx=\"90\" cy=\"76\" r=\"20\" fill=\"#E6EEF9\" stroke=\"#1D5FA8\" stroke-width=\"2.5\"/><text x=\"90\" y=\"82\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\">Na⁺</text><g transform=\"translate(142.0,76.0) rotate(-90) scale(0.62)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/></g><g transform=\"translate(90.0,128.0) rotate(0) scale(0.62)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/></g><g transform=\"translate(38.0,76.0) rotate(90) scale(0.62)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/></g><g transform=\"translate(90.0,24.0) rotate(180) scale(0.62)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/></g><circle cx=\"250\" cy=\"76\" r=\"22\" fill=\"#E5F4EC\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><text x=\"250\" y=\"82\" text-anchor=\"middle\" font-size=\"15\" fill=\"#2E9E5B\">Cl⁻</text><g transform=\"translate(289.6,115.6) rotate(135) scale(0.62)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/></g><g transform=\"translate(210.4,115.6) rotate(225) scale(0.62)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/></g><g transform=\"translate(210.4,36.4) rotate(315) scale(0.62)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/></g><g transform=\"translate(289.6,36.4) rotate(405) scale(0.62)\"><line x1=\"0\" y1=\"0\" x2=\"-26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><line x1=\"0\" y1=\"0\" x2=\"26\" y2=\"22\" stroke=\"#1B2430\" stroke-width=\"3\"/><circle cx=\"0\" cy=\"0\" r=\"15\" fill=\"#FBEAEA\" stroke=\"#C0392B\" stroke-width=\"2.5\"/><circle cx=\"-28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"28\" cy=\"24\" r=\"10\" fill=\"#F4F1EA\" stroke=\"#5A6473\" stroke-width=\"2\"/></g><text x=\"90\" y=\"170\" text-anchor=\"middle\" font-size=\"11.5\" fill=\"#5A6473\">O (δ−) verso Na⁺</text><text x=\"250\" y=\"170\" text-anchor=\"middle\" font-size=\"11.5\" fill=\"#5A6473\">H (δ+) verso Cl⁻</text></g></svg><p class=\"s\">Verso lo ione positivo Na⁺ si gira il lato negativo dell'acqua, l'ossigeno. Verso lo ione negativo Cl⁻ si girano gli idrogeni, positivi.</p><div class=\"an s\"><div class=\"lbl\">Una squadra</div><span style=\"display:none\">: </span>Ogni ione viene circondato da una squadra di molecole d'acqua che lo porta via dal cristallo: per questo il sale «sparisce» nell'acqua.</div>", "ask": ["Verso Na⁺ si gira l'ossigeno o l'idrogeno dell'acqua?", "L'<b>ossigeno</b>, che è δ−: i segni opposti si attraggono."], "quiz": [["Verso lo ione Cl⁻ si girano…", ["gli ossigeni (δ−)", "gli idrogeni (δ+)"], 1, "Segni opposti si attraggono."]]}, {"parte": 3, "t": "Il sapone e le molecole anfipatiche", "body": "<p class=\"s\">Le molecole anfipatiche hanno una testa polare e una coda apolare, come gli acidi grassi degli appunti.</p><p class=\"s\">Il sapone è fatto di molecole così. Le code apolari si infilano nel grasso, le teste polari restano verso l'acqua. Il grasso viene circondato e portato via dall'acqua.</p><svg viewBox=\"0 0 340 170\" role=\"img\" aria-label=\"Molecole di sapone intorno a una goccia di grasso\"><g font-family=\"-apple-system,Arial,sans-serif\" font-weight=\"700\">\n<rect x=\"4\" y=\"4\" width=\"332\" height=\"162\" rx=\"12\" fill=\"#DCEBF8\"/><text x=\"18\" y=\"24\" font-size=\"13\" fill=\"#1D5FA8\">acqua</text>\n<circle cx=\"170\" cy=\"86\" r=\"34\" fill=\"#FBEFD3\" stroke=\"#C98A12\" stroke-width=\"2\"/><text x=\"170\" y=\"91\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#7A5208\">grasso</text>\n<line x1=\"210.0\" y1=\"86.0\" x2=\"232.0\" y2=\"86.0\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"239.0\" cy=\"86.0\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"204.6\" y1=\"106.0\" x2=\"223.7\" y2=\"117.0\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"229.8\" cy=\"120.5\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"190.0\" y1=\"120.6\" x2=\"201.0\" y2=\"139.7\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"204.5\" cy=\"145.8\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"170.0\" y1=\"126.0\" x2=\"170.0\" y2=\"148.0\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"170.0\" cy=\"155.0\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"150.0\" y1=\"120.6\" x2=\"139.0\" y2=\"139.7\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"135.5\" cy=\"145.8\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"135.4\" y1=\"106.0\" x2=\"116.3\" y2=\"117.0\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"110.2\" cy=\"120.5\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"130.0\" y1=\"86.0\" x2=\"108.0\" y2=\"86.0\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"101.0\" cy=\"86.0\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"135.4\" y1=\"66.0\" x2=\"116.3\" y2=\"55.0\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"110.2\" cy=\"51.5\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"150.0\" y1=\"51.4\" x2=\"139.0\" y2=\"32.3\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"135.5\" cy=\"26.2\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"170.0\" y1=\"46.0\" x2=\"170.0\" y2=\"24.0\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"170.0\" cy=\"17.0\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"190.0\" y1=\"51.4\" x2=\"201.0\" y2=\"32.3\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"204.5\" cy=\"26.2\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/><line x1=\"204.6\" y1=\"66.0\" x2=\"223.7\" y2=\"55.0\" stroke=\"#D63384\" stroke-width=\"2.5\"/><circle cx=\"229.8\" cy=\"51.5\" r=\"7\" fill=\"#fff\" stroke=\"#2E9E5B\" stroke-width=\"2.5\"/>\n<text x=\"330\" y=\"160\" text-anchor=\"end\" font-size=\"12\" fill=\"#2E9E5B\">teste → acqua</text><text x=\"12\" y=\"160\" font-size=\"12\" fill=\"#D63384\">code → grasso</text></g></svg><div class=\"ex s\"><div class=\"lbl\">Dagli appunti</div><span style=\"display:none\">: </span>Gli acidi grassi sull'acqua si mettono con la testa polare (COOH) dentro l'acqua e la coda apolare fuori. È lo stesso principio del sapone.</div><div class=\"an s\"><div class=\"lbl\">Un ponte</div><span style=\"display:none\">: </span>La molecola anfipatica fa da ponte tra due mondi che non si mescolano: con una mano tiene l'acqua, con l'altra il grasso.</div>", "words": [["anfipatica", "con una parte polare e una apolare."]], "ask": ["Perché con il solo acqua il grasso non va via, e con il sapone sì?", "Il grasso è apolare. Il sapone ha <b>code apolari</b> che prendono il grasso e <b>teste polari</b> che restano nell'acqua."], "quiz": [["Nel sapone, la parte che si infila nel grasso è…", ["la coda apolare", "la testa polare"], 0, "Apolare con apolare."], ["Un acido grasso sull'acqua tiene dentro l'acqua…", ["la coda", "la testa COOH"], 1, "La testa è polare."]]}, {"parte": 4, "t": "Acidi e basi", "body": "<p class=\"s\">Alcune sostanze sciolte in acqua liberano ioni idrogeno H⁺: sono gli acidi. Per esempio HCl in acqua si divide in H⁺ e Cl⁻: si ottiene una soluzione acida.</p><p class=\"s\">Altre sostanze, le basi, tolgono ioni H⁺ alla soluzione. Molte liberano ioni ossidrile OH⁻, che si legano con H⁺ formando acqua. La soda caustica NaOH e l'ammoniaca NH₃ sono basi: formano soluzioni basiche, o alcaline.</p><div class=\"scroll\"><table><tr><th></th><th>acidi</th><th>basi</th></tr><tr><td>in acqua</td><td>liberano H⁺</td><td>tolgono H⁺ (spesso liberano OH⁻)</td></tr><tr><td>esempi</td><td>acido cloridrico (succhi gastrici), aceto, limone</td><td>soda caustica, ammoniaca, bicarbonato</td></tr><tr><td>effetti</td><td>piogge acide rovinano piante e monumenti; acidità di stomaco</td><td>detersivi forti, irritano la pelle</td></tr></table></div><div class=\"an s\"><div class=\"lbl\">Il sapore</div><span style=\"display:none\">: </span>Gli acidi hanno sapore aspro, come il limone. (Non si assaggiano le sostanze in laboratorio!)</div>", "words": [["acido", "sostanza che in acqua libera ioni H⁺."], ["base", "sostanza che in acqua toglie ioni H⁺, per esempio liberando OH⁻."]], "ask": ["NaOH è un acido o una base?", "Una <b>base</b>: libera ioni OH⁻."], "quiz": [["Un acido in acqua libera…", ["ioni H⁺", "ioni OH⁻", "elettroni"], 0, "HCl → H⁺ + Cl⁻."], ["L'ammoniaca è…", ["un acido", "una base"], 1, "Soluzione basica."]]}, {"parte": 4, "t": "La scala del pH", "body": "<p class=\"s\">L'acidità si misura con la scala del pH, che va da 0 a 14.</p><svg viewBox=\"0 0 340 120\" role=\"img\" aria-label=\"Scala del pH da 0 a 14\"><defs><linearGradient id=\"g\" x1=\"0\" x2=\"1\"><stop offset=\"0\" stop-color=\"#C0392B\"/><stop offset=\".5\" stop-color=\"#E9E3D6\"/><stop offset=\"1\" stop-color=\"#1D5FA8\"/></linearGradient></defs>\n<g font-family=\"-apple-system,Arial,sans-serif\" font-weight=\"700\" text-anchor=\"middle\"><rect x=\"10\" y=\"34\" width=\"320\" height=\"22\" rx=\"6\" fill=\"url(#g)\"/>\n<text x=\"10.0\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">0</text><text x=\"32.9\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">1</text><text x=\"55.7\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">2</text><text x=\"78.6\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">3</text><text x=\"101.4\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">4</text><text x=\"124.3\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">5</text><text x=\"147.1\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">6</text><text x=\"170.0\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">7</text><text x=\"192.9\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">8</text><text x=\"215.7\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">9</text><text x=\"238.6\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">10</text><text x=\"261.4\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">11</text><text x=\"284.3\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">12</text><text x=\"307.1\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">13</text><text x=\"330.0\" y=\"72\" font-size=\"11.5\" fill=\"#1B2430\">14</text><line x1=\"10.0\" y1=\"56\" x2=\"10.0\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"32.9\" y1=\"56\" x2=\"32.9\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"55.7\" y1=\"56\" x2=\"55.7\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"78.6\" y1=\"56\" x2=\"78.6\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"101.4\" y1=\"56\" x2=\"101.4\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"124.3\" y1=\"56\" x2=\"124.3\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"147.1\" y1=\"56\" x2=\"147.1\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"170.0\" y1=\"56\" x2=\"170.0\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"192.9\" y1=\"56\" x2=\"192.9\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"215.7\" y1=\"56\" x2=\"215.7\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"238.6\" y1=\"56\" x2=\"238.6\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"261.4\" y1=\"56\" x2=\"261.4\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"284.3\" y1=\"56\" x2=\"284.3\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"307.1\" y1=\"56\" x2=\"307.1\" y2=\"61\" stroke=\"#1B2430\"/><line x1=\"330.0\" y1=\"56\" x2=\"330.0\" y2=\"61\" stroke=\"#1B2430\"/>\n<text x=\"60\" y=\"24\" font-size=\"13\" fill=\"#C0392B\">acido</text><text x=\"170\" y=\"24\" font-size=\"13\" fill=\"#5A6473\">neutro 7</text><text x=\"285\" y=\"24\" font-size=\"13\" fill=\"#1D5FA8\">basico</text>\n<g font-size=\"10.5\" font-weight=\"600\"><text x=\"56\" y=\"92\" fill=\"#C0392B\">limone 2</text><text x=\"124\" y=\"110\" fill=\"#C0392B\">caffè 5</text><text x=\"179\" y=\"92\" fill=\"#5A6473\">sangue 7,4</text><text x=\"246\" y=\"110\" fill=\"#1D5FA8\">ammoniaca 11</text><text x=\"296\" y=\"92\" fill=\"#1D5FA8\">sgrassatore 13</text></g></g></svg><div class=\"flow\"><div class=\"st s\"><b class=\"n\">pH minore di 7</b><span style=\"display:none\">: </span>soluzione acida: più è basso, più è acida.</div><div class=\"st s\"><b class=\"n\">pH = 7</b><span style=\"display:none\">: </span>soluzione neutra: l'acqua distillata.</div><div class=\"st s\"><b class=\"n\">pH maggiore di 7</b><span style=\"display:none\">: </span>soluzione basica: più è alto, più è basica.</div></div><div class=\"scroll\"><table><tr><th>sostanza</th><th class=\"c\">pH circa</th></tr><tr><td>succhi gastrici</td><td class=\"c\">1–2</td></tr><tr><td>succo di limone</td><td class=\"c\">2,4</td></tr><tr><td>aceto</td><td class=\"c\">2,9</td></tr><tr><td>caffè nero</td><td class=\"c\">5</td></tr><tr><td>acqua distillata</td><td class=\"c\">7</td></tr><tr><td>sangue umano</td><td class=\"c\">7,4</td></tr><tr><td>acqua di mare</td><td class=\"c\">8</td></tr><tr><td>bicarbonato di sodio</td><td class=\"c\">9</td></tr><tr><td>ammoniaca per la casa</td><td class=\"c\">11</td></tr><tr><td>prodotto per pulire il forno</td><td class=\"c\">13</td></tr></table></div><div class=\"trap s\"><b>Una unità di pH vale 10 volte.</b> Una soluzione a pH 3 è dieci volte più acida di una a pH 4, e cento volte più di una a pH 5.</div><div class=\"ex s\"><div class=\"lbl\">Il pH del sangue</div><span style=\"display:none\">: </span>Normale: 7,4 (tra 7,38 e 7,45). Sotto 7,38 si parla di acidosi, sopra 7,45 di alcalosi. Valori sotto 7 o sopra 7,8 sono incompatibili con la vita: è un esempio di omeostasi.</div>", "words": [["pH", "numero da 0 a 14 che misura l'acidità di una soluzione."], ["neutro", "né acido né basico: pH 7."]], "ask": ["Una soluzione ha pH 9. È acida, neutra o basica?", "<b>Basica</b>: è sopra 7."], "quiz": [["Il succo di limone (pH 2,4) è…", ["basico", "neutro", "acido"], 2, "Sotto 7."], ["Il pH normale del sangue è circa…", ["7,4", "2", "10"], 0, "Leggermente basico."], ["Una soluzione a pH 3 rispetto a una a pH 4 è…", ["10 volte meno acida", "1 volta più acida", "10 volte più acida"], 2, "Ogni unità vale 10 volte."]]}, {"parte": 5, "t": "Ripasso: tutta la scheda", "body": "<p class=\"s\">13 domande su tutta la scheda. Se sbagli, leggi la spiegazione e torna alla carta giusta.</p>", "quiz": [["L'acqua è polare perché…", ["è trasparente", "è liquida", "l'ossigeno tira gli elettroni e la molecola è piegata"], 2, "Lato δ− e lato δ+."], ["Il legame a idrogeno è…", ["un legame covalente forte", "un legame ionico", "un'attrazione debole tra molecole"], 2, "Tra H δ+ e O δ−."], ["Il ghiaccio rispetto all'acqua liquida è…", ["uguale", "più denso", "meno denso"], 2, "Per questo galleggia."], ["L'olio nell'acqua…", ["si scioglie", "forma due fasi"], 1, "Apolare in polare."], ["La capillarità spiega…", ["l'acqua che bolle", "l'acqua che sale nelle piante", "il ghiaccio che galleggia"], 1, "Tubicini sottili."], ["Il calore specifico dell'acqua è…", ["basso", "alto"], 1, "1 cal/(g·°C)."], ["Il simile scioglie il simile vuol dire che…", ["tutto si scioglie in acqua", "polare scioglie polare, apolare scioglie apolare"], 1, "È la regola degli appunti."], ["Il sapone funziona perché le sue molecole sono…", ["solo polari", "solo apolari", "anfipatiche"], 2, "Testa polare, coda apolare."], ["Nella molecola d'acqua gli idrogeni sono…", ["δ+", "δ−"], 0, "Perdono un po' di elettroni."], ["Verso lo ione Na⁺ si gira…", ["l'idrogeno dell'acqua", "l'ossigeno dell'acqua"], 1, "δ− verso +."], ["Il 96% della massa dei viventi è fatto da…", ["C, H, O, N, P, S", "Na, K, Ca, Mg", "Fe, Cu, Zn"], 0, "CHONPS."], ["Una soluzione con pH 8 è…", ["neutra", "acida", "basica"], 2, "Sopra 7."], ["Una sostanza che in acqua libera H⁺ è…", ["un acido", "una base"], 0, "Come HCl."]]}];
+const TOGS = {"TRIG": {"lab": ["Prima", "Dopo"], "svg": ["<svg viewBox=\"0 0 340 196\" role=\"img\" aria-label=\"Trigliceride: glicerolo con tre acidi grassi\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"30\" y=\"45\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><line x1=\"22\" y1=\"49\" x2=\"22\" y2=\"83\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"36\" y=\"45\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O</text><rect x=\"60\" y=\"29\" width=\"14\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"67\" y=\"45\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><rect x=\"110\" y=\"29\" width=\"32\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"126\" y=\"45\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">HO</text><text x=\"144\" y=\"45\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–C</text><polyline points=\"170.0,38.0 179.0,45.0 188.0,38.0 197.0,45.0 206.0,38.0 215.0,45.0 224.0,38.0 233.0,45.0 242.0,38.0 251.0,45.0 260.0,38.0 269.0,45.0 278.0,38.0 287.0,45.0 296.0,38.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"30\" y=\"97\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><line x1=\"22\" y1=\"101\" x2=\"22\" y2=\"135\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"36\" y=\"97\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O</text><rect x=\"60\" y=\"81\" width=\"14\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"67\" y=\"97\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><rect x=\"110\" y=\"81\" width=\"32\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"126\" y=\"97\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">HO</text><text x=\"144\" y=\"97\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–C</text><polyline points=\"170.0,90.0 179.0,97.0 188.0,90.0 197.0,97.0 206.0,90.0 215.0,97.0 224.0,90.0 233.0,97.0 242.0,90.0 251.0,97.0 260.0,90.0 269.0,97.0 278.0,90.0 287.0,97.0 296.0,90.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"30\" y=\"149\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><text x=\"36\" y=\"149\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O</text><rect x=\"60\" y=\"133\" width=\"14\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"67\" y=\"149\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><rect x=\"110\" y=\"133\" width=\"32\" height=\"22\" rx=\"4\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2\"/><text x=\"126\" y=\"149\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">HO</text><text x=\"144\" y=\"149\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–C</text><polyline points=\"170.0,142.0 179.0,149.0 188.0,142.0 197.0,149.0 206.0,142.0 215.0,149.0 224.0,142.0 233.0,149.0 242.0,142.0 251.0,149.0 260.0,142.0 269.0,149.0 278.0,142.0 287.0,149.0 296.0,142.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"12\" y=\"186\" text-anchor=\"start\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"700\">glicerolo</text><text x=\"250\" y=\"186\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#D63384\" font-weight=\"700\">3 acidi grassi</text></g></svg>", "<svg viewBox=\"0 0 340 196\" role=\"img\" aria-label=\"Trigliceride: glicerolo con tre acidi grassi, escono tre molecole d'acqua\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"30\" y=\"45\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><line x1=\"22\" y1=\"49\" x2=\"22\" y2=\"83\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"36\" y=\"45\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O–C</text><polyline points=\"84.0,38.0 93.0,45.0 102.0,38.0 111.0,45.0 120.0,38.0 129.0,45.0 138.0,38.0 147.0,45.0 156.0,38.0 165.0,45.0 174.0,38.0 183.0,45.0 192.0,38.0 201.0,45.0 210.0,38.0 219.0,45.0 228.0,38.0 237.0,45.0 246.0,38.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M306.0,33.0 C313.0,41.0 312.0,49.0 306.0,49.0 C300.0,49.0 299.0,41.0 306.0,33.0 Z\" fill=\"#4F9BD9\"/><text x=\"306.0\" y=\"29.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"#1D5FA8\" font-weight=\"700\">H₂O</text><text x=\"30\" y=\"97\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><line x1=\"22\" y1=\"101\" x2=\"22\" y2=\"135\" stroke=\"#1B2430\" stroke-width=\"2.5\"/><text x=\"36\" y=\"97\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O–C</text><polyline points=\"84.0,90.0 93.0,97.0 102.0,90.0 111.0,97.0 120.0,90.0 129.0,97.0 138.0,90.0 147.0,97.0 156.0,90.0 165.0,97.0 174.0,90.0 183.0,97.0 192.0,90.0 201.0,97.0 210.0,90.0 219.0,97.0 228.0,90.0 237.0,97.0 246.0,90.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M306.0,85.0 C313.0,93.0 312.0,101.0 306.0,101.0 C300.0,101.0 299.0,93.0 306.0,85.0 Z\" fill=\"#4F9BD9\"/><text x=\"30\" y=\"149\" text-anchor=\"end\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H–C</text><text x=\"36\" y=\"149\" text-anchor=\"start\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">–O–C</text><polyline points=\"84.0,142.0 93.0,149.0 102.0,142.0 111.0,149.0 120.0,142.0 129.0,149.0 138.0,142.0 147.0,149.0 156.0,142.0 165.0,149.0 174.0,142.0 183.0,149.0 192.0,142.0 201.0,149.0 210.0,142.0 219.0,149.0 228.0,142.0 237.0,149.0 246.0,142.0\" fill=\"none\" stroke=\"#D63384\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M306.0,137.0 C313.0,145.0 312.0,153.0 306.0,153.0 C300.0,153.0 299.0,145.0 306.0,137.0 Z\" fill=\"#4F9BD9\"/><text x=\"12\" y=\"186\" text-anchor=\"start\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"700\">glicerolo</text><text x=\"220\" y=\"186\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#D63384\" font-weight=\"700\">trigliceride + 3 H₂O</text></g></svg>"], "txt": ["Il glicerolo ha tre OH. Ogni acido grasso ha un gruppo COOH.", "Tre condensazioni: escono tre molecole d'acqua e i tre acidi grassi restano attaccati al glicerolo."]}, "PEPT": {"lab": ["Prima", "Dopo"], "svg": ["<svg viewBox=\"0 0 340 160\" role=\"img\" aria-label=\"Due amminoacidi prima di unirsi\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"4\" y=\"70\" text-anchor=\"start\" font-size=\"16\" fill=\"#1D5FA8\" font-weight=\"700\">H₂N–</text><text x=\"58\" y=\"70\" text-anchor=\"middle\" font-size=\"20\" fill=\"#1B2430\" font-weight=\"700\">C</text><text x=\"58\" y=\"30\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"58\" y1=\"36\" x2=\"58\" y2=\"54\" stroke=\"#1B2430\" stroke-width=\"2\"/><line x1=\"58\" y1=\"78\" x2=\"58\" y2=\"96\" stroke=\"#1B2430\" stroke-width=\"2\"/><circle cx=\"58\" cy=\"110\" r=\"13\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2\"/><text x=\"58\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7B3FA0\" font-weight=\"700\">R₁</text><text x=\"72\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><text x=\"92\" y=\"70\" text-anchor=\"middle\" font-size=\"18\" fill=\"#2E9E5B\" font-weight=\"700\">C</text><text x=\"92\" y=\"36\" text-anchor=\"middle\" font-size=\"15\" fill=\"#2E9E5B\" font-weight=\"700\">O</text><line x1=\"91\" y1=\"54\" x2=\"91\" y2=\"42\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><line x1=\"95\" y1=\"54\" x2=\"95\" y2=\"42\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><text x=\"101\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><rect x=\"112\" y=\"54\" width=\"36\" height=\"24\" rx=\"6\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2.5\"/><text x=\"130\" y=\"71\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">OH</text><rect x=\"168\" y=\"54\" width=\"22\" height=\"24\" rx=\"6\" fill=\"none\" stroke=\"#4F9BD9\" stroke-width=\"2.5\"/><text x=\"179\" y=\"71\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><text x=\"192\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1D5FA8\" font-weight=\"700\">N–</text><text x=\"201\" y=\"98\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><line x1=\"201\" y1=\"78\" x2=\"201\" y2=\"86\" stroke=\"#1D5FA8\" stroke-width=\"2\"/><text x=\"240\" y=\"70\" text-anchor=\"middle\" font-size=\"20\" fill=\"#1B2430\" font-weight=\"700\">C</text><text x=\"240\" y=\"30\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"240\" y1=\"36\" x2=\"240\" y2=\"54\" stroke=\"#1B2430\" stroke-width=\"2\"/><line x1=\"240\" y1=\"78\" x2=\"240\" y2=\"96\" stroke=\"#1B2430\" stroke-width=\"2\"/><circle cx=\"240\" cy=\"110\" r=\"13\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2\"/><text x=\"240\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7B3FA0\" font-weight=\"700\">R₂</text><text x=\"254\" y=\"70\" text-anchor=\"start\" font-size=\"16\" fill=\"#2E9E5B\" font-weight=\"700\">–COOH</text><text x=\"170\" y=\"150\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">l'OH del primo e un H del secondo stanno per uscire</text></g></svg>", "<svg viewBox=\"0 0 340 160\" role=\"img\" aria-label=\"Due amminoacidi uniti dal legame peptidico, esce acqua\"><g font-family=\"-apple-system,Arial,sans-serif\"><text x=\"4\" y=\"70\" text-anchor=\"start\" font-size=\"16\" fill=\"#1D5FA8\" font-weight=\"700\">H₂N–</text><text x=\"58\" y=\"70\" text-anchor=\"middle\" font-size=\"20\" fill=\"#1B2430\" font-weight=\"700\">C</text><text x=\"58\" y=\"30\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"58\" y1=\"36\" x2=\"58\" y2=\"54\" stroke=\"#1B2430\" stroke-width=\"2\"/><line x1=\"58\" y1=\"78\" x2=\"58\" y2=\"96\" stroke=\"#1B2430\" stroke-width=\"2\"/><circle cx=\"58\" cy=\"110\" r=\"13\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2\"/><text x=\"58\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7B3FA0\" font-weight=\"700\">R₁</text><text x=\"72\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><rect x=\"84\" y=\"48\" width=\"74\" height=\"30\" rx=\"8\" fill=\"#FFF3C4\" stroke=\"#E0B84A\" stroke-width=\"2\"/><text x=\"96\" y=\"70\" text-anchor=\"middle\" font-size=\"18\" fill=\"#2E9E5B\" font-weight=\"700\">C</text><text x=\"96\" y=\"36\" text-anchor=\"middle\" font-size=\"15\" fill=\"#2E9E5B\" font-weight=\"700\">O</text><line x1=\"94\" y1=\"54\" x2=\"94\" y2=\"42\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><line x1=\"98\" y1=\"54\" x2=\"98\" y2=\"42\" stroke=\"#2E9E5B\" stroke-width=\"2\"/><text x=\"121\" y=\"70\" text-anchor=\"middle\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><text x=\"144\" y=\"70\" text-anchor=\"middle\" font-size=\"18\" fill=\"#1D5FA8\" font-weight=\"700\">N</text><text x=\"144\" y=\"98\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1D5FA8\" font-weight=\"700\">H</text><text x=\"160\" y=\"70\" text-anchor=\"start\" font-size=\"18\" fill=\"#1B2430\" font-weight=\"700\">–</text><text x=\"196\" y=\"70\" text-anchor=\"middle\" font-size=\"20\" fill=\"#1B2430\" font-weight=\"700\">C</text><text x=\"196\" y=\"30\" text-anchor=\"middle\" font-size=\"15\" fill=\"#1B2430\" font-weight=\"700\">H</text><line x1=\"196\" y1=\"36\" x2=\"196\" y2=\"54\" stroke=\"#1B2430\" stroke-width=\"2\"/><line x1=\"196\" y1=\"78\" x2=\"196\" y2=\"96\" stroke=\"#1B2430\" stroke-width=\"2\"/><circle cx=\"196\" cy=\"110\" r=\"13\" fill=\"#F1E7F7\" stroke=\"#7B3FA0\" stroke-width=\"2\"/><text x=\"196\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"#7B3FA0\" font-weight=\"700\">R₂</text><text x=\"210\" y=\"70\" text-anchor=\"start\" font-size=\"16\" fill=\"#2E9E5B\" font-weight=\"700\">–COOH</text><path d=\"M300.0,27.0 C307.0,35.0 306.0,43.0 300.0,43.0 C294.0,43.0 293.0,35.0 300.0,27.0 Z\" fill=\"#4F9BD9\"/><text x=\"300.0\" y=\"23.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"#1D5FA8\" font-weight=\"700\">H₂O</text><text x=\"121\" y=\"150\" text-anchor=\"middle\" font-size=\"13\" fill=\"#8A5A00\" font-weight=\"700\">legame peptidico</text></g></svg>"], "txt": ["L'OH del primo amminoacido e un H del secondo stanno per uscire.", "È uscita una molecola d'acqua: tra C e N c'è il legame peptidico."]}, "PROT": {"lab": ["1 · primaria", "2 · secondaria", "3 · terziaria", "4 · quaternaria"], "svg": ["<svg viewBox=\"0 0 340 156\" role=\"img\" aria-label=\"struttura primaria\"><g font-family=\"-apple-system,Arial,sans-serif\"><line x1=\"18.0\" y1=\"70.0\" x2=\"45.0\" y2=\"84.1\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"45.0\" y1=\"84.1\" x2=\"72.0\" y2=\"87.5\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"72.0\" y1=\"87.5\" x2=\"99.0\" y2=\"77.7\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"99.0\" y1=\"77.7\" x2=\"126.0\" y2=\"62.0\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"126.0\" y1=\"62.0\" x2=\"153.0\" y2=\"52.4\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"153.0\" y1=\"52.4\" x2=\"180.0\" y2=\"56.1\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"180.0\" y1=\"56.1\" x2=\"207.0\" y2=\"70.3\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"207.0\" y1=\"70.3\" x2=\"234.0\" y2=\"84.3\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"234.0\" y1=\"84.3\" x2=\"261.0\" y2=\"87.5\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"261.0\" y1=\"87.5\" x2=\"288.0\" y2=\"77.4\" stroke=\"#5A6473\" stroke-width=\"2\"/><line x1=\"288.0\" y1=\"77.4\" x2=\"315.0\" y2=\"61.8\" stroke=\"#5A6473\" stroke-width=\"2\"/><circle cx=\"18.0\" cy=\"70.0\" r=\"10\" fill=\"#1D5FA8\"/><circle cx=\"45.0\" cy=\"84.1\" r=\"10\" fill=\"#C98A12\"/><circle cx=\"72.0\" cy=\"87.5\" r=\"10\" fill=\"#7B3FA0\"/><circle cx=\"99.0\" cy=\"77.7\" r=\"10\" fill=\"#D63384\"/><circle cx=\"126.0\" cy=\"62.0\" r=\"10\" fill=\"#2E9E5B\"/><circle cx=\"153.0\" cy=\"52.4\" r=\"10\" fill=\"#1D5FA8\"/><circle cx=\"180.0\" cy=\"56.1\" r=\"10\" fill=\"#C98A12\"/><circle cx=\"207.0\" cy=\"70.3\" r=\"10\" fill=\"#7B3FA0\"/><circle cx=\"234.0\" cy=\"84.3\" r=\"10\" fill=\"#D63384\"/><circle cx=\"261.0\" cy=\"87.5\" r=\"10\" fill=\"#2E9E5B\"/><circle cx=\"288.0\" cy=\"77.4\" r=\"10\" fill=\"#1D5FA8\"/><circle cx=\"315.0\" cy=\"61.8\" r=\"10\" fill=\"#C98A12\"/><text x=\"170\" y=\"130\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">ogni pallina è un amminoacido: conta l'ordine</text></g></svg>", "<svg viewBox=\"0 0 340 156\" role=\"img\" aria-label=\"struttura secondaria\"><g font-family=\"-apple-system,Arial,sans-serif\"><polyline points=\"22.0,60.0 22.6,65.4 22.8,70.6 22.7,75.3 22.4,79.3 21.8,82.5 21.0,84.7 20.1,85.9 19.2,85.9 18.3,84.7 17.5,82.5 16.9,79.3 16.5,75.3 16.4,70.6 16.7,65.4 17.2,60.0 18.2,54.6 19.4,49.4 21.0,44.7 22.9,40.7 25.0,37.5 27.3,35.3 29.7,34.1 32.1,34.1 34.5,35.3 36.8,37.5 38.9,40.7 40.7,44.7 42.3,49.4 43.6,54.6 44.5,60.0 45.1,65.4 45.3,70.6 45.2,75.3 44.9,79.3 44.2,82.5 43.5,84.7 42.6,85.9 41.7,85.9 40.8,84.7 40.0,82.5 39.4,79.3 39.0,75.3 38.9,70.6 39.2,65.4 39.8,60.0 40.7,54.6 41.9,49.4 43.5,44.7 45.4,40.7 47.5,37.5 49.8,35.3 52.2,34.1 54.6,34.1 57.0,35.3 59.3,37.5 61.4,40.7 63.2,44.7 64.8,49.4 66.1,54.6 67.0,60.0 67.6,65.4 67.8,70.6 67.7,75.3 67.4,79.3 66.8,82.5 66.0,84.7 65.1,85.9 64.2,85.9 63.3,84.7 62.5,82.5 61.9,79.3 61.5,75.3 61.4,70.6 61.7,65.4 62.2,60.0 63.2,54.6 64.4,49.4 66.0,44.7 67.9,40.7 70.0,37.5 72.3,35.3 74.7,34.1 77.1,34.1 79.5,35.3 81.7,37.5 83.9,40.7 85.7,44.7 87.3,49.4 88.6,54.6 89.5,60.0 90.1,65.4 90.3,70.6 90.2,75.3 89.9,79.3 89.2,82.5 88.5,84.7 87.6,85.9 86.7,85.9 85.8,84.7 85.0,82.5 84.4,79.3 84.0,75.3 83.9,70.6 84.2,65.4 84.8,60.0 85.7,54.6 86.9,49.4 88.5,44.7 90.4,40.7 92.5,37.5 94.8,35.3 97.2,34.1 99.6,34.1 102.0,35.3 104.2,37.5 106.4,40.7 108.2,44.7 109.8,49.4 111.1,54.6 112.0,60.0 112.6,65.4 112.8,70.6 112.7,75.3 112.4,79.3 111.8,82.5 111.0,84.7 110.1,85.9 109.2,85.9 108.3,84.7 107.5,82.5 106.9,79.3 106.5,75.3 106.4,70.6 106.7,65.4 107.2,60.0 108.2,54.6 109.4,49.4 111.0,44.7 112.9,40.7 115.0,37.5 117.3,35.3 119.7,34.1 122.1,34.1 124.5,35.3 126.8,37.5 128.9,40.7 130.7,44.7 132.3,49.4 133.6,54.6 134.5,60.0 135.1,65.4 135.3,70.6 135.2,75.3 134.9,79.3 134.3,82.5 133.5,84.7 132.6,85.9 131.7,85.9 130.8,84.7 130.0,82.5 129.4,79.3 129.0,75.3 128.9,70.6 129.2,65.4 129.8,60.0 130.7,54.6 131.9,49.4 133.5,44.7 135.4,40.7 137.5,37.5 139.8,35.3 142.2,34.1 144.6,34.1 147.0,35.3 149.2,37.5 151.4,40.7 153.2,44.7 154.8,49.4 156.1,54.6 157.0,60.0\" fill=\"none\" stroke=\"#7B3FA0\" stroke-width=\"4\" stroke-linejoin=\"round\"/><text x=\"82\" y=\"112\" text-anchor=\"middle\" font-size=\"14\" fill=\"#7B3FA0\" font-weight=\"700\">α elica</text><polyline points=\"190.0,30.0 199.5,38.0 209.0,30.0 218.5,38.0 228.0,30.0 237.5,38.0 247.0,30.0 256.5,38.0 266.0,30.0 275.5,38.0 285.0,30.0 294.5,38.0 304.0,30.0 313.5,38.0 323.0,30.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><line x1=\"199.5\" y1=\"38\" x2=\"199.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"218.5\" y1=\"38\" x2=\"218.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"237.5\" y1=\"38\" x2=\"237.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"256.5\" y1=\"38\" x2=\"256.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"275.5\" y1=\"38\" x2=\"275.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"294.5\" y1=\"38\" x2=\"294.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"313.5\" y1=\"38\" x2=\"313.5\" y2=\"58\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><polyline points=\"190.0,58.0 199.5,66.0 209.0,58.0 218.5,66.0 228.0,58.0 237.5,66.0 247.0,58.0 256.5,66.0 266.0,58.0 275.5,66.0 285.0,58.0 294.5,66.0 304.0,58.0 313.5,66.0 323.0,58.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><line x1=\"199.5\" y1=\"66\" x2=\"199.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"218.5\" y1=\"66\" x2=\"218.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"237.5\" y1=\"66\" x2=\"237.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"256.5\" y1=\"66\" x2=\"256.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"275.5\" y1=\"66\" x2=\"275.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"294.5\" y1=\"66\" x2=\"294.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><line x1=\"313.5\" y1=\"66\" x2=\"313.5\" y2=\"86\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\"/><polyline points=\"190.0,86.0 199.5,94.0 209.0,86.0 218.5,94.0 228.0,86.0 237.5,94.0 247.0,86.0 256.5,94.0 266.0,86.0 275.5,94.0 285.0,86.0 294.5,94.0 304.0,86.0 313.5,94.0 323.0,86.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"258\" y=\"112\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1D5FA8\" font-weight=\"700\">β foglietto</text><text x=\"170\" y=\"136\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">i tratteggi sono legami a idrogeno</text></g></svg>", "<svg viewBox=\"0 0 340 156\" role=\"img\" aria-label=\"struttura terziaria\"><g font-family=\"-apple-system,Arial,sans-serif\"><path d=\"M40,96 C10,60 30,20 66,30\" fill=\"none\" stroke=\"#2E9E5B\" stroke-width=\"4\"/><polyline points=\"77.0,46.0 77.3,51.0 77.1,55.5 76.5,59.4 75.5,62.2 74.2,63.7 72.9,63.9 71.6,62.7 70.5,60.2 69.7,56.6 69.4,52.2 69.6,47.3 70.4,42.3 71.6,37.5 73.4,33.5 75.5,30.4 77.9,28.5 80.4,28.0 83.0,28.9 85.3,31.1 87.4,34.4 89.0,38.7 90.1,43.5 90.7,48.5 90.8,53.3 90.4,57.6 89.5,60.9 88.4,63.1 87.0,64.0 85.7,63.5 84.5,61.6 83.6,58.5 83.0,54.5 83.0,49.7 83.4,44.7 84.4,39.8 85.9,35.4 87.9,31.8 90.2,29.3 92.7,28.1 95.2,28.3 97.7,29.8 99.9,32.6 101.7,36.5 103.1,41.0 104.0,46.0 104.3,51.0 104.1,55.5 103.5,59.4 102.5,62.2 101.2,63.7 99.9,63.9 98.6,62.7 97.5,60.2 96.7,56.6 96.4,52.2 96.6,47.3 97.4,42.3 98.6,37.5 100.4,33.5 102.5,30.4 104.9,28.5 107.4,28.0 110.0,28.9 112.3,31.1 114.4,34.4 116.0,38.7 117.1,43.5 117.7,48.5 117.8,53.3 117.4,57.6 116.5,60.9 115.4,63.1 114.0,64.0 112.7,63.5 111.5,61.6 110.6,58.5 110.0,54.5 110.0,49.7 110.4,44.7 111.4,39.8 112.9,35.4 114.9,31.8 117.2,29.3 119.7,28.1 122.2,28.3 124.7,29.8 126.9,32.6 128.7,36.5 130.1,41.0\" fill=\"none\" stroke=\"#7B3FA0\" stroke-width=\"4\"/><path d=\"M130,40 C190,10 230,40 210,70\" fill=\"none\" stroke=\"#2E9E5B\" stroke-width=\"4\"/><polyline points=\"150.0,80.0 159.0,88.0 168.0,80.0 177.0,88.0 186.0,80.0 195.0,88.0 204.0,80.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><polyline points=\"150.0,98.0 159.0,106.0 168.0,98.0 177.0,106.0 186.0,98.0 195.0,106.0 204.0,98.0\" fill=\"none\" stroke=\"#1D5FA8\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M210,70 C230,95 215,110 214,102 M150,98 C100,120 60,120 40,96\" fill=\"none\" stroke=\"#2E9E5B\" stroke-width=\"4\"/><path d=\"M24,66 C20,10 120,-4 200,14 C270,30 262,118 200,124 C130,132 40,126 24,66 Z\" fill=\"none\" stroke=\"#5A6473\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/><text x=\"170\" y=\"148\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">la catena si ripiega su sé stessa: forma in 3D</text></g></svg>", "<svg viewBox=\"0 0 340 156\" role=\"img\" aria-label=\"struttura quaternaria\"><g font-family=\"-apple-system,Arial,sans-serif\"><path d=\"M95,60 c-30,-6 -34,-38 -4,-44 c26,-6 46,10 40,30 c-4,18 -18,18 -36,14 z\" fill=\"#7B3FA0\" fill-opacity=\".25\" stroke=\"#7B3FA0\" stroke-width=\"3\"/><path d=\"M175,52 c-30,-6 -34,-38 -4,-44 c26,-6 46,10 40,30 c-4,18 -18,18 -36,14 z\" fill=\"#1D5FA8\" fill-opacity=\".25\" stroke=\"#1D5FA8\" stroke-width=\"3\"/><path d=\"M135,98 c-30,-6 -34,-38 -4,-44 c26,-6 46,10 40,30 c-4,18 -18,18 -36,14 z\" fill=\"#2E9E5B\" fill-opacity=\".25\" stroke=\"#2E9E5B\" stroke-width=\"3\"/><path d=\"M215,96 c-30,-6 -34,-38 -4,-44 c26,-6 46,10 40,30 c-4,18 -18,18 -36,14 z\" fill=\"#C98A12\" fill-opacity=\".25\" stroke=\"#C98A12\" stroke-width=\"3\"/><text x=\"170\" y=\"140\" text-anchor=\"middle\" font-size=\"12.5\" fill=\"#5A6473\" font-weight=\"400\">più catene ripiegate unite insieme</text></g></svg>"], "txt": ["<b>Primaria</b>: la sequenza lineare degli amminoacidi.", "<b>Secondaria</b>: α elica e β foglietto, tenuti da legami a idrogeno fra amminoacidi non vicini.", "<b>Terziaria</b>: la catena si ripiega e prende una forma in 3D.", "<b>Quaternaria</b>: più strutture terziarie unite. Solo in alcune proteine."]}};
+/* ═══════ stato ═══════ */
+let idx = 0, rate = 0.88, reading = false, queue = [], qi = 0;
+const stage = document.getElementById("stage");
+const chips = document.getElementById("chips");
+
+PARTI.forEach((nome,i)=>{
+  const b = document.createElement("button");
+  b.textContent = nome;
+  b.onclick = ()=>{ const j = CARDS.findIndex(c=>c.parte===i); if(j>=0) show(j); };
+  chips.appendChild(b);
+});
+
+function render(){
+  const c = CARDS[idx];
+  let h = '<article class="card">';
+  h += '<div class="kicker">'+PARTI[c.parte]+'</div>';
+  h += '<h2>'+c.t+'</h2>';
+  h += c.body || "";
+  if(c.words && c.words.length){
+    h += '<div class="words"><div class="lbl">Parole nuove — toccale</div>';
+    c.words.forEach((w,i)=>{ h += '<button class="w" onclick="flip(this,'+i+')">'+w[0]+'</button>'; });
+    c.words.forEach((w,i)=>{ h += '<div class="wdef" id="d'+i+'"><b>'+w[0]+'</b> — '+w[1]+'</div>'; });
+    h += '</div>';
+  }
+  if(c.ask){
+    h += '<div class="ask"><div class="q">'+c.ask[0]+'</div>'
+      +'<button class="mini" onclick="reveal(this)">Prova a rispondere, poi tocca qui</button>'
+      +'<div class="a">'+c.ask[1]+'</div></div>';
+  }
+  h += quizHTML(c);
+  h += '</article>';
+  qzRes = {};
+  stage.innerHTML = h;
+  if(c.init && typeof window[c.init]==="function") window[c.init]();
+
+  Array.prototype.forEach.call(chips.children,(b,i)=>{ b.className = (i===c.parte) ? "on" : ""; });
+  document.getElementById("count").textContent = "carta "+(idx+1)+" di "+CARDS.length;
+  document.getElementById("prev").disabled = (idx===0);
+  document.getElementById("next").disabled = (idx===CARDS.length-1);
+  try{ localStorage.setItem("bio03-idx", String(idx)); }catch(e){}
+  window.scrollTo(0,0);
+}
+function show(i){ stop(); idx = Math.max(0,Math.min(CARDS.length-1,i)); render(); }
+function go(d){ show(idx+d); }
+function flip(btn,i){
+  const d = document.getElementById("d"+i); if(!d) return;
+  const on = d.classList.toggle("on"); btn.classList.toggle("open", on);
+}
+function reveal(btn){
+  btn.parentNode.querySelector(".a").classList.add("on");
+  btn.style.display = "none";
+}
+
+
+/* ═══════ prova tu ═══════ */
+function quizHTML(c){
+  if(!c.quiz || !c.quiz.length) return "";
+  let h = '<div class="quiz"><div class="qhd">Prova tu <span id="qsc"></span></div>';
+  c.quiz.forEach((q,i)=>{
+    h += '<div class="qz" id="qz'+i+'"><div class="qq">'+q[0]+'</div><div class="op">';
+    q[1].forEach((o,k)=>{ h += '<button onclick="qzAns('+i+','+k+')">'+o+'</button>'; });
+    h += '</div><div class="why"></div></div>';
+  });
+  return h + '</div>';
+}
+let qzRes = {};
+function qzAns(i,k){
+  const q = CARDS[idx].quiz[i], box = document.getElementById("qz"+i);
+  if(!box || box.classList.contains("done")) return;
+  box.classList.add("done");
+  const bs = box.querySelectorAll(".op button");
+  bs[q[2]].classList.add("right"); if(k!==q[2]) bs[k].classList.add("wrong");
+  const w = box.querySelector(".why");
+  w.className = "why on "+(k===q[2]?"y":"n");
+  w.innerHTML = (k===q[2] ? "<b>Giusto.</b> " : "<b>No.</b> ") + (q[3]||"");
+  qzRes[i] = (k===q[2]);
+  const n = Object.keys(qzRes).length, g = Object.keys(qzRes).filter(j=>qzRes[j]).length;
+  const sc = document.getElementById("qsc"); if(sc) sc.textContent = "· fatte "+n+" su "+CARDS[idx].quiz.length+", giuste "+g;
+}
+/* ═══════ la virgola che si sposta ═══════ */
+const VMP = [
+  {lab:"453,89", d:"45389", p:3, e:0},
+  {lab:"0,008332", d:"0008332", p:1, e:0},
+  {lab:"38779", d:"38779", p:5, e:0},
+  {lab:"45,89 × 10⁷", d:"4589", p:2, e:7},
+  {lab:"0,0017 × 10⁻³", d:"00017", p:1, e:-3}
+];
+let vm = null;
+function vmInit(){ vmSet(0); }
+function vmSet(k){ vm = {k:k, d:VMP[k].d, p:VMP[k].p, e:VMP[k].e, e0:VMP[k].e, p0:VMP[k].p}; vmDraw(); }
+function vmMove(dir){           /* dir = -1: virgola a sinistra; +1: a destra */
+  if(!vm) return;
+  if(dir<0){
+    if(vm.p<=0) vm.d = "0"+vm.d; else vm.p--;
+    if(vm.p===0){ vm.d="0"+vm.d; vm.p=1; }
+    vm.e++;
+  }else{
+    vm.p++;
+    if(vm.p>vm.d.length) vm.d = vm.d+"0";
+    vm.e--;
+  }
+  vmDraw();
+}
+function vmParts(){
+  let ip = vm.d.slice(0,vm.p).replace(/^0+/,""), fp = vm.d.slice(vm.p);
+  if(!ip) ip = "0";
+  return [ip, fp];
+}
+function supE(n){ return String(n).replace("-","−"); }
+function vmDraw(){
+  const box = document.getElementById("vm"); if(!box) return;
+  const pr = vmParts(), ip = pr[0], fp = pr[1];
+  let num = ip + (fp ? '<span class="cm">,</span>'+fp : '');
+  num += ' × 10<sup>'+supE(vm.e)+'</sup>';
+  const moved = vm.e - vm.e0;
+  let msg, cls = "msg";
+  if(ip.length===1 && ip!=="0"){
+    cls += " ok";
+    const n = Math.abs(moved), posti = n+(n===1?" posto":" posti");
+    msg = "✓ Notazione scientifica."+(moved>0 ? " Virgola "+posti+" a sinistra: l'esponente sale di "+n+"."
+                                     : moved<0 ? " Virgola "+posti+" a destra: l'esponente scende di "+n+"." : "");
+  }else if(ip==="0"){
+    msg = "Prima della virgola c'è 0: sposta la virgola a destra ▶";
+  }else{
+    msg = "Prima della virgola ci sono "+ip.length+" cifre: sposta la virgola a sinistra ◀";
+  }
+  let pre = '<div class="pre">';
+  VMP.forEach((x,i)=>{ pre += '<button class="'+(i===vm.k?"on":"")+'" onclick="vmSet('+i+')">'+x.lab+'</button>'; });
+  pre += '</div>';
+  box.innerHTML = '<div class="num">'+num+'</div><div class="'+cls+'">'+msg+'</div>'
+    + '<div class="ctl"><button onclick="vmMove(-1)">◀ virgola a sinistra</button><button onclick="vmMove(1)">virgola a destra ▶</button></div>'
+    + pre;
+}
+
+/* ═══════ la scala dei prefissi ═══════ */
+const RUNGS = [["k",3],["h",2],["da",1],["",0],["d",-1],["c",-2],["m",-3],["μ",-6],["n",-9]];
+let lad = {dim:1, from:null, to:null};
+function ladInit(){ lad = {dim:1, from:null, to:null}; ladDraw(); }
+function ladDim(n){ lad.dim = n; ladDraw(); }
+function ladTap(i){
+  if(lad.from===null || lad.to!==null){ lad.from = i; lad.to = null; }
+  else if(i!==lad.from){ lad.to = i; }
+  ladDraw();
+}
+function unitName(i){ const s = ["","","²","³"][lad.dim]; return RUNGS[i][0]+"m"+s; }
+function ladDraw(){
+  const box = document.getElementById("lad"); if(!box) return;
+  let h = '<div class="dims">';
+  [[1,"m"],[2,"m²"],[3,"m³"]].forEach(x=>{ h += '<button class="'+(lad.dim===x[0]?"on":"")+'" onclick="ladDim('+x[0]+')">'+x[1]+'</button>'; });
+  h += '</div><div class="hint">'+(lad.from===null?"Tocca l'unità di partenza":(lad.to===null?"Ora tocca l'unità di arrivo":"Tocca un'altra unità per ricominciare"))+'</div><div class="rungs">';
+  const lo = lad.to===null?null:Math.min(lad.from,lad.to), hi = lad.to===null?null:Math.max(lad.from,lad.to);
+  RUNGS.forEach((r,i)=>{
+    if(i>0 && RUNGS[i-1][1]-r[1]>1){
+      h += '<div class="rung gap"><span class="e">'+(RUNGS[i-1][1]-r[1]-1)+' gradini senza nome</span></div>';
+    }
+    let cl = "rung";
+    if(i===lad.from) cl += " from";
+    else if(i===lad.to) cl += " to";
+    else if(lo!==null && i>lo && i<hi) cl += " mid";
+    h += '<button class="'+cl+'" onclick="ladTap('+i+')"><span class="u">'+unitName(i)+'</span><span class="e">10<sup>'+supE(r[1]*lad.dim)+'</sup> m'+["","","²","³"][lad.dim]+'</span></button>';
+  });
+  h += '</div>';
+  let out = '<div class="out">Ogni gradino vale × '+[0,10,100,1000][lad.dim]+'.</div>';
+  if(lad.from!==null && lad.to!==null){
+    const g = Math.abs(RUNGS[lad.from][1]-RUNGS[lad.to][1]), k = g*lad.dim;
+    const scendo = RUNGS[lad.to][1] < RUNGS[lad.from][1];
+    out = '<div class="out '+(scendo?"g":"s")+'"><b>'+unitName(lad.from)+' → '+unitName(lad.to)+'</b>: '
+      +(scendo?"scendo ":"salgo ")+g+(g===1?" gradino":" gradini")
+      +(lad.dim>1?"; con "+["","","m²","m³"][lad.dim]+" ogni gradino vale "+[0,10,100,1000][lad.dim]+", cioè esponente "+g+" × "+lad.dim+" = "+k:"")
+      +'<br>→ <b>'+(scendo?"moltiplico per 10<sup>"+k+"</sup>":"divido per 10<sup>"+k+"</sup>, cioè × 10<sup>−"+k+"</sup>")+'</b></div>';
+  }
+  box.innerHTML = h + out;
+}
+
+/* ═══════ disegni piccoli ═══════ */
+function sqInit(){
+  const g = document.getElementById("sqgrid"); if(!g) return;
+  let s = '<rect x="20" y="15" width="140" height="140" fill="#E6EEF9" stroke="#1D5FA8" stroke-width="2.5"/>';
+  for(let i=1;i<10;i++){
+    s += '<line x1="'+(20+i*14)+'" y1="15" x2="'+(20+i*14)+'" y2="155" stroke="#9DB7DA" stroke-width="1"/>';
+    s += '<line x1="20" y1="'+(15+i*14)+'" x2="160" y2="'+(15+i*14)+'" stroke="#9DB7DA" stroke-width="1"/>';
+  }
+  s += '<rect x="20" y="15" width="14" height="14" fill="#1D5FA8"/>';
+  g.innerHTML = s;
+}
+function sphInit(){
+  const g = document.getElementById("spheres"); if(!g) return;
+  const cols = ["#4F86C6","#E0A43A","#B3261E","#1F7A4D"];
+  let s = '<circle cx="75" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/><circle cx="245" cy="55" r="48" fill="#fff" stroke="#1B2430" stroke-width="2"/>';
+  const pts = [[-26,-18],[-6,-26],[14,-22],[30,-6],[-32,4],[-12,-4],[8,-2],[26,14],[-24,24],[-4,18],[14,28],[-14,34]];
+  pts.forEach((p,i)=>{
+    s += '<circle cx="'+(75+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="#4F86C6"/>';
+    s += '<circle cx="'+(245+p[0])+'" cy="'+(55+p[1])+'" r="8" fill="'+cols[(i*7)%4]+'"/>';
+  });
+  g.innerHTML = s;
+}
+
+/* ═══════ curve di riscaldamento e raffreddamento ═══════ */
+const CURVE = {
+  risc:{ pts:[[45,-18],[85,0],[150,0],[215,100],[300,100],[337,112]],
+    col:["#D5DCE3","#DDD3EF","#D3E5F6","#F4D3E1","#FAEBC0"],
+    dk:["#8A99AA","#9C85C9","#6FA3D6","#D98AAE","#E0B84A"], below:[0,2],
+    tr:[["A–B","solido","Solo ghiaccio. La temperatura sale da −18&nbsp;°C a 0&nbsp;°C."],
+        ["B–C","solido + liquido","<b>Fusione.</b> Ghiaccio e acqua insieme. Sosta termica: si scalda, ma la temperatura resta 0&nbsp;°C finché c'è ghiaccio."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura sale da 0&nbsp;°C a 100&nbsp;°C."],
+        ["D–E","liquido + aeriforme","<b>Ebollizione.</b> Acqua e vapore insieme. Seconda sosta termica: la temperatura resta 100&nbsp;°C finché c'è liquido."],
+        ["E–F","aeriforme","Solo vapore. La temperatura riprende a salire."]]},
+  raff:{ pts:[[45,112],[80,100],[165,100],[225,0],[295,0],[337,-18]],
+    col:["#FAEBC0","#F4D3E1","#D3E5F6","#DDD3EF","#D5DCE3"],
+    dk:["#E0B84A","#D98AAE","#6FA3D6","#9C85C9","#8A99AA"],
+    tr:[["A–B","aeriforme","Solo vapore. La temperatura scende fino a 100&nbsp;°C."],
+        ["B–C","aeriforme + liquido","<b>Condensazione.</b> Il vapore diventa liquido. Sosta termica a 100&nbsp;°C."],
+        ["C–D","liquido","Solo acqua liquida. La temperatura scende da 100&nbsp;°C a 0&nbsp;°C."],
+        ["D–E","liquido + solido","<b>Solidificazione.</b> L'acqua diventa ghiaccio. Sosta termica a 0&nbsp;°C."],
+        ["E–F","solido","Solo ghiaccio. La temperatura scende sotto 0&nbsp;°C."]]}
+};
+function curvY(T){ return 185 - T*1.3; }
+function curvInit(){
+  Array.prototype.forEach.call(stage.querySelectorAll(".curva"), el=>curvDraw(el, null));
+}
+function curvDraw(el, sel){
+  const C = CURVE[el.getAttribute("data-k")], P = C.pts.map(p=>[p[0], curvY(p[1])]);
+  const F = 'font-family="-apple-system,Arial,sans-serif"';
+  let s = '<svg viewBox="0 0 350 250" role="img" aria-label="Curva della temperatura nel tempo">';
+  for(let i=0;i<5;i++){
+    const op = sel===null ? .6 : (i===sel ? 1 : .18);
+    s += '<rect x="'+P[i][0]+'" y="22" width="'+(P[i+1][0]-P[i][0])+'" height="204" fill="'+C.col[i]+'" opacity="'+op+'"/>';
+  }
+  s += '<line x1="40" y1="'+curvY(100)+'" x2="345" y2="'+curvY(100)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="'+curvY(0)+'" x2="345" y2="'+curvY(0)+'" stroke="#8C95A1" stroke-dasharray="4 4"/>';
+  s += '<line x1="40" y1="14" x2="40" y2="226" stroke="#1B2430" stroke-width="1.8"/><line x1="40" y1="226" x2="346" y2="226" stroke="#1B2430" stroke-width="1.8"/>';
+  s += '<g '+F+' font-size="12.5" fill="#1B2430"><text x="4" y="14">t (°C)</text><text x="346" y="244" text-anchor="end">tempo →</text>';
+  s += '<text x="36" y="'+(curvY(100)+4)+'" text-anchor="end">100</text><text x="36" y="'+(curvY(0)+4)+'" text-anchor="end">0</text><text x="36" y="'+(curvY(-18)+4)+'" text-anchor="end">−18</text></g>';
+  s += '<polyline points="'+P.map(p=>p.join(",")).join(" ")+'" fill="none" stroke="#1B2430" stroke-width="3" stroke-linejoin="round"/>';
+  if(sel!==null) s += '<line x1="'+P[sel][0]+'" y1="'+P[sel][1]+'" x2="'+P[sel+1][0]+'" y2="'+P[sel+1][1]+'" stroke="#A8327A" stroke-width="7" stroke-linecap="round"/>';
+  const L = "ABCDEF";
+  P.forEach((p,i)=>{
+    s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="#1B2430"/>';
+    const up = (C.below && C.below.indexOf(i)>=0) ? 17 : -8;
+    s += '<text x="'+(p[0]+(i===5?-12:3))+'" y="'+(p[1]+up)+'" '+F+' font-size="14" font-weight="700" fill="#1B2430">'+L[i]+'</text>';
+  });
+  s += '</svg>';
+  let b = '<div class="cbtns">';
+  C.tr.forEach((t,i)=>{
+    b += '<button class="cb'+(i===sel?' on':'')+'" style="border-left-color:'+C.dk[i]+'" onclick="curvSel(this,'+i+')"><b>'+t[0]+'</b> · '+t[1]+'</button>';
+  });
+  b += '</div>';
+  const out = '<div class="cout'+(sel===null?'':' on')+'">'+(sel===null ? 'Tocca un tratto.' : '<b>Tratto '+C.tr[sel][0]+'</b> — '+C.tr[sel][2])+'</div>';
+  el.innerHTML = s + b + out;
+}
+function curvSel(btn,i){
+  let el = btn; while(el && !(el.classList && el.classList.contains("curva"))) el = el.parentNode;
+  if(el) curvDraw(el, i);
+}
+function partInit(){
+  const g = document.getElementById("parts"); if(!g) return;
+  let s = "";
+  for(let r=0;r<3;r++) for(let c=0;c<4;c++){
+    const x = 25+c*20, y = 50+r*20;
+    s += '<path d="M'+(x-12)+','+(y-12)+' q3,-3 6,0" fill="none" stroke="#9AA3AE" stroke-width="1"/>';
+    s += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#4F86C6"/>';
+  }
+  [[132,97],[151,98],[170,96],[189,98],[208,97],[142,80],[161,81],[180,79],[199,81],[151,63],[172,63]]
+    .forEach(p=>{ s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  [[254,28,-14,4],[302,40,10,10],[278,70,-12,-8],[316,90,8,-12],[252,95,-12,6]]
+    .forEach(p=>{ s += '<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+(p[0]+p[2])+'" y2="'+(p[1]+p[3])+'" stroke="#9AA3AE" stroke-width="2" stroke-linecap="round"/>'
+                    + '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#4F86C6"/>'; });
+  g.innerHTML = s;
+}
+
+
+/* ═══════ catena di monomeri ═══════ */
+let polyN = 3, polyMsg = "";
+function polyInit(){ polyN = 3; polyMsg = ""; polyDraw(); }
+function hexP(cx,cy,r){ const p = []; for(let k=0;k<6;k++){ const a = (30+60*k)*Math.PI/180; p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1)); } return p.join(" "); }
+function dropP(x,y){ return '<path d="M'+x+','+(y-9)+' C'+(x+7)+','+(y-1)+' '+(x+6)+','+(y+7)+' '+x+','+(y+7)+' C'+(x-6)+','+(y+7)+' '+(x-7)+','+(y-1)+' '+x+','+(y-9)+' Z" fill="#4F9BD9"/>'; }
+function polyDraw(){
+  const el = stage.querySelector(".poly"); if(!el) return;
+  let s = '<svg viewBox="0 0 340 104" role="img" aria-label="Catena di '+polyN+' monomeri"><g font-family="-apple-system,Arial,sans-serif">';
+  for(let i=0;i<polyN;i++){
+    const x = 26+i*46;
+    if(i>0) s += '<line x1="'+(x-30)+'" y1="78" x2="'+(x-16)+'" y2="78" stroke="#C98A12" stroke-width="3"/>' + dropP(x-23,40)
+              + '<text x="'+(x-23)+'" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="#1D5FA8">H₂O</text>';
+    s += '<polygon points="'+hexP(x,78,16)+'" fill="#FBEFD3" stroke="#C98A12" stroke-width="2.5"/>';
+  }
+  s += '</g></svg>';
+  el.innerHTML = s + '<div class="pstat"><b>'+polyN+'</b> '+(polyN===1?'monomero':'monomeri')+' nella catena · <b>'+(polyN-1)+'</b> '+(polyN===2?'molecola':'molecole')+' d\'acqua '+(polyN===2?'uscita':'uscite')+'</div>'
+    + '<div class="pctl"><button onclick="polyMove(1)"'+(polyN>=7?' disabled':'')+'>+ attacca un pezzo<small>condensazione</small></button>'
+    + '<button onclick="polyMove(-1)"'+(polyN<=1?' disabled':'')+'>− stacca con l\'acqua<small>idrolisi</small></button></div>'
+    + '<div class="pmsg">'+polyMsg+'</div>';
+}
+function polyMove(d){
+  const n = Math.max(1, Math.min(7, polyN+d)); if(n===polyN) return;
+  polyN = n;
+  polyMsg = d>0 ? "Si è attaccato un pezzo: è uscita una molecola d'acqua." : "È entrata una molecola d'acqua: la catena si è spezzata.";
+  polyDraw();
+}
+
+/* ═══════ disegni con i pulsanti (prima/dopo, strutture) ═══════ */
+function togInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".tog"), el=>togDraw(el,0)); }
+function togDraw(el,k){
+  const T = TOGS[el.getAttribute("data-set")]; if(!T) return;
+  let h = '<div class="tbtns">';
+  T.lab.forEach((l,i)=>{ h += '<button class="'+(i===k?'on':'')+'" onclick="togSel(this,'+i+')">'+l+'</button>'; });
+  el.innerHTML = h + '</div>' + T.svg[k] + '<div class="tout">'+T.txt[k]+'</div>';
+}
+function togSel(btn,k){
+  let el = btn; while(el && !(el.classList && el.classList.contains("tog"))) el = el.parentNode;
+  if(el) togDraw(el,k);
+}
+
+
+/* ═══════ costruttore di atomi ═══════ */
+const ELEM = ["","H idrogeno","He elio","Li litio","Be berillio","B boro","C carbonio","N azoto","O ossigeno","F fluoro","Ne neon","Na sodio","Mg magnesio","Al alluminio","Si silicio","P fosforo","S zolfo","Cl cloro","Ar argon","K potassio","Ca calcio"];
+function atomInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".atomw"), el=>{
+  el._p = +el.getAttribute("data-p")||6; el._n = +el.getAttribute("data-n")||6; el._e = +el.getAttribute("data-e")||6; atomDraw(el); }); }
+function atomMove(btn,what,d){
+  let el = btn; while(el && !(el.classList && el.classList.contains("atomw"))) el = el.parentNode; if(!el) return;
+  if(what==="p") el._p = Math.max(1,Math.min(20,el._p+d));
+  if(what==="n") el._n = Math.max(0,Math.min(24,el._n+d));
+  if(what==="e") el._e = Math.max(0,Math.min(22,el._e+d));
+  atomDraw(el);
+}
+function atomDraw(el){
+  const p = el._p, n = el._n, e = el._e, A = p+n, q = p-e, X = ELEM[p].split(" ");
+  let s = '<svg viewBox="0 0 340 170" role="img" aria-label="Atomo con '+p+' protoni, '+n+' neutroni, '+e+' elettroni">';
+  s += '<circle cx="170" cy="85" r="74" fill="none" stroke="#C9D3DE" stroke-width="2" stroke-dasharray="4 5"/>';
+  const tot = p+n, R = 6, cols = Math.ceil(Math.sqrt(tot)); let k = 0;
+  const order = []; for(let i=0;i<tot;i++) order.push(i%2===0 && order.filter(x=>x==="p").length<p ? "p" : (order.filter(x=>x==="n").length<n ? "n" : "p"));
+  for(let i=0;i<tot;i++){ const r = Math.floor(i/cols), c = i%cols, x = 170+(c-(cols-1)/2)*11, y = 85+(r-(Math.ceil(tot/cols)-1)/2)*11;
+    s += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+R+'" fill="'+(order[i]==="p"?"#D9534F":"#9AA3AE")+'"/>'; }
+  for(let i=0;i<e;i++){ const a = 2*Math.PI*i/Math.max(e,1) - Math.PI/2; s += '<circle cx="'+(170+74*Math.cos(a)).toFixed(1)+'" cy="'+(85+74*Math.sin(a)).toFixed(1)+'" r="5" fill="#1D5FA8"/>'; }
+  s += '</svg>';
+  const qs = q===0 ? "" : (Math.abs(q)>1?Math.abs(q):"")+(q>0?"+":"−");
+  const sym = '<span class="aw-sym"><span class="ix"><span>'+A+'</span><span>'+p+'</span></span>'+X[0]+'<sup style="font-size:17px">'+qs+'</sup></span>';
+  const tipo = q===0 ? "atomo <b>neutro</b>: elettroni = protoni" : (q>0 ? "ione <b>positivo</b> (catione): ha perso "+q+(q===1?" elettrone":" elettroni") : "ione <b>negativo</b> (anione): ha preso "+(-q)+(-q===1?" elettrone":" elettroni"));
+  el.innerHTML = s
+   + '<div class="aw-row">'
+   + '<div class="aw-ctl" style="color:#B33A36">protoni<span class="v">'+p+'</span><button onclick="atomMove(this,\'p\',-1)">−</button><button onclick="atomMove(this,\'p\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#5A6473">neutroni<span class="v">'+n+'</span><button onclick="atomMove(this,\'n\',-1)">−</button><button onclick="atomMove(this,\'n\',1)">+</button></div>'
+   + '<div class="aw-ctl" style="color:#1D5FA8">elettroni<span class="v">'+e+'</span><button onclick="atomMove(this,\'e\',-1)">−</button><button onclick="atomMove(this,\'e\',1)">+</button></div>'
+   + '</div><div class="aw-out">'+sym+'<b>'+X[1]+'</b> · Z = '+p+' · A = '+p+' + '+n+' = '+A+'<br>'+tipo+'</div>';
+}
+
+/* ═══════ costruttore di formule ioniche ═══════ */
+const CAT = [["Na","+1","sodio",0],["K","+1","potassio",0],["NH<sub>4</sub>","+1","ammonio",1],["Mg","+2","magnesio",0],["Ca","+2","calcio",0],["Fe","+3","ferro (III)",0],["Al","+3","alluminio",0]];
+const ANI = [["Cl","−1","cloruro",0],["F","−1","fluoruro",0],["OH","−1","idrossido",1],["NO<sub>3</sub>","−1","nitrato",1],["ClO<sub>2</sub>","−1","clorito",1],["O","−2","ossido",0],["S","−2","solfuro",0],["SO<sub>4</sub>","−2","solfato",1],["CO<sub>3</sub>","−2","carbonato",1],["PO<sub>4</sub>","−3","fosfato",1]];
+function chg(s){ return parseInt(s.replace("−","-"),10); }
+function supq(q){ const a = Math.abs(q); return (a>1?a:"")+(q>0?"+":"−"); }
+function formInit(){ Array.prototype.forEach.call(stage.querySelectorAll(".formw"), el=>{
+  let h = '<div class="fw-sel"><div><label>ione positivo</label><select onchange="formDraw(this)">';
+  CAT.forEach((c,i)=>{ h += '<option value="'+i+'"'+(i===4?' selected':'')+'>'+c[0].replace(/<\/?sub>/g,"")+supq(chg(c[1]))+' ('+c[2]+')</option>'; });
+  h += '</select></div><div><label>ione negativo</label><select onchange="formDraw(this)">';
+  ANI.forEach((a,i)=>{ h += '<option value="'+i+'"'+(i===0?' selected':'')+'>'+a[0].replace(/<\/?sub>/g,"")+supq(chg(a[1]))+' ('+a[2]+')</option>'; });
+  h += '</select></div></div><div class="fw-out"></div>';
+  el.innerHTML = h; formDraw(el.querySelector("select"));
+}); }
+function gcd(a,b){ return b ? gcd(b,a%b) : a; }
+function formDraw(sel){
+  let el = sel; while(el && !(el.classList && el.classList.contains("formw"))) el = el.parentNode; if(!el) return;
+  const ss = el.querySelectorAll("select"), c = CAT[+ss[0].value], a = ANI[+ss[1].value];
+  const qc = chg(c[1]), qa = -chg(a[1]), L = qc*qa/gcd(qc,qa), nc = L/qc, na = L/qa;
+  let t = '<div class="fw-tiles">';
+  for(let i=0;i<nc;i++) t += '<span class="fw-t c">'+c[0]+'<sup>'+supq(qc)+'</sup></span>';
+  for(let i=0;i<na;i++) t += '<span class="fw-t a">'+a[0]+'<sup>'+supq(-qa)+'</sup></span>';
+  t += '</div>';
+  const part = (x,n,poly)=> n===1 ? x : (poly ? "("+x+")<sub>"+n+"</sub>" : x+"<sub>"+n+"</sub>");
+  const f = part(c[0],nc,c[3]) + part(a[0],na,a[3]);
+  el.querySelector(".fw-out").innerHTML = t
+   + '<div style="text-align:center;font-size:16px">cariche: '+nc+' × (+'+qc+') = +'+(nc*qc)+' &nbsp;e&nbsp; '+na+' × (−'+qa+') = −'+(na*qa)+' &nbsp;→ in tutto <b>0</b></div>'
+   + '<div class="fw-f">'+f+'</div><div style="text-align:center;font-size:16px;color:#5A6473">'+a[2]+' di '+c[2]+'</div>';
+}
+/* ═══════ lettura ad alta voce ═══════ */
+let voce = null;
+function pickVoice(){
+  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voce = vs.find(v=>v.lang==="it-IT") || vs.find(v=>/^it/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(t){
+  const sup = {"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9"};
+  const sub = {"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+  const S = s=>s.split("").map(c=>sup[c]||sub[c]||c).join("");
+  return t.replace(/a\.C\./g,"avanti Cristo")
+    .replace(/10(⁻?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(m,e)=>" 10 alla "+(e[0]==="⁻"?"meno ":"")+S(e.replace("⁻","")))
+    .replace(/cm³/g," centimetri cubi").replace(/dm³/g," decimetri cubi").replace(/m³/g," metri cubi")
+    .replace(/cm²/g," centimetri quadrati").replace(/dm²/g," decimetri quadrati").replace(/m²/g," metri quadrati")
+    .replace(/([⁰¹²³⁴⁵⁶⁷⁸⁹]+)([⁺⁻])/g,(m,d,s)=>" "+S(d)+(s==="⁺"?" più":" meno"))
+    .replace(/⁺/g," più").replace(/⁻/g," meno").replace(/([₀-₉]+)/g,m=>" "+S(m)+" ")
+    .replace(/·/g,", ").replace(/×/g," per ").replace(/÷/g," diviso ").replace(/→/g,", ").replace(/≈/g," circa ")
+    .replace(/°C/g," gradi").replace(/%/g," per cento").replace(/−/g," meno ").replace(/ = /g," uguale ")
+    .replace(/\s+/g," ").trim();
+}
+function toggleRead(){ if(reading) stop(); else start(); }
+function start(){
+  if(!window.speechSynthesis){ alert("Questo browser non sa leggere ad alta voce. Prova con Safari o Chrome."); return; }
+  queue = Array.prototype.slice.call(stage.querySelectorAll(".s"));
+  if(!queue.length) return;
+  qi = 0; reading = true;
+  const p = document.getElementById("play"); p.textContent = "■ Ferma"; p.classList.add("on");
+  speakNext();
+}
+function speakNext(){
+  if(!reading || qi >= queue.length){ stop(); return; }
+  const el = queue[qi];
+  queue.forEach(x=>x.classList.remove("reading"));
+  el.classList.add("reading");
+  const r = el.getBoundingClientRect();
+  if(r.top < 70 || r.bottom > window.innerHeight-140) el.scrollIntoView({block:"center", behavior:"smooth"});
+  const u = new SpeechSynthesisUtterance(say(el.getAttribute("data-say") || el.textContent));
+  u.lang = "it-IT"; u.rate = rate; u.pitch = 1;
+  if(voce) u.voice = voce;
+  u.onend = ()=>{ qi++; speakNext(); };
+  u.onerror = ()=>{ qi++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+function stop(){
+  reading = false;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const p = document.getElementById("play");
+  if(p){ p.textContent = "▶ Leggi"; p.classList.remove("on"); }
+  Array.prototype.forEach.call(document.querySelectorAll(".s.reading"), x=>x.classList.remove("reading"));
+}
+function setRate(r,btn){
+  rate = r;
+  Array.prototype.forEach.call(btn.parentNode.children, b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  if(reading){ try{ speechSynthesis.cancel(); }catch(e){} speakNext(); }
+}
+
+(function(){
+  let k = 0;
+  try{ k = parseInt(localStorage.getItem("bio03-idx")||"0",10)||0; }catch(e){}
+  idx = Math.max(0, Math.min(CARDS.length-1, k));
+  render();
+})();
+</script>
+</body>
+</html>
