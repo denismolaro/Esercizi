@@ -23,6 +23,7 @@
   --a3:#6244C0; --a3b:#EBE7FA;
   --a4:#8C2F39; --a4b:#F7EAEB;
   --a5:#A8327A; --a5b:#F8E9F2;
+  --a6:#2E7D4F; --a6b:#E7F3EC;
   --ok:#12703F; --okb:#E3F3E9;
   --wait:#8A5A12; --waitb:#FBF0DC;
   --r:14px;
@@ -79,12 +80,13 @@ button{font-family:inherit}
 .subj-2{border-left-color:var(--a3)} .subj-2 .k{color:var(--a3)}
 .subj-3{border-left-color:var(--a4)} .subj-3 .k{color:var(--a4)}
 .subj-4{border-left-color:var(--a5)} .subj-4 .k{color:var(--a5)}
+.subj-5{border-left-color:var(--a6)} .subj-5 .k{color:var(--a6)}
 /* titoli di sezione nella pagina iniziale */
 .sect{display:flex;align-items:center;gap:10px;margin:22px 0 10px;
   font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--a1)}
 .sect i{flex:1;height:1px;background:var(--line);display:block}
 .sect.first{margin-top:4px}
-.sect.s-0{color:var(--a1)} .sect.s-1{color:var(--a2)} .sect.s-2{color:var(--a3)} .sect.s-3{color:var(--a4)} .sect.s-4{color:var(--a5)}
+.sect.s-0{color:var(--a1)} .sect.s-1{color:var(--a2)} .sect.s-2{color:var(--a3)} .sect.s-3{color:var(--a4)} .sect.s-4{color:var(--a5)} .sect.s-5{color:var(--a6)}
 
 /* schede a tre forme */
 .trio{display:grid;gap:7px}
@@ -213,7 +215,7 @@ footer{margin-top:26px;font-size:12.5px;color:var(--ink-soft);text-align:center;
 .subjbtn .n{flex:1}
 .subjbtn .t{display:block;font-family:Fraunces,Georgia,serif;font-size:26px;font-weight:700;line-height:1.05}
 .subjbtn .b{display:block;font-size:14px;color:var(--ink-soft);margin-top:4px}
-.subjbtn.s-0{border-left-color:var(--a1)} .subjbtn.s-1{border-left-color:var(--a2)} .subjbtn.s-2{border-left-color:var(--a3)} .subjbtn.s-3{border-left-color:var(--a4)} .subjbtn.s-4{border-left-color:var(--a5)}
+.subjbtn.s-0{border-left-color:var(--a1)} .subjbtn.s-1{border-left-color:var(--a2)} .subjbtn.s-2{border-left-color:var(--a3)} .subjbtn.s-3{border-left-color:var(--a4)} .subjbtn.s-4{border-left-color:var(--a5)} .subjbtn.s-5{border-left-color:var(--a6)}
 .tick{width:34px;height:34px;border-radius:50%;background:var(--ok);color:#fff;flex:none;
   display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700}
 .tick.off{background:var(--line);color:var(--ink-soft)}
@@ -272,8 +274,8 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "49";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
-const SUBJECTS = ["Inglese","Matematica","Fisica","Storia","Chimica"];
+const APPVER = "50";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const SUBJECTS = ["Inglese","Matematica","Fisica","Storia","Chimica","Biologia"];
 const SCHEDE = {
   "Inglese":[{title:"Present perfect — gli esercizi del libro",
              blurb:"File 23, pp. 210–213: tutti i 20 esercizi dei compiti · se sbagli compare la regola e il perché, poi lo copi sul quaderno",
@@ -326,45 +328,54 @@ const SCHEDE = {
             {title:"La grande crisi della Repubblica",
              blurb:"Capitolo 18 — dai Gracchi a Silla, 28 carte con lettura ad alta voce",
              href:"schede/26-09-20-storia-crisi-repubblica.html"}],
-  "Chimica":[{title:"1 · Esseri viventi, metodo scientifico, ecosistema",
-             blurb:"Le 5 caratteristiche dei viventi, sistemi aperti/chiusi/isolati, metodo sperimentale, ecosistema · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc01-esseri-viventi.html"},
-            {title:"2 · Misure e numeri",
+  "Chimica":[{title:"1 · Misure e numeri",
              blurb:"Unità SI, prefissi, notazione scientifica e calcoli, equivalenze, cifre significative · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc02-misure.html"},
-            {title:"3 · La densità",
+             href:"schede/26-11-10-chim01-misure.html"},
+            {title:"2 · La densità",
              blurb:"Formule, unità, galleggiamento, gli esercizi degli appunti svolti · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc03-densita.html"},
-            {title:"4 · La materia",
+             href:"schede/26-11-10-chim02-densita.html"},
+            {title:"3 · La materia",
              blurb:"Sostanze pure e miscugli, soluzioni, elementi e composti, simboli e formule, trasformazioni · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc04-materia.html"},
-            {title:"5 · Temperatura, calore ed energia",
-             blurb:"Celsius e kelvin, joule e calorie, calore specifico, processi eso- ed endoergonici · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc05-calore.html"},
-            {title:"6 · Stati della materia e passaggi di stato",
+             href:"schede/26-11-10-chim03-materia.html"},
+            {title:"4 · Temperatura, calore ed energia",
+             blurb:"Celsius e kelvin, joule e calorie, calore specifico, processi eso- ed endoergonici, sistemi aperti, chiusi e isolati · carte con lettura ad alta voce e domande «Prova tu»",
+             href:"schede/26-11-10-chim04-calore.html"},
+            {title:"5 · Stati della materia e passaggi di stato",
              blurb:"Particelle, passaggi di stato, curve e soste termiche, punti fissi, pressione · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc06-stati.html"},
-            {title:"7 · L'atomo",
+             href:"schede/26-11-10-chim05-stati.html"},
+            {title:"6 · L'atomo",
              blurb:"Protoni, neutroni, elettroni, numero atomico e di massa, isotopi, tavola periodica · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc07-atomo.html"},
-            {title:"8 · Ioni e composti ionici",
+             href:"schede/26-11-10-chim06-atomo.html"},
+            {title:"7 · Ioni e composti ionici",
              blurb:"Cationi e anioni, contare p ed e, nomi degli ioni, formule e nomi dei composti · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc08-ioni.html"},
-            {title:"9 · Leggi ponderali e calcoli",
+             href:"schede/26-11-10-chim07-ioni.html"},
+            {title:"8 · Leggi ponderali e calcoli",
              blurb:"Lavoisier, Proust, Dalton; rapporti e percentuali con le masse atomiche, eccesso, moli · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc09-leggi-ponderali.html"},
-            {title:"10 · Legami e molecole",
+             href:"schede/26-11-10-chim08-leggi-ponderali.html"},
+            {title:"9 · Legami e molecole",
              blurb:"Legame covalente semplice, doppio, triplo; carbonio; polare e apolare; gruppi –OH –COOH –NH₂ · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc10-legami.html"},
-            {title:"11 · L'acqua",
-             blurb:"Molecola polare, legame a idrogeno, proprietà, il simile scioglie il simile, sapone · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc11-acqua.html"},
-            {title:"12 · Le biomolecole",
-             blurb:"Carboidrati, lipidi, proteine: monomeri, polimeri, strutture, funzioni · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-05-sc12-biomolecole.html"},
-            {title:"13 · Biologia dal libro: quello che mancava",
-             blurb:"7 caratteristiche dei viventi, Darwin, domini e regni, metodo scientifico del libro, numeri dell'acqua, pH, isomeri, gruppi funzionali, zuccheri e lipidi · carte con lettura ad alta voce e domande «Prova tu»",
-             href:"schede/26-11-10-sc13-biologia-libro.html"}]
+             href:"schede/26-11-10-chim09-legami.html"}],
+  "Biologia":[{title:"1 · La biologia studia i viventi",
+             blurb:"Libro A1, lezione 1: le 7 caratteristiche dei viventi, cellule e DNA, autotrofi ed eterotrofi, omeostasi, livelli fino alla biosfera, ecosistema, evoluzione, domini e regni · carte con lettura ad alta voce e domande «Prova tu»",
+             href:"schede/26-11-10-bio01-viventi.html"},
+            {title:"2 · Come la biologia studia la vita: il metodo scientifico",
+             blurb:"Libro A1, lezione 3: i 5 passi, dati, logica induttiva e deduttiva, esperimento controllato e variabili, Redi, organismi modello, teoria e peer review · carte con lettura ad alta voce e domande «Prova tu»",
+             href:"schede/26-11-10-bio02-metodo.html"},
+            {title:"3 · La vita dipende dall'acqua",
+             blurb:"Libro A2, lezione 1: elementi della vita, elettronegatività, molecola d'acqua e legami a idrogeno, proprietà dell'acqua, solvente, acidi, basi e pH · carte con lettura ad alta voce e domande «Prova tu»",
+             href:"schede/26-11-10-bio03-acqua.html"},
+            {title:"4 · Le proprietà delle biomolecole",
+             blurb:"Libro A2, lezione 2: composti del carbonio, isomeri, gruppi funzionali, monomeri e polimeri, condensazione e idrolisi · carte con lettura ad alta voce e domande «Prova tu»",
+             href:"schede/26-11-10-bio04-biomolecole.html"},
+            {title:"5 · I carboidrati",
+             blurb:"Libro A2, lezione 3: monosaccaridi, disaccaridi, polisaccaridi (amido, glicogeno, cellulosa, chitina), a che cosa servono · carte con lettura ad alta voce e domande «Prova tu»",
+             href:"schede/26-11-10-bio05-carboidrati.html"},
+            {title:"6 · I lipidi",
+             blurb:"Libro A2, lezione 4: trigliceridi saturi e insaturi, fosfolipidi e membrane, carotenoidi, steroidi, vitamine, cere · carte con lettura ad alta voce e domande «Prova tu»",
+             href:"schede/26-11-10-bio06-lipidi.html"},
+            {title:"7 · Le proteine",
+             blurb:"Dagli appunti: amminoacidi, legame peptidico, le quattro strutture, le funzioni; carboidrati, lipidi e proteine a confronto · carte con lettura ad alta voce e domande «Prova tu»",
+             href:"schede/26-11-10-bio07-proteine.html"}]
 };
 const $  = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
