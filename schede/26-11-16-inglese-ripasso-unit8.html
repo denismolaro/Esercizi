@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inglese — Ripasso Unit 8</title>
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#1B2430; --soft:#5A6473; --rule:#DCD7CC;
+  --accent:#0E7C86; --accent-soft:#E2F2F3; --accent-line:#BFE0E3;
+  --warn:#8A5A00; --warn-soft:#FBF3E2;
+  --ok:#1F5C4B; --ok-soft:#E8F0EC; --no:#9B2C2C; --no-soft:#FBEAEA;
+  --ps:#1D5FA8; --ps-soft:#E6EEF9; --pp:#B4531A; --pp-soft:#FBEDE3;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0; background:var(--paper); color:var(--ink)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Verdana,Arial,sans-serif; font-size:18px; line-height:1.7; letter-spacing:.005em; padding:0 0 env(safe-area-inset-bottom)}
+html{scroll-padding-top:12px}
+.wrap{max-width:660px; margin:0 auto; padding:0 20px 60px}
+header{padding:calc(22px + env(safe-area-inset-top)) 0 6px}
+.tag{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+h1{font-size:26px; line-height:1.25; margin:6px 0 4px; letter-spacing:-.02em}
+p.lead{color:var(--soft); margin:6px 0 14px; font-size:16px}
+h2{font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); font-weight:700; margin:34px 0 4px; border-top:1px solid var(--rule); padding-top:16px}
+.card{border:1px solid var(--rule); border-radius:14px; background:#fff; padding:18px; margin:14px 0}
+.qnum{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:4px}
+.qnum .pt{color:var(--soft); letter-spacing:.04em}
+.ins{font-size:17px; font-weight:700; line-height:1.45; margin:0}
+.sub{font-size:15px; color:var(--soft); margin:2px 0 8px; line-height:1.45}
+.box{border:2px dashed var(--accent-line); border-radius:12px; padding:7px 12px; margin:8px 0 6px; font-size:17px; font-weight:700; color:var(--accent); line-height:1.6; text-align:center}
+button{font:inherit; cursor:pointer}
+.rows .row{border-top:1px solid var(--rule); padding:12px 0 8px}
+.rows .row:first-child{border-top:none; padding-top:4px}
+.op{font-size:18.5px; line-height:2}
+.op .n{color:var(--soft); font-weight:700; margin-right:4px}
+.op .base{color:var(--accent); font-weight:700}
+.spk{border:2px solid var(--rule); background:#fff; border-radius:9px; padding:0 7px; font-size:14px; line-height:1.5; margin-left:6px; vertical-align:2px; cursor:pointer}
+.spk.on{border-color:var(--accent); background:var(--accent-soft)}
+select, .tin{font:inherit; font-size:17px; border:2px solid var(--rule); border-radius:10px; background:#fff; color:var(--ink); padding:3px 6px; vertical-align:baseline; max-width:100%}
+select{min-width:120px}
+.tin{width:190px; padding:4px 9px}
+select:focus, .tin:focus{outline:none; border-color:var(--accent)}
+.sok{border-color:var(--ok) !important; background:var(--ok-soft) !important}
+.sko{border-color:var(--no) !important; background:var(--no-soft) !important}
+select:disabled, .tin:read-only{opacity:1; color:var(--ink)}
+.opts{display:grid; gap:7px; margin-top:6px; grid-template-columns:repeat(3,minmax(0,1fr))}
+.opts.c1{grid-template-columns:1fr}
+.opts.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts button{border:2px solid var(--rule); background:#fff; border-radius:11px; padding:10px 8px; min-width:0; font-size:16px; font-weight:600; color:var(--ink); line-height:1.35; overflow-wrap:break-word}
+.opts.c1 button{text-align:left; padding:10px 12px}
+.opts button.sel{border-color:var(--ink); background:#E9ECF1}
+.opts button.right{border-color:var(--ok); background:var(--ok-soft); color:var(--ok)}
+.opts button.wrong{border-color:var(--no); background:var(--no-soft); color:var(--no)}
+.opts.locked button{cursor:default}
+.opts.locked button:not(.right):not(.wrong){opacity:.45}
+@media (max-width:460px){ .opts button{font-size:14.5px; padding:9px 4px} .opts.c1 button{font-size:15.5px; padding:9px 10px} }
+.fb{display:none; font-size:15.5px; line-height:1.55; margin-top:7px; border-radius:10px; padding:7px 11px}
+.fb.on{display:block}
+.fb.y{background:var(--ok-soft); color:var(--ok); font-weight:700}
+.fb.n{background:var(--no-soft); color:var(--no)}
+.fb.n b{display:block}
+.fb .giusta{color:var(--ink); font-weight:700; margin-top:3px}
+.row.y .op::after{content:" ✓"; color:var(--ok); font-weight:700}
+.row.n .op::after{content:" ✗"; color:var(--no); font-weight:700}
+/* tessere */
+.tline{min-height:50px; border:2px dashed var(--accent-line); border-radius:12px; padding:6px; display:flex; flex-wrap:wrap; gap:6px; align-items:center; background:#FAFDFD}
+.tline.okk{border-style:solid; border-color:var(--ok); background:var(--ok-soft)}
+.tline.kko{border-style:solid; border-color:var(--no); background:var(--no-soft)}
+.tpool{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px}
+.tk{border:2px solid var(--ink); background:#fff; border-radius:10px; padding:4px 11px; font-size:17px; font-weight:700; color:var(--ink)}
+.tline .tk{border-color:var(--accent); color:var(--accent)}
+.tend{font-size:20px; font-weight:800; color:var(--soft)}
+.clr{border:2px solid var(--rule); background:#fff; color:var(--soft); border-radius:10px; padding:4px 12px; font-size:14.5px; font-weight:600}
+/* azioni */
+.acts{display:flex; gap:8px; margin-top:14px}
+.acts button{flex:1; border-radius:12px; padding:11px 10px; font-size:16px; font-weight:700}
+.go{border:2px solid var(--ink); background:var(--ink); color:#fff}
+.retry{border:2px solid var(--accent); background:#fff; color:var(--accent)}
+.esito{font-size:15.5px; font-weight:700; margin-top:10px; line-height:1.5}
+.esito.y{color:var(--ok)} .esito.n{color:var(--no)}
+/* teoria dopo l'errore */
+.teo{display:none; margin-top:14px; border:2px solid var(--warn); background:var(--warn-soft); border-radius:14px; padding:12px 14px; font-size:16px; line-height:1.55}
+.teo.on{display:block}
+.teo h3{margin:0 0 6px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--warn)}
+.teo h4{margin:10px 0 4px; font-size:16.5px}
+.teo table{width:100%; border-collapse:collapse; background:#fff; margin:6px 0; font-size:15px}
+.teo td, .teo th{border:1px solid var(--rule); padding:5px 8px; text-align:left; vertical-align:top; line-height:1.4}
+.teo th{background:#F4F1EA; font-size:13px; letter-spacing:.04em}
+.teo .en{font-weight:700; color:var(--accent)}
+.duo{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:6px 0}
+@media (max-width:460px){ .duo{grid-template-columns:1fr} }
+.duo > div{border-radius:12px; padding:9px 11px; background:#fff}
+.duo .a{border:2px solid var(--ps)} .duo .a b.t{color:var(--ps)}
+.duo .b{border:2px solid var(--pp)} .duo .b b.t{color:var(--pp)}
+.duo svg{width:100%; height:auto; display:block; margin:4px 0}
+.sig{display:inline-block; border-radius:7px; padding:0 6px; margin:1px 2px; font-weight:700; font-size:14.5px}
+.sig.a{background:var(--ps-soft); color:var(--ps)} .sig.b{background:var(--pp-soft); color:var(--pp)}
+/* riepilogo */
+.sum{border:2px solid var(--accent-line); background:var(--accent-soft); border-radius:14px; padding:16px; margin:24px 0 10px}
+.sum table{width:100%; border-collapse:collapse; background:#fff; font-size:15px; margin:8px 0}
+.sum td{border:1px solid var(--rule); padding:6px 8px; line-height:1.4}
+.sum td.c{text-align:center; white-space:nowrap}
+.v.ok{color:var(--ok); font-weight:700} .v.mid{color:var(--warn); font-weight:700} .v.ko{color:var(--no); font-weight:700}
+.btn{width:100%; border:2px solid var(--accent); background:#fff; color:var(--accent); border-radius:12px; padding:12px 14px; font-size:16.5px; font-weight:700; margin-top:10px}
+.foot{color:var(--soft); font-size:15px; text-align:center; margin-top:40px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">Inglese · ripasso Unit 8</div>
+  <h1>There's no place like home — ripasso per la verifica</h1>
+  <p class="lead">Fai un esercizio alla volta, poi tocca <b>Correggi</b>. Se sbagli, sotto compare <b>la regola</b> e il <b>perché</b> dell'errore: rileggila e riprova solo quelli sbagliati. Al secondo errore vedi la risposta giusta. Faccende ed elettrodomestici sono nella scheda «Unit 8 — hai capito?».</p>
+</header>
+
+<h2>Vocabulary</h2>
+<div id="secV"></div>
+<h2>Grammar · present perfect e passato</h2>
+<div id="secG"></div>
+
+<div class="sum" id="sum"></div>
+<button class="btn" onclick="ricomincia()">Ricomincia tutto da capo</button>
+
+<p class="foot">Dal libro: Phases 1, unità 8 (pp. 89–93) e New Grammar Files, File 19 C, 23 B, 24.</p>
+</div>
+
+<script>
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function lev(a,b){
+  const m = a.length, n = b.length; if(Math.abs(m-n)>2) return 9;
+  let p = []; for(let j=0;j<=n;j++) p[j] = j;
+  for(let i=1;i<=m;i++){ const c = [i]; for(let j=1;j<=n;j++) c[j] = Math.min(p[j]+1, c[j-1]+1, p[j-1]+(a[i-1]===b[j-1]?0:1)); p = c; }
+  return p[n];
+}
+/* normalizza: minuscole, niente punteggiatura, contrazioni sciolte */
+function nz(s){
+  s = String(s||"").toLowerCase().replace(/[’`]/g,"'").replace(/[.!?,;:]+/g," ").replace(/\s+/g," ").trim();
+  s = s.replace(/\bhaven't\b/g,"have not").replace(/\bhasn't\b/g,"has not").replace(/\bdidn't\b/g,"did not")
+       .replace(/\b(i|you|we|they)'ve\b/g,"$1 have").replace(/\b(he|she|it)'s\b/g,"$1 has")
+       .replace(/^'ve\b/,"have").replace(/^'s\b/,"has");
+  return s.replace(/\s+/g," ").trim();
+}
+
+/* ═══════════ forme degli aggettivi ═══════════
+   regola: 0 una sillaba · 1 raddoppia · 2 in -e · 3 in -y · 4 due forme · 5 more · 6 irregolare */
+const FORMS = {
+ tall:[0,"taller","the tallest"], small:[0,"smaller","the smallest"], cheap:[0,"cheaper","the cheapest"], high:[0,"higher","the highest"],
+ long:[0,"longer","the longest"], cold:[0,"colder","the coldest"], light:[0,"lighter","the lightest"], shy:[0,"shyer","the shyest"],
+ big:[1,"bigger","the biggest"], hot:[1,"hotter","the hottest"], thin:[1,"thinner","the thinnest"], wet:[1,"wetter","the wettest"],
+ nice:[2,"nicer","the nicest"], safe:[2,"safer","the safest"], large:[2,"larger","the largest"], brave:[2,"braver","the bravest"],
+ busy:[3,"busier","the busiest"], lazy:[3,"lazier","the laziest"], happy:[3,"happier","the happiest"], easy:[3,"easier","the easiest"],
+ friendly:[3,"friendlier","the friendliest"], early:[3,"earlier","the earliest"],
+ simple:[4,"simpler|more simple","the simplest|the most simple"], clever:[4,"cleverer|more clever","the cleverest|the most clever"],
+ quiet:[4,"quieter|more quiet","the quietest|the most quiet"],
+ expensive:[5,"more expensive","the most expensive"], interesting:[5,"more interesting","the most interesting"],
+ difficult:[5,"more difficult","the most difficult"], comfortable:[5,"more comfortable","the most comfortable"],
+ confident:[5,"more confident","the most confident"], generous:[5,"more generous","the most generous"],
+ beautiful:[5,"more beautiful","the most beautiful"], boring:[5,"more boring","the most boring"], active:[5,"more active","the most active"],
+ splendid:[5,"more splendid","the most splendid"], slowly:[5,"more slowly","the most slowly"], powerful:[5,"more powerful","the most powerful"],
+ fast:[0,"faster","the fastest"], hungry:[3,"hungrier","the hungriest"], pretty:[3,"prettier","the prettiest"], moody:[3,"moodier","the moodiest"],
+ narrow:[4,"narrower|more narrow","the narrowest|the most narrow"], nervous:[5,"more nervous","the most nervous"], anxious:[5,"more anxious","the most anxious"],
+ strangely:[5,"more strangely","the most strangely"],
+ lively:[3,"livelier","the liveliest"], funny:[3,"funnier","the funniest"], tidy:[3,"tidier","the tidiest"], famous:[5,"more famous","the most famous"],
+ good:[6,"better","the best"], bad:[6,"worse","the worst"], far:[6,"farther|further","the farthest|the furthest"], well:[6,"better","the best"]
+};
+/* spiegazione mirata per un comparativo / superlativo sbagliato */
+function diagnose(base, want, a){
+  const F = FORMS[base]; if(!F) return null;
+  const rule = F[0], comps = F[1].split("|"), sups = F[2].split("|");
+  const strip = x=>x.replace(/^the /,"");
+  const suf = want==="s" ? "est" : "er", more = want==="s" ? "the most" : "more";
+  if(want==="s"){
+    if(sups.map(strip).indexOf(a)>=0) return "Manca <b>the</b>: il superlativo vuole the davanti.";
+    if(comps.indexOf(a)>=0 || comps.indexOf(a.replace(/^the /,""))>=0) return "Questo è il comparativo (più… di). Qui serve il superlativo, il più…: "+sups[0]+".";
+  }else{
+    if(base==="bad" && a==="worst") return "<b>worst</b> è il superlativo (il peggiore). Peggiore di = <b>worse</b> than.";
+    if(sups.indexOf(a)>=0 || sups.map(strip).indexOf(a)>=0) return "Questo è il superlativo (il più…). Qui c'è <b>than</b>: serve il comparativo.";
+    if(/\bthen\b/.test(a)) return "Then vuol dire poi. Nel confronto si usa than.";
+    if(/^less /.test(a)) return "Qui serve più… di: -er oppure more, non less.";
+  }
+  const w = want==="s" ? strip(a) : a;
+  if(/^(more|most) \S+(er|est)$/.test(w)) return "Mai more (o most) insieme a -er (o -est): o l'uno o l'altro.";
+  if(rule===6){
+    if(base==="bad" && want==="c" && a==="worst") return "<b>worst</b> è il superlativo (il peggiore). Peggiore di = <b>worse</b> than.";
+    if(base==="bad" && want==="s" && w==="worse") return "worse è il comparativo. Il peggiore = the worst.";
+    return "<b>"+base+"</b> è irregolare: "+base+" → "+F[1].replace("|"," / ")+" → "+F[2].replace("|"," / ")+".";
+  }
+  const stem = base.replace(/(y|e)$/,"");
+  if(rule===5 && /ly$/.test(base) && (w===base+suf || w===stem+"i"+suf)) return "<b>"+base+"</b> è un avverbio in -ly: si usa "+more+" davanti.";
+  if(rule===5 && (w===base+suf || w===stem+suf || w===stem+"i"+suf)) return "<b>"+base+"</b> è lungo: si usa "+more+" davanti, e l'aggettivo non cambia.";
+  if(rule===5 && want==="s" && w==="more "+base) return "Nel superlativo si usa <b>the most</b>, non more.";
+  if(rule===5 && want==="c" && (w==="most "+base || w==="the most "+base)) return "the most è il superlativo. Più… di = <b>more</b> "+base+".";
+  if(rule===3 && (w==="more "+base || w==="most "+base)) return "<b>"+base+"</b>: due sillabe in -y. La y diventa i e si aggiunge -"+suf+" ("+base.slice(0,-1)+"i"+suf+"), niente "+(want==="s"?"most":"more")+".";
+  if(rule<=2 && (w==="more "+base || w==="most "+base)) return "<b>"+base+"</b> è corto: si aggiunge -"+suf+", niente "+(want==="s"?"most":"more")+".";
+  if(rule===1 && w===base+suf) return "Una vocale + una consonante in fondo: raddoppia la "+base.slice(-1)+".";
+  if(rule===3 && w===base+suf) return "La y diventa i: "+base.slice(0,-1)+"i"+suf+".";
+  if(rule===2 && (w===base+suf || w===base+"e"+suf.slice(1))) return "<b>"+base+"</b> finisce già in -e: aggiungi solo -"+suf.slice(1)+".";
+  if(rule===0 && w===base+base.slice(-1)+suf) return "Qui non si raddoppia: si raddoppia solo con una vocale sola + una consonante.";
+  const acc = (want==="s" ? sups : comps).map(strip);
+  if(acc.some(z=>lev(strip(w),z)<=1)) return "Quasi: controlla bene le lettere.";
+  if(w.indexOf(stem)<0) return "Usa la parola tra parentesi: <b>"+base+"</b>.";
+  return null;
+}
+
+
+/* avverbi di modo: perché è sbagliato */
+function diagAdv(r, a){
+  const b = r.b;
+  if(a===b) return "Questo è l'aggettivo. L'avverbio di modo di solito aggiunge -ly.";
+  if(b==="good") return "good è irregolare: l'avverbio è well.";
+  if(b==="hard" && a==="hardly") return "hardly vuol dire «a malapena». L'avverbio di hard è uguale: hard.";
+  if((b==="fast"||b==="late"||b==="early") && a===b+"ly") return b+" è irregolare: l'avverbio è uguale all'aggettivo.";
+  if(/y$/.test(b) && a===b+"ly") return "Finisce in -y: la y diventa i, poi -ly.";
+  if(/le$/.test(b) && a===b+"ly") return "Finisce in -le: togli la e e aggiungi solo -y.";
+  if(/ic$/.test(b) && a===b+"ly") return "Finisce in -ic: si aggiunge -ally.";
+  if(/^more /.test(a)) return "Qui serve l'avverbio, non il comparativo.";
+  return null;
+}
+
+/* ═══════════ la teoria che compare dopo un errore ═══════════ */
+const ARR_PS = '<svg viewBox="0 0 200 54" aria-hidden="true"><line x1="8" y1="40" x2="186" y2="40" stroke="#1D5FA8" stroke-width="3"/><path d="M186 34 L196 40 L186 46 z" fill="#1D5FA8"/><line x1="80" y1="6" x2="80" y2="32" stroke="#9B2C2C" stroke-width="3"/><path d="M74 28 L80 38 L86 28 z" fill="#9B2C2C"/><text x="8" y="53" font-size="10" fill="#5A6473">past</text><text x="160" y="53" font-size="10" fill="#5A6473">present</text></svg>';
+const ARR_PP = '<svg viewBox="0 0 200 54" aria-hidden="true"><line x1="8" y1="40" x2="186" y2="40" stroke="#1D5FA8" stroke-width="3"/><path d="M186 34 L196 40 L186 46 z" fill="#1D5FA8"/><path d="M40 34 Q110 -6 176 30" fill="none" stroke="#B4531A" stroke-width="3"/><path d="M170 26 L180 33 L168 34 z" fill="#B4531A"/><text x="8" y="53" font-size="10" fill="#5A6473">past</text><text x="160" y="53" font-size="10" fill="#5A6473">present</text></svg>';
+const TEO = {
+
+ house:`<h3>Ripassa · le parti della casa e i mobili (p. 92)</h3><table><tr><th>in inglese</th><th>in italiano</th></tr>
+<tr><td class="en">stairs · ceiling · roof</td><td>scale · soffitto · tetto</td></tr>
+<tr><td class="en">attic · garage · balcony · front door</td><td>soffitta · garage · balcone · porta d'ingresso</td></tr>
+<tr><td class="en">chest of drawers · wardrobe · bedside table</td><td>cassettiera · armadio · comodino</td></tr>
+<tr><td class="en">armchair · sofa · rug</td><td>poltrona · divano · tappeto</td></tr>
+<tr><td class="en">cupboard · sink</td><td>armadietto, credenza · lavello</td></tr>
+<tr><td class="en">shower · washbasin · mirror · toilet</td><td>doccia · lavandino del bagno · specchio · gabinetto</td></tr></table>`,
+ types:`<h3>Ripassa · i tipi di casa (p. 92)</h3><table>
+<tr><td class="en">detached house</td><td>casa singola, non attaccata ad altre</td></tr>
+<tr><td class="en">semi-detached house</td><td>casa attaccata a <b>una</b> sola altra casa (bifamiliare)</td></tr>
+<tr><td class="en">terraced house</td><td>casa a schiera, in una fila di case attaccate</td></tr>
+<tr><td class="en">block of flats</td><td>condominio, palazzo con tanti appartamenti</td></tr></table>`,
+ jay:`<h3>Ripassa · ever, never, just, already, yet (p. 91)</h3><table><tr><th>parola</th><th>dove si usa</th><th>posizione</th></tr>
+<tr><td class="en">ever</td><td>domande: esperienze nella vita</td><td>tra have e participio: <i>Have you ever been…?</i></td></tr>
+<tr><td class="en">never</td><td>verbo affermativo, significato negativo</td><td>tra have e participio: <i>I have never done…</i></td></tr>
+<tr><td class="en">just (= appena)</td><td>frasi affermative</td><td>tra have e participio: <i>I have just done…</i></td></tr>
+<tr><td class="en">already (= già)</td><td>frasi affermative</td><td>tra have e participio: <i>He has already swept…</i></td></tr>
+<tr><td class="en">yet (= già? / non ancora)</td><td>domande e negative</td><td>in fondo alla frase: <i>Have you … yet? She hasn't … yet.</i></td></tr></table>`,
+ tempi:'<h3>Ripassa · past simple o present perfect?</h3><div class="duo">'
+  +'<div class="a"><b class="t">PAST SIMPLE</b>'+ARR_PS+'Azione finita in un <b>momento preciso</b>.<br>Parole spia: <span class="sig a">yesterday</span><span class="sig a">last week</span><span class="sig a">two days ago</span><span class="sig a">in 2020</span><span class="sig a">When…?</span><span class="sig a">What time…?</span><br>Forma: verbo + <b>-ed</b> o seconda colonna.<br>Domande e negative: <b>did + forma base</b>: <i>Did you buy? I didn\'t buy.</i></div>'
+  +'<div class="b"><b class="t">PRESENT PERFECT</b>'+ARR_PP+'Azione nel passato <b>senza momento preciso</b>: conta il fatto.<br>Parole spia: <span class="sig b">ever</span><span class="sig b">never</span><span class="sig b">just</span><span class="sig b">recently</span><span class="sig b">lately</span><span class="sig b">once</span><span class="sig b">twice</span><span class="sig b">yet</span><br>Forma: <b>have / has + participio</b> (terza colonna).<br>he / she / it → <b>has</b>. <i>just, ever, never</i> vanno tra have e il participio: <i>I have just fed.</i></div>'
+  +'</div>',
+ bg:'<h3>Ripassa · been o gone?</h3><div class="duo">'
+  +'<div class="a"><b class="t">BEEN</b><svg viewBox="0 0 200 50" aria-hidden="true"><text x="4" y="30" font-size="13" fill="#1B2430">🏠</text><path d="M30 22 Q100 -4 170 22" fill="none" stroke="#1D5FA8" stroke-width="3"/><path d="M164 16 L174 24 L162 26 z" fill="#1D5FA8"/><path d="M170 32 Q100 54 30 32" fill="none" stroke="#1D5FA8" stroke-width="3"/><path d="M36 26 L26 32 L38 38 z" fill="#1D5FA8"/><text x="176" y="30" font-size="13">🏛️</text></svg>è andato <b>ed è tornato</b>.<br><i>Have you ever been to London?</i><br><i>John has been to New York</i> (ora è di nuovo qui).</div>'
+  +'<div class="b"><b class="t">GONE</b><svg viewBox="0 0 200 50" aria-hidden="true"><text x="4" y="30" font-size="13" fill="#1B2430">🏠</text><path d="M30 26 L168 26" fill="none" stroke="#B4531A" stroke-width="3"/><path d="M164 20 L174 26 L164 32 z" fill="#B4531A"/><text x="176" y="30" font-size="13">🏦</text></svg>è andato <b>ed è ancora lì</b>.<br><i>Where is Mum? She has gone to the bank</i> (è in banca adesso).</div>'
+  +'</div>',
+ forsince:`<h3>Ripassa · for e since (File 24)</h3><div class="duo">
+<div class="a"><b class="t">FOR</b><br>+ un <b>periodo</b>, quanto dura.<br><i>for two years · for a long time · for ages · for half an hour</i></div>
+<div class="b"><b class="t">SINCE</b><br>+ il <b>momento di inizio</b>, da quando.<br><i>since 2010 · since March · since Christmas · since 3 o'clock</i></div></div>
+Tutte e due si traducono «da». Domanda: <b>How long</b> have you…? Stessa idea in tre modi:<br>
+<i>He hasn't visited us <b>for</b> three months.</i> = <i>It's three months <b>since</b> he visited us.</i> = <i>He visited us three months <b>ago</b>.</i>`,
+ used:`<h3>Ripassa · used to e would (File 19 C)</h3><table>
+<tr><td class="en">used to + forma base</td><td>abitudini e situazioni del passato che ora non ci sono più: <i>I used to play with dolls.</i></td></tr>
+<tr><td class="en">didn't use to</td><td>negativa: dopo didn't, <b>use</b> senza d</td></tr>
+<tr><td class="en">Did … use to …?</td><td>domanda: <i>Did you use to walk to school?</i></td></tr>
+<tr><td class="en">would + forma base</td><td>solo azioni ripetute: <i>Every summer we would go to the beach.</i><br>Mai con stati (be, have, like, live): <i>He used to be a firefighter</i>, non would be.</td></tr></table>`,
+ mix:`<h3>Ripassa · i tempi del passato e del presente</h3><table>
+<tr><td class="en">present simple</td><td>abitudini: <i>He often watches old films.</i></td></tr>
+<tr><td class="en">past simple</td><td>azione finita, una dopo l'altra: <i>He had dinner, then he watched TV.</i></td></tr>
+<tr><td class="en">past continuous</td><td>azione in corso nel passato: <i>was / were + -ing</i></td></tr>
+<tr><td class="en">while · when</td><td>azione lunga (past continuous) interrotta da una breve (past simple): <i>John was listening to music when Paul came in.</i> · due azioni lunghe insieme: <i>while … was cutting</i></td></tr></table>`
+
+};
+
+/* ═══════════ gli esercizi ═══════════ */
+const EX = [
+
+{id:"f1", sec:"V", tipo:"mc", qbase:true, teo:["house"], tit:"Exercise 1 · Parts of the house and furnishings",
+ ins:"What does it mean? Choose the Italian translation.", it:"Le parole dell'esercizio 2 di p. 92.",
+ items:[
+  {q:"stairs", o:["scale","stelle","sedie"], ok:0, why:"stairs = scale."},
+  {q:"ceiling", o:["pavimento","soffitto","cantina"], ok:1, why:"ceiling = soffitto. Il pavimento è floor."},
+  {q:"attic", o:["atrio","balcone","soffitta"], ok:2, why:"attic = soffitta, sotto il tetto."},
+  {q:"chest of drawers", o:["cassettiera","petto","scrivania"], ok:0, why:"drawers = cassetti: chest of drawers = cassettiera."},
+  {q:"cupboard", o:["tazza","armadietto, credenza","tavola"], ok:1, why:"cupboard = armadietto, credenza.", tr:{0:"Cup è la tazza, ma cupboard è l'armadietto."}},
+  {q:"washbasin", o:["lavatrice","lavastoviglie","lavandino del bagno"], ok:2, why:"washbasin = lavandino del bagno. La lavatrice è washing machine."},
+  {q:"bedside table", o:["comodino","tavolo da pranzo","letto"], ok:0, why:"bedside table = comodino, il tavolino accanto al letto."},
+  {q:"rug", o:["tetto","tappeto","specchio"], ok:1, why:"rug = tappeto. Il tetto è roof."}]},
+{id:"f2", sec:"V", tipo:"mc", fix:["detached house","semi-detached house","terraced house","block of flats"], teo:["types"], tit:"Exercise 2 · Types of houses",
+ ins:"Which type of house is it?", it:"I tipi di casa dell'esercizio 4 di p. 92.",
+ fixmsg:["Detached vuol dire staccata: non è attaccata a nessuna casa.","Semi-detached è attaccata a una sola altra casa.","Terraced è una fila di case attaccate.","Block of flats è un palazzo con tanti appartamenti."],
+ items:[
+  {q:"A house that isn't joined to any other house.", ok:0, why:"detached = staccata, casa singola."},
+  {q:"A house joined to one other house.", ok:1, why:"semi-detached = attaccata a una sola casa."},
+  {q:"A house in a long row of houses joined together.", ok:2, why:"terraced = a schiera."},
+  {q:"A tall building with a lot of flats.", ok:3, why:"block of flats = condominio."}]},
+
+{id:"f3", sec:"G", tipo:"mc", teo:["jay"], tit:"Exercise 3 · Ever, never, just, already, yet",
+ ins:"Choose the correct word.", it:"Come gli esercizi 8 e 9 di p. 91.",
+ items:[
+  {q:"Have you taken out the rubbish ___?", o:["already","yet","just"], ok:1, why:"Domanda, in fondo alla frase: yet.", tr:{0:"Already va nelle frasi affermative. In fondo a una domanda: yet.",2:"Just va tra have e il participio, non in fondo."}},
+  {q:"She hasn't laid the table ___.", o:["yet","just","already"], ok:0, why:"Negativa, in fondo: yet = non ancora."},
+  {q:"I've ___ done the shopping: here are the bags!", o:["yet","ever","just"], ok:2, why:"just = appena."},
+  {q:"He has ___ swept the floor, so you don't need to do it.", o:["already","yet","ever"], ok:0, why:"already = già, in una frase affermativa."},
+  {q:"Have you ___ been to London?", o:["yet","ever","just"], ok:1, why:"Esperienza nella vita: ever."},
+  {q:"I have ___ done the dusting. I hate it!", o:["ever","yet","never"], ok:2, why:"Mai fatto: never, con il verbo affermativo.", tr:{0:"Ever va nelle domande. Per dire «mai» in una frase affermativa: never."}}]},
+{id:"f4", sec:"G", tipo:"mc", qbase:true, fix:["past simple","present perfect"], teo:["tempi"], tit:"Exercise 4 · Which tense?",
+ ins:"Does the expression need the past simple or the present perfect?", it:"Come l'esercizio 1 del File 23 B: guarda la parola spia.",
+ fixmsg:["Questa espressione non indica un momento finito: guarda le parole spia del present perfect.","Questa espressione indica un momento preciso e finito: serve il past simple."],
+ items:[
+  {q:"yesterday", ok:0, why:"Momento finito: past simple."},
+  {q:"in 1998", ok:0, why:"Anno preciso: past simple."},
+  {q:"a few days ago", ok:0, why:"… ago: past simple."},
+  {q:"recently", ok:1, why:"Tempo non preciso: present perfect."},
+  {q:"so far", ok:1, why:"Fino ad ora: present perfect."},
+  {q:"last month", ok:0, why:"last …: past simple."},
+  {q:"not … yet", ok:1, why:"yet: present perfect."},
+  {q:"today", ok:1, why:"Tempo non ancora finito: present perfect."},
+  {q:"when I was five", ok:0, why:"Momento preciso del passato: past simple."},
+  {q:"ever", ok:1, why:"Esperienza nella vita: present perfect."}]},
+{id:"f5", sec:"G", tipo:"verb", teo:["tempi"], tit:"Exercise 5 · Past simple or present perfect?",
+ ins:"Complete with the verbs in brackets.", it:"Come gli esercizi 2 e 5 del File 23 B. Scrivi tutto quello che va nello spazio.",
+ items:[
+  {q:"David ___ (break) his left leg playing football a few years ago.", a:["broke"], t:"ps", subj:"he", b:"break", ps:"broke", pp:"broken", sig:"a few years ago"},
+  {q:"I ___ (never / use) a digital camera, but I hope to learn.", a:["have never used"], t:"pp", subj:"i", b:"use", ps:"used", pp:"used", adv:"never", sig:"never"},
+  {q:"Mark ___ (play) volleyball twice this week.", a:["has played"], t:"pp", subj:"he", b:"play", ps:"played", pp:"played", sig:"this week, twice"},
+  {q:"Where ___ (you / go) for your summer holidays?", a:["did you go"], t:"ps", subj:"you", qn:true, b:"go", ps:"went", pp:"gone", sig:"le vacanze estive, già finite"},
+  {q:"___ (you / ever / eat) Chinese food?", a:["have you ever eaten"], t:"pp", subj:"you", qn:true, b:"eat", ps:"ate", pp:"eaten", adv:"ever", sig:"ever"},
+  {q:"She ___ (just / finish) her homework.", a:["has just finished"], t:"pp", subj:"she", b:"finish", ps:"finished", pp:"finished", adv:"just", sig:"just"}]},
+{id:"f6", sec:"G", tipo:"mc", fix:["been","gone"], teo:["bg"], tit:"Exercise 6 · Been or gone?",
+ ins:"Complete with been or gone.", it:"Come l'esercizio 15 del File 23: è tornato o è ancora là?",
+ fixmsg:["Been vuol dire andato e tornato. Qui è già tornato, o è ancora là?","Gone vuol dire che è ancora là. Qui è ancora là, o è già tornato?"],
+ items:[
+  {q:"My sister has ___ to the park. She left fifteen minutes ago.", ok:1, why:"È ancora al parco: gone."},
+  {q:"Peter has ___ to school. He'll be back by 4.00.", ok:1, why:"È ancora a scuola: gone."},
+  {q:"‘Have you ever ___ to Japan?’ ‘No, never.’", ok:0, why:"Esperienza: been."},
+  {q:"You are all muddy. Where have you ___?", ok:0, why:"Sono qui, sono tornati: been."}]},
+{id:"f7", sec:"G", tipo:"mc", fix:["for","since"], teo:["forsince"], tit:"Exercise 7 · For or since?",
+ ins:"Complete with for or since.", it:"Come l'esercizio 1 del File 24: periodo o momento di inizio?",
+ fixmsg:["For va con un periodo, quanto dura. Qui c'è un periodo o il momento in cui è cominciato?","Since va con il momento di inizio. Qui c'è il momento di inizio o un periodo?"],
+ items:[
+  {q:"I've lived here ___ 2010.", ok:1, why:"2010 è il momento di inizio: since."},
+  {q:"We've known each other ___ a few months.", ok:0, why:"Un periodo: for."},
+  {q:"She hasn't phoned ___ Christmas.", ok:1, why:"Momento di inizio: since."},
+  {q:"They've been married ___ two years.", ok:0, why:"Un periodo: for."},
+  {q:"I haven't seen him ___ ages.", ok:0, why:"for ages = da secoli."},
+  {q:"It has rained ___ March.", ok:1, why:"Momento di inizio: since."},
+  {q:"We've waited ___ half an hour.", ok:0, why:"Un periodo: for."},
+  {q:"He's been here ___ 3 o'clock.", ok:1, why:"Un'ora precisa di inizio: since."}]},
+{id:"f8", sec:"G", tipo:"mc", c1:true, teo:["forsince"], tit:"Exercise 8 · It's … since",
+ ins:"Choose the sentence with the same meaning.", it:"Come gli esercizi 1, 2 e 4 del File 24 B.",
+ items:[
+  {q:"He visited his parents two years ago.", o:["It's two years since he visited his parents.","It's two years ago he visited his parents.","It's since two years he visited his parents."], ok:0, why:"It's + periodo + since + past simple.", tr:{1:"Con It's … si usa since, non ago.",2:"L'ordine è It's + periodo + since."}},
+  {q:"It's three months since he last visited us.", o:["He didn't visit us since three months.","He hasn't visited us for three months.","He hasn't visited us since three months."], ok:1, why:"Present perfect + for + periodo.", tr:{0:"Con for/since serve il present perfect.",2:"Three months è un periodo: for."}},
+  {q:"It's two hours since they arrived.", o:["They arrived two hours ago.","They have arrived two hours ago.","They arrived since two hours."], ok:0, why:"Past simple + ago.", tr:{1:"Con ago non si usa il present perfect.",2:"Two hours è un periodo: si dice two hours ago."}}]},
+{id:"f9", sec:"G", tipo:"mc", teo:["used"], tit:"Exercise 9 · Used to or would?",
+ ins:"Choose the correct alternative.", it:"Come gli esercizi del File 19 C.",
+ items:[
+  {q:"When I was a child I ___ play with dolls.", o:["use to","used to","would to"], ok:1, why:"Affermativa: used to + forma base.", tr:{0:"Nella frase affermativa: used, con la d."}},
+  {q:"Tom ___ like vegetables, but now he loves them.", o:["didn't use to","didn't used to","wouldn't"], ok:0, why:"Negativa: didn't use to, senza d.", tr:{1:"Dopo didn't: use, senza d.",2:"Would non si usa con i verbi di stato come like."}},
+  {q:"___ you use to walk to school?", o:["Were","Do","Did"], ok:2, why:"Domanda: Did … use to …?"},
+  {q:"My grandfather ___ be a firefighter.", o:["used to","would"], ok:0, why:"Be è uno stato: solo used to.", tr:{1:"Would non si usa con gli stati come be."}},
+  {q:"Every summer we ___ go to the same beach.", o:["would","was","use"], ok:0, why:"Azione ripetuta: would (o used to).", tr:{2:"Nella frase affermativa si direbbe used to, con la d."}},
+  {q:"I used to ___ to bed late.", o:["going","go","went"], ok:1, why:"Dopo used to: forma base."}]},
+{id:"f10", sec:"G", tipo:"mc", teo:["mix"], tit:"Exercise 10 · Revision: verb tenses",
+ ins:"Choose the correct option.", it:"Dalla pagina Revision and consolidation: tempi verbali.",
+ items:[
+  {q:"First he had dinner, then he ___ TV.", o:["watched","was watching","is watching"], ok:0, why:"Azioni una dopo l'altra: past simple."},
+  {q:"John was listening to music when Paul ___ in.", o:["was coming","came","comes"], ok:1, why:"Azione breve che interrompe: past simple."},
+  {q:"My grandfather often ___ old films.", o:["is watching","watches","was watching"], ok:1, why:"Abitudine (often): present simple."},
+  {q:"Peter never ___ go abroad for a holiday when he was a teenager.", o:["didn't use to","didn't","used to"], ok:2, why:"never + used to: non andava mai.", tr:{0:"Never ha già il significato negativo: never used to."}},
+  {q:"Alan was making the beds while Susan ___ the grass in the garden.", o:["cut","cuts","was cutting"], ok:2, why:"Due azioni lunghe insieme (while): past continuous."}]}
+
+];
+
+/* ═══════════ stato salvato ═══════════ */
+const KEY = "ing-ripasso-u8";
+let S = load();
+function load(){ try{ const o = JSON.parse(localStorage.getItem(KEY)||"null"); if(o && o.v && o.ok && o.st) return o; }catch(e){} return {v:{}, ok:{}, st:{}}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ═══════════ disegno ═══════════ */
+function sel(id, list){ return '<select id="'+id+'" onchange="tieni(this)" aria-label="scegli"><option value="">…</option>'+list.map(w=>'<option value="'+esc(w)+'">'+esc(w)+'</option>').join("")+'</select>'; }
+function tin(id){ return '<input class="tin" id="'+id+'" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" oninput="tieni(this)" aria-label="risposta">'; }
+function spk(t){ return '<button class="spk" onclick="leggi(this)" data-say="'+esc(t)+'" aria-label="Ascolta">🔊</button>'; }
+function plain(q){ return q.replace(/_{3}/g,"...").replace(/\s*\([^)]*\)/g,""); }
+function render(){
+  const V = [], G = [];
+  EX.forEach(E=>{
+    let h = '<div class="card" id="'+E.id+'"><div class="qnum">'+E.tit+' <span class="pt" id="pt_'+E.id+'">· '+E.items.length+' punti</span></div>'
+          + '<p class="ins">'+E.ins+'</p><p class="sub">'+E.it+'</p>';
+    if(E.box) h += '<div class="box">'+E.box.join(" · ")+'</div>';
+    if(E.fix) h += '<div class="box">'+E.fix.join(" · ")+'</div>';
+    h += '<div class="rows">';
+    E.items.forEach((r,i)=>{
+      const id = E.id+"_"+i;
+      h += '<div class="row" id="r_'+id+'"><div class="op"><span class="n">'+(i+1)+'.</span>';
+      if(E.tipo==="sel") h += r.q.replace("___", sel(id, E.box)) + spk(plain(r.q));
+      else if(E.tipo==="verb") h += r.q.replace("___", tin(id)) + spk(plain(r.q));
+      else if(E.tipo==="part") h += '<span class="base">'+r.b+'</span> → '+tin(id);
+      else if(E.tipo==="mc") h += (E.qbase ? '<span class="base">'+r.q+'</span>' : r.q.replace("___","<b>_____</b>")) + spk(plain(r.q));
+      else if(E.tipo==="typ") h += r.q.replace("___", tin(id)) + spk(plain(r.q));
+      else if(E.tipo==="tiles") h += r.it;
+      h += '</div>';
+      if(E.tipo==="mc"){
+        const opts = E.fix || r.o;
+        h += '<div class="opts '+(E.c1?"c1":((opts.length===2||opts.length===4)?"c2":""))+'" id="o_'+id+'">' + opts.map((o,k)=>'<button onclick="scegli(\''+id+'\','+k+')">'+o+'</button>').join("") + '</div>';
+      }
+      if(E.tipo==="tiles") h += '<div class="tline" id="tl_'+id+'"></div><div class="tpool" id="tp_'+id+'"></div><button class="clr" id="cl_'+id+'" onclick="clrK(\''+id+'\')">Ricomincia la frase</button>';
+      h += '<div class="fb" id="f_'+id+'"></div></div>';
+    });
+    h += '</div><div class="teo" id="teo_'+E.id+'"></div>'
+       + '<div class="acts"><button class="go" id="go_'+E.id+'" onclick="correggi(\''+E.id+'\')">Correggi</button>'
+       + '<button class="retry" id="rt_'+E.id+'" style="display:none" onclick="riprova(\''+E.id+'\')">Riprova quelli sbagliati</button></div>'
+       + '<div class="esito" id="es_'+E.id+'"></div></div>';
+    (E.sec==="V" ? V : G).push(h);
+  });
+  $("secV").innerHTML = V.join(""); $("secG").innerHTML = G.join("");
+  EX.forEach(E=>{
+    E.items.forEach((r,i)=>{
+      const id = E.id+"_"+i;
+      if(E.tipo==="sel" || E.tipo==="verb" || E.tipo==="part" || E.tipo==="typ"){ const el = $(id); if(S.v[id]!=null) el.value = S.v[id]; if(el.tagName==="INPUT") el.addEventListener("keydown", function(e){ if(e.key==="Enter") this.blur(); }); }
+      if(E.tipo==="mc" && S.v[id]!=null){ const b = $("o_"+id).children[S.v[id]]; if(b) b.classList.add("sel"); }
+      if(E.tipo==="tiles") drawK(id);
+    });
+    if(S.st[E.id] && S.st[E.id].round>0) mostra(E.id);
+  });
+  riepilogo();
+}
+
+/* ═══════════ risposte ═══════════ */
+function tieni(el){ const E = exOf(el.id); if(S.ok[el.id]===true) return; S.v[el.id] = el.value; save(); }
+function exOf(id){ return EX.find(E=>id.indexOf(E.id+"_")===0); }
+function itemOf(id){ const E = exOf(id); return E.items[+id.split("_")[1]]; }
+function scegli(id,k){
+  if(S.ok[id]===true || bloccato(id)) return;
+  const box = $("o_"+id); Array.prototype.forEach.call(box.children,(b,i)=>b.classList.toggle("sel", i===k));
+  S.v[id] = k; save();
+}
+function bloccato(id){ return S.ok[id]===false && S.st[exOf(id).id] && S.st[exOf(id).id].attesa; }
+/* tessere */
+function tilesAll(r){ if(!r._all){ const all = r.t.concat(r.x||[]); r._all = all.slice().sort((a,b)=>(a.length*7+a.charCodeAt(0))%11 - (b.length*7+b.charCodeAt(0))%11); } return r._all; }
+function drawK(id){
+  const r = itemOf(id), all = tilesAll(r), line = Array.isArray(S.v[id]) ? S.v[id] : [];
+  const lock = S.ok[id]===true || bloccato(id);
+  $("tl_"+id).innerHTML = line.map((k,p)=>'<button class="tk" onclick="outK(\''+id+'\','+p+')"'+(lock?' disabled':'')+'>'+all[k]+'</button>').join("") + (line.length ? '<span class="tend">'+r.end+'</span>' : '');
+  let h = ""; all.forEach((w,k)=>{ if(line.indexOf(k)<0) h += '<button class="tk" onclick="inK(\''+id+'\','+k+')"'+(lock?' disabled':'')+'>'+w+'</button>'; });
+  $("tp_"+id).innerHTML = S.ok[id]===true ? "" : h;
+  const cl = $("cl_"+id); if(cl) cl.style.display = lock ? "none" : "";
+}
+function inK(id,k){ if(S.ok[id]===true || bloccato(id)) return; const l = Array.isArray(S.v[id]) ? S.v[id] : []; l.push(k); S.v[id] = l; save(); drawK(id); }
+function outK(id,p){ if(S.ok[id]===true || bloccato(id)) return; const l = S.v[id]; l.splice(p,1); save(); drawK(id); }
+function clrK(id){ if(S.ok[id]===true || bloccato(id)) return; S.v[id] = []; save(); drawK(id); }
+
+/* ═══════════ correzione ═══════════ */
+function valuta(E, r, id){
+  const v = S.v[id];
+  if(E.tipo==="sel"){
+    if(!v) return {vuoto:true};
+    return v===r.a ? {ok:true} : {msg:(r.tr && r.tr[v]) || "Non è la parola giusta: guarda nella tabella qui sotto che cosa vuol dire.", giusta:r.a, why:r.why};
+  }
+  if(E.tipo==="mc"){
+    if(v==null) return {vuoto:true};
+    const opts = E.fix || r.o;
+    const FIX = ["Been vuol dire andato e tornato. Qui è già tornato, o è ancora là?","Gone vuol dire che è ancora là. Qui è ancora là, o è già tornato?"];
+    return v===r.ok ? {ok:true} : {msg:(r.tr && r.tr[v]) || (E.fixmsg ? E.fixmsg[v] : (E.defmsg || "Non è giusta: rileggi la regola qui sotto.")), giusta:opts[r.ok], why:r.why};
+  }
+  if(E.tipo==="part"){
+    const a = nz(v); if(!a) return {vuoto:true};
+    if(a===r.pp || (r.alt||[]).indexOf(a)>=0 || (r.b==="go" && a==="been")) return {ok:true};
+    let m = null;
+    if(r.tr && r.tr[a]) m = r.tr[a];
+    else if(a===r.b) m = "Questa è la forma base. Ti serve la terza colonna.";
+    else if(a===r.ps && r.ps!==r.pp) m = "Questa è la seconda colonna, il past simple. Il participio è la terza: "+r.b+" – "+r.ps+" – "+r.pp+".";
+    else if(!r.reg && (a===r.b+"ed" || a===r.b+"d")) m = "«"+r.b+"» è irregolare: "+r.b+" – "+r.ps+" – "+r.pp+".";
+    else if(lev(a,r.pp)<=1) m = "Quasi: controlla le lettere.";
+    return {msg:m || "Non è il participio giusto.", giusta:r.b+" – "+r.ps+" – "+r.pp};
+  }
+  if(E.tipo==="typ"){
+    const a = nz(v); if(!a) return {vuoto:true};
+    const acc = r.a.map(nz), pre = nz(r.q.split("___")[0]);
+    if(acc.indexOf(a)>=0 || (pre && acc.some(x=>a===pre+" "+x))) return {ok:true};
+    let m = (r.tr && r.tr[a]) || null;
+    if(!m && E.diag==="comp") m = diagnose(r.base, r.want, a);
+    if(!m && E.diag==="adv") m = diagAdv(r, a);
+    if(!m && acc.some(x=>lev(a,x)<=1)) m = "Quasi: controlla le lettere.";
+    return {msg:m || "Non è giusto: rileggi la regola qui sotto.", giusta:r.a[0]};
+  }
+  if(E.tipo==="verb"){
+    const a = nz(v); if(!a) return {vuoto:true};
+    if(r.a.indexOf(a)>=0) return {ok:true};
+    const pre = nz(r.q.split("___")[0]);
+    if(pre && r.a.some(x=>a===pre+" "+x)) return {ok:true};
+    return {msg:diagVerb(r,a) || "Non è giusto.", giusta:r.a[0]};
+  }
+  if(E.tipo==="tiles"){
+    const line = Array.isArray(v) ? v : []; if(!line.length) return {vuoto:true};
+    const all = tilesAll(r), got = line.map(k=>all[k]);
+    const same = (x)=> x.join(" ").toLowerCase()===got.join(" ").toLowerCase();
+    if(same(r.t) || (r.alt||[]).some(same)) return {ok:true};
+    const extra = (r.x||[]).filter(x=>got.indexOf(x)>=0);
+    let m;
+    if(extra.length) m = r.tr[extra[0]];
+    else if(got.length<r.t.length) m = "Mancano dei pezzi.";
+    else m = "L'ordine non è giusto.";
+    return {msg:m, giusta:r.t.join(" ")+r.end};
+  }
+}
+/* perché è sbagliato un verbo tra parentesi */
+function diagVerb(r, a){
+  const tok = a.split(" "), last = tok[tok.length-1];
+  const terza = ["he","she","it"].indexOf(r.subj)>=0;
+  const hasHave = /\b(have|has)\b/.test(a), hasDid = /\bdid\b/.test(a);
+  if(r.t==="pp"){
+    if(hasDid) return "«did» è del past simple. Qui c'è «"+r.sig+"»: serve il present perfect, have / has + participio.";
+    if(!hasHave) return a.indexOf(r.ps)>=0 ? "Hai usato il past simple. Con «"+r.sig+"» serve il present perfect: have / has + participio." : "Manca have / has: il present perfect è have / has + participio.";
+    if(terza && /\bhave\b/.test(a)) return "Con he / she / it si usa has, non have.";
+    if(!terza && /\bhas\b/.test(a)) return "Con I / you / we / they si usa have, non has.";
+    if(r.qn && tok.indexOf(r.subj)<0) return "Manca il soggetto: nella domanda è have + "+r.subj+" + participio (Have "+r.subj+" … "+r.pp+"?).";
+    if(r.qn && tok[0]!=="have" && tok[0]!=="has") return "Nella domanda have va prima del soggetto: Have you…?";
+    if(r.adv && a.indexOf(r.adv)<0) return "Manca «"+r.adv+"»: va tra have / has e il participio.";
+    if(r.adv && new RegExp("\\b"+r.adv+" (have|has)\\b").test(a)) return "«"+r.adv+"» va tra have / has e il participio: have "+r.adv+" "+r.pp+".";
+    if(last===r.b && r.b!==r.pp) return "Dopo have / has ci vuole il participio, la terza colonna: "+r.b+" → "+r.pp+".";
+    if(r.pp!==r.b+"ed" && (last===r.b+"ed" || last===r.b+"d")) return "«"+r.b+"» è irregolare: "+r.b+" – "+r.ps+" – "+r.pp+".";
+    if(r.ps!==r.pp && last===r.ps) return "Hai usato la seconda colonna ("+r.ps+"). Dopo have / has ci vuole la terza: "+r.pp+".";
+  } else {
+    if(hasHave) return "C'è «"+r.sig+"»: un momento preciso, finito. Serve il past simple, senza have / has.";
+    if(r.qn){
+      if(!hasDid) return "Nella domanda al past simple ci vuole did: did + soggetto + forma base.";
+      if(r.ps!==r.b && a.indexOf(r.ps)>=0) return "Dopo did il verbo resta alla forma base: did you "+r.b+", non "+r.ps+".";
+    } else {
+      if(a===r.pp && r.pp!==r.ps) return "«"+r.pp+"» è il participio: va solo dopo have / has. Il past simple è "+r.ps+".";
+      if(a===r.b) return "Serve il passato: "+r.b+" → "+r.ps+".";
+      if(r.ps!==r.b+"ed" && a===r.b+"ed") return "«"+r.b+"» è irregolare: "+r.b+" – "+r.ps+".";
+      if(hasDid) return "Nella frase affermativa non serve did: basta "+r.ps+".";
+    }
+  }
+  if(r.a.some(x=>lev(a,x)<=1)) return "Quasi: controlla le lettere.";
+  return null;
+}
+function correggi(eid){
+  const E = EX.find(x=>x.id===eid);
+  const st = S.st[eid] || (S.st[eid] = {round:0, first:null});
+  let vuote = 0;
+  E.items.forEach((r,i)=>{ const id = eid+"_"+i; if(S.ok[id]!==true && valuta(E,r,id).vuoto) vuote++; });
+  const btn = $("go_"+eid);
+  if(vuote && !btn.dataset.armed){ btn.dataset.armed = "1"; btn.textContent = (vuote===1?"1 risposta vuota":vuote+" risposte vuote")+": tocca di nuovo"; return; }
+  delete btn.dataset.armed;
+  st.round++; st.attesa = true;
+  let ok = 0;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i;
+    if(S.ok[id]===true){ ok++; return; }
+    const res = valuta(E,r,id);
+    S.ok[id] = !!res.ok; if(res.ok) ok++;
+    S.why = S.why || {}; S.why[id] = res.ok ? null : res;
+  });
+  if(st.first==null) st.first = [ok, E.items.length];
+  save(); mostra(eid); riepilogo();
+}
+function mostra(eid){
+  const E = EX.find(x=>x.id===eid), st = S.st[eid];
+  let sbagliati = 0;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i, row = $("r_"+id), f = $("f_"+id);
+    row.classList.remove("y","n");
+    if(S.ok[id]===true){
+      row.classList.add("y"); f.className = "fb on y"; f.innerHTML = "✓ Giusto";
+      blocca(E,id,true);
+    } else if(S.ok[id]===false && st.attesa){
+      sbagliati++;
+      const res = (S.why && S.why[id]) || valuta(E,r,id);
+      row.classList.add("n");
+      let h = res.vuoto ? "<b>— Non hai risposto.</b>" : "<b>✗ "+res.msg+"</b>";
+      if(st.round>=2 && res.giusta) h += '<div class="giusta">Risposta giusta: '+res.giusta+(res.why ? ' — <span style="font-weight:400">'+res.why+'</span>' : '')+'</div>';
+      f.className = "fb on n"; f.innerHTML = h;
+      blocca(E,id,false);
+    } else {
+      f.className = "fb"; f.innerHTML = "";
+    }
+  });
+  const teo = $("teo_"+eid);
+  if(sbagliati){ teo.innerHTML = E.teo.map(k=>TEO[k]).join("<hr style='border:none;border-top:1px dashed #EBD9AE;margin:12px 0'>"); teo.className = "teo on"; }
+  else { teo.className = "teo"; teo.innerHTML = ""; }
+  $("go_"+eid).style.display = (sbagliati && st.attesa) ? "none" : (allOk(E) ? "none" : "");
+  $("go_"+eid).textContent = "Correggi";
+  $("rt_"+eid).style.display = (sbagliati && st.attesa) ? "" : "none";
+  const es = $("es_"+eid);
+  if(st.first){
+    const f = st.first;
+    es.className = "esito "+(allOk(E) ? "y" : "n");
+    es.innerHTML = allOk(E) ? "✓ Esercizio completato. Al primo tentativo: "+f[0]+" su "+f[1]+"."
+                 : (st.attesa ? "Al primo tentativo: "+f[0]+" su "+f[1]+". Leggi la regola qui sopra, poi tocca Riprova."
+                              : "Riprova quelli rimasti vuoti, poi tocca Correggi.");
+    $("pt_"+eid).textContent = "· "+f[0]+" su "+f[1];
+  }
+}
+function allOk(E){ return E.items.every((r,i)=>S.ok[E.id+"_"+i]===true); }
+function blocca(E,id,giusto){
+  if(E.tipo==="sel" || E.tipo==="verb" || E.tipo==="part" || E.tipo==="typ"){
+    const el = $(id); el.classList.remove("sok","sko"); el.classList.add(giusto ? "sok" : "sko");
+    if(el.tagName==="SELECT") el.disabled = true; else el.readOnly = true;
+  }
+  if(E.tipo==="mc"){
+    const box = $("o_"+id); box.classList.add("locked");
+    const v = S.v[id], r = itemOf(id);
+    Array.prototype.forEach.call(box.children,(b,k)=>{ b.classList.remove("sel","right","wrong"); if(giusto && k===r.ok) b.classList.add("right"); if(!giusto && k===v) b.classList.add("wrong"); });
+  }
+  if(E.tipo==="tiles"){ $("tl_"+id).className = "tline "+(giusto ? "okk" : "kko"); drawK(id); }
+}
+function riprova(eid){
+  const E = EX.find(x=>x.id===eid), st = S.st[eid];
+  st.attesa = false;
+  E.items.forEach((r,i)=>{
+    const id = eid+"_"+i;
+    if(S.ok[id]===true) return;
+    delete S.ok[id]; delete S.v[id];
+    const row = $("r_"+id); row.classList.remove("y","n");
+    if(E.tipo==="sel" || E.tipo==="verb" || E.tipo==="part" || E.tipo==="typ"){ const el = $(id); el.value = ""; el.classList.remove("sok","sko"); el.disabled = false; el.readOnly = false; }
+    if(E.tipo==="mc"){ const box = $("o_"+id); box.classList.remove("locked"); Array.prototype.forEach.call(box.children,b=>b.classList.remove("sel","right","wrong")); }
+    if(E.tipo==="tiles"){ $("tl_"+id).className = "tline"; drawK(id); }
+    const f = $("f_"+id); f.className = "fb"; f.innerHTML = "";
+  });
+  save();
+  $("rt_"+eid).style.display = "none"; $("go_"+eid).style.display = "";
+  $("es_"+eid).className = "esito"; $("es_"+eid).innerHTML = "Riprova quelli rimasti vuoti. La regola resta qui sopra.";
+}
+function riepilogo(){
+  let righe = "", tot = 0, n = 0, fatti = 0;
+  EX.forEach(E=>{
+    const st = S.st[E.id], f = st && st.first;
+    let v = '<span class="v">da fare</span>';
+    if(f){ fatti++; tot += f[0]; n += f[1]; const p = f[0]/f[1];
+      v = p>=0.75 ? '<span class="v ok">capito</span>' : (p>=0.5 ? '<span class="v mid">quasi</span>' : '<span class="v ko">da ripassare</span>'); }
+    righe += '<tr><td>'+E.tit.replace(/^Exercise /,"")+'</td><td class="c">'+(f ? f[0]+" su "+f[1] : "–")+'</td><td class="c">'+v+'</td></tr>';
+  });
+  $("sum").innerHTML = '<div class="qnum">Risultato al primo tentativo</div>'
+    + (fatti ? '<div style="font-size:17px;font-weight:700">'+tot+' su '+n+' ('+Math.round(tot/n*100)+'%) · esercizi fatti: '+fatti+' su '+EX.length+'</div>' : '<div style="font-size:16px">Ancora nessun esercizio corretto.</div>')
+    + '<table>'+righe+'</table><div style="font-size:14px;color:var(--soft)">capito = almeno 3 su 4 giusti al primo tentativo.</div>';
+}
+function ricomincia(){ if(!confirm("Cancellare tutte le risposte e ricominciare?")) return; S = {v:{}, ok:{}, st:{}}; save(); render(); window.scrollTo(0,0); }
+
+/* ═══════════ voce inglese ═══════════ */
+let voEn = null, parlaBtn = null, warmed = false;
+function pickVoice(){ const vs = window.speechSynthesis ? speechSynthesis.getVoices() : []; voEn = vs.find(v=>v.lang==="en-GB") || vs.find(v=>/^en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; }
+if(window.speechSynthesis){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function warmUp(){ if(warmed || !window.speechSynthesis) return; warmed = true; try{ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }catch(e){} }
+document.addEventListener("touchstart", warmUp, {once:true});
+document.addEventListener("click", warmUp, {once:true});
+function leggi(btn){
+  if(!window.speechSynthesis) return;
+  const era = parlaBtn; try{ speechSynthesis.cancel(); }catch(e){}
+  if(parlaBtn){ parlaBtn.classList.remove("on"); parlaBtn = null; }
+  if(era===btn) return;
+  const u = new SpeechSynthesisUtterance(String(btn.getAttribute("data-say")||"").replace(/[‘’]/g,"'"));
+  u.lang = "en-GB"; u.rate = 0.85; if(voEn) u.voice = voEn;
+  u.onend = u.onerror = ()=>{ btn.classList.remove("on"); if(parlaBtn===btn) parlaBtn = null; };
+  parlaBtn = btn; btn.classList.add("on"); speechSynthesis.speak(u);
+}
+
+render();
+</script>
+</body>
+</html>
