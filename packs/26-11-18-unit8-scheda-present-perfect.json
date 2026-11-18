@@ -1,0 +1,312 @@
+{
+ "id": "en-11-unit8-scheda-pp",
+ "subject": "Inglese",
+ "lang": "en",
+ "len": "all",
+ "updated": "2026-11-18",
+ "title": "Unit 8 — scheda come la prof (15 min)",
+ "blurb": "Present perfect con le parole di Unit 8: significati, verbi tra parentesi, just / ever / yet, past simple o present perfect.",
+ "items": [
+  {
+   "type": "info",
+   "title": "Scheda Unit 8 — 15 minuti",
+   "html": "<p style='margin:0 0 8px;font-size:15px'>Come una scheda della prof: 22 esercizi, in tutte le frasi ci sono le parole di Unit 8. Se non ricordi una parola, dopo la risposta trovi sempre il significato.</p><p style='margin:0 0 6px;font-size:15px'><b>Faccende</b>: sweep / mop the floor (spazzare / lavare il pavimento) · lay / clear the table (apparecchiare / sparecchiare) · load / empty the dishwasher (caricare / svuotare la lavastoviglie) · hang out the washing (stendere il bucato) · take out the rubbish (portare fuori la spazzatura) · tidy your room (mettere in ordine la camera)</p><p style='margin:0 0 6px;font-size:15px'><b>Con do</b>: do the washing-up (lavare i piatti) · do the washing (fare il bucato) · do the ironing (stirare) · do the shopping (fare la spesa) · do the dusting (spolverare)</p><p style='margin:0 0 8px;font-size:15px'><b>Casa</b>: electric kettle (bollitore) · vacuum cleaner (aspirapolvere) · fridge (frigorifero) · cupboard (armadietto, credenza) · attic (soffitta) · semi-detached house (casa bifamiliare)</p><p style='margin:0;font-size:15px'><b style='color:#B4531A'>have / has + participio</b>. just, ever, never, already tra have e il participio; yet in fondo. Con yesterday, ago, last… serve il past simple.</p>"
+  },
+  {
+   "type": "mc",
+   "area": "1 · Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "sweep the floor",
+   "options": [
+    "spazzare il pavimento",
+    "lavare il pavimento",
+    "passare l'aspirapolvere",
+    "stendere il bucato"
+   ],
+   "answer": "spazzare il pavimento",
+   "why": "sweep = spazzare con la scopa. Lavare il pavimento con lo straccio è mop the floor.",
+   "speak": "sweep the floor"
+  },
+  {
+   "type": "mc",
+   "area": "1 · Le parole",
+   "color": 1,
+   "lab": "Come si dice in inglese?",
+   "prompt": "sparecchiare la tavola",
+   "options": [
+    "clear the table",
+    "lay the table",
+    "load the dishwasher",
+    "tidy your room"
+   ],
+   "answer": "clear the table",
+   "why": "clear the table = sparecchiare (dopo mangiato). lay the table = apparecchiare (prima).",
+   "speak": "clear the table"
+  },
+  {
+   "type": "mc",
+   "area": "1 · Le parole",
+   "color": 2,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "do the washing-up",
+   "options": [
+    "lavare i piatti",
+    "fare il bucato",
+    "stirare",
+    "fare la spesa"
+   ],
+   "answer": "lavare i piatti",
+   "why": "washing-up = i piatti. Il bucato (i vestiti) è do the washing, senza -up.",
+   "speak": "do the washing-up"
+  },
+  {
+   "type": "mc",
+   "area": "1 · Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "electric kettle",
+   "options": [
+    "bollitore",
+    "frullatore",
+    "tostapane",
+    "ferro da stiro"
+   ],
+   "answer": "bollitore",
+   "why": "kettle = bollitore, per far bollire l'acqua. Frullatore = blender, tostapane = toaster, ferro da stiro = iron.",
+   "speak": "electric kettle"
+  },
+  {
+   "type": "mc",
+   "area": "1 · Le parole",
+   "color": 1,
+   "lab": "Come si dice in inglese?",
+   "prompt": "aspirapolvere",
+   "options": [
+    "vacuum cleaner",
+    "dishwasher",
+    "blender",
+    "cooker"
+   ],
+   "answer": "vacuum cleaner",
+   "why": "vacuum cleaner = aspirapolvere. dishwasher = lavastoviglie, cooker = cucina (fornelli e forno).",
+   "speak": "vacuum cleaner"
+  },
+  {
+   "type": "mc",
+   "area": "1 · Le parole",
+   "color": 2,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "cupboard",
+   "options": [
+    "armadietto, credenza",
+    "tazza",
+    "cassettiera",
+    "comodino"
+   ],
+   "answer": "armadietto, credenza",
+   "why": "cupboard = armadietto, credenza. cup è la tazza, ma cupboard no. Cassettiera = chest of drawers, comodino = bedside table.",
+   "speak": "cupboard"
+  },
+  {
+   "type": "mc",
+   "area": "1 · Le parole",
+   "color": 0,
+   "lab": "Che cosa vuol dire?",
+   "prompt": "attic",
+   "options": [
+    "soffitta",
+    "soffitto",
+    "scale",
+    "cantina"
+   ],
+   "answer": "soffitta",
+   "why": "attic = soffitta, sotto il tetto. Soffitto = ceiling, scale = stairs.",
+   "speak": "attic"
+  },
+  {
+   "type": "txt",
+   "area": "2 · Present perfect",
+   "color": 1,
+   "lab": "Present perfect del verbo tra parentesi",
+   "q": "Mum ___ (hang out) the washing.",
+   "sub": "«La mamma ha steso il bucato.» Scrivi le parole che mancano.",
+   "answer": "has hung out",
+   "why": "Mum = she → has. hang – hung – hung. hang out the washing = stendere il bucato."
+  },
+  {
+   "type": "txt",
+   "area": "2 · Present perfect",
+   "color": 1,
+   "lab": "Present perfect del verbo tra parentesi",
+   "q": "I ___ (load) the dishwasher.",
+   "sub": "«Ho caricato la lavastoviglie.» Scrivi le parole che mancano.",
+   "answer": "have loaded",
+   "why": "I → have. load è regolare: + -ed. load the dishwasher = caricare la lavastoviglie (svuotarla = empty)."
+  },
+  {
+   "type": "txt",
+   "area": "2 · Present perfect",
+   "color": 1,
+   "lab": "Present perfect del verbo tra parentesi",
+   "q": "Dad ___ (do) the ironing.",
+   "sub": "«Papà ha stirato.» Scrivi le parole che mancano.",
+   "answer": "has done",
+   "why": "Dad = he → has. do – did – done: did va da solo, done dopo has. do the ironing = stirare."
+  },
+  {
+   "type": "txt",
+   "area": "2 · Present perfect",
+   "color": 1,
+   "lab": "Present perfect negativo",
+   "q": "We ___ (not / sweep) the floor yet.",
+   "sub": "«Non abbiamo ancora spazzato il pavimento.» Scrivi le parole che mancano.",
+   "answer": "haven't swept",
+   "why": "We → haven't. sweep – swept – swept. yet in fondo a una negativa = non ancora. sweep the floor = spazzare il pavimento.",
+   "alts": [
+    "have not swept"
+   ]
+  },
+  {
+   "type": "txt",
+   "area": "2 · Present perfect",
+   "color": 1,
+   "lab": "Scrivi il participio",
+   "q": "Has Tom ___ (take out) the rubbish?",
+   "sub": "«Tom ha portato fuori la spazzatura?» Scrivi le parole che mancano.",
+   "answer": "taken out",
+   "why": "take – took – taken: dopo has ci vuole la terza colonna. take out the rubbish = portare fuori la spazzatura."
+  },
+  {
+   "type": "txt",
+   "area": "2 · Present perfect",
+   "color": 1,
+   "lab": "Present perfect del verbo tra parentesi",
+   "q": "My brother ___ (make) breakfast for everybody.",
+   "sub": "«Mio fratello ha preparato la colazione per tutti.» Scrivi le parole che mancano.",
+   "answer": "has made",
+   "why": "My brother = he → has. make – made – made. make breakfast = preparare la colazione."
+  },
+  {
+   "type": "txt",
+   "area": "2 · Present perfect",
+   "color": 1,
+   "lab": "Present perfect del verbo tra parentesi",
+   "q": "They ___ (lay) the table.",
+   "sub": "«Hanno apparecchiato la tavola.» Scrivi le parole che mancano.",
+   "answer": "have laid",
+   "why": "They → have. lay – laid – laid. lay the table = apparecchiare (clear = sparecchiare)."
+  },
+  {
+   "type": "order",
+   "area": "3 · just, ever, yet",
+   "color": 2,
+   "q": "Metti in ordine: Ho appena svuotato la lavastoviglie.",
+   "steps": [
+    "I",
+    "have",
+    "just",
+    "emptied",
+    "the dishwasher."
+   ],
+   "why": "just (= appena) va tra have e il participio. empty → emptied (y → ied). empty the dishwasher = svuotare la lavastoviglie."
+  },
+  {
+   "type": "order",
+   "area": "3 · just, ever, yet",
+   "color": 2,
+   "q": "Metti in ordine: Hai mai stirato una camicia?",
+   "steps": [
+    "Have",
+    "you",
+    "ever",
+    "ironed",
+    "a shirt?"
+   ],
+   "why": "Domanda: Have + soggetto + ever + participio. iron = ferro da stiro, to iron = stirare."
+  },
+  {
+   "type": "order",
+   "area": "3 · just, ever, yet",
+   "color": 2,
+   "q": "Metti in ordine: Lei non ha ancora fatto la spesa.",
+   "steps": [
+    "She",
+    "hasn't",
+    "done",
+    "the shopping",
+    "yet."
+   ],
+   "why": "yet va in fondo alla frase negativa. do the shopping = fare la spesa."
+  },
+  {
+   "type": "mc",
+   "area": "4 · Quale tempo?",
+   "color": 0,
+   "lab": "Past simple o present perfect?",
+   "prompt": "I ___ the floor yesterday.",
+   "options": [
+    "mopped",
+    "have mopped"
+   ],
+   "answer": "mopped",
+   "why": "yesterday = momento preciso → past simple. mop the floor = lavare il pavimento.",
+   "sub": "mop the floor = lavare il pavimento"
+  },
+  {
+   "type": "mc",
+   "area": "4 · Quale tempo?",
+   "color": 1,
+   "lab": "Past simple o present perfect?",
+   "prompt": "___ the dusting?",
+   "options": [
+    "Have you ever done",
+    "Did you ever do"
+   ],
+   "answer": "Have you ever done",
+   "why": "ever (= mai, nella vita) → present perfect: Have you ever done…? do the dusting = spolverare.",
+   "sub": "do the dusting = spolverare"
+  },
+  {
+   "type": "mc",
+   "area": "4 · Quale tempo?",
+   "color": 2,
+   "lab": "Past simple o present perfect?",
+   "prompt": "We ___ a new fridge last week.",
+   "options": [
+    "bought",
+    "have bought"
+   ],
+   "answer": "bought",
+   "why": "last week = momento preciso → past simple. buy – bought – bought. fridge = frigorifero.",
+   "sub": "fridge = frigorifero"
+  },
+  {
+   "type": "mc",
+   "area": "4 · Quale tempo?",
+   "color": 0,
+   "lab": "been o gone?",
+   "prompt": "Where's Dad? He ___ to the supermarket to do the shopping.",
+   "options": [
+    "has gone",
+    "has been"
+   ],
+   "answer": "has gone",
+   "why": "Papà non è qui: è andato ed è ancora lì → gone. been = è andato ed è tornato. do the shopping = fare la spesa."
+  },
+  {
+   "type": "mc",
+   "area": "4 · Quale tempo?",
+   "color": 1,
+   "lab": "for o since?",
+   "prompt": "We have lived in this semi-detached house ___ 2019.",
+   "options": [
+    "since",
+    "for"
+   ],
+   "answer": "since",
+   "why": "2019 è il momento di inizio → since. for + un periodo (for three years). semi-detached house = casa bifamiliare, attaccata a una sola altra casa.",
+   "sub": "semi-detached house = casa bifamiliare"
+  }
+ ]
+}
