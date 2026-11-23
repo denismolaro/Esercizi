@@ -1,0 +1,37 @@
+/* Albero del percorso */
+#albero{display:none; box-sizing:border-box; background:var(--paper,#FBFAF7); font-size:15px; line-height:1.35;
+  padding:calc(14px + env(safe-area-inset-top)) 12px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch}
+#albero ol{list-style:none; margin:0; padding:0}
+.al-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin:0 4px 12px}
+.al-home{color:var(--soft,#5A6473); text-decoration:none; font-size:14px; font-weight:600}
+.al-subj{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent,#A8327A); font-weight:800}
+.al-s{margin:0 0 6px; padding:8px 10px 9px; border-radius:12px}
+.al-s.cur{background:#fff; border:1px solid var(--rule,#DCD7CC)}
+.al-st{display:block; color:var(--ink,#1B2430); text-decoration:none; font-weight:600}
+.al-s.cur > .al-st{color:var(--accent,#A8327A); font-weight:800; margin-bottom:6px}
+a.al-st:hover{color:var(--accent,#A8327A)}
+.al-bar{height:4px; border-radius:2px; background:var(--rule,#DCD7CC); margin-top:6px; overflow:hidden}
+.al-bar span{display:block; height:100%; background:var(--accent,#A8327A)}
+.al-s.fatta .al-bar span{background:#2E7D4F}
+.al-pb,.al-c{display:block; width:100%; text-align:left; border:0; background:none; font:inherit; color:inherit; cursor:pointer; border-radius:8px}
+.al-pb{font-size:14.5px; font-weight:700; color:var(--ink,#1B2430); padding:6px 8px}
+.al-p.open > .al-pb{color:var(--accent,#A8327A)}
+.al-p:not(.open) > .al-carte{display:none}
+.al-carte{margin:0 0 4px 10px !important; border-left:2px solid var(--accent-line,#EBC9DC)}
+.al-c{font-size:14px; color:var(--soft,#5A6473); padding:5px 8px 5px 10px}
+.al-c.vista::after{content:" ✓"; color:#2E7D4F; font-weight:700}
+.al-c.on{background:var(--accent-soft,#F8E9F2); color:var(--accent,#A8327A); font-weight:700}
+#alberoBtn{position:fixed; z-index:30; top:calc(10px + env(safe-area-inset-top)); left:12px; border:2px solid var(--accent-line,#EBC9DC);
+  background:#fff; color:var(--accent,#A8327A); border-radius:999px; padding:6px 14px; font:inherit; font-size:15px; font-weight:700; cursor:pointer}
+#alberoVelo{display:none}
+body.con-albero header{padding-top:calc(58px + env(safe-area-inset-top))}
+body.albero-open #albero{display:block; position:fixed; z-index:50; top:0; left:0; bottom:0; width:min(330px,88vw); box-shadow:4px 0 24px rgba(0,0,0,.18)}
+body.albero-open #alberoVelo{display:block; position:fixed; z-index:45; inset:0; background:rgba(27,36,48,.35)}
+@media (min-width:1024px){
+  body.con-albero{padding-left:310px}
+  body.con-albero header{padding-top:calc(22px + env(safe-area-inset-top))}
+  #albero{display:block; position:fixed; top:0; left:0; bottom:0; width:310px; border-right:1px solid var(--rule,#DCD7CC); z-index:20}
+  body.con-albero .bar{left:310px}
+  #alberoBtn,#alberoVelo{display:none !important}
+  body.albero-open #albero{box-shadow:none; width:310px}
+}
