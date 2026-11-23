@@ -85,25 +85,25 @@ const PERCORSI = {
    "t": "4 · Le proprietà delle biomolecole",
    "href": "26-11-10-bio04-biomolecole.html",
    "key": "bio04-idx",
-   "n": 6
+   "n": 10
   },
   {
    "t": "5 · I carboidrati",
    "href": "26-11-10-bio05-carboidrati.html",
    "key": "bio05-idx",
-   "n": 8
+   "n": 13
   },
   {
    "t": "6 · I lipidi",
    "href": "26-11-10-bio06-lipidi.html",
    "key": "bio06-idx",
-   "n": 8
+   "n": 12
   },
   {
    "t": "7 · Le proteine",
    "href": "26-11-10-bio07-proteine.html",
    "key": "bio07-idx",
-   "n": 6
+   "n": 9
   },
   {
    "t": "Interrogazione: l'acqua e i carboidrati — come rispondere",
