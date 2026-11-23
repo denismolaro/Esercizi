@@ -21,7 +21,7 @@ a.al-st:hover{color:var(--accent,#A8327A)}
 .al-c{font-size:14px; color:var(--soft,#5A6473); padding:5px 8px 5px 10px}
 .al-c.vista::after{content:" ✓"; color:#2E7D4F; font-weight:700}
 .al-c.on{background:var(--accent-soft,#F8E9F2); color:var(--accent,#A8327A); font-weight:700}
-#alberoBtn{position:fixed; z-index:30; top:calc(10px + env(safe-area-inset-top)); left:12px; border:2px solid var(--accent-line,#EBC9DC);
+#alberoBtn{position:absolute; z-index:30; top:calc(10px + env(safe-area-inset-top)); left:12px; border:2px solid var(--accent-line,#EBC9DC);
   background:#fff; color:var(--accent,#A8327A); border-radius:999px; padding:6px 14px; font:inherit; font-size:15px; font-weight:700; cursor:pointer}
 #alberoVelo{display:none}
 body.con-albero header{padding-top:calc(58px + env(safe-area-inset-top))}
