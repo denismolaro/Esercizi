@@ -140,7 +140,7 @@ input[type=text]:disabled{opacity:1}
 /* formule */
 .fx{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:1.05em}
 .fx sup,.fx sub{font-size:.68em;line-height:0}
-.frac{display:inline-flex;flex-direction:column;vertical-align:-.5em;text-align:center;margin:0 .18em}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:.15em .18em}
 .frac .nu{border-bottom:1.5px solid currentColor;padding:0 .28em}
 .frac .de{padding:0 .28em}
 
@@ -274,7 +274,7 @@ const GH = {
 };
 /* ═════════════════════════════════════════════════════════ */
 
-const APPVER = "59";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
+const APPVER = "60";   /* si vede in fondo alla pagina: serve a capire quale versione e online */
 const SUBJECTS = ["Inglese","Matematica","Fisica","Storia","Chimica","Biologia"];
 const SCHEDE = {
   "Inglese":[{title:"Ripasso Unit 7 — verso la verifica",
@@ -670,7 +670,20 @@ function startSession(mode){
     const src=(pack.items||[]).filter(x=>x.type!=="info");
     /* un pacchetto puo chiedere una serie piu lunga: "len": 20 oppure "len": "all" */
     const quanti = pack.len==="all" ? src.length : (parseInt(pack.len,10)>0 ? parseInt(pack.len,10) : LEN);
-    shuffle(src).slice(0,quanti).forEach(it=>{
+    let scelti=shuffle(src).slice(0,quanti);
+    /* "ordered": true → gli esercizi scelti restano nell'ordine del file (come il riassunto) */
+    if(pack.ordered){
+      /* almeno un esercizio per ogni parte, a giro, poi in ordine di file */
+      const all=pack.items||[], gruppi=[], idx={};
+      src.forEach(it=>{ const a=it.area||""; if(!(a in idx)){ idx[a]=gruppi.length; gruppi.push([]); } gruppi[idx[a]].push(it); });
+      gruppi.forEach((g,k)=>{ gruppi[k]=shuffle(g.slice()); });
+      scelti=[];
+      while(scelti.length<quanti && gruppi.some(g=>g.length)){
+        gruppi.forEach(g=>{ if(g.length && scelti.length<quanti) scelti.push(g.shift()); });
+      }
+      scelti.sort((p,q)=>all.indexOf(p)-all.indexOf(q));
+    }
+    scelti.forEach(it=>{
       items.push(prepItem(pack,it,itemKey(pack.id,it)));
     });
   }
