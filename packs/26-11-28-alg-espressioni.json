@@ -1,0 +1,282 @@
+{
+ "id": "ma-alg-02-espressioni",
+ "subject": "Matematica",
+ "lang": "it",
+ "len": 7,
+ "updated": "2026-11-28",
+ "title": "Espressioni con frazioni algebriche — come in verifica",
+ "blurb": "Somme, prodotti, divisioni, frazioni a due piani ed esponenti negativi, come i n. 415-481. Più la prova con un numero.",
+ "items": [
+  {
+   "type": "info",
+   "title": "Come si fa un'espressione",
+   "text": "1. scomponi tutti i denominatori\n2. scrivi le C.E. (anche dei divisori)\n3. le divisioni diventano per la reciproca\n4. somme: m.c.m. dei denominatori\n5. semplifica solo fattori\n\nPer controllare: metti un numero comodo nell'espressione e nel risultato. Deve venire uguale."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 0,
+   "lab": "Semplifica",
+   "prompt": "(2x)/(x−2) − (x+1)/(x−2) + (3)/(2−x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(x−4)/(x−2)",
+    "1",
+    "(x+2)/(x−2)",
+    "(x−4)/(2−x)"
+   ],
+   "answer": "(x−4)/(x−2)",
+   "why": "3/(2 − x) = −3/(x − 2). Numeratore: 2x − (x + 1) − 3 = 2x − x − 1 − 3 = x − 4. Il meno davanti a (x + 1) cambia segno a tutti e due."
+  },
+  {
+   "type": "num",
+   "area": "Prova con un numero",
+   "color": 0,
+   "q": "(2x)/(x−2) − (x+1)/(x−2) + (3)/(2−x)",
+   "answer": "0.5",
+   "tol": 0.001,
+   "why": "Il risultato semplificato è (x − 4)/(x − 2): con x = 6 fa 2/4 = 0,5. Scrivi 0,5.",
+   "sub": "Quanto vale per x = 6? Scrivi il risultato come numero decimale."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 1,
+   "lab": "Semplifica",
+   "prompt": "((x^2−4)/(x^2+4x+3) * (x^2+2x−3)/(3x−6)) : (x+2)/(6)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(2x−2)/(x+1)",
+    "(x−1)/(2x+2)",
+    "(2x+2)/(x−1)",
+    "(x−1)/(3x+3)"
+   ],
+   "answer": "(2x−2)/(x+1)",
+   "why": "(x − 2)(x + 2)/((x + 1)(x + 3)) · (x + 3)(x − 1)/(3(x − 2)) = (x + 2)(x − 1)/(3(x + 1)). Per la reciproca: · 6/(x + 2) → 2(x − 1)/(x + 1)."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 1,
+   "lab": "Semplifica",
+   "prompt": "((1)/(x^2−x−2) − (1)/(2x^2+2x)) : (1)/(4x^2−8x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(2x+4)/(x+1)",
+    "(x+2)/(2x+2)",
+    "(2x−4)/(x+1)",
+    "(2)/(x+1)"
+   ],
+   "answer": "(2x+4)/(x+1)",
+   "why": "x^2 − x − 2 = (x − 2)(x + 1); 2x^2 + 2x = 2x(x + 1). m.c.m. 2x(x − 2)(x + 1): numeratore 2x − (x − 2) = x + 2. Poi · 4x(x − 2) → 2(x + 2)/(x + 1)."
+  },
+  {
+   "type": "num",
+   "area": "Prova con un numero",
+   "color": 1,
+   "q": "((1)/(x^2−x−2) − (1)/(2x^2+2x)) : (1)/(4x^2−8x)",
+   "answer": "3",
+   "tol": 0.001,
+   "why": "Risultato (2x + 4)/(x + 1): con x = 1 fa 6/2 = 3. (x = 1 va bene: le C.E. escludono 0, 2, −1.)",
+   "sub": "Quanto vale per x = 1?"
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 1,
+   "lab": "Semplifica (frazione a due piani)",
+   "prompt": "((1)/(x−h) − (1)/(x)) : h",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(1)/(x^2−hx)",
+    "(−1)/(x^2−hx)",
+    "(h)/(x^2−hx)",
+    "(1)/(x^2+hx)"
+   ],
+   "answer": "(1)/(x^2−hx)",
+   "why": "(1)/(x−h) − (1)/(x) = (x − (x − h))/(x(x − h)) = (h)/(x(x−h)). Diviso h: (1)/(x(x−h)) = (1)/(x^2−hx)."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 2,
+   "lab": "Semplifica",
+   "prompt": "((1)/(x^2−4) − (2)/(x^2+2x) − (2)/(x^2−2x)) : ((1)/(2−x) + (1)/(x+2))",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "3/4",
+    "−3/4",
+    "4/3",
+    "3/2"
+   ],
+   "answer": "3/4",
+   "why": "m.c.m. della prima parentesi: x(x − 2)(x + 2); numeratore x − 2(x − 2) − 2(x + 2) = −3x. Seconda: (1)/(2−x) = −(1)/(x−2), somma = −4/((x − 2)(x + 2)). Diviso: (−3x)/(x) · (1)/(−4) = 3/4."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 2,
+   "lab": "Semplifica (esponenti negativi)",
+   "prompt": "[(m^−1+m^−2)/(m+1) * (m^3)/(m−1) − (3m−2)/(m−1)]^−2",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "1/4",
+    "4",
+    "−1/4",
+    "1/16"
+   ],
+   "answer": "1/4",
+   "why": "m^−1 + m^−2 = (m + 1)/(m^2). Diviso (m + 1) → (1)/(m^2). Per m^3/(m − 1) → (m)/(m−1). Meno (3m−2)/(m−1): (m − 3m + 2)/(m − 1) = −2. (−2)^−2 = 1/4."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 2,
+   "lab": "Semplifica",
+   "prompt": "((b)/(a^2−b^2) + (1)/(2a+2b) − (1)/(a−b)) : (b^2−3ab)/(2b−2a)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(1)/(b^2−3ab)",
+    "(1)/(3ab−b^2)",
+    "(b)/(b^2−3ab)",
+    "(2)/(b^2−3ab)"
+   ],
+   "answer": "(1)/(b^2−3ab)",
+   "why": "m.c.m. 2(a − b)(a + b). Numeratore: 2b + (a − b) − 2(a + b) = −a − b, quindi la parentesi fa −(1)/(2(a−b)). Il divisore si gira: · 2(b − a)/(b(b − 3a)). Siccome b − a = −(a − b), i due meno si annullano: (1)/(b(b−3a)) = (1)/(b^2−3ab)."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 2,
+   "lab": "Semplifica",
+   "prompt": "[((1)/(x)−(1)/(y))^2 * ((xy)/(y−x))^3 − (x)/(y−x)] * (1)/(xy−x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(1)/(y−x)",
+    "(1)/(x−y)",
+    "(1)/(x+y)",
+    "(y)/(y−x)"
+   ],
+   "answer": "(1)/(y−x)",
+   "why": "((y−x)/(xy))^2 · (x^3y^3)/((y−x)^3) = (xy)/(y−x). Meno (x)/(y−x): (xy−x)/(y−x). Per (1)/(xy−x): resta (1)/(y−x)."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 1,
+   "lab": "Semplifica",
+   "prompt": "((x−y)/(xy^2) + (x+y)/(x^2y))^2 * (x^3y^3)/(x^2+y^2)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(x^2+y^2)/(xy)",
+    "(x^2−y^2)/(xy)",
+    "(x^2+y^2)/(x^2y^2)",
+    "xy"
+   ],
+   "answer": "(x^2+y^2)/(xy)",
+   "why": "m.c.m. x^2y^2: x(x − y) + y(x + y) = x^2 + y^2. Al quadrato: (x^2+y^2)^2/(x^4y^4). Per x^3y^3/(x^2+y^2) → (x^2+y^2)/(xy)."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 2,
+   "lab": "Semplifica (esponenti negativi)",
+   "prompt": "[(a^−1 − a^−2) * (a^2)/(a^2−1) + (1)/(a+1)] * (2a+2)^−1",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(1)/(a^2+2a+1)",
+    "(1)/(a+1)",
+    "(2)/(a^2+2a+1)",
+    "(a−1)/(a^2+2a+1)"
+   ],
+   "answer": "(1)/(a^2+2a+1)",
+   "why": "a^−1 − a^−2 = (a−1)/(a^2). Per (a^2)/((a−1)(a+1)) → (1)/(a+1). Più (1)/(a+1) = (2)/(a+1). (2a+2)^−1 = (1)/(2(a+1)). Prodotto: (1)/(a^2+2a+1)."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 0,
+   "lab": "Semplifica",
+   "prompt": "((1)/(x^2−9) − (1)/(x^2+3x)) : (1)/(x^2−3x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(3)/(x+3)",
+    "(−3)/(x+3)",
+    "(3)/(x−3)",
+    "(x+3)/(3)"
+   ],
+   "answer": "(3)/(x+3)",
+   "why": "m.c.m. x(x − 3)(x + 3): numeratore x − (x − 3) = 3. Per la reciproca x(x − 3): resta (3)/(x+3)."
+  },
+  {
+   "type": "num",
+   "area": "Prova con un numero",
+   "color": 0,
+   "q": "((1)/(x^2−9) − (1)/(x^2+3x)) : (1)/(x^2−3x)",
+   "answer": "0.6",
+   "tol": 0.001,
+   "why": "Il risultato semplificato è (3)/(x+3): con x = 2 fa 3/5 = 0,6. Se fai i conti sull'espressione di partenza deve venire uguale.",
+   "sub": "Quanto vale per x = 2? Scrivi il risultato come numero decimale."
+  },
+  {
+   "type": "mc",
+   "area": "Espressioni",
+   "color": 1,
+   "lab": "C.E. dell'espressione",
+   "prompt": "((1)/(x^2−9) − (1)/(x^2+3x)) : (1)/(x^2−3x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "x != 0 e x != ±3",
+    "x != ±3",
+    "x != 0 e x != 3",
+    "x != 0 e x != −3"
+   ],
+   "answer": "x != 0 e x != ±3",
+   "why": "Denominatori: (x − 3)(x + 3), x(x + 3), x(x − 3). Il numeratore del divisore è 1: non aggiunge nulla."
+  },
+  {
+   "type": "order",
+   "area": "Il metodo",
+   "color": 0,
+   "q": "Metti in ordine i passi per semplificare un'espressione",
+   "steps": [
+    "Scomponi tutti i denominatori",
+    "Scrivi le condizioni di esistenza",
+    "Trasforma le divisioni in prodotti per la reciproca",
+    "Calcola le somme con il m.c.m.",
+    "Semplifica i fattori uguali",
+    "Controlla con un numero"
+   ],
+   "why": "Le C.E. vanno scritte prima di semplificare: dopo, alcuni fattori spariscono e non li vedi più."
+  },
+  {
+   "type": "mc",
+   "area": "Il metodo",
+   "color": 1,
+   "lab": "Trova l'errore: dove sbaglia Liam?",
+   "prompt": "(x)/(x−1) − (x+1)/(x−1) = (x+x+1)/(x−1)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "Il meno doveva cambiare segno anche a 1: x − x − 1",
+    "Non c'è nessun errore",
+    "Doveva fare il m.c.m. (x−1)^2",
+    "Doveva cancellare le x"
+   ],
+   "answer": "Il meno doveva cambiare segno anche a 1: x − x − 1",
+   "why": "− (x + 1) = − x − 1. Risultato: (x − x − 1)/(x − 1) = (−1)/(x−1)."
+  }
+ ]
+}
