@@ -1,0 +1,413 @@
+{
+ "id": "ma-alg-01-frazioni-ce",
+ "subject": "Matematica",
+ "lang": "it",
+ "len": 10,
+ "updated": "2026-11-28",
+ "title": "Frazioni algebriche — C.E., quando vale zero, segno",
+ "blurb": "Condizioni di esistenza (anche con la divisione), quando una frazione si annulla, cambio di segno, frazioni equivalenti e l'intrusa.",
+ "items": [
+  {
+   "type": "info",
+   "title": "Le regole in breve",
+   "text": "C.E.: scomponi il denominatore, ogni fattore != 0. Con una divisione anche il numeratore del divisore != 0.\n\nVale zero: numeratore = 0, ma solo nei valori ammessi dalle C.E.\n\nSegno: b − a = −(a − b). Il meno sta in un posto solo: davanti, sopra o sotto.\n\nSemplifica solo fattori (cose moltiplicate), mai addendi."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 0,
+   "lab": "Condizioni di esistenza",
+   "prompt": "(1)/(x^2−5x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "x != 0 e x != 5",
+    "x != 5",
+    "x != 0 e x != −5",
+    "x != ±5"
+   ],
+   "answer": "x != 0 e x != 5",
+   "why": "x^2 − 5x = x(x − 5). Ogni fattore != 0: x != 0 e x != 5."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 0,
+   "lab": "Condizioni di esistenza",
+   "prompt": "(1)/(a^2−16)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "a != ±4",
+    "a != 4",
+    "a != 16",
+    "definita per ogni a"
+   ],
+   "answer": "a != ±4",
+   "why": "a^2 − 16 = (a − 4)(a + 4): a != 4 e a != −4. Il quadrato di −4 fa 16 anche lui."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 0,
+   "lab": "Condizioni di esistenza",
+   "prompt": "(1)/(a^2+16)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "definita per ogni a",
+    "a != ±4",
+    "a != −16",
+    "a != 4"
+   ],
+   "answer": "definita per ogni a",
+   "why": "a^2 + 16 è una somma di quadrati: è sempre almeno 16, mai 0. Nessuna condizione."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 1,
+   "lab": "Condizioni di esistenza",
+   "prompt": "(1)/(4a^2+a)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "a != 0 e a != −1/4",
+    "a != 0 e a != −4",
+    "a != 0 e a != 1/4",
+    "a != −1/4"
+   ],
+   "answer": "a != 0 e a != −1/4",
+   "why": "4a^2 + a = a(4a + 1). 4a + 1 = 0 per a = −1/4."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 1,
+   "lab": "Condizioni di esistenza",
+   "prompt": "(x)/(x^2+4x−5)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "x != −5 e x != 1",
+    "x != 5 e x != −1",
+    "x != 0 e x != −5 e x != 1",
+    "x != 1"
+   ],
+   "answer": "x != −5 e x != 1",
+   "why": "Somma e prodotto: x^2 + 4x − 5 = (x + 5)(x − 1). Il numeratore x non c'entra con le C.E."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 1,
+   "lab": "Condizioni di esistenza dell'espressione",
+   "prompt": "(1)/(x^2−4x) − (1)/(x^3−16x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "x != 0 e x != ±4",
+    "x != 0 e x != 4",
+    "x != ±4",
+    "x != 0 e x != 16"
+   ],
+   "answer": "x != 0 e x != ±4",
+   "why": "Primo denominatore: x(x − 4). Secondo: x(x^2 − 16) = x(x − 4)(x + 4). Si mettono insieme tutte: x != 0, x != 4, x != −4."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 2,
+   "lab": "Condizioni di esistenza",
+   "prompt": "(1)/(ax−ay+bx−by)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "x != y e a != −b",
+    "x != −y e a != b",
+    "x != y e a != b",
+    "x != y"
+   ],
+   "answer": "x != y e a != −b",
+   "why": "Raccoglimento parziale: a(x − y) + b(x − y) = (x − y)(a + b). Quindi x − y != 0 e a + b != 0."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 2,
+   "lab": "Condizioni di esistenza (c'è una divisione!)",
+   "prompt": "(a+2)/(a−1) : (a−5)/(a+3)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "a != 1, a != −3, a != 5",
+    "a != 1 e a != −3",
+    "a != 1, a != −3, a != −2",
+    "a != 1 e a != 5"
+   ],
+   "answer": "a != 1, a != −3, a != 5",
+   "why": "Denominatori: a − 1 e a + 3. Poi si gira la seconda frazione: a − 5 va sotto, quindi anche a != 5."
+  },
+  {
+   "type": "mc",
+   "area": "Condizioni di esistenza",
+   "color": 2,
+   "lab": "Condizioni di esistenza dell'espressione",
+   "prompt": "(x+2)/(x^2+2x) + (1)/(x^2−4)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "x != 0 e x != ±2",
+    "x != 0 e x != −2",
+    "x != ±2",
+    "x != 0, x != −2, x != 4"
+   ],
+   "answer": "x != 0 e x != ±2",
+   "why": "x^2 + 2x = x(x + 2); x^2 − 4 = (x − 2)(x + 2). Tutte insieme: x != 0, x != −2, x != 2."
+  },
+  {
+   "type": "num",
+   "area": "Quando vale zero",
+   "color": 0,
+   "q": "(x^2−9)/(x^2+3x)",
+   "answer": "3",
+   "tol": 0.001,
+   "why": "Numeratore (x − 3)(x + 3) = 0 per x = 3 o x = −3. Ma il denominatore x(x + 3) esclude x = −3. Resta solo x = 3.",
+   "sub": "Per quale valore di x vale 0?"
+  },
+  {
+   "type": "num",
+   "area": "Quando vale zero",
+   "color": 0,
+   "q": "(x^2−1)/(x^2−x)",
+   "answer": "-1",
+   "tol": 0.001,
+   "why": "Numeratore 0 per x = 1 o x = −1. Ma x = 1 annulla anche il denominatore x(x − 1): escluso. Resta x = −1.",
+   "sub": "Per quale valore di x vale 0?"
+  },
+  {
+   "type": "num",
+   "area": "Quando vale zero",
+   "color": 1,
+   "q": "(2x−6)/(x+5)",
+   "answer": "3",
+   "tol": 0.001,
+   "why": "2x − 6 = 0 per x = 3, che va bene con le C.E. (x != −5).",
+   "sub": "Per quale valore di x vale 0?"
+  },
+  {
+   "type": "mc",
+   "area": "Quando vale zero",
+   "color": 1,
+   "lab": "Per quali valori vale zero?",
+   "prompt": "(x^2+4)/(x−1)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "per nessun valore",
+    "x = 1",
+    "x = ±2",
+    "x = −4"
+   ],
+   "answer": "per nessun valore",
+   "why": "x^2 + 4 è una somma di quadrati: non vale mai 0. Quindi la frazione non si annulla mai."
+  },
+  {
+   "type": "mc",
+   "area": "Quando vale zero",
+   "color": 2,
+   "lab": "Per quali valori vale zero?",
+   "prompt": "(x^2−4x)/(x^2−16)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "x = 0",
+    "x = 0 e x = 4",
+    "x = 4",
+    "x = ±4"
+   ],
+   "answer": "x = 0",
+   "why": "Numeratore x(x − 4) = 0 per x = 0 o x = 4. Ma x = 4 annulla il denominatore (x − 4)(x + 4): escluso. Resta x = 0."
+  },
+  {
+   "type": "mc",
+   "area": "Cambio di segno",
+   "color": 0,
+   "lab": "Quale frazione è uguale a questa?",
+   "prompt": "(x−5)/(3−x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(5−x)/(x−3)",
+    "(x−5)/(x−3)",
+    "(5−x)/(3−x)",
+    "−(5−x)/(x−3)"
+   ],
+   "answer": "(5−x)/(x−3)",
+   "why": "3 − x = −(x − 3). Il meno lo porto sopra: −(x − 5) = 5 − x. Quindi (5 − x)/(x − 3). Se giri tutti e due, il segno torna com'era."
+  },
+  {
+   "type": "num",
+   "area": "Cambio di segno",
+   "color": 0,
+   "q": "(2−a)/(a−2)",
+   "answer": "-1",
+   "tol": 0.001,
+   "why": "2 − a = −(a − 2). Sopra e sotto c'è la stessa cosa col segno opposto: fa −1.",
+   "sub": "Quanto vale? (con a != 2)"
+  },
+  {
+   "type": "mc",
+   "area": "Cambio di segno",
+   "color": 1,
+   "lab": "Il segno",
+   "prompt": "(b−a)^2 è uguale a…",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(a−b)^2",
+    "−(a−b)^2",
+    "a^2−b^2",
+    "b^2−a^2"
+   ],
+   "answer": "(a−b)^2",
+   "why": "Con il quadrato il segno sparisce: (b − a)^2 = (−(a − b))^2 = (a − b)^2."
+  },
+  {
+   "type": "mc",
+   "area": "Cambio di segno",
+   "color": 2,
+   "lab": "Semplifica (attento al segno)",
+   "prompt": "(x^2−4)/(2−x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "−x−2",
+    "x+2",
+    "x−2",
+    "2−x"
+   ],
+   "answer": "−x−2",
+   "why": "(x − 2)(x + 2) / (−(x − 2)) = −(x + 2) = −x − 2. Il meno nasce da 2 − x = −(x − 2)."
+  },
+  {
+   "type": "mc",
+   "area": "Semplificare ed equivalenti",
+   "color": 0,
+   "lab": "Quale è equivalente?",
+   "prompt": "(x+3)/(x−2)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(x^2+3x)/(x^2−2x)",
+    "(x+6)/(x−4)",
+    "(x^2+3)/(x^2−2)",
+    "(3)/(−2)"
+   ],
+   "answer": "(x^2+3x)/(x^2−2x)",
+   "why": "Moltiplico sopra e sotto per lo stesso fattore x: x(x + 3)/(x(x − 2)). Sommare numeri o cancellare le x non va bene."
+  },
+  {
+   "type": "mc",
+   "area": "Semplificare ed equivalenti",
+   "color": 1,
+   "lab": "Quale è l'intrusa? (tre sono uguali, una no)",
+   "prompt": "(x+y)/(x−y)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(x^2+y^2)/(x^2−y^2)",
+    "(x^2+2xy+y^2)/(x^2−y^2)",
+    "(x^2y+xy^2)/(x^2y−xy^2)",
+    "(x^2+x+xy+y)/(x^2+x−xy−y)"
+   ],
+   "answer": "(x^2+y^2)/(x^2−y^2)",
+   "why": "Scomponi: (x + y)^2/((x − y)(x + y)); xy(x + y)/(xy(x − y)); (x + y)(x + 1)/((x − y)(x + 1)). Tutte = (x + y)/(x − y). x^2 + y^2 non si scompone: è l'intrusa."
+  },
+  {
+   "type": "mc",
+   "area": "Semplificare ed equivalenti",
+   "color": 1,
+   "lab": "Semplifica",
+   "prompt": "(x^3−4x)/(x^2+2x)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "x−2",
+    "x+2",
+    "(x−2)/(x)",
+    "−2"
+   ],
+   "answer": "x−2",
+   "why": "x(x − 2)(x + 2) / (x(x + 2)) = x − 2 (con x != 0, x != −2)."
+  },
+  {
+   "type": "mc",
+   "area": "Semplificare ed equivalenti",
+   "color": 2,
+   "lab": "Semplifica",
+   "prompt": "(a^2−6a+9)/(9−a^2)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(3−a)/(3+a)",
+    "(a−3)/(a+3)",
+    "−1",
+    "(a−3)/(3−a)"
+   ],
+   "answer": "(3−a)/(3+a)",
+   "why": "(a − 3)^2 / ((3 − a)(3 + a)). a − 3 = −(3 − a), e al quadrato il segno sparisce: (3 − a)^2/((3 − a)(3 + a)) = (3 − a)/(3 + a)."
+  },
+  {
+   "type": "mc",
+   "area": "Semplificare ed equivalenti",
+   "color": 2,
+   "lab": "Trova l'errore: dove sbaglia Liam?",
+   "prompt": "(x+2)/(x+4) = (2)/(4) = (1)/(2)",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "Ha cancellato x, che è un addendo",
+    "Non sbaglia",
+    "Doveva venire (2)/(4) senza semplificare",
+    "Doveva cancellare il 2 e il 4"
+   ],
+   "answer": "Ha cancellato x, che è un addendo",
+   "why": "Si semplificano solo fattori. In x + 2 la x è sommata: non si può togliere. (x + 2)/(x + 4) non si semplifica."
+  },
+  {
+   "type": "mc",
+   "area": "Dalle parole alla frazione",
+   "color": 0,
+   "lab": "Dalle parole alla frazione",
+   "prompt": "Dividi il triplo di x per la differenza tra il quadrato di x e 1",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(3x)/(x^2−1)",
+    "(x^3)/(x^2−1)",
+    "(9x^2)/(x^2−1)",
+    "(x^2−1)/(3x)"
+   ],
+   "answer": "(3x)/(x^2−1)",
+   "why": "Il triplo di x = 3x (sopra). Quadrato di x meno 1 = x^2 − 1 (sotto)."
+  },
+  {
+   "type": "mc",
+   "area": "Dalle parole alla frazione",
+   "color": 1,
+   "lab": "Dalle parole alla frazione",
+   "prompt": "La media aritmetica tra il reciproco di n e il reciproco di n + 2",
+   "fxPrompt": true,
+   "fxOptions": true,
+   "options": [
+    "(n+1)/(n^2+2n)",
+    "(2n+2)/(n^2+2n)",
+    "(1)/(n+1)",
+    "(n+1)/(2n^2+4n)"
+   ],
+   "answer": "(n+1)/(n^2+2n)",
+   "why": "Media = somma : 2. (1)/(n) + (1)/(n+2) = (2n+2)/(n^2+2n). Diviso 2: (n+1)/(n^2+2n)."
+  }
+ ]
+}
